@@ -260,6 +260,7 @@ namespace NewShop.Models
         public string WH_Location { get; set; }
         public string KDC_QTY { get; set; }
         public string  PDC_QTY { get; set; }
+        public string AccessID { get; set; }
 
     }
     public class SLM

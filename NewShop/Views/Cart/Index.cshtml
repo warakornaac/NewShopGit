@@ -242,7 +242,7 @@
 
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-md-8" id="qoutsw">
@@ -256,29 +256,28 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                           
-
+                            <input type="hidden" id="accessIdCurrent" value="" />
                         </div>
                     </div>
                     @*<div class="col-md-2">
-                        <div class="form-group">
-                            <form id="search-form" method="get" name="searchForm">
-                                <div class="search-input-container">
-                                    <span id="search-icon" data-search-img="search-icon">By:</span>
-                                    <select>
-                                        <option value="0">ALL</option>
-                                        <option value="1">SalesCo</option>
-                                        <option value="2">Sales Man</option>
-                                        <option value="3">SalesCo&Sales Man</option>
-                                        <option value="4">Customer</option>
-                                    </select>
+                            <div class="form-group">
+                                <form id="search-form" method="get" name="searchForm">
+                                    <div class="search-input-container">
+                                        <span id="search-icon" data-search-img="search-icon">By:</span>
+                                        <select>
+                                            <option value="0">ALL</option>
+                                            <option value="1">SalesCo</option>
+                                            <option value="2">Sales Man</option>
+                                            <option value="3">SalesCo&Sales Man</option>
+                                            <option value="4">Customer</option>
+                                        </select>
 
 
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
 
-                        </div>
-                    </div>*@
+                            </div>
+                        </div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -312,7 +311,7 @@
                                         <th class="product-name">หมายเหตุ PM</th>
                                         <th class="product-name">วันที่เลือกซื้อ</th>
                                         <th class="product-name">โปรโมชั่น</th>
-                                       
+
                                         @*<th class="product-name">สถานะสินค้า</th>*@
                                         <th class="product-name">Type</th>
                                         @*<th class="product-name" style="display:none">Status</th>
@@ -459,7 +458,7 @@
                                                 <td></td>
                                                 <td style="float: right;"><span class="amount"><input id="bAmtSalePrices" style="z-index: 0; color: rgb(6, 6, 6); background-color: white; text-align: right; border: 0px; font-weight: bold;" disabled="disabled" /></span></td>
                                             </tr>
-                                            
+
                                             <tr class="cart-subtotal">
                                                 <td>เครดิต/Credit Term</td>
                                                 <td></td>
@@ -471,7 +470,7 @@
                                                     </span>
                                                 </td>
                                             </tr>
-                                           
+
                                             <tr class="cart-subtotal" id="boxdis">
                                                 <td><input type="checkbox" checked="checked" id="ckeckdiscount" name="vehicle" value="1">     ส่วนลดท้ายบิล</td>
                                                 <td><input id="inputdis" type="number" min="0" style="width: 89px;" class="form-control"></td>
@@ -874,9 +873,25 @@
             </div>
         </div>
     </div>
-    <!-- ModalWarning -->
+    <!-- ModalWarningConfirmorder -->
+    <div class="modal fade" role="dialog" id="ModalConfirmorder" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                   <h4 class="modal-title" style="color:black;"> <i class="fa fa-info-circle" style="color: #dd8d1b;"></i> พบข้อผิดพลาด </h4>
+                </div>
+                <div class="modal-body">
+                    <h6> พบ User ท่านอื่นเข้าหน้าตะกร้าก่อนหน้านี้ โปรดกดปุ่ม <b>Refresh</b> แล้ว <b>Confirm order</b> อีกครั้ง </h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="btnConfirmorder" data-dismiss="modal"><i class="fa fa-refresh"></i> Refresh</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <!-- ModalShipping -->
-    <div class="modal fade" role="dialog" id="ModalShipping" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" >
+    <div class="modal fade" role="dialog" id="ModalShipping" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
         @*<div class="modal" id="ModalShipping" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">*@
         <div class="modal-dialog modal-lg">
 
@@ -916,231 +931,235 @@
 
         </div>
     </div>
-        <!-- EndModalShipping -->
-        <!-- Modal summary-->
+    <!-- EndModalShipping -->
+    <!-- Modal summary-->
 
-        <div class="modal" id="myModalsummary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="myModalsummary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Summary</h4>
+
+                    <p style="color:red;" id="textProcheck"></p>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                    <table class="table1" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">จำนวนสินค้า</th>
+                                <td><p id="sumqty"></p></td>
+                                <td>ชิ้น</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">จำนวนเบอร์สินค้า</th>
+                                <td><p id="sumstk"></p></td>
+                                <td>เบอร์</td>
+                            </tr>
+                            <tr style="display:none;">
+                                <th scope="row">ราคาก่อนส่วนลด:</th>
+                                <td><p id="Msumbeforprice"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
+                                <td><p id="TotalAmt"></p></td>
+                                <td>บาท</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
+                                <td><p id="Msumbedisprice"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">ค่าแรง:</th>
+                                <td><p id="summarylaber"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr style="display:none">
+                                <th scope="row">ส่วนลดโปรโมชั่น:</th>
+                                <td><p id="sumPro"></p></td>
+                                <td>บาท</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
+                                <td><p id="sumDiscount"></p></td>
+                                <td>บาท</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
+                                <td><p id="sumAmt"></p></td>
+                                <td>บาท</td>
+
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Vat/ภาษี 7% :</th>
+                                <td><p id="sumvat"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr style="border: 1px solid #56922a;display:none ">
+                                <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
+                                <td><p id="sumrealprices"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr style="display:none">
+                                <th scope="row">ค่าขนส่ง:</th>
+                                <td><p id="sumtarnport"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
+                                <td><p id="sumTol"></p></td>
+                                <td>บาท</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> <input type="hidden" id="accessIdCurrentPop" value="" /> </th>
+                                <th scope="row"> <input type="hidden" id="cuscodPop" value="" /> </th>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ModalShipping -->
+    <!-- Modalconfirm-Shipto-->
+
+    <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div class="modal-body">
+                    คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
+                    <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
+
+                    <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+        <!-- EndModaldelete -->
+    </div>
+    <!-- Modalconfirm-Shipto-->
+
+    <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
                 <div class="modal-content">
                     <div class="modal-header">
-
-                        <h4 class="modal-title">Summary</h4>
-
-                        <p style="color:red;" id="textProcheck"></p>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <table class="table1" style=" width:100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th scope="row">จำนวนสินค้า</th>
-                                    <td><p id="sumqty"></p></td>
-                                    <td>ชิ้น</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">จำนวนเบอร์สินค้า</th>
-                                    <td><p id="sumstk"></p></td>
-                                    <td>เบอร์</td>
-                                </tr>
-                                <tr style="display:none;">
-                                    <th scope="row">ราคาก่อนส่วนลด:</th>
-                                    <td><p id="Msumbeforprice"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
-                                    <td><p id="TotalAmt"></p></td>
-                                    <td>บาท</td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
-                                    <td><p id="Msumbedisprice"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">ค่าแรง:</th>
-                                    <td><p id="summarylaber"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr style="display:none">
-                                    <th scope="row">ส่วนลดโปรโมชั่น:</th>
-                                    <td><p id="sumPro"></p></td>
-                                    <td>บาท</td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
-                                    <td><p id="sumDiscount"></p></td>
-                                    <td>บาท</td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
-                                    <td><p id="sumAmt"></p></td>
-                                    <td>บาท</td>
-
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">Vat/ภาษี 7% :</th>
-                                    <td><p id="sumvat"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr style="border: 1px solid #56922a;display:none ">
-                                    <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
-                                    <td><p id="sumrealprices"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr style="display:none">
-                                    <th scope="row">ค่าขนส่ง:</th>
-                                    <td><p id="sumtarnport"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
-                                    <td><p id="sumTol"></p></td>
-                                    <td>บาท</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ModalShipping -->
-        <!-- Modalconfirm-Shipto-->
-
-        <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-
+                        <div id="textAlertnextshopping">Some text in the modal.</div>
                     </div>
                     <div class="modal-body">
-                        คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+
+                        คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
-                        <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
 
-                        <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                        <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
+
+                        <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
                     </div>
                 </div>
             </div>
-            <!-- EndModaldelete -->
         </div>
-        <!-- Modalconfirm-Shipto-->
+        <!-- EndModaldelete -->
+    </div>
 
-        <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div id="textAlertnextshopping">Some text in the modal.</div>
-                        </div>
-                        <div class="modal-body">
+    <div class="modal" id="myModal3" style="background-color: black;">
 
-                            คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
-                        </div>
-                        <div class="modal-footer">
+        <div class="modal-dialog" role="document" style="width: 360px;">
 
-                            <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
+            <div class="modal-content">
 
-                            <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
-                        </div>
-                    </div>
+                <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+
                 </div>
-            </div>
-            <!-- EndModaldelete -->
-        </div>
 
-        <div class="modal" id="myModal3" style="background-color: black;">
+                <div class="modal-body" id="texterror">
+                </div>
 
-            <div class="modal-dialog" role="document" style="width: 360px;">
+                <div class="modal-footer">
 
-                <div class="modal-content">
+                    @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
 
-                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+                    <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
 
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-
-                    </div>
-
-                    <div class="modal-body" id="texterror">
-                    </div>
-
-                    <div class="modal-footer">
-
-                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                    </div>
+                    @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
 
                 </div>
 
             </div>
 
         </div>
-        <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
-        <button type="button" data-column="#column-i" style="display:none"></button>
-        <button type="button" data-column="#column-l" style="display:none"></button>
+
+    </div>
+    <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
+    <button type="button" data-column="#column-i" style="display:none"></button>
+    <button type="button" data-column="#column-l" style="display:none"></button>
     <button type="button" data-column="#column-lKDC" style="display:none"></button>
     <button type="button" data-column="#column-lPDC" style="display:none"></button>
     <button type="button" data-column="#column-lWH" style="display:none"></button>
-        <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
-        <input id="ordidtemp" type="hidden">
-        <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
-        <!-- Bootstrap framework js -->
-        <script src="~/tmartcssjs/bootstrap.min.js"></script>
-        <!-- All js plugins included in this file. -->
-        <script src="~/tmartcss/js/plugins.js"></script>
-        <script src="~/tmartcss/js/slick.min.js"></script>
-        <script src="~/tmartcss/js/owl.carousel.min.js"></script>
-        <!-- Waypoints.min.js. -->
-        <script src="~/tmartcss/js/waypoints.min.js"></script>
-        <!-- Main js file that contents all jQuery plugins activation. -->
-        <script src="~/tmartcss/js/main.js"></script>
+    <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
+    <input id="ordidtemp" type="hidden">
+    <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap framework js -->
+    <script src="~/tmartcssjs/bootstrap.min.js"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="~/tmartcss/js/plugins.js"></script>
+    <script src="~/tmartcss/js/slick.min.js"></script>
+    <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+    <!-- Waypoints.min.js. -->
+    <script src="~/tmartcss/js/waypoints.min.js"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="~/tmartcss/js/main.js"></script>
 
-        <script src="~/fixed-table-master/fixed-table.js"></script>
-        <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
 
-        <script src="~/Loadingmodal/js/modal-loading.js"></script>
-        <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
-        <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
 
-        <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
-        <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
+    <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-        <script src="~/Scripts/webAddress.js"></script>
-        <script src="~/Scripts/bootstrap-datepicker.js"></script>
-        <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-        @*<input type="hidden" id="_udernumber" value="@number" />
-            <input type="hidden" id="_udercompan" value="@compan" />*@
-        <script type="text/javascript">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    @*<input type="hidden" id="_udernumber" value="@number" />
+        <input type="hidden" id="_udercompan" value="@compan" />*@
+    <script type="text/javascript">
             var id = '@Request.RequestContext.HttpContext.Session["ID"]';
             var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
             var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -1464,10 +1483,13 @@
                                 var restatus = data.Getdata[i].val.Ready_Status;
                                 var bck = data.Getdata[i].val.Backorder;
                                 var bck = data.Getdata[i].val.Backorder;
+                                var accessId = data.Getdata[0].val.AccessID;
 
                                 //เก็บเลข accessLog ของตัวเอง
+                                if (accessId != "") {
+                                    $("#accessIdCurrent").val(accessId);
+                                }
 
-                                
 
 
                                 if (bck != "0") {
@@ -1624,7 +1646,7 @@
                                 SubmithtmlPage += '<td><div class="tbck" id="idbck' + (i + 1) + '">' + commaSeparateNumber(data.Getdata[i].val.Backorder) + '</div></td>';
                                 // if (usertype != "6") {
                                 SubmithtmlPage += '<td><div class="tstock">' + commaSeparateNumber(data.Getdata[i].val.Stock) + '</div></td>';
-                               
+
                                 SubmithtmlPage += '<td><div class="tstock">' + commaSeparateNumber(data.Getdata[i].val.KDC_QTY) +  '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' +  commaSeparateNumber(data.Getdata[i].val.PDC_QTY) + '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' + data.Getdata[i].val.WH_Location + '</div></td>';
@@ -2057,7 +2079,7 @@
                 });*@
             });
               var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
-         
+
 
                 var CUSCOD = cuscod;
                 var Company = $("#company").val();
@@ -2070,14 +2092,14 @@
                         Company: Company,
                         usrlogin: userid,
                         usrtype: usertype
-                       
+
                     },
                     type: "POST",
                     dataType: "JSON",
                     success: function (data) {
                         // $("#exampletb").empty();
                         //console.log(data)
-                        
+
                         loading.out()
                         if (data.exerror != "") {
                             //waitingDialog.hide();
@@ -2092,15 +2114,15 @@
                                  //step1//
                                     checkgetshipto()
                             //step2//
-                           
+
                                     //getshipto();
-                               
-                           
+
+
                         } else { loading.out();$("#ModalShipping").modal('hide'); }
                     }
                 });
-           
-           
+
+
             //Page//
             function checkgetshipto(){
                 $.ajax({
@@ -2197,8 +2219,8 @@
                 var MyRowsShipp = $('#Shipping').find('tbody').find('tr').length;
                 var MyRowsShippcart = $('#exampletb').find('tbody').find('tr').length;
                 //$("#ModalShipping").modal();
-                
-                  
+
+
                     if (MyRowsShipp != "0") {
                         var chkcusnull = $("#CustomerShipping").val();
                         if (chkcusnull == "") {
@@ -2213,7 +2235,7 @@
                         //alert("mmm")
                     }
                 //} else {
-                   
+
                 //    $("#ModalShipping").modal('hide');
                 //}
             }
@@ -2239,13 +2261,13 @@
                     GetCusQuatation(cancalQuatation)
                 }
                // ShoppingCart_list("");
-               
+
                 $('#CustomerShipping').val("");
                 $('#codeShipping').val("");
                 $('#NameShipping').val("");
                 $('#AddressShipping').val("");
                 $("#ModalShipping").modal('hide');
-             
+
                 $.ajax({
                     url: '@Url.Action("GetdatabyCus", "DataCenter")',
                     data: {
@@ -2272,7 +2294,7 @@
                 }else{
                     GetCusQuatation(_qpono)
                 }
-                
+
                 //var name = $(this).attr('name');
                 var address = $(this).attr('address');
                 var Address_2 = $(this).attr('Address_2');
@@ -2414,11 +2436,11 @@
                 });
             }
             $("#company").change(function () {
-               
+
                 //var code = $(this).attr('code');
                 var code = $('#codeShipping').val();
                 ShoppingCart_list(code)
-             
+
             });
             function CheckCusQuatation(xQuatation) {
                 var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
@@ -2430,9 +2452,9 @@
                 $.ajax({
                     url: '@Url.Action("GetdataCheckQuatationShopping", "Cart")',
                     data: {
-                      
+
                         Quatation: _valQuatation,
-                       
+
                     },
                     type: "POST",
                     dataType: "JSON",
@@ -3083,6 +3105,12 @@
                     // var x = $('#exampletb tr:first .tQty').val()
                     // $(this).closest('tr').find('.tQty').val();
 
+                    //get เลข accessId จากตะกร้าเข้า pop up
+                    var accessIdCurrent = $("#accessIdCurrent").val();
+                    if (accessIdCurrent != "") {
+                        $("#accessIdCurrentPop").val(accessIdCurrent);
+                        $("#cuscodPop").val(cuscod);
+                    }
 
                     var VQty = $(this).attr('Qty');
                     var Vbackorderqty = $(this).attr('backorderqty');
@@ -3684,7 +3712,7 @@
             });
 
             $('#btnsubmitinsert').click(function () {
-               
+
                 if (navigator.onLine) {
                     var data = new Array();
 
@@ -3730,7 +3758,7 @@
                         var idorder = $(this).attr('cartid');
                         //var VQty = $(this).attr('Qty');
                         var VQty = $(this).closest('tr').find('.tQty').val();
-                       
+
                         var PRCLST_NO = $(this).attr('PRCLST_NO');
                         var Uom = $(this).attr('Uom');
                         var Vstock = $(this).attr('instock');
@@ -3815,7 +3843,7 @@
 
                        // console.log(JSON.stringify(data));
 
-                         
+
                     });
                     //if (data.length > 0) {
                     //    if (usertype == "6") {
@@ -4703,7 +4731,333 @@
                     var XXusrlogin = userid;
                     var ordidtemp = $("#ordidtemp").val();
                     var company = $('#Company').val();
+                    var accessIdCurrent = $('#accessIdCurrentPop').val();
                     var Xcus = cuscod;
+
+                    //ตรวจสอบ accessId ว่าล่าสุดไหมถ้าล่าสุดให้ confirm
+                    $.ajax({
+                        url: '@Url.Action("checkAccessIdConfirm", "Cart")',
+                        data: {
+                            accessId: accessIdCurrent,
+                            cuscod: cuscod,
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log("data.flagCheck = " + data.flagCheck);
+                            //return false;
+                            if (data.flagCheck != "Y") { //ถ้าไม่ใช่ lastID Refresh
+                                //  waitingDialogconfirm.show();
+                                //$("#textAlertSucces").empty();
+                                //$("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
+                                $("#ModalConfirmorder").modal();
+
+                                $("#btnConfirmorder").click(function () {
+                                    // location.reload();
+                                    var url = window.location.href;
+                                    location.reload();
+                                    //return false;
+                                });
+
+                                //$("#textAlert").empty();
+                                //$("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
+                                //$("#myModal").modal();
+                            } else {
+                                 ////console.log('xxbbb' + " " + DataSendPro)
+                                var ckVCompany = "";
+                                var datacomTAC = new Array();
+                                var datacomAAC = new Array();
+                                var datacomOMP = new Array();
+                                var xc = "";
+                                $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
+                                    var CKCompany = $(this).attr('Company');
+
+
+                                    if (CKCompany == "TAC") {
+                                        var Ckcom = {
+                                            com: CKCompany
+                                        }
+                                        datacomTAC.push(Ckcom);
+                                    } else if (CKCompany == "AAC") {
+                                        var Ckcom = {
+                                            com: CKCompany
+                                        }
+                                        datacomAAC.push(Ckcom);
+                                    } else if (CKCompany == "OMP") {
+                                        var Ckcom = {
+                                            com: CKCompany
+                                        }
+                                        datacomOMP.push(Ckcom);
+                                    }
+                                });
+                                if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
+                                    ckVCompany = "TAC";
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                    ckVCompany = "AAC";
+                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                    ckVCompany = "OMP";
+                                }
+                                //console.log(datacomTAC.length + " " + datacomAAC.length);
+                                // alert(ckVCompany);
+                                // return false;
+                                var data = new Array();
+                                $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
+                                    var idorder = $(this).attr('cartid');
+                                    var VQty = $(this).attr('Qty');
+                                    var PRCLST_NO = $(this).attr('PRCLST_NO');
+                                    var Uom = $(this).attr('Uom');
+                                    var Vstock = $(this).attr('instock');
+                                    var Vtype = $(this).attr('itype');
+                                    var VSTKCOD = $(this).attr('STKCOD');
+                                    //var VCompany = $(this).attr('Company');
+                                    // var VCompany = $('#company').val();
+                                    var VCompany = ckVCompany;
+                                    var VSTKGRP = $(this).attr('stkgrp');
+                                    var VSTKDES = $(this).attr('stkdes');
+                                    var VPrice = $(this).attr('Price');
+                                    var VSalePrice = "";
+                                    VSalePrice = $(this).attr('SalePrice');
+                                    VSalePrice = VSalePrice.replace(/,/g, "");
+
+                                    var VAmt = "";
+                                    VAmt = $(this).attr('Amt');
+                                    VAmt = VAmt.replace(/,/g, "");
+                                    var VDiscount = "";
+                                    VDiscount = $(this).attr('Discount');
+                                    VDiscount = VDiscount.replace(",", "");
+                                    var VORDDAT = $(this).attr('ORDDAT');
+                                    var VLineNote = $(this).attr('LineNote');
+                                    var Ordertype = $('#Ordertype_ID').val();
+                                    var AmtQty = $('#bQty').val();
+
+                                    var AmtSalePrices = "";
+                                    AmtSalePrices = $('#bAmtSalePrices').val();
+                                    AmtSalePrices = AmtSalePrices.replace(/,/g, "");
+
+                                    var TotalAmt = "";
+                                    TotalAmt = $("#bAmt").val();
+                                    TotalAmt = TotalAmt.replace(/,/g, "");
+                                    var DiscountAmt = "";
+                                    DiscountAmt = $("#bdicAmt").val();
+                                    DiscountAmt = DiscountAmt.replace(/,/g, "");
+                                    var Credit = $("#dCredit").val();
+
+                                    var AmtSalePrices = "";
+                                    AmtSalePrices = $("#bAmtSalePrices").val();
+                                    AmtSalePrices = AmtSalePrices.replace(/,/g, "");
+                                    var VPromotion = $(this).attr('promotion');
+                                    var Ordertype = $("#Ordertype_ID").val();
+
+                                    var ItemList = {
+                                        Vidorder: idorder,
+                                        VQty: VQty,
+                                        VSTKCOD: VSTKCOD,
+                                        VCompany: VCompany,
+                                        VSTKDES: VSTKDES,
+                                        VSTKGRP: VSTKGRP,
+                                        VPrice: VPrice,
+                                        VSalePrice: VSalePrice,
+                                        VDiscount: VDiscount,
+                                        VAmt: VAmt,
+                                        VORDDAT: VORDDAT,
+                                        VLineNote: VLineNote,
+                                        Ordertype: Ordertype,
+                                        AmtQty: AmtQty,
+                                        AmtSalePrices: AmtSalePrices,
+                                        TotalAmt: TotalAmt,
+                                        Credit: Credit,
+                                        AmtSalePrices: AmtSalePrices,
+                                        AmtDiscount: DiscountAmt,
+                                        Ordertype: Ordertype,
+                                        PRCLST_NO: PRCLST_NO,
+                                        Uom: Uom,
+                                        Vstock: Vstock,
+                                        Vtype: Vtype,
+                                        VPromotion: VPromotion
+                                        // SLMID:SLMID
+
+                                    };
+                                    data.push(ItemList);
+                                    ////console.log(data);
+
+                                });
+
+
+                                if (data.length == 0) {
+                                    $("#textAlertWarning").empty();
+                                    $("#textAlertWarning").text("กรุณาเลือกสินค้าเพื่อ Confirm order");
+                                    $("#myModalWarning").modal(); return false;
+                                }
+                                var DataSend = JSON.stringify(data);
+                                 //console.log('xx' + " " + DataSend);
+                                //return false;
+                                //var sumvat = "";
+                                //sumvat = $("#sumvat").html();
+                                //var sumqty = $("#sumqty").html();
+                                //var sumstk = $("#sumstk").html();
+                                //if (sumvat == "0.00") {
+
+                                //    sumvat = "0.00"
+
+                                //} else {
+                                //    sumvat = sumvat.replace(/,/g, "");
+                                //}
+                                //var sumpro = "";
+                                //sumpro = $("#sumPro").html();
+                                //if (sumpro == "0.00") {
+
+                                //    sumpro = "0.00"
+
+                                //} else {
+                                //    sumpro = sumpro.replace(",", "");
+                                //}
+                                ////ราคาก่อนส่วนลด////
+                                //var sumpro = "0.00";
+                                //var ORD_TotalPrice = "";
+                                //ORD_TotalPrice = $("#Msumbeforprice").html();
+                                //if (ORD_TotalPrice == "0.00") {
+
+                                //    ORD_TotalPrice = "0.00"
+
+                                //} else {
+                                //    ORD_TotalPrice = ORD_TotalPrice.replace(/,/g, "");
+
+                                //}
+                                //var sumpro = "0.00";
+                                //var ORD_TotalPrice = "";
+                                //ORD_TotalPrice = $("#TotalAmt").html();
+                                //if (ORD_TotalPrice == "0.00") {
+
+                                //    ORD_TotalPrice = "0.00"
+
+                                //} else {
+                                //    ORD_TotalPrice = ORD_TotalPrice.replace(/,/g, "");
+
+                                //}
+
+                                ////ส่วนลด////
+                                //var ORD_TotalDiscount = "";
+                                //ORD_TotalDiscount = $("#Msumbedisprice").html();
+                                //if (ORD_TotalDiscount == "0.00") {
+
+                                //    ORD_TotalDiscount = "0.00"
+
+                                //} else {
+                                //    ORD_TotalDiscount = ORD_TotalDiscount.replace(/,/g, "");
+                                //}
+                                //xc = data[0].VCompany;
+
+                                //$("#ordidtemp").val("");
+                                //var idchk= $("#ordidtemp").val("");
+                                //alert(ordidtemp);
+                                //if (idchk == "") {
+                                //    $("#textAlertWarning").empty();
+                                //    $("#textAlertWarning").text("กรุณา Refresh เพื่อ Confirm order ใหม่");
+                                //    $("#myModalWarning").modal(); return false;
+                                //}
+                                // waitingDialogconfirm.show();
+
+                                //return false;
+                                $.ajax({
+                                    url: '@Url.Action("Confirmationdata", "Cart")',
+                                    data: {
+                                        DataSend: DataSend,
+                                        ordidtemp: ordidtemp,
+                                        //DataSendPro: DataSendPro,
+                                        //sumvat: sumvat,
+                                        //sumpro: sumpro,
+                                        //sumqty: sumqty,
+                                        //sumstk: sumstk,
+                                        //ORD_TotalPrice: ORD_TotalPrice,
+                                        //ORD_TotalDiscount: ORD_TotalDiscount,
+                                        //dateDelivery: dateDelivery,
+                                        //DeliveryTime: DeliveryTime,
+                                        //Remark: CommentByOrder,
+                                        //takeorderby: takeorderby,
+                                        //Xcus: XXcus,
+                                        //XSul: XXSul,
+                                        Xusrlogin: XXusrlogin,
+                                        //Modtype: Modtype,
+                                        //Moddate: Moddate,
+                                        //Modtime: Modtime,
+                                        //CusShipping: CusShipping,
+                                        //codeShipping: codeShipping,
+                                        //codetransportation: codetransportation,
+                                        //ordidtemp: ordidtemp,
+                                        //CreditTerm: CreditTerm,
+                                        //company: company,
+                                        //typecke: typecke
+                                    },
+                                    type: "POST",
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        // //console.log(data.message);
+                                        //waitingDialogconfirm.hide();
+                                        if (data.message == "true") {
+                                            //  waitingDialogconfirm.show();
+                                            $("#textAlertSucces").empty();
+                                            $("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
+                                            $("#myModalSucces").modal();
+
+                                            $("#myModalSucces").click(function () {
+                                                // location.reload();
+                                                var url = window.location.href;
+                                                // //console.log(url);
+                                                var str = url;
+                                                var res = str.split("/");
+                                                //  //console.log(res);
+                                                //var test = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + data.DocNo + "";
+                                                // //console.log(test);
+                                                // alert(data.DocNo);
+                                                var str = data.DocNo;
+                                                var encoded = encodeURIComponent(str);
+                                                // //console.log(encoded);
+                                                // //console.log(str);
+                                                //  alert(data.DocNo);
+                                                //  var test = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "";
+                                                // //console.log(test);
+                                                // window.location.href = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + data.DocNo + "";
+                                                // window.location.href = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "";
+                                                //  window.open("https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "");
+                                                // $(document).delegate('#myHrefPrint', 'click', function () {
+                                                //  var ORD_ID = $(this).attr('ORD_ID');
+                                                //  var ORD_DocNo = $(this).attr('ORD_DocNo');
+                                                window.open("../Report/SOForm.aspx?SONUM=" + encoded + "/" + cuscod);
+                                                //   return false;
+                                                //});
+                                                $("#exampletb > tbody").empty();
+
+                                                location.reload();
+                                            });
+
+                                            //location.reload();
+                                        } else {
+
+                                            $("#textAlert").empty();
+                                            $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
+                                            $("#myModal").modal();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+
+
+
                     ////aps/200219//
                     //var typecke = $("input[name='vehicle']:checked").val();
 
@@ -4819,296 +5173,7 @@
 
                     //var DataSendPro = JSON.stringify(dataPro);
 
-                    ////console.log('xxbbb' + " " + DataSendPro)
-                    var ckVCompany = "";
-                    var datacomTAC = new Array();
-                    var datacomAAC = new Array();
-                    var datacomOMP = new Array();
-                    var xc = "";
-                    $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
-                        var CKCompany = $(this).attr('Company');
 
-
-                        if (CKCompany == "TAC") {
-                            var Ckcom = {
-                                com: CKCompany
-                            }
-                            datacomTAC.push(Ckcom);
-                        } else if (CKCompany == "AAC") {
-                            var Ckcom = {
-                                com: CKCompany
-                            }
-                            datacomAAC.push(Ckcom);
-                        } else if (CKCompany == "OMP") {
-                            var Ckcom = {
-                                com: CKCompany
-                            }
-                            datacomOMP.push(Ckcom);
-                        }
-                    });
-                    if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
-                        ckVCompany = "ALL";
-
-                    } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
-                        ckVCompany = "ALL";
-
-                    } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
-                        ckVCompany = "ALL";
-
-                    } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
-                        ckVCompany = "ALL";
-
-                    } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
-                        ckVCompany = "TAC";
-                    } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
-                        ckVCompany = "AAC";
-                    } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
-                        ckVCompany = "OMP";
-                    }
-                    //console.log(datacomTAC.length + " " + datacomAAC.length);
-                    // alert(ckVCompany);
-                    // return false;
-                    $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
-                        var idorder = $(this).attr('cartid');
-                        var VQty = $(this).attr('Qty');
-                        var PRCLST_NO = $(this).attr('PRCLST_NO');
-                        var Uom = $(this).attr('Uom');
-                        var Vstock = $(this).attr('instock');
-                        var Vtype = $(this).attr('itype');
-                        var VSTKCOD = $(this).attr('STKCOD');
-                        //var VCompany = $(this).attr('Company');
-                        // var VCompany = $('#company').val();
-                        var VCompany = ckVCompany;
-                        var VSTKGRP = $(this).attr('stkgrp');
-                        var VSTKDES = $(this).attr('stkdes');
-                        var VPrice = $(this).attr('Price');
-                        var VSalePrice = "";
-                        VSalePrice = $(this).attr('SalePrice');
-                        VSalePrice = VSalePrice.replace(/,/g, "");
-
-                        var VAmt = "";
-                        VAmt = $(this).attr('Amt');
-                        VAmt = VAmt.replace(/,/g, "");
-                        var VDiscount = "";
-                        VDiscount = $(this).attr('Discount');
-                        VDiscount = VDiscount.replace(",", "");
-                        var VORDDAT = $(this).attr('ORDDAT');
-                        var VLineNote = $(this).attr('LineNote');
-                        var Ordertype = $('#Ordertype_ID').val();
-                        var AmtQty = $('#bQty').val();
-
-                        var AmtSalePrices = "";
-                        AmtSalePrices = $('#bAmtSalePrices').val();
-                        AmtSalePrices = AmtSalePrices.replace(/,/g, "");
-
-                        var TotalAmt = "";
-                        TotalAmt = $("#bAmt").val();
-                        TotalAmt = TotalAmt.replace(/,/g, "");
-                        var DiscountAmt = "";
-                        DiscountAmt = $("#bdicAmt").val();
-                        DiscountAmt = DiscountAmt.replace(/,/g, "");
-                        var Credit = $("#dCredit").val();
-
-                        var AmtSalePrices = "";
-                        AmtSalePrices = $("#bAmtSalePrices").val();
-                        AmtSalePrices = AmtSalePrices.replace(/,/g, "");
-                        var VPromotion = $(this).attr('promotion');
-                        var Ordertype = $("#Ordertype_ID").val();
-
-
-
-
-                        var ItemList = {
-                            Vidorder: idorder,
-                            VQty: VQty,
-                            VSTKCOD: VSTKCOD,
-                            VCompany: VCompany,
-                            VSTKDES: VSTKDES,
-                            VSTKGRP: VSTKGRP,
-                            VPrice: VPrice,
-                            VSalePrice: VSalePrice,
-                            VDiscount: VDiscount,
-                            VAmt: VAmt,
-                            VORDDAT: VORDDAT,
-                            VLineNote: VLineNote,
-                            Ordertype: Ordertype,
-                            AmtQty: AmtQty,
-                            AmtSalePrices: AmtSalePrices,
-                            TotalAmt: TotalAmt,
-                            Credit: Credit,
-                            AmtSalePrices: AmtSalePrices,
-                            AmtDiscount: DiscountAmt,
-                            Ordertype: Ordertype,
-                            PRCLST_NO: PRCLST_NO,
-                            Uom: Uom,
-                            Vstock: Vstock,
-                            Vtype: Vtype,
-                            VPromotion: VPromotion
-                            // SLMID:SLMID
-
-                        };
-                        data.push(ItemList);
-                        ////console.log(data);
-
-                    });
-
-
-                    if (data.length == 0) {
-                        $("#textAlertWarning").empty();
-                        $("#textAlertWarning").text("กรุณาเลือกสินค้าเพื่อ Confirm order");
-                        $("#myModalWarning").modal(); return false;
-                    }
-                    var DataSend = JSON.stringify(data);
-                     //console.log('xx' + " " + DataSend);
-                    //return false;
-                    //var sumvat = "";
-                    //sumvat = $("#sumvat").html();
-                    //var sumqty = $("#sumqty").html();
-                    //var sumstk = $("#sumstk").html();
-                    //if (sumvat == "0.00") {
-
-                    //    sumvat = "0.00"
-
-                    //} else {
-                    //    sumvat = sumvat.replace(/,/g, "");
-                    //}
-                    //var sumpro = "";
-                    //sumpro = $("#sumPro").html();
-                    //if (sumpro == "0.00") {
-
-                    //    sumpro = "0.00"
-
-                    //} else {
-                    //    sumpro = sumpro.replace(",", "");
-                    //}
-                    ////ราคาก่อนส่วนลด////
-                    //var sumpro = "0.00";
-                    //var ORD_TotalPrice = "";
-                    //ORD_TotalPrice = $("#Msumbeforprice").html();
-                    //if (ORD_TotalPrice == "0.00") {
-
-                    //    ORD_TotalPrice = "0.00"
-
-                    //} else {
-                    //    ORD_TotalPrice = ORD_TotalPrice.replace(/,/g, "");
-
-                    //}
-                    //var sumpro = "0.00";
-                    //var ORD_TotalPrice = "";
-                    //ORD_TotalPrice = $("#TotalAmt").html();
-                    //if (ORD_TotalPrice == "0.00") {
-
-                    //    ORD_TotalPrice = "0.00"
-
-                    //} else {
-                    //    ORD_TotalPrice = ORD_TotalPrice.replace(/,/g, "");
-
-                    //}
-
-                    ////ส่วนลด////
-                    //var ORD_TotalDiscount = "";
-                    //ORD_TotalDiscount = $("#Msumbedisprice").html();
-                    //if (ORD_TotalDiscount == "0.00") {
-
-                    //    ORD_TotalDiscount = "0.00"
-
-                    //} else {
-                    //    ORD_TotalDiscount = ORD_TotalDiscount.replace(/,/g, "");
-                    //}
-                    //xc = data[0].VCompany;
-
-                    //$("#ordidtemp").val("");
-                    //var idchk= $("#ordidtemp").val("");
-                    //alert(ordidtemp);
-                    //if (idchk == "") {
-                    //    $("#textAlertWarning").empty();
-                    //    $("#textAlertWarning").text("กรุณา Refresh เพื่อ Confirm order ใหม่");
-                    //    $("#myModalWarning").modal(); return false;
-                    //}
-                    // waitingDialogconfirm.show();
-
-                    //return false;
-                    $.ajax({
-                        url: '@Url.Action("Confirmationdata", "Cart")',
-                        data: {
-                            DataSend: DataSend,
-                            ordidtemp: ordidtemp,
-                            //DataSendPro: DataSendPro,
-                            //sumvat: sumvat,
-                            //sumpro: sumpro,
-                            //sumqty: sumqty,
-                            //sumstk: sumstk,
-                            //ORD_TotalPrice: ORD_TotalPrice,
-                            //ORD_TotalDiscount: ORD_TotalDiscount,
-                            //dateDelivery: dateDelivery,
-                            //DeliveryTime: DeliveryTime,
-                            //Remark: CommentByOrder,
-                            //takeorderby: takeorderby,
-                            //Xcus: XXcus,
-                            //XSul: XXSul,
-                            Xusrlogin: XXusrlogin,
-                            //Modtype: Modtype,
-                            //Moddate: Moddate,
-                            //Modtime: Modtime,
-                            //CusShipping: CusShipping,
-                            //codeShipping: codeShipping,
-                            //codetransportation: codetransportation,
-                            //ordidtemp: ordidtemp,
-                            //CreditTerm: CreditTerm,
-                            //company: company,
-                            //typecke: typecke
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            // //console.log(data.message);
-                            //waitingDialogconfirm.hide();
-                            if (data.message == "true") {
-                                //  waitingDialogconfirm.show();
-                                $("#textAlertSucces").empty();
-                                $("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
-                                $("#myModalSucces").modal();
-
-                                $("#myModalSucces").click(function () {
-                                    // location.reload();
-                                    var url = window.location.href;
-                                    // //console.log(url);
-                                    var str = url;
-                                    var res = str.split("/");
-                                    //  //console.log(res);
-                                    //var test = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + data.DocNo + "";
-                                    // //console.log(test);
-                                    // alert(data.DocNo);
-                                    var str = data.DocNo;
-                                    var encoded = encodeURIComponent(str);
-                                    // //console.log(encoded);
-                                    // //console.log(str);
-                                    //  alert(data.DocNo);
-                                    //  var test = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "";
-                                    // //console.log(test);
-                                    // window.location.href = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + data.DocNo + "";
-                                    // window.location.href = "https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "";
-                                    //  window.open("https://" + res[2] + "/MobileOrder/OrderingReport/Index/?DocNo=" + encoded + "");
-                                    // $(document).delegate('#myHrefPrint', 'click', function () {
-                                    //  var ORD_ID = $(this).attr('ORD_ID');
-                                    //  var ORD_DocNo = $(this).attr('ORD_DocNo');
-                                    window.open("../Report/SOForm.aspx?SONUM=" + encoded + "/" + cuscod);
-                                    //   return false;
-                                    //});
-                                    $("#exampletb > tbody").empty();
-
-                                    location.reload();
-                                });
-
-                                //location.reload();
-                            } else {
-
-                                $("#textAlert").empty();
-                                $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
-                                $("#myModal").modal();
-                            }
-                        }
-                    });
                 } else {
                     alert('Not connect to network...');
                     return false;
@@ -5181,7 +5246,7 @@
             //      }
             //};
             //Lock show code display //
-        </script>
+    </script>
 
 
 </body>

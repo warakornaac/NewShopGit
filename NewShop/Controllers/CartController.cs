@@ -287,7 +287,7 @@ namespace NewShop.Controllers
                     model.WH_Location = dr["WH Location"].ToString();
                     model.KDC_QTY = dr["KDC-QTY"].ToString();
                     model.PDC_QTY = dr["PDC-QTY"].ToString();
-                    model.AccessID = dr["AccessID"].ToString();
+                    model.AccessID = dr["AccessID"].ToString(); 
                     //model.Promotion_Foc = dr["Promotion_Foc"].ToString();
                     //sumSalePrice += Convert.(sum);
                     Getdata.Add(new ItemListGetdata { val = model });
@@ -1277,6 +1277,28 @@ namespace NewShop.Controllers
 
 
             return Json(new { message, DocNo }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult checkAccessIdConfirm(string accessId, string cuscod) //เช็ค last id LogAccessCart ก่อน confirm
+        {
+            string flagCheck = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("P_Get_Access_Id_Last", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@accessId", accessId);
+            command.Parameters.AddWithValue("@cuscod", cuscod);
+            SqlParameter returnFlag = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
+            returnFlag.Direction = System.Data.ParameterDirection.Output;
+            command.Parameters.Add(returnFlag);
+            Connection.Open();
+            command.ExecuteNonQuery();
+            flagCheck = returnFlag.Value.ToString();
+
+
+            command.Dispose();
+            Connection.Close();
+
+            return Json(new { flagCheck }, JsonRequestBehavior.AllowGet);
         }
     }
 }
