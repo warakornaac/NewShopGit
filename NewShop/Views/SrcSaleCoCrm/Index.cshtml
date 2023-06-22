@@ -1,0 +1,2183 @@
+﻿@{
+
+    Layout = "~/Views/Shared/Shoppinglist.cshtml";
+
+    
+}
+@{
+    ViewBag.Title = "CRM by Sales Co";
+   
+    
+
+}
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CRM by Sales Co</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Modernizr JS -->
+    <style>
+        .clearfix:after {
+            display: block;
+            clear: both;
+        }
+
+        /*----- Menu Outline -----*/
+        .menu-wrap {
+            width: 100%;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            background: #3e3436;
+        }
+
+        .menu {
+            width: 1000px;
+            margin: 0px auto;
+        }
+
+            .menu li {
+                margin: 0px;
+                list-style: none;
+                font-family: 'Ek Mukta';
+            }
+
+            .menu a {
+                transition: all linear 0.15s;
+                color: #919191;
+            }
+
+            .menu li:hover > a, .menu .current-item > a {
+                text-decoration: none;
+                color: #be5b70;
+            }
+
+            .menu .arrow {
+                font-size: 11px;
+                line-height: 0%;
+            }
+
+            /*----- Top Level -----*/
+            .menu > ul > li {
+                float: left;
+                display: inline-block;
+                position: relative;
+                font-size: 19px;
+            }
+
+                .menu > ul > li > a {
+                    padding: 10px 40px;
+                    display: inline-block;
+                    text-shadow: 0px 1px 0px rgba(0,0,0,0.4);
+                }
+
+                .menu > ul > li:hover > a, .menu > ul > .current-item > a {
+                    background: #2e2728;
+                }
+
+            /*----- Bottom Level -----*/
+            .menu li:hover .sub-menu {
+                z-index: 1;
+                opacity: 1;
+            }
+
+        .sub-menu {
+            width: 160%;
+            padding: 5px 0px;
+            position: absolute;
+            top: 100%;
+            left: 0px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity linear 0.15s;
+            box-shadow: 0px 2px 3px rgba(0,0,0,0.2);
+            background: #2e2728;
+        }
+
+            .sub-menu li {
+                display: block;
+                font-size: 16px;
+            }
+
+                .sub-menu li a {
+                    padding: 10px 30px;
+                    display: block;
+                }
+
+                    .sub-menu li a:hover, .sub-menu .current-item a {
+                        background: #3e3436;
+                    }
+
+        .webGrid {
+            /*margin: 4px;
+        border-collapse: collapse;
+        /*width: 500px;
+        background-color: #FCFCFC;*/
+            width: 200px;
+        }
+
+        .header {
+            background-color: #C1D4E6;
+            font-weight: bold;
+            color: #FFF;
+        }
+
+        .webGrid th, .webGrid td {
+            border: 1px solid #C0C0C0;
+            padding: 5px;
+        }
+
+        .alt {
+            background-color: #E4E9F5;
+            color: #000;
+        }
+
+        .gridHead a:hover {
+            text-decoration: underline;
+        }
+
+        .description {
+            width: auto;
+        }
+
+        .select {
+            background-color: #389DF5;
+        }
+
+        .bs-example {
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        th:nth-of-type(1) {
+            width: 30px;
+        }
+
+        th:nth-of-type(2) {
+            width: 30px;
+        }
+
+        th:nth-of-type(3) {
+            width: 20px;
+        }
+
+        th:nth-of-type(4) {
+            width: 20px;
+        }
+
+        th:nth-of-type(5) {
+            width: 20px;
+        }
+
+        th:nth-of-type(6) {
+            width: 20px;
+        }
+
+        th:nth-of-type(7) {
+            width: 20px;
+        }
+
+        th:nth-of-type(8) {
+            width: 20px;
+        }
+
+        th:nth-of-type(9) {
+            width: 20px;
+        }
+
+        th:nth-of-type(10) {
+            width: 20px;
+        }
+
+        th:nth-of-type(11) {
+            width: 20px;
+        }
+
+        th:nth-of-type(12) {
+            width: 20px;
+        }
+
+        th:nth-of-type(13) {
+            width: 20px;
+        }
+
+        th:nth-of-type(14) {
+            width: 20px;
+        }
+
+        th:nth-of-type(15) {
+            width: 20px;
+        }
+
+        th:nth-of-type(16) {
+            width: 20px;
+        }
+
+        .fixed_headers tbody {
+            background-color: cornsilk;
+        }
+
+        tbody td.odd {
+            background-color: #666;
+            color: white;
+        }
+
+        .fixed_headers thead {
+            background-color: #333333;
+            color: #fdfdfd;
+        }
+
+        /*.fixed_headers thead tr {
+                display: block;
+                position: relative;
+            }
+
+        .fixed_headers tbody {
+            display: block;
+            overflow: auto;
+            width: 100%;
+            height: 300px;
+        }*/
+        .fixed_headers tbody {
+            /*display: block;
+            overflow: auto;
+            width: 100%;*/
+            overflow: auto;
+            /*height: 300px;*/
+        }
+        /*.fixed_headers tbody tr:nth-child(even) {
+                            background-color: #dddddd;
+                        }*/
+
+        /*.old_ie_wrapper {
+            /*height: 300px;
+              width: 750px;
+            /*overflow-x: hidden;
+            overflow-y: auto;
+        }*/
+        #tblOrderDetail tr:hover {
+            background-color: rgb(93, 127, 156);
+        }
+
+        .webGrid tr:hover {
+            /*background: #FFEBD3;*/
+            background: #dddddd;
+        }
+
+        .old_ie_wrapper tbody {
+            /*height: auto;*/
+        }
+
+        .container .itd {
+            border: 2px solid #ffffff;
+            padding: 44px 40px 20px 40px;
+            margin: 0 auto;
+            box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+            -moz-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+            -webkit-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+            background-color: rgba(64, 45, 22, 0.28);
+        }
+
+        body {
+            background: linear-gradient( -180deg,#071d6dfa,#9b9fbda3);
+            font-family: ui-monospace;
+        }
+
+        .leftDiv {
+            width: 50%;
+            float: left;
+        }
+
+        .rightDiv {
+            width: 50%;
+            float: right;
+        }
+
+        #textareaCommentSc {
+            resize: none;
+            background: #f6eeed;
+            border: 1px solid #ff4136;
+            padding: 10px;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(-180deg,#071d6dfa,#9b9fbda3);">
+ 
+
+    <div class="wrapper fixed__footer">
+        <div class="body__overlay"></div>
+        <div class="container ptb--20 ">
+            <div class="container">
+                <div style="color:white;font-size: x-large;font-family: -webkit-pictograph;"><i class="topnav_home"></i>CRM by Sales Co</div>
+            </div>
+
+            <div class="container">
+                <div class="itd">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">No...<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <input id="Noid" class="form-control" style="background-color: rgba(179, 169, 169, 0.88);color: blue;" disabled="disabled">
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">SOW<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <input id="SOWid" class="form-control" style="color: blue;" required>
+                                    <span class="input-group-addon " id="Gso"><span class="fa fa-user-edit"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Document Type...<span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                    <select id="DocumentType" class="form-control" style="color:black;"></select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Sales/Customer  <span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                    <select id="Callby" class="form-control" style="color:black">
+                                        <option value="0">.....</option>
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Requested Delivery Date <span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <input id="RequestedDeliveryDate" class="form-control" style="background-color: rgba(179, 169, 169, 0.88);width: 50%;color:blue;" disabled="disabled">
+
+                                    <input id="RequestedDeliverytime" class="form-control" style="background-color: rgba(179, 169, 169, 0.88);width: 50%;color:blue;" disabled="disabled">
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Phone Status <span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                    <select id="PhoneStatus" class="form-control" style="color:black;">
+                                        <option value="0">.....</option>
+
+                                    </select>
+
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Cuscod<span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                    <input type="Text" @*name="search_query"*@ onfocus="this.select();" onmouseup="return false;" class="form-control " id="SelltCusoNolist" />
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Saleperson Code<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="SalepersonCode" name="options" class="form-control" style="color:black">
+                                        @*<option value="0">ALL</option>*@
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Status <span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Status" class="form-control" style="color:black;"></select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <legend style="color:white"><i class="topnav_home"></i></legend>
+
+                    <div class="leftDiv">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Step1<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Step1" class="form-control" style="color:black;">
+                                        <option value="-">เลือก Type</option>
+
+                                    </select>
+
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Step2<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Step2" class="form-control" style="color:black;">
+                                        <option value="-">เลือก Type</option>
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Step3<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Step3" class="form-control" style="color:black">
+                                        <option value="-">เลือก Type</option>
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class=" form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Step4<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Step4" class="form-control" style="color:black">
+                                        <option value="-">เลือก Type</option>
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Step5<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                    <select id="Step5" class="form-control" style="color:black">
+                                        <option value="-">เลือก Type</option>
+
+                                    </select>
+                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rightDiv">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i style="color: black;"> Comment Sale Co</i>
+                                    <textarea class="field span12" id="textareaCommentSc" rows="6" style="margin-left: 0px; margin-right: 0px; width: 448px;"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="rightDiv">
+
+                        <table class="table">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                <tr class="danger">
+                                    <th scope="row" style="width:22%;">User Create...</th>
+                                    <td><input type="text" id="usercreate" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" value="@User.Identity.Name" disabled="disabled" /></td>
+                                    <td><input type="datetime" id="usercreateDate" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" disabled="disabled" /></td>
+                                    <td><input id="usercreatetime" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" disabled="disabled"></td>
+
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">User Closed...</th>
+                                    <td><input type="datetime" id="userclosed" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" disabled="disabled" /></td>
+                                    <td><input type="datetime" id="userclosedDate" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" disabled="disabled" /></td>
+                                    <td><input id="userclosedtime" style="background-color: rgba(179, 169, 169, 0.88); color: blue;width: 100%;" disabled="disabled"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-warning" id="Cancel" style="width: 98%;">
+                                Refresh page
+                            </button>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <!--<select id="btnsubmitinsert" class="form-control btn btn-success" style="color:black">
+                        <option value="0">Function</option>
+                        <option value="2">Released</option>
+                        <option value="1">Re Open</option>
+                         <option value="3">Update Line</option>-
+                    </select>-->
+
+                            <button type="button" class="btn btn-success" id="btnsubmitinsert" style="width: 98%;">Save</button>
+                        </div>
+
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!---->
+
+            <div class="container ptb--20">
+
+                <div id="orderdetail" style="display:none; overflow-x: auto; overflow-y: scroll; padding: 0px; border: 1px solid rgb(245, 244, 245); height: 300px; background-color: rgb(43, 57, 60);width: 1170px;margin-left: -16px;" class="single">
+                    <div style="padding: 10px; width: 1100px">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="form-group">
+
+
+                                    <legend style="color:white"><i class="topnav_home" style="color:white"></i>รายการ Order  </legend>
+
+                                    <div id="divSO" style="font-size:16px;font-weight:bold;color:white;">SO Number</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <div class="form-group">
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-1">
+                            <div class="input-group">
+                                <div class="form-group">
+
+
+                                    <button type="button" class="btn btn-warning" id="Cancelorderdetail" style="width: 70%;margin: 1px 1px 2px 28px;">X</button>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table table-bordered" id="tblOrderDetail" style="text-align: center;color: white;">
+                            <thead style="text-align: center;background-color: black;">
+                                <tr>
+                                    <th style="text-align: center;width:5%">No</th>
+                                    <th style="text-align: center;width:10%">Stkcod</th>
+                                    <th style="text-align: center;width:20%">Stkdes</th>
+                                    <th style="text-align: center;width:5%">Type</th>
+                                    <th style="text-align: center;width:5%">Stkgrp</th>
+                                    <th style="text-align: center; width: 7%">ราคาป้าย</th>
+                                    <th style="text-align: center; width: 7%">ราคาซื้อ</th>
+                                    <th style="text-align: center; width: 7%">ส่วนลด</th>
+                                    <th style="text-align: center;width:7%">จำนวนสั่งซื้อ</th>
+                                    <th style="text-align: center; width: 7%">ราคารวม</th>
+                                    @*<th style="text-align: center; width: 7%">วันที่สั่งซื้อ</th>*@
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="container" style="background-color: white;">
+              
+                <div class="row">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active"  id="datasavecall" style="color: black;cursor: pointer;">บันทึก การโทร</a>
+                                </li>
+                               
+                                <li class="nav-item">
+                                    <a class="nav-link" id="datacall" style="color: black;cursor: pointer;">ประวัติ บันทึกการโทร</a>
+                                </li>
+                               
+                            </ul>
+                            @*<ul class="nav nav-pills nav-justified">
+                                <li class="active">
+                                    <a id="datasavecall" style="color: black;cursor: pointer;">บันทึก การโทร</a>
+                                </li>
+
+                                <li>
+                                    <a id="datacall" style="color: black;cursor: pointer;">ประวัติ บันทึกการโทร</a>
+                                </li>
+
+
+                            </ul>*@
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" id="tborder">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <button id="addRow1" style="width:100%">Add Line</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon ">Company<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                        <select id="Company" class="form-control" style="color:black">
+                                            <option value="TAC">TAC</option>
+                                            <option value="AAC">AAC</option>
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                       
+                            <div style="overflow-x:auto;overflow-y:scroll;padding: 0; border: 1px solid rgb(245, 244, 245); /*height: 800px*/" class="single">
+                                <table class="fixed_headers table table-bordered order" id="Sod">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;width: 3%;">Delete</th>
+                                            <th style="text-align: center;width: 10%;">StatusItem<br>(Tax Area Code)</th>
+                                            <th style="text-align: center;width: 17%;">Stkcod</th>
+                                            <th style="text-align: center;width: 10%;">Stkdes</th>
+                                            <th style="text-align: center;width: 10%;">StkGrp</th>
+                                            <th style="text-align: center;width: 10%;">Qty</th>
+                                            <th style="text-align: center;width: 10%;">Unit Price</th>
+                                            <th style="text-align: center;width: 10%;">Line Amount</th>
+                                            <th style="text-align: center;width: 30%;">Line Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+                            </div>
+                        
+                    </div>
+                </div>
+
+
+                <div class="displaycall" style="display:none;">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon ">สถานะCall<span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                        <select class="form-control" name="Status" id="description">
+                                            <option value="1">Open</option>
+
+                                            <option value="2">Released</option>
+                                        </select>
+
+                                        <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon ">UserCreate<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                        <select class="form-control" id="UserCreatecrm"><option value="(ALL)">ALL</option></select>
+
+                                        <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon ">SC No.<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                        <input id="scnumber" class="form-control" />
+                                        <span class="input-group-addon "><span class="glyphicon glyphicon-book"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon ">Order No.<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                        <input id="sonumber" class="form-control" />
+                                        <span class="input-group-addon "><span class="glyphicon glyphicon-book"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;overflow-y:scroll;padding: 0; border: 1px solid rgb(245, 244, 245); height: 540px" class="single">
+                        <div id="EmployeeViewGrid" class="col-md-12">
+                            @*@Html.Partial("_PartialPage1", Model.Product_Grid)*@
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!---        -->
+   
+
+
+    <input type="hidden" id="usrlogin">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content " id="ColorboxError">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:black;">Message Error</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="textAlert">Some text in the modal.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- EndModal -->
+    @*<button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>*@
+    <!-- ModalWarning -->
+    <div class="modal fade" id="myModalWarning" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- Modalsuccess -->
+    <div class="modal fade" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalSuccesdel" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSuccesdel">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- EndModalsuccess -->
+    <!-- EndModalsuccess -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="textAlertheader">
+                        ยืนยันการ Cancel รายการ CRM by Sales Co
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="textAlertdelete">กรุณายืนยันการ Cancel รายการ CRM by Sales Co</div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" id="del" class="btn btn-danger btn-ok" data-dismiss="modal">Yes</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ModalShipping -->
+    <div class="modal fade" id="ModalDoc" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content " id="ColorboxError">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:black;">Document Order</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="textAlert">
+                        <table class="table table-bordered" id="DocumentOrder">
+                            <thead style="background-color: rgb(51, 51, 51);color: white;">
+                                <tr>
+                                    <th>Document Order</th>
+                                    <th>SaleMan</th>
+                                    <th>SelltoCustome</th>
+                                    <th>InsertBy</th>
+                                    <th>Ord Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" id="CancalDoc" data-dismiss="modal">Cancel</button>
+
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- EndModalShipping -->
+    <!-- Modal Wait Start here-->
+    <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1"
+         role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-time">
+                        </span>Please Wait
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info
+                    progress-bar-striped active"
+                             style="width: 100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal ends Here -->
+    @*<input type="hidden" value="@Xcus" id="XXcus" />
+        <input type="hidden" value="@XSul" id="XXSul" />
+        <input type="hidden" value="@Slmcode" id="V_Sul" />
+        <input type="hidden" value="@v_CUSCOD" id="V_CUSCOD" />
+        <input type="hidden" value="@v_CUSNAM" id="V_CUSNAM" />*@
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+
+    <script type="text/javascript">
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        $('#usrlogin').val(userid)
+        $('#navbarshowdetail').css("display", "none");
+        $('#nextcrm').css("display", "none");
+        var cuscod;
+        resourceAddress.hash();
+
+        if (param_values.numcuber != undefined) {
+            cuscod = atob(param_values.numcuber)
+            
+        } else {
+            cuscod = "";
+        }
+        function cusaddr(cuscod) {
+
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                   
+                    if (data.length == 1) {
+                        $("#SelltCusoNolist").val(data[0].CUSCOD + "|" + data[0].CUSNAM);
+                       // alert(data[0].SLMCOD)
+                        //$("#SalepersonCode").val(data[0].SLMCOD);
+                       // optText = 'New Element';
+                        //optValue = data[0].SLMCOD;
+                       // $('#SalepersonCode').append(new Option(optText, optValue));
+                        //$('#SalepersonCode').append(data[0].SLMCOD).trigger('change');
+                        //remove selected one
+                        $('option:selected', 'select[name="options"]').removeAttr('selected');
+                        //Using the value
+                        $('select[name="options"]').find('option[value="' + data[0].SLMCOD + '"]').attr("selected", true);
+                        //Using the text
+                       // $('select[name="options"]').find('option:contains("Blue")').attr("selected",true);
+                        $('#SalepersonCode').val(data[0].SLMCOD).change();
+                        $.ajax({
+                            url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
+                            data: {
+                                codeslm: data[0].SLMCOD
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                console.log(data)
+                                optText = data[0].SLMCOD+"|"+data[0].SLMNAM;
+                                optValue = data[0].SLMCOD;
+                                 $('#SalepersonCode').append(new Option(optText, optValue));
+                                // $("#SalepersonCode option[value='ALL']").remove();
+                                // $("#SalepersonCode option[value='ALL']").remove();
+                            }
+                        });
+                    }
+                   
+                }
+            });
+         
+        }
+        function getdoccrm() {
+            $.ajax({
+                url: '@Url.Action("GetDoccrm", "SrcSaleCoCrm")',
+                data: {
+                    type: 'CRM'
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    $("#Noid").val(data);
+                }
+            });
+        }
+        function getuderby() {
+            $.ajax({
+                url: '@Url.Action("scuser", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var select = $("#UserCreatecrm");
+                    select.children().remove();
+                    select.append($("<option>").val("(ALL)").text("ALL User Create"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option>").val(item.Value).text(item.Text));
+
+                    });
+                }
+            });
+        }
+        var areatype;
+        function getscstaarea() {
+            $.ajax({
+                url: '@Url.Action("scstaarea", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    areatype = data;
+                    var select = $("._sele form-control");
+                    select.children().remove();
+                    select.append($("<option>").val("-").text("Type"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option>").val(item.Value).text(item.Text));
+
+                    });
+                }
+            });
+        }
+        function getcalby() {
+            $.ajax({
+                url: '@Url.Action("sccalby", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var select = $("#Callby");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("....."));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option>").val(item.Value).text(item.Text));
+
+                    });
+                }
+            });
+        }
+
+        function cphonestatus() {
+            $.ajax({
+                url: '@Url.Action("scphonestatus", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var select = $("#PhoneStatus");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("....."));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option>").val(item.Value).text(item.Text));
+
+                    });
+                }
+            });
+        }
+
+        function scstatus() {
+            $.ajax({
+                url: '@Url.Action("scstatus", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var select = $("#Status");
+                    select.children().remove();
+
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option>").val(item.Value).text(item.Text));
+
+                    });
+                }
+            });
+        }
+
+        function getslmandcus() {
+            $.ajax({
+                url: '@Url.Action("Getdateslm", "DataCenter")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    var select = $("#SalepersonCode");
+                   // select.children().remove();
+                    if (usertype == "1") {
+                        select.append($("<option>").val("ALL").text("ALL Sales Man"));
+                    }
+                    $(data).each(function (index, item) {
+                        select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                    });
+                }
+            });
+        }
+
+        function getscdocumenttpye() {
+            $.ajax({
+                url: '@Url.Action("scdocumenttpye", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    var select = $("#DocumentType");
+                    select.children().remove();
+
+                    $(data).each(function (index, item) {
+                        select.append($("<option>").val(item.Value).text(item.Text));
+                    });
+                }
+            });
+        }
+
+        function getscstep() {
+            $.ajax({
+                url: '@Url.Action("scstep", "SrcSaleCoCrm")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    var select1 = $("#Step1");
+                    select1.children().remove();
+                    select1.append($("<option>").val("-").text("เลือก Type"));
+                    var select2 = $("#Step2");
+                    select2.children().remove();
+                    select2.append($("<option>").val("-").text("เลือก Type"));
+                    var select3 = $("#Step3");
+                    select3.children().remove();
+                    select3.append($("<option>").val("-").text("เลือก Type"));
+                    var select4 = $("#Step4");
+                    select4.children().remove();
+                    select4.append($("<option>").val("-").text("เลือก Type"));
+                    var select5 = $("#Step5");
+                    select5.children().remove();
+                    select5.append($("<option>").val("-").text("เลือก Type"));
+                    $(data).each(function (index, item) {
+                        select1.append($("<option>").val(item.Value).text(item.Value+"/"+item.Text));
+                        select2.append($("<option>").val(item.Value).text(item.Value + "/" + item.Text));
+                        select3.append($("<option>").val(item.Value).text(item.Value + "/" + item.Text));
+                        select4.append($("<option>").val(item.Value).text(item.Value + "/" + item.Text));
+                        select5.append($("<option>").val(item.Value).text(item.Value + "/" + item.Text));
+                    });
+                }
+            });
+        }
+        function getfuctionall() {
+            getdoccrm()
+            getcalby()
+            cphonestatus()
+            scstatus()
+            getslmandcus()
+            getscdocumenttpye()
+            getscstep()
+            getuderby()
+            cusaddr(cuscod)
+        }
+        getfuctionall();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+
+        var output = (('' + day).length < 2 ? '0' : '') + day + '-' +
+            (('' + month).length < 2 ? '0' : '') + month + '-' +
+            d.getFullYear();
+        var Hours = d.getHours();
+        Hours = Hours > 9 ? Hours : '0' + Hours;
+        var Minutes = d.getMinutes();
+        Minutes = Minutes > 9 ? Minutes : '0' + Minutes;
+        var Seconds = d.getSeconds();
+        Seconds = Seconds > 9 ? Seconds : '0' + Seconds;
+        var time = Hours + ":" + Minutes + ":" + Seconds;
+        var crdate = output
+        // console.log(currentDate);
+        $("#RequestedDeliverytime").val(time);
+        $("#RequestedDeliveryDate").val(crdate);
+        $("#usercreateDate").val(crdate);
+        $("#usercreatetime").val(time);
+        $("#SelltCusoNolist").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = { Name: $('#SelltCusoNolist').val(), Slm: $('#SalepersonCode').val() };
+
+                // console.log(param);
+                $.ajax({
+                    url: '@Url.Action("GetdateCusCode", "DataCenter")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+
+            },
+            select: function (event, ui) {
+                var res = [];
+                var MyIndexValue = ui.item.value;
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+
+                } else { res[0] = "0"; }
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: res[0]
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        $('#SalepersonCode').val(data[0].SLMCOD);
+                    }
+                });
+
+            },
+            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+        $("#btnsubmitinsert").click(function () {
+
+            //  $("#btnsubmitinsert").change(function () {
+            var ScCrm_Status = "";
+            var sta = $(this).val();
+            var User = $('#usrlogin').val();
+            var ScCrm_DocNo = $('#Noid').val();
+            var ScCrm_DocType = $('#DocumentType').val();
+            var ScCrm_RequeDelivery = $('#RequestedDeliveryDate').val();
+            var ScCrm_RequeDeliverytime = $('#RequestedDeliverytime').val();
+
+            var ScCrm_PhoneStatus = $('#PhoneStatus').val();
+            var Sow = $('#SOWid').val();
+            var ScCrm_ByCall = $('#Callby').val();
+            var ScCrm_CUSCOD = "";
+            var ScCrm_SLMCODE = "";
+            var res = [];
+            if (ScCrm_ByCall == "CUS") {
+                var MyIndexValue = $('#SelltCusoNolist').val();
+
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                } else {
+                    res[0] = "";
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณากรอก ข้อมูล ในกรอบสีแดงให้ครบ");
+                    $('#PhoneStatus').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                    $('#Step1').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                    $('#SelltCusoNolist').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                    $('#SalepersonCode').css({ "color": "black" });
+                    $("#myModalWarning").modal(); return false;
+                }
+            }
+            if (ScCrm_ByCall == "SLM") {
+                ScCrm_SLMCODE = $('#SalepersonCode').val();
+                var MyIndexValue = $('#SelltCusoNolist').val();
+
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                } else {
+                    res[0] = "";
+
+                }
+                // alert(res[0]);
+
+                if (ScCrm_SLMCODE == "0") {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณากรอก ข้อมูล ในกรอบสีแดงให้ครบ");
+                    $('#PhoneStatus').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                    $('#Step1').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                    $('#SelltCusoNolist').css({ "color": "black", "border": "none", "background-color": "none" });
+                    $('#SalepersonCode').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+
+                    $("#myModalWarning").modal(); return false;//$("#btnsubmitinsert").val("0"); return false;
+
+                }
+
+            }
+
+            ScCrm_CUSCOD = res[0];
+            ScCrm_SLMCODE = $('#SalepersonCode').val();
+            // alert(ScCrm_CUSCOD + "/////" + ScCrm_SLMCODE);
+
+            var ScCrm_UseClosed = $('#userclosed').val();
+            var ScCrm_UseCloseddate = "";
+            ScCrm_UseCloseddate = $('#userclosedDate').val();
+            var ScCrm_UseCloseddatetime = "";
+            ScCrm_UseCloseddatetime = $('#userclosedtime').val();
+            var ScCrm_Step1 = $('#Step1').val();
+            var ScCrm_Step2 = $('#Step2').val();
+            var ScCrm_Step3 = $('#Step3').val();
+            var ScCrm_Step4 = $('#Step4').val();
+            var ScCrm_Step5 = $('#Step5').val();
+            var ScCrm_Linenote = $('#textareaCommentSc').val();
+            var ScCrm_UserCreate = $('#usercreate').val();
+            var ScCrm_Createdate = $('#usercreateDate').val();
+            var ScCrm_Createdatetime = $('#usercreatetime').val();
+            var ScCrm_Status = $('#Status').val();
+
+            var Company = $('#Company').val();
+
+            var MyRowsod = $('#Sod').find('tbody').find('tr');
+            // console.log(MyRowsod);
+
+            var datacountsod = new Array();
+            for (var i = 0; i < MyRowsod.length; i++) {
+
+                var MyIndexValuescrno = $(MyRowsod[i]).attr('sccrmno');
+                var MyIndexValuestatusItem = $(MyRowsod[i]).find('td ._sele').val();
+                var MyIndexValuestccod = $(MyRowsod[i]).find('td .stkcod').val();
+                var MyIndexValuestkdes = $(MyRowsod[i]).find('td .stkdes').val();
+                var MyIndexValuestkGrp = $(MyRowsod[i]).find('td .stkGrp').val();
+                var MyIndexValueQty = $(MyRowsod[i]).find('td .Qty').val();
+                var MyIndexValueUnitPrice = $(MyRowsod[i]).find('td .UnitPrice').val();
+                var MyIndexValueAmount = $(MyRowsod[i]).find('td .Amount').val();
+                var MyIndexValuelinenote = $(MyRowsod[i]).find('td .linenote').val();
+                var resfoc = new Array();
+                if (MyIndexValuestccod !== "") {
+                    resfoc = MyIndexValuestccod.split("|");
+
+                } else { resfoc[0] = ""; }
+                if (MyIndexValueUnitPrice == "") {
+                    MyIndexValueUnitPrice ="0"
+                }
+                if (MyIndexValueAmount == "") {
+                    MyIndexValueAmount = "0"
+                }
+                //if (resfoc[0] != "") {
+                var ItemList = {
+                    ScCrmNo: MyIndexValuescrno,
+                    StatusItem: MyIndexValuestatusItem,
+                    STKCOD: resfoc[0],
+                    STKDES: MyIndexValuestkdes,
+                    STKGRP: MyIndexValuestkGrp,
+                    Qty: MyIndexValueQty,
+                    UnitPrice: MyIndexValueUnitPrice,
+                    Amount: MyIndexValueAmount,
+                    LineNote: MyIndexValuelinenote,
+                    company: Company
+                };
+
+                if (ItemList.StatusItem == "SOP") {
+
+                    if (ItemList.STKGRP == "" || ItemList.LineNote == "") {
+                        alert("ใส่ข้อมูลให้ครบ");
+                        return false
+                    }
+
+                }
+
+                if (ItemList.STKCOD != "" || ItemList.STKDES != "" || ItemList.STKGRP != "" || ItemList.LineNote) {
+                    datacountsod.push(ItemList);
+                }
+
+                // }
+                console.log(datacountsod);
+            }
+            var DataSend = JSON.stringify(datacountsod);
+            // console.log(DataSend);
+
+
+            if (ScCrm_ByCall == "0") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณากรอก ข้อมูล ในกรอบสีแดงให้ครบ");
+                // $('#DocumentType').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $('#Callby').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $('#PhoneStatus').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $('#Step1').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                // $('#SelltCusoNolist').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                // $('#SalepersonCode').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $("#myModalWarning").modal(); return false;//$("#btnsubmitinsert").val("0"); return false;
+            }
+
+
+            if (ScCrm_PhoneStatus == "0") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณากรอก ข้อมูล ในกรอบสีแดงให้ครบ");
+                $('#PhoneStatus').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $('#Step1').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $("#myModalWarning").modal(); return false;//$("#btnsubmitinsert").val("0"); return false;
+            }
+            if (ScCrm_Step1 == "-") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณากรอก ข้อมูล ในกรอบสีแดงให้ครบ");
+                $('#Step1').css({ "color": "black", "border": "2px dotted red", "background-color": "antiquewhite" });
+                $("#myModalWarning").modal(); return false;//$("#btnsubmitinsert").val("0"); return false;
+            }
+
+            var User = $('#usrlogin').val();
+            var usercreate = $('#usercreate').val();
+
+            $("#userclosed").val(userid);
+
+            var cu = $("#Status").val();
+            if (cu == "2") {
+                if (cu != "") {
+                    var d = new Date();
+                    var date = new Date('2010-10-11T00:00:00+05:30');
+                    var time2 = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                    var date = new Date(time2);
+                    if (date.getHours() >= 12) {
+                        var hour = parseInt(date.getHours()) - 12;
+                        var amPm = "PM";
+                    } else {
+                        var hour = date.getHours();
+                        var amPm = "AM";
+                    }
+                    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();// + " " + amPm;
+                    var crdate = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+
+                    $("#userclosedDate").val(crdate);
+                    $("#userclosedtime").val(time);
+                }
+            }
+
+            var ScCrm_UseClosed = $('#userclosed').val();
+            var ScCrm_UseCloseddate = $('#userclosedDate').val();
+            var ScCrm_UseCloseddatetime = $('#userclosedtime').val();
+          
+            $.ajax({
+                url: '@Url.Action("InsertdataCrm","SrcSaleCoCrm")',
+                data: {
+                    User: userid,
+                    ScCrm_DocNo: ScCrm_DocNo,
+                    ScCrm_DocType: ScCrm_DocType,
+                    ScCrm_RequeDelivery: ScCrm_RequeDelivery,
+                    ScCrm_RequeDeliverytime: ScCrm_RequeDeliverytime,
+                    ScCrm_ByCall: ScCrm_ByCall,
+                    ScCrm_PhoneStatus: ScCrm_PhoneStatus,
+                    ScCrm_CUSCOD: ScCrm_CUSCOD,
+                    ScCrm_SLMCODE: ScCrm_SLMCODE,
+                    ScCrm_Status: ScCrm_Status,
+                    ScCrm_Step1: ScCrm_Step1,
+                    ScCrm_Step2: ScCrm_Step2,
+                    ScCrm_Step3: ScCrm_Step3,
+                    ScCrm_Step4: ScCrm_Step4,
+                    ScCrm_Step5: ScCrm_Step5,
+                    ScCrm_Linenote: ScCrm_Linenote,
+                    //ScCrm_UserCreate: ScCrm_UserCreate,
+                    ScCrm_UserCreate: userid,
+                    ScCrm_Createdate: ScCrm_Createdate,
+                    ScCrm_Createdatetime: ScCrm_Createdatetime,
+                    ScCrm_UseClosed: ScCrm_UseClosed,
+                    ScCrm_UseCloseddate: ScCrm_UseCloseddate,
+                    ScCrm_UseCloseddatetime: ScCrm_UseCloseddatetime,
+                    Sow: Sow,
+                    DataSend: DataSend
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    if (data == "true") {
+
+                        $("#textAlertSucces").empty();
+                        $("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
+                        $("#myModalSucces").modal();
+                        $("#myModalSucces").click(function () {
+                            //$('#myPleaseWait').modal('show');
+                            location.reload();
+
+                            //DocumentType
+                        });
+
+                    } else {
+
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่" + data);
+                        $("#myModalWarning").modal(); return false;
+                    }
+                }
+            });
+
+        });
+        $('#ItenStockPrice').css('background-color', 'beige');
+        $('#datacall').css('background-color', 'beige');
+        $('#datasavecall').click(function () {
+            $('#tborder').css('display', 'block');
+            $('.displaycall').css('display', 'none');
+            $('#tabcondition').css('display', 'none');
+
+            $('#tbprice').css('display', 'none');
+            $(this).css('background-color', '');
+            $('#ItenStockPrice').css('background-color', 'beige');
+            $('#datacall').css('background-color', 'beige');
+        });
+        $('#datacall').click(function () {
+            $('.displaycall').css('display', 'block');
+            $('#tabcondition').css('display', 'none');
+            $('#tborder').css('display', 'none');
+            $('#tbprice').css('display', 'none');
+            $(this).css('background-color', '');
+            $('#ItenStockPrice').css('background-color', 'beige');
+            $('#datasavecall').css('background-color', 'beige');
+
+            var SLMID = $("#SalepersonCode").val();
+            var UserCreate = $('#description').val();
+            var cuscod = $("#SelltCusoNolist").val();
+            var url = '@Url.Action("Filter")';
+            $.get(url, { department: $('#description').val(), UserCreate: $('#UserCreatecrm').val(), scnumber: $('#scnumber').val(), slm: SLMID, cuscod: cuscod, sonumer: $('#sonumber').val() }, function (result) {
+                //debugger;
+                $('#EmployeeViewGrid').html(result);
+            });
+        });
+        var counter = 1;
+        $('#addRow1').on('click', function () {
+
+            var tr = '<tr><td style="text-align: center;font-size: x-large;"><div class="fas fa-trash" id="cancelxsod"  style=" color: red; cursor: pointer; "></div></td>\
+                    <td><select  class="_sele form-control" id="select' + counter + 'A" ></select></td>\
+                    <td><input id="stkcod' + counter + 'A"  class="form-control stkcod ui-autocomplete-input" style=" width: 100%;"></td>\
+                    <td><input id="stkdes' + counter + 'A" style="width:100%;" class="form-control stkdes" ></td>\
+                    <td><input id="stkGrp' + counter + 'A"  class="form-control stkGrp" style=""></td>\
+                    <td><input id="Qty' + counter + 'A"  class="form-control Qty"  name="S_Qty" style=""></td>\
+                    <td><input id="UnitPrice' + counter + 'A"  class="form-control UnitPrice"  name="S_Price" style=""></td>\
+                    <td><input id="Amount' + counter + 'A"  class="form-control Amount" style=""></td>\
+                    <td><input id="linenote' + counter + 'A" class="form-control linenote" style=" width: 100%;"></td></tr>';
+            $('#Sod').append(tr);
+
+            var CodeID = '-';
+            var code = CodeID;
+            $.ajax({
+                url: '@Url.Action("GetdataStatusItem", "SrcSaleCoCrm")',
+                data: {
+                    code: code
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    var select = $("#select" + (counter - 1) + "A");
+                    select.children().remove();
+                    select.append($("<option>").val("-").text("Type"));
+                    $(data).each(function (index, item) {
+                        select.append($("<option>").val(item.Value).text(item.Text));
+                    });
+                }
+            });
+            counter++;
+
+        });
+        $("#Sod").on("keyup", "input[name='S_Qty']", function () {
+            // alert( $(this).val())
+            $(this).keyup(function (event) {
+                if (event.which >= 37 && event.which <= 40) {
+                    event.preventDefault();
+
+
+                }
+                $(this).val(function (index, value) {
+                    return value
+                                    .replace(/\D/g, "");
+                    //.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+                });
+
+            });
+        });
+        $("#Sod").on('blur', 'input[name="S_Qty"]', function () {
+            //var cQty = "";
+            var Seqval = "";
+            Seqval = $(this).val();
+            // console.log(Seqval);
+            if (Seqval == "") {
+                //alert(Seqval);
+                Seqval == "0";
+            } else {
+                Seqval = Seqval;
+            }
+            //// cQty = $(this).parents("tr").find(".tQty").val().trim();
+            var Seqvalst = $(this).parents("tr").find(".UnitPrice").val();
+            if (Seqvalst == " ") {
+                Seqvalst == "0";
+            } else {
+                Seqvalst = Seqvalst;
+            }
+            var xuu = parseFloat(Seqval) * parseFloat(Seqvalst);
+
+            if (isNaN(xuu)) {
+                $(this).parents("tr").find(".Amount").val("")
+            } else {
+                $(this).parents("tr").find(".Amount").val(xuu)
+            }
+
+        });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+        $("#Sod").on('blur', 'input[name="S_Price"]', function () {
+            //var cQty = "";
+            //var Seqval = "";
+            //Seqval = $(this).val();
+            //console.log(Seqval);
+            //if (Seqval == "") {
+            //    //alert(Seqval);
+            //    Seqval == "0";
+            //} else {
+            //    Seqval = Seqval;
+            //}
+            var Seqval = $(this).parents("tr").find("input[name='S_Qty']").val();
+            // console.log(Seqval);
+            if (Seqval == "") {
+                //alert(Seqval);
+                Seqval == "0";
+            } else {
+                Seqval = Seqval;
+            }
+
+            var Seqvalst = $(this).parents("tr").find(".UnitPrice").val();
+
+            if (Seqvalst == " ") {
+                Seqvalst == "0";
+            } else {
+                Seqvalst = Seqvalst.replace(",", "");
+            }
+            //alert("xxxx" + Seqvalst);
+            var xuu = parseFloat(Seqval) * parseFloat(Seqvalst);
+            //alert(xuu);
+            if (isNaN(xuu)) {
+                $(this).parents("tr").find(".Amount").val("")
+            } else {
+                $(this).parents("tr").find(".Amount").val(xuu)
+            }
+
+        });
+        $("#Sod").on("click", "tr", function () {
+            var id = $(this).find(".stkcod").attr('id');
+            var idstkdes = $(this).find(".stkdes").attr('id');
+            var idstkgrp = $(this).find(".stkGrp").attr('id');
+            var idtype = $(this).find("._sele").attr('id');
+            var idQty = $(this).find(".Qty").attr('id');
+            var idUnitPrice = $(this).find(".UnitPrice").attr('id');
+            $("#" + idtype + "").change(function () {
+                var x = $(this).val();
+
+                $(this).val(x);
+            });
+            $("#" + id + "").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                source: function (request, response) {
+                    var param = {
+                        Name: $("#" + id + "").val(),
+                        XvalCompany: $('#Company').val()
+
+                    };
+                    $.ajax({
+                        url: '@Url.Action("GetdateStockCode", "SrcSaleCoCrm")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            //console.log(data.length);
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+
+                        },
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    var val = ui.item.value;
+                    var StockCode = val;
+                    var split_StockCode = StockCode.split('|');
+
+                    var stkitem = split_StockCode[0];
+                    //$("#" + idstkdes + "").val("");
+                    var stkitemdes = split_StockCode[1];
+                    var res = "";
+                    $("#" + idstkdes + "").val(stkitemdes);
+
+                    var MyIndexValue = $('#SelltCusoNolist').val();
+
+                    if (MyIndexValue !== "") {
+                        res = MyIndexValue.split("|");
+                    } else {
+                        res[0] = "";
+                    }
+                    var Cus = res[0];
+                    var Slm = $('#SalepersonCode').val();
+                    var User = $('#usrlogin').val();
+                    var Company = $('#Company').val()
+                    $.ajax({
+                        url: '@Url.Action("GetdataStkGrptable", "SrcSaleCoCrm")',
+                        data: {
+                            stkitem: stkitem,
+                            Cus: Cus,
+                            Slm: Slm,
+                            User: userid,
+                            Company: Company
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            // console.log(data);
+                            $("#" + id + "").val(stkitem);
+                            $("#" + idstkgrp + "").val(data[0].val.STKGRP_PRC);
+                            $("#" + idUnitPrice + "").val(data[0].val.Price);
+                        }
+                    });
+                },
+
+                minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+            });
+
+        });
+        $(document).on('click', '#cancelxsod', function () {
+            var sccrmno = "";
+            var stkcod = $(this).attr('stkcod');
+            sccrmno = $(this).attr('sccrmno');
+
+            var Scid = $('#Noid').val();
+
+            if (stkcod == undefined || sccrmno == "") {
+                $(this).closest('tr').remove();
+                return false;
+            } else {
+                sccrmno = sccrmno.trim();
+                var resfoc = new Array();
+                if (stkcod !== "") {
+                    resfoc = stkcod.split("|");
+
+                } else {
+                    resfoc[0] = "";
+                }
+                $("#del").attr("docnoe", Scid);
+                $("#del").attr("stkcod", resfoc[0]);
+                $("#del").attr("str", "2");
+                $("#del").attr("sccrmno", sccrmno);
+                $("#confirm-delete").modal();
+                $("#textAlertheader").empty();
+                $("#textAlertheader").text("ยืนยันการ Cancel รายการ");
+                $("#textAlertdelete").empty();
+                $("#textAlertdelete").text("กรุณายืนยันการ Cancel รายการ");
+            }
+        });
+        $(document).on('click', '#cancelx', function () {
+            var DocNo = $(this).attr('docno').trim();
+            // var sccrmno = $(this).attr('sccrmno').trim();
+            $("#del").attr("str", "1");
+            $("#del").attr("docnoe", DocNo);
+            // $("#del").attr("sccrmno", sccrmno);
+            $("#confirm-delete").modal();
+            $("#textAlertheader").empty();
+            $("#textAlertheader").text("ยืนยันการ Cancel รายการ CRM by Sales Co");
+            $("#textAlertdelete").empty();
+            $("#textAlertdelete").text("กรุณายืนยันการ Cancel รายการ CRM by Sales Co");
+        });
+
+
+        $(document).on('click', '#Scmid', function () {
+            var Doc = $(this).text();
+            var DocNo = $(this).attr('docnoe').trim();
+            var cus = $(this).attr('cus');
+            var split = cus.split('|');
+            var cus = split[0];
+            var xusname = split[1];
+
+            //$("#" + idstkdes + "").val("");
+
+            $.ajax({
+                url: '@Url.Action("GetdataCus", "SrcSaleCoCrm")',
+                data: {
+                    cus: cus,
+                    Doc: Doc
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+
+                    //console.log(data.CrmOrderList);
+                    if (data.CrmList.length == 1) {
+
+                        $('#RequestedDeliveryDate').attr("disabled", "disabled");
+                        $('#RequestedDeliverytime').attr("disabled", "disabled");
+
+                        $('#RequestedDeliveryDate').css("cursor", "not-allowed");
+                        $('#RequestedDeliverytime').css("cursor", "not-allowed");
+
+                        $('#SOWid').val(data.CrmList[0].Document_Order);
+                        $('#SalepersonCode').val(data.CrmList[0].ScCrm_SLMCODE);
+
+                        // $('#SelltCusoNolist').append('<option value="' + data.CrmList[0].ScCrm_CUSCOD + '" selected="selected">' + data.CrmList[0].ScCrm_CUSCOD + "/" + data.CUSNAM1 + '</option>');
+                        //$('#SelltCusoNolistx').val(data.CrmList[0].ScCrm_CUSCOD);
+                        if (data.CrmList[0].ScCrm_CUSCOD == "") {
+                            $('#SelltCusoNolist').val("");
+                        } else {
+                            $('#SelltCusoNolist').val(data.CrmList[0].ScCrm_CUSCOD + "|" + data.CrmList[0].ScCrm_CUSNAM);
+                        }
+                        $('#Noid').val(data.CrmList[0].ScCrm_DocNo);
+                        $('#DocumentType').val(data.CrmList[0].ScCrm_DocType);
+                        $('#RequestedDeliveryDate').val(data.CrmList[0].ScCrm_RequeDelivery);
+                        $('#RequestedDeliverytime').val(data.CrmList[0].ScCrm_RequeDeliverytime);
+                        $('#Callby').val(data.CrmList[0].ScCrm_ByCall.trim());
+                        $('#PhoneStatus').val(data.CrmList[0].ScCrm_PhoneStatus);
+                        $('#Status').val(data.CrmList[0].ScCrm_Status);
+                        $('#Step1').val(data.CrmList[0].ScCrm_Step1.trim());
+                        $('#Step2').val(data.CrmList[0].ScCrm_Step2.trim());
+                        $('#Step3').val(data.CrmList[0].ScCrm_Step3.trim());
+                        $('#Step4').val(data.CrmList[0].ScCrm_Step4.trim());
+                        $('#Step5').val(data.CrmList[0].ScCrm_Step5.trim());
+                        $('#textareaCommentSc').val(data.CrmList[0].ScCrm_Linenote);
+                        $('#usercreate').val(data.CrmList[0].ScCrm_UserCreate);
+                        $('#usercreateDate').val(data.CrmList[0].ScCrm_Createdate);
+                        $('#usercreatetime').val(data.CrmList[0].ScCrm_Createdatetime);
+                        var _Status = data.CrmList[0].ScCrm_Status;
+                        if (_Status == "2") {
+                            $('#userclosed').val(data.CrmList[0].ScCrm_UseClosed);
+                            $('#userclosedDate').val(data.CrmList[0].ScCrm_UseCloseddate);
+
+                            $('#userclosedtime').val(data.CrmList[0].ScCrm_UseCloseddatetime);
+                        } else {
+                            $('#userclosed').val("");
+                            $('#userclosedDate').val("");
+                            $('#userclosedtime').val("");
+                        }
+                        $("#Sod > tbody").empty();
+                        // console.log(data.CrmOrderList);
+
+                        if (data.CrmOrderList.length > 0) {
+                            $('#tborder').css('display', 'block');
+                            $('.displaycall').css('display', 'none');
+                            $('#tabcondition').css('display', 'none');
+                            $('#tbprice').css('display', 'none');
+                            $(this).css('background-color', '');
+                            $('#datasavecall').css('background-color', 'white');
+                            $('#ItenStockPrice').css('background-color', 'beige');
+                            $('#datacall').css('background-color', 'beige');
+                            // var CodeID = "-";
+                            //  fnGetStatus(CodeID);
+
+                            var SubmithtmlPage = '';
+                            for (var i = 0; i < data.CrmOrderList.length; i++) {
+                               
+                                var type = data.CrmOrderList[i].StatusItem;
+                                SubmithtmlPage += '<tr id="' + data.CrmOrderList[i].ScCrmNo + '" sccrmno ="' + data.CrmOrderList[i].ScCrmNo + '">'
+                                SubmithtmlPage += '<td style="text-align: center;font-size: x-large;"><div class="fas fa-trash fa-1x" id="cancelxsod" sccrmno ="' + data.CrmOrderList[i].ScCrmNo + '" STKCOD="' + data.CrmOrderList[i].STKCOD + '" STKDES="' + data.CrmOrderList[i].STKDES + '" STKGRP="' + data.CrmOrderList[i].STKGRP + '" LineNote="' + data.CrmOrderList[i].LineNote + '" style=" color: red; cursor: pointer; "></div></td>';
+                                SubmithtmlPage += '<td>';
+                                SubmithtmlPage += '<select  id="select' + i + 'B"  class="_sele form-control">';
+                                SubmithtmlPage += '<option selected="selected" value="' + data.CrmOrderList[i].StatusItem + '">' + data.CrmOrderList[i].StatusItemName + '</option>';
+                               
+                            
+
+                                for (var n = 0; n < data.SCStatusArea.length; n++) {
+                                    var ck = data.SCStatusArea[n].Value;
+                                    var ckd = data.SCStatusArea[n].Text;
+                                    if (type != ck) {
+                                        SubmithtmlPage += '<option value="' + ck + '">' + ckd + '</option>';
+                                    }
+                                }
+                                 SubmithtmlPage += '<select id="select' + i + 'B"  class="_sele form-control">';
+                               
+                                SubmithtmlPage += '</select>';
+                                SubmithtmlPage += '</td>';
+                                SubmithtmlPage += '<td><input id="stkcod' + i + 'B"   class="form-control stkcod ui-autocomplete-input" value="' + data.CrmOrderList[i].STKCOD + '" style=" width: 100%;"></td>';
+                                SubmithtmlPage += '<td><input id="stkdes' + i + 'B" style="width:100%;" value="' + data.CrmOrderList[i].STKDES + ' " class="form-control stkdes" ></td>';
+                                SubmithtmlPage += '<td><input id="stkGrp' + i + 'B"  class="form-control stkGrp" value="' + data.CrmOrderList[i].STKGRP + '" style=""></td>';
+                                SubmithtmlPage += '<td><input id="Qty' + i + 'B"  class="form-control Qty" name="S_Qty" value="' + data.CrmOrderList[i].Qty + '"  ></td>';
+                                SubmithtmlPage += '<td><input id="UnitPrice' + i + 'B"  class="form-control UnitPrice"  name="S_Price" value="' + data.CrmOrderList[i].UnitPrice + '" ></td>';
+                                SubmithtmlPage += '<td><input id="Amount' + i + 'B"  class="form-control Amount"  value="' + data.CrmOrderList[i].Amount + '" ></td>';
+                                SubmithtmlPage += '<td><input id="linenote' + i + 'B" class="form-control linenote"  value="' + data.CrmOrderList[i].LineNote + '" style=" width: 100%;"></td></tr>';
+
+                            }
+                            $("#Sod").append(SubmithtmlPage);
+                            // $("#Sod").append(SubmithtmlPage);
+                        }
+                    }
+                }
+            });
+        });
+        $("#Gso").click(function () {
+            $("#ModalDoc").modal();
+            var User = $('#usrlogin').val();
+
+            $.ajax({
+                url: '@Url.Action("GetdateDoc", "SrcSaleCoCrm")',
+                data: {
+                    User: User
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    $("#ModalDoc").modal();
+                    //('#openShipping').css("display", "block");
+                    $("#DocumentOrder > tbody").empty();
+
+
+                    for (var i = 0; i < data.length; i++) {
+                        var SubmithtmlPage = '<tr style="cursor: pointer;" Doc=' + data[i].Document_Order + ' slm=' + data[i].Slm + ' cus=' + data[i].Cus + ' cusname=' + data[i].CusNam + ' >';
+                        SubmithtmlPage += '<td>' + data[i].Document_Order + '</td>';
+                        SubmithtmlPage += '<td>' + data[i].Slm + '</td>';
+                        SubmithtmlPage += '<td>' + data[i].Cus + '</td>';
+                        SubmithtmlPage += '<td>' + data[i].InsertBy + '</td>';
+                        SubmithtmlPage += '<td>' + data[i].ORD_Date + '</td>';
+                        $('#DocumentOrder').prepend(SubmithtmlPage);
+                    }
+
+                }
+            });
+
+        });
+        $("#DocumentOrder").on("click", "tr", function () {
+            var Doc = $(this).attr('Doc');
+            var slm = $(this).attr('slm');
+            var cus = $(this).attr('cus');
+            var cusname = $(this).attr('cusname');
+            $('#SOWid').val(Doc);
+            $('#SalepersonCode').val(slm);
+            $("#SelltCusoNolist").val(cus + "|" + cusname);
+             
+                $("#ModalDoc").modal('hide');
+        });
+        $('#CancalDoc').click(function () {
+            $('#SOWid').val("");
+        });
+        $(document).on('click', '#del', function () {
+            var DocNo = $(this).attr('docnoe').trim();
+            var str = $(this).attr('str').trim();
+            var User = $("#usrlogin").val();
+
+
+        
+            if (str == "1") {
+               
+                
+                $.ajax({
+                    url: '@Url.Action("DelSrcSaleCoCrm", "SrcSaleCoCrm")',
+                    data: {
+                        DocNo: DocNo,
+                        Users: User
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        if (data = "true") {
+                            // $(".modal-header").empty();
+                            // $(".modal-body").empty();
+                            $("#textAlertSuccesdel").empty();
+                            $("#textAlertSuccesdel").text("Cancel รายการ  เรียบร้อย");
+                            $("#myModalSuccesdel").modal();
+                            $("#myModalSuccesdel").click(function () {
+                                // $('#myPleaseWait').modal('show');
+                                location.reload();
+
+                                // $(this).attr('sccrmno').remove();
+                            });
+                            //  $('#btnShowbyitem').trigger('click');
+
+                        } else {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text(data.message);
+                            $("#myModalWarning").modal(); return false;
+                        }
+                    }
+
+                });
+            } else {
+                ///var stkcod = $(this).attr('stkcod');
+                var sccrmno = $(this).attr('sccrmno');
+               
+                $.ajax({
+                    url: '@Url.Action("DelSrcSaleCoCrmOrder", "SrcSaleCoCrm")',
+                    data: {
+                        Scid: sccrmno
+                        //stkcod: stkcod
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        // console.log(data);
+                        if (data = "Y") {
+                            $("#textAlertSucces").empty();
+                            $("#textAlertSucces").text("Cancel รายการ  เรียบร้อย");
+                            $("#myModalSucces").modal();
+                            $("#myModalSucces").click(function () {
+                                // $('#myPleaseWait').modal('show');
+                                //location.reload();
+
+
+                                $('#' + sccrmno).remove();
+
+                            });
+                            //  $('#btnShowbyitem').trigger('click');
+
+                        } else {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text(data.message);
+                            $("#myModalWarning").modal(); return false;
+                        }
+                    }
+                });
+
+
+            }
+        });
+        $('#UserCreatecrm').change(function (e) {
+            e.preventDefault();
+            var SLMID = $("#SalepersonCode").val();
+            var UserCreate = $('#description').val();
+            var cuscod = $("#SelltCusoNolist").val();
+
+            var url = '@Url.Action("Filter")';
+            $.get(url, { department: $('#description').val(), UserCreate: $(this).val(), scnumber: $('#scnumber').val(), slm: SLMID, cuscod: cuscod, sonumer: $('#sonumber').val() }, function (result) {
+                //debugger;
+                $('#EmployeeViewGrid').html(result);
+            });
+        });
+        $('#scnumber').change(function (e) {
+            e.preventDefault();
+            var SLMID = $("#SalepersonCode").val();
+            var UserCreate = $('#description').val();
+            var cuscod = $("#SelltCusoNolist").val();
+            var url = '@Url.Action("Filter")';
+            $.get(url, { department: $('#description').val(), UserCreate: $('#UserCreatecrm').val(), scnumber: $('#scnumber').val(), scnumber: $(this).val(), slm: SLMID, cuscod: cuscod, sonumer: $('#sonumber').val() }, function (result) {
+                //debugger;
+                $('#EmployeeViewGrid').html(result);
+            });
+        });
+        $('#description').change(function (e) {
+            e.preventDefault();
+            var SLMID = $("#SalepersonCode").val();
+            var UserCreate = $("#UserCreatecrm").val();
+            var cuscod = $("#SelltCusoNolist").val();
+            var url = '@Url.Action("Filter")';
+            $.get(url, { department: $(this).val(), UserCreate: UserCreate, scnumber: $('#scnumber').val(), slm: SLMID, cuscod: cuscod, sonumer: $('#sonumber').val() }, function (result) {
+                //debugger;
+                $('#EmployeeViewGrid').html(result);
+            });
+        });
+        $('#sonumber').change(function (e) {
+            e.preventDefault();
+            var SLMID = $("#SalepersonCode").val();
+            var UserCreate = $("#UserCreatecrm").val();
+            var cuscod = $("#SelltCusoNolist").val();
+            var url = '@Url.Action("Filter")';
+            $.get(url, { department: $('#description').val(), UserCreate: UserCreate, scnumber: $('#scnumber').val(), slm: SLMID, cuscod: cuscod, sonumer: $('#sonumber').val() }, function (result) {
+                //debugger;
+                $('#EmployeeViewGrid').html(result);
+            });
+        });
+       
+        $(document).on("click", "#nextcheckstock", function () {
+           
+            window.location.replace("../SCStockSco/Index");
+
+        });
+        $(document).on("click", "#btnstatus", function () {
+
+            window.location.replace("../Statuslist/Index");
+
+        });
+        $(document).on("click", "#btndetail", function () {
+
+            window.location.replace("../SeleScrCustomer/dashboard");
+
+        });
+        $(document).on("click", "#nextbck", function () {
+
+            window.location.replace("../BackOrderAll/Index");
+
+        });
+     
+    </script>
+
+
+</body>
+
+</html>
+

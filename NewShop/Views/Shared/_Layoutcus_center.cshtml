@@ -1,0 +1,635 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/bootstrap.min.css">
+    <!-- Owl Carousel main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/tmartcss/css/owl.theme.default.min.css">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="~/tmartcss/css/core.css">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="~/tmartcss/css/shortcode/shortcodes.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="~/tmartcss/style.css">
+    <!-- Responsive css -->
+    <!-- <link rel="stylesheet" href="~/tmartcss/css/responsive.css">-->
+    <!-- User style -->
+    <!--<link rel="stylesheet" href="~/tmartcss/css/custom.css">-->
+    <!-- Modernizr JS -->
+    <script src="~/tmartcss/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+    <style>
+        .header {
+            /*background-color: #3c8dbc;*/
+            background: linear-gradient(-180deg,#ef3b13fa,#1a30d0a3);
+        }
+
+        .fixheader {
+            overflow: hidden;
+            background: linear-gradient(-180deg,#ef3b13fa,#1a30d0a3);
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        /* Dropdown Button */
+        /*.dropbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }*/
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdownb {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdownb-content {
+            display: none;
+            position: absolute;
+            background-color: #3570b6;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 999;
+            position: relative;
+        }
+
+            /* Links inside the dropdown */
+            .dropdownb-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdownb-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .modal-backdrop {
+            visibility: hidden !important;
+        }
+
+        .modal.in {
+            background-color: rgba(0,0,0,0.5);
+        }
+        /*modify css menu*/
+        .header .navbar-light .navbar-nav .nav-link {
+            padding: 10px 5px !important;
+            font-size: 14px !important;
+            white-space: nowrap;
+        }
+
+            .header .navbar-light .navbar-nav .nav-link .fa {
+                font-size: 1.50em;
+            }
+
+        .navbar {
+            margin-bottom: 10px !important;
+        }
+
+        .navbar-collapse {
+            padding-right: 10px !important;
+        }
+
+        .form-control {
+            border-color: red;
+        }
+        /* The container <div> - needed to position the dropdown content */
+       
+
+       
+
+         
+
+
+        /* Show the dropdown menu on hover */
+        .dropdownb:hover .dropdownb-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdownb:hover .dropbtnb {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Body main wrapper start -->
+    <!--=================== Header =======================-->
+    <header class="header fixheader">
+        <nav class="navbar navbar-toggleable-sm navbar-light pt--120 pb--120">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand p-0 mr-5" href="#"><img src="~/images/logo/AACTAC185x70.jpg" /></a>
+
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+
+                    @if (Session["UserType"].ToString() != "6")
+                    {
+
+                         <div class="dropdownb">
+                              @*<button class="dropbtn">Dashboard Sales Man</button>*@
+                                @*<span class="dropbtn">Dashboard Sales Man</span>*@
+                                <li class="nav-item dropdown messages-menu">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa fa-address-book-o" style="font-size: 1.7em;"></i>
+
+                                        <span class="dropbtnb">Dashboard Sales Man</span>
+                                    </a>
+                                </li>
+                              <div class="dropdownb-content">
+                                  <a class="nav-link" href="https://app.powerbi.com/view?r=eyJrIjoiNGQwMWVhYzQtZGY4OC00M2ViLTkzNWQtMzhlZTlkNGRhZWVmIiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D&pageName=ReportSectionc3e8cc716cd0c396e25c" target="_blank">TAC Expro</a>
+                                  <a class="nav-link" href="https://app.powerbi.com/view?r=eyJrIjoiZjc5YmU5ODctNDdlMy00NGI0LTk2MzItYjM5MmRmMzUxZTNiIiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D" target="_blank">KPI Sales</a>
+                              </div>
+                           </div>
+            }
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarload" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa fa-exchange"></i>
+
+                            <span>Upload order</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown messages-menu">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarshowdetail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="label label-success bg-success" id="countsku"></span>
+                            <span>ตะกร้าสินค้า</span>
+                        </a>
+                        @*<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <ul class="dropdown-menu-over list-unstyled">
+                                <li class="header-ul text-center">You have 4 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu list-unstyled">
+                                        <li>
+                                            <!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle  " alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer-ul text-center"><a href="#">See All Messages</a></li>
+                            </ul>
+                            </div>*@
+                    </li>
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarwait" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa fa-clock-o"></i>
+                            <span class="label label-success bg-success" id="rd"></span>
+                            <span>สินค้ารออนุมัติ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarstatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa fa-truck"></i>
+
+                            <span>การสั่งซื้อของฉัน</span>
+                        </a>
+                    </li>
+                    @*<i class="fa fa fa-user-circle-o" ></i>*@
+                    @if (Session["UserType"].ToString() != "6")
+                    {
+                        <span style=" padding: 12px 0px 0px;color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>}
+                    else if (Session["UserType"].ToString() == "6")
+                    {
+                        <span style=" padding: 12px 0px 0px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]  </span>
+                    }
+                    <li class="nav-item dropdown  user-menu ">
+
+
+                        @*<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+
+
+
+                        @*</a>*@
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @*<a class="dropdown-item" href="#">Action</a>*@
+                            @*<a class="dropdown-item" href="~/Home2/Index">Home2</a>*@
+                            @if (Session["UserType"].ToString() == "5")
+                            {
+                                <a class="dropdown-item" href="~/Orderlist/Index">Home</a>
+                            }
+                            else if (Session["UserType"].ToString() != "5")
+                            {
+                                <a class="dropdown-item" href="~/Orderlist/Index">Home</a>
+                                <a class="dropdown-item" href="~/Cart/Index">Cart</a>
+                                <a class="dropdown-item" href="~/SeleScrCustomer/Index">Detail Customer</a>
+                            }
+                        </div>
+                    </li>
+                    @if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
+                    {
+                        <li class="nav-item dropdown messages-menu">
+                            <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">
+                                <i class="fa fa fa-undo"></i>
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+                    }
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="~/Account/LogIn">
+                            <i class="fa fa fa-outdent"></i>
+                            <span>ออกจากระบบ</span>
+                        </a>
+                    </li>
+                    </ul>
+                    </div>
+                </nav>
+            </header>@RenderBody()
+            @*<div class="body__overlay"></div>*@
+            <div class="container">
+                <div class="row">
+                </div>
+            </div>
+            @*modal change password*@
+            <div class="modal fade" role="dialog" id="modalChangePassword" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" style="padding-top: 15%;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="justify-content: flex-start;">
+                            <h5 class="modal-title" id="exampleModalLabel">Change Password [@Session["expdatecal"] day expired]</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="username"><i class="fa fa-user"></i> Username</label>
+                                    <input type="text" class="form-control" name="username" id="username" value="@Session["UserID"]" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="oldPasswordLabel" id="oldPasswordLabel"><i class="fa fa-key"></i> Old password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control form-control-warning" name="oldPassword" id="oldPassword" placeholder="" onkeyup="checkEmptyField(this);" onkeypress="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="showOldPassword();" style="height: 34px; margin-left: -3px;"><i class="fa fa-eye"> </i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPasswordLabel" id="newPasswordLabel"><i class="fa fa-key"></i> New password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="" onkeyup="checkEmptyField(this);" onkeypress="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="showNewPassword();" style="height: 34px; margin-left: -3px;"><i class="fa fa-eye"> </i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newConfirmPasswordLabel" id="newConfirmPasswordLabel"><i class="fa fa-key"></i> Confirm password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" name="newConfirmPassword" id="newConfirmPassword" placeholder="" onkeyup="checkEmptyField(this);" onkeypress="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="showNewConfirmPassword();" style="height: 34px; margin-left: -3px;"><i class="fa fa-eye"> </i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            @*warning*@
+                            <div class="row" id="warningSave" style="display: none;">
+                                <div class="col-sm-12 text-left" style="margin-top: 0px;">
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        @*<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                                        <strong>Warning</strong>
+                                        <hr>
+                                        <span id="textWarningSave"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @*success*@
+                            <div class="row" id="successSave" style="display: none;">
+                                <div class="col-sm-12 text-left" style="margin-top: 0px;">
+                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                        <strong>Success</strong>
+                                        <hr>
+                                        <span id="textSuccessSave"></span>
+                                        @*<br>
+                                            Automatic Logout Mobile order. <i class="fa fa-spinner fa-spin"></i>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" id="btnChangePassword" onclick="btnChangePassword();">
+                                        <span id="iconLoading"></span> Save
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*modal success*@
+            <div class="modal fade" role="dialog" id="modalSuccess" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" style="padding-top: 15%;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header alert-success" style="justify-content: flex-start;">
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-check-circle" style="font-size: 2em;"></i> &nbsp;&nbsp;&nbsp; You password has been changed</h5>
+                        </div>
+                        <div class="modal-body">
+                            Click "Ok" to logout Mobile order. 
+                            <br> <b><u>Please logoff windows.</u></b>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body main wrapper end -->
+            <!-- Placed js at the end of the document so the pages load faster -->
+            <!-- jquery latest version -->
+            @*<script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>*@
+            <!-- Bootstrap framework js -->
+            <script src="~/tmartcss/js/bootstrap.min.js"></script>
+            <!-- All js plugins included in this file. -->
+            <script src="~/tmartcss/js/plugins.js"></script>
+            <script src="~/tmartcss/js/slick.min.js"></script>
+            <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+            <!-- Waypoints.min.js. -->
+            <script src="~/tmartcss/js/waypoints.min.js"></script>
+            <!-- Main js file that contents all jQuery plugins activation. -->
+            <script src="~/tmartcss/js/main.js"></script>
+            <script defer>
+                //onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)"
+                //ถ้ายังไม่กรอกรหัส border input red
+                function checkEmptyField(arg) {
+                    var id = arg.getAttribute('id');
+                    var value = arg.value;
+                    if (value.length == 0) {
+                        $("#" + id).css({ "border": "1px solid #ff4d4d" });
+                        $("#" + id + "Label").css({ "color": "1px solid #ff4d4d" });
+
+                    } else {
+                        $("#" + id).css({ "border": "1px solid #5cb85c" });
+                        $("#" + id + "Label").css({ "color": "1px solid #5cb85c" });
+                    }
+                }
+
+                function showOldPassword() {
+                    var x = document.getElementById("oldPassword");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+
+                function showNewPassword() {
+                    var x = document.getElementById("newPassword");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+
+                function showNewConfirmPassword() {
+                    var x = document.getElementById("newConfirmPassword");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+
+                $("#formChangePassword").click(function () {
+                    $('#modalChangePassword').modal({ backdrop: 'static', keyboard: false });
+                    $('#modalChangePassword').on('shown.bs.modal', function () {
+
+                        $("#oldPassword, #newPassword, #newConfirmPassword").css({ "border": "1px solid #ff4d4d" });
+                        $("#oldPasswordLabel, #newPasswordLabel, #newConfirmPasswordLabel").css({ "color": "#ff4d4d" });
+
+
+                        $("#oldPassword").val('');
+                        $("#newPassword").val('');
+                        $("#newConfirmPassword").val('');
+                        $('#oldPassword').focus()
+
+                    })
+                })
+                //close modal from
+                $('#modalChangePassword').on('hidden.bs.modal', function (e) {
+                    //clear warning, success
+                    $("#successSave").css('display', 'none');
+                    $("#textSuccessSave").html('');
+                    $("#warningSave").css('display', 'none');
+                    $("#textWarningSave").html('');
+                    $("#oldPassword").val('');
+                    $("#newPassword").val('');
+                    $("#newConfirmPassword").val('');
+                });
+                //close modal success
+                $('#modalSuccess').on('hidden.bs.modal', function (e) {
+                     window.location.href = '@Url.Action("Login", "Account")';
+                });
+
+                function btnChangePassword() {
+                    var error = 0;
+                    const msg = [];
+                    var msgEx = "";
+                    var alphanumeric = /^[a-zA-Z0-9]+$/;
+
+                    var username = $("#username").val();
+                    var oldPassword = $("#oldPassword").val();
+                    var newPassword = $("#newPassword").val();
+                    var newConfirmPassword = $("#newConfirmPassword").val();
+
+                    if (oldPassword == "") {
+                        ++error;
+                        msg.push(error + ".Old password empty.");
+                        $("#oldPassword").css({ "border": "1px solid #ff4d4d" });
+                    }
+                    if (newPassword == "") {
+                        ++error;
+                        msg.push(error + ".New password empty.");
+                        $("#newPassword").css({ "border": "1px solid #ff4d4d" });
+
+                    } else {
+                        //check new pass
+                        if (newPassword.length < 8) {
+                            ++error;
+                            msg.push(error + ".Your password must be at least 8 characters");
+                        }
+                        if (newPassword.length > 16) {
+                            ++error;
+                            msg.push(error + ".Your password must be at max 16 characters");
+                        }
+                        if (newPassword.search(/[a-z]/) < 0) {
+                            ++error;
+                            msg.push(error + ".Your password must contain at least one lower case letter.");
+                        }
+                        if (newPassword.search(/[A-Z]/) < 0) {
+                            ++error;
+                            msg.push(error + ".Your password must contain at least one upper case letter.");
+                        }
+                        if (newPassword.search(/[0-9]/) < 0) {
+                            ++error;
+                            msg.push(error + ".Your password must contain at least one digit.");
+                        }
+                        //if (newPassword.match(alphanumeric) === null) {
+                        //    ++error;
+                        //    msg.push(error + ".Your password must contain at least special char.");
+                        //}
+                    }
+
+                    if (newConfirmPassword == "") {
+                        ++error;
+                        msg.push(error + ".Confirm password empty.");
+                        $("#newConfirmPassword").css({ "border": "1px solid #ff4d4d" });
+                    }
+
+                    if (newPassword != "" && newConfirmPassword != "") {
+                        if (newPassword != newConfirmPassword) {
+                            ++error;
+                            msg.push(error + ".New Password and Confirm Password not match.");
+                        }
+                    }
+                    if (error > 0) {
+                        $("#warningSave").css('display', 'block');
+                        $("#textWarningSave").html(msg.join("<br>"));
+                    } else {
+                        $("#warningSave").css('display', 'none');
+                        $.ajax({
+                            type: 'POST',
+                            cache: false,
+                            url: '@Url.Action("ChangePassword", "Account")',
+                            data: {
+                                userName: username,
+                                oldPassword: oldPassword,
+                                newPassword: newPassword,
+                            },
+                            beforeSend: function () {
+                                $("#iconLoading").html('<i class="fa fa-spinner fa-spin"></i>');
+                                $("#btnChangePassword").prop('disabled', true);
+                            },
+                            success: function (result) {
+                                msgEx = result.message;
+                                if (result.status == "success") {
+                                    $('#modalSuccess').modal({ backdrop: 'static', keyboard: false });
+                                    setTimeout(function () {
+                                        $('#modalChangePassword').modal('toggle');
+                                    }, 500);
+                                    @*$("#successSave").css('display', 'block');
+                                    $("#textSuccessSave").html(result.message + '<br>'  + ' Automatic Logout Mobile order.' + '<br>' +'<b><u>Please logoff windows.</u></b>');
+                                    $("#warningSave").css('display', 'none');
+                                    setTimeout(function () {
+                                        window.location.href = '@Url.Action("Login", "Account")';
+                                    }, 5000);*@
+                                } else {
+                                    $("#successSave").css('display', 'none');
+
+                                    $("#warningSave").css('display', 'block');
+                                    if (msgEx.indexOf("an invocation") > -1) {
+                                        msgEx = "New password has already been used.";
+                                    }
+                                    $("#textWarningSave").html(msgEx);
+                                }
+                            },
+                            complete: function (res) {
+                                $("#btnChangePassword").prop('disabled', false);
+                                $("#iconLoading").html('');
+                            },
+                            error: function (ex) {
+                                $("#btnChangePassword").prop('disabled', false);
+                                $("#iconLoading").html('');
+                                $("#successSave").css('display', 'none');
+
+                                $("#warningSave").css('display', 'block');
+                                $("#textWarningSave").html(ex);
+                            }
+                        }).fail(function (error) {
+                            $("#successSave").css('display', 'none');
+
+                            $("#warningSave").css('display', 'block');
+                            $("#textWarningSave").html(error);
+                        });
+                    }
+                }
+
+            </script>
+
+        </body>
+
+    </html>

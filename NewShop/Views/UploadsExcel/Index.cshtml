@@ -1,0 +1,461 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutOrderlist.cshtml";
+
+    // Layout = "~/Views/Shared/_Layoutnavigationbar.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStatus.cshtml";
+    //Layout = "~/Views/Shared/View3.cshtml";
+    //Layout = "~/Views/Shared/_LayoutPage.cshtml";
+
+
+}
+<html>
+        <head>
+            <meta charset="utf-8">
+            <title></title>
+            <meta name="description" content="">
+            @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta property="og:title" content="">
+            <meta property="og:type" content="">
+            <meta property="og:url" content="">
+            <meta property="og:image" content="">
+
+            <!-- <link rel="manifest" href="~/html5boilerplate_v8/site.webmanifest">-->
+
+            <link rel="apple-touch-icon" href="icon.png">
+            <!-- Place favicon.ico in the root directory -->
+
+            <link href="~/html5boilerplate_v8/css/main.css" rel="stylesheet" />
+            <link rel="stylesheet" href="~/html5boilerplate_v8/css/normalize.css">
+            <link rel="stylesheet" href="~/html5boilerplate_v8/css/main.css">
+            <meta name="theme-color" content="#fafafa">
+            <link href="~/html5boilerplate_v8/css/sidebar.css" rel="stylesheet" />
+            <!------ Include the above in your HEAD tag ---------->
+            <script src="~/SortTable-master/sort-table.js"></script>
+            <style>
+
+            </style>
+        </head>
+        <body>
+            <!-- Add your site or application content here -->
+            <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
+            <script src="~/html5boilerplate_v8/js/vendor/modernizr-3.11.2.min.js"></script>
+            <script src="~/html5boilerplate_v8/js/plugins.js"></script>
+            <script src="~/html5boilerplate_v8/js/main.js"></script>
+
+            @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>*@
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+            <link href="~/bootstrap-4.0.0/dist/css/bootstrap.css" rel="stylesheet" />
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+            <script src="~/bootstrap/bootstrap3_4_1.js"></script>
+            <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+            <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+            <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+
+
+            <script src="~/Loadingmodal/js/modal-loading.js"></script>
+            <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+            <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+            <script src="~/Scripts/webAddress.js"></script>
+            <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+
+            <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+            <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+            <script src="~/fixed-table-master/fixed-table.js"></script>
+            <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+            <div class="page-wrapper chiller-theme toggled">
+                <main class="page-content">
+                    <h1>
+                        Upload Order
+                    </h1>
+                    <div class="col-md-8">
+                        <div class="input-group ">
+                            
+                            <a href="~/Excel/Order_Upload_By_Customer.xlsx"><img src="~/images/Excel.png" style="width:8%" />Download template</a>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-12 content">
+                        <form method="POST" enctype="multipart/form-data"
+                            <input type='hidden' id='txtId' name='customer' />
+                            <action ="/file/upload" style="display: block">
+                                <input type="file" name="file" multiple="multiple" id="uploadImages">
+                        </form>
+                        <div><p id="showcomplete" style="color: green; font-weight: 700; cursor: pointer; text-decoration: underline;"></p><p id="showfail" style="color: red; font-weight: 700; cursor: pointer; text-decoration: underline;"></p></div>
+                        <div></div>
+                    </div>
+                   
+                </main>
+            </div>
+            <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <strong>Detail</strong>
+                            <table id="classTable" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Stockcode</th>
+                                        <th>UOM</th>
+                                        <th>Qty</th>
+                                        <th>Status Upload</th>
+                                        <th>Status Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="myModal" style="background-color: black;">
+
+                <div class="modal-dialog" role="document" style="width: 360px;">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+
+                            @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+
+                        </div>
+
+                        <div class="modal-body" id="texterror">
+                        </div>
+
+                        <div class="modal-footer">
+
+                            @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
+
+                            <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
+
+                            @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <script type="text/javascript">
+                var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+                var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+                var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+                var usercode = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+                var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+                expire(usrexpire)
+                // alert(usercode)
+                if (usertype == "") {
+                    window.location.replace("../Account/LogIn");
+
+                } else {
+                    if (usertype == "1" || usertype == "2") {
+                        resourceAddress.hash();
+                        var cuscod = atob(param_values.numcuber);
+
+                        // var cuscod = "110Z0001O";
+                        $("#changepass").css("display", "none");
+                    } else if (usertype == "5") {
+                        var cuscod = "110Z0001O";
+                       // $("#changepass").css("display", "none");
+
+                    } else if (usertype == "6") {
+                        resourceAddress.hash();
+                        // var cuscod = usercode;
+                        var cuscod = atob(param_values.numcuber);
+                       
+                        //$("#changepass").css("display", "block");
+                    }
+                }
+                function checklogin(userid, id) {
+                    $.ajax({
+                        url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
+                        data: {
+                            UsrID: userid,
+                            SessionId: id
+
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            var splitstring = data.StrStstuslogin;
+                            console.log(splitstring);
+                            let text = splitstring;
+                            const myArray = text.split("|");
+                            let mysession = myArray[1];
+                            let mystatus = myArray[0];
+                            console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
+                            if (id != mysession) {
+                                $("#texterror").empty();
+                                $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวาลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
+                                $("#myModal").modal();
+                                return false;
+                                //window.location.replace("../Account/LogIn");
+                            } else {
+
+                                if (mystatus == "0") {
+                                    $("#texterror").empty();
+                                    $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวาลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
+                                    $("#myModal").modal();
+                                    return false;
+                                    //window.location.replace("../Account/LogIn");
+                                }
+                            }
+                        }
+                    });
+
+                }
+                function checkPrivilege(userid, cuscod) {
+                    $.ajax({
+                        url: '@Url.Action("GetdataPrivilege", "DataCenter")',
+                        data: {
+                            UsrID: userid,
+                            cuscod: cuscod
+
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            var splitstring = data.StrStstuslogin;
+
+                            if (splitstring == "1") {
+                                $("#texterror").empty();
+                                $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
+                                $("#myModal").modal();
+                                return false;
+
+                            }
+                        }
+                    });
+
+                }
+                if (usertype == "6") {
+                   
+                    if (cuscod != "") {
+                        checkPrivilege(userid, cuscod)
+                    }
+                    $(window).on('load', function () {
+                        //alert("load")
+                        checklogin(userid, id)
+                    });
+                    window.onclick = function () {
+                        //alert("onclick")
+                        checklogin(userid, id)
+                    };
+                    $('.navbar-nav').click(function () {
+                        // alert("navbar-nav")
+                        checklogin(userid, id)
+                    });
+                    $(document).bind('mousedown keydown', function (ed, e) {
+
+                        checklogin(userid, id)
+                    });
+                    $(window).scroll(function (e) {
+
+                        checklogin(userid, id)
+                    });
+                }
+                $(document).on("click", "#myModal", function () {
+                    // $('#myModal3').click(function () {
+                    if (usertype == "6") {
+                        $("#myModal").modal({ backdrop: "static" });
+                    }
+                });
+                $('#btnlogin').click(function () {
+                    if (usertype == "6") {
+                        window.location.replace("../Account/LogIn");
+                    }
+                });
+
+                countorder();
+                $("#txtId").val(cuscod);
+                var datastatus = new Array();
+                $('#uploadImages').on('change', function () {
+                    var datacountstatusy = new Array();
+                    var datacountstatusf = new Array();
+                    var formData = new FormData();
+                    var loading = new Loading({ direction: 'hor', discription: 'Uploading...', defaultApply: true, });
+                    for (var i = 0; i < this.files.length; i++) {
+                        formData.append('postedFile', this.files[i]);
+                        formData.append('customer', $("#txtId").val());
+                        $.ajax({
+                            // url: '/Orderlist/JaImportExcel',
+                            url: '@Url.Action("JaImportExcel", "UploadsExcel")',
+                            type: 'post',
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                //console.log(data)
+                                if (data.List.length > 0) {
+                                    $('#uploadImages').val("");
+                                    loading.out();
+                                    datastatus = data.List;
+                                    // $('postedFile')[0].reset();
+                                    for (var i = 0; i < data.List.length; i++) {
+                                        if (data.List[i].Status == "Y") {
+                                            datacountstatusy.push(data.List[i].Status);
+                                        } else if (data.List[i].Status == "F") {
+                                            datacountstatusf.push(data.List[i].Status);
+                                        }
+
+                                    }
+                                    $("#showcomplete").html("Upload completed: " + datacountstatusy.length);
+                                    $("#showfail").html("Upload failed: " + datacountstatusf.length);
+                                    countorder();
+                                    
+                                    alert("upload successfully");
+                                }
+
+                            }
+                        })
+
+                    }
+                });
+                $('#uploadImages').on('click', function () {
+                    $("#showcomplete").html("");
+                    $("#showfail").html("");
+                });
+                $("#showcomplete").on('click', function () {
+                    // console.log(datastatus)
+                    $("#classTable > tbody").empty();
+                    var SubmithtmlPage = "";
+                    var status = "";
+                    var no = 1;
+                    for (var i = 0; i < datastatus.length; i++) {
+                        if (datastatus[i].Status == "F") {
+                            status = "<p style='color: red;'>Upload failed</p>";
+                        } else {
+                            status = "<p style='color:#1ed034;'>Upload completed</p>";
+                        }
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td>' + (i + 1) + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
+                        SubmithtmlPage += '<td>' + status + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Status_Message + '</td>';
+
+                        SubmithtmlPage += '</tr>';
+
+
+
+
+                    }
+                    $('#classTable').prepend(SubmithtmlPage);
+                    $('#classModal').modal('show')
+                });
+                $("#showfail").on('click', function () {
+                    // console.log(datastatus)
+                    $("#classTable > tbody").empty();
+                    var SubmithtmlPage = "";
+                    var status = "";
+                    var no = 1;
+                    for (var i = 0; i < datastatus.length; i++) {
+                        if (datastatus[i].Status == "F") {
+                            status = "<p style='color: red;'>Upload failed</p>";
+                        } else {
+                            status = "<p style='color:#1ed034;'>Upload completed</p>";
+                        }
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td>' + (i + 1) + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
+                        SubmithtmlPage += '<td>' + status + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Status_Message + '</td>';
+
+                        SubmithtmlPage += '</tr>';
+
+                        //}
+
+
+                    }
+                    $('#classTable').prepend(SubmithtmlPage);
+                    $('#classModal').modal('show')
+
+                });
+                function countorder() {
+                    // var SLM = $("#Slm").val()
+                    $.ajax({
+                        url: '@Url.Action("GetdateContorder", "DataCenter")',
+                        data: {
+                            cus: cuscod,
+                            Slm: "",
+                            Usertype: usertype,
+                            UserIn: userid
+
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+
+                            $("#countsku").html(data.Getdata[0].val.SumQty);
+
+                        }
+                    });
+                }
+                $(document).on("click", "#btnstatus", function () {
+                    //var wi = window.open("../Cart/Index");
+                    //var wi = window.open("../Statuslist/Index?numcuber=" + btoa(cuscod));
+                    //wi.focus();
+                    if (cuscod == "") {
+                        var wi = window.open("../Account/LogIn");
+                        wi.focus();
+                    } else {
+                        window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuscod));
+                    }
+                });
+                $(document).on("click", "#btndetail", function () {
+                    //var wi = window.open("../Cart/Index");
+
+                    if (cuscod == "") {
+                        var wi = window.open("../Account/LogIn");
+                        wi.focus();
+                    } else {
+                        window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cuscod));
+                    }
+                    // var wi = window.open("../SeleScrCustomer/Index?numcuber=" + btoa(cuscod));
+                    // wi.focus();
+
+                });
+                $('#navbarcart').click(function () {
+                    // $(document).on("click", "#navbarcart", function () {
+
+                    //var wi = window.open("../Cart/Index");
+                    if (cuscod == "") {
+                        var wi = window.open("../Account/LogIn");
+                        wi.focus();
+                    } else {
+                        var wi = window.open("../Cart/Index?numcuber=" + btoa(cuscod));
+                        wi.focus();
+                    }
+                });
+            </script>
+         </body>
+        </html>

@@ -1,0 +1,31 @@
+﻿@model List<OrderingMobile.Models.BackOrderbyDoc>
+@{
+    var gridd= new WebGrid(Model, canPage: true, rowsPerPage: 50, defaultSort: "Status", selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+    gridd.Pager(WebGridPagerModes.NextPrevious);
+
+
+}
+<div id="gridContent">
+
+    @gridd.GetHtml(tableStyle: "exampletbByDoc",
+                headerStyle: "header",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                        columns: gridd.Columns(
+                                
+                                                gridd.Column("Document No", format: @<a id="myHref" docnoe="@item.SaleOrder_No" coscod="@item.Cuscod" slm ="@item.Slm" style="font-size: initial;cursor: pointer;color: #1BB847;">@item.SaleOrder_No</a>),
+                                                gridd.Column("Cuscod", "Cuscod"),
+                                                gridd.Column("Slm", "Slm"),
+                                                gridd.Column("SaleOrder_Date", "Doc Date"),
+                                                gridd.Column("Qty", "Back Order"),
+                                                gridd.Column("Inventory", "Stock")
+
+                                                                                                                                          ))
+    @if (gridd.HasSelection)
+    {
+        OrderingMobile.Models.BackOrderbyDoc BackOrderbyDoc = (OrderingMobile.Models.BackOrderbyDoc)gridd.Rows[gridd.SelectedIndex].Value;
+
+
+    }
+
+</div>

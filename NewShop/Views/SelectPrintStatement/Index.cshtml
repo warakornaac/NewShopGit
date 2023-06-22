@@ -1,0 +1,1015 @@
+﻿@{
+    ViewBag.Title = "Select Customer PrintStatement";
+    //Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var dataSlm = ViewBag.GroupSLMTAB;
+    var type = ViewBag.typeUs;
+    Layout = "~/Views/Shared/_LayoutStatus.cshtml";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Promotion Statement</title>
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+
+    <style>
+        .jumbotron {
+            padding: 30px;
+            margin-bottom: 30px;
+            font-size: 21px;
+            font-weight: 200;
+            line-height: 2.1428571435;
+            color: inherit;
+            /*background-color: #eeeeee;*/
+            /*background-color: #E0FFFF;*/
+            /*margin-top: 166px;*/
+            background: rgba(36, 36, 36, 0.74);
+        }
+
+        #boxtype.outset {
+            border-style: outset;
+            width: 395px;
+            text-align: center;
+        }
+
+        .SeleCus {
+            background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+            position: absolute;
+            top: 21%;
+            left: 0;
+            width: 100%;
+            margin-top: -288px;
+            overflow: hidden;
+        }
+
+        .back {
+            background: #1e5799; /* Old browsers */
+            background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 17%, #207cca 61%, #7db9e8 92%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(17%,#2989d8), color-stop(61%,#207cca), color-stop(92%,#7db9e8)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* IE10+ */
+            background: linear-gradient(to bottom, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+        }
+
+        select {
+            border: 1px solid #d6d8db;
+            background-color: #ecedee;
+            text-transform: uppercase;
+            color: #47515c;
+            padding: 12px 10px 12px 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+            select > option {
+                text-transform: uppercase;
+                padding: 5px 0px;
+            }
+
+        .bs-example {
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        input[type=checkbox] {
+            /* Double-sized Checkboxes */
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            padding: 5px;
+        }
+        #changepass {
+            color: #0275d8;
+            text-decoration: none;
+            margin-bottom: 18px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <div class="container-fluid" id="showfield">
+
+                    <div class="card shadow mb-4 bannercol">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-4" id="sforsales">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label class="col-sm-4 col-form-label">พนักงานขาย</label>
+                                            @if (dataSlm.Count != 1)
+                                            {
+                                                <select id="Slm" class="form-control" style="color:black">
+                                                    <option value="0">เลือกSlmcod</option>
+                                                    @for (var i = 0; i < dataSlm.Count; i++)
+                                                    {
+                                                        <option value="@dataSlm[i].SLMCOD">@dataSlm[i].SLMCOD/@dataSlm[i].SLMNAM</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select id="Slm" class="form-control" style="color:black" disabled="disabled">
+
+                                                    @for (var i = 0; i < dataSlm.Count; i++)
+                                                    {
+                                                        <option value="@dataSlm[0].SLMCOD">@dataSlm[0].SLMCOD/@dataSlm[0].SLMNAM</option>
+                                                    }
+                                                </select>
+                                            }
+
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="typeemp">
+                                    <div class="form-group">
+                                        <div class="input-group">
+
+                                            <label class="col-sm-3 col-form-label">ลูกค้า</label>
+                                            <input type="text" class="form-control ui-autocomplete-input" id="Customer" />
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group" id="typecuslog">
+                                        <div class="input-group">
+                                            <label class="input-group-addon">ลูกค้าที่ท่านเลือกไว้</label>
+                                            <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <button type="button" id="call_da" class="btn-google"><span class="glyphicon glyphicon-print"></span>ค้นหาข้อมูล</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <h4><span class=" glyphicon glyphicon-book"></span>เลือกลูกค้าที่ต้องการ</h4>
+                 
+                    <div class="row">
+                        <div class="col-md-4" style="text-align:center">
+                            <div class="form-group">
+                               
+                             </div>
+                        </div>
+                       
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6 card shadow mb-3 bannercol" id="showbox">
+                            <div class="form-group">
+                                <div class="input-group">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group ">
+
+                                    <div class="fixed-table-container" id="fixed-table-container-1" style="z-index: 1;width:100%">
+                                        <table class="table table-bordered " id="dataTablex" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>รหัสลูกค้า</th>
+                                                    <th>ชื่อลูกค้า</th>
+
+                                                    <th>เลือกลูกค้า</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 card shadow mb-4 bannercol">
+                            <div class="form-group">
+                                <div class="input-group">
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group ">
+
+                                        <div class="fixed-table-container" id="fixed-table-container-2" style="z-index: 1; width: 100%">
+                                            <table class="table table-bordered " id="tbEventSelected" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>รหัสลูกค้า</th>
+                                                        <th>ชื่อลูกค้า</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+
+                                        </div>
+
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <button type="button" id="printALL" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print Statement</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+                <input type="hidden" id="int_type" value="@type">
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <div class="body__overlay"></div>
+    <!-- Start Offset MEnu -->
+    <div class="offsetmenu">
+        <div class="offsetmenu__inner">
+            <div class="offsetmenu__close__btn">
+                <a href="#"><i class="zmdi zmdi-close"></i></a>
+            </div>
+            <div class="off__contact">
+                <div class="logo">
+                    <a href="">
+                        My Account Customer
+
+                    </a>
+                </div>
+                <div class="offset__single">
+                    <div id="cusname">
+
+                    </div>
+
+                </div>
+                <p>DEFAULT BILLING ADDRESS</p>
+                <div class="offset__single">
+                    <div id="addcus">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="offset__widget">
+                <div class="offset__single">
+                    <h4 class="offset__title">Credit Limit</h4>
+                    <div id="crlicusaac">
+
+                    </div>
+                    <div id="crlicustac">
+
+                    </div>
+                </div>
+                <div class="offset__single">
+                    <h4 class="offset__title">Credit Balance</h4>
+                    <div id="crbarcusaac">
+
+                    </div>
+                    <div id="crbarcustac">
+
+                    </div>
+                </div>
+            </div>
+            <div class="offset__sosial__share">
+                <div class="offset__title" id="changepass">Change password</div>
+
+                @*<h4 class="offset__title">Follow Us On Social</h4>
+                    <ul class="off__soaial__link">
+                        <li><a class="bg--twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+
+                        <li><a class="bg--instagram" href="#" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+
+                        <li><a class="bg--facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+
+                        <li><a class="bg--googleplus" href="#" title="Google Plus"><i class="zmdi zmdi-google-plus"></i></a></li>
+
+                        <li><a class="bg--google" href="#" title="Google"><i class="zmdi zmdi-google"></i></a></li>
+                    </ul>*@
+            </div>
+        </div>
+    </div>
+    <!-- End Offset MEnu -->
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarning" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <strong>Warning!</strong>
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usercode = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var cuscod;
+        var cuscodselect;
+        resourceAddress.hash();
+
+        expire(usrexpire);
+       
+        $(document).ready(function () {
+
+            if (usertype == "") {
+                window.location.replace("../Account/LogIn");
+
+            } else {
+                if (usertype == "1" || usertype == "2") {
+                    if (param_values.numcuber != undefined) {
+                        cuscod = atob(param_values.numcuber)
+                     
+                    } else {
+                        cuscod = "";
+                    }
+                    $("#call_da").css("display", "block");
+                    $("#showfield").css("display", "block");
+                    $("#changepass").css("display", "none");
+                    $("#showbox").css("display", "block");
+                    $("#typecuslog").css("display", "none");
+                } else if (usertype == "5") {
+                    // resourceAddress.hash();
+                    var cuscod = "";
+                    $("#changepass").css("display", "none");
+                    $("#showbox").css("display", "block");
+                    $("#typecuslog").css("display", "none");
+                } else if (usertype == "6") {
+                    // resourceAddress.hash();
+                    cuscod = usercode;
+                    //if (param_values.numcuber != undefined) {
+                    //    cuscod = atob(param_values.numcuber)
+                    $("#changepass").css("display", "block");
+                    $("#showbox").css("display", "none");
+                    $("#typecuslog").css("display", "none");
+                    //} else {
+                    //    cuscod = "";
+                    //}
+                   
+                }
+            }
+            function getcus(cuscod) {
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: { cusel: cuscod },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        var typin = data[0].INACTIVE;
+                        if (typin == "Y") {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+
+                            return false;
+                        } else {
+                            $("#Customer").val(data[0].CUSCOD + "|" + data[0].CUSNAM)
+                            $("#Customer").prop("disabled", true);
+                        }
+                    }
+                });
+            }
+            function getslmandcus() {
+                $.ajax({
+                    url: '@Url.Action("Getdateslm", "DataCenter")',
+                    data: {
+
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+
+                        var select = $("#Slm");
+                        select.children().remove();
+
+                        if (usertype == "1") {
+                            select.append($("<option>").val("ALL").text("Sales Man"));
+                        }
+                        $(data).each(function (index, item) {
+                            select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                        });
+                    }
+                });
+            }
+            if (usertype != "6") {
+                getslmandcus()
+              
+
+                if (cuscod != "") {
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+                            if (data.length == 1) {
+                                $("#Customer").val(data[0].CUSCOD + "|" + data[0].CUSNAM)
+
+                                $("#Slm").val(data[0].SLMCOD);
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+                            //$("#cusname").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
+                            $("#cusname").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            $("#addcus").text(data[0].ADDR_01 + data[0].ADDR_02);
+                            $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                            $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+                            $("#crbarcusaac").text("AAC: " + commaSeparateNumber(data[0].AACBalance));
+                            $("#crbarcustac").text("TAC: " + commaSeparateNumber(data[0].TACBalance));
+                            $("#d1").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            getCreditcuskey(cuscod);//ดึงวงเงินจากร้านแม่
+                        }
+                    });
+                }
+            } else {
+                var cuscodcr = "";
+                if (param_values.numcuber != undefined) {
+                    cuscodcr = atob(param_values.numcuber)
+
+                } else {
+                    cuscodcr = "";
+                }
+                
+                getcus(cuscod);
+                $.ajax({
+                    url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
+                    data: {
+                        cusel: cuscodcr
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+
+                        $("#Slm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
+                        $("#Slm").prop("disabled", true);
+                        $("#Slm").val(data[0].SLMCOD);
+                        //datacus();  ///auto get customer to option select customer
+                    }
+                });
+                GetCustomerbycus();
+                if (param_values.numcuber != undefined) {
+                    cuscodselect = atob(param_values.numcuber)
+
+                } else {
+                    cuscodselect = "";
+                }
+                $("#showfield").css("display", "none");
+
+                $("#call_da").css("display", "none");
+                getcus(cuscod);
+                $.ajax({
+                    url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
+                    data: {},
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+
+                        var select = $("#selcus");
+                        select.children().remove();
+
+                        select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
+                        $.each(data, function (key, value) {
+
+                            select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                        });
+                        // $('.selectpicker').selectpicker('refresh');
+                        $("#selcus").val(cuscodselect).change();
+                    }
+                });
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cuscod
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        //$("#cusname").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
+                        $("#cusname").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                        $("#addcus").text(data[0].ADDR_01 + data[0].ADDR_02);
+                        $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+                        $("#crbarcusaac").text("AAC: " + commaSeparateNumber(data[0].AACBalance));
+                        $("#crbarcustac").text("TAC: " + commaSeparateNumber(data[0].TACBalance));
+                        $("#d1").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                        getCreditcuskey(cuscodcr);//ดึงวงเงินจากร้านแม่
+                    }
+                });
+            }
+            function getCreditcuskey(cusel) {
+                $.ajax({
+                    url: '@Url.Action("GetdCustomerCredit", "DataCenter")',
+                    data: {
+                        cusel: cusel
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+
+                        $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+
+
+                    }
+                });
+            }
+            function commaSeparateNumber(val) {
+                while (/(\d+)(\d{3})/.test(val.toString())) {
+                    val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+                }
+                return val;
+            }
+            var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+            var fixedTable2 = fixTable(document.getElementById('fixed-table-container-2'));
+            $("#Customer").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                source: function (request, response) {
+                    // var param = { Name: $('input[type="search"]').val(), Slm: $('#selslm').val() };
+                    var param = { Name: $("#Customer").val(), Slm: $('#Slm').val() };
+                    $.ajax({
+                        url: '@Url.Action("GetdateCusCode", "DataCenter")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+
+                        },
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+
+                    var Code = ui.item.value;
+                    var split_StockCode = Code.split('|');
+                    var item = "";
+                    if (split_StockCode[0] != "") {
+                        item = split_StockCode[0].trim();
+                    }
+
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: item
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            var typin = data[0].INACTIVE;
+                            if (typin == "Y") {
+
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                                $("#Customer").val("");
+                                return false;
+                            } else {
+                                $("#Customer").val(data[0].CUSCOD + "|" + data[0].CUSNAM)
+                                //  $("#Customer").prop("disabled", true);
+                            }
+                        }
+                    });
+                },
+                minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+            });
+        $('#Slm').change(function () {
+
+        
+            GetCustomer()
+        });
+        $(document).delegate('#call_da', 'click', function () {
+         if (usertype != "6") {
+             GetCustomer();
+         } else if(usertype == "6") {
+           
+             GetCustomerbycus();
+          }
+               
+        });
+        function GetCustomer() {
+            var SLMTAB_CODE = $("#Slm").val();
+            //if (usertype == "6") {
+            //    SLMTAB_CODE = "ALL";
+            //} else {
+            //    SLMTAB_CODE = $("#Slm").val();
+            //}
+            var cus = $("#Customer").val().split('|');
+            var chkcus = cus[0]
+            var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
+            $.ajax({
+                url: '@Url.Action("GetCustomer", "SelectPrintStatement")',
+                data: {
+                    SLMTAB_CODE: SLMTAB_CODE
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    loading.out()
+                    $('#fixed-table-container-1 tbody:last-child').html("");
+                    // $('#tbCustomerList').empty();
+                    var SubmithtmlPage = '';
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (chkcus == "") {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cuscode + '</td>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cusname + '</td>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;text-align: center;"><input class="ClaerCheck" row="' + i + '" cuscod="' + data[i].val.Cuscode + '" cusnam="' + data[i].val.Cusname + '" type="checkbox" id="checkbox" checkitem /></td>';
+                            } else if (chkcus == data[i].val.Cuscode) {
+
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cuscode + '</td>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cusname + '</td>';
+                                SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;text-align: center;"><input class="ClaerCheck" row="' + i + '" cuscod="' + data[i].val.Cuscode + '" cusnam="' + data[i].val.Cusname + '" type="checkbox" id="checkbox" checkitem /></td>';
+
+                            }
+                        }
+                    } else {
+                        loading.out()
+                        $('#fixed-table-container-1 tbody:last-child').html("");
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ไม่มีข้อมูลที่ท่านต้องการค้นหา");
+                        $("#myModalWarning").modal();
+                    }
+                    $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
+                    var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+                }
+            });
+        }
+            function GetCustomerbycus() {
+                
+              
+                var chkcus = cuscod;
+                var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
+                $.ajax({
+                    url: '@Url.Action("GetCustomerbycustome", "SelectPrintStatement")',
+                    data: {
+                        cuscode: chkcus
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        loading.out()
+                        $('#fixed-table-container-1 tbody:last-child').html("");
+                        // $('#tbCustomerList').empty();
+                        var SubmithtmlPage = '';
+                        var SubmithtmlPageSelect = '';
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (chkcus == "") {
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cuscode + '</td>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cusname + '</td>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;text-align: center;"><input class="ClaerCheck" row="' + i + '" cuscod="' + data[i].val.Cuscode + '" cusnam="' + data[i].val.Cusname + '" type="checkbox" id="checkbox" checkitem /></td>';
+                                    if (usertype == "6") {
+                                        SubmithtmlPageSelect = '<tr  additem= "' + data.length + '">\
+                                                      <td>' + data[i].val.Cuscode + '</td>\
+                                                      <td>' + data[i].val.Cusname + '</td>\
+                                                    </tr>';
+                                    }
+                                } else if (chkcus == data[i].val.Cuscode) {
+
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cuscode + '</td>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;">' + data[i].val.Cusname + '</td>';
+                                    SubmithtmlPage += '<td style="width:19px;border: 1px solid #CCC;text-align: center;"><input class="ClaerCheck" row="' + i + '" cuscod="' + data[i].val.Cuscode + '" cusnam="' + data[i].val.Cusname + '" type="checkbox" id="checkbox" checkitem /></td>';
+                                    if (usertype == "6") {
+                                        SubmithtmlPageSelect = '<tr  additem= "' + data.length + '">\
+                                                      <td>' + data[i].val.Cuscode + '</td>\
+                                                      <td>' + data[i].val.Cusname + '</td>\
+                                                    </tr>';
+                                    }
+                                }
+                            }
+                        } else {
+                            loading.out()
+                            $('#fixed-table-container-1 tbody:last-child').html("");
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ไม่มีข้อมูลที่ท่านต้องการค้นหา");
+                            $("#myModalWarning").modal();
+                        }
+                        $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
+                        var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+                        if (usertype == "6") {
+                            $('#fixed-table-container-2  tbody:last-child').append(SubmithtmlPageSelect);
+                            var fixedTable2 = fixTable(document.getElementById('fixed-table-container-2'));
+                            
+                        }
+                    }
+                });
+            }
+        $(document).delegate('#checkbox', 'click', function () {
+            //console.log("checkbox");
+            var CUSCOD_ID = "";
+            var CUSNAM_ID = "";
+            var CUSTYPE_ID = "";
+            rowi = $(this).attr('row');
+            CUSCOD_ID = $(this).attr('CUSCOD');
+            CUSNAM_ID = $(this).attr('CUSNAM');
+
+            var i = 1;
+            var checked = $(this).is(':checked');
+            // alert(checked);
+            if (checked == true) {
+
+                var SubmithtmlPageSelect = '<tr  additem= "' + rowi + '">\
+                                                      <td>' + CUSCOD_ID + '</td>\
+                                                      <td>' + CUSNAM_ID + '</td>\
+                                                    </tr>';
+
+                //$('#tbEventSelected').append(SubmithtmlPageSelect);
+                $('#fixed-table-container-2  tbody:last-child').append(SubmithtmlPageSelect);
+                var fixedTable2 = fixTable(document.getElementById('fixed-table-container-2'));
+                i++;
+                // console.log(i++);
+            } else {
+                $('#tbEventSelected tr[additem="' + rowi + '"]').remove();
+
+            }
+
+        });
+        $('#printALL').click(function () {
+            var val = "4";
+            var data = new Array();
+            //var customer = $('#CUSEVEN').val();
+            var SLM = $('#Slm').val();
+            //var SupSlm = $('#SupSlm').val();
+            //if (SLM == "ALL") { SLM == "ALL" } else { SLM == SLM }
+
+            var MyRows = $('#tbEventSelected').find('tbody').find('tr');
+            // console.log(MyRows.length);
+
+            if (MyRows.length >= 1) {
+                for (var i = 0; i < MyRows.length; i++) {
+                    var MyIndexValue = $(MyRows[i]).find('td:eq(0)').html();
+                    var ItemList = {
+                        ItemID: MyIndexValue
+
+                    };
+                    data.push(ItemList);
+                    //console.log(JSON.stringify(data));
+                }
+
+                var Data = JSON.stringify(data);
+
+                var test = Data.toString();
+                console.log('xx' + " " + Data)
+
+
+                window.open("../PrintStatement/Index?CODE=" + val + "/" + test + "/" + SLM);
+            }
+        });
+
+        $(document).on("click", "#nextsp", function () {
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6") {
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+            if (cusel == "") {
+                window.location.replace("../SeleScrCustomer/dashboard");
+            } else {
+
+                window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cusel));
+            }
+            window.location.replace("../SeleScrCustomer/dashboard");
+        });
+        $(document).on("click", "#btnhisto", function () {
+          
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6") {
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+            if (cusel == "") {
+
+                window.location.replace("../Historypurchase/Index");
+            } else {
+
+                window.location.replace("../Historypurchase/Index?numcuber=" + btoa(cusel));
+            }
+        });
+        $(document).on("click", "#btnstatus", function () {
+          
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6"){
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+            if (cusel == "") {
+                window.location.replace("../Statuslist/Index");
+            } else {
+
+                window.location.replace("../Statuslist/Index?numcuber=" + btoa(cusel));
+            }
+        });
+        $(document).on("click", "#navbarhome", function () {
+            //_CUSCOD = $('#CUSCOD').val();
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6") {
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+            if (cusel == "") {
+                window.location.replace("../Account/Login");
+            } else {
+
+                window.location.replace("../Orderlist/Index?numcuber=" + btoa(cusel));
+            }
+        });
+        $(document).on("click", "#navbarsselecus", function () {
+            //_CUSCOD = $('#CUSCOD').val();
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6") {
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+           
+            if (cusel == "") {
+                window.location.replace("../Account/Login");
+            } else {
+                
+                window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cusel));
+                //window.location.replace("../Cart/Index?numcuber=" + btoa(cusel));
+            }
+        });
+        $(document).on("click", "#navbarshowdetail", function () {
+            //_CUSCOD = $('#CUSCOD').val();
+            var Usertype = usertype;
+            var _CUSCOD;
+            if (Usertype != "6") {
+                var MyIndexValue = $('#Customer').val();
+                //console.log(MyIndexValue);
+                if (MyIndexValue !== "") {
+                    res = MyIndexValue.split("|");
+                    _CUSCOD = res[0];
+                } else {
+
+                    _CUSCOD = "";
+                }
+            } else if (Usertype == "6") {
+                _CUSCOD = $('#selcus').val();
+
+            }
+            var cusel = _CUSCOD;
+            if (cusel == "") {
+                window.location.replace("../Account/Login");
+            } else {
+
+                window.location.replace("../Cart/Index?numcuber=" + btoa(cusel));
+            }
+        });
+       
+    });
+    </script>
+</body>
+</html>

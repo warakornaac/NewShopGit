@@ -1,0 +1,1883 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPagemap.cshtml";
+
+
+}
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Map Customer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+
+
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
+
+
+
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/CSS/jQueryv3.1.1.js"></script>
+    <style>
+        #geomap.fullscreen {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #3e8e41;
+            }
+
+        #myInput {
+            box-sizing: border-box;
+            background-image: url('searchicon.png');
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 14px 20px 12px 45px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
+
+            #myInput:focus {
+                outline: 3px solid #ddd;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: block;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .checkout-form-innerselect {
+            margin-top: 11px;
+        }
+
+        .h8, h8 {
+            font-size: 18px;
+        }
+
+        #menual {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            width: 17em;
+            margin: -2.5em 0 0 0;
+            z-index: 5;
+            background: hsla(80, 90%, 40%, 0.7);
+            color: white;
+            font-weight: bold;
+            font-size: small;
+            text-align: left;
+            border: solid hsla(80, 90%, 40%, 0.5);
+            border-right: none;
+            padding: 0.5em 0.5em 0.5em 2.5em;
+            box-shadow: 0 1px 3px black;
+            border-radius: 3em 0.5em 0.5em 3em;
+        }
+
+        .header li > a > .label {
+            position: absolute;
+            top: 3px;
+            right: 0px;
+            text-align: center;
+            font-size: 15px;
+            padding: 2px 3px;
+            line-height: .9;
+            background-color: #333;
+            border-radius: .25em;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed__footer">
+        <div class="body__overlay"></div>
+        <!-- Start Offset Wrapper -->
+        <!-- End Offset Wrapper -->
+        <!-- Start Checkout Area -->
+        <section class="our-checkout-area ptb--120 bg__white" style="margin: auto;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8">
+                        <div class="ckeckout-left-sidebar">
+                            <!-- Start Checkbox Area -->
+                            <div class="checkout-form">
+                                <h2 class="section-title-2" id="h2title">แผนที่ร้านลูกค้า</h2>
+                                <div class="checkout-form-innerselect">
+                                    <h8>พนักงานขาย</h8>
+                                    <div class="single-checkout-box select-option mt--10">
+                                        <select id="selslm"></select>
+
+
+                                    </div>
+
+                                    <br />
+                                    <div id="prvs">
+                                        <h8>ลูกค้า</h8>
+                                        <div class="single-checkout-box select-option mt--10">
+
+                                            <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
+                                        </div>
+
+                                        <div class="single-checkout-box select-option mt--10">
+                                            <button type="button" class="btn-gray" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
+
+
+                                        </div>
+                                        <div class="single-checkout-box checkbox">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h8>ที่อยู่ส่งสินค้า</h8>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                               
+                                                <select id="Shipto" class="form-control" style="background-color:white;"></select>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form>
+                                            <div class="form-group input-group">
+                                                <input type="text" id="search_location" class="form-control" placeholder="Search location">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default get_map" type="submit">
+                                                        Locate
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                            </div>
+                            <!-- End Checkbox Area -->
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="checkout-right-sidebar">
+                            <div class="our-important-note">
+                                <h2 class="section-title-2">บัญชีลูกค้า:</h2>
+                                <input type="hidden" id="cushid" />
+                                <input class="note-desc" id="cussend" type="hidden">
+                                <p class="note-desc" id="cus"></p>
+                            </div>
+                            <div class="our-important-note">
+                                <h2 class="section-title-2">ที่อยู่ในการออกใบกำกับภาษี:</h2>
+                                <p class="note-desc" id="addcus"></p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div id="geomap" style="width:700px;height:300px;display:block"></div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="color:darksalmon;">
+                            <h4>Location Details</h4>
+
+                            <div style="display:none"><p>Address: <input type="text" class="search_addr" size="45"></p> </div>
+                            <p>Latitude: <input type="text" class="search_latitude" size="20" disabled="disabled"></p>
+                            <p>Longitude: <input type="text" class="search_longitude" size="20" disabled="disabled"></p>
+                        </div>
+                        <div class="col-md-8">
+                            <div style="border: 1px solid #eee; text-align: center; padding: 12px; margin: -15px 0 0px 0; background-color: #eee; ">
+                                <a href="javascript:openMap()" style="color:#999;font-size:16px;float: left;">คลิกเพื่อขยายแผนที่</a>
+                                <a href="javascript:editMap()" id="fullscreenbtn" style="color:#999;font-size:16px">Edit แผนที่</a>
+                                <a href="javascript:saveMap()" style="color:#999;font-size:16px;float: right;">บันทึกตำแหน่ง</a>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Search Box" onfocus="this.select();" style="display:none">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                   <!-- <div class="col-md-4">
+                        <div class="puick-contact-area mt--60">
+                            <div class="contact-btn">
+                                <button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">
+                                    Shopping
+                                </button>
+                            </div>
+                        </div>
+                        <br />
+                        <a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a>
+                    </div>-->
+                </div>
+
+            </div>
+        </section>
+        <!-- End Checkout Area -->
+
+    </div>
+    <div class="col-md-8" style="display:none">
+        <!-- Start Payment Box -->
+
+        <div class="payment-formx">
+            <h2 class="section-title-2">รายการเครดิต</h2><br />
+
+            <div class="payment-form-inner">
+                <table class="table text-left">
+                    <thead>
+                        <tr>
+                            <th><span id="dnow"></span></th>
+                            <th>TAC<br></th>
+                            <th>AAC<br></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>วงเงินเครดิต</code></td>
+                            <td class="text-muted"><span id="crlicustac"></span></td>
+                            <td><span id="crlicusaac"></span></td>
+                        </tr>
+                        <tr>
+                            <td><code>ยอดเครดิตที่ใช้</code></td>
+                            <td class="text-muted"><span id="crbarcustac"></span></td>
+                            <td><span id="crbarcusaac"></span></td>
+                        </tr>
+                        <tr>
+                            <td><code>เครดิต(วัน)</code></td>
+                            <td class="text-muted"><span id="crlicustacday"></span></td>
+                            <td><span id="crlicusaacday"></span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+        <!-- End Payment Box -->
+    </div>
+
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarning">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="smallModal">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                    &times;
+                </button>
+                <div class="modal-header">
+
+                </div>
+
+                <div class="modal-body">
+                    ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
+                    <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="smallModalselcus">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                    &times;
+                </button>
+                <div class="modal-header">
+
+                </div>
+
+                <div class="modal-body">
+                    ใส่ชื่อร้านหรือรหัสร้านค้า
+                    <div id="blcslm" style="display:block">
+                        <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- ModalwConfirm -->
+    <div id="ModalwConfirm" class="modal">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content " id="ColorboxError">
+                <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                    &times;
+                </button>
+                <h4 class="modal-title" style="color:black;">สินค้าค้างในตะกร้า</h4>
+
+                <div class="modal-body" style="overflow-y: scroll;overflow-x: scroll;">
+                    <div id="textAlert">
+                        <table class="table table-bordered" id="wConfirm">
+                            <thead style="background-color: rgb(51, 51, 51);color: white;">
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Salesman</th>
+                                    <th>จำนวนชิ้น</th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" id="CancalShippto" data-dismiss="modal">X</button>
+
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- EndModalwConfirm-->
+    <!-- Modalsuccess -->
+    <div class="modal fade" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- EndModalsuccess -->
+    <input type="hidden" id="nocusses" />
+
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <!-- <link href="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.css" rel="stylesheet" />-->
+    <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
+    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEXNMymB6dYmbRFlvZDhTMebhO_3ZWrQo&libraries=places"></script>
+    <script type="text/javascript">
+
+
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var cuscod;
+        resourceAddress.hash();
+        console.log(param_values.numcuber)
+        if (param_values.numcuber != undefined) {
+            cuscod = atob(param_values.numcuber)
+
+        } else {
+            cuscod = "";
+        }
+        // var cuscod = atob(param_values.numcuber)
+        expire(usrexpire)
+        //var cuscod = "";
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        $(document).ready(function () {
+            $('.button-left').click(function () {
+                $('.sidebar').toggleClass('fliph');
+            });
+            $('li a .toggle__menu').on('click', function () {
+                //alert("xxxx")
+                $('.offsetmenu').addClass('offsetmenu__on');
+                $('.body__overlay').addClass('is-visible');
+
+            });
+            $('.offsetmenu__close__btn').on('click', function () {
+                $('.offsetmenu').removeClass('offsetmenu__on');
+                $('.body__overlay').removeClass('is-visible');
+            });
+        });
+
+        chkcustomer();
+        function chkcustomer() {
+
+            if (usertype != "6"){
+
+                if (usertype == "5") {
+
+                } else {
+                    if (cuscod == "") {
+
+                        $.ajax({
+                            url: '@Url.Action("Getdateslm", "DataCenter")',
+                            data: {
+
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+
+                                var select = $("#selslm");
+                                select.children().remove();
+                                if (usertype == "1") {
+                                    select.append($("<option>").val("ALL").text("Sales Man"));
+                                }
+                                $(data).each(function (index, item) {
+                                    select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                                });
+                                if (usertype == "2") {
+                                    getcus();
+                                }
+                            }
+                        });
+
+                        //  window.location.replace("../Account/LogIn");
+                    } else {
+                        //alert(cuscod)
+                        $.ajax({
+                            url: '@Url.Action("Getdateslm", "DataCenter")',
+                            data: {
+
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+
+                                var select = $("#selslm");
+                                select.children().remove();
+                                if (usertype == "1") {
+                                    select.append($("<option>").val("ALL").text("Sales Man"));
+                                }
+                                $(data).each(function (index, item) {
+                                    select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                                });
+                            }
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                            data: {
+                                cusel: cuscod
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                console.log(data);
+                                // $("#cus").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#selslm").val(data[0].SLMCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                countorder(data[0].CUSCOD, data[0].SLMCOD);
+                                datacus();  ///auto get customer to option select customer
+                                getmapbycustomer(data[0].CUSCOD, "0");
+
+                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                            }
+                        });
+
+                    }
+                }
+            } else if (usertype == "6") {
+                if (cuscod == "") {
+                    //window.location.replace("../Account/LogIn");
+                } else {
+                    $('#nextspold').css("display", "none");
+                    $('#h2title').html("พนักงานขาย");
+                    $('#prvs').css("display", "none");
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+                            //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                            $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                            $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                            $("#crlicusaacday").text(data[0].AACPAYTRM);
+                            $("#crlicustacday").text(data[0].TACPAYTRM);
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#selslm").val(data[0].SLMCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            countorder(data[0].CUSCOD, data[0].SLMCOD);
+                            //datacus();  ///auto get customer to option select customer
+
+
+                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                        }
+                    });
+                    $.ajax({
+                        url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+
+                            $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
+                            $("#selcus").prop("disabled", true);
+                            $("#selslm").prop("disabled", true);
+                            //datacus();  ///auto get customer to option select customer
+                        }
+                    });
+
+                }
+            }
+        }
+        var geocoder;
+        var map;
+        var markers = [];
+        var initialLat = "";
+        var initialLong = "";
+        var _la = "";
+        var _lo = "";
+        var messagewindow;
+        var lat = "";
+        var log = "";
+        var marker;
+        /*
+         * Google Map with marker
+         */
+        function getCurrentPosition() {
+            navigator.geolocation.getCurrentPosition(function (p) {
+
+                lat = p.coords.latitude;
+                log = p.coords.longitude;
+
+                initialize(lat, log);
+
+                $(".search_latitude").val(lat);
+                $(".search_longitude").val(log);
+
+            });
+        }
+        getCurrentPosition();
+        function initialize(lat, log, rem) {
+
+            var remake = '';
+
+            if (rem == undefined) {
+                remake = "";
+            } else { remake = rem; }
+
+            if (lat === undefined || lat === null) {
+
+                initialLat = $('.search_latitude').val();
+                initialLong = $('.search_longitude').val();
+
+
+            } else {
+                initialLat = lat;
+                initialLong = log;
+            }
+
+            initialLat = initialLat ? initialLat : initialLat;
+            initialLong = initialLong ? initialLong : initialLong;
+
+            var latlng = new google.maps.LatLng(initialLat, initialLong);
+
+            var options = {
+                zoom: 17,
+                center: latlng,
+                mapTypeControl: true,
+                disableDefaultUI: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                fullscreenControl: true,
+                gestureHandling: 'greedy'
+
+            };
+            map = new google.maps.Map(document.getElementById("geomap"), options);
+            infowindow = new google.maps.InfoWindow({
+                // content: document.getElementById('form')
+                content: "<table ><tr><td>Remark:</td> <td><input type='text' id='Remarkadd' value='" + remake + "' /> </td> </tr><tr><td></td><td></td></tr> </table>"
+            });
+            var icon = {
+                url: "../image/marker.png", // url
+                scaledSize: new google.maps.Size(40, 43), // scaled size
+                origin: new google.maps.Point(0, 0) // origin
+                //anchor: new google.maps.Point(0, 0) // anchor
+            };
+            var shi = $('#Shipto').val();
+            // console.log("xxx" + shi)
+            if (shi != "0" && shi != null) {
+                // alert("mmmm1" + shi)
+                marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    icon: icon,
+                    draggable: false
+                });
+            }
+            if (shi != null && shi != "0") {
+                marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    icon: icon,
+                    draggable: false
+                });
+            }
+            else {
+                // alert("mmmm"+shi)
+                marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    draggable: false
+                });
+            }
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+
+            });
+            geocoder = new google.maps.Geocoder();
+
+            google.maps.event.addListener(marker, "dragend", function () {
+                var point = marker.getPosition();
+                map.panTo(point);
+                geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        marker.setPosition(results[0].geometry.location);
+                        $('.search_addr').val(results[0].formatted_address);
+                        $('.search_latitude').val(marker.getPosition().lat());
+                        $('.search_longitude').val(marker.getPosition().lng());
+                    }
+                });
+            });
+
+            //infowindow.open(map, marker);
+        }
+        /***** กำหนดตำแหน่งที่ตั้งของ control ที่จะวางในแผนที่*****/
+        var input = document.getElementById('search_location');
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        /***** เพิ่ม Feature ให้กับ textbox ให้สามารถพิมพ์ค้นหาสถานที่ได้*****/
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        //autocomplete.bindTo('bounds', map);
+
+        var infowindow = new google.maps.InfoWindow();
+
+
+        /***** ทำงานกับ event place_changed หรือเมื่อมีการเปลี่ยนแปลงค่าสถานที่ที่ค้นหา*****/
+        autocomplete.addListener('place_changed', function () {
+            infowindow.close();
+            marker.setVisible(false);
+
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("ไม่พบพิกัดจากสถานที่ดังกล่าว");
+                return false;
+            }
+
+            /***** แสดงผลบนแผนที่เมื่อพบข้อมูลที่ต้องการค้นหา *****/
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                sv.getPanorama({ location: place.geometry.location, radius: 50 }, processSVData);
+                map.setZoom(17);
+            }
+
+            marker.setIcon(({
+                //url: place.icon,
+                url: place,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            }));
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+
+            /***** แสดงรายละเอียดผลลัพธ์การค้นหา *****/
+            var address = '';
+            if (place.address_components) {
+                address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            $('#Remarkadd').val("");
+            $('.search_addr').val(place.formatted_address);
+            $('.search_latitude').val(place.geometry.location.lat());
+            $('.search_longitude').val(place.geometry.location.lng());
+        });
+        // Deletes all markers in the array by removing references to them.
+
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+        function DeleteMarkers() {
+
+
+            //Loop through all the markers and remove
+            for (var i = 0; i < markers.length; i++) {
+
+                markers[i].setMap(null);
+            }
+            markers = [];
+        };
+        function openMap() {
+            var latlng = marker.getPosition();
+            var s = latlng.lat();
+            var c = latlng.lng();
+
+            window.open("https://maps.google.com?q=" + s + "," + c + "");
+
+        }
+        function saveMap() {
+            var latlng = marker.getPosition();
+            var _lat = latlng.lat();
+            var _log = latlng.lng();
+            if (_lat != '' || _log != '') {
+                //_loc=  _getloca.split(",");
+                _lat = _lat
+                _log = _log
+                // alert(_lat +"////////"+_log);
+            } else {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("ไม่มีตำแหน่งร้านค้า ทำรายใหม่");
+                $("#myModalWarning").modal(); return false;
+            }
+           // var CUSCODt = $("#CUSCOD option:selected").text();
+           // var textcus = $("#search").val();
+            var CUSID = $('#cushid').val();
+            var shiptocode = $('#Shipto').val();
+            if (CUSID == "") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณาเลือก ลูกค้า ");
+                $("#myModalWarning").modal(); return false;
+            }
+            
+           
+            var usrlogin = userid;
+
+            var usrRemark = '';
+            usrRemark = $("#Remarkadd").val();
+            if (usrRemark == null) {
+                usrRemark = "";
+            } else {
+                usrRemark = $("#Remarkadd").val();
+            }
+            var val1 = CUSID;
+            var val2 = $("#selslm").val();
+          
+                        $.ajax({
+                            url: '@Url.Action("Insertdatacuspromap", "CustomerMap")',
+                            data: {
+                                CUSID: val1,
+                                SLMID: '',
+                                Latitude: _lat,
+                                Longitude: _log,
+                                Usrlogin: usrlogin,
+                                usrRemark: usrRemark,
+                                SHIPCODE: shiptocode
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                //console.log(data);
+                                if (data = "true") {
+                                    $("#textAlertSucces").empty();
+                                    $("#textAlertSucces").text("บันทึกตำแหน่งร้านลูกค้าเรียบร้อย");
+                                    $("#myModalSucces").modal();
+                                } else {
+
+                                    $("#textAlertWarning").empty();
+                                    $("#textAlertWarning").text("บันทึกตำแหน่งร้านลูกค้าไม่สำเร็จทำรายการใหม่ >>>" + data);
+                                    $("#myModalWarning").modal(); return false;
+
+                                }
+                            }
+                        });
+                    //}
+                //}
+            //});
+
+
+        }
+       
+        function editMap() {
+
+            var latlng = "";
+            var latitude;
+            var longitude;
+
+            var CUSID = $('#cushid').val();
+
+            var shiptocode = $('#Shipto').val();
+
+            $.ajax({
+                url: '@Url.Action("Getlocation", "CustomerMap")',
+                data: {
+                    CUSID: CUSID,
+                    SHIPCODE: shiptocode
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    // console.log("xxxx" + data.Listloc.length);
+                    var icon = {
+                        url: "../image/marker.png", // url
+                        scaledSize: new google.maps.Size(40, 43), // scaled size
+                        origin: new google.maps.Point(0, 0) // origin
+                        //anchor: new google.maps.Point(0, 0) // anchor
+                    };
+                    if (data.Listloc != "") {
+                        latitude = data.Listloc[0].Latitude;
+                        longitude = data.Listloc[0].Longitude;
+                        var options = {
+                            zoom: 8,
+                            center: new google.maps.LatLng(latitude, longitude),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            scaleControl: true,
+                            mapTypeControl: true,
+                            fullscreenControl: true,
+                            gestureHandling: 'greedy'
+
+                        };
+                        map = new google.maps.Map(document.getElementById("geomap"), options);
+                        var infowindow = new google.maps.InfoWindow({
+                            //content: document.getElementById('form')
+
+                            content: "<table><tr><td>Remark:</td> <td><input type='text' id='Remarkadd'  /> </td> </tr><tr><td></td><td></td></tr> </table>"
+                        });
+                        if (data.Listloc[0].ShipStatus == 1) {
+                            if (data.Listloc.length == 1) {
+                                // alert("xxxx")
+                                var Shipcod = data.Listloc[0].ShipCode
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("คุณกำลังแก้ไขที่อยู่ส่งของร้าน" + data.Listloc[0].CUSCOD + "/" + data.Listloc[0].ShipCode + "/" + data.Listloc[0].CUSNAM);
+                                $("#myModalWarning").modal();
+                                $("#Shipto").val(Shipcod);
+                            } else {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("กรุณาเลือก Ship-to เพื่อแก้ไขที่อยู่ส่งของ");
+                                $("#myModalWarning").modal();
+                            }
+
+
+                            marker = new google.maps.Marker({
+                                map: map,
+                                draggable: true,
+                                //position: new google.maps.LatLng(p.coords.latitude, p.coords.longitude)
+                                position: new google.maps.LatLng(latitude, longitude),
+                                icon: icon,
+                                title: "ร้าน" + data.Listloc[0].CUSCOD + "/" + data.Listloc[0].ShipCode + "/" + data.Listloc[0].CUSNAM + ">>>" + data.Listloc[0].Remark,
+                            });
+                            infowindow = new google.maps.InfoWindow({
+                                content: "<div style='background-color: chartreuse;'>" + data.Listloc[0].CUSCOD + "/" + data.Listloc[0].ShipCode + "/" + data.Listloc[0].CUSNAM + ">>>" + data.Listloc[0].Remark + "</div>"
+                            });
+                        } else {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("คุณกำลังแก้ไขที่อยู่ร้าน" + data.Listloc[0].CUSCOD + data.Listloc[0].CUSNAM);
+                            $("#myModalWarning").modal();
+                            marker = new google.maps.Marker({
+                                map: map,
+                                draggable: true,
+                                //position: new google.maps.LatLng(p.coords.latitude, p.coords.longitude)
+                                position: new google.maps.LatLng(latitude, longitude),
+
+                                title: "ร้าน" + data.Listloc[0].CUSCOD + "/" + data.Listloc[0].ShipCode + "/" + data.Listloc[0].CUSNAM + ">>>" + data.Listloc[0].Remark,
+                            });
+                            infowindow = new google.maps.InfoWindow({
+                                content: "<div style='background-color: darkorange;'>" + data.Listloc[0].CUSCOD + "/" + data.Listloc[0].ShipCode + "/" + data.Listloc[0].CUSNAM + ">>>" + data.Listloc[0].Remark + "</div>"
+                            });
+                        }
+
+                        infowindow.open(map, marker);
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
+
+                        });
+                        var longpress = false;
+                        var startTime, endTime;
+                        google.maps.event.addListener(map, "mousedown", function (event) {
+                            startTime = new Date().getTime();
+
+                        });
+                        google.maps.event.addListener(map, "click", function (event) {
+                            $('#Remarkadd').val("");
+                            endTime = new Date().getTime();
+                            //   seconds after the  mouseup
+                            longpress = (endTime - startTime < 1000) ? false : true;
+                            //alert(longpress)
+                            if (longpress == true) {
+                                DeleteMarkers()
+                                marker = new google.maps.Marker({
+                                    position: event.latLng,
+                                    map: map,
+                                    draggable: true,
+                                    animation: google.maps.Animation.DROP
+
+                                });
+                                infowindow.open(map, marker);
+                                markers.push(marker);
+                            }
+                        });
+
+                        markers.push(marker);
+                    } else {
+
+                        navigator.geolocation.getCurrentPosition(function (p) {
+                            //var latlng = marker.getPosition();
+                            latitude = p.coords.latitude;
+                            longitude = p.coords.longitude;
+                            var options = {
+                                zoom: 14,
+                                center: new google.maps.LatLng(latitude, longitude),
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                scaleControl: true,
+                                mapTypeControl: true,
+                                fullscreenControl: true,
+                                gestureHandling: 'greedy'
+
+                            };
+                            map = new google.maps.Map(document.getElementById("geomap"), options);
+                            var infowindow = new google.maps.InfoWindow({
+                                //content: document.getElementById('form')
+                                content: "<table><tr><td>Remark:</td> <td><input type='text' id='Remarkadd'  /> </td> </tr><tr><td></td><td></td></tr> </table>"
+                            });
+                            if (shiptocode != "0") {
+                                marker = new google.maps.Marker({
+                                    map: map,
+                                    draggable: true,
+                                    position: new google.maps.LatLng(p.coords.latitude, p.coords.longitude),
+                                    icon: icon
+                                });
+                            } else {
+                                marker = new google.maps.Marker({
+                                    map: map,
+                                    draggable: true,
+                                    position: new google.maps.LatLng(p.coords.latitude, p.coords.longitude)
+                                    //position: new google.maps.LatLng(latitude, longitude)
+                                });
+                            }
+                        });  // var s = latlng.lat();
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
+
+                        });
+                        var longpress = false;
+                        var startTime, endTime;
+                        google.maps.event.addListener(map, "mousedown", function (event) {
+                            startTime = new Date().getTime();
+
+                        });
+                        google.maps.event.addListener(map, "click", function (event) {
+                            $('#Remarkadd').val("");
+                            endTime = new Date().getTime();
+                            //   seconds after the  mouseup
+                            longpress = (endTime - startTime < 1000) ? false : true;
+                            //alert(longpress)
+                            if (longpress == true) {
+                                DeleteMarkers()
+                                marker = new google.maps.Marker({
+                                    position: event.latLng,
+                                    map: map,
+                                    draggable: true,
+                                    animation: google.maps.Animation.DROP
+
+                                });
+                                infowindow.open(map, marker);
+                                markers.push(marker);
+                            }
+                        });
+
+                        markers.push(marker);
+                    }
+                }
+            });
+
+            //latlng = new google.maps.LatLng(latitude, longitude);
+
+        }
+        function downloadUrl(url, callback) {
+            var request = window.ActiveXObject ?
+                new ActiveXObject('Microsoft.XMLhttps') :
+                new XMLhttpsRequest;
+
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+                    request.onreadystatechange = doNothing;
+                    callback(request.responseText, request.status);
+                }
+            };
+
+            request.open('GET', url, true);
+            request.send(null);
+        }
+        function getShipto(cuscod) {
+            $.ajax({
+                url: '@Url.Action("GetdataCusShipping", "DataCenter")',
+                data: {
+                    XXcus: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    var select = $("#Shipto");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("เลือกShip-To"));
+                    $(data).each(function (index, item) {
+                        console.log(item.val.code);
+                        select.append($("<option>").val(item.val.code).text(item.val.code + "/" + item.val.name + "/" + item.val.address + "/" + item.val.address2 + "/" + item.val.city));
+                    });
+
+                    //$("#Slm").val(salescod);
+                }
+            });
+
+        }
+        function getcus() {
+            var SLM = $("#selslm").val()
+            var SLMt = $("#selslm option:selected").text();
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    $.each(data, function (key, value) {
+
+                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+        }
+        function countorder(cus, Slm) {
+            // var SLM = $("#Slm").val()
+
+            $.ajax({
+                url: '@Url.Action("GetdateContorder", "DataCenter")',
+                data: {
+                    cus: cus,
+                    Slm: Slm
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    //$('#countsku').text(data.Getdata[0].val.Countrow);
+                    //$('#rd').text(data.Getdata[1].val.Countrow);
+                    $('#countsku').text(data.Getdata[0].val.SumQty);
+                    $('#rd').text(data.Getdata[1].val.SumQty);
+                }
+            });
+        }
+
+        $("#myInput").on("keyup", function () {
+
+            var value = $(this).val().toLowerCase();
+            $(".dropdown-menu li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        // $('#selcus').selectpicker();
+        $(".dropdown-menu").on("click", ".searchterm", function (event) {
+            var _val = $(this).attr('data-input');
+            //alert(_val)
+            $('#selcus').val(_val);
+            Cusdetail()
+        });
+        //$('#textfree').click(function () {
+        //    $("#selslm").val("ALL")
+        //});
+        // createOptions(30);
+
+        $("#btnshsche").on("click", function () {
+            if (usertype != "1") {
+                getslmandcus()
+            } else {
+                $("#selslm").val("ALL");
+            }
+            $("#textfree").val("");
+            $("#smallModalselcus").modal('show');
+            // myFunction()
+        });
+        function myFunction() {
+            var x = document.getElementById("blcslm");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#selslm").val("ALL");
+
+            } else {
+                x.style.display = "none";
+                $("#selcus").prop("disabled", false);
+            }
+        }
+       
+        $('#selslm').change(function () {
+            var SLM = $(this).val()
+            var SLMt = $("#selslm option:selected").text();
+            var cuskey = "";
+            cuskey = $("#nocusses").val();
+            var cusel = $("#cushid").val();
+            if (cuskey == "") {
+                cuskey = cusel;
+            }
+            if (SLM != "ALL") {
+                countorder(cuskey, SLM)
+                getmapbysale(SLM)
+            }
+          
+            $("#cus").text("");
+            $("#addcus").text("");
+            $("#crlicusaac").text("");
+            $("#crlicustac").text("");
+            $("#crbarcusaac").text("");
+            $("#crbarcustac").text("");
+            $("#crlicusaacday").text("");
+            $("#crlicustacday").text("");
+            $("#cushid").val("");
+            $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    $.each(data, function (key, value) {
+
+                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+
+        });
+
+        function datacus() {
+            var SLM = $('#selslm').val();
+            var SLMt = $("#selslm option:selected").text();
+
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    $.each(data, function (key, value) {
+
+                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+
+        }
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+        function Cusdetail(){
+            var cusel = $("#selcus").val();
+
+            if (cusel == "0") {
+
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
+                $("#myModalWarning").modal();
+                return false;
+            } else {
+                // $.session.set("myVarcus", cusel);
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cusel
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                        $("#crlicusaacday").text(data[0].AACPAYTRM);
+                        $("#crlicustacday").text(data[0].TACPAYTRM);
+                        $("#cushid").val(data[0].CUSCOD);
+                        $("#selslm").val(data[0].SLMCOD);
+                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+
+                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                    }
+                });
+            }
+        }
+        $('.selectpicker').selectpicker({
+            noneResultsText: 'I found no results'
+
+        });
+
+        $("#textfree").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                // var param = { Name: $('input[type="search"]').val(), Slm: $('#selslm').val() };
+                var param = { Name: $("#textfree").val(), Slm: $('#selslm').val() };
+                $.ajax({
+                    url: '@Url.Action("GetdateCusCode", "DataCenter")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                //console.log(ui.item.value);
+                var cusname
+                var Code = ui.item.value;
+                var split_StockCode = Code.split('|');
+
+                var item = "";
+                if (split_StockCode[0] != "") {
+                    item = split_StockCode[0].trim();
+                    cusname = split_StockCode[1].trim();
+                }
+                $("#smallModalselcus").modal('hide');
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: item
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        var typin = data[0].INACTIVE;
+                        if (typin == "Y") {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+
+                            $("#addcus").text("");
+                            $("#crlicusaac").text("");
+                            $("#crlicustac").text("");
+                            $("#crbarcusaac").text("");
+                            $("#crbarcustac").text("");
+                            $("#crlicusaacday").text("");
+                            $("#crlicustacday").text("");
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#selslm").val(data[0].SLMCOD);
+                            datacus()
+                            getShipto(data[0].CUSCOD);
+                            getmapbycustomer(data[0].CUSCOD, "0");
+                            $("#nocusses").val("");//master key customer
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            return false;
+                        } else {
+                            $("#cusselectpop").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            countorder(item, '')
+                            getShipto(item);
+                            getmapbycustomer(item, "0");
+                            var cusold = $("#cushid").val();
+                            // if (cusold != "") {
+                            //     if (cusold != item) {
+                            //        $("#btnok").attr('cusdata', item);
+                            //        $("#smallModal").modal('show');
+                            //        return false;
+                            //   }
+                            //} else {
+                            $.ajax({
+                                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                                data: {
+                                    cusel: item
+                                },
+                                type: "POST",
+                                dataType: "JSON",
+                                success: function (data) {
+                                    console.log(data);
+                                    $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#cushid").val(data[0].CUSCOD);
+                                    $("#selslm").val(data[0].SLMCOD);
+                                    $("#nocusses").val(data[0].CUSCOD);//master key customer
+                                    $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                    $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                    $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+
+
+                                    $.ajax({
+                                        url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                                        data: {
+                                            SLXX: data[0].SLMCOD,
+                                            SLMNAME: ""
+                                        },
+                                        type: "POST",
+                                        dataType: "JSON",
+                                        success: function (data) {
+                                            console.log(data);
+                                            var select = $("#selcus");
+                                            select.children().remove();
+                                            $.each(data, function (key, value) {
+
+                                                select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                                            });
+                                            $('#selcus').val(data[0].CUSCOD);
+                                            $('.selectpicker').selectpicker('refresh');
+                                        }
+                                    });
+                                }
+                            });
+
+                            //}
+
+                        }
+
+                    }
+                });
+
+            },
+
+            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+        function checkcustomerinactive(cuscod) {
+
+            var typin;
+            var retval = "0";
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    typin = data[0].INACTIVE;
+
+                    if (typin == "Y") {
+
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                        $("#myModalWarning").modal();
+                        retval = "1";
+                        //alert(retval)
+                        return false;
+                        return retval
+
+                    } else {
+                        return retval = "2";
+                    }
+                }
+
+            });
+            return retval;
+        }
+        function getmapbysale(SLM) {
+
+            $.ajax({
+                url: '@Url.Action("Getlocationbysales", "CustomerMap")',
+                data: {
+                    SLM: SLM
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    var select = $("#Shipto");
+                    select.children().remove();
+                    if (data.Listloc != "") {
+
+                        navigator.geolocation.getCurrentPosition(function (p) {
+                            // console.log(p);
+
+                            var mapOptions = {
+                                zoom: 8,
+                                center: new google.maps.LatLng(p.coords.latitude, p.coords.longitude), // centered US
+                                mapTypeId: google.maps.MapTypeId.TERRAIN,
+
+                                mapTypeControl: true,
+                                disableDefaultUI: false,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                fullscreenControl: true,
+                                gestureHandling: 'greedy'
+                            };
+
+
+                            var icon = {
+                                url: "../image/marker.png", // url
+                                scaledSize: new google.maps.Size(40, 43), // scaled size
+                                origin: new google.maps.Point(0, 0) // origin
+                                //anchor: new google.maps.Point(0, 0) // anchor
+                            };
+                            var map = new google.maps.Map(document.getElementById("geomap"), mapOptions);
+                            var trafficLayer = new google.maps.TrafficLayer();
+                            trafficLayer.setMap(map);
+                            var infowindow = new google.maps.InfoWindow();
+                            for (i = 0; i < data.Listloc.length; i++) {
+                                if (data.Listloc[i].ShipStatus == 1) {
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(data.Listloc[i].Latitude, data.Listloc[i].Longitude),
+                                        map: map,
+                                        icon: icon,
+                                        title: "ร้าน" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark,
+
+
+                                    });
+
+                                    (function (marker, i) {
+                                        // add click event
+                                        infowindow = new google.maps.InfoWindow({
+                                            content: "<div style='background-color: chartreuse;'>" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark + "</div>"
+                                        });
+                                        infowindow.open(map, marker);
+                                        google.maps.event.addListener(marker, 'click', function () {
+                                            infowindow = new google.maps.InfoWindow({
+                                                content: data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+                                            });
+                                            infowindow.open(map, marker);
+
+                                            var cuscod = data.Listloc[i].CUSCOD.trim();
+
+
+                                            getmapbycustomer(cuscod, "0");
+
+                                        });
+                                    })(marker, i);
+                                } else {
+                                    //address master//
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(data.Listloc[i].Latitude, data.Listloc[i].Longitude),
+                                        map: map,
+
+                                        title: "ร้าน" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+
+                                    });
+
+                                    (function (marker, i) {
+                                        // add click event
+                                        infowindow = new google.maps.InfoWindow({
+                                            content: "<div style='background-color: darkorange;'>" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark + "</div>"
+                                        });
+                                        infowindow.open(map, marker);
+                                        google.maps.event.addListener(marker, 'click', function () {
+                                            infowindow = new google.maps.InfoWindow({
+                                                content: data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+                                            });
+                                            infowindow.open(map, marker);
+
+                                            var cuscod = data.Listloc[i].CUSCOD.trim();
+
+
+                                            getmapbycustomer(cuscod, "0");
+
+                                        });
+                                    })(marker, i);
+                                }
+
+
+
+                            }
+
+                        });
+
+
+                    } else {
+                        //$("#textAlertWarning").empty();
+                        //$("#textAlertWarning").text("ยังไม่มีการบันทึกตำแหน่งร้านลูกค้า");
+                        //initialize('', '')
+                        //$("#myModalWarning").modal(); return false;
+                        getCurrentPosition();
+                    }
+                }
+
+            });
+        }
+        function getmapbycustomer(cuscod, shipcode) {
+
+
+            //$("#CUSCOD").val(cuscod.trim());
+            
+            $.ajax({
+                url: '@Url.Action("Getlocation", "CustomerMap")',
+                data: {
+                    CUSID: cuscod,
+                    SHIPCODE: shipcode
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    console.log(data);
+                    if (data.Listloc != "") {
+
+                        navigator.geolocation.getCurrentPosition(function (p) {
+                            // console.log(p);
+
+                            var mapOptions = {
+                                zoom: 9,
+                                center: new google.maps.LatLng(p.coords.latitude, p.coords.longitude), // centered US
+                                mapTypeId: google.maps.MapTypeId.TERRAIN,
+
+                                mapTypeControl: true,
+                                disableDefaultUI: false,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                fullscreenControl: true,
+                                gestureHandling: 'greedy'
+                            };
+
+
+                            var icon = {
+                                url: "../image/marker.png", // url
+                                scaledSize: new google.maps.Size(40, 43), // scaled size
+                                origin: new google.maps.Point(0, 0) // origin
+                                //anchor: new google.maps.Point(0, 0) // anchor
+                            };
+                            var map = new google.maps.Map(document.getElementById("geomap"), mapOptions);
+                            var trafficLayer = new google.maps.TrafficLayer();
+                            trafficLayer.setMap(map);
+                            var infowindow = new google.maps.InfoWindow();
+                            for (i = 0; i < data.Listloc.length; i++) {
+                                if (data.Listloc[i].ShipStatus == 1) {
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(data.Listloc[i].Latitude, data.Listloc[i].Longitude),
+                                        map: map,
+                                        icon: icon,
+                                        title: "ร้าน" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+
+                                    });
+                                    (function (marker, i) {
+                                        // add click event
+                                        infowindow = new google.maps.InfoWindow({
+                                            content: "<div style='background-color: chartreuse;'>" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark + "</div>"
+                                        });
+                                        infowindow.open(map, marker);
+                                        google.maps.event.addListener(marker, 'click', function () {
+                                            infowindow = new google.maps.InfoWindow({
+                                                content: data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+                                            });
+                                            infowindow.open(map, marker);
+
+                                            var cuscod = data.Listloc[i].CUSCOD.trim();
+
+
+                                            getmapbycustomer(cuscod, "0");
+
+                                        });
+                                    })(marker, i);
+                                } else {
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(data.Listloc[i].Latitude, data.Listloc[i].Longitude),
+                                        map: map,
+
+                                        title: "ร้าน" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+
+                                    });
+                                    (function (marker, i) {
+                                        // add click event
+                                        infowindow = new google.maps.InfoWindow({
+                                            content: "<div style='background-color: darkorange;'>" + data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark + "</div>"
+                                        });
+                                        infowindow.open(map, marker);
+                                        google.maps.event.addListener(marker, 'click', function () {
+                                            infowindow = new google.maps.InfoWindow({
+                                                content: data.Listloc[i].CUSCOD + "/" + data.Listloc[i].ShipCode + "/" + data.Listloc[i].CUSNAM + ">>>" + data.Listloc[i].Remark
+                                            });
+                                            infowindow.open(map, marker);
+
+                                            var cuscod = data.Listloc[i].CUSCOD.trim();
+
+
+                                            getmapbycustomer(cuscod, "0");
+
+                                        });
+                                    })(marker, i);
+                                }
+
+
+                            }
+
+                        });
+
+
+                    } else {
+                        getCurrentPosition();
+                        if (shipcode == "0") {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ยังไม่มีการบันทึกตำแหน่งร้านลูกค้า");
+                            $("#myModalWarning").modal();
+                            return false;
+                        }
+                        else {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ยังไม่มีการบันทึกตำแหน่งส่งสินค้า(Ship-To)ร้านลูกค้า");
+                            $("#myModalWarning").modal();
+                            return false;
+
+                        }
+                    }
+                }
+
+            });
+        }
+        $(document).on("click", "#btndetail", function () {
+            var cuscod = $("#cushid").val();
+            if (cuscod != "") {
+                window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cuscod));
+            } else {
+                window.location.replace("../SeleScrCustomer/dashboard");
+            }
+        });
+        $(document).on("click", "#navbarstatus", function () {
+            var cuscod = $("#cushid").val();
+            if (cuscod != "") {
+                window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuscod));
+            } else {
+                window.location.replace("../Statuslist/Index");
+            }
+
+        });
+        $('#selcus').change(function () {
+            var cusel = $("#selcus").val();
+            var Slm = $("#selslm").val();
+            // var cusold = $("#cus").html();
+            //var cusold = $("#cushid").val();
+            countorder(cusel, Slm)
+            getShipto(cusel);
+            getmapbycustomer(cusel, "0");
+            var selcusoption = $("#selcus option:selected").text();
+            //var cusold = cuscod;
+            var cusold = $("#nocusses").val();
+            $("#cushid").val(cusel);
+            if (cusel == "0") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
+                $("#myModalWarning").modal();
+                return false;
+            } else {
+                
+                var typin;
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cusel
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        typin = data[0].INACTIVE;
+
+                        if (typin == "Y") {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#addcus").text("");
+                            $("#crlicusaac").text("");
+                            $("#crlicustac").text("");
+                            $("#crbarcusaac").text("");
+                            $("#crbarcustac").text("");
+                            $("#crlicusaacday").text("");
+                            $("#crlicustacday").text("");
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#selslm").val(data[0].SLMCOD);
+
+                            $("#nocusses").val("");//master key customer
+                            return false;
+
+
+                        } else {
+                            //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                            $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                            $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                            $("#crlicusaacday").text(data[0].AACPAYTRM);
+                            $("#crlicustacday").text(data[0].TACPAYTRM);
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#selslm").val(data[0].SLMCOD);
+
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#nocusses").val(data[0].CUSCOD);//master key customer
+
+                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                        }
+                    }
+                });
+                // }
+            }
+
+        });
+        function getslmandcus() {
+            $.ajax({
+                url: '@Url.Action("Getdateslm", "DataCenter")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    var select = $("#selslm");
+                    select.children().remove();
+                    if (usertype == "1") {
+                        select.append($("<option>").val("ALL").text("Sales Man"));
+                    }
+                    $(data).each(function (index, item) {
+                        select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                    });
+                }
+            });
+        }
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/bootstrap.min.css">
+    <!-- Owl Carousel main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/tmartcss/css/owl.theme.default.min.css">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="~/tmartcss/css/core.css">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="~/tmartcss/css/shortcode/shortcodes.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="~/tmartcss/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="~/tmartcss/css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="~/tmartcss/css/custom.css">  
+    <!-- Modernizr JS -->
+    <script src="~/tmartcss/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        .heaclass {
+            background: transparent;
+            box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+            background: #a22216;
+            background: -webkit-gradient(linear,left top,left bottom,from(#f53d2d),to(#f63));
+            background: linear-gradient(-180deg,#ef3b13fa,#1a30d0a3);
+            -webkit-transition: -webkit-transform .2s cubic-bezier(.4,0,.2,1);
+            transition: -webkit-transform .2s cubic-bezier(.4,0,.2,1);
+            transition: transform .2s cubic-bezier(.4,0,.2,1);
+            transition: transform .2s cubic-bezier(.4,0,.2,1),-webkit-transform .2s cubic-bezier(.4,0,.2,1);
+            color: white;
+        }
+        .fixheader {
+            overflow: hidden;
+            background: linear-gradient(-180deg,#ef3b13fa,#1a30d0a3);
+            position: fixed;
+            top: 0;
+            width: 100%;
+          
+        }
+        #menu {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            width: 17em;
+            margin: -2.5em 0 0 0;
+            z-index: 5;
+            background: hsla(80, 90%, 40%, 0.7);
+            color: white;
+            font-weight: bold;
+            font-size: small;
+            text-align: left;
+            border: solid hsla(80, 90%, 40%, 0.5);
+            border-right: none;
+            padding: 0.5em 0.5em 0.5em 2.5em;
+            box-shadow: 0 1px 3px black;
+            border-radius: 3em 0.5em 0.5em 3em;
+        }
+        #countsku {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            text-align: center;
+            font-size: 20px;
+            padding: 1px 7px;
+            line-height: 0.9;
+            background-color: #333;
+            border-radius: 0.25em;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed__footer" style="background: #80808038;">
+      
+        <!--=================== Header =======================-->
+        <header class="header fixheader">
+            <nav class="navbar navbar-toggleable-sm navbar-light pt-120 pb-120">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand p-0 mr-5" href="#"><img src="~/images/logo/AACTAC185x70.jpg" /></a>
+
+                <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        @*<li class="nav-item dropdown messages-menu">
+                                <a class="nav-link dropdown-toggle" href="#">Action</a>
+
+                            </li>*@
+                        @*<li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" href="~/Home2/Index">Home2</a>
+
+                            </li>*@
+                        @if (Session["UserType"].ToString() != "5")
+                        {
+                            <li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" id="btnhome">ช้อปปิ้ง</a>
+                            </li>
+                           
+                            <li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" id="btnstatus">การสั่งซื้อของฉัน</a>
+                            </li>
+                            <li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" id="btndetail">บัญชีลูกค้า</a>
+                            </li>
+                             <li class="nav-item dropdown messages-menu">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarcart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-cart" style="font-size: 1.7em;"></i>
+                                <span class="label label-success bg-success" id="countsku"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @*<ul class="dropdown-menu-over list-unstyled">
+                                        <li class="header-ul text-center">You have 4 messages</li>
+                                        <li>
+                                            <!-- inner menu: contains the actual data -->
+                                            <ul class="menu list-unstyled">
+                                                <li>
+                                                    <!-- start message -->
+                                                    <a href="#">
+                                                        <div class="pull-left">
+                                                            <img src="http://via.placeholder.com/160x160" class="rounded-circle  " alt="User Image">
+                                                        </div>
+                                                        <h4>
+                                                            Support Team
+                                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                        </h4>
+                                                        <p>Why not buy a new awesome theme?</p>
+                                                    </a>
+                                                </li>
+                                                <!-- end message -->
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="pull-left">
+                                                            <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                        </div>
+                                                        <h4>
+                                                            AdminLTE Design Team
+                                                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                        </h4>
+                                                        <p>Why not buy a new awesome theme?</p>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="pull-left">
+                                                            <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                        </div>
+                                                        <h4>
+                                                            Developers
+                                                            <small><i class="fa fa-clock-o"></i> Today</small>
+                                                        </h4>
+                                                        <p>Why not buy a new awesome theme?</p>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="pull-left">
+                                                            <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                        </div>
+                                                        <h4>
+                                                            Sales Department
+                                                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                        </h4>
+                                                        <p>Why not buy a new awesome theme?</p>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="pull-left">
+                                                            <img src="http://via.placeholder.com/160x160" class="rounded-circle " alt="User Image">
+                                                        </div>
+                                                        <h4>
+                                                            Reviewers
+                                                            <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                        </h4>
+                                                        <p>Why not buy a new awesome theme?</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="footer-ul text-center"><a href="#">See All Messages</a></li>
+                                    </ul>*@
+                            </div>
+                           </li>
+                        }
+                        else if (Session["UserType"].ToString() == "5")
+                        {
+                            <li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" href="~/Orderlist/Index" id="btnhome">ช้อปปิ้ง</a>
+                            </li>
+                             <li class="nav-item dropdown messages-menu">
+
+                            <a class="nav-link dropdown-toggle" href="~/SCStockSco/Index">ตรวจสอบ Stock สินค้า</a>
+                        </li>
+                        <li class="nav-item dropdown messages-menu">
+
+                            <a class="nav-link dropdown-toggle" href="~/PriceApproval/Index">อนุมัติราคา</a>
+                        </li>
+                        }
+                       
+                        <li class="nav-item dropdown  user-menu ">
+
+
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                
+                                @if (Session["UserType"].ToString() != "6")
+                                {
+                                    <span class="toggle__menu hidden-xs">บัญชีของคุณ @Session["UserID"]  </span>
+                                }
+                                else if (Session["UserType"].ToString() == "6")
+                                {
+                                    <span class="toggle__menu hidden-xs">บัญชีของคุณ @Session["UserID"]  </span>
+                                }
+
+
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @*<a class="dropdown-item" href="#">Action</a>*@
+                                @*<a class="dropdown-item" href="~/Home2/Index">Home2</a>*@
+                                @if (Session["UserType"].ToString() == "5")
+                                {
+                                    <a class="dropdown-item" href="~/Orderlist/Index">ช้อปปิ้ง</a>
+                                }
+                                else if (Session["UserType"].ToString() != "5")
+                                {
+                                    <!--<a class="dropdown-item" href="~/Home/Index">ช้อปปิ้ง</a>
+                                    <a class="dropdown-item" href="~/Cart/Index">ตระกร้าสินค้า</a>
+                                    <a class="dropdown-item" href="~/Statuslist/Index">ติดตามการสั่งซื้อ</a>
+                                    <a class="dropdown-item" href="~/SeleScrCustomer/Index">บัญชีลูกค้า</a>-->
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown messages-menu">
+
+                            <a class="nav-link dropdown-toggle" href="~/Account/LogIn">ออกจากระบบ</a>
+                        </li>
+
+                        
+
+
+
+
+                    </ul>
+
+                </div>
+            </nav>
+        </header>
+        <!-- End Header Style -->
+        @*<div class="body__overlay"></div>
+        <!-- Start Offset Wrapper -->
+        <div class="offset__wrapper">
+            <!-- Start Search Popap -->
+            <div class="search__area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="search__inner">
+                                <form action="#" method="get">
+                                    <input placeholder="Search here... " type="text">
+                                    <button type="submit"></button>
+                                </form>
+                                <div class="search__close__btn">
+                                    <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Search Popap -->
+            <!-- Start Offset MEnu -->
+            <!-- <div class="offsetmenu">
+                 <div class="offsetmenu__inner">
+                     <div class="offsetmenu__close__btn">
+                         <a href="#"><i class="zmdi zmdi-close"></i></a>
+                     </div>
+                     <div class="off__contact">
+                         <div class="logo">
+                             <a href="index.html">
+                                 <img src="images/logo/logo.png" alt="logo">
+                             </a>
+                         </div>
+                         <p>Lorem ipsum dolor sit amet consectetu adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+                     </div>
+                     <ul class="sidebar__thumd">
+                         <li><a href="#"><img src="images/sidebar-img/1.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/2.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/3.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/4.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/5.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/6.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/7.jpg" alt="sidebar images"></a></li>
+                         <li><a href="#"><img src="images/sidebar-img/8.jpg" alt="sidebar images"></a></li>
+                     </ul>
+                     <div class="offset__widget">
+                         <div class="offset__single">
+                             <h4 class="offset__title">Language</h4>
+                             <ul>
+                                 <li><a href="#"> Engish </a></li>
+                                 <li><a href="#"> French </a></li>
+                                 <li><a href="#"> German </a></li>
+                             </ul>
+                         </div>
+                         <div class="offset__single">
+                             <h4 class="offset__title">Currencies</h4>
+                             <ul>
+                                 <li><a href="#"> USD : Dollar </a></li>
+                                 <li><a href="#"> EUR : Euro </a></li>
+                                 <li><a href="#"> POU : Pound </a></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="offset__sosial__share">
+                         <h4 class="offset__title">Follow Us On Social</h4>
+                         <ul class="off__soaial__link">
+                             <li><a class="bg--twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+
+                             <li><a class="bg--instagram" href="#" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+
+                             <li><a class="bg--facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+
+                             <li><a class="bg--googleplus" href="#" title="Google Plus"><i class="zmdi zmdi-google-plus"></i></a></li>
+
+                             <li><a class="bg--google" href="#" title="Google"><i class="zmdi zmdi-google"></i></a></li>
+                         </ul>
+                     </div>
+                 </div>
+             </div> -->
+            <!-- End Offset MEnu -->
+
+        </div>*@
+        <!-- End Offset Wrapper -->
+        <!-- Start BLog Area -->
+        <div class="container">
+            <div class="row">
+
+                
+
+            </div>
+        </div>@RenderBody()
+        <div class="htc__blog__area bg__gray ptb--30">
+            <div class="container">
+                <div class="row">
+
+                </div>
+                <!-- Start Load More BTn -->
+                <!-- <div class="row mt--60">
+                <div class="col-md-12">
+                    <div class="htc__loadmore__btn">
+                        <a href="#">load more</a>
+                    </div>
+                </div>
+            </div>-->
+                <!-- End Load More BTn -->
+            </div>
+        </div>
+        <!-- End BLog Area -->
+        <ul id=menu>
+            <li><a href="" id="d1">...</a>
+
+        </ul>
+    </div>
+    <!-- Body main wrapper end -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!-- jquery latest version -->
+    <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap framework js -->
+    <script src="~/tmartcss/js/bootstrap.min.js"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="~/tmartcss/js/plugins.js"></script>
+    <script src="~/tmartcss/js/slick.min.js"></script>
+    <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+    <!-- Waypoints.min.js. -->
+    <script src="~/tmartcss/js/waypoints.min.js"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="~/tmartcss/js/main.js"></script>
+
+</body>
+
+</html>

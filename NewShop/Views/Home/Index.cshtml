@@ -1,0 +1,2101 @@
+﻿@{
+    Layout = "~/Views/Shared/View3.cshtml";
+    
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Catalog TAC AAC</title>
+
+    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">
+    <link href="~/features/css/coomingson.css" rel="stylesheet" />
+
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+
+    <script src="~/CSS/jQueryv3.1.1.js"></script>
+
+    <link href="~/Content/w3css.css" rel="stylesheet" />
+    <style >
+        .center-div {
+            margin: 0 auto;
+            padding: 15px;
+            background-color: red;
+        }
+
+        #contents {
+            /* overflow: auto;*/
+            /*margin: auto;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;*/
+            overflow: auto;
+            margin: auto;
+            margin-bottom: 63px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+        .sort {
+            position: fixed;
+            right: 0;
+            top: 20%;
+            width: 17em;
+            margin: -4.5em 0 0 0;
+            z-index: 5;
+            /* background: hsla(80, 90%, 40%, 0.7); */
+            color: white;
+            font-weight: bold;
+            font-size: small;
+            text-align: left;
+            /* border: solid #eee; */
+            border-right: none;
+            padding: 0.5em 0.5em 0.5em 2.5em;
+            box-shadow: 0 1px 3px black;
+            border-radius: 3em 0.5em 0.5em 3em;
+        }
+        
+        #sidebar {
+            width: 20%;
+            margin: 5px;
+            padding: 5px;
+            margin-top: 20px;
+            height: 100%;
+        }
+
+        #sidebar2 {
+            width: 20%;
+            padding: 5px;
+            margin-top: 20px;
+        }
+
+        #mainContents {
+            /*width: 60%;*/
+            margin: 0px;
+            padding-top: 20px;
+           
+        }
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            /* font-size: 20px; */
+            z-index: 99;
+        }
+        .h1, h1 {
+            font-size: 1.5rem;
+        }
+        .button1 {
+            font-size: 10px;
+        }
+        .sidebar3 {
+            position: fixed;
+            width: 200px;
+            height: 350px;
+            background:#f3f3f3;
+        }
+
+        .content {
+            margin-left: 200px;
+            height: 567px;
+            width: auto;
+            position: relative;
+            background: #fff;
+            overflow: auto;
+            z-index: 1;
+        }
+
+        .info {
+           
+            height: 300px;
+            position: relative;
+          
+        }
+        #sidebar-wrapper {
+            /* background: #1a1a1a; */
+            height: 100%;
+            /* left: 220px; */
+            /* margin-left: -220px; */
+            overflow-x: hidden;
+            overflow-y: auto;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            width: 220px;
+            z-index: 1000;
+           
+        }
+        ._saleprice {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #ee4d2d;
+            margin-left: 2.5rem;
+        }
+        .rat__qun {
+            color: #FFFFFF;
+            background-color: #4CAF50;
+            float: right;
+     
+        }
+    </style>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            text-align: center;
+        }
+
+        .column {
+            float: left;
+            width: 44.33%;
+        }
+
+        .column-66 {
+            float: left;
+            width: 66.66666%;
+            padding: 10px;
+        }
+
+        .column-33 {
+            float: left;
+            width: 22.33333%;
+            padding: 10px;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .btnfilter {
+            color: #fff;
+            background-color: #6f8474;
+            border-color: #28a745;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.90rem 1.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .warningfilter {
+            color: #1c1c1d;
+            background-color: #ffc10791;
+            border-color: #ffc107;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.90rem 1.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            background-color: #ffc10791;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .cd-tab-filter-wrapperpage {
+            background-color: #331d35;
+            box-shadow: 0 20px 20px rgb(97 171 171 / 65%);
+            z-index: 1;
+        }
+
+        .card-text {
+            padding: 8px 16px;
+        }
+
+        .card-title {
+            padding: 0px 6px;
+        }
+
+        .pro__rating {
+            display: flex;
+            padding-right: 20px;
+        }
+
+            .pro__rating li span {
+                color: #f3c258;
+                font-size: 16px;
+            }
+
+        .ti-star {
+            color: #f3c258;
+            font-size: 16px;
+        }
+
+        .search-box {
+            width: 81px;
+            height: 30px;
+            /* text-indent: -9999px; */
+            border: none;
+            border-radius: 0 2px 2px 0;
+            /* outline: none; */
+            /* background-size: 22px; */
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: pointer;
+            background-color: orange;
+        }
+        .card-footer {
+            padding: .75rem 1.25rem;
+            /*background-color: rgba(0,0,0,.03);*/
+            background-color: rgb(253 244 244);
+            border-top: 1px solid rgba(0,0,0,.125);
+        }
+
+        .card-footer:last-child {
+            border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+        }
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 0.50rem;
+        }
+        #changepass {
+            color: #0275d8;
+            text-decoration: none;
+            margin-bottom: 18px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+@*<body oncontextmenu="return false;">*@
+<body>
+    <!--=================== Header =======================-->
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Main Page Contents -->
+
+    <div id="contents" style="background: #80808038;">
+
+        <aside>
+
+            @*<div class="sidebar" style="position: -webkit-sticky; position: sticky; top: 0;">*@
+            <div id="sidebar-wrapper">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        @*<img  class="rounded-circle" alt="User Image">*@
+                    </div>
+                    <div class="">
+                        <p></p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <ul class="list-sidebar bg-defoult">
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <i class="fa fa-th-large"></i> <span class="nav-label"> แสดงตัวกรอง </span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                        <ul class="sub-menu collapse show" id="dashboard">
+                            <li>
+                                <div class="p-2 bg-primary">
+                                    <input type="search" id="textfree" placeholder="ค้นหาสินค้าที่คุณต้องการได้ที่นี่..." class="form-control ui-autocomplete-input" autocomplete="off" >
+                                </div>
+                                <div class="p-2 bg-primary">
+                                    <input type="search" id="textfreeoe" placeholder="ค้นหาเบอร์OEที่คุณต้องการได้ที่นี่..." class="form-control ui-autocomplete-input" autocomplete="off">
+                                </div>
+                            </li>
+                            <li><select class="form-control custom-select p-2 bg-warning" id="segment"></select></li>
+                            <li class="active"><select class="form-control custom-select p-2 bg-warning" id="productgroup"></select></li>
+                            <li><select class="form-control custom-select p-2 bg-warning" id="productline"></select></li>
+                            <li>
+                                <select class="form-control custom-select p-2 bg-warning" id="brand">
+                                    <option selected value="">Brand</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <select class="form-control custom-select bg-primary" id="maker">
+                                    <option selected value="">Maker</option>
+                                </select>
+                            </li>
+                            <li>
+                                <select class="form-control custom-select bg-primary" id="Model">
+                                    <option selected value="">Model</option>
+                                </select>
+                            </li>
+                            <li>
+                                <select class="form-control custom-select bg-primary" id="submodel" style="display:none">
+                                    <option selected value="">Submodel</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <select class="form-control custom-select" id="company">
+                                    <option value="ALL">ALL</option>
+                                    <option value="TAC">TAC</option>
+                                    <option value="AAC">AAC</option>
+                                </select>
+                            </li>
+                            <li>
+                                <select class="form-control custom-select" id="catalogue">
+                                    <option selected value="">Catalogue</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <div class="p-2 bg-primary">
+                                    <button class="w3-btn w3-orange w3-round button1" id="searchbox">Search   </button>
+                                    <button type="button" class="w3-btn w3-grey w3-round button1" id="crsearchbox">Clear Filter</button>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <!--   <li> <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a> </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active"> <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                        <ul class="sub-menu collapse" id="products">
+                            <li class="active"><a href="#">CSS3 Animation</a></li>
+                            <li><a href="#">General</a></li>
+                            <li><a href="#">Buttons</a></li>
+                            <li><a href="#">Tabs & Accordions</a></li>
+                            <li><a href="#">Typography</a></li>
+                            <li><a href="#">FontAwesome</a></li>
+                            <li><a href="#">Slider</a></li>
+                            <li><a href="#">Panels</a></li>
+                            <li><a href="#">Widgets</a></li>
+                            <li><a href="#">Bootstrap Model</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a> </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa fa-chevron-left pull-right"></span></a>
+                        <ul class="sub-menu collapse" id="tables">
+                            <li><a href=""> Static Tables</a></li>
+                            <li><a href=""> Data Tables</a></li>
+                            <li><a href=""> Foo Tables</a></li>
+                            <li><a href=""> jqGrid</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#e-commerce" class="collapsed active"><i class="fa fa-shopping-cart"></i> <span class="nav-label">E-commerce</span><span class="fa fa-chevron-left pull-right"></span></a>
+                        <ul class="sub-menu collapse" id="e-commerce">
+                            <li><a href=""> Products grid</a></li>
+                            <li><a href=""> Products list</a></li>
+                            <li><a href="">Product edit</a></li>
+                            <li><a href=""> Product detail</a></li>
+                            <li><a href="">Cart</a></li>
+                            <li><a href=""> Orders</a></li>
+                            <li><a href=""> Credit Card form</a> </li>
+                        </ul>
+                    </li>
+                    <li> <select class="form-control custom-select p-2 bg-warning" id="productgroup"></select></li>
+                    <li> <select class="form-control custom-select p-2 bg-warning" id="productline"></select></li>
+                    <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                    <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                    <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                    <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>-->
+                </ul>
+            </div>
+        </aside>
+
+        <div id="mainContents">
+            <div class="sticky">
+                <div class="row">
+                    <div class="col-sm-2">
+                        @*<div class="cd-select cd-filters">
+                                <button type="button" class="btn btn-dark" id="crsearchbox">Clear Filter</button>
+
+                            </div>*@
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-sm-2 sort">
+                        <div class="cd-select cd-filters">
+                            <select class="form-control" id="sortby">
+                                <option selected value="0">Sort by </option>
+                                <option value="1">Favorite </option>
+                                <option value="2">New Item</option>
+                                <option value="3">Maker,Model</option>
+                                <option value="4">Item No</option>
+                                <option value="5">Item</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="loader" style="display:none"></div>
+                <div class="card-deck" id="fixbox">
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="body__overlay"></div>
+    <!-- Start Offset MEnu -->
+    <div class="offsetmenu">
+            <div class="offsetmenu__inner">
+                <div class="offsetmenu__close__btn">
+                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                </div>
+                <div class="off__contact">
+                    <div class="logo">
+                        <a href="">
+                            My Account Customer
+
+                        </a>
+                    </div>
+                    <div class="offset__single">
+                        <div id="cusname">
+
+                        </div>
+
+                    </div>
+                    <p>DEFAULT BILLING ADDRESS</p>
+                    <div class="offset__single">
+                        <div id="addcus">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="offset__widget">
+                    <div class="offset__single">
+                        <h4 class="offset__title">Credit Limit</h4>
+                        <div id="crlicusaac">
+
+                        </div>
+                        <div id="crlicustac">
+
+                        </div>
+                    </div>
+                    <div class="offset__single">
+                        <h4 class="offset__title">Credit Balance</h4>
+                        <div id="crbarcusaac">
+
+                        </div>
+                        <div id="crbarcustac">
+
+                        </div>
+                    </div>
+                </div>
+                  <div class="offset__sosial__share">
+                      <div  class="offset__title" id="changepass">Change password</div>
+                      
+                    @*<h4 class="offset__title">Follow Us On Social</h4>
+                    <ul class="off__soaial__link">
+                        <li><a class="bg--twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+
+                        <li><a class="bg--instagram" href="#" title="Instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+
+                        <li><a class="bg--facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+
+                        <li><a class="bg--googleplus" href="#" title="Google Plus"><i class="zmdi zmdi-google-plus"></i></a></li>
+
+                        <li><a class="bg--google" href="#" title="Google"><i class="zmdi zmdi-google"></i></a></li>
+                    </ul>*@
+                  </div>
+            </div>
+        </div>
+    <!-- End Offset MEnu -->
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">เลือกลูกค้าที่ต้องการ Shopping</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="form-control" id="selslm"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" id="selcus"><option value="0"></option></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="nextsp">Next</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <div class="modal fade" id="myModalWarning" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarninglog" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarninglog">Some text in the modal.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modalsuccess -->
+    <div class="modal" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+    <script src="~/bootstrap-4.0.0/js/dist/util.js"></script>
+    <script src="~/bootstrap-4.0.0/js/dist/modal.js"></script>
+
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    @*<script type="text/javascript">
+            eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}))
+        </script>*@
+
+    <script type="text/javascript">
+
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usercode = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        expire(usrexpire)
+        if (usertype == "") {
+            window.location.replace("../Account/LogIn");
+
+        } else {
+            if (usertype == "1" || usertype == "2") {
+                resourceAddress.hash();
+                var cuscod = atob(param_values.numcuber);
+                $("#changepass").css("display", "none");
+            } else if (usertype == "5") {
+                var cuscod = "110Z0001O";
+                $("#changepass").css("display", "none");
+
+            } else if (usertype == "6") {
+                 resourceAddress.hash();
+                // var cuscod = usercode;
+                 var cuscod = atob(param_values.numcuber);
+               
+                 $("#changepass").css("display", "block");
+            }
+        }
+
+        $(document).ready(function () {
+            $('#changepass').click(function () {
+               if (usertype == "6") {
+                   window.location.replace("../ChangePassword/Index");
+                }
+            });
+            $('.button-left').click(function () {
+                $('.sidebar').toggleClass('fliph');
+            });
+            $('li a .toggle__menu').on('click', function () {
+               
+               
+                  $('.offsetmenu').addClass('offsetmenu__on');
+                   $('.body__overlay').addClass('is-visible');
+               
+            });
+            $('.offsetmenu__close__btn').on('click', function () {
+              
+                    $('.offsetmenu').removeClass('offsetmenu__on');
+                   $('.body__overlay').removeClass('is-visible');
+                
+
+            });
+
+        });
+
+        var _var = $("#company").val();
+        // var _var = "TAC";
+        $.ajax({
+            url: '@Url.Action("GetCatProductGroup", "DataCenter")',
+            data: {
+                com: _var
+
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#productgroup");
+                select.children().remove();
+                select.append($("<option>").val("").text("หมวดสินค้า(Product Group)"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp=" + item.ProductGroup + ">").val(item.ProductGroup).text(item.ProductGroup));
+
+                });
+                //  var CUSCODt = $("#CUSCOD option:selected").text();
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+            data: {
+                com: _var,
+                progroup: ""
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#productline");
+                select.children().remove();
+                select.append($("<option>").val("").text("ประเภทสินค้า(Product Line)"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp='" + item.ProductGroup + "'>").val(item.ProductLine).text(item.ProductLine));
+
+                });
+                //  var CUSCODt = $("#CUSCOD option:selected").text();
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("GetdateStkgrp", "DataCenter")',
+            data: {
+                Name: _var
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#catalogue");
+                select.children().remove();
+                select.append($("<option>").val("").text("Group"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp=" + item.STKGRP + ">").val(item.STKGRP).text(item.GRPNAM));
+
+                });
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("Getdate", "DataCenter")',
+            data: {
+                Name: 'Maker',
+                sty: '0'
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#maker");
+                select.children().remove();
+                select.append($("<option>").val("").text("ยี่ห้อรถ(Maker)"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Description));
+
+                });
+                var select = $("#Model");
+                select.children().remove();
+                select.append($("<option>").val("").text("รุ่น(Model)"));
+                var select = $("#submodel");
+                select.children().remove();
+                select.append($("<option>").val("").text("Sub/Engine"));
+            }
+
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetBrand", "DataCenter")',
+            data: {
+                Name: _var
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#brand");
+                select.children().remove();
+                select.append($("<option>").val("").text("Brand"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.CODE));
+
+                });
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("GetSegment", "DataCenter")',
+            data: {
+                Name: _var
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#segment");
+                select.children().remove();
+                select.append($("<option>").val("").text("ประเภทรถยนต์(segment)"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.Maker));
+
+                });
+            }
+        });
+
+        $("#company").change(function () {
+            var _var = $(this).val();
+            $.ajax({
+                url: '@Url.Action("GetdateStkgrp", "DataCenter")',
+                data: {
+                    Name: _var
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#catalogue");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Group"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.STKGRP + ">").val(item.STKGRP).text(item.GRPNAM));
+
+                    });
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("GetBrand", "DataCenter")',
+                data: {
+                    Name: _var
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#brand");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Brand"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.CODE));
+
+                    });
+                }
+            });
+        });
+        countorder()
+        function countorder() {
+            // var SLM = $("#Slm").val()
+            $.ajax({
+                url: '@Url.Action("GetdateContorder", "DataCenter")',
+                data: {
+                    cus: cuscod,
+                    Slm: ""
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    $("#countsku").html(data.Getdata[0].val.SumQty);
+
+                }
+            });
+        }
+        function splitval(_val) {
+            var _splito = "";
+            _splito = _val.split('|');
+
+            return _splito[0];
+        }
+        function splitval2(_val) {
+            var _splito = "";
+            _splito = _val.split('|');
+
+            return _splito[1];
+        }
+        function splitval3(_val) {
+            var _splito = "";
+            _splito = _val.split('|');
+
+            return _splito[2];
+        }
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+        $("#productgroup").change(function () {
+            var _progroup = $(this).val();
+            // var _var = $("#company").val();
+            var _var = $("#company").val();
+            $.ajax({
+                url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+                data: {
+                    com: _var,
+                    progroup: _progroup
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#productline");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("ประเภทสินค้า(Product Line)"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.ProductGroup + ">").val(item.ProductLine).text(item.ProductLine));
+
+                    });
+                    //  var CUSCODt = $("#CUSCOD option:selected").text();
+                }
+            });
+
+        });
+        $("#productline").change(function () {
+            //  var _progroup= $(this).attr('custyp');
+            var _progroup = $('option:selected', this).attr('custyp');
+            // alert(_progroup)
+            $("#productgroup").val(_progroup);
+
+        });
+        function nl2br(str) {
+           //return str.replace(/(?!$|\n)([^\n]{4}(?!\n))/g, '$1\n');
+            //var string = str.replace(/(?!$|\n)([^\n]{4}(?!\n))/g, '$1\n');
+            return str.replace(/(?!$|\n)([^\n]{4}(?!\n))/g, '$1\n');
+           
+        }
+        
+        function getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno) {
+            //console.log(_productgroup);
+            var _maker = maker;
+            var _Model = Model;
+            var _submodel = submodel;
+            var _company = company;
+            var _catalogue = catalogue;
+            var _brand = brand;
+            var productgroup = _productgroup;
+            var productline = _productline;
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var _itemsegment = itemsegment
+
+            $('#fixbox').empty();
+
+            //$('.loader').css("display", "block");
+            var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
+            // $("#scrollUp").trigger("click");
+            $.ajax({
+                url: '@Url.Action("Getdataitemdetail", "Home")',
+                data: {
+                    maker: _maker,
+                    modelno: _Model,
+                    submodel: _submodel,
+                    company: _company,
+                    catalogue: _catalogue,
+                    brand: _brand,
+                    textfree: textfree,
+                    cuscod: cuscod,
+                    yrStart: "",
+                    yrEnd: "",
+                    itemno: itemno,
+                    engine: "",
+                    productgroup: productgroup,
+                    productline: productline,
+                    itemsegment: _itemsegment,
+                    sortby: sortby,
+                    usrtyp: usertype
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    employees = data;
+
+                    $('#fixbox').empty();
+                    if (employees.length > 0) {
+                        var favitm = "";
+                        var displ = "";
+                        var displstr = "";
+                        var displnew = "";
+                        var displstrnew = "";
+                        var newitem = "";
+                        var strph = "";
+                        var strphsrc = "";
+                        var _strinactive = "";
+                        var displinactive = "";
+                        var imgdisplinactive = "";
+                        var displbut = "";
+                        var SalePrice = "";
+                        var moq = "";
+                        var fastar = "";
+                        //$('.loader').css("display", "none");
+                        loading.out()
+                        var SubmithtmlPage = "";
+                        for (var i = 0; i < employees.length; i++) {
+                            ItemNo = employees[i].ItemNo;
+                           //Supdescri = splitval2(employees[i].Description).substr(0, 50);
+                            //Supdescri = nl2br(employees[i].Description);
+                            Supdescri = employees[i].Description;
+                            Price = employees[i].Price;
+                            Company = employees[i].Company;
+                            Available_Stock = employees[i].Available_Stock;
+                            SalePrice = employees[i].SalePrice;
+                            strph = employees[i].PATH;
+                            moq = employees[i].minord;
+                            if (Available_Stock != "Y") {
+                                Stravailable_Stock = "Sold out"
+                                Stravailable_Stock = "";
+                            } else { Stravailable_Stock = "" }
+                            favitm = employees[i].FavoriteItem;
+                            newitem = employees[i].NewItem;
+                            _strinactive = employees[i].Inactive;
+                          
+                            if (favitm != "") {
+                                displ = "display:block"
+                                displstr = "data-selected='true'";
+                                if (favitm == "1") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "2") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-half-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "3") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "4") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "5") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "6") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "7") {
+                                    fastar =  '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "8") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "9") {
+                                    fastar = '<i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                } else if (favitm == "10") {
+                                    fastar = '<i class="fa fa-star-half-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:28px;color:yellow" aria-hidden="true"></i>';
+                                }
+                            } else {
+                                displ = "display:none";
+                                displstr = "";
+                            }
+                            if (newitem != "") {
+                                // displnew = "<div style='background-color: red;width: 111px;color: white;font-size: smaller;'>New</div>";
+                                displnew = "<i style='font-size: x-large;color: red;float: right;'>New item</i>";
+                                displstrnew = "data-selected='true'";
+                            } else {
+                                displnew = ""
+                                displstrnew = "";
+
+                            }
+                            var ustypdisp
+                            var ustyp = usertype;
+                            if (ustyp == "") {
+                                ustypdisp = "display:none";
+                            } else {
+                                ustypdisp = "";
+                            }
+                            if (strph == "") {
+                                strph = 'holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail';
+                                strphsrc = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1754a3eb838%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1754a3eb838%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'
+                            } else {
+                                strph = strph;
+                                strphsrc = strph;
+                            }
+                            if (_strinactive == "Y") {
+                                //RED//
+                                // displinactive = "<i class='fa fa-circle text-danger'></i> InActive"
+                                displinactive = "<i class=''></i>"
+                                imgdisplinactive = '<img src="../images/logo/cancelled.png" />';
+                                displbut = "display:none";
+                            } else {
+                                //Graee//
+                                displinactive = "<i class='fa fa-circle text-success'></i> Active"
+                                imgdisplinactive = '';
+                                displbut = "display:block";
+                            }
+                            // //<div class="col-sm-3 d-flex align-items-stretch">' +
+                            $("#fixbox").append('<div class="card-group  col-lg-3 col-md-4 mb-4 d-flex">' +
+                                  ' <div class="card sm-3 box-shadow" style="background: linear-gradient(-180deg,#ef3b1333,#1a30d047);">' +
+                                      '<img class="card-img-top" data-src="' + strph + '" src=' + strphsrc + '   style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">' +
+                                      //'<h2 class="card-title" style=" margin-left: auto;">' + displnew + '  </h2>' +
+                                      '<div class="card-body">' +
+                                        '<h1 class="card-title d-flex">' + ItemNo + '  </h1>' +
+                                        '<div  class="pro__dtl__rating"  style="' + displ + '">' + fastar + ' </div>' +
+                                         '<div style="word-break: break-all;display: flex; align-items: stretch;flex-wrap: nowrap;align-content: space-between;flex-direction: column;">' + Supdescri + ' </div>' +
+                                       // ' <p class="card-text d-flex">' + Supdescri + '</p>' +
+                                         // '<div class="card-text">' + Supdescri + '</div>' +
+                                         // ' <p class="d-flex">' + Supdescri + '</p>' +
+                                          // '<h4 class="card-text" style=" text-decoration: line-through;color: deeppink;font-family: cursive;font-size: large;text-align: left;margin-left: 1rem;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                           //'<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                          // '<p style="margin-block-start:auto;">' + displinactive +"  "+displnew + '</p>' +
+                                           '<input type="hidden" id="sprice' + (i + 1) + 'a"" value="' + SalePrice + '" />' +
+                                            '<p style="margin-block-start:auto;position: absolute;z-index: 9999;">' + imgdisplinactive + '</p>' +
+                                     '  </div>' +
+                                         '<div class="card-footer">' +
+
+                                         '<h4 class="card-text" style=" text-decoration: line-through;color: deeppink;font-family: cursive;font-size: large;text-align: left;margin-left: 1rem;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                         '<div class="_saleprice">฿' + commaSeparateNumber(SalePrice) + '</div>' +
+
+                                          //'<span class="rat__qun" >(MOQ:' + moq + ')</span>' +
+                                         // '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                          '<br><span class="rat__qun" >(MOQ:' + moq + ')</span><p style="margin-block-start:auto;">' + displinactive + "<br>  " + displnew + '</p>' +
+
+                                         '</div>' +
+                                      '<div class="d-flex" style="margin-block-start: auto;">' +
+                                               '<div class="justify-content-end btn-group " style="' + ustypdisp + '">' +
+                                                 '<a   style="' + displbut + '"  class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock="' + ItemNo + '">See Detail</a> ' +
+                                              ' </div>' +
+
+                                               '<div class="justify-content-end btn-group " style="' + ustypdisp + '">' +
+                                                 '<a style="' + displbut + '" class="btn btn-success fv-btn"  id="btnsubmitinser' + (i + 1) + 'a" com=' + Company + ' stock="' + ItemNo + '" moq="' + moq + '" price="' + Price + '" saleprice="' + SalePrice + '" >Add to cart</a> ' +
+                                              ' </div>' +
+                                       '</div>' +
+
+                                   '</div>' +
+
+                               '</div>');
+
+                            //$("#fixbox").append('<div class="card mb-4" ' + displstr + ' style="box-shadow: 4px 4px 10px rgb(175 212 212);">' +
+                            //    '<img class="card-img-top img-fluid" src="//placehold.it/500x180" alt="Card image cap">' +
+                            //    '<div class="card-body">' +
+                            //        '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+                            //         '<div  class="pro__dtl__rating"  style="' + displ + '"><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span></div>' +
+                            //        '<h4 class="card-text">' + Supdescri + '</h4>' +
+                            //        '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                            //        '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                            //        '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+
+                            //'</div>');
+
+
+
+                        }
+                        //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+                    } else {
+                        //$('.loader').css("display", "none");
+                        loading.out()
+                        $('#fixbox').empty();
+
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("No Data.....");
+                        $("#myModalWarning").modal();
+                    }
+                }
+            });
+        }
+
+
+        $("#sortby").change(function () {
+            var vb = $(this).val();
+
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+            var sortby = vb;
+            var itemno = $("#textfreeoe").val();
+            getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno);
+
+
+            // → '{"b":"foo","c":"bar","a":"baz"}'
+            //if(vb == "1") {
+            //    //employees.reverse();
+            //    employees.sort((a,b) => parseInt(a.FavoriteItem) < parseInt(b.FavoriteItem) ? -1 : 0);
+            //    $('#fixbox').empty();
+            //    console.log(employees)
+            //    if (employees.length > 0) {
+            //        var favitm = "";
+            //        var displ = "";
+            //        var displstr = "";
+            //        var displnew = "";
+            //        var displstrnew = "";
+            //        var newitem = "";
+            //        $('.loader').css("display", "none");
+            //        var SubmithtmlPage = "";
+            //        for (var i = 0; i < employees.length; i++) {
+
+            //            ItemNo = employees[i].ItemNo;
+            //            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+            //            Price = employees[i].Price;
+            //            Company = employees[i].Company;
+            //            Available_Stock = employees[i].Available_Stock;
+            //            if (Available_Stock != "Y") {
+            //                Stravailable_Stock = "Sold out"
+            //                Stravailable_Stock = "";
+            //            } else { Stravailable_Stock = "" }
+            //            favitm = employees[i].FavoriteItem;
+            //            newitem = employees[i].NewItem;
+            //            if (favitm != "") {
+            //                displ = "display:block"
+            //                displstr = "data-selected='true'";
+            //            } else {
+            //                displ = "display:none";
+            //                displstr = "";
+
+            //            }
+            //            if (newitem != "") {
+            //                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+            //                displstrnew = "data-selected='true'";
+            //            } else {
+            //                displnew = ""
+            //                displstrnew = "";
+
+            //            }
+            //            $("#fixbox").append('<div class="col-md-4">' +
+            //                     ' <div class="card mb-4 box-shadow">' +
+            //                         ' <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1754a3eb838%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1754a3eb838%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">' +
+            //                          '<div class="card-body">' +
+            //                           '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+            //                           '<div  class="pro__dtl__rating"  style="' + displ + '"><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star"  style="font-size:28px;color:yellow" aria-hidden="true"></i></div>' +
+            //                             ' <p class="card-text">' + Supdescri + '</p>' +
+            //                              '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+            //                              '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+            //                             ' <div class="d-flex justify-content-between align-items-center">' +
+            //                                  '<div class="btn-group">' +
+            //                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+            //                                 ' </div>' +
+            //                               '</div>' +
+            //                        '  </div>' +
+            //                      '</div>' +
+            //                  '</div>');
+
+
+
+            //        }
+            //        //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+            //    } else {
+            //        $('.loader').css("display", "none");
+            //        $('#fixbox').empty();
+            //        alert("No Data.....")
+
+            //    }
+            //} else if (vb == "0") {
+            //    //employees.reverse();
+            //    employees.sort((a,b) => parseInt(a.FavoriteItem) < parseInt(b.FavoriteItem) ? -1 : 0);
+            //    $('#fixbox').empty();
+            //    console.log(employees)
+            //    if (employees.length > 0) {
+            //        var favitm = "";
+            //        var displ = "";
+            //        var displstr = "";
+            //        var displnew = "";
+            //        var displstrnew = "";
+            //        var newitem = "";
+            //        $('.loader').css("display", "none");
+            //        var SubmithtmlPage = "";
+            //        for (var i = 0; i < employees.length; i++) {
+
+            //            ItemNo = employees[i].ItemNo;
+            //            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+            //            Price = employees[i].Price;
+            //            Company = employees[i].Company;
+            //            Available_Stock = employees[i].Available_Stock;
+            //            if (Available_Stock != "Y") {
+            //                Stravailable_Stock = "Sold out"
+            //                Stravailable_Stock = "";
+            //            } else { Stravailable_Stock = "" }
+            //            favitm = employees[i].FavoriteItem;
+            //            newitem = employees[i].NewItem;
+            //            if (favitm != "") {
+            //                displ = "display:block"
+            //                displstr = "data-selected='true'";
+            //            } else {
+            //                displ = "display:none";
+            //                displstr = "";
+
+            //            }
+            //            if (newitem != "") {
+            //                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+            //                displstrnew = "data-selected='true'";
+            //            } else {
+            //                displnew = ""
+            //                displstrnew = "";
+
+            //            }
+            //            $("#fixbox").append('<div class="col-md-4">' +
+            //                     ' <div class="card mb-4 box-shadow">' +
+            //                         ' <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1754a3eb838%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1754a3eb838%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">' +
+            //                          '<div class="card-body">' +
+            //                           '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+            //                           '<div  class="pro__dtl__rating"  style="' + displ + '"><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star"  style="font-size:28px;color:yellow" aria-hidden="true"></i></div>' +
+            //                             ' <p class="card-text">' + Supdescri + '</p>' +
+            //                              '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+            //                              '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+            //                             ' <div class="d-flex justify-content-between align-items-center">' +
+            //                                  '<div class="btn-group">' +
+            //                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+            //                                 ' </div>' +
+            //                               '</div>' +
+            //                        '  </div>' +
+            //                      '</div>' +
+            //                  '</div>');
+
+
+
+            //        }
+            //        //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+            //    } else {
+            //        $('.loader').css("display", "none");
+            //        $('#fixbox').empty();
+            //        alert("No Data.....")
+
+            //    }
+            //} else if (vb == "2") {
+            //    //employees.sort(sort_by('NewItem', {
+            //    //    name: 'Price',
+            //    //    primer: parseFloat,
+            //    //    reverse: true
+            //    //}));
+            //    //console.log(employees)
+
+            //    employees.reverse();
+            //    employees.sort((a, b) => a.NewItem < b.NewItem ? 1 : -1);
+
+            //    $('#fixbox').empty();
+            //    if (employees.length > 0) {
+            //        var favitm = "";
+            //        var displ = "";
+            //        var displstr = "";
+            //        var displnew = "";
+            //        var displstrnew = "";
+            //        var newitem = "";
+            //        $('.loader').css("display", "none");
+            //        var SubmithtmlPage = "";
+            //        for (var i = 0; i < employees.length; i++) {
+            //            ItemNo = employees[i].ItemNo;
+            //            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+            //            Price = employees[i].Price;
+            //            Company = employees[i].Company;
+            //            Available_Stock = employees[i].Available_Stock;
+            //            if (Available_Stock != "Y") {
+            //                Stravailable_Stock = "Sold out"
+            //                Stravailable_Stock = "";
+            //            } else { Stravailable_Stock = "" }
+            //            favitm = employees[i].FavoriteItem;
+            //            newitem = employees[i].NewItem;
+            //            if (favitm != "") {
+            //                displ = "display:block"
+            //                displstr = "data-selected='true'";
+            //            } else {
+            //                displ = "display:none";
+            //                displstr = "";
+
+            //            }
+            //            if (newitem != "") {
+            //                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+            //                displstrnew = "data-selected='true'";
+            //            } else {
+            //                displnew = ""
+            //                displstrnew = "";
+
+            //            }
+            //            $("#fixbox").append('<div class="col-md-4">' +
+            //                     ' <div class="card mb-4 box-shadow">' +
+            //                         ' <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1754a3eb838%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1754a3eb838%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">' +
+            //                          '<div class="card-body">' +
+            //                           '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+            //                           '<div  class="pro__dtl__rating"  style="' + displ + '"><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="font-size:28px;color:yellow" aria-hidden="true"></i><i class="fa fa-star"  style="font-size:28px;color:yellow" aria-hidden="true"></i></div>' +
+            //                             ' <p class="card-text">' + Supdescri + '</p>' +
+            //                              '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+            //                              '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+            //                             ' <div class="d-flex justify-content-between align-items-center">' +
+            //                                  '<div class="btn-group">' +
+            //                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+            //                                 ' </div>' +
+            //                               '</div>' +
+            //                        '  </div>' +
+            //                      '</div>' +
+            //                  '</div>');
+            //        }
+
+            //    } else {
+            //        $('.loader').css("display", "none");
+            //        $('#fixbox').empty();
+            //        alert("No Data.....")
+
+            //    }
+            //}
+        });
+
+        $("#catalogue").change(function () {
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+
+            $("#sortby").val("0");
+
+            //  getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+
+
+        });
+        function clearval() {
+            $("#sortby").val("0");
+        }
+        $("#maker").change(function () {
+            var _var = $(this).val();
+
+            var select = $("#submodel");
+            select.children().remove();
+            $.ajax({
+                url: '@Url.Action("GetdateRelation", "DataCenter")',
+                data: {
+                    Name: _var,
+                    sty: '1'
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    $("#submodel").append($("<option>").val("").text("submodel"));
+                    var select = $("#Model");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Model"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Description));
+
+                    });
+                }
+            });
+
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+
+            $("#sortby").val("0");
+
+            // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+        });
+        $("#Model").change(function () {
+            var _var = $(this).val();
+            $.ajax({
+                url: '@Url.Action("GetdateRelation", "DataCenter")',
+                data: {
+                    Name: _var,
+                    sty: '2'
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#submodel");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Submodel"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Type));
+
+                    });
+                }
+            });
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+
+            $("#sortby").val("0");
+
+            // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+        });
+        $("#submodel").change(function () {
+
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $(this).val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+            // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+        });
+
+        $(document).on("click", ".fv-btn", function () {
+
+
+            var customer = cuscod;
+            var stkcod = $(this).attr('stock');
+            var company = $(this).attr('com');
+            var moq = $(this).attr('moq');
+            var price = $(this).attr('price');
+            var saleprice = $(this).attr('saleprice');
+           
+            var loading = new Loading({ direction: 'hor', discription: 'กำลังบันทึกสินค้าเข้าตระกร้า...', defaultApply: true, });
+            $.ajax({
+                url: '@Url.Action("GetdataitemdetailbyMoq", "productdetails")',
+                data: {
+                    Nodisplay: stkcod,
+                    Comdisplay: company,
+                    strcustome: customer,
+                    moq : moq
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+
+                    if (data.length > 0) {
+                        loading.out()
+                        var price = data[0].val.Price0
+                        var sprice = data[0].val.Price;
+                        //var price = price;
+                       // var sprice = saleprice;
+                        //var qty = "1";
+                        var qty = moq;
+                        var bckorder = "0";
+                        var expectprice = "0";
+                        var linenote = "";
+                        var foc = "0";
+                        if (qty == "0") {
+                            if (foc == "0") {
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
+                                $("#myModalWarninglog").modal();
+
+                                return false;
+                            }
+                        }
+                        if (qty == "") {
+                            if (foc == "0") {
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
+                                $("#myModalWarninglog").modal();
+
+                                return false;
+                            }
+                        }
+
+                        //else {
+                        //    foc = "0"
+                        //}
+                      
+                        if (usertype == "6") {
+
+                            if (sprice == "0") {
+                                //if (expectprice == "0") {
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณาติดต่อพนักงานขาย");
+                                $("#myModalWarninglog").modal();
+                                $(".fv-btn").attr("disabled", false)
+                                return false;
+                                //}
+                                //return false;
+                            }
+                            if (sprice == "999999") {
+                                //if (expectprice == "0") {
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณาติดต่อพนักงานขาย");
+                                $("#myModalWarninglog").modal();
+                                $(".fv-btn").attr("disabled", false)
+                                return false;
+                                //}
+                                //return false;
+                            }
+                        } else {
+                            if (sprice == "0") {
+
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณากดปุ่ม See Detail เพื่อใส่ราคาต่อรอง  เนื่องจากราคา 0 บาท");
+                                $("#myModalWarninglog").modal();
+                                return false;
+                            }
+                            if (sprice == "999999") {
+                                //if (expectprice == "0") {
+
+                                $("#textAlertWarninglog").empty();
+                                $("#textAlertWarninglog").text("กรุณากดปุ่ม See Detail เพื่อใส่ราคาต่อรอง  เนื่องจากราคา Indent");
+                                $("#myModalWarninglog").modal();
+                                return false;
+                            }
+                        }
+                        var insertedby = userid;
+
+                        var pomocode = data[0].val.PromotionCode;
+
+                        // var minord = data[0].val.minord;
+                        var minord = moq;
+                        var prclstno = data[0].val.PRCLST_NO;
+                        var specprice = data[0].val.Special_Price;
+
+                        var promoprice = "";
+                        promoprice = data[0].val.PromoPrice;
+                        if (promoprice == "") {
+                            promoprice = "0";
+                        } else {
+                            promoprice = data[0].val.PromoPrice;
+                        }
+                        var promodesc = data[0].val.PromoDesc;
+                        var lastinvprice = data[0].val.LastInvPrice;
+                        var lastinvdate = data[0].val.LastInvdate;
+
+                        $.ajax({
+                            url: '@Url.Action("Confirmationdata", "Productdetails")',
+                            data: {
+                                customer: customer,
+                                stkcod: stkcod,
+                                company: company,
+                                price: price,
+                                sprice: sprice,
+                                qty: qty,
+                                bckorder: bckorder,
+                                expectprice: expectprice,
+                                linenote: linenote,
+                                insertedby: insertedby,
+                                pomocode: pomocode,
+                                foc: foc,
+                                minord: minord,
+                                prclstno: prclstno,
+                                specprice: specprice,
+                                promoprice: promoprice,
+                                promodesc: promodesc,
+                                lastinvprice: lastinvprice,
+                                lastinvdate: lastinvdate
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                console.log(data)
+                                //alert(data)
+                                //if (data.length > 0) {
+                                if (data == "Y") {
+                                    $("#textAlertSucces").empty();
+                                    $("#textAlertSucces").text("บันทึกสินค้าเข้าตะกร้าสำเร็จ");
+                                    $("#myModalSucces").modal();
+
+                                    //location.reload();
+                                    setTimeout(function () { window.close() }, 2000); //2วิ
+                                    countorder();
+                                } else {
+
+                                    $("#textAlertWarninglog").empty();
+                                    $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
+                                    $("#myModalWarninglog").modal();
+                                }
+                                //}
+                            }
+                        });
+
+                    } else {
+                        loading.out()
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text("บันทึกราการไม่สำเร็จ กรุณาทำรายการใหม่");
+                        $("#myModalWarninglog").modal();
+
+                    }
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+            return false;
+            //////////////////// save/////////////////////////
+
+
+        });
+        $("#crsearchbox").click(function () {
+            $("#maker").val("");
+            $("#Model").val("");
+            $("#submodel").val("");
+            $("#company").val("ALL");
+            $("#catalogue").val("");
+            $("#brand").val("");
+            $("#productgroup").val("");
+            $("#productline").val("");
+            $("#textfree").val("");
+            $("#segment").val("");
+            $("#textfreeoe").val("");
+            var _var = $("#company").val();
+            $.ajax({
+                url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+                data: {
+                    com: _var,
+                    progroup: ""
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#productline");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Product Line All"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.ProductLine + ">").val(item.ProductLine).text(item.ProductLine));
+
+                    });
+                    //  var CUSCODt = $("#CUSCOD option:selected").text();
+                }
+            });
+        });
+        $("#searchbox").click(function () {
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+            var sortby = $("#sortby").val();
+            var itemno = $("#textfreeoe").val();
+            getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno);
+        });
+        $("#brand").change(function () {
+
+            var maker = $("#maker").val();
+            var Model = $("#Model").val();
+            var submodel = $("#submodel").val();
+            var company = $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand = $(this).val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+            // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+        });
+        $("#textfree").click(function () {
+            this.select();
+            countorder();
+        });
+        $("#textfree").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            timeout: 1000000,
+
+            source: function (request, response) {
+
+                //var param = {
+                //    Name: $('#textfree').val(),
+                //    Xcus: "",
+                //    Xval: "",
+                //    //Xcus: $('#XXcus').val(),
+                //    //Xval: $('#selval').val(),
+                //    XvalCompany: $('#company').val()
+                //};
+                //var param = {
+                //    maker: "",
+                //    modelno: "",
+                //    submodel: "",
+                //    company: "TAC",
+                //    catalogue: "",
+                //    brand: "",
+                //    textfree: $('#textfree').val(),
+                //    cuscod: "",
+                //    yrStart: "",
+                //    yrEnd: "",
+                //    itemno: "",
+                //    engine: "",
+                //    productgroup: "",
+                //    productline: ""
+                //};
+                //var textfree = $("#textfree").val();
+                //textfree = splitval(textfree);
+                //  alert(textfree);
+
+                var param = {
+                    maker: $("#maker").val(),
+                    modelno: $("#Model").val(),
+                    submodel: $("#submodel").val(),
+                    XvalCompany: $("#company").val(),
+                    catalogue: $("#catalogue").val(),
+                    brand: $("#brand").val(),
+                    Name: $("#textfree").val(),
+                    cuscod: "",
+                    yrStart: "",
+                    yrEnd: "",
+                    itemno: "",
+                    engine: "",
+                    productgroup: $("#productgroup").val(),
+                    productline: $("#productline").val(),
+                    itemsegment: $("#segment").val()
+                };
+                // $('#fixbox').empty();
+                // $('.loader').css("display", "block");
+
+                $.ajax({
+                    url: '@Url.Action("GetdateStockCode", "Home")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //console.log(data.length
+                        // console.log("xxxx:" + data);
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        //  alert(textStatus + '&&' + errorThrown + '&&' + XMLhttpsRequest);
+                        alert(request.term);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                // var company= $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $("#brand").val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = ui.item.value;
+
+                var _splval = splitval(textfree);
+                var company = splitval3(textfree);
+                //alert(company)
+                var itemsegment = $("#segment").val();
+                var sortby = $("#sortby").val();
+                //var itemno = _splval;
+                var itemno = $("#textfreeoe").val();
+                if (usertype == "1" || usertype == "2") {
+                    if (cuscod != "") {
+                        ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
+                        var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_splval) + "/" + btoa(company) + "/" + btoa(cuscod));
+                        wi.focus();
+                    } else {
+                        //login//
+                    }
+                } else {
+
+                    getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno);
+                }
+                countorder();
+            },
+            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+        $('#selslm').change(function () {
+
+            var SLM = $(this).val()
+            var SLMt = $("#Slm option:selected").text();
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("ลูกค้า"));
+                    $(data).each(function (index, item) {
+                        select.append($("<option custyp=" + item.CUSTYP + ">").val(item.CUSCOD).text(item.CUSCOD + "|" + item.CUSNAM + "----ที่อยู่ " + item.ADDR_01 + "/" + item.PRO));
+                    });
+                    var CUSCODt = $("#CUSCOD option:selected").text();
+                    //$('#UserID').val(CUSCODt);
+                }
+            });
+            @*$.ajax({
+                    url: '@Url.Action("GetdataCus", "DataCenter")',
+                    data: {
+                        SLXX: SLM,
+                        SLMNAM: SLMt
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+
+                        $('#rdconfirm').text(data.Getdata[0].val.Countrow);
+                        $('#rd').text(data.Getdata[1].val.Countrow);
+                    }
+                });*@
+
+
+        });
+        // $("#nextsp").click(function () {
+        if (usertype != "6") {
+            if (usertype == "5") {
+
+            } else {
+                if (cuscod == "") {
+
+                    var wi = window.open("../SeleScrCustomer/Index");
+                    wi.focus();
+                } else {
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+                            //$("#cusname").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
+                            $("#cusname").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            $("#addcus").text(data[0].ADDR_01 + data[0].ADDR_02);
+                            $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                            $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+                            $("#crbarcusaac").text("AAC: " + commaSeparateNumber(data[0].AACBalance));
+                            $("#crbarcustac").text("TAC: " + commaSeparateNumber(data[0].TACBalance));
+                            $("#d1").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            getCreditcuskey(cuscod);//ดึงวงเงินจากร้านแม่
+                        }
+                    });
+                }
+            }
+        } else if (usertype == "6") {
+            $("#menu").css("display", "block");
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cuscod
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        // $("#cusname").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                        $("#cusname").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                        $("#addcus").text(data[0].ADDR_01 + data[0].ADDR_02);
+                        $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+                        $("#crbarcusaac").text("AAC: " + commaSeparateNumber(data[0].AACBalance));
+                        $("#crbarcustac").text("TAC: " + commaSeparateNumber(data[0].TACBalance));
+                        $("#d1").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                        getCreditcuskey(cuscod);//ดึงวงเงินจากร้านแม่
+                    }
+                });
+            }
+        } else if (usertype == "") {
+            var wi = window.open("../Account/LogIn");
+            wi.focus();
+        }
+        function getCreditcuskey(cusel) {
+            $.ajax({
+                url: '@Url.Action("GetdCustomerCredit", "DataCenter")',
+                data: {
+                    cusel: cusel
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+
+                    $("#crlicusaac").text("AAC: " + commaSeparateNumber(data[0].AACCrlimit));
+                    $("#crlicustac").text("TAC: " + commaSeparateNumber(data[0].TACCrlimit));
+
+
+                }
+            });
+        }
+        $('#navbarcart').click(function () {
+            // $(document).on("click", "#navbarcart", function () {
+
+            //var wi = window.open("../Cart/Index");
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                var wi = window.open("../Cart/Index?numcuber=" + btoa(cuscod));
+                wi.focus();
+            }
+        });
+        $(document).on("click", "#btnhome", function () {
+            //var wi = window.open("../Cart/Index");
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                var wi = window.open("../Home/Index?numcuber=" + btoa(cuscod));
+                wi.focus();
+            }
+        });
+        $(document).on("click", "#btncart", function () {
+            //var wi = window.open("../Cart/Index");
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                var wi = window.open("../Cart/Index?numcuber=" + btoa(cuscod));
+                wi.focus();
+            }
+        });
+        $(document).on("click", "#btndetail", function () {
+            //var wi = window.open("../Cart/Index");
+          
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                window.location.replace("../SeleScrCustomer/Index?numcuber=" + btoa(cuscod));
+            }
+            // var wi = window.open("../SeleScrCustomer/Index?numcuber=" + btoa(cuscod));
+            // wi.focus();
+
+        });
+        $(document).on("click", "#btnstatus", function () {
+            //var wi = window.open("../Cart/Index");
+            //var wi = window.open("../Statuslist/Index?numcuber=" + btoa(cuscod));
+            //wi.focus();
+            if (cuscod == "") {
+                var wi = window.open("../Account/LogIn");
+                wi.focus();
+            } else {
+                window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuscod));
+            }
+        });
+
+        $(document).on("click", "#_btnlinkdetail", function () {
+            var _vcom = $(this).attr('com');
+            var _vfd = $(this).attr('stock');
+            if (usertype == "6") {
+                if (cuscod != "") {
+                    ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
+                    var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
+                    wi.focus();
+                } else {
+                    //login//
+                }
+            }
+
+            else if (usertype == "1" || usertype == "2") {//saleman//
+
+                if (cuscod != "") {
+                    var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
+                    wi.focus();
+
+                } else {
+                    $("#myModal").modal('show');
+                    $.ajax({
+                        url: '@Url.Action("Getdateslm", "DataCenter")',
+                        data: {
+
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data)
+
+                            var select = $("#selslm");
+                            select.children().remove();
+                            select.append($("<option>").val("").text("Sales Man"));
+                            $(data).each(function (index, item) {
+                                select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "/" + item.SLMNAM));
+                            });
+                        }
+                    });
+                }
+            }
+            else if (usertype == "5") {
+                var cu = "110Z0001O";
+
+                var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cu));
+                wi.focus();
+
+            }
+        });
+    </script>
+</body>
+</html>

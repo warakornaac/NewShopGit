@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+   
+
+        <!--<meta https-equiv="X-UA-Compatible" content="IE=EmulateIE9" />-->
+        <title>Promotion  Application</title>
+        <!--<meta https-equiv="X-UA-Compatible" content="IE=EmulateIE9" />-->
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @*@Styles.Render("~/Content/css")
+            @Scripts.Render("~/bundles/modernizr")*@
+
+
+
+    
+</head>
+<body id="about">
+    <div>
+        @RenderSection("featured", required: false)
+        @RenderBody()
+    </div>
+</body>
+</html>

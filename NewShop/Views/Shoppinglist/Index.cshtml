@@ -1,0 +1,1826 @@
+﻿@{
+
+    Layout = "~/Views/Shared/Shoppinglist.cshtml";
+
+    var cuscod = ViewBag.Nodisplay;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shopping</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <!-- Modernizr JS -->
+
+    <style>
+        .fixed-table-container td {
+            background: burlywood;
+        }
+
+        /*.fixed-table-container th:nth-child(32) {
+            display: none;
+        }*/
+        .fixed-table-container th:nth-child(1) {
+            width: 77px;
+            height: 70px;
+        }
+
+        .fixed-table-container td:nth-child(1) {
+            width: 77px;
+            height: 70px;
+        }
+        /*.fixed-table-container th:nth-child(33) {
+            display: none;
+        }*/
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #3e8e41;
+            }
+
+        #myInput {
+            box-sizing: border-box;
+            background-image: url('searchicon.png');
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 14px 20px 12px 45px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
+
+            #myInput:focus {
+                outline: 3px solid #ddd;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: block;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .checkout-form-innerselect {
+            margin-top: 11px;
+        }
+
+        .h8, h8 {
+            font-size: 18px;
+        }
+
+        #menual {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            width: 17em;
+            margin: -2.5em 0 0 0;
+            z-index: 5;
+            background: hsla(80, 90%, 40%, 0.7);
+            color: white;
+            font-weight: bold;
+            font-size: small;
+            text-align: left;
+            border: solid hsla(80, 90%, 40%, 0.5);
+            border-right: none;
+            padding: 0.5em 0.5em 0.5em 2.5em;
+            box-shadow: 0 1px 3px black;
+            border-radius: 3em 0.5em 0.5em 3em;
+        }
+
+        .header li > a > .label {
+            position: absolute;
+            top: 3px;
+            right: 0px;
+            text-align: center;
+            font-size: 15px;
+            padding: 2px 3px;
+            line-height: .9;
+            background-color: #333;
+            border-radius: .25em;
+        }
+
+        #slmshow {
+            background-color: #2d3f83;
+            border: hidden;
+            color: white;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(-180deg,#071d6dfa,#9b9fbda3);">
+    <div class="wrapper fixed__footer">
+        <div class="body__overlay"></div>
+        <div class="container ptb--20 ">
+            <div class="content ptb--20 ">
+                <div class="row">
+                    <div class="col-md-6" style="color: wheat; box-shadow: 0 1px 3px black;">
+                        <i>บัญชีลูกค้า:<i class="note-desc" style="color: white; cursor: help;" id="cus" title=""></i></i><br />
+                        <i>Credit เงินสด:<i class="note-desc" style="color:white" id="dis"></i></i><br />
+                        <i>Note:<i class="note-desc" style="color:white" id="note"></i></i><br />
+                        <i>พนักงานขาย:<input type="hidden" id="slmhid" /> <i id="slmshow"></i></i>
+                    </div>
+                    <div class="col-md-4" style="color: wheat; box-shadow: 0 1px 3px black;">
+
+                        <span>ที่อยู่ในการออกใบกำกับภาษี:<p class="note-desc" style="color:white" id="addcus"></p></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="col-sm-6 input-group-addon">Company</span>
+                                <select id="Company" class="form-control" style="color:black">
+                                    <option value="TAC">TAC</option>
+                                    <option value="AAC">AAC</option>
+                                    <option value="OMP">OMP</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="font-size: initial; color: cyan;">
+                        * จำนวนสั่งซื้อห้ามน้อยกว่า MOQ *
+                    </div>
+
+                    <hr />
+
+                    <div class="col-md-12">
+                        <div class="col-md-4" style="text-align:left;">
+                            <div id="QShow" style="color: floralwhite;font-size: x-large;"></div>
+                        </div>
+                        <div class="col-md-4" style="text-align:right;">
+                        </div>
+                        <div class="col-md-4" style="text-align: right; float: right;">
+                            <div class="form-group">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <div class="input-group ">
+
+                                            <span>
+                                                <button type="button" id="btncheck" class="btn btn-warning"> จำนวนสินค้าในตระกร้า</button>
+                                            </span>
+
+                                            <span class="col-sm-4 input-group-addon"><i><i id="Cuitem" style="color:crimson; font-size: large; font: icon;"> 0 </i>ชิ้น</i></span>
+                                            <span class="col-sm-4 input-group-addon"><i><i id="Cuqty" style="color: crimson; font-size: large; font: icon;"> 0</i> เบอร์</i></span>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+
+                                <select id="selval" class="form-control" style="color:black">
+                                    <option value="1">ค้นหาแบบอิสระ</option>
+                                    <option value="2">ค้นหาแบบเจาะจงเบอร์</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="input-group">
+
+                                <input type="Text" @*onfocus="this.select();"*@ onmouseup="return false;" name="search_query" class="form-control" placeholder="ค้นหาสินค้า" id="search" />
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="text-align: right; text-align: right;">
+                        <span class="col-md-3 input-group-btn">
+                            <button type="button" id="bntHis" class="btn btn-default btn-large" style="width: 100px;display:none">ดูประวัติ </button>
+                        </span>
+
+                        <span class="col-md-3"><button type="button" id="bntcan" class="btn btn-warning btn-large" style="width: 100px;">CANCEL</button></span>
+
+                        <span class="col-md-3"><button type="submit" id="btnsubmitinsert" class="fa fa-shopping-cart  btn btn-success btn-large" style="width: 200px;">Add To Cart </button></span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="content ptb--20 " style="margin:2px 25px 0px">
+            <div class="row">
+
+                <div class="fixed-table-container" id="fixed-table-container-1" style="z-index: 1;">
+                    <table class="fixed_headers table table-bordered">
+                        <thead>
+                            <tr id="hrow">
+                                @if (Session["UserType"].ToString() == "1")
+                                {
+                                    <th style="text-align: center; width: 11%; height: -webkit-fill-available;" id="saleplus">Sales<br />Plus</th>
+                                }
+                                <th>ราคา Hot </th>
+                                <th>Delete</th>
+                                @*<th style="text-align: center;width: 11%;">FOC</th>*@
+                                <th>จำนวน</th>
+                                <th>B/O</th>
+                                <th>Company<br />|Stkcod</th>
+                                <th>Stkdes</th>
+                                <th>Sales Packing<br />Standard</th>
+                                <th>Moq</th>
+                                <th>Uom   </th>
+                                <th>ราคาป้าย</th>
+                                <th>ราคาซื้อ</th>
+                                <th>Price<br />Str</th>
+                                <th>ราคาพิเศษ</th>
+                                <th>Stock</th>
+                                <th>Back<br>Order</th>
+                                <th>ราคาต่อรอง</th>
+                                <th>Line Note</th>
+                                <th>Spc<br />remark</th>
+                                <th>ราคาซื้อ/<br />หน่วย ล่าสุด</th>
+                                <th>ราคา<br />ส่วนลดล่าสุด</th>
+                                <th>ราคา<br />ซื้อล่าสุด</th>
+                                <th>วันที่<br />ซื้อล่าสุด</th>
+                                <!--<th>PF</th>
+                                <th>Rack</th>
+                                <th>Rcw</th>-->
+                                <th>TotBck</th>
+
+                                <th>Spc<br />moq</th>
+                                <th>Spc<br />start<br />date</th>
+                                <th>Spc<br />end<br />date</th>
+                                <th>Promo<br />Code</th>
+                                <th>Promo<br />Desc</th>
+                                <th>Promo<br />Price</th>
+                                <th>Promo<br />MOQ</th>
+                                @*<th style="display:none;" class="last_col">วันที่คาดว่า<br />ของเข้าคลัง</th>
+                                    <th style="display:none;">...</th>*@
+                                <th>วันที่คาดว่า<br />ของเข้าคลัง</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content ptb--20 " style="background-color: beige; margin: 2px 25px 40px">
+            <div style="padding: 14px; border: 1px solid rgb(245, 244, 245);">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <legend>รายการของแถม(FOC)</legend>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- <button id="addRow1">เพิ่มรายการของแถม</button>-->
+                                <input type="Text" onmouseup="return false;" name="search_query" class="form-control ui-autocomplete-input" id="searchfoc" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <!-- <button id="addRow1">เพิ่มรายการของแถม</button>-->
+
+                            </div>
+                        </div>
+                        <table class="table table-bordered" id="example1" class="display" cellspacing="0" style=" text-align: center;width:100% ">
+                            <thead style="background-color: #333333; color: #fdfdfd;">
+                                <tr>
+                                    @*<th style="width: 3px;">No</th>*@
+                                    <th style="text-align: center;width: 20px;">Delete</th>
+                                    <th style="text-align: center;width: 15px;">In Stock</th>
+                                    <th style="text-align: center;width: 191px;">รายการของแถม / STKCOD</th>
+                                    <th style="text-align: center;width: 200px;">Stkdes</th>
+                                    <th style="text-align: center;width: 20px;">Stkgrp</th>
+                                    <th style="text-align: center;width:7%">จำนวน</th>
+                                    <th style="text-align: center;width:7%">B/O</th>
+                                    <th style="text-align: center;width: 20px;">SPack<br />UOM</th>
+                                    <th style="text-align: center;width: 20px;">UOM</th>
+                                    <th style="text-align: center;width:7%">Stock</th>
+                                    <th style="text-align: center">Remark</th>
+                                </tr>
+                            </thead>
+
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="checkbox" name="last_col" checked="checked" style="display:none">
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarninglog" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarninglog">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- Modalsuccess -->
+    <div class="modal" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- EndModalsuccess -->
+    <div class="modal" id="myModalWarning">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalconfirmNext-->
+    <div class="modal" id="confirm-confirmNext">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div class="modal-body">
+                    มีสินค้าอยู่ในตระกร้า คุณต้องการ Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnnext" class="btn btn-default" data-dismiss="modal">No</button>
+
+                    <button type="button" class="btn btn-success btn-ok" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+        <!-- EndModaldelete -->
+    </div>
+    <!-- Modal Wait Start here-->
+
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+
+
+    <input type="hidden" id="selslm" />
+    <script type="text/javascript">
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+
+        resourceAddress.hash();
+        var cuscod = atob(param_values.numcuber)
+        if (cuscod != "") {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //  console.log(data);
+                    $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                    $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02) + "  เบอร์ติดต่อ: " + data[0].TELNUM);
+                   
+                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                    $("#cushid").val(data[0].CUSCOD);
+                    $("#selslm").val(data[0].SLMCOD);
+
+                    $('#cus').attr('title', data[0].Hierarchy2_Channel);
+
+                    $.ajax({
+                        url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
+                        data: {
+                            codeslm: data[0].SLMCOD
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data)
+                            //optText = data[0].SLMCOD + "|" + data[0].SLMNAM;
+                            //optValue = data[0].SLMCOD;
+                            // $('#selslm').prepend(new Option(optText, optValue));
+                            // $('#selslm option[value="' + optValue + '"]').prop("selected", true);
+                            // $("#SalepersonCode option[value='ALL']").remove();
+                            //$("#selslm option[value='ALL']").remove();
+                            $("#slmhid").val(data[0].SLMCOD);
+                            $("#slmshow").text(data[0].SLMCOD + "/" + data[0].SLMNAM);
+                        }
+                    });
+                    //countorder(data[0].CUSCOD, data[0].SLMCOD);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("Getdiscount", "DataCenter")',
+                data: {
+                    cuscod: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    if (data.discount == "") {
+                        $("#dis").text(" 0");
+                    } else {
+                        $("#dis").text(data.discount);
+                    }
+                    if (data.Note == "") {
+                        $("#note").text("-");
+                    } else {
+                        $("#note").text(data.Note);
+                    }
+
+
+                }
+            });
+
+        }
+        // expire(usrexpire)
+        expire(usrexpire)
+        function expire(usrexpire) {
+            var expireval;
+            expireval = usrexpire;
+            var _typ = usertype;
+            var x = expireval.replace("Passwords expire '", "");
+            expireval = x.replace("' days", "");
+
+            if (parseInt(expireval) <= 15) {
+                // $("#textAlertWarning").empty();
+                if (_typ == "2") {
+                    //$("#textAlertWarning").text("Password ของท่านอีก" + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password  เข้าไปเปลี่ยน Password ได้ที่ App Citrix");
+                    alert("Password ของท่านอีก" + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password  เข้าไปเปลี่ยน Password ได้ที่ App Citrix");
+                } else if (_typ == "1") {
+                    // $("#textAlertWarning").text("Password ของท่านอีก " + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password ");
+                    alert("Password ของท่านอีก " + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password ");
+                }
+                // $("#myModalWarning").modal();
+
+            }
+        }
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+        var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+
+
+        function nl2br(el) {
+
+            // var html = el.substring(0, 40) + "<br>" + el.substring(40, 80) + "<br>" + el.substring(80, 120);
+            var html = el.substring(0, 15) + "<br>" + el.substring(15, 30) + "<br>" + el.substring(30, 50);
+            return html;
+        }
+        function nl3br(el) {
+            var len = el.length;
+            var x = len / 3;
+            if (len > 15) {
+                var html = el.substring(0, x) + "<br>" + el.substring(x, x + x) + "<br>" + el.substring(x + x, x + x + x);
+            } else {
+                var html = el;
+            }
+            return html;
+        }
+
+        $("#search").focus(function () { $(this).select(); });
+        $("#searchfoc").focus(function () { $(this).select(); });
+        $("#search").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            timeout: 1000000,
+            source: function (request, response) {
+
+                var param = {
+                    Name: $('#search').val(),
+                    Xcus: cuscod,
+                    Xval: $('#selval').val(),
+                    XvalCompany: $('#Company').val()
+                };
+                $.ajax({
+                    url: '@Url.Action("GetdateStockCode", "Shoppinglist")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //console.log(data.length
+                        //console.log(data);
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        //  alert(textStatus + '&&' + errorThrown + '&&' + XMLhttpsRequest);
+                        alert(request.term);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                var MyRows = $('.fixed_headers').find('tbody').find('tr');
+                for (var i = 0; i < MyRows.length; i++) {
+
+                    var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
+
+                    // alert(MyIndexValueQty)
+                    if (MyIndexValueQty == "") {
+                        $(MyRows[i]).find('td .tQty').parent().parent().remove();
+                    }
+                }
+                var val = ui.item.value;
+
+                // alert(val);
+                if (val == "ค้นหาสินค้า" || val == "") {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาเลือก Stock code");
+                    $("#myModalWarning").modal(); return false;
+                }
+                //////////////////********//////////////////
+                var StockCode = val;
+                var split_StockCode = StockCode.split('|');
+                var stkitem = split_StockCode[0];
+                //var StockCodedro = $("#StockCode_ID").val();
+                var CUS = cuscod;
+                //var SLM = strXXSul;
+                var SLM = $("#selslm").val();
+                var User = userid;
+                var valCompany = $('#Company').val()
+                $.ajax({
+                    url: '@Url.Action("GetdataPricelistbytable", "Shoppinglist")',
+                    data: {
+                        strcustome: CUS,
+                        User: User,
+                        SaleCode: SLM,
+                        strstockCode: stkitem,
+                        Company: valCompany
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        // console.log(data);
+
+                        if (data.length > 0) {
+
+                            var id = "";
+                            var sale = 0;
+                            var pro = 0;
+                            var stk = "";
+                            var Special_Price = "";
+                            var display = "";
+                            var Usertype = usertype;
+                            var dataexp = "";
+                            var subdataexp = "";
+                            var procodsub = "";
+                            if (Usertype == "2") {
+                                display = "display:none;"
+                                $("#saleplus").css("display", "none");
+                            }
+
+                            // $('#fixed-table-container-1 tbody:last-child').html("");
+                            var SubmithtmlPage = "";
+                            var rowCount = $('.fixed_headers tr').length;
+
+                            for (var i = 0; i < data.length; i++) {
+                                var cc = data[i].val.CCheck_date;
+                                dataexp = data[i].val.Expected_Receipt_Date;
+                                if (dataexp != "") {
+                                    subdataexp = dataexp.substring(0, 10);
+                                } else {
+                                    subdataexp = "";
+                                }
+                                
+                                var std = data[i].val.STKDES;
+                                Price = parseFloat(data[i].val.Price);
+                                sale = parseFloat(data[i].val.SalePrice);
+                                pro = data[i].val.Promotion;
+                                var strprocodsub = data[i].val.PromotionCode;
+                                procodsub = strprocodsub.substring(8, 13);
+                                //alert(procodsub)
+                                Special_Price = data[i].val.Special_Price
+                                var img = '<img src="../images/hot.gif" />';
+                                var imgFlash = '<img src="../images/flash_sale_f.gif" style="width: 129%;"/>';
+                                var styflash = "background-color: rgb(48, 48, 48);font-size: large;font-family: fantasy;text-align: center;color: #1bff00;width: 68px;";
+                                var com = data[i].val.company;
+                                var BackOrder = data[i].val.BackOrder;
+                                stk = data[i].val.STKCOD;
+                                var qty = data[i].val.ORD_QTY;
+                                var dtachcolo;
+                                if (cc == "T") {
+                                    SubmithtmlPage += '<tr style="background: burlywood;">';
+                                    dtachcolo = "";
+                                    // alert("true");
+                                } else {
+                                    SubmithtmlPage += '<tr style="color: #DA1D1D;background: aliceblue;">';
+                                    // alert("false");
+                                    dtachcolo = "<div style='color: #DA1D1D'> ราคาพิเศษหหมดอายุ</div>";
+                                }
+                                if (Usertype == "1") {
+                                    SubmithtmlPage += '<td style="text-align: center;font-size: x-large;"><input id="checkbox' + (i + 1) + '" class="chksop" value="1" type="checkbox" ></td>';
+                                } else {
+
+                                }
+                               
+                                if (pro != "") {
+                                    if (procodsub != "FLASH") {
+                                        SubmithtmlPage += '<td style="background-color: #99FF66;font-size: large;font-family: fantasy;text-align: center;color: blue;"><div class="pricehot">' + commaSeparateNumber(Price) + '</div><div  style="font-size: initial; color: rgb(181, 71, 27);text-align: center;">' + img + '</div></td>';
+                                    } else {
+                                        SubmithtmlPage += '<td style="' + styflash + '"><div class="pricehot">' + commaSeparateNumber(Price) + '</div><div  style="font-size: initial;color: rgb(181, 71, 27);text-align: center;width: 124%;margin: -4px -9px 0px;">' + imgFlash + '</div></td>';
+                                    }
+                                } else {
+                                    SubmithtmlPage += '<td style="background-color: #99FF66;font-size: large;font-family: fantasy;text-align: center;color: blue;"><div class="pricehot">' + commaSeparateNumber(Price) + '</div></td>';
+                                }
+                                SubmithtmlPage += '<td style="text-align: center;font-size: x-large;"><div class="fas fa-trash remove" id="cancelx"  style=" color: red; cursor: pointer; "></div></td>';
+                                SubmithtmlPage += '<td style="background-color: aquamarine;" ><input id="Qty' + (i + rowCount) + '"  name="S_Qty" class="tQty"  maxlength="5" min="1" type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
+                                SubmithtmlPage += '<td style="background-color: aquamarine;"><input id="bo' + (i + rowCount) + '"  name="S_bo" maxlength="5" class="tbo"  type="number" min="0" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
+                                if (com == "TAC") {
+                                    SubmithtmlPage += '<td style="background: rgba(148, 249, 215, 0.57);" class="STKCOD"><i style="color: red;  font-size: 16px;  font: icon;" ><div class="STKCODdiv" title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.company + "</i>|" + data[i].val.STKCOD + '</div></td>';
+                                } else {
+
+                                    SubmithtmlPage += '<td style="background: rgba(148, 249, 215, 0.57);" class="STKCOD"><i style="color: rgb(0, 119, 255);  font-size: 16px;  font: icon;"><div class="STKCODdiv" title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.company + "</i>|" + data[i].val.STKCOD + '</div></td>';
+                                }
+                                SubmithtmlPage += '<td class="STKDES"style="width: 14%;"><div class="STKDESdiv">' + nl2br(data[i].val.STKDES) + '</div></td>';
+                                SubmithtmlPage += '<td><div class="SPackUOM">' + data[i].val.SPackUOM + '</div></td>';
+                                SubmithtmlPage += '<td class="qqqq"><div class="minord">' + data[i].val.minord + '</div></td>';
+                                SubmithtmlPage += '<td><div class="UOM">' + data[i].val.UOM + '</div></td>';
+                                SubmithtmlPage += '<td><div class="Price0">' + commaSeparateNumber(data[i].val.Price0) + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;" class="valPrice"><div class="SalePrice">' + commaSeparateNumber(data[i].val.SalePrice) + '</div></td>';
+                                SubmithtmlPage += '<td class="valPrice"><div class="PCDESstr">' + nl3br(data[i].val.PCDES) + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="Special_Price">' + data[i].val.Special_Price + '</div>' + dtachcolo + '</td>';
+                                SubmithtmlPage += '<td  class="valStock"><div class="TOTBAL">' + data[i].val.TOTBAL + '</td>';
+                                if (BackOrder == "") {
+                                    SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"><div class="BackOrder">0</div></td>';
+                                } else {
+                                    SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"> <div class="BackOrder">' + data[i].val.BackOrder + '</div></td>';
+                                }
+                                SubmithtmlPage += '<td><input id="ExpectPrice' + (i + 1) + 'A' + rowCount + '" type="number" min="1" name="Sum_Expect" class="Expect" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
+                                SubmithtmlPage += '<td><input id="Linenote' + (i + 1) + 'A' + rowCount + '" name="S_Linenote" class="tlinenote"  style=" background-color:white;"></td>';
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remark">' + data[i].val.spc_remark + '</div></td>';
+                                SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvUnitPric + '</div></td>';
+                                SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvDisc + '</div></td>';
+                                SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvPrice + '</div></td>';
+                                SubmithtmlPage += '<td><div class="LastInvdate">' + data[i].val.LastInvdate + '</div></td>';
+                                //SubmithtmlPage += '<td  class="valPF"><div class="PF">' + data[i].val.PF + '</td>';
+                                //SubmithtmlPage += '<td  class="valRack"><div class="Rack">' + data[i].val.Rack + '</td>';
+                                //SubmithtmlPage += '<td  class="valRcw"><div class="Rcw">' + data[i].val.Rcw + '</td>';
+
+                                SubmithtmlPage += '<td  class="valTotbck"><div class="Totbck">' + data[i].val.Totbck + '</td>';
+
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_moq">' + data[i].val.spc_moq + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;" ><div class="spc_start_date">' + data[i].val.spc_start_date + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_end_date">' + data[i].val.spc_end_date + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color: rgba(224, 211, 45, 0.44);"><div class="PromotionCode">' + data[i].val.PromotionCode + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color: rgba(224, 211, 45, 0.44);"><div class="PromoDesc">' + data[i].val.PromoDesc + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color: rgba(224, 211, 45, 0.44);"><div class="PromoPrice">' + data[i].val.PromoPrice + '</div></td>';
+                                SubmithtmlPage += '<td style="background-color: rgba(224, 211, 45, 0.44);"><div class="PromoMOQ">' + data[i].val.PromoMOQ + '</div><div  style="display:none;" class="PRCLST_NO">' + data[i].val.PRCLST_NO + '</div><div class="company" style="display:none;">' + data[i].val.company + '</div></td>';
+
+                                //SubmithtmlPage += '<td style="display:none;" class="last_col"><div class="PRCLST_NO">' + data[i].val.PRCLST_NO + '</div></td>';
+                                //SubmithtmlPage += '<td style="display:none;"><div class="STKGRP_PRC">' + data[i].val.STKGRP_PRC + '</div></td>';
+                                // SubmithtmlPage += '<td style="display:none;" class="valcompany"><div class="company" style="display:none;">' + data[i].val.company + '</div></td>';
+                                SubmithtmlPage += '<td  class="valTotbck"><div class="Totbck">' + subdataexp + '</td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            //$('.fixed_headers').prepend(SubmithtmlPage);
+                            $('#fixed-table-container-1  tbody:last-child').prepend(SubmithtmlPage);
+
+                            $(".last_col").css("dispaly", "none");
+
+                        } else {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ไม่มีรายละเอียดสินค้าที่ท่านต้องการสั่งซื้อ กรุณาติดต่อพนักงานขาย");
+                            $("#myModalWarning").modal();
+                        }
+                        var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+                    }
+                });
+            },
+            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+        });
+
+        //$("input:checkbox:not(:checked)").each(function () {
+        //    //alert("xxx")
+        //    var column = "table ." + $(this).attr("name");
+        //    $(column).hide();
+        //});
+
+
+        $("input[name='last_col']").click(function () {
+            var column = "table ." + $(this).attr("name");
+            $(column).hide();
+        });
+        if (usertype == "2") {
+            $("input[name='last_col']").trigger('click');
+            //$(".last_col").css("dispaly", "none");
+        }
+        $("#searchfoc").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            timeout: 100000,
+
+            source: function (request, response) {
+
+                var param = {
+                    Name: $('#searchfoc').val(),
+                    Xcus: cuscod,
+                    Xval: $('#selval').val(),
+                    XvalCompany: $('#Company').val()
+                };
+                $.ajax({
+                    url: '@Url.Action("GetdateStockCode", "Shoppinglist")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //console.log(data.length
+                        // console.log(data);
+                        response($.map(data.slice(0, 20), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+
+            },
+            select: function (event, ui) {
+                var MyRows = $('#example1').find('tbody').find('tr');
+                // console.log(MyRows.length);
+                for (var i = 0; i < MyRows.length; i++) {
+
+                    var MyIndexValueQty = $(MyRows[i]).find('td .cqty').val();
+                    // console.log(MyIndexValueQty);
+                    if (MyIndexValueQty == "") {
+                        $(MyRows[i]).find('td .cqty').parent().parent().remove();
+                    }
+
+                }
+
+                var val = ui.item.value;
+
+                // alert(val);
+                if (val == "ค้นหาสินค้า" || val == "") {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาเลือก Stock code");
+                    $("#myModalWarning").modal(); return false;
+                }
+                //////////////////********//////////////////
+                var StockCode = val;
+                var split_StockCode = StockCode.split('|');
+                var stkitem = split_StockCode[0];
+                var Company = $('#Company').val()
+                $.ajax({
+                    url: '@Url.Action("Gettemfoc", "Shoppinglist")',
+                    data: {
+
+                        strstockCode: stkitem,
+                        Company: Company
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.length > 0) {
+                            var SubmithtmlPage = "";
+                            var ckcom = "";
+                            var com = $('#Company').val()
+                            var rowCount = $('#example1 tr').length;
+                            for (var i = 0; i < data.length; i++) {
+                                ckcom = data[i].val.company;
+
+                                SubmithtmlPage += '<tr >';
+                                SubmithtmlPage += '<td><div class="fas fa-trash canfoc" id="cancelx' + (i + 1) + '" style=" color: red; cursor: pointer; width: 52%; "></div></td>';
+                                SubmithtmlPage += '<td><input id="checkbox' + (i + 1) + '" class="chkPro" type="checkbox" checked=checked value="1"></td>';
+                                SubmithtmlPage += '<td><input id="stock' + (i + 1) + 'A' + rowCount + '" class="stockPro" style="background-color: gainsboro;"  name="S_focstk" readonly="readonly" value="' + data[i].val.company + "|" + data[i].val.STKCOD + '"></td>';
+                                SubmithtmlPage += '<td class="STKDES"style="width: 14%;"><div class="STKDESdiv">' + nl2br(data[i].val.STKDES) + '</div></td>';
+                                SubmithtmlPage += '<td><input id="stkgrp' + (i + 1) + '"  class="stockgrp" readonly="readonly" style="width:100%;background-color: gainsboro;"  value=' + data[i].val.STKGRP_PRC + '></td>';
+                                SubmithtmlPage += '<td><input id="qty' + (i + 1) + '" style="width:100%;" name="S_Qtyfoc" class="cqty" type="number" min="1" maxlength="5"></td>';
+                                SubmithtmlPage += '<td><input id="qtyfocbo' + (i + 1) + '" style="width:100%;" name="S_Qtyfocbo" class="cqtybo"  maxlength="5" type="number" min="1"></td>';
+                                SubmithtmlPage += '<td><div class="SPackUOM">' + data[i].val.SPackUOM + '</div></td>';
+                                SubmithtmlPage += '<td><input id="uom' + (i + 1) + '"  class="stockuom" readonly="readonly" style="width:100%;background-color: gainsboro;"  value=' + data[i].val.UOM + '></td>';
+                                SubmithtmlPage += '<td><input id="tot' + (i + 1) + '"  class="stocktot"style="width:100%;background-color: gainsboro;" readonly="readonly" value=' + data[i].val.TOTBAL + '></td>';
+                                SubmithtmlPage += '<td><input id="remark' + (i + 1) + '"  class="cremark"style=" width: 100%;"></td>';
+                                SubmithtmlPage += '</tr>';
+
+
+                            }
+                            $('#example1').prepend(SubmithtmlPage);
+
+                        } else {
+
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ไม่มีรายละเอียดสินค้าที่ท่านต้องการสั่งซื้อ กรุณาติดต่อพนังงานขาย");
+                            $("#myModalWarning").modal();
+                        }
+                    }
+                });
+            },
+            minLength: 2
+        });
+
+        $(document).on('click', 'div.canfoc', function () { // <-- changes
+
+            $(this).closest('tr').remove();
+
+            return false;
+
+        });
+        $(document).on('click', 'div.remove', function () { // <-- changes
+
+            $(this).closest('tr').remove();
+            ShoppingCartNumber();
+            return false;
+
+        });
+
+        function ShoppingCartNumber() {
+            var MyRows = $('.fixed_headers').find('tbody').find('tr');
+            var MyRowsfoc = $('#example1').find('tbody').find('tr');
+            var datacount = new Array();
+            var datacountfoc = new Array();
+            var datacountsum = new Array();
+            var datacountQty = new Array();
+            var data = [];
+            var chunk = 0;
+            var chunkfoc = 0;
+            var chunksum = 0;
+
+            var CUS = cuscod;
+            var XXusrlogin = userid;
+            var sQshow = "";
+            $.ajax({
+                url: '@Url.Action("GetdataShopping", "Shoppinglist")',
+                data: {
+                    CUSCOD: CUS,
+                    Usrlogin: XXusrlogin,
+                    Qshow: sQshow
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    chunk = data.sumQty;
+                    Row = data.sumrow;
+                    for (var i = 0; i < MyRows.length; i++) {
+
+                        var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
+                        var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').html();
+                      
+
+                        if (MyIndexValueSTKCOD !== "") {
+                            res = MyIndexValueSTKCOD.split("|");
+                        } else { res[1] = ""; }
+                        if (MyIndexValueQty != "") {
+                            var ItemList = {
+                                VQty: MyIndexValueQty,
+                                VSTKCOD: res[1]
+                            };
+                            // chunk += parseFloat(MyIndexValueQty);
+                            chunk += parseFloat(MyIndexValueQty.replace(',', '').replace(' ', ''))
+                            //datacount.push(MyIndexValueQty);
+                            //datacountsum.push(MyIndexValueQty);
+                            datacountsum.push(ItemList.VSTKCOD);
+
+                            //console.log("ItemList"+ItemList);
+                            //data.push(ItemList);
+                        }
+
+                    }
+                    for (var i = 0; i < MyRowsfoc.length; i++) {
+
+                        var MyIndexValuestccod = $(MyRowsfoc[i]).find('td .stockPro').val();
+                        var MyIndexValueqty = $(MyRowsfoc[i]).find('td .cqty').val();
+                        if (MyIndexValuestccod !== "") {
+                            resfoc = MyIndexValuestccod.split("|");
+
+                        } else { resfoc[0] = ""; }
+                        // alert(MyIndexValueqty);
+                        if (resfoc[0] != "" && MyIndexValueqty != "") {
+                            var ItemList = {
+                                VQty: MyIndexValueqty,
+                                VSTKCOD: MyIndexValuestccod
+
+
+                            };
+                            //datacountsum.push(ItemList.VSTKCOD);
+                            datacountsum.push(resfoc[0]);
+                            //chunkfoc += parseFloat(MyIndexValueqty);
+                            chunkfoc += parseFloat(MyIndexValueqty.replace(',', '').replace(' ', ''))
+                            //alert(chunkfoc);
+                            // console.log("ItemList" + ItemList.VSTKCOD);
+
+                        }
+                    }
+                    var arrInput = datacountsum; //รายการ Foc//
+                    var sorted_arr = datacountsum.sort();
+                    var sorted_arrnum = 0;
+
+                    // console.log("รายการ:" + datacountsum);
+                    var results = [];
+
+                    for (var i = 0; i < sorted_arr.length - 1; i++) {
+                        var x = $.trim(sorted_arr[i]);
+                        var y = $.trim(sorted_arr[i + 1]);
+                        //console.log("xxxxxx:  " + x);
+                        //console.log("yyy:  " + y);
+                        if (y == x) {
+                            results.push(x);
+                        }
+                    }
+                    var groupedData = jQuery.grep(datacountsum, function (d) { return d });
+
+                    //console.log(" groupedData" + groupedData.length);
+
+                    var bsum = sorted_arr.length;
+
+                    var fsum = results.length;
+                    //console.log("เบอร์ Row  " + Row);
+                    //console.log("เบอร์ OrderP/N  " + bsum);
+                    //console.log("เบอร์ foc   " + fsum);
+                    $("#Cuqty").text(Row + bsum - fsum);
+                    // $("#Cuitem").text(datacountsum.length);
+                    //console.log(" จำนวนชิ้นOrder  " + chunk);
+                    // console.log("จำนวนชิ้นfoc   " + chunkfoc);
+                    var x = $("#Cuitem").text(chunk + chunkfoc);
+                    var y = $("#countsku").text(chunk + chunkfoc);
+
+                    $("#Cuitem").digits();
+                    $("#countsku").digits();
+
+                }
+
+
+            });
+        } ShoppingCartNumber();
+        $.fn.digits = function () {
+            return this.each(function () {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            })
+        }
+        $(".fixed_headers").on('change', "input[name='S_Qty']", function () {
+
+            var Seqval = $(this).val();
+            var id = $(this).parents("tr:eq(0)").find(".tlinenote").attr('id');
+            var idBo = $(this).parents("tr:eq(0)").find(".tbo").attr('id');
+            var Seqvalst = $(this).parents("tr").find(".TOTBAL").html();
+            var pricehot = $(this).parents("tr").find(".pricehot").html();
+            var idqty = $(this).parents("tr:eq(0)").find(".tQty").attr('id');
+            var tExpectid = $(this).parents("tr:eq(0)").find(".Expect").attr('id');
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Nameuom = $(this).parents("tr").find(".UOM").html()
+            var valExpect = $("#" + tExpectid + "").val();
+            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").html();
+            var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").html();
+            var _NoAr = _StkNo.split("|");
+            if (_Pro != '') {
+                if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst.replace(',', '').replace(' ', ''))) {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarning").modal();
+                    $("#" + idqty + "").val("");
+                    return false;
+
+                }
+            }
+
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(0)) {
+
+                if (parseFloat(Seqval) > 0) {
+
+                    if (valExpect == "") {
+
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรอง เนื่องจากราคา เป็น 0 บาท");
+                        $("#myModalWarning").modal();
+                        $("#" + idqty + "").val("");
+                        return false;
+                    } else {
+
+                        //$("#search").removeAttr("disabled");
+                    }
+                }
+            }
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(1)) {
+
+                if (parseFloat(Seqval) > 0) {
+                    if (valExpect == "") {
+                        $("#" + idqty + "").val("");
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรองเนื่องจากราคา เป็น 1 บาท ");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                }
+            }
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(999999)) {
+
+                if (parseFloat(Seqval) > 0) {
+                    if (valExpect == "") {
+                        $("#" + idqty + "").val("");
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรอง");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                }
+            }
+            if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst)) {
+                //alert(Seqval.replace(',', '').replace(' ', ''))
+
+                $("#" + idBo + "").val((parseFloat(Seqval.replace(',', '').replace(' ', '')) - parseFloat(Seqvalst)));
+            } else {
+
+                $("#" + idBo + "").val("");
+            }
+            var Seqvalmoq = $(this).parents("tr").find(".minord").html();
+            var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
+
+            if (parseFloat(QtPas) >= parseFloat(Spackuom)) {
+                var _val = parseFloat(QtPas) / parseFloat(Spackuom);
+
+                if (typeof _val === 'number') {
+                    if (_val % 1 === 0) {
+                        // int
+                        // alert(_val);
+                    } else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ใส่จำนวนสั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ไม่ถูกต้อง จำนวนสั่งซื้อไม่ลงตัว (Sales Packing Standard) = " + Spackuom);
+                        $("#myModalWarning").modal();// return false;
+                        $(this).val(""); //return false;
+                        $("#" + idqty + "").val("");
+                        ShoppingCartNumber();
+                    }
+                } else {
+                    // not a number
+                }
+                // alert(_val);
+                // if()
+            } else {
+
+                if (isNaN(QtPas)) {
+
+                    return false;
+                } else {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนที่สั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ห้ามน้อยกว่า " + Spackuom + " (Sales Packing Standard )");
+                    $("#myModalWarning").modal();// return false;
+                    $(this).val(""); //return false;
+                    $("#" + idqty + "").val("");
+                    ShoppingCartNumber();
+                }
+            }
+            //return false;
+
+            if (parseFloat(QtPas) < parseFloat(Seqvalmoq)) {
+
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("จำนวนที่สั่งซื้อห้ามน้อยกว่า MOQ");
+                $("#myModalWarning").modal();// return false;
+                // $(this).parents("tr:eq(0)").find(".tQty").val(cQty);
+                $(this).val(""); //return false;
+                $("#" + idqty + "").val("");
+                ShoppingCartNumber();
+            }
+            ShoppingCartNumber();
+
+        });
+        $(".fixed_headers").on('blur', "input[name='S_Qty']", function () {
+
+            var Seqval = $(this).val();
+            var id = $(this).parents("tr:eq(0)").find(".tlinenote").attr('id');
+            var idBo = $(this).parents("tr:eq(0)").find(".tbo").attr('id');
+            var Seqvalst = $(this).parents("tr").find(".TOTBAL").html();
+            var pricehot = $(this).parents("tr").find(".pricehot").html();
+            var idqty = $(this).parents("tr:eq(0)").find(".tQty").attr('id');
+            var tExpectid = $(this).parents("tr:eq(0)").find(".Expect").attr('id');
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Nameuom = $(this).parents("tr").find(".UOM").html()
+            var valExpect = $("#" + tExpectid + "").val();
+            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").html();
+            var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").html();
+            var _NoAr = _StkNo.split("|");
+            if (_Pro != '') {
+                if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst.replace(',', '').replace(' ', ''))) {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarning").modal();
+                    $("#" + idqty + "").val("");
+                    return false;
+
+                }
+            }
+
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(0)) {
+
+                if (parseFloat(Seqval) > 0) {
+
+                    if (valExpect == "") {
+
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรอง เนื่องจากราคา เป็น 0 บาท");
+                        $("#myModalWarning").modal();
+                        $("#" + idqty + "").val("");
+                        return false;
+                    } else {
+
+                        //$("#search").removeAttr("disabled");
+                    }
+                }
+            }
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(1)) {
+
+                if (parseFloat(Seqval) > 0) {
+                    if (valExpect == "") {
+                        $("#" + idqty + "").val("");
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรองเนื่องจากราคา เป็น 1 บาท ");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                }
+            }
+            if (parseFloat(pricehot.replace(',', '').replace(' ', '')) == parseFloat(999999)) {
+
+                if (parseFloat(Seqval) > 0) {
+                    if (valExpect == "") {
+                        $("#" + idqty + "").val("");
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรอง");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                }
+            }
+            if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst)) {
+                //alert(Seqval.replace(',', '').replace(' ', ''))
+
+                $("#" + idBo + "").val((parseFloat(Seqval.replace(',', '').replace(' ', '')) - parseFloat(Seqvalst)));
+            } else {
+
+                $("#" + idBo + "").val("");
+            }
+            var Seqvalmoq = $(this).parents("tr").find(".minord").html();
+            var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
+
+            if (parseFloat(QtPas) >= parseFloat(Spackuom)) {
+                var _val = parseFloat(QtPas) / parseFloat(Spackuom);
+
+                if (typeof _val === 'number') {
+                    if (_val % 1 === 0) {
+                        // int
+                        // alert(_val);
+                    } else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ใส่จำนวนสั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ไม่ถูกต้อง จำนวนสั่งซื้อไม่ลงตัว (Sales Packing Standard) = " + Spackuom);
+                        $("#myModalWarning").modal();// return false;
+                        $(this).val(""); //return false;
+                        $("#" + idqty + "").val("");
+                        ShoppingCartNumber();
+                    }
+                } else {
+                    // not a number
+                }
+                // alert(_val);
+                // if()
+            } else {
+
+                if (isNaN(QtPas)) {
+
+                    return false;
+                } else {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนที่สั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ห้ามน้อยกว่า " + Spackuom + " (Sales Packing Standard )");
+                    $("#myModalWarning").modal();// return false;
+                    $(this).val(""); //return false;
+                    $("#" + idqty + "").val("");
+                    ShoppingCartNumber();
+                }
+            }
+            //return false;
+
+            if (parseFloat(QtPas) < parseFloat(Seqvalmoq)) {
+
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("จำนวนที่สั่งซื้อห้ามน้อยกว่า MOQ");
+                $("#myModalWarning").modal();// return false;
+                // $(this).parents("tr:eq(0)").find(".tQty").val(cQty);
+                $(this).val(""); //return false;
+                $("#" + idqty + "").val("");
+                ShoppingCartNumber();
+            }
+            ShoppingCartNumber();
+
+        });
+        $("#example1").on('change', "input[name='S_Qtyfoc']", function () {
+            var Seqval = $(this).val();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
+            var QtSpackuom = parseFloat(Spackuom.replace(',', '').replace(' ', ''));
+            var _StkNo = $(this).parents("tr:eq(0)").find(".stockPro").val();
+            var _NoAr = _StkNo.split("|");
+
+            if (parseFloat(QtPas) >= parseFloat(QtSpackuom)) {
+                var _val = parseFloat(QtPas) / parseFloat(QtSpackuom);
+
+                if (typeof _val === 'number') {
+                    if (_val % 1 === 0) {
+                        // int
+                        // alert(_val);
+                    } else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ใส่จำนวนสั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ไม่ถูกต้อง จำนวนสั่งซื้อไม่ลงตัว (Sales Packing Standard) = " + Spackuom);
+                        $("#myModalWarning").modal();// return false;
+                        $(this).val(""); //return false;
+                        $("#" + idqty + "").val("");
+                        ShoppingCartNumber();
+                    }
+                } else {
+                    // not a number
+                }
+                // alert(_val);
+                // if()
+            } else {
+
+                if (isNaN(QtPas)) {
+
+                    return false;
+                } else {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนที่สั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ห้ามน้อยกว่า " + Spackuom + " (Sales Packing Standard )");
+                    $("#myModalWarning").modal();// return false;
+                    $(this).val(""); //return false;
+                    $("#" + idqty + "").val("");
+                    ShoppingCartNumber();
+                }
+            }
+
+
+        });
+        $("#example1").on('blur', "input[name='S_Qtyfoc']", function () {
+            var Seqval = $(this).val();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
+            var QtSpackuom = parseFloat(Spackuom.replace(',', '').replace(' ', ''));
+            var _StkNo = $(this).parents("tr:eq(0)").find(".stockPro").val();
+            var _NoAr = _StkNo.split("|");
+
+            if (parseFloat(QtPas) >= parseFloat(QtSpackuom)) {
+                var _val = parseFloat(QtPas) / parseFloat(QtSpackuom);
+
+                if (typeof _val === 'number') {
+                    if (_val % 1 === 0) {
+                        // int
+                        // alert(_val);
+                    } else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("ใส่จำนวนสั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ไม่ถูกต้อง จำนวนสั่งซื้อไม่ลงตัว (Sales Packing Standard) = " + Spackuom);
+                        $("#myModalWarning").modal();// return false;
+                        $(this).val(""); //return false;
+                        $("#" + idqty + "").val("");
+                        ShoppingCartNumber();
+                    }
+                } else {
+                    // not a number
+                }
+                // alert(_val);
+                // if()
+            } else {
+
+                if (isNaN(QtPas)) {
+
+                    return false;
+                } else {
+
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนที่สั่งซื้อสินค้าเบอร์ " + _NoAr[1] + " ห้ามน้อยกว่า " + Spackuom + " (Sales Packing Standard )");
+                    $("#myModalWarning").modal();// return false;
+                    $(this).val(""); //return false;
+                    $("#" + idqty + "").val("");
+                    ShoppingCartNumber();
+                }
+            }
+
+
+        });
+
+        $(document).on("click", "#btnsubmitinsert", function () {
+            $("#btnsubmitinsert").attr("disabled", "disabled");
+            var data = new Array();
+            var dataPro = new Array();
+            var res = "";
+            var chksop = "";
+            var MyRows = $('.fixed_headers').find('tbody').find('tr');
+
+            for (var i = 0; i < MyRows.length; i++) {
+
+                chksop = $(MyRows[i]).find('.chksop:checked').attr('value');
+                if (chksop !== undefined) {
+                    chksop = chksop;
+                    //alert(chksop);
+                } else {
+                    chksop = "0";
+
+                }
+
+                var MyIndexValuePRCLST_NO = $(MyRows[i]).find('td .PRCLST_NO').html();
+                var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').html();
+               // alert(MyIndexValueSTKCOD);
+               
+                if (MyIndexValueSTKCOD !== "") {
+                    res = MyIndexValueSTKCOD.split("|");
+
+                } else { res[1] = ""; }
+                var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val().replace(',', '').replace(' ', '');
+                // var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
+                var MyIndexValueMOQ = $(MyRows[i]).find('td .minord').html();
+
+                var MyIndexValueQtybo = "";
+                MyIndexValueQtybo = $(MyRows[i]).find('td .tbo').val().replace(',', '').replace(' ', '');
+                if (MyIndexValueQtybo != "") {
+                    MyIndexValueQtybo = $(MyRows[i]).find('td .tbo').val().replace(',', '').replace(' ', '');
+                } else {
+
+                    MyIndexValueQtybo = "0"
+                }
+
+
+                var MyIndexValueLinenote = $(MyRows[i]).find('td .tlinenote').val();
+                var MyIndexValueQtyboA = "";
+                var backNoA = "";
+
+                if (MyIndexValueQtybo == "0") {
+                    var MyIndexValuestocktotO = $(MyRows[i]).find('td .TOTBAL').html();
+
+                    if (parseFloat(MyIndexValueQty) > parseFloat(MyIndexValuestocktotO)) {
+
+                        backNoA = (parseFloat(MyIndexValueQty) - parseFloat(MyIndexValuestocktotO));
+                    } else {
+
+                        backNoA = "0";
+                    }
+                    MyIndexValueQtybo = backNoA;
+                } else {
+                    MyIndexValueQtybo = MyIndexValueQtybo;
+                }
+                var MyIndexValueExpectPrice = $(MyRows[i]).find('td  .Expect').val();
+                var MyIndexValuepricehot = $(MyRows[i]).find('td  .pricehot').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
+                var MyIndexValuePrice = $(MyRows[i]).find('td .Price0').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
+                var MyIndexValuePromocode = $(MyRows[i]).find('td .PromotionCode').html();
+                var MyIndexValuePromoDesc = $(MyRows[i]).find('td .PromoDesc').html();
+                var MyIndexValuePromoPrice = $(MyRows[i]).find('td .PromoPrice').html().replace(',', '').replace(' ', '');
+                var MyIndexValuePromoMoq = $(MyRows[i]).find('td .PromoMOQ').html();
+                var MyIndexValueSTKDES = $(MyRows[i]).find('td .STKDESdiv').html();
+                var MyIndexValueSTKGRP = $(MyRows[i]).find('td .STKGRP_PRC').html();
+                var MyIndexValueSalePrice = $(MyRows[i]).find('td .pricehot').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
+                var MyIndexValueCSalePrice = $(MyRows[i]).find('td .SalePrice').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
+                var MyIndexValueUOM = $(MyRows[i]).find('td .UOM').html();
+                var MyIndexValuecompany = $(MyRows[i]).find('td .company').html();
+                var MyIndexValueMoq = $(MyRows[i]).find('td .minord').html();
+                var MyIndexValueSpecial_Price = $(MyRows[i]).find('td .Special_Price').html().replace(',', '').replace(' ', '');
+                var MyIndexValueSpc_moq = $(MyRows[i]).find('td .spc_moq').html();
+                var MyIndexValueLastInvPrice = $(MyRows[i]).find('td .LastInvPrice').html().replace(',', '').replace(' ', '');
+                var MyIndexValueLastInvdate = $(MyRows[i]).find('td .LastInvdate').html();
+                if (MyIndexValueSalePrice == "0.00") {
+                    if (MyIndexValueExpectPrice == "" && MyIndexValueQty != "") {
+                        $("#btnsubmitinsert").attr("disabled", false);
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาใส่ราคาต่อรองของสินค้ารหัส   " + res[1]);
+                        $("#myModalWarning").modal();
+                        // $("#btnsubmitinsert").attr("disabled", true)
+                        return false;
+                    }
+                }
+                if (MyIndexValuePromoPrice == "") {
+                    MyIndexValuePromoPrice = "0";
+                } else {
+                    MyIndexValuePromoPrice;
+                }
+
+                if (MyIndexValueExpectPrice == "") {
+                    MyIndexValueExpectPrice = "0";
+                } else {
+                    MyIndexValueExpectPrice;
+                }
+                var ItemList = {
+                    CUSCOD: cuscod.toUpperCase(),
+                    STKCOD: res[1],
+                    company: MyIndexValuecompany,
+                    PrHot: MyIndexValuepricehot,
+                    Price0: MyIndexValuePrice,
+                    SalePrice: MyIndexValueSalePrice,
+                    Special_Price: MyIndexValueSpecial_Price,
+                    Qty: MyIndexValueQty,
+                    Qtybo: MyIndexValueQtybo,
+                    ExpectPrice: MyIndexValueExpectPrice,
+                    LineNote: MyIndexValueLinenote,
+                    User: userid,
+                    PromotionCode: MyIndexValuePromocode,
+                    foc: "0",
+                    Moq: MyIndexValueMoq,
+                    PRCLST_NO: MyIndexValuePRCLST_NO,
+                    Special_Price: MyIndexValueSpecial_Price,
+                    PromoPrice: MyIndexValuePromoPrice,
+                    PromoDesc: MyIndexValuePromoDesc,
+                    PromoMOQ: MyIndexValuePromoMoq,// new add
+                    LastInvPrice: MyIndexValueLastInvPrice,
+                    LastInvdate: MyIndexValueLastInvdate,
+                    Sop: chksop // new add
+
+                };
+               
+                if (parseFloat(ItemList.Qty) <0) {
+                    alert(parseFloat(ItemList.Qty))
+                    $("#btnsubmitinsert").attr("disabled", false);
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " กรุณาใส่จำนวนสั่งซื้อใหม่ จำนวนสั่งซื้อติดลบ");
+                    $("#myModalWarning").modal();
+
+                    return false;
+                }
+                if (ItemList.Qty != "" && ItemList.Qty != "0") {
+                    if (ItemList.PrHot == "0") {
+                        if (ItemList.ExpectPrice == "") {
+                            $("#btnsubmitinsert").attr("disabled", false);
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " ราคาเป็น 0 บาท กรุณาใส่ราคาต่อรอง ");
+                            $("#myModalWarning").modal();
+
+                            return false;
+                        }
+                        if (ItemList.ExpectPrice == "0") {
+                            $("#btnsubmitinsert").attr("disabled", false);
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " กรุณาใส่ราคาต่อรองใหม่ ราคาต่อรองห้ามเป็น 0 บาท");
+                            $("#myModalWarning").modal();
+
+                            return false;
+                        }
+
+                    }
+
+                }
+                if (ItemList.Qty != "" && ItemList.Qty != "0") {
+                    if (ItemList.PrHot == "1") {
+                        if (ItemList.ExpectPrice == "") {
+                            $("#btnsubmitinsert").attr("disabled", false);
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " ราคาเป็น 1 บาท กรุณาใส่ราคาต่อรอง ");
+                            $("#myModalWarning").modal();
+
+                            return false;
+                        }
+                        if (ItemList.ExpectPrice == "0") {
+                            $("#btnsubmitinsert").attr("disabled", false);
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " กรุณาใส่ราคาต่อรองใหม่ ราคาต่อรองห้ามเป็น 0 บาท");
+                            $("#myModalWarning").modal();
+
+                            return false;
+                        }
+
+                    }
+
+                }
+                if (ItemList.Qty != "") {
+                    if (ItemList.Qty != "0") {
+                        data.push(ItemList);
+
+                    }
+                }
+
+            }
+            var DataSend = JSON.stringify(data);
+            //console.log(DataSend)
+            // return false;
+
+            var MyRows = $('#example1').find('tbody').find('tr');
+            for (var i = 0; i < MyRows.length; i++) {
+                var MyIndexValueStock = $(MyRows[i]).find('td .stockPro').val();
+                if (MyIndexValueStock !== undefined) {
+                    res = MyIndexValueStock.split("|");
+
+                } else { res[1] = ""; }
+                var MyIndexValueQty = "";
+                MyIndexValueQty = $(MyRows[i]).find('td .cqty').val().replace(',', '').replace(' ', '');
+                if (MyIndexValueQty != "") {
+                    MyIndexValueQty = $(MyRows[i]).find('td .cqty').val().replace(',', '').replace(' ', '');
+                } else {
+
+                    MyIndexValueQty = "0"
+                }
+
+                var MyIndexValueLinenote = $(MyRows[i]).find('td .cremark').val();
+                var MyIndexValueQtybo = "";
+                var backNofoc = "";
+                MyIndexValueQtybo = $(MyRows[i]).find('td .cqtybo').val().replace(',', '').replace(' ', '');
+                if (MyIndexValueQtybo == "") {
+                    var MyIndexValuestocktot = $(MyRows[i]).find('td .stocktot').val();
+                    if (parseFloat(MyIndexValueQty) > parseFloat(MyIndexValuestocktot)) {
+
+                        backNofoc = (parseFloat(MyIndexValueQty) - parseFloat(MyIndexValuestocktot));
+                    } else {
+
+                        backNofoc = "0";
+                    }
+                    MyIndexValueQtybo = backNofoc;
+                } else {
+                    MyIndexValueQtybo = MyIndexValueQtybo;
+                }
+
+                var MyIndexValuegrp = $(MyRows[i]).find('td .stockgrp').val();
+
+                var MyIndexValueUOM = $(MyRows[i]).find('td .stockuom').val();
+                var ItemListPro = {
+                    chk: "1",
+                    VQty: MyIndexValueQty,
+                    VSTKCOD: res[1].toUpperCase(),
+                    VCUSCOD: cuscod.toUpperCase(),
+                    VCompany: res[0],
+                    VSTKGRP: MyIndexValuegrp,
+                    VLineNote: MyIndexValueLinenote,
+                    Uom: MyIndexValueUOM,
+                    Backorderfoc: MyIndexValueQtybo
+
+                };
+                var cPRo = "";
+                var ch = "";
+                cPRo = ItemListPro.VQty;
+
+                if (cPRo != "0") {
+                    dataPro.push(ItemListPro);
+                }
+            }
+
+            var DataSendPro = JSON.stringify(dataPro);
+
+            if (data.length == 0) {
+                if (dataPro.length == 0) {
+                    $("#btnsubmitinsert").attr("disabled", false);
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
+                    $("#myModalWarning").modal(); return false;
+                }
+            }
+            if (data.length == 0 && dataPro.length == 0) {
+                $("#btnsubmitinsert").attr("disabled", false);
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
+                $("#myModalWarning").modal();
+                $(".fixed_headers > tbody").empty();
+                $("#example1 > tbody").empty();
+                return false;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Confirmationdata", "Shoppinglist")',
+                data: {
+                    DataSend: DataSend,
+
+                    DataSendPro: DataSendPro,
+                    Cus: cuscod,
+                    User: userid
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data == "Y") {
+                        $("#btnsubmitinsert").attr("disabled", false);
+                        $(".fixed_headers > tbody").empty();
+                        $("#example1 > tbody").empty();
+                        $("#textAlertSucces").empty();
+                        $("#textAlertSucces").text("บันทึกสินค้าเข้าตะกร้าสำเร็จ");
+                        $("#myModalSucces").modal();
+                        ShoppingCartNumber()
+                        //location.reload();
+                        //setTimeout(function () { window.close() }, 2000); //2วิ
+
+                    } else {
+                        $("#btnsubmitinsert").attr("disabled", false);
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
+                        $("#myModalWarninglog").modal();
+
+                    }
+                }
+
+            });
+
+        });
+        function fnNextPage(Status) {
+
+            var data = new Array();
+            var url = window.location.href;
+            //console.log(url);
+            var str = url;
+            var res = str.split("/");
+            // console.log(res);
+            var MyRows = $('.fixed_headers').find('tbody').find('tr');
+
+            for (var i = 0; i < MyRows.length; i++) {
+                var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
+                var ItemList = {
+                    Qty: MyIndexValueQty
+                };
+                if (ItemList.Qty != "") {
+                    data.push(ItemList);
+                }
+            }
+            if (data.length > 0) {
+                $("#confirm-confirmNext").modal();
+                return false;
+            }
+            else {
+                //wi.focus();
+                window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+            }
+        }
+        //btnnext
+        $(document).on('click', '#btncheck', function () {
+            window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+            
+        });
+        $(document).on('click', '#navbarcart', function () {
+            var n_d = "3";
+            $('#navbarcart').attr("Status", n_d);
+            fnNextPage(n_d);
+            //$("#confirm-confirmNext").modal();
+
+        });
+        $(document).on('click', '#btnnext', function () {
+            window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+
+        });
+        $(document).on('click', '#navbarshowdetail', function () {
+            window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+
+        });
+        $('#navbarcart').click(function () {
+            // $(document).on("click", "#navbarcart", function () {
+
+            //var wi = window.open("../Cart/Index");
+            window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+
+
+        });
+        $(document).on("click", "#btnhome", function () {
+            //var wi = window.open("../Cart/Index");
+            window.location.replace("../Home/Index?numcuber=" + btoa(cuscod));
+            wi.focus();
+
+        });
+        $(document).on("click", "#btncart", function () {
+            //var wi = window.open("../Cart/Index");
+            window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
+
+
+        });
+        $(document).on("click", "#btndetail", function () {
+            //var wi = window.open("../Cart/Index");
+            window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cuscod));
+
+
+        });
+        $(document).on("click", "#btnstatus", function () {
+            //var wi = window.open("../Cart/Index");
+            var wi = window.open("../Statuslist/Index?numcuber=" + btoa(cuscod));
+            wi.focus();
+
+        });
+        $('#nextbck').click(function () {
+            window.location.replace("../BackorderAll/Index");
+
+        });
+        $('#nextcrm').click(function () {
+
+            window.location.replace("../SrcSaleCoCrm/Index?numcuber=" + btoa(cuscod));
+        });
+        $(document).on("click", "#nextcheckstock", function () {
+            var cuskey = cuscod.toUpperCase();//checkcustomerบัญชีลูกค้า:
+
+            if (cuskey == "") {
+                window.location.replace("../SCStockSco/Index");
+            } else {
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cuskey
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.length > 0) {
+                            typin = data[0].INACTIVE;
+
+                            if (typin == "Y") {
+
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+
+                                return false;
+
+
+                            } else {
+                                window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

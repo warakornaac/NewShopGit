@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+@{
+
+    var Xtracking = ViewBag.GetdataTrackingOrder;
+
+}
+<html>
+<head>
+   
+</head>
+<body>
+    <div id="meo">
+      
+        <table class="inventory">
+            <thead>
+                <tr>
+                    <th>PackingList</th>
+                    <th>CarID</th>
+                    <th>StrStatus</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < Xtracking.Count; i++)
+                      {
+           
+
+                        <tr>
+                            <td>@Xtracking[i].val.PackingList</td>
+                            <td>@Xtracking[i].val.CarID</td>
+                            <td>@Xtracking[i].val.StrStatus</td>
+                            <td>@Xtracking[i].val.Status</td>
+                         
+                        </tr>
+
+                    }
+               
+
+
+            </tbody>
+        </table>
+
+    </div>
+    <div id="meo-1">
+
+    </div>
+</body>
+
+</html>
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<script src="ef.js"></script>
+<link rel="stylesheet" href="materialize.min.css">
+<body style="margin:0px">
+</body>
+<script>
+  const { t, inform, exec } = ef
+
+const container = new t`
+>div.collection
+	+list
+`
+
+const Item = t`
+>a.collection-item.avatar
+	@click = result
+	%innerHTML=<img src="{{icon}}" class="circle"><span class="title text-darken-4 grey-text">{{title}}</span><p class="text-darken-2 grey-text">{{a}} <br> {{b}}</p><p class="secondary-content grey-text"><br>{{c}}<br>{{d}}</p>
+`
+var obj = window.AppInventor.getWebViewString();
+
+//example
+//var obj = "https://www.shareicon.net/data/2016/10/11/841490_glasses_512x512.png,Boss,a,b,c,d,1\nhttps://www.iconexperience.com/_img/g_collection_png/standard/256x256/delivery_man_parcel.png,Worker,a,b,c,d,2";
+
+datar = obj.split("\n");
+
+datar.forEach(function(line) {
+var k=[];
+value = line.split(",")
+
+	if(value[0] != '')
+		{
+			k['icon'] = value[0]
+			k['title'] = value[1]
+			k['a'] = value[2]
+			k['b'] = value[3]
+			k['c'] = value[4]
+			k['d'] = value[5]
+			k['return'] = value[6]
+
+			container.list.push(new Item({$data: k,$methods: { result({state})
+			{ window.AppInventor.setWebViewString(k.return) } }
+			}))
+		}
+})
+
+
+
+container.$mount({target: document.body})
+exec()
+
+</script>
+
+

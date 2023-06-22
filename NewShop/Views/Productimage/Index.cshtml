@@ -1,0 +1,264 @@
+﻿@{
+    Layout = "~/Views/Shared/View3.cshtml";
+    //  Layout = "~/Views/Shared/layout_tmart.cshtml";
+    //Layout = "~/Views/Shared/layout_view2.cshtml";
+   
+
+}
+
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Upload Product image</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+   
+    <script src="~/CSS/jQueryv3.1.1.js"></script>
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+
+</head>
+
+    <body>
+    
+        <div >
+            <div>
+                
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <form role="form">
+                                <div class="form-group">
+                                    <div class="input-group ">
+                                        <select class="form-control custom-select" id="company">
+                                            <option value="TAC">TAC</option>
+                                            <option value="AAC">AAC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-2 bg-primary">
+                                <input type="search" id="textfree" placeholder="ค้นหาสินค้าที่คุณต้องการได้ที่นี่..." class="form-control ui-autocomplete-input" autocomplete="off" style="z-index:999">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                           
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group ">
+
+                                    @if (ViewBag.Error != null)
+                                    {
+                                        <h4 style="color:red">@ViewBag.Error</h4>
+                                    }
+
+                                    <div>Upload Image</div>
+                                    <input type="file" name="avatar" id="fileInput" multiple/>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <input type="submit" value="upload" id="btnupload" class="button" />
+                                    <table class="table" id="FilesList" style="visibility:hidden">
+                                        <tr>
+                                            <th>
+                                                Attachment(s)
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                         </div>
+                            </div>
+                       
+            </div>
+        </div>
+       
+      
+      
+  <script type="text/javascript">
+    var formdata = new FormData();
+    var dataimage = [];
+    $("#fileInput").on("change", function () {
+        var fileInput = document.getElementById('fileInput');
+
+        //Iterating through each files selected in fileInput
+        for (i = 0; i < fileInput.files.length; i++) {
+            var src = "";
+            var sfilename = fileInput.files[i].name;
+            let srandomid = Math.random().toString(36).substring(7);
+            src = URL.createObjectURL(fileInput.files[i]);
+            //formdata.append(sfilename, fileInput.files[i], a1 + "-" + inCim_NoSub);
+            formdata.append(sfilename, fileInput.files[i]);
+            var markup = "<tr id='" + srandomid + "'><td><img src='" + src + "' style='width: 25%'></td>\
+                                  <td>\
+                                 <button type='button' style='float: right;' class='delimagsal' faxdel=1 ic=" + srandomid + " name=" + sfilename + ">Cancel</button></td>\
+                                  </tr>"; // Binding the file name
+            $("#FilesList tbody").append(markup);
+            //var ItemList = {
+            //    Img: clm_no_supplier,
+            //    inCim_NoSub: clm_no_sub,
+            //    Cim_No: stkcod,
+            //    Im_No: _user
+
+            //}
+            //dataimage.push(ItemList);
+        }
+        chkatchtbl();
+        $('#fileInput').val('');
+    });
+    $("#FilesList").on("click", "tr .delimagsal", function () {
+        var Fileid = $(this).attr("ic");
+        var FileName = $(this).attr("name");
+        var faxdel = $(this).attr("faxdel");
+        if (faxdel == "1") {
+            DeleteFile(Fileid, FileName);
+        } else {
+
+        }
+    });
+    function splitval(_val) {
+        var _splito = "";
+        _splito = _val.split('|');
+
+        return _splito[0];
+    }
+    function splitval2(_val) {
+        var _splito = "";
+        _splito = _val.split('|');
+
+        return _splito[1];
+    }
+    function DeleteFile(Fileid, FileName) {
+
+        formdata.delete(FileName)
+        $("#" + Fileid).remove();
+        chkatchtbl();
+    }
+    function chkatchtbl() {
+        //alert($('#FilesList tbody').length)
+        if ($('#FilesList tbody').length >= 1) {
+            $("#FilesList").css("visibility", "visible");
+        } else {
+            $("#FilesList").css("visibility", "hidden");
+        }
+    }
+
+    $("#textfree").autocomplete({
+        selectFirst: true,
+        autoFocus: true,
+        timeout: 1000000,
+
+        source: function (request, response) {
+
+
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            //  alert(textfree);
+
+            var param = {
+                maker: "",
+                modelno: "",
+                submodel: "",
+                XvalCompany: $("#company").val(),
+                catalogue: "",
+                brand: "",
+                Name: textfree,
+                cuscod: "",
+                yrStart: "",
+                yrEnd: "",
+                itemno: "",
+                engine: "",
+                productgroup: "",
+                productline: "",
+                itemsegment: ""
+            };
+            // $('#fixbox').empty();
+            // $('.loader').css("display", "block");
+            $.ajax({
+                url: '@Url.Action("GetdateStockCode", "Home")',
+                data: JSON.stringify(param),
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    //console.log(data.length
+                    console.log("xxxx:" + data);
+                    response($.map(data.slice(0, 50), function (item) {
+                        return {
+                            value: item
+                        }
+                    }))
+                },
+                error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                    //  alert(textStatus + '&&' + errorThrown + '&&' + XMLhttpsRequest);
+                    alert(request.term);
+                }
+            });
+
+        },
+        minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+    });
+        $(document).on("click", "#btnupload", function () {
+           // $("#btnupload").submit(function () {
+                var company = $("#company").val();
+
+                var stk = $("#textfree").val();
+                //var No = 'CMTXXXXXX';
+                // var inCim_NoSub = 'CMTXXXXXX-01';
+                //alert(stk)
+                if (stk == "") {
+                    alert('กรุณาระบุเบอร์สินค้าที่ต้องการupload image...')
+                    return false;
+                }
+                formdata.set('uploadername', company + "-" + stk);
+                formdata.set('incompany', company);
+                formdata.set('instk', stk);
+
+                $.ajax({
+                    url: '@Url.Action("UploadFilesA", "Productimage")',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    //data: formdata,
+                    data: formdata,
+                    async: false,
+                    success: function (result) {
+                        if (result != "") {
+                            alert(result);
+                            $("#FilesList tr .delimagsal").trigger("click");
+
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+         });
+      
+    </script>
+
+    </body>
+</html>
+
+
+
+

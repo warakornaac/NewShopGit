@@ -1,0 +1,933 @@
+﻿@{
+    ViewBag.Title = "Price Approval";
+    Layout = "~/Views/Shared/Shoppinglist.cshtml";
+    //var dataSlm = ViewBag.SLM;
+    //var CUSCOD = ViewBag.CUSCOD;
+    // var CUSID = ViewBag.CUSID;
+    //var slmname = ViewBag.SlmModel;
+    var dataSlmlis = ViewBag.SlmModel;
+    List<SelectListItem> getStkGrp = ViewBag.StkGrp;
+    List<SelectListItem> getPRODList = ViewBag.PRODList;
+    var usre = ViewBag.usre;
+    // var DatetoExpire = Session["DatetoExpire"].ToString();
+}
+<style>
+    #tblDetail {
+        background-color: #333;
+    }
+
+    #tblDetailGroup {
+        background-color: #333;
+    }
+
+    #tblDetail tbody {
+        color: #F7EFEF;
+    }
+
+    #tblDetailGroup tbody {
+        color: #F7EFEF;
+    }
+
+    .fixed-table-container td:first-child {
+        color: #333;
+    }
+
+    input[type=checkbox] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        padding: 10px;
+    }
+
+    .jumbotron {
+        padding: 30px;
+        margin-bottom: 30px;
+        font-size: 21px;
+        font-weight: 200;
+        line-height: 2.1428571435;
+        color: inherit;
+        /*background-color: #eeeeee;*/
+        /*background-color: #E0FFFF;*/
+        /*margin-top: 166px;*/
+        background: #1e5799; /* Old browsers */
+        background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 17%, #207cca 61%, #7db9e8 92%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(17%,#2989d8), color-stop(61%,#207cca), color-stop(92%,#7db9e8)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* IE10+ */
+        background: linear-gradient(to bottom, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    }
+
+
+    #boxtype.outset {
+        border-style: outset;
+        width: 395px;
+        text-align: center;
+    }
+
+    #Ordertype_ID {
+        color: black;
+    }
+
+    .SeleCus {
+        background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+        position: absolute;
+        top: 21%;
+        left: 0;
+        width: 100%;
+        margin-top: -288px;
+        overflow: hidden;
+    }
+
+    .bs-example {
+        margin-right: 0;
+        margin-left: 0;
+        background-color: #fff;
+        border-color: #ddd;
+        border-width: 1px;
+        border-radius: 4px 4px 0 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        cursor: pointer;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Price Approval</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <link href="~/Scripts/datepicker/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/datepicker/jquery-ui.min.js"></script>
+
+</head>
+<body style="background: linear-gradient(-180deg,#071d6dfa,#9b9fbda3);">
+
+    <!-- Modal -->
+    <div class="modal" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content " id="ColorboxError">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:black;">Message Error</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="textAlert">Some text in the modal.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- EndModal -->
+    <!-- ModalWarning -->
+    <div class="modal fade" id="myModalWarning" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- Modalsuccess -->
+    <div class="modal fade" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- EndModalsuccess -->
+    <!-- Modaldelete-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    ยืนยันการลบข้อมูล
+                </div>
+                <div class="modal-body">
+                    คุณต้องการCancelข้อมูลหรือไม่
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="del" class="btn btn-danger btn-ok" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+        <!-- EndModaldelete -->
+    </div>
+    @*<input id="CUSID" hidden="hidden" value="@CUSID">
+        <input type="hidden" id="CUS" value="@CUSCOD">*@
+
+
+    <div class="container ptb--20 ">
+
+        <div class="" style="margin-top: 10px;">
+
+            <div class="well span9">
+                <form id="form-inline">
+
+                    <fieldset>
+                        <div class="col-md-12" style="text-align:center">
+                            <i class="topnav_home" style="color: #F7EFEF;font-size: 24px;">Price Approval</i>
+                        </div>
+                        <div class="col-md-12 ticket-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">พนักงานขาย<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="Slm" class="form-control" style="color:black">
+                                                <option value="0">เลือก SLMCOD</option>
+                                                @for (var i = 0; i < dataSlmlis.Count; i++)
+                                                {
+                                                    <option value="@dataSlmlis[i].SLMCOD">@dataSlmlis[i].SLMCOD/@dataSlmlis[i].SLMNAM</option>
+                                                }
+                                            </select>
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">ลูกค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="CUSCOD" style='color:black' class="form-control" name="example"></select>
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">Prod MGR<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="ddlProdMRG" class="form-control">
+                                                @*<option value="0">เลือก Prod MRG</option>*@
+                                                @for (var i = 0; i < getPRODList.Count; i++)
+                                                {
+                                                    <option value="@getPRODList[i].Value">@getPRODList[i].Text</option>
+                                                }
+                                            </select>
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">กลุ่มสินค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="STKGroup" class="form-control">
+                                                <option value="0">เลือก Stock Group</option>
+                                                @for (var i = 0; i < getStkGrp.Count; i++)
+                                                {
+                                                    <option value="@getStkGrp[i].Value">@getStkGrp[i].Text</option>
+                                                }
+                                            </select>
+                                            <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">Approve Status<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="ddlApproveStatus" class="form-control" style="width:180px">
+                                                <option value="W">Wait Approve</option>
+                                                <option value="N">Approve</option>
+                                                <option value="C">Not Approve</option>
+
+                                            </select>
+                                            @*<span class="input-group-addon "><span class="glyphicon glyphicon-pencil"></span></span>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" style="text-align: center">
+                                    <div class="input-group">
+
+                                        <button type="button" id="btnseach" class="btn btn-info btn-large" style="width: 234px;"> SEARCH</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-3" style="text-align:center">
+                    <div class="form-group">
+                        <i class="topnav_home" style="color: #F7EFEF;font-size: 24px;">รายการรออนุมัติ</i>
+                    </div>
+                </div>
+                <div class="col-md-5" style="text-align:center">
+                    <div class="form-group">
+                        <button type="button" id="btncan" class="btn btn-warning btn-large" style="width: 234px;">Not Approve</button>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center">
+                    <div class=" form-group">
+
+                        <input type="button" id="btnapproval" class="btn btn-success btn-large" style="width: 234px;" value="Approve">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-3" style="text-align:center">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <div class="input-group ">
+                                            @*<span class="input-group-addon alert-info"><input id="checkboxall" type="checkbox"></span>*@
+                                            <span class="input-group-addon"><input id="checkboxAll" type="checkbox"> </span>
+                                            <span class="input-group-btn">
+                                                <button type="button" id="btncheck" class="btn btn-info btn-block "><span class="glyphicon glyphicon-check"></span>เลือกรายการอนุมัติ ทั้งหมด</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <div class="input-group">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon ">Spc Moq<span class=" glyphicon glyphicon-hand-right"></span></span>
+                            <input id="spcmoq" class="form-control spcmoq" type="number" style=" width: 100%;height: 46%;" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon ">Spc End Date<span class=" glyphicon glyphicon-hand-right"></span></span>
+                            <input id="spcend_date" class="form-control spcend_date" name="sdate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div style="margin:2px 5px 0px">
+        <div class="fixed-table-container" id="fixed-table-container-1" style="z-index: 1;">
+            <table class="fixed_headers table table-bordered" id="tblDetail">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>No</th>
+                        <th>Status</th>
+                        <th>Stkcod</th>
+                        <th>Stkdes</th>
+                        <th>จำนวนสั่งซื้อ</th>
+                        <th>ราคาต่อรอง</th>
+                        <th>Customer</th>
+                        <th>Slmcod</th>
+                        <th>Stkgrp</th>
+                        <th>Moq</th>
+                        <th>Prcdes</th>
+                        <th>ราคาป้าย</th>
+                        <th>ราคาซื้อ</th>
+                        <th>ราคาพิเศษ</th>
+                        <th>Spc Remark</th>
+                        <th>ราคาซื้อล่าสุด</th>
+                        <th>Cost</th>
+                        <th>วันที่สั่งซื้อ</th>
+                        <th>Line Note</th>
+                        <th>Insert date/time</th>
+                        <th>InsertBy</th>
+                        <th>Order Referrence</th>
+                        @*<th>Order Referrence1</th>
+                            <th>Order Referrence2</th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div style="margin:2px 5px 0px">
+        <div class="input-group">
+            <div class="form-group">
+                <div id="divSO" style="font-size:16px;font-weight:bold;color:white;">รายการ สั่งซื้อที่เกี่ยวข้อง</div>
+            </div>
+        </div>
+        <div class="fixed-table-container" id="fixed-table-container-2" style="z-index: 1;">
+            <table class="fixed_headers table table-bordered" id="tblDetailGroup">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Status</th>
+                        <th>จำนวนสั่งซื้อ</th>
+                        <th>Stkcod</th>
+                        <th>Stkdes</th>
+                        <th>Stkgrp</th>
+                        <th>Moq</th>
+                        <th>ราคาป้าย</th>
+                        <th>ราคาซื้อ</th>
+                        <th>ราคาพิเศษ</th>
+                        <th>Spc<br />Moq</th>
+                        <th>Spc End<br />Date</th>
+                        <th>ราคาต่อรอง</th>
+                        <th>ราคาซื้อล่าสุด</th>
+                        <th>วันที่สั่งซื้อ</th>
+                        <th>Customer</th>
+                        <th>Slmcod</th>
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <input type="hidden" id="usrexpire">
+    <input type="hidden" id="stus" />
+    <input type="hidden" id="User">
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        $(function () {
+            //    $('#tblDetail tbody tr td .spcend_date').datepicker({ dateFormat: 'dd/mm/yy' });
+            //    $("#stusa").datepicker({ dateFormat: 'dd/mm/yy' });
+            //$('#tblDetail input[name="sdate"]').datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+        $('.spcend_date').datepicker({ dateFormat: 'dd/mm/yy' });
+        // $('.spcend_date').datepicker({ dateFormat: 'dd/m/yy' });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+        var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+        var fixedTable2 = fixTable(document.getElementById('fixed-table-container-2'));
+        $(document).ready(function () {
+            // var x= $("#User").val(userid);
+            // alert(userid)
+            // $("#tblDetail ").target("click");
+            //$("#tblDetail").trigger("click");
+            //$("#tblDetail").on("click", "input[name='sdate']", function () {
+
+            // //   alert("#tblDetail");
+
+            //        $(this).datepicker({ dateFormat: 'dd/mm/yy' });
+
+
+            //});
+
+            //$('table input[type=text]').datepicker({ dateFormat: 'dd/mm/yy' });
+            var expireval = $("#usrexpire").val();
+            //var expireval = 3;
+
+            if (parseInt(expireval) <= 15) {
+                $("#textAlertWarning").empty();
+
+                $("#textAlertWarning").text("Password ของท่านใกล้หมดอายุ กรุณาเปลี่ยน Password ");
+
+                $("#mytextAlertWarning").modal();
+                $("#myModalWarning").modal();
+
+            }
+
+            $("#btnseach").click(function () {
+
+                var _ProdMRG = $('#ddlProdMRG').val();
+
+                if (_ProdMRG == "0") {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณา เลือก Prd MRG");
+                    $("#myModalWarning").modal(); return false;
+                }
+
+
+
+
+                $("#tblDetail > tbody").empty();
+                $("#tblDetailGroup > tbody").html("");
+                var _ddlApproveStatus = $('#ddlApproveStatus').val();
+                fnGetPriceApprove(_ddlApproveStatus);
+            });
+
+            $("#btnapproval").click(function () {
+                fnApproveData('N');
+                $("#stus").val('N');
+            });
+            $("#btncan").click(function () {
+                fnApproveData('C');
+            });
+
+            $('#checkboxAll').click(function (event) {  //on click
+                if (this.checked) { // check select status
+                    $('.chk').each(function () { //loop through each checkbox
+                        this.checked = true;
+
+                    });
+                } else {
+                    $('.chk').each(function () { //loop through each checkbox
+                        this.checked = false; //deselect all checkboxes with class "chk"
+
+                    });
+                }
+            });
+            $(document).delegate('#myHref', 'click', function () {
+
+                var CartID = $(this).attr('CartID');
+
+                //  alert(CartID);
+                fnGetPriceApproveGroup(CartID);
+                // $('#divSO').text(ORD_DocNo);
+                //  fnGetOrderDetail(ORD_ID);
+                return false;
+            });
+            // Load Data on Page Load  Status Wait for Approve
+            var us = $("#User").val();
+            fnGetPriceApprove('W');
+        });
+
+        function fnGetPriceApproveGroup(CartID) {
+            SubmithtmlPage = "";
+            var _SLMCODE = $('#Slm').val();
+            var _CUSCOD = $('#CUSCOD').val();
+            var _STKGRP = $('#STKGroup').val();
+            $("#tblDetailGroup > tbody").html("");
+
+            $.ajax({
+                url: '@Url.Action("GetPriceApprove_Group", "PriceApproval")',
+                data: {
+                    CartID: CartID
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+
+                    if (data.Getdata.length != 0) {
+
+                        for (var i = 0; i < data.Getdata.length; i++) {
+
+                            SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">';
+                            SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
+                            if (data.Getdata[i].val.Status == "W") {
+
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
+                            }
+                            else {
+
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '<br> ' + data.Getdata[i].val.PrcApproveDate + '</td>';
+                            }
+
+                            // SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '"  CartID="' + data.Getdata[i].val.CartID + '" style=" color: red; cursor: pointer; "></div></td>';
+                            // SubmithtmlPage += '<td>' + data.Getdata[i].val.SONumber+'<br>' + data.Getdata[i].val.SODate+ '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.Qty + '</td>';
+
+                            SubmithtmlPage += '<td align="left">' + data.Getdata[i].val.STKCOD + '</td>';
+                            // SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.STKCOD + '</td>';
+                            SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.STKDES + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.STKGRP + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.MINORD + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.Price) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SpecialPrice) + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.spcmoq + '</td>';
+                            // SubmithtmlPage += '<td>' + data.Getdata[i].val.PrcApproveDate + '</td>';
+                            // SubmithtmlPage += '<td>' + data.Getdata[i].val.spcend_date + '</td>';
+                            SubmithtmlPage += '<td></td>';
+                            //     SubmithtmlPage += '<td style="color:rgb(180, 239, 35);">' + data.Getdata[i].val.ExpectPrice + '<br><div style="color: rgb(249, 160, 22);">Wait Approved ราคาต่อรอง</div></td>';
+                            SubmithtmlPage += '<td style="color: rgba(212, 25, 84, 0.98);text-align: right;/* background-color: burlywood; */font-weight: bold;">' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.LastInvPrice) + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.ORDDAT + '</td>';
+                            //SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.UOM + '</td>';
+                            // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.CartID + '</td>';
+
+                            SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.CUSCOD + '</td>';
+                            SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.SLMID + '</td>';
+
+                            SubmithtmlPage += '</tr>';
+
+                            // $('#fixed-table-container-2  tbody:last-child').append(SubmithtmlPage);
+                        }
+                        //  $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
+                        // $('#tblDetailGroup > tbody:last-child').append(SubmithtmlPage);
+                        $('#fixed-table-container-2  tbody:last-child').append(SubmithtmlPage);
+                    }
+                    else {
+
+                        // $("#textAlertWarning").empty();
+                        // $("#textAlertWarning").text("ไม่มีข้อมูล");
+                        // $("#myModalWarning").modal(); return false;
+                    }
+                    var fixedTable1 = fixTable(document.getElementById('fixed-table-container-2'));
+                }
+            });
+        }
+
+        function fnGetPriceApprove(vStatus) {
+
+            var SubmithtmlPage = "";
+            var _SLMCODE = $('#Slm').val();
+            var _CUSCOD = $('#CUSCOD').val();
+            var _STKGRP = $('#STKGroup').val();
+            var _ProdMRG = $('#ddlProdMRG').val();
+            //var _Usre = $("#User").val();
+            var _User = userid;
+
+
+            //$("#tblDetail > tbody").html("");
+
+            $.ajax({
+                url: '@Url.Action("GetPriceApprove", "PriceApproval")',
+                data: {
+                    SLMCODE: _SLMCODE,
+                    CUSCOD: _CUSCOD,
+                    STKGRP: _STKGRP,
+                    ProdMRG: _ProdMRG,
+                    vStatus: vStatus,
+                    Usre: _User
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    $('#tblDetail > tbody:last-child').empty();
+                    var fullDate = new Date()
+                    // console.log(fullDate);
+                    //Thu May 19 2011 17:25:38 GMT+1000 {}
+                    //convert month to 2 digits
+                    var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? (fullDate.getMonth() + 1) : '0' + (fullDate.getMonth() + 1);
+                    var d = new Date();
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+                    var output = (('' + day).length < 2 ? '0' : '') + day + '/' +
+                        (('' + month).length < 2 ? '0' : '') + month + '/' +
+                        d.getFullYear();
+
+
+                    var currentDate = output
+                    // console.log(currentDate);
+
+                    $('#spcend_date').val(currentDate);
+
+                    if (data.Getdata.length != 0) {
+                        var Status = "";
+                        var strsub;
+                        var Prcre;
+                        var Inseby;
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            Status = data.Getdata[i].val.Status;
+
+                            strsub = data.Getdata[i].val.InsertedBy;
+                            strsub = strsub.split("|");
+                            Inseby = strsub[0];
+
+                            if (typeof strsub[1] === "undefined") {
+                                Prcre = "";
+                            } else { Prcre = strsub[1]; }
+                            // console.log(Prcre)
+                            SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">';
+
+                            if (data.Getdata[i].val.Status == "W") {
+                                SubmithtmlPage += '<td style="width: 79px;"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
+                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td></td>';
+                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + ' <br>' + data.Getdata[i].val.PrcApproveDate + '</td>';
+                            }
+
+                            // SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '"  CartID="' + data.Getdata[i].val.CartID + '" style=" color: red; cursor: pointer; "></div></td>';
+                            SubmithtmlPage += '<td align="left"><a id="myHref" STKCOD="' + data.Getdata[i].val.STKCOD + '" CartID="' + data.Getdata[i].val.ID + '" style="font-size: 14px;cursor: pointer;color: #1BB847;">' + data.Getdata[i].val.STKCOD + '</a></td>';
+                            SubmithtmlPage += '<td style="text-align:left;width:10%;">' + data.Getdata[i].val.STKDES + '</td>';
+                            SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            SubmithtmlPage += '<td style="color: rgba(212, 25, 84, 0.98);text-align: right;/* background-color: burlywood; */font-weight: bold;">' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.CUSCOD + '</td>';
+                            SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.SLMID + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.STKGRP + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.MINORD + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.Prcdes + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.Price) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right"><div class="SalePrice">' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</div></td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SpecialPrice) + '</td>';
+                            if (Status == "W") {
+
+                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';
+                            } else {
+
+                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
+                            }
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.LastInvPrice) + '</td>';
+                            SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.UNITCOST) + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.ORDDAT + '</td>';
+
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.LineNote + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.InsertedDate + '</td>';
+                            SubmithtmlPage += '<td>' + Inseby + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].val.ID + '</td>';
+                            //SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.UOM + '</td>';
+                            //SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.CartID + '</td>';
+                            SubmithtmlPage += '</tr>';
+
+
+                        }
+
+                        $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
+
+                    }
+                    else {
+
+                        // $("#textAlertWarning").empty();
+                        // $("#textAlertWarning").text("ไม่มีข้อมูล");
+                        // $("#myModalWarning").modal(); return false;
+                    }
+                    var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+                }
+            });
+        }
+
+        function fnApproveData(vStatus) {
+
+            //var User = $('#User').val();
+            var User = userid;
+            var data = new Array();
+            var iCount = 0;
+
+            $('#tblDetail tr').find('input[type="checkbox"]:checked').each(function () {
+                var cartid = $(this).attr('cartid');
+                var PRCLST_NO = $(this).attr('PRCLST_NO');
+                //var spcend_date = $(this).parents("tr:eq(0)").find(".spcend_date").val().trim();
+                //var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
+                var spcmoq = $("#spcmoq").val();
+                var spcend_date = $("#spcend_date").val();
+                var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
+                var saleprice = $(this).attr('saleprice');
+                var ItemList = {
+                    cartid: cartid,
+                    PRCLST_NO: PRCLST_NO,
+                    spcend_date: spcend_date,
+                    remake: spcremake,
+                    spcmoq: spcmoq,
+                    saleprice: saleprice
+                };
+
+                data.push(ItemList);
+                //console.log(JSON.stringify(data));
+                iCount++;
+            });
+            // console.log(data);
+
+            if (iCount == 0) {
+                //alert("กรุณาเลือกรายการ");
+                $("#textAlert").empty();
+                $("#textAlert").text("กรุณาเลือกรายการที่ต้องการอนุมัติ");
+                $("#myModal").modal();
+                return false;
+            }
+
+            //console.log('xxiCount=' + " " + iCount)
+            if (vStatus == "N") {
+                for (var i = 0; i < data.length; i++) {
+                    var spcend_date = data[i].spcend_date;
+                    var spcmoq = data[i].spcmoq;
+                    if (spcmoq == "" || spcend_date == "") {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาระบุ Spc Moq หรือ Spc End_Date ให้ครบ");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+
+
+                }
+
+            } else {
+
+
+            }
+            var DataSend = JSON.stringify(data);
+            console.log('xx' + " " + DataSend)
+
+            $.ajax({
+                url: '@Url.Action("Approvalndata", "PriceApproval")',
+                data: {
+                    data: DataSend,
+                    User: User,
+                    vStatus: vStatus
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+
+                    if (data.message == "true") {
+
+                        $("#textAlertSucces").empty();
+                        $("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
+                        $("#myModalSucces").modal();
+                        $("#myModalSucces").click(function () {
+
+                            //location.reload();
+                            fnGetPriceApprove();
+                        });
+
+                        //location.reload();
+                    } else {
+
+                        $("#textAlert").empty();
+                        $("#textAlert").text("Approval ไม่สำเร็จกรุณาทำรายการใหม่ " + data.messageerror);
+                        $("#myModal").modal();
+                    }
+                }
+            });
+        }
+        $('#ddlProdMRG').change(function () {
+            var ProdMRG = $('#ddlProdMRG').val();
+            var ProdMRG_NAME = $("#ddlProdMRG option:selected").text();
+            $('#UserID').val("");
+
+            $.ajax({
+                url: '@Url.Action("GetSTKGRP", "PriceApproval")',
+                data: {
+                    ProdMRG: ProdMRG,
+                    ProdMRG_NAME: ProdMRG_NAME
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data);
+                    var select = $("#STKGroup");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("เลือก Stock Group"));
+                    $(data).each(function (index, item) {
+                        select.append($("<option>").val(item.STKGRP).text(item.STKGRP + "/" + item.GRPNAM));
+                    });
+
+                }
+            });
+        });
+
+        $('#Slm').change(function () {
+            var SLM = $('#Slm').val();
+            var SLMt = $("#Slm option:selected").text();
+            $('#UserID').val("");
+            $('#SalemanName').val(SLMt);
+            $.ajax({
+                url: '@Url.Action("GetdataCus", "PriceApproval")',
+                data: {
+                    SLM: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    var select = $("#CUSCOD");
+                    select.children().remove();
+                    select.append($("<option>").val("0").text("เลือก CUSCOD"));
+                    $(data).each(function (index, item) {
+                        select.append($("<option>").val(item.CUSCOD).text(item.CUSCOD + "/" + item.CUSNAM));
+                    });
+                    var CUSCODt = $("#CUSCOD option:selected").text();
+                    $('#UserID').val(CUSCODt);
+                }
+            });
+
+
+
+            $(document).on('click', '#cancelx', function () {
+                $("#confirm-delete").modal();
+                var row_d = $(this).attr('CartID');
+                $('#del').attr("CartID", row_d);
+            });
+            $(document).delegate('#del', 'click', function () {
+                var User = $('#User').val();
+                var CartID = $(this).attr('CartID');
+                // alert(PRCLST_NO);
+                $.ajax({
+                    url: '@Url.Action("Cancalpriceapproval", "PriceApproval")',
+                    data: {
+                        CartID: CartID,
+                        User: User
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        if (data == true) {
+                            $("#ttextAlertSucces").empty();
+                            $("#textAlertSucces").text("Cancal เรียบร้อย ");
+                            $("#myModalSucces").modal();
+                            $('#btnseach').trigger('click');
+                        }
+                        else {
+                            $("#textAlert").empty();
+                            $("#textAlert").text("Cancal ไม่สำเร็จกรุณาทำรายใหม่");
+                            $("#myModal").modal();
+                        }
+                    }
+                });
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

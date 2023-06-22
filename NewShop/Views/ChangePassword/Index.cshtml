@@ -1,0 +1,399 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+    //Layout = "~/Views/Shared/layout_view.cshtml";
+    Layout = "~/Views/Shared/_LayoutChangepassword.cshtml";
+    
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/bootstrap-4.0.0/js/dist/util.js"></script>
+<script src="~/bootstrap-4.0.0/js/dist/modal.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+ <!-- Place favicon.ico in the root directory -->
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+
+
+<script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+<script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+<!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
+
+
+
+<link href="~/Content/Normalize.css" rel="stylesheet" />
+<script src="~/Scripts/webAddress.js"></script>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">
+    <style>
+        .pass_show {
+            position: relative;
+        }
+
+            .pass_show .ptxt {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                z-index: 1;
+                color: #f36c01;
+                margin-top: -10px;
+                cursor: pointer;
+                transition: .3s ease all;
+            }
+
+                .pass_show .ptxt:hover {
+                    color: #333333;
+                } 
+    </style>
+    <style>
+        /* Style all input fields */
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+            /* Style the submit button */
+            input[type=submit] {
+                background-color: #04AA6D;
+                color: white;
+            }
+
+        /* Style the container for inputs */
+        .container {
+            background-color: #f1f1f1;
+            /*padding: 20px;*/
+        }
+
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+            display: none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+            #message p {
+                padding: 10px 35px;
+                font-size: 18px;
+            }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+            .valid:before {
+                position: relative;
+                left: -35px;
+                content: "✔";
+            }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+            .invalid:before {
+                position: relative;
+                left: -35px;
+                content: "✖";
+            }
+    </style>
+</head>
+<body>
+    <div class="our-checkout-area ptb--120 bg__white" style="margin: auto;">
+        <div class="row">
+            <h1>Change Password</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>User Loging</label>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" id="userlogin" placeholder="User Loging">
+                        </div>
+                        <label>Current Password</label>
+                        <div class="form-group pass_show">
+                            <input type="password" class="form-control" id="currentpass" placeholder="Current Password">
+
+                        </div>
+                        <label>New Password</label>
+                        <div class="form-group pass_show">
+                            <input type="password" class="form-control" id="newpass" placeholder="New Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                        </div>
+                        <label>Confirm Password</label>
+                        <div class="form-group pass_show">
+                            <input type="password" class="form-control" id="cfpass" placeholder="Confirm Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                        </div>
+                        <p id="showmessageerror"></p>
+                        <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." id="btnchang" value="Change Password">
+                    </div>
+                </div>
+                <div id="message">
+                    <h3>Password must contain the following:</h3>
+                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                    <p id="number" class="invalid">A <b>number</b></p>
+                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="confirm" role="dialog">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div class="modal-body" id="boxshow">
+
+                </div>
+                <div class="modal-footer">
+
+
+
+                    <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+        <!-- EndModaldelete -->
+    </div>
+ 
+        <script type="text/javascript">
+            var usercode = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+            $(document).ready(function () {
+                $(document).ready(function () {
+                    $('.pass_show').append('<span class="ptxt">Show</span>');
+                });
+
+
+                $(document).on('click', '.pass_show .ptxt', function () {
+
+                    $(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+                    $(this).prev().attr('type', function (index, attr) { return attr == 'password' ? 'text' : 'password'; });
+
+                });
+
+                $(document).on('click', '#btnnext', function () {
+                    window.location.replace("../Account/LogIn");
+
+                });
+                $(document).on("click", "#nextsp", function () {
+
+                    var cusel = usercode;
+                    if (cusel == "") {
+                        window.location.replace("../SeleScrCustomer/dashboard");
+                    } else {
+
+                        window.location.replace("../SeleScrCustomer/dashboard?numcuber=" + btoa(cusel));
+                    }
+                });
+               
+                $(document).on('click', '#btnchang', function () {
+
+                    var userlogin = $('#userlogin').val();
+                    var currentpass = $('#currentpass').val();
+                    var newpass = $('#newpass').val();
+                    var cfpass = $('#cfpass').val();
+                   // alert(newpass)
+
+                    var pass = newpass;
+                    var passcf = cfpass;
+                    var strength = 1;
+                    var arr = [/.{8,}/, /[a-z]+/, /[0-9]+/, /[A-Z]+/];
+                    jQuery.map(arr, function (regexp) {
+                        if (pass.match(regexp))
+                            strength++;
+                    });
+                    
+                    if (strength != 5) {
+                        $('#showmessageerror').text("Password is not secure.");
+                        $('#showmessageerror').css("color", "Red");
+                        return false;
+                    }
+                    if (currentpass == newpass) {
+                        $('#showmessageerror').text("New Password must not be duplicated with the current password.");
+                        $('#showmessageerror').css("color", "Red");
+                        return false;
+                    }
+                    if (pass != passcf) {
+                        $('#showmessageerror').text("New Password and Confirm Password mismatch.");
+                        $('#showmessageerror').css("color", "Red");
+                        return false;
+                    }
+                    
+
+                    var strengthcf = 1;
+                    var arr = [/.{8,}/, /[a-z]+/, /[0-9]+/, /[A-Z]+/];
+                    jQuery.map(arr, function (regexp) {
+                        if (passcf.match(regexp))
+                            strengthcf++;
+                    });
+
+                    if (strengthcf != 5) {
+                        $('#showmessageerror').text("Password is not secure.");
+                        $('#showmessageerror').css("color", "Red");
+                        return false;
+                    }
+
+
+                
+                    $.ajax({
+                        url: '@Url.Action("Changepassword", "ChangePassword")',
+                        data: {
+                            userlogin: userlogin,
+                            currentpass: currentpass,
+                            newpass: newpass,
+                            cfpass: cfpass
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data)
+                            if (data.returnmessage != "Y") {
+                                $('#showmessageerror').text(data.returnmessage);
+
+                                $('#showmessageerror').css("color", "Red");
+                            } else {
+                                
+                                $("#boxshow").empty();
+                                $("#boxshow").text("เปลี่ยน Password เรียบร้อย Password ใหม่ของท่านจะถูกส่งไปยัง Email ที่ลงทะเบียนไว้");
+                                $("#confirm").modal(); return false;
+                                //$('#showmessageerror').text("เปลี่ยน Password เรียบร้อย Password ใหม่ของท่านจะถูกส่งไปยัง Email ที่ลงทะเบียนไว้");
+                                //$('#showmessageerror').css("color", "#1bb610");
+                            }
+                        }
+                    });
+                });
+                var myInput = document.getElementById("newpass");
+                var myInputconfrim = document.getElementById("cfpass");
+                var letter = document.getElementById("letter");
+                var capital = document.getElementById("capital");
+                var number = document.getElementById("number");
+                var length = document.getElementById("length");
+
+                // When the user clicks on the password field, show the message box
+                myInput.onfocus = function () {
+                    document.getElementById("message").style.display = "block";
+                    $('#showmessageerror').text("");
+                }
+
+                // When the user clicks outside of the password field, hide the message box
+                myInput.onblur = function () {
+                    document.getElementById("message").style.display = "none";
+                }
+
+                // When the user starts to type something inside the password field
+                myInput.onkeyup = function () {
+                    // Validate lowercase letters
+                    var lowerCaseLetters = /[a-z]/g;
+                    if (myInput.value.match(lowerCaseLetters)) {
+                        letter.classList.remove("invalid");
+                        letter.classList.add("valid");
+                    } else {
+                        letter.classList.remove("valid");
+                        letter.classList.add("invalid");
+                    }
+
+                    // Validate capital letters
+                    var upperCaseLetters = /[A-Z]/g;
+                    if (myInput.value.match(upperCaseLetters)) {
+                        capital.classList.remove("invalid");
+                        capital.classList.add("valid");
+                    } else {
+                        capital.classList.remove("valid");
+                        capital.classList.add("invalid");
+                    }
+
+                    // Validate numbers
+                    var numbers = /[0-9]/g;
+                    if (myInput.value.match(numbers)) {
+                        number.classList.remove("invalid");
+                        number.classList.add("valid");
+                    } else {
+                        number.classList.remove("valid");
+                        number.classList.add("invalid");
+                    }
+
+                    // Validate length
+                    if (myInput.value.length >= 8) {
+                        length.classList.remove("invalid");
+                        length.classList.add("valid");
+                    } else {
+                        length.classList.remove("valid");
+                        length.classList.add("invalid");
+                    }
+                }
+
+
+                // When the user clicks on the password field, show the message box
+                myInputconfrim.onfocus = function () {
+                    document.getElementById("message").style.display = "block";
+                    $('#showmessageerror').text("");
+                }
+
+                // When the user clicks outside of the password field, hide the message box
+                myInputconfrim.onblur = function () {
+                    document.getElementById("message").style.display = "none";
+                }
+
+                // When the user starts to type something inside the password field
+                myInputconfrim.onkeyup = function () {
+                    // Validate lowercase letters
+                    var lowerCaseLetters = /[a-z]/g;
+                    if (myInputconfrim.value.match(lowerCaseLetters)) {
+                        letter.classList.remove("invalid");
+                        letter.classList.add("valid");
+                    } else {
+                        letter.classList.remove("valid");
+                        letter.classList.add("invalid");
+                    }
+
+                    // Validate capital letters
+                    var upperCaseLetters = /[A-Z]/g;
+                    if (myInputconfrim.value.match(upperCaseLetters)) {
+                        capital.classList.remove("invalid");
+                        capital.classList.add("valid");
+                    } else {
+                        capital.classList.remove("valid");
+                        capital.classList.add("invalid");
+                    }
+
+                    // Validate numbers
+                    var numbers = /[0-9]/g;
+                    if (myInputconfrim.value.match(numbers)) {
+                        number.classList.remove("invalid");
+                        number.classList.add("valid");
+                    } else {
+                        number.classList.remove("valid");
+                        number.classList.add("invalid");
+                    }
+
+                    // Validate length
+                    if (myInputconfrim.value.length >= 8) {
+                        length.classList.remove("invalid");
+                        length.classList.add("valid");
+                    } else {
+                        length.classList.remove("valid");
+                        length.classList.add("invalid");
+                    }
+                }
+            });
+        </script>
+</body>
+</html>

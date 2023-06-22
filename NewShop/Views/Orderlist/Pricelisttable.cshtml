@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Pricelisttable";
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    @*<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+    <link href="~/bootstrap-4.0.0/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/bootstrap/bootstrap3_4_1.js"></script>
+</head>
+<body>
+    <div class="modal" id="myModalWarning">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $("#textAlertWarning").empty();
+        $("#textAlertWarning").text("กรุณาเลือก Stock code");
+        $("#myModalWarning").modal(); 
+    </script>
+ </body>
+ </html>

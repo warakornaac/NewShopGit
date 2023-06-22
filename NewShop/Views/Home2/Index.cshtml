@@ -1,0 +1,1211 @@
+﻿@{
+    //Layout = "~/Views/Shared/layout_view2.cshtml";
+    Layout = "~/Views/Shared/layout_tmart.cshtml";
+    var user = ViewBag.UserId;
+    var usertype = ViewBag.UserType;
+    var usercode = ViewBag.UsrCode;
+}
+
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link href="~/contentfilter/css/reset.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/contentfilter/css/style.css"> <!-- Resource style -->
+    <script src="~/contentfilter/js/modernizr.js"></script> <!-- Modernizr -->
+   <link href="~/features/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <!--  <link href="~/cardoorcss/css/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="~/features/css/coomingson.css" rel="stylesheet" />
+    <link href="~/contentfilter/css/dropup.css" rel="stylesheet" />
+    <title>Home2</title>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            text-align: center;
+        }
+
+        .column {
+            float: left;
+            width: 44.33%;
+        }
+
+        .column-66 {
+            float: left;
+            width: 66.66666%;
+            padding: 10px;
+        }
+
+        .column-33 {
+            float: left;
+            width: 22.33333%;
+            padding: 10px;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .btnfilter {
+            color: #fff;
+            background-color: #6f8474;
+            border-color: #28a745;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.90rem 1.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .warningfilter {
+            color: #1c1c1d;
+            background-color: #ffc10791;
+            border-color: #ffc107;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.90rem 1.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            background-color: #ffc10791;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .cd-tab-filter-wrapperpage {
+            background-color: #331d35;
+            box-shadow: 0 20px 20px rgb(97 171 171 / 65%);
+            z-index: 1;
+        }
+
+        .card-text {
+            padding: 8px 16px;
+        }
+
+        .card-title {
+            padding: 0px 6px;
+        }
+
+        .pro__rating {
+            display: flex;
+            padding-right: 20px;
+        }
+
+            .pro__rating li span {
+                color: #f3c258;
+                font-size: 16px;
+            }
+
+        .ti-star {
+            color: #f3c258;
+            font-size: 16px;
+        }
+        .search-box {
+            width: 81px;
+            height: 30px;
+            /* text-indent: -9999px; */
+            border: none;
+            border-radius: 0 2px 2px 0;
+            /* outline: none; */
+            /* background-size: 22px; */
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: pointer;
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    
+    <!--<header class="cd-header">
+        <h1>Banner Content </h1>
+    </header> -->
+    <div>
+
+    </div>
+    <main class="cd-main-content">
+        
+        <section class="cd-gallery">
+           
+               
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <button class="search-box" id="searchbox">Search</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="cd-select cd-filters">
+                            <button type="button" class="btn btn-default" id="crsearchbox">Clear Filter</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="cd-select cd-filters">
+                            <select class="btnfilter" name="selectThis" id="sortby">
+                                <option selected value="0">Sort by </option>
+                                <option value="1">ขายดีสุด </option>
+                                <option value="2">สินค้าใหม่ </option>
+
+                            </select>
+                        </div>
+                    </div>
+                   
+                  
+                </div>
+            </div>
+                <div class="container">
+                    <div class="loader" style="display:none"></div>
+                    <div class="card-deck" id="fixbox">
+                        <div class="row">
+                           
+                        </div>
+                    </div>
+                </div>
+                <!--<ul>
+            <li class="mix color-1 check1 radio2 option3"><img src="img/img-1.jpg" alt="Image 1"></li>
+            <li class="mix color-2 check2 radio2 option2"><img src="img/img-2.jpg" alt="Image 2"></li>
+            <li class="mix color-1 check3 radio3 option1"><img src="img/img-3.jpg" alt="Image 3"></li>
+            <li class="mix color-1 check3 radio2 option4"><img src="img/img-4.jpg" alt="Image 4"></li>
+            <li class="mix color-1 check1 radio3 option2"><img src="img/img-5.jpg" alt="Image 5"></li>
+            <li class="mix color-2 check2 radio3 option3"><img src="img/img-6.jpg" alt="Image 6"></li>
+            <li class="mix color-2 check2 radio2 option1"><img src="img/img-7.jpg" alt="Image 7"></li>
+            <li class="mix color-1 check1 radio3 option4"><img src="img/img-8.jpg" alt="Image 8"></li>
+            <li class="mix color-2 check1 radio2 option3"><img src="img/img-9.jpg" alt="Image 9"></li>
+            <li class="mix color-1 check3 radio2 option4"><img src="img/img-10.jpg" alt="Image 10"></li>
+            <li class="mix color-1 check3 radio3 option2"><img src="img/img-11.jpg" alt="Image 11"></li>
+            <li class="mix color-2 check1 radio3 option1"><img src="img/img-12.jpg" alt="Image 12"></li>
+            <li class="gap"></li>
+            <li class="gap"></li>
+            <li class="gap"></li>
+        </ul>-->
+                <div class="cd-fail-message">No results found</div>
+           </section> <!-- cd-gallery -->
+        
+        <div class="cd-filter">
+           
+            <form action="">
+                <div class="cd-filter-block">
+                    <h4>Search</h4>
+                    
+                    <div class="cd-filter-contentx">
+                        <input type="search" id="textfree" placeholder="ค้นหาสินค้าที่คุณต้องการได้ที่นี่...">
+                       
+                       
+                    </div> <!-- cd-filter-content -->
+                </div> <!-- cd-filter-block -->
+                <!--  <div class="cd-filter-block">
+                     <h4>Check boxes</h4>
+                     <ul class="cd-filter-content cd-filters list">
+                         <li>
+                             <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
+                             <label class="checkbox-label" for="checkbox1">Option 1</label>
+                         </li>
+                         <li>
+                             <input class="filter" data-filter=".check2" type="checkbox" id="checkbox2">
+                             <label class="checkbox-label" for="checkbox2">Option 2</label>
+                         </li>
+                         <li>
+                             <input class="filter" data-filter=".check3" type="checkbox" id="checkbox3">
+                             <label class="checkbox-label" for="checkbox3">Option 3</label>
+                         </li>
+                     </ul> <!-- cd-filter-content
+                 </div>-->
+                <!-- cd-filter-block -->
+                <div class="cd-filter-block">
+                    <h4>Product Group</h4>
+
+                    <div class="cd-filter-content">
+                        <div class="cd-select cd-filters">
+                            <select class="filter" name="selectThis" id="productgroup"></select>
+                        </div> <!-- cd-select -->
+                    </div> <!-- cd-filter-content -->
+                </div> <!-- cd-filter-block -->
+                <div class="cd-filter-block">
+                    <h4>Product Line</h4>
+
+                    <div class="cd-filter-content">
+                        <div class="cd-select cd-filters">
+                            <select class="filter" name="selectThis" id="productline"></select>
+                        </div> <!-- cd-select -->
+                    </div> <!-- cd-filter-content -->
+                </div> <!-- cd-filter-block -->
+                <div class="cd-filter-block">
+                    <h4>Segment</h4>
+
+                    <div class="cd-filter-content">
+                        <div class="cd-select cd-filters">
+                            <select class="filter" name="selectThis" id="segment"></select>
+                        </div> <!-- cd-select -->
+                    </div> <!-- cd-filter-content -->
+                </div>
+                <!--<div class="cd-filter-block">
+                    <h4>Maker</h4>
+
+                    <div class="cd-filter-content">
+                        <div class="cd-select cd-filters">
+                            <select class="filter" name="selectThis" id="maker"></select>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- cd-filter-block -->
+                <!-- <div class="cd-filter-block">
+                    <h4>Radio buttons</h4>
+                    <ul class="cd-filter-content cd-filters list">
+                        <li>
+                            <input class="filter" data-filter="" type="radio" name="radioButton" id="radio1" checked>
+                            <label class="radio-label" for="radio1">All</label>
+                        </li>
+                        <li>
+                            <input class="filter" data-filter=".radio2" type="radio" name="radioButton" id="radio2">
+                            <label class="radio-label" for="radio2">Choice 2</label>
+                        </li>
+                        <li>
+                            <input class="filter" data-filter=".radio3" type="radio" name="radioButton" id="radio3">
+                            <label class="radio-label" for="radio3">Choice 3</label>
+                        </li>
+                    </ul> <!-- cd-filter-content
+                </div> -->
+                <!-- cd-filter-block -->
+            </form>
+            <a href="#0" class="cd-close">Close</a>
+        </div> <!-- cd-filter -->
+        <a href="#0" class="cd-filter-trigger">Filters</a>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Modal body..
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            
+      </main> <!-- cd-main-content -->
+   
+    <link rel="stylesheet"  href="~/CSS/bootstrapx.min.css"/>
+    
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <script src="~/contentfilter/js/main.js"></script> <!-- Resource jQuery -->
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+   
+   
+    <script type="text/javascript">
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var cuscod= '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+         
+       
+            var _var = $("#company").val();
+           // var _var = "TAC";
+            $.ajax({
+                url: '@Url.Action("GetCatProductGroup", "DataCenter")',
+                data: {
+                    com: _var
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#productgroup");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Product Group All"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.ProductGroup + ">").val(item.ProductGroup).text(item.ProductGroup));
+
+                    });
+                    //  var CUSCODt = $("#CUSCOD option:selected").text();
+                }
+            });
+        $.ajax({
+            url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+            data: {
+                com: _var,
+                progroup: ""
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                var select = $("#productline");
+                select.children().remove();
+                select.append($("<option>").val("").text("Product Line All"));
+                $(data).each(function (index, item) {
+
+                    select.append($("<option custyp='" + item.ProductGroup + "'>").val(item.ProductLine).text(item.ProductLine));
+
+                });
+                //  var CUSCODt = $("#CUSCOD option:selected").text();
+            }
+        });
+            $.ajax({
+                url: '@Url.Action("GetdateStkgrp", "DataCenter")',
+                data: {
+                    Name: _var
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#catalogue");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Group"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.STKGRP + ">").val(item.STKGRP).text(item.STKGRP + '/' + item.GRPNAM));
+
+                    });
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("Getdate", "DataCenter")',
+                data: {
+                    Name: 'Maker',
+                    sty: '0'
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#maker");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Maker"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Description));
+
+                    });
+                    var select = $("#Model");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Model"));
+                    var select = $("#submodel");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("submodel"));
+                }
+
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetBrand", "DataCenter")',
+                data: {
+                    Name: _var
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#brand");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Brand"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.CODE));
+
+                    });
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("GetSegment", "DataCenter")',
+                data: {
+                    Name: _var
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                    var select = $("#segment");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("Segment"));
+                    $(data).each(function (index, item) {
+
+                        select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.Maker));
+
+                    });
+                }
+            });
+            $("#company").change(function () {
+                var _var = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetdateStkgrp", "DataCenter")',
+                    data: {
+                        Name: _var
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        var select = $("#catalogue");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("Grop"));
+                        $(data).each(function (index, item) {
+
+                            select.append($("<option custyp=" + item.STKGRP + ">").val(item.STKGRP).text(item.STKGRP + '/' + item.GRPNAM));
+
+                        });
+                    }
+                });
+            });
+            function splitval(_val) {
+                var _splito = "";
+                _splito = _val.split('|');
+
+                return _splito[0];
+            }
+            function splitval2(_val) {
+                var _splito = "";
+                _splito = _val.split('|');
+
+                return _splito[1];
+            }
+            function commaSeparateNumber(val) {
+                while (/(\d+)(\d{3})/.test(val.toString())) {
+                    val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+                }
+                return val;
+            }
+            $("#productgroup").change(function () {
+                var _progroup = $(this).val();
+                // var _var = $("#company").val();
+                var _var = $("#company").val();
+                $.ajax({
+                    url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+                    data: {
+                        com: _var,
+                        progroup: _progroup
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        var select = $("#productline");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("Product Line All"));
+                        $(data).each(function (index, item) {
+
+                            select.append($("<option custyp=" + item.ProductGroup + ">").val(item.ProductLine).text(item.ProductLine));
+
+                        });
+                        //  var CUSCODt = $("#CUSCOD option:selected").text();
+                    }
+                });
+
+            });
+        $("#productline").change(function () {
+          //  var _progroup= $(this).attr('custyp');
+            var _progroup = $('option:selected', this).attr('custyp');
+           // alert(_progroup)
+            $("#productgroup").val(_progroup);
+
+        });
+            function getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment) {
+                console.log(_productgroup);
+                var _maker = maker;
+                var _Model = Model;
+                var _submodel = submodel;
+                var _company = company;
+                var _catalogue = catalogue;
+                var _brand = brand;
+                var productgroup = _productgroup;
+                var productline = _productline;
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var _itemsegment = itemsegment
+                 $('#fixbox').empty();
+               
+                 $('.loader').css("display", "block");
+                 $("#scrollUp").trigger("click");
+                $.ajax({
+                    url: '@Url.Action("Getdataitemdetail", "Home")',
+                    data: {
+                        maker: _maker,
+                        modelno: _Model,
+                        submodel: _submodel,
+                        company: _company,
+                        catalogue: _catalogue,
+                        brand: _brand,
+                        textfree: textfree,
+                        cuscod: "",
+                        yrStart: "",
+                        yrEnd: "",
+                        itemno: "",
+                        engine: "",
+                        productgroup: productgroup,
+                        productline: productline,
+                        itemsegment: _itemsegment
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        employees = data;
+                       
+                        $('#fixbox').empty();
+                        if (employees.length > 0) {
+                            var favitm = "";
+                            var displ = "";
+                            var displstr = "";
+                            var displnew = "";
+                            var displstrnew = "";
+                            var newitem = "";
+                            $('.loader').css("display", "none");
+                            var SubmithtmlPage = "";
+                            for (var i = 0; i < employees.length; i++) {
+                                ItemNo = employees[i].ItemNo;
+                                Supdescri = splitval2(employees[i].Description).substr(0, 50);
+                                Price = employees[i].Price;
+                                Company = employees[i].Company;
+                                Available_Stock = employees[i].Available_Stock;
+                                if (Available_Stock != "Y") {
+                                    Stravailable_Stock = "Sold out"
+                                    Stravailable_Stock = "";
+                                } else { Stravailable_Stock = "" }
+                                favitm = employees[i].FavoriteItem;
+                                newitem = employees[i].NewItem;
+                                if (favitm != "") {
+                                    displ = "display:block"
+                                    displstr = "data-selected='true'";
+                                } else {
+                                    displ = "display:none";
+                                    displstr = "";
+
+                                }
+                                if (newitem != "") {
+                                    displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+                                    displstrnew = "data-selected='true'";
+                                } else {
+                                    displnew = ""
+                                    displstrnew = "";
+
+                                }
+                                $("#fixbox").append('<div class="card mb-2" ' + displstr + ' style="box-shadow: 4px 4px 10px rgb(175 212 212);">' +
+                                    '<img class="card-img-top img-fluid" src="//placehold.it/500x180" alt="Card image cap">' +
+                                    '<div class="card-body">' +
+                                        '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+                                         '<div  class="pro__dtl__rating"  style="' + displ + '"><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span></div>' +
+                                        '<h4 class="card-text">' + Supdescri + '</h4>' +
+                                        '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                        '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                        '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+
+                                '</div>');
+
+
+
+                            }
+                            //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+                        } else {
+                            $('.loader').css("display", "none");
+                            $('#fixbox').empty();
+                            alert("No Data.....")
+
+                        }
+                    }
+                });
+            }
+       
+
+            $("#sortby").change(function () {
+                var vb = $(this).val();
+               
+                // → '{"b":"foo","c":"bar","a":"baz"}'
+              
+
+                if(vb == "1") {
+                    //employees.reverse(); 
+                    employees.sort((a,b) => parseInt(a.FavoriteItem) < parseInt(b.FavoriteItem) ? -1 : 0);
+                    $('#fixbox').empty();
+                    console.log(employees)
+                    if (employees.length > 0) {
+                        var favitm = "";
+                        var displ = "";
+                        var displstr = "";
+                        var displnew = "";
+                        var displstrnew = "";
+                        var newitem = "";
+                        $('.loader').css("display", "none");
+                        var SubmithtmlPage = "";
+                        for (var i = 0; i < employees.length; i++) {
+                            
+                            ItemNo = employees[i].ItemNo;
+                            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+                            Price = employees[i].Price;
+                            Company = employees[i].Company;
+                            Available_Stock = employees[i].Available_Stock;
+                            if (Available_Stock != "Y") {
+                                Stravailable_Stock = "Sold out"
+                                Stravailable_Stock = "";
+                            } else { Stravailable_Stock = "" }
+                            favitm = employees[i].FavoriteItem;
+                            newitem = employees[i].NewItem;
+                            if (favitm != "") {
+                                displ = "display:block"
+                                displstr = "data-selected='true'";
+                            } else {
+                                displ = "display:block";
+                                displstr = "";
+
+                            }
+                            if (newitem != "") {
+                                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+                                displstrnew = "data-selected='true'";
+                            } else {
+                                displnew = ""
+                                displstrnew = "";
+
+                            }
+                            $("#fixbox").append('<div class="card mb-2" ' + displstr + ' style="box-shadow: 4px 4px 10px rgb(175 212 212);">' +
+                                '<img class="card-img-top img-fluid" src="//placehold.it/500x180" alt="Card image cap">' +
+                                '<div class="card-body">' +
+                                    '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'>>>>'+ favitm+'  </h2>'+
+                                     '<div  class="pro__dtl__rating"  style="' + displ + '"><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span></div>' +
+                                    '<h4 class="card-text">' + Supdescri + '</h4>' +
+                                    '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                    '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+
+                            '</div>');
+
+
+
+                        }
+                        //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+                    } else {
+                        $('.loader').css("display", "none");
+                        $('#fixbox').empty();
+                        alert("No Data.....")
+
+                    }
+                } else if (vb == "0") {
+                    //employees.reverse(); 
+                    employees.sort((a,b) => parseInt(a.FavoriteItem) < parseInt(b.FavoriteItem) ? -1 : 0);
+                    $('#fixbox').empty();
+                    console.log(employees)
+                    if (employees.length > 0) {
+                        var favitm = "";
+                        var displ = "";
+                        var displstr = "";
+                        var displnew = "";
+                        var displstrnew = "";
+                        var newitem = "";
+                        $('.loader').css("display", "none");
+                        var SubmithtmlPage = "";
+                        for (var i = 0; i < employees.length; i++) {
+                            
+                            ItemNo = employees[i].ItemNo;
+                            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+                            Price = employees[i].Price;
+                            Company = employees[i].Company;
+                            Available_Stock = employees[i].Available_Stock;
+                            if (Available_Stock != "Y") {
+                                Stravailable_Stock = "Sold out"
+                                Stravailable_Stock = "";
+                            } else { Stravailable_Stock = "" }
+                            favitm = employees[i].FavoriteItem;
+                            newitem = employees[i].NewItem;
+                            if (favitm != "") {
+                                displ = "display:block"
+                                displstr = "data-selected='true'";
+                            } else {
+                                displ = "display:block";
+                                displstr = "";
+
+                            }
+                            if (newitem != "") {
+                                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+                                displstrnew = "data-selected='true'";
+                            } else {
+                                displnew = ""
+                                displstrnew = "";
+
+                            }
+                            $("#fixbox").append('<div class="card mb-2" ' + displstr + ' style="box-shadow: 4px 4px 10px rgb(175 212 212);">' +
+                                '<img class="card-img-top img-fluid" src="//placehold.it/500x180" alt="Card image cap">' +
+                                '<div class="card-body">' +
+                                    '<h1 class="card-title">' + ItemNo +'  </h1><h2 class="card-title">' + displnew +'  </h2>'+
+                                     '<div  class="pro__dtl__rating"  style="' + displ + '"><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span></div>' +
+                                    '<h4 class="card-text">' + Supdescri + '</h4>' +
+                                    '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                    '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+
+                            '</div>');
+
+
+
+                        }
+                        //$('#fixed-table-container-5  tbody:last-child').append(SubmithtmlPage);
+                    } else {
+                        $('.loader').css("display", "none");
+                        $('#fixbox').empty();
+                        alert("No Data.....")
+
+                    }
+                } else if (vb == "2") {
+                    //employees.sort(sort_by('NewItem', {
+                    //    name: 'Price',
+                    //    primer: parseFloat,
+                    //    reverse: true
+                    //}));
+                    //console.log(employees)
+
+                    employees.reverse(); 
+                    employees.sort((a, b) => a.NewItem < b.NewItem ? 1 : -1);
+                   
+                    $('#fixbox').empty();
+                    if (employees.length > 0) {
+                        var favitm = "";
+                        var displ = "";
+                        var displstr = "";
+                        var displnew = "";
+                        var displstrnew = "";
+                        var newitem = "";
+                        $('.loader').css("display", "none");
+                        var SubmithtmlPage = "";
+                        for (var i = 0; i < employees.length; i++) {
+                            ItemNo = employees[i].ItemNo;
+                            Supdescri = splitval2(employees[i].Description).substr(0, 50);
+                            Price = employees[i].Price;
+                            Company = employees[i].Company;
+                            Available_Stock = employees[i].Available_Stock;
+                            if (Available_Stock != "Y") {
+                                Stravailable_Stock = "Sold out"
+                                Stravailable_Stock = "";
+                            } else { Stravailable_Stock = "" }
+                            favitm = employees[i].FavoriteItem;
+                            newitem = employees[i].NewItem;
+                            if (favitm != "") {
+                                displ = "display:block"
+                                displstr = "data-selected='true'";
+                            } else {
+                                displ = "display:block";
+                                displstr = "";
+
+                            }
+                            if (newitem != "") {
+                                displnew = "<div style='background-color: red;width: 111px;color: white;'>New Item</div>";
+                                displstrnew = "data-selected='true'";
+                            } else {
+                                displnew = ""
+                                displstrnew = "";
+
+                            }
+                            $("#fixbox").append('<div class="card mb-2" ' + displstr + ' style="box-shadow: 4px 4px 10px rgb(175 212 212);">' +
+                                '<img class="card-img-top img-fluid" src="//placehold.it/500x180" alt="Card image cap">' +
+                                '<div class="card-body">' +
+                                    '<h1 class="card-title">' + ItemNo + '  </h1><h2 class="card-title">' + displnew + '  </h2>' +
+                                     '<div  class="pro__dtl__rating"  style="' + displ + '"><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span><span class="ti-star"></span></div>' +
+                                    '<h4 class="card-text">' + Supdescri + '</h4>' +
+                                    '<h4 class="card-text" style="color: deeppink;font-family: cursive;font-size: large;">฿ ' + commaSeparateNumber(Price) + ' </h4>' +
+                                    '<h4 class="card-text">' + Stravailable_Stock + '</h4>' +
+                                    '<a href="#" class="btn btn-primary" id="_btnlinkdetail" com=' + Company + ' stock=' + ItemNo + '>See Detail</a> ' +
+
+                            '</div>');
+                        }
+
+                    } else {
+                        $('.loader').css("display", "none");
+                        $('#fixbox').empty();
+                        alert("No Data.....")
+
+                    }
+                }
+            });
+           
+            $("#catalogue").change(function () {
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                var company = $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $("#brand").val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var itemsegment = $("#segment").val();
+
+                $("#sortby").val("0");
+
+              //  getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+
+
+            });
+            function clearval() {
+                $("#sortby").val("0");
+            }
+            $("#maker").change(function () {
+                var _var = $(this).val();
+               
+                var select = $("#submodel");
+                select.children().remove();
+                $.ajax({
+                    url: '@Url.Action("GetdateRelation", "DataCenter")',
+                    data: {
+                        Name: _var,
+                        sty: '1'
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        $("#submodel").append($("<option>").val("").text("submodel"));
+                        var select = $("#Model");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("Model"));
+                        $(data).each(function (index, item) {
+
+                            select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Description));
+
+                        });
+                    }
+                });
+               
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                var company = $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $("#brand").val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var itemsegment = $("#segment").val();
+
+                $("#sortby").val("0");
+
+               // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+            });
+            $("#Model").change(function () {
+                var _var = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetdateRelation", "DataCenter")',
+                    data: {
+                        Name: _var,
+                        sty: '2'
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        var select = $("#submodel");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("Submodel"));
+                        $(data).each(function (index, item) {
+
+                            select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Type));
+
+                        });
+                    }
+                });
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                var company = $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $("#brand").val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var itemsegment = $("#segment").val();
+
+                $("#sortby").val("0");
+
+               // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+            });
+            $("#submodel").change(function () {
+
+            var maker = $("#maker").val();
+            var Model= $("#Model").val();
+            var submodel = $(this).val();
+            var company= $("#company").val();
+            var catalogue = $("#catalogue").val();
+            var brand= $("#brand").val();
+            var _productgroup = $("#productgroup").val();
+            var _productline = $("#productline").val();
+            var textfree = $("#textfree").val();
+            textfree = splitval(textfree);
+            var itemsegment = $("#segment").val();
+           // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+            });
+            $("#crsearchbox").click(function () {
+                $("#maker").val("");
+                $("#Model").val("");
+                $("#submodel").val("");
+                $("#company").val("TAC");
+                $("#catalogue").val("");
+                $("#brand").val("");
+                $("#productgroup").val("");
+                $("#productline").val("");
+                $("#textfree").val("");
+                $("#segment").val("");
+                var _var=$("#company").val();
+                $.ajax({
+                    url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
+                    data: {
+                        com: _var,
+                        progroup: ""
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        var select = $("#productline");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("Product Line All"));
+                        $(data).each(function (index, item) {
+
+                            select.append($("<option custyp=" + item.ProductLine + ">").val(item.ProductLine).text(item.ProductLine));
+
+                        });
+                        //  var CUSCODt = $("#CUSCOD option:selected").text();
+                    }
+                });
+            });
+            $("#searchbox").click(function () {
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                var company = $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $("#brand").val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var itemsegment = $("#segment").val();
+                getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+            });
+            $("#brand").change(function () {
+
+                var maker = $("#maker").val();
+                var Model = $("#Model").val();
+                var submodel = $("#submodel").val();
+                var company = $("#company").val();
+                var catalogue = $("#catalogue").val();
+                var brand = $(this).val();
+                var _productgroup = $("#productgroup").val();
+                var _productline = $("#productline").val();
+                var textfree = $("#textfree").val();
+                textfree = splitval(textfree);
+                var itemsegment = $("#segment").val();
+               // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+            });
+            $("#textfree").click(function () {
+                this.select();
+            });
+            $("#textfree").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                timeout: 1000000,
+
+                source: function (request, response) {
+
+                    //var param = {
+                    //    Name: $('#textfree').val(),
+                    //    Xcus: "",
+                    //    Xval: "",
+                    //    //Xcus: $('#XXcus').val(),
+                    //    //Xval: $('#selval').val(),
+                    //    XvalCompany: $('#company').val()
+                    //};
+                    //var param = {
+                    //    maker: "",
+                    //    modelno: "",
+                    //    submodel: "",
+                    //    company: "TAC",
+                    //    catalogue: "",
+                    //    brand: "",
+                    //    textfree: $('#textfree').val(),
+                    //    cuscod: "",
+                    //    yrStart: "",
+                    //    yrEnd: "",
+                    //    itemno: "",
+                    //    engine: "",
+                    //    productgroup: "",
+                    //    productline: ""
+                    //};
+                    var textfree = $("#textfree").val();
+                    textfree = splitval(textfree);
+                  //  alert(textfree);
+                  
+                    var param = {
+                        maker: $("#maker").val(),
+                        modelno: $("#Model").val(),
+                        submodel: $("#submodel").val(),
+                        XvalCompany: $("#company").val(),
+                        catalogue: $("#catalogue").val(),
+                        brand: $("#brand").val(),
+                        Name: textfree,
+                        cuscod: "",
+                        yrStart: "",
+                        yrEnd: "",
+                        itemno: "",
+                        engine: "",
+                        productgroup: $("#productgroup").val(),
+                        productline: $("#productline").val(),
+                        itemsegment : $("#segment").val()
+                    };
+                    // $('#fixbox').empty();
+                    // $('.loader').css("display", "block");
+                  
+                    $.ajax({
+                        url: '@Url.Action("GetdateStockCode", "Home")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            //console.log(data.length
+                            console.log("xxxx:" + data);
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+                        },
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            //  alert(textStatus + '&&' + errorThrown + '&&' + XMLhttpsRequest);
+                            alert(request.term);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    var maker = $("#maker").val();
+                    var Model= $("#Model").val();
+                    var submodel = $("#submodel").val();
+                    var company= $("#company").val();
+                    var catalogue = $("#catalogue").val();
+                    var brand= $("#brand").val();
+                    var _productgroup = $("#productgroup").val();
+                    var _productline = $("#productline").val();
+                    var textfree = $("#textfree").val();
+                    textfree = splitval(textfree);
+                    var itemsegment = $("#segment").val();
+                   // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
+
+                     },
+                minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+            });
+       $(document).on("click", "#_btnlinkdetail", function () {
+      
+                //var _vfd = $(this).text();
+                var _vcom = $(this).attr('com');
+                var _vfd = $(this).attr('stock');
+             
+                var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom));
+                wi.focus();
+                return false;
+                if (usertype == "6") {
+                    if (cuscod != "") {
+                        ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
+                        var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom));
+                        wi.focus();
+                    } else {
+
+                        $("#myModal").modal();
+                        $.ajax({
+                            url: '@Url.Action("Getdateslm", "DataCenter")',
+                            data: {
+                                Name: _var,
+                                sty: '2'
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                console.log(data)
+                                //var select = $("#submodel");
+                                //select.children().remove();
+                                //select.append($("<option>").val("").text("Submodel"));
+                                //$(data).each(function (index, item) {
+
+                                //    select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Type));
+
+                                //});
+                            }
+                        });
+
+                    }
+                } else {
+                    if (cuscod != "") {
+                        $.ajax({
+                            url: '@Url.Action("Getdateslm", "DataCenter")',
+                            data: {
+                                Name: _var,
+                                sty: '2'
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                console.log(data)
+                                //var select = $("#submodel");
+                                //select.children().remove();
+                                //select.append($("<option>").val("").text("Submodel"));
+                                //$(data).each(function (index, item) {
+
+                                //    select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Type));
+
+                                //});
+                            }
+                        });
+                    } else {
+                        alert(usertype)
+                       // $(document).ready(function () {
+                        $("#MyModal").modal({ show: true });
+                      //  });
+                        
+                      
+                    }
+                }
+            });
+    </script>
+</body>
+</html>

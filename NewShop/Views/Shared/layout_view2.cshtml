@@ -1,0 +1,189 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/bootstrap.min.css">
+    <!-- Owl Carousel main css -->
+    <link rel="stylesheet" href="~/tmartcss/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/tmartcss/css/owl.theme.default.min.css">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="~/tmartcss/css/core.css">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="~/tmartcss/css/shortcode/shortcodes.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="~/tmartcss/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="~/tmartcss/css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="~/tmartcss/css/custom.css">
+
+
+    <!-- Modernizr JS -->
+    <script src="~/tmartcss/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed__footer">
+        <!-- Start Header Style -->
+        <header id="header" class="htc-header header--3 bg__white">
+            <!-- Start Mainmenu Area -->
+            <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                            <div class="logo">
+                                <a href="index.html">
+                                    <h2>AAC&TAC</h2>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Start MAinmenu Ares -->
+                        <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                            <nav class="mainmenu__nav hidden-xs hidden-sm">
+                                <ul class="main__menu">
+                                    <li class="drop"><a href="~/Orderlist/Index">Home</a></li>
+                                    <li class="drop"><a href="~/Blog_details/Index">Home1</a></li>
+                                    <li class="drop"><a href="~/Home2/Index">Home2</a></li>
+
+                                    <!-- End Single Mega MEnu -->
+                                    <!-- Start Single Mega MEnu -->
+                                    <li>
+                                        <ul class="mega__item">
+                                            <li>
+                                                <div class="mega-item-img">
+                                                    <a href="shop.html">
+                                                        <img src="images/feature-img/3.png" alt="">
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- End Single Mega MEnu -->
+                                </ul>
+                                </li>
+
+
+                                </ul>
+                            </nav>
+                            <div class="mobile-menu clearfix visible-xs visible-sm">
+                                <nav id="mobile_dropdown">
+                                    <ul>
+                                        <li><a href="~/Orderlist/Index">Home</a></li>
+                                        <li><a href="~/Blog_details/Index">Home1</a></li>
+                                        <li><a href="~/Home2/Index">Home2</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- End MAinmenu Ares -->
+                        <div class="col-md-2 col-sm-4 col-xs-3">
+                            <ul class="menu-extra">
+                                <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
+                                <li><a href="login-register.html"><span class="ti-user"></span></a></li>
+                                <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                                <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mobile-menu-area"></div>
+                </div>
+            
+                
+                </div>
+            <!-- End Mainmenu Area -->
+        </header>
+        <!-- End Header Style -->
+        <div class="body__overlay"></div>
+        <!-- Start Offset Wrapper -->
+        <div class="offset__wrapper">
+            <!-- Start Search Popap -->
+            @RenderBody()
+            <div class="search__area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="search__inner">
+                                <form action="#" method="get">
+                                    <input placeholder="Search here... " type="text">
+                                    <button type="submit"></button>
+                                </form>
+                                <div class="search__close__btn">
+                                    <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- End Offset Wrapper -->
+      
+        <!-- Start BLog Area -->
+     
+        <div class="htc__blog__area bg__white ptb--120">
+            <div class="container">
+                <div class="row">
+                  
+                </div>
+                <!-- Start Load More BTn -->
+               <!--  <div class="row mt--60">
+                    <div class="col-md-12">
+                        <div class="htc__loadmore__btn">
+                            <a href="#">load more</a>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row mt--90" style="justify-content: center;">
+                    <div class="col-md-12" style="display:none" id="loader">
+                        <div class="spinner-grow text-muted"></div>
+                        <div class="spinner-grow text-primary"></div>
+                        <div class="spinner-grow text-success"></div>
+                        <div class="spinner-grow text-info"></div>
+                        <div class="spinner-grow text-warning"></div>
+                        <div class="spinner-grow text-danger"></div>
+                        <div class="spinner-grow text-secondary"></div>
+                        <div class="spinner-grow text-dark"></div>
+                        <div class="spinner-grow text-light"></div>
+                    </div>
+                </div>
+                <!-- End Load More BTn -->
+            </div>
+        </div>
+        <!-- End BLog Area -->
+      
+    </div>
+    <!-- Body main wrapper end -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!-- jquery latest version -->
+    <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap framework js -->
+    <script src="~/tmartcss/js/bootstrap.min.js"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="~/tmartcss/js/plugins.js"></script>
+    <script src="~/tmartcss/js/slick.min.js"></script>
+    <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+    <!-- Waypoints.min.js. -->
+    <script src="~/tmartcss/js/waypoints.min.js"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="~/tmartcss/js/main.js"></script>
+    
+</body>
+
+</html>
