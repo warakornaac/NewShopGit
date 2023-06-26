@@ -503,6 +503,7 @@ namespace NewShop.Controllers
                     model.WH_Location = dr["WH Location"].ToString();
                     model.KDC_QTY = dr["KDC-QTY"].ToString();
                     model.PDC_QTY = dr["PDC-QTY"].ToString();
+                    model.AccessID = dr["AccessID"].ToString();
                     Getdata.Add(new ItemListGetdata { val = model });
 
                 }
@@ -1281,6 +1282,8 @@ namespace NewShop.Controllers
         public JsonResult checkAccessIdConfirm(string accessId, string cuscod) //เช็ค last id LogAccessCart ก่อน confirm
         {
             string flagCheck = string.Empty;
+            string userLast = string.Empty;
+            string timeLast = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             var command = new SqlCommand("P_Get_Access_Id_Last", Connection);
@@ -1289,16 +1292,26 @@ namespace NewShop.Controllers
             command.Parameters.AddWithValue("@cuscod", cuscod);
             SqlParameter returnFlag = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
             returnFlag.Direction = System.Data.ParameterDirection.Output;
-            command.Parameters.Add(returnFlag);
+            command.Parameters.Add(returnFlag);  
+            
+            SqlParameter returnUserLast = new SqlParameter("@outUser", SqlDbType.NVarChar, 100);
+            returnUserLast.Direction = System.Data.ParameterDirection.Output;
+            command.Parameters.Add(returnUserLast);
+
+            SqlParameter returnTimeLast = new SqlParameter("@outTime", SqlDbType.NVarChar, 100);
+            returnTimeLast.Direction = System.Data.ParameterDirection.Output;
+            command.Parameters.Add(returnTimeLast);
+
             Connection.Open();
             command.ExecuteNonQuery();
             flagCheck = returnFlag.Value.ToString();
-
+            userLast = returnUserLast.Value.ToString();
+            timeLast = returnTimeLast.Value.ToString();
 
             command.Dispose();
             Connection.Close();
 
-            return Json(new { flagCheck }, JsonRequestBehavior.AllowGet);
+            return Json(new { flagCheck, userLast, timeLast }, JsonRequestBehavior.AllowGet);
         }
     }
 }

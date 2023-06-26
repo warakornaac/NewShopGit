@@ -878,10 +878,11 @@
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                   <h4 class="modal-title" style="color:black;"> <i class="fa fa-info-circle" style="color: #dd8d1b;"></i> พบข้อผิดพลาด </h4>
+                    <h4 class="modal-title" style="color:black;"> <i class="fa fa-info-circle" style="color: #dd8d1b;"></i> พบข้อผิดพลาด </h4>
                 </div>
                 <div class="modal-body">
-                    <h6> พบ User ท่านอื่นเข้าหน้าตะกร้าก่อนหน้านี้ โปรดกดปุ่ม <b>Refresh</b> แล้ว <b>Confirm order</b> อีกครั้ง </h6>
+                  @*  <h6> มี user ท่านอื่นแก้ไขหน้ารายการสินค้า กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง </h6>*@
+                    <h6 id="textConfirmorder"></h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info" id="btnConfirmorder" data-dismiss="modal"><i class="fa fa-refresh"></i> Refresh</button>
@@ -1489,7 +1490,6 @@
                                 if (accessId != "") {
                                     $("#accessIdCurrent").val(accessId);
                                 }
-
 
 
                                 if (bck != "0") {
@@ -2616,6 +2616,13 @@
                                 var Prcby = data.Getdata[i].val.PrcApproveBy;
                                 var expdel = data.Getdata[i].val.ExpectPrice;
                                 var STKGRPType = data.Getdata[i].val.STKGRP;
+                                var accessId = data.Getdata[0].val.AccessID;
+                                //เก็บเลข accessLog ของตัวเอง
+                                console.log("accessIdQu = " + accessId);
+                                if (accessId != "") {
+                                    $("#accessIdCurrent").val(accessId);
+                                }
+
                                 if (Type == '-') { SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
                                 else { SubmithtmlPage += '<tr style="background-color: rgba(130, 198, 223, 0.3);" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
 
@@ -4725,6 +4732,16 @@
 
             })(jQuery);
             $(document).delegate('#btnOK', 'click', function () {
+                var fullTimeCurrent = "";
+                var today = new Date();  //gets current date and time
+                var hour = today.getHours();
+                var minute = today.getMinutes();
+                var second = today.getSeconds();
+                if (second < 10) {//if less then 10 add a leading zero
+                    second = "0" + second;
+                }
+                fullTimeCurrent = hour + ":" + minute + ":" + second;
+                console.log(fullTimeCurrent);
 
                 if (navigator.onLine) {
                     // alert('online')
@@ -4744,12 +4761,12 @@
                         type: "POST",
                         dataType: "JSON",
                         success: function (data) {
-                            //console.log("data.flagCheck = " + data.flagCheck);
+                            console.log("data.userLast = " + data);
                             //return false;
                             if (data.flagCheck != "Y") { //ถ้าไม่ใช่ lastID Refresh
                                 //  waitingDialogconfirm.show();
                                 //$("#textAlertSucces").empty();
-                                //$("#textAlertSucces").text("บันทึกข้อมูลสำเร็จ");
+                                $("#textConfirmorder").html("ท่านเข้าหน้าตะกร้าสินค้าเวลา <b>" + fullTimeCurrent + "</b> พบว่ามี <b> user " + data.userLast + "</b> กำลังแก้ไขหน้ารายการสินค้า ณ เวลา <b>" + data.timeLast + "</b> <br><br> กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง");
                                 $("#ModalConfirmorder").modal();
 
                                 $("#btnConfirmorder").click(function () {
