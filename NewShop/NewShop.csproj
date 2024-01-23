@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,6 +151,41 @@
     <Compile Include="Controllers\SrcSaleCoCrmController.cs" />
     <Compile Include="Controllers\StatuslistController.cs" />
     <Compile Include="Controllers\UploadsExcelController.cs" />
+    <Compile Include="MobileOrderDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrderDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrderDataSetReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrderDataSetReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrderDataSetReport1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrderDataSetReport1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrderDataSetReport2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrderDataSetReport2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrdertDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrdertDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrdertDataSetReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrdertDataSetReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MobileOrder_testDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileOrder_testDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\Groupdata.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -7072,6 +7109,83 @@
     <Content Include="dashboard\assets\vendors\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="dashboard\assets\js\bootstrap.min.js.map" />
     <Content Include="Excel\Order_Upload_By_Customer.xlsx" />
+    <Content Include="MobileOrder_testDataSet.xsc">
+      <DependentUpon>MobileOrder_testDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrderDataSet.xsc">
+      <DependentUpon>MobileOrderDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrderDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrderDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrderDataSet.xss">
+      <DependentUpon>MobileOrderDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrdertDataSet.xsc">
+      <DependentUpon>MobileOrdertDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrderDataSetReport.xsc">
+      <DependentUpon>MobileOrderDataSetReport.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrderDataSetReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrderDataSetReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrderDataSetReport.xss">
+      <DependentUpon>MobileOrderDataSetReport.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrderDataSetReport1.xsc">
+      <DependentUpon>MobileOrderDataSetReport1.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrderDataSetReport1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrderDataSetReport1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrderDataSetReport1.xss">
+      <DependentUpon>MobileOrderDataSetReport1.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrderDataSetReport2.xsc">
+      <DependentUpon>MobileOrderDataSetReport2.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrderDataSetReport2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrderDataSetReport2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrderDataSetReport2.xss">
+      <DependentUpon>MobileOrderDataSetReport2.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrdertDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrdertDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrdertDataSet.xss">
+      <DependentUpon>MobileOrdertDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="MobileOrdertDataSetReport.xsc">
+      <DependentUpon>MobileOrdertDataSetReport.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrdertDataSetReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrdertDataSetReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrdertDataSetReport.xss">
+      <DependentUpon>MobileOrdertDataSetReport.xsd</DependentUpon>
+    </Content>
+    <None Include="MobileOrder_testDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MobileOrder_testDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MobileOrder_testDataSet.xss">
+      <DependentUpon>MobileOrder_testDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -7709,6 +7823,7 @@
     <Content Include="Views\SeleScrCustomer\dashboard.cshtml" />
     <Content Include="Views\Shared\_Layoutcus_center.cshtml" />
     <Content Include="Views\UploadsExcel\Index.cshtml" />
+    <Content Include="Views\Cart\Index_back.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

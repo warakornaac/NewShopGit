@@ -101,6 +101,7 @@ namespace NewShop.Controllers
                     Model.STKGRP_PRC = substkgrp.Substring(0, 2);
                     Model.minord = dr["minord"].ToString();
                     Model.Promotion = dr["PromoPrice"].ToString();
+                    Model.ItemClass = dr["ItemClass"].ToString();
 
                     Model.LastInvUnitPric = dr["LastInvUnitPrice"].ToString();
                     Model.LastInvDisc = dr["LastInvDisc"].ToString();

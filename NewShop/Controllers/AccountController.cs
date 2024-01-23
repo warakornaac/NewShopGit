@@ -67,6 +67,7 @@ namespace NewShop.Controllers
                 this.Session["UsrClmStaff"] = "0";
                 string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
+                string secCodeArr = string.Empty;
                 SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID =N'" + User.Usre + "'and [dbo].F_decrypt([Password])='" + User.Password + "' and  [LoginFail] <> 3", Connection);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
                 while (revcus.Read())
@@ -248,8 +249,26 @@ namespace NewShop.Controllers
                     command.Parameters.AddWithValue("@SessionId", sessionId);
                     command.ExecuteReader();
                     command.Dispose();
+                    //get date expire
+                    SqlCommand cmd = new SqlCommand("select * From v_UsrTbl where UsrID =N'" + User.Usre + "'", Connection);
+                    SqlDataReader rev = cmd.ExecuteReader();
+                    while (rev.Read())
+                    {
+                        dateexpire = rev["Date to Expire"].ToString();
+                    }
+                    rev.Close();
+                    rev.Dispose();
+                    cmd.Dispose();
+                    intdateexpire = Convert.ToInt32(dateexpire);
+                    this.Session["expdatecal"] = intdateexpire;
+                    if (intdateexpire <= 0)
+                    {
+                        ModelState.AddModelError("", "Your password expire.");
+                    } else { 
+                        return RedirectToAction("dashboard", "SeleScrCustomer");
+                    }
+                    //end get date expire
                     //return RedirectToAction("Index", "Home");
-                    return RedirectToAction("dashboard", "SeleScrCustomer");
                 }
                 else if (UserType == "2")//sales
                 {

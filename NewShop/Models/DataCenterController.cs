@@ -553,6 +553,7 @@ namespace NewShop.Models
                     AACPAYTRM = rev_CUSPROV["AACPAYTRM"].ToString(),
                     TACPAYTRM = rev_CUSPROV["TACPAYTRM"].ToString(),
                     TELNUM = rev_CUSPROV["TELNUM"].ToString(),
+                    RATING = rev_CUSPROV["Rating"].ToString(),
                     Hierarchy1_Market_Segment = rev_CUSPROV["Hierarchy1 (Market Segment)"].ToString(),
                     Hierarchy2_Channel = rev_CUSPROV["Hierarchy2 (Channel)"].ToString(),
                     Hierarchy3_Bussiness_Type = rev_CUSPROV["Hierarchy3 (Bussiness Type)"].ToString(),
@@ -1242,6 +1243,43 @@ namespace NewShop.Models
             return Json(Getdata, JsonRequestBehavior.AllowGet);
 
         }
+        public JsonResult GetdataCusAmtTop20(string cuscod)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            string message = "false";
+            var Getdata = new List<object>();
+            try
+            {
+                var command = new SqlCommand("p_Search_CusItmGrp", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", cuscod);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Getdata.Add(new
+                    {
+                        Rowid = dr["Rowid"].ToString(),
+                        Company = dr["Company"].ToString(),
+                        Cuscod = dr["CUSCOD"].ToString(),
+                        Stkcod = dr["STKCOD"].ToString(),
+                        Stkdes = dr["STKDES"].ToString(),
+                        Qty = dr["Qty"].ToString(),
+                        Amt = dr["AMT"].ToString()
+                    });
+                }
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(Getdata, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetdataPromotion_Cus(string strcustome ,string period)
         {
 
@@ -1296,7 +1334,6 @@ namespace NewShop.Models
             return Json(Getdata, JsonRequestBehavior.AllowGet);
 
         }
-
         public JsonResult GetdataWarrantyClaim_Cus_count(string strcustome)
         {
 

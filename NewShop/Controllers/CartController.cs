@@ -217,7 +217,7 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, exerror }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetdataShopping(string CUSCOD, string usrlogin, string Company, string usrtype, string shiptocode)
+        public JsonResult GetdataShopping(string CUSCOD, string usrlogin, string Company, string usrtype, string shiptocode/*, string quatation, string status*/)
         {
             int sumQty = 0;
             int sumSalePrice = 0;
@@ -238,12 +238,14 @@ namespace NewShop.Controllers
                // var command = new SqlCommand("P_ShoppingCart_list", Connection);
                 command.CommandTimeout = 0;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);   
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+                //command.Parameters.AddWithValue("@inStatus", status);
                 command.Parameters.AddWithValue("@inStatus", "N,W");
                 command.Parameters.AddWithValue("@Company", Company);
                 command.Parameters.AddWithValue("@usrlogin", usrlogin);
                 command.Parameters.AddWithValue("@usrtype", usrtype);
                 command.Parameters.AddWithValue("@shiptocode", shiptocode);
+               // command.Parameters.AddWithValue("@QuotationNo", quatation);
                 //command.ExecuteNonQuery();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
@@ -459,7 +461,7 @@ namespace NewShop.Controllers
 
                    //// model.Type_Cal = dr["Type_Cal"].ToString();
                    // //model.Special_Discount = dr["Special_Discount"].ToString();
-                   // model.DiscountPercent = dr["ORD_DiscountPercent"].ToString();
+                   model.DiscountPercent = dr["ORD_DiscountPercent"].ToString();
                    // model.ORDMOD_Type = dr["ORDMOD_Type"].ToString();
                    // model.ORD_Type = dr["ORD_Type"].ToString();
                    // model.GenID = dr["GenID"].ToString();
@@ -1283,6 +1285,7 @@ namespace NewShop.Controllers
         {
             string flagCheck = string.Empty;
             string userLast = string.Empty;
+            string timeBefore = string.Empty;
             string timeLast = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -1298,7 +1301,11 @@ namespace NewShop.Controllers
             returnUserLast.Direction = System.Data.ParameterDirection.Output;
             command.Parameters.Add(returnUserLast);
 
-            SqlParameter returnTimeLast = new SqlParameter("@outTime", SqlDbType.NVarChar, 100);
+            SqlParameter returnTimeBefore = new SqlParameter("@outTimeUserBefore", SqlDbType.NVarChar, 100);
+            returnTimeBefore.Direction = System.Data.ParameterDirection.Output;
+            command.Parameters.Add(returnTimeBefore);
+
+            SqlParameter returnTimeLast = new SqlParameter("@outTimeUserLast", SqlDbType.NVarChar, 100);
             returnTimeLast.Direction = System.Data.ParameterDirection.Output;
             command.Parameters.Add(returnTimeLast);
 
@@ -1306,12 +1313,13 @@ namespace NewShop.Controllers
             command.ExecuteNonQuery();
             flagCheck = returnFlag.Value.ToString();
             userLast = returnUserLast.Value.ToString();
+            timeBefore = returnTimeBefore.Value.ToString();
             timeLast = returnTimeLast.Value.ToString();
 
             command.Dispose();
             Connection.Close();
 
-            return Json(new { flagCheck, userLast, timeLast }, JsonRequestBehavior.AllowGet);
+            return Json(new { flagCheck, userLast, timeBefore, timeLast }, JsonRequestBehavior.AllowGet);
         }
     }
 }

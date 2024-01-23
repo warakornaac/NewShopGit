@@ -1035,7 +1035,7 @@
             return dat_all;
         }
         var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
-        //alert(stkcod)
+        //alert(usertype);
         $.ajax({
             url: '@Url.Action("Getdataitemdetail", "productdetails")',
             data: {
@@ -1067,7 +1067,10 @@
                         var max_o_t = data[i].val.maxord;
                         var SPackUOM = data[i].val.SPackUOM;
                         var TOTBAL = data[i].val.TOTBAL;
-                        var chkstock="0";
+                        var ItemClass = data[i].val.ItemClass.trim();
+                        //console.log("Stock Total = " + TOTBAL + " ItemClass = " + ItemClass);
+                        var chkstock = "0";
+                        var flagShow = "no";
                         if(parseInt(TOTBAL) <  parseInt(SPackUOM) )
                         {
                             chkstock ="0";
@@ -1201,13 +1204,29 @@
                             SubmithtmlPage += '</div>';
                             // SubmithtmlPage += '</form>';                       
                             SubmithtmlPage += '</div>';
-                        } else {
+                        } else { //usrType = 4, 5 ร้านค้า
                             //if (data[i].val.TOTBAL != "0") {
                             if (chkstock != "0") {
-                                if (parseInt(chkstock) > 5) {
+                                if (ItemClass == "A") {
+                                    if (parseInt(chkstock) > 10) { //มากกว่า 10 Show in stock
+                                        var flagShow = "no";
+                                    } else if (parseInt(chkstock) <= 10) { //น้อยกว่า 10 Show
+                                        var flagShow = "yes";
+                                    }
+
+                                } else {
+                                    if (parseInt(chkstock) > 20) { //มากกว่า 10 Show in stock
+                                        var flagShow = "no";
+                                    } else if (parseInt(chkstock) <= 20) { //น้อยกว่า 10 Show
+                                        var flagShow = "yes";
+                                    }
+                                }
+                                console.log("ItemClass = " + ItemClass + " chkstock = " + chkstock + " flagShow = " + flagShow);
+
+                                if (flagShow == 'no') { //ไม่แสดงจำนวน
                                      SubmithtmlPage += '<div style="color: blue;">In Stock</div>';
-                                SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + chkstock + '" style="max-width: 150px;display:none" disabled="disabled">';
-                                } else if (parseInt(chkstock) <= 5) {
+                                     SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + chkstock + '" style="max-width: 150px;display:none" disabled="disabled">';
+                                } else { //แสดงจำนวน
                                     //SubmithtmlPage += '<div style="color: blue;">In Stock</div>';
                                     SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + chkstock + '" style="max-width: 150px;" disabled="disabled">';
                                 }
@@ -1220,7 +1239,7 @@
                         }
                         SubmithtmlPage += '</div>';
 
-                        if (usertype == "6") {
+                        if (usertype == "6") { //ร้านค้า
                             SubmithtmlPage += '<div class="product-action-wrap">';
                             SubmithtmlPage += '<div class="prodict-statas"><span>วันที่คาดว่าของเข้าคลัง:</span></div>';
 

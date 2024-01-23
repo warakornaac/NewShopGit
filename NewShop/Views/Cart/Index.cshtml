@@ -1519,7 +1519,7 @@
                                     //   SubmithtmlPage += '<td style="width: 79px;"><input  style="" id="checkbox" class="chk"  CartID="' + data.Getdata[i].val.CartID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Instock="' + data.Getdata[i].val.InStock + '" iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" type="checkbox"  checked=checked  disabled class="form-control input-lg" ></td>';
                                     // } else {
                                     // SubmithtmlPage += '<td>Not Approved</td>';
-                                    SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  bck="' + bck + '"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" wlo="' + data.Getdata[i].val.WH_Location + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
+                                    SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  bck="' + bck + '"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" wlo="' + data.Getdata[i].val.WH_Location + '" prdapproveby="' + Prcby + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
                                     //SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" style=" color: red; cursor: pointer; "></div></td>';
                                     // }
                                 }
@@ -2543,7 +2543,7 @@
                                     datacountfoc.push(Item_Type);
                                 }
                             }
-                            ////console.log(data.Getdata);
+                            console.log("GetdataCusQuatation = " + data.Getdata[0].val.Special_Discount);
                             var Fsumfoc = datacountfoc.length;
                             //alert(Fsumfoc);
                             // return false;
@@ -2553,13 +2553,14 @@
                             var Type_Cal = data.Getdata[0].val.Type_Cal;
 
                             if (Type_Cal != '') {
-                                $("#discon").val(Type_Cal);
+                                //$("#discon").val(Type_Cal);
                             }
                             var Special_Discount = data.Getdata[0].val.Special_Discount;
                             if (Special_Discount != '') {
                                 $("#inputdis").val(Special_Discount);
                             }
                             var DiscountPercent = data.Getdata[0].val.DiscountPercent;
+                            console.log("DiscountPercent = " + DiscountPercent);
 
                             if (DiscountPercent != '') {
                                 $("#dCredit").val(DiscountPercent);
@@ -2677,6 +2678,17 @@
                                 //SubmithtmlPage += '<td><i style="color: red;  font-size: 14px;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.STKDES + '</td>';
 
+                                //จำนวนสั่งซื้อ
+                                if (exp == "0.00") {
+
+                                    if (Type != "FOC") {
+                                        SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="0" ></td>';
+                                    } else {
+                                        SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="0"  disabled="disabled"></td>';
+                                    }
+                                } else {
+                                    SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="1"  disabled="disabled"></td>';
+                                }
                                 if (Type != "FOC") {
                                     SubmithtmlPage += '<td><div style="text-decoration: line-through;">' + commaSeparateNumber(data.Getdata[i].val.Price) + '</div><div id="newprice"> ' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</div></td>';
                                 } else {
@@ -2724,16 +2736,7 @@
                                 // SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.Qty) + '</td>';
 
 
-                                if (exp == "0.00") {
-
-                                    if (Type != "FOC") {
-                                        SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="0" ></td>';
-                                    } else {
-                                        SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="0"  disabled="disabled"></td>';
-                                    }
-                                } else {
-                                    SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty" style="width: 78px;" value=' + data.Getdata[i].val.Qty + ' min="1"  disabled="disabled"></td>';
-                                }
+                               
                                 SubmithtmlPage += '<td><div class="tamt" id="idamt' + (i + 1) + '">' + commaSeparateNumber(data.Getdata[i].val.Amt) + '</div></td>';
                                 //<input type="number"  name="quantity" class="tamt" id="idamt' + (i + 1) + '"  style="width: 78px;z-index: 0; color: rgb(6, 6, 6); background-color: white; text-align: right; border: 0px;" value=' + commaSeparateNumber(data.Getdata[i].val.Amt) + ' disabled="disabled">
 
@@ -3003,21 +3006,45 @@
                     $("#btnChk").trigger("click");
                 }
             });
+            //Event diable checkbox
             $("#exampletb").on("click", "input[type='checkbox']", function () {
                 var bck = $(this).attr('bck');
+                var prdapproveby = $(this).attr('prdapproveby');
+                console.log("prdapproveby = " + prdapproveby);
+                G_Delivertmode();
+                //if (this.checked) {
+                //    $(this).closest('tr').find('.tQty').prop('disabled', true);
+                //} else {
+                //    G_Delivertmode();
+                //    if (bck == "0") {
+                //        //bug จังหวะ uncheck
+                //        $(this).closest('tr').find('.tQty').prop('disabled', false);
+                //    } else {
+                //        $(this).closest('tr').find('.tQty').prop('disabled', true);
+                //    }
+                //}
 
-                if (this.checked) {
-                    $(this).closest('tr').find('.tQty').prop('disabled', true);
-                } else {
-                    G_Delivertmode();
-                    if (bck == "0") {
-
+                //if (ถ้ากด checkbox) {
+                //    disable
+                //} else {
+                //      if (bck == "0") {
+                //        enable
+                //      } else {
+                //        disable
+                //      }
+                //}
+                if (this.checked) { //check
+                    if (prdapproveby == "") { //ไม่มีการอนุมัติ
+                        $(this).closest('tr').find('.tQty').prop('disabled', true);
+                    }
+                } else { //uncheck
+                    if (prdapproveby == "") { //ไม่มีการอนุมัติ
                         $(this).closest('tr').find('.tQty').prop('disabled', false);
                     } else {
-
                         $(this).closest('tr').find('.tQty').prop('disabled', true);
                     }
                 }
+
                 var checkchecked = $('#exampletb tr').find('input[type="checkbox"]:checked');
 
                 // $("#codetransportation").val("0");
@@ -4373,6 +4400,7 @@
                 //$('#ClickShipping').trigger("click");
             });
             $(document).delegate('#btnsubmitinsertquote', 'click', function () {
+                var rowBckorder = 0;
                 if (navigator.onLine) {
 
                     var company = $('#company').val();
@@ -4518,49 +4546,57 @@
                         AmtSalePrices = AmtSalePrices.replace(/,/g, "");
                         var VPromotion = $(this).attr('promotion');
                         var Ordertype = $("#Ordertype_ID").val();
+                        //ถ้าเป็น backOrder ไม่ออก quotation
+                        if (!VLineNote.includes("BckOrd")) {
+                            var ItemList = {
+                                VGenID: GenID,
+                                Vidorder: idorder,
+                                VQty: VQty,
+                                VSTKCOD: VSTKCOD,
+                                VCompany: VCompany,
+                                VSTKDES: VSTKDES,
+                                VSTKGRP: VSTKGRP,
+                                VPrice: VPrice,
+                                VSalePrice: VSalePrice,
+                                VDiscount: VDiscount,
+                                VAmt: VAmt,
+                                VORDDAT: VORDDAT,
+                                VLineNote: VLineNote,
+                                Ordertype: Ordertype,
+                                AmtQty: AmtQty,
+                                AmtSalePrices: AmtSalePrices,
+                                TotalAmt: TotalAmt,
+                                Credit: Credit,
+                                AmtSalePrices: AmtSalePrices,
+                                AmtDiscount: DiscountAmt,
+                                Ordertype: Ordertype,
+                                PRCLST_NO: PRCLST_NO,
+                                Uom: Uom,
+                                Vstock: Vstock,
+                                Vtype: Vtype,
+                                VPromotion: VPromotion,
+                                Vbackorder: Vbackorder
 
-                        var ItemList = {
-                            VGenID: GenID,
-                            Vidorder: idorder,
-                            VQty: VQty,
-                            VSTKCOD: VSTKCOD,
-                            VCompany: VCompany,
-                            VSTKDES: VSTKDES,
-                            VSTKGRP: VSTKGRP,
-                            VPrice: VPrice,
-                            VSalePrice: VSalePrice,
-                            VDiscount: VDiscount,
-                            VAmt: VAmt,
-                            VORDDAT: VORDDAT,
-                            VLineNote: VLineNote,
-                            Ordertype: Ordertype,
-                            AmtQty: AmtQty,
-                            AmtSalePrices: AmtSalePrices,
-                            TotalAmt: TotalAmt,
-                            Credit: Credit,
-                            AmtSalePrices: AmtSalePrices,
-                            AmtDiscount: DiscountAmt,
-                            Ordertype: Ordertype,
-                            PRCLST_NO: PRCLST_NO,
-                            Uom: Uom,
-                            Vstock: Vstock,
-                            Vtype: Vtype,
-                            VPromotion: VPromotion,
-                            Vbackorder: Vbackorder
+                                // SLMID:SLMID
 
-                            // SLMID:SLMID
-
-                        };
-
-                        data.push(ItemList);
-                        // //console.log(JSON.stringify(data));
-                    });
+                            };
+                            data.push(ItemList);
+                            }  else {
+                                rowBckorder = 1;
+                            }
+                            // //console.log(JSON.stringify(data));
+                        });
 
                     var _ckq = $('#Ckquote').val();
                     var _QNo;
                     _QNo = $('#qpono').val();
                     if (_QNo == "0") {
                         _QNo = "";
+                    }
+                    if (rowBckorder > 0) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("รายการ BckOrder ไม่สามารถออก Quotation ได้");
+                        $("#myModalWarning").modal(); return false;
                     }
                     if (data.length == 0) {
                         $("#textAlertWarning").empty();
@@ -4766,7 +4802,7 @@
                             if (data.flagCheck != "Y") { //ถ้าไม่ใช่ lastID Refresh
                                 //  waitingDialogconfirm.show();
                                 //$("#textAlertSucces").empty();
-                                $("#textConfirmorder").html("ท่านเข้าหน้าตะกร้าสินค้าเวลา <b>" + fullTimeCurrent + "</b> พบว่ามี <b> user " + data.userLast + "</b> กำลังแก้ไขหน้ารายการสินค้า ณ เวลา <b>" + data.timeLast + "</b> <br><br> กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง");
+                                $("#textConfirmorder").html("ท่านเข้าหน้าตะกร้าสินค้าเวลา <b>" + data.timeBefore + "</b> พบว่ามี <b> user " + data.userLast + "</b> กำลังแก้ไขหน้ารายการสินค้า ณ เวลา <b>" + data.timeLast + "</b> <br><br> กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง");
                                 $("#ModalConfirmorder").modal();
 
                                 $("#btnConfirmorder").click(function () {

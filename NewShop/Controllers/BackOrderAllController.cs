@@ -311,6 +311,7 @@ namespace NewShop.Controllers
                         Blocked = drb["Blocked"].ToString(),
                         KDCQty = drb["KDCQty"].ToString(),
                         PDCQty = drb["PDCQty"].ToString(),
+                        Rating = drb["Rating"].ToString(),
                        
                     });
 

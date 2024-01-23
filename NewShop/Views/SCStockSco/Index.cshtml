@@ -387,7 +387,7 @@
                         <tr id="hrow">
                             @if (Session["UserType"].ToString() == "1")
                             {
-                            <th style="text-align: center; width: 11%; height: -webkit-fill-available;" id="saleplus">Sales<br />Plus</th>
+                                <th style="text-align: center; width: 11%; height: -webkit-fill-available;" id="saleplus">Sales<br />Plus</th>
                             }
                             <th>ราคา Hot </th>
                             <th>Delete</th>
@@ -405,6 +405,7 @@
                             <th>ราคาพิเศษ</th>
                             <th>Stock</th>
                             <th>Back<br>Order</th>
+                            <th>Clearance</th>
                             <th>ราคาต่อรอง</th>
                             <th>Line Note</th>
                             <th>Spc<br />remark</th>
@@ -1070,6 +1071,7 @@
                         } else {
                             SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"> <div class="BackOrder">' + data[i].val.BackOrder + '</div></td>';
                         }
+                        SubmithtmlPage += '<td>' + data[i].val.Clearance + '</td>';
                         SubmithtmlPage += '<td><input id="ExpectPrice' + (i + 1) + 'A' + rowCount + '" type="number" min="1" name="Sum_Expect" class="Expect" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
                         SubmithtmlPage += '<td><input id="Linenote' + (i + 1) + 'A' + rowCount + '" name="S_Linenote" class="tlinenote"  style=" background-color:white;"></td>';
                         SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remark">' + data[i].val.spc_remark + '</div></td>';

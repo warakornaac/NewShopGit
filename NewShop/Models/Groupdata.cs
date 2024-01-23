@@ -180,6 +180,8 @@ namespace NewShop.Models
         public string PATH { get; set; }
         public string Expected_Receipt_Date { get; set; }
         public string maxord { get; set; }
+        public string Clearance { get; set; }
+        public string ItemClass { get; set; }
         public List<PricelistpageingSearch> PricelistpageingSearch_Grid { get; set; }
     }
     public class vehicle_PlusItem
@@ -287,6 +289,7 @@ namespace NewShop.Models
       public string AACPAYTRM { get; set; }
       public string TACPAYTRM { get; set; }
       public string TELNUM { get; set; }
+      public string RATING { get; set; }
 
       public string Hierarchy1_Market_Segment { get; set; }
       public string Hierarchy2_Channel { get; set; }
@@ -779,6 +782,7 @@ namespace NewShop.Models
         public string Blocked { get; set; }
         public string KDCQty { get; set; }
         public string PDCQty { get; set; }
+        public string Rating { get; set; }
 
         public List<BackOrderbyItem> BackOrderbyItem_Grid { get; set; }
     }

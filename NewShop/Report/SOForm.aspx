@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SOForm.aspx.cs" Inherits="OrderingMobile.Report.SOForm" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SOForm.aspx.cs" Inherits="OrderingMobile.Report.SOForm" %>
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
    
