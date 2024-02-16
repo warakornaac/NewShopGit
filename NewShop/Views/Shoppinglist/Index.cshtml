@@ -1560,7 +1560,6 @@
                             $("#textAlertWarning").empty();
                             $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " ราคาเป็น 1 บาท กรุณาใส่ราคาต่อรอง ");
                             $("#myModalWarning").modal();
-
                             return false;
                         }
                         if (ItemList.ExpectPrice == "0") {
@@ -1568,12 +1567,9 @@
                             $("#textAlertWarning").empty();
                             $("#textAlertWarning").text("P/N:" + ItemList.STKCOD + " กรุณาใส่ราคาต่อรองใหม่ ราคาต่อรองห้ามเป็น 0 บาท");
                             $("#myModalWarning").modal();
-
                             return false;
                         }
-
                     }
-
                 }
                 if (ItemList.Qty != "") {
                     if (ItemList.Qty != "0") {
@@ -1581,7 +1577,6 @@
 
                     }
                 }
-
             }
             var DataSend = JSON.stringify(data);
             //console.log(DataSend)

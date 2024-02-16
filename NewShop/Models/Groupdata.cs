@@ -73,6 +73,8 @@ namespace NewShop.Models
         public string DEP { get; set; }
         public string COMPANY { get; set; }
     }
+
+   
     public class logincutomer
     {
         public string EmpID { get; set; }
@@ -263,6 +265,7 @@ namespace NewShop.Models
         public string KDC_QTY { get; set; }
         public string  PDC_QTY { get; set; }
         public string AccessID { get; set; }
+        public string Intransit { get; set; }
 
     }
     public class SLM

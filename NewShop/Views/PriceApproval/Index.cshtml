@@ -383,6 +383,7 @@
                         <th>ราคาป้าย</th>
                         <th>ราคาซื้อ</th>
                         <th>ราคาพิเศษ</th>
+                        <th>Stock</th>
                         <th>Spc Remark</th>
                         <th>ราคาซื้อล่าสุด</th>
                         <th>Cost</th>
@@ -676,7 +677,6 @@
                             strsub = data.Getdata[i].val.InsertedBy;
                             strsub = strsub.split("|");
                             Inseby = strsub[0];
-
                             if (typeof strsub[1] === "undefined") {
                                 Prcre = "";
                             } else { Prcre = strsub[1]; }
@@ -707,6 +707,7 @@
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.Price) + '</td>';
                             SubmithtmlPage += '<td style="text-align: right"><div class="SalePrice">' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</div></td>';
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SpecialPrice) + '</td>';
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(parseInt(data.Getdata[i].val.readyQty)) + '</td>';
                             if (Status == "W") {
 
                                 SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';

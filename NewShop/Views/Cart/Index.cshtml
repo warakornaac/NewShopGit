@@ -307,6 +307,7 @@
                                         <th class="product-subtotal" id="column-lKDC">Stock<br>KDC</th>
                                         <th class="product-subtotal" id="column-lPDC">Stock<br>PDC</th>
                                         <th class="product-subtotal" id="column-lWH">WH<br>Location</th>
+                                        <th class="product-subtotal" id="column-lWH">In-transit </th>
                                         <th class="product-name">Line Note</th>
                                         <th class="product-name">หมายเหตุ PM</th>
                                         <th class="product-name">วันที่เลือกซื้อ</th>
@@ -1650,6 +1651,7 @@
                                 SubmithtmlPage += '<td><div class="tstock">' + commaSeparateNumber(data.Getdata[i].val.KDC_QTY) +  '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' +  commaSeparateNumber(data.Getdata[i].val.PDC_QTY) + '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' + data.Getdata[i].val.WH_Location + '</div></td>';
+                                SubmithtmlPage += '<td><div class="tstock">' + data.Getdata[i].val.Intransit + '</div></td>';
                                 //  }
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.LineNote + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.PrcRemark + '</td>';

@@ -290,6 +290,9 @@ namespace NewShop.Controllers
                     model.KDC_QTY = dr["KDC-QTY"].ToString();
                     model.PDC_QTY = dr["PDC-QTY"].ToString();
                     model.AccessID = dr["AccessID"].ToString(); 
+                    model.AccessID = dr["AccessID"].ToString(); 
+                    model.AccessID = dr["AccessID"].ToString(); 
+                    model.Intransit = dr["Intrnsit"].ToString(); 
                     //model.Promotion_Foc = dr["Promotion_Foc"].ToString();
                     //sumSalePrice += Convert.(sum);
                     Getdata.Add(new ItemListGetdata { val = model });

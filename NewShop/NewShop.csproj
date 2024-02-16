@@ -139,6 +139,7 @@
     <Compile Include="Controllers\Home3Controller.cs" />
     <Compile Include="Controllers\LogInRedirController.cs" />
     <Compile Include="Controllers\MonitorPackingController.cs" />
+    <Compile Include="Controllers\OrderingReportController.cs" />
     <Compile Include="Controllers\OrderlistController.cs" />
     <Compile Include="Controllers\PriceApprovalController.cs" />
     <Compile Include="Controllers\PrintStatementController.cs" />
@@ -7824,6 +7825,7 @@
     <Content Include="Views\Shared\_Layoutcus_center.cshtml" />
     <Content Include="Views\UploadsExcel\Index.cshtml" />
     <Content Include="Views\Cart\Index_back.cshtml" />
+    <Content Include="Views\OrderingReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

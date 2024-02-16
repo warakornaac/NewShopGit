@@ -1,0 +1,1452 @@
+﻿
+@{
+    ViewBag.Title = "Did you know";
+    // Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var dataSlmlis = ViewBag.SlmModel;
+    // Layout = "~/Views/Shared/_LayoutBck.cshtml";
+    Layout = "~/Views/Shared/_Layoutyouknow_center.cshtml";
+    //var Xcus = ViewBag.Xcus;
+    //   var XSul = ViewBag.XSul;
+    //  var Xslmcodid = ViewBag.Xslmcodid;
+    //  var XCustomername = ViewBag.XCustomername;
+    var Xdyk = ViewBag.Xdyk;
+    var usreId = ViewBag.UserId;
+    var type = ViewBag.Xgetusertype;
+    var getStkGrp = ViewBag.StkGrp;
+    var getSection = ViewBag.ListSection;
+}
+
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Did you know</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+
+
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <style>
+        .jumbotron {
+            padding: 30px;
+            margin-bottom: 30px;
+            font-size: 21px;
+            font-weight: 200;
+            line-height: 2.1428571435;
+            color: inherit;
+            /*background-color: #eeeeee;*/
+            /*background-color: #E0FFFF;*/
+            /*margin-top: 166px;*/
+            background: rgba(36, 36, 36, 0.74);
+        }
+
+        #boxtype.outset {
+            border-style: outset;
+            width: 395px;
+            text-align: center;
+        }
+
+        .SeleCus {
+            background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+            position: absolute;
+            top: 21%;
+            left: 0;
+            width: 100%;
+            margin-top: -288px;
+            overflow: hidden;
+        }
+
+
+        .back {
+            background: #1e5799; /* Old browsers */
+            background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 17%, #207cca 61%, #7db9e8 92%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(17%,#2989d8), color-stop(61%,#207cca), color-stop(92%,#7db9e8)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* IE10+ */
+            background: linear-gradient(to bottom, #1e5799 0%,#2989d8 17%,#207cca 61%,#7db9e8 92%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+        }
+
+        select {
+            border: 1px solid #d6d8db;
+            background-color: #ecedee;
+            text-transform: uppercase;
+            color: #47515c;
+            padding: 12px 10px 12px 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+            select > option {
+                /*text-transform: uppercase;*/
+                padding: 5px 0px;
+            }
+
+        .bs-example {
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        tbody {
+            background-color: cornsilk;
+        }
+
+            tbody td.odd {
+                background-color: #666;
+                color: white;
+            }
+
+        .fixed_headers thead {
+            background-color: #333333;
+            color: #fdfdfd;
+        }
+
+        /*.fixed_headers thead tr {
+                display: block;
+                position: relative;
+            }
+
+        .fixed_headers tbody {
+            display: block;
+            overflow: auto;
+            width: 100%;
+            height: 300px;
+        }*/
+        .fixed_headers tbody {
+            overflow: auto;
+        }
+
+        td:hover {
+            background: #FFEBD3;
+        }
+
+        .old_ie_wrapper tbody {
+        }
+
+        .modal-vertical-centered {
+            transform: translate(0, 50%) !important;
+            -ms-transform: translate(0, 50%) !important; /* IE 9 */
+            -webkit-transform: translate(0, 50%) !important; /* Safari and Chrome */
+        }
+    </style>
+</head>
+<body>
+    @*Modal Cart*@
+    <div class="modal fade" id="modalAddItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-vertical-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-left: 0;">
+                    <div class="col-sm-5 text-left">
+                        <h5 class="modal-title" id="exampleModalCenterTitle"> <i class="fa fa-car"></i>  <span id="getDataStkcodHeader" style="font-weight: 500; color: blue;"></span> </h5>
+                    </div>
+                    <div class="col-sm-7 text-right"> </div>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row" style="margin-top: -15px;">
+                            @*<label for="dataQty" class="col-sm-2 col-form-label">จำนวน: </label>*@
+                            <div class="col-sm-12">
+                                <label for="dataModal" class="col-form-label"> <span id="getDataStkcod" style="font-weight: 500; color: blue; display: none;"></span> <span id="getDataDes" style="font-weight: 500;"></span> </label>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-top: -20px;">
+                            <label for="dataStock" class="col-sm-12 col-form-label">Stock:  <label style="font-weight: 400;" id="getDataStock"></label> </label>
+                        </div>
+                        <div class="form-group row" style="margin-top: -20px;">
+                            <label for="dataEndPrice" class="col-sm-12 col-form-label">EndPrice: <label style="font-weight: 400;" id="getDataEndPrice"></label> </label>
+                        </div>
+                        <div class="form-group row" style="margin-top: -20px;">
+                            <label for="dataQty" class="col-sm-2 col-form-label">จำนวน: </label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" id="getDataQty">
+                                <input type="hidden" class="form-control" id="getCompany">
+                                <input type="hidden" class="form-control" id="getCuscode">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnAddItemToCart" onclick="btnAddItemToCart();"> <span id="iconLoading"></span> Add To Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarninglog" role="dialog">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarninglog">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="myModalSucces" role="dialog">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarning" role="dialog">
+
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- Modalinputcustomer -->
+    <div class="modal" id="myModalInputCustomer" role="dialog">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Input Customer</strong>
+                <div class="modal-body">
+                    <input type="Text" @*name="search_query"*@ onfocus="this.select();" onmouseup="return false;" class="form-control " id="roldo" />
+                    <input type="text" id="displaypn" class="btn btn-info btn-large" disabled="disabled">
+                    <input type="button" id="btnshopp" class="btn btn-info btn-large" value="Shopping" style="width: 150px;float: right;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <section class="our-checkout-area ptb--110 bg__white" style="margin: auto;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-sm-6 text-left">
+                        <h5>Did you know</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group" id="disslm" style="display:none">
+                                    <div class="input-group">
+
+                                        <span class="col-sm-3 input-group-addon">Slmcod</span>
+                                        <select id="Slm" class="form-control" style="color:black">
+                                            <!--<option value="0">เลือกSlmcod</option>-->
+
+                                        </select>
+
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <span class="col-sm-3 input-group-addon">Did you know</span>
+                                        <select id="dyk" class="form-control" style="color:black">
+                                            <option value="">Did you know</option>
+                                            @for (var i = 0; i < Xdyk.Count; i++)
+                                            {
+                                                <option value="@Xdyk[i].Value">@Xdyk[i].Text</option>
+                                            }
+
+                                        </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="col-sm-3 input-group-addon">Company</span>
+
+                                        <select id="Company" class="form-control" style="color:black">
+                                            <option value="">ALL</option>
+                                            <option value="TAC">TAC</option>
+                                            <option value="AAC">AAC</option>
+                                            <option value="OMP">OMP</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="divCon1">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="col-sm-3 input-group-addon" id="textCondi1">Condition 1</span>
+                                        <select id="condi1" class="form-control" style="color:black">
+                                            <option value="">Condition 1</option>
+
+
+                                        </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <span class="col-sm-3 input-group-addon" id="textCondi2">Condition 2</span>
+                                        <select id="condi2" class="form-control" style="color:black">
+                                            <option value="">Customer</option>
+                                        </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="col-sm-3 input-group-addon" id="textCondi3">Condition 3</span>
+                                        <select id="condi3" class="form-control" style="color:black">
+                                            <option value="">Section</option>
+                                            @for (var i = 0; i < getSection.Count; i++)
+                                            {
+                                                <option value="@getSection[i].Value">@getSection[i].Text</option>
+                                            }
+                                        </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6" id="divStkgrp" style="display: none;">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="col-sm-3 input-group-addon">Stock Group</span>
+                                        <select id="STKGRP_ID" class="form-control" style="color:black">
+                                            <option value="">Stkgrp</option>
+                                        </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-8 text-left">
+                                    <div style="color: red; font-size: 13px;">**หมายเหตุ ต้องการ Shopping Click ที่ปุ่ม <button type="button" class="btn btn-sm btn-warning" id=""> <i class="fa fa-cart-plus" aria-hidden="true"></i> </button></div>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <input type="button" id="btnSeach" class="btn btn-info btn-md" value="SEARCH" style="width: 209px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*show att search*@
+        <div class="col-md-12" style="font-size: 13px;">
+            Did you know= <span id="searchDid"></span> &nbsp;
+            Condition1= <span id="searchCon1"></span> &nbsp;
+            Condition2= <span id="searchCon2"></span> &nbsp;
+            Condition3= <span id="searchCon3"></span> &nbsp;
+            Condition4= <span id="searchCon4"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="padding-top: 5px;">
+                <div style="overflow-x:auto;overflow-y:scroll;padding: 0;border: 1px solid rgb(245, 244, 245);height: 500px;" class="single">
+                    <table class="fixed_headers table table-bordered" id="tblOrderDetail" style="text-align: center;">
+                        <thead style="text-align: center">
+                            <tr>
+                                <th style="text-align: center;width:2%">No.</th>
+                                <th style="text-align: center;width:5%">Company</th>
+                                <th style="text-align: center;width:10%">Stkcod</th>
+                                <th style="text-align: center;width:20%">Description</th>
+                                <th style="text-align: center; width: 7%">Stock</th>
+                                <th style="text-align: center; width: 7%">SalesPrice</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <input type="hidden" id="User" value="@usreId">
+    <input type="hidden" id="Slm">
+    <script type="text/javascript">
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var userID = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        //open modal
+        $(document).on("click", ".addItemToCart", function (e) {
+            e.preventDefault();
+            var _self = $(this);
+            var getStkcod = _self.data('stkcod');
+            var getDes = _self.data('des');
+            var getStock = _self.data('stock');
+            var getEndprice = _self.data('endprice');
+            var getCompany = _self.data('company');
+            var getCuscode = $("#condi2 option:selected").val();
+            var getCuscodeText = $('#condi2 option:selected').text();
+            $("#getDataQty").val("");
+            //check inactive customer
+            if (getCuscode != "") {
+                 $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: getCuscode
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        typin = data[0].INACTIVE;
+                        block = data[0].BLOCKED;
+                        //alert(block)
+                        if (typin == "Y") {
+                            if (block == "0") {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                            } else {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                            }
+                        } else {
+                            if (block == "1") {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                            } else {//ถ้าลูกค้าไม่ block
+                                $(".modal-body #getDataStkcod").text(getStkcod);
+                                $(".modal-content #getDataStkcodHeader").text(getStkcod);
+                                $(".modal-body #getDataDes").text(getDes);
+                                $(".modal-body #getDataStock").text(getStock);
+                                $(".modal-body #getDataEndPrice").text(getEndprice);
+                                $(".modal-body #getCompany").val(getCompany);
+                                $(".modal-body #getCuscode").val(getCuscode);
+                                $('#modalAddItem').modal('show');
+                                $("#btnAddItemToCart").attr("disabled", false);
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+        //button add item
+        function btnAddItemToCart() {
+            var data = new Array();
+            var error = 0;
+            const msg = [];
+            var msgEx = "";
+            var alphanumeric = /^[a-zA-Z0-9]+$/;
+            var getDataStkcod = $("#getDataStkcod").text();
+            var getDataQty = $("#getDataQty").val();
+            var getCompany = $("#getCompany").val();
+            var getCuscode = $("#getCuscode").val();
+            var getDataEndPrice = $("#getDataEndPrice").text();
+            if (getDataQty == "" || getDataQty == null || getDataQty == 0) {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณากรอกจำนวนสินค้า");
+                $("#myModalWarning").modal();
+                return false;
+            }
+            var ItemList = {
+                CUSCOD: getCuscode.toUpperCase(),
+                STKCOD: getDataStkcod,
+                company: getCompany,
+                PrHot: "",
+                Price0: getDataEndPrice.replace(/,/g, ""),
+                SalePrice: getDataEndPrice.replace(/,/g, ""),
+                Special_Price: 0,
+                Qty: getDataQty,
+                Qtybo: 0,
+                ExpectPrice: 0,
+                LineNote: "",
+                User: userID,
+                PromotionCode: "",
+                foc: "0",
+                Moq: 0,
+                PRCLST_NO: "",
+                Special_Price: 0,
+                PromoPrice: 0,
+                PromoDesc: "",
+                PromoMOQ: 0,// new add
+                LastInvPrice: 0,
+                LastInvdate: "-",
+                Sop: "" // new add
+            };
+            if (ItemList.Qty != "") {
+                if (ItemList.Qty != "0") {
+                    data.push(ItemList);
+                }
+            }
+            var DataSend = JSON.stringify(data);
+            console.log(ItemList);
+            $.ajax({
+                url: '@Url.Action("Confirmationdata", "Shoppinglist")',
+                data: {
+                    DataSend: DataSend,
+                    DataSendPro: JSON.stringify([]),
+                    Cus: getCuscode,
+                    User: userID
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#iconLoading").html('<i class="fa fa-spinner fa-spin"></i>');
+                    $("#btnAddItemToCart").prop('disabled', true);
+                },
+                success: function (data) {
+                    if (data == "Y") {
+                        $("#iconLoading").html('');
+                        $("#btnAddItemToCart").attr("disabled", false);
+                        $("#textAlertSucces").empty();
+                        $("#textAlertSucces").text("บันทึกสินค้าเข้าตะกร้าสำเร็จ");
+                        $("#myModalSucces").modal();
+
+                        $("#getDataStkcod").text("");
+                        $("#getDataDes").text("");
+                        $("#getDataStock").text("");
+                        $("#getDataEndPrice").text("");
+                        $("#getCompany").val("");
+                        $("#getCuscode").val("");
+                        $("#getDataQty").val("");
+                        $('#modalAddItem').modal('hide');
+                    } else {
+                        $("#iconLoading").html('');
+                        $("#btnAddItemToCart").attr("disabled", false);
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
+                        $("#myModalWarninglog").modal();
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            //check getDataQty
+            $("#getDataQty").on("keyup", function () {
+                var stockAll = $("#getDataStock").text() || 0;
+                var stockOrder = $(this).val();
+                console.log("stockAll = " + stockAll + " / " + " stockOrder = " + stockOrder);
+                if (Number(stockOrder) > Number(stockAll)) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนสินค้าไม่เพียงพอ Stock คงเหลือ ("+ stockAll +")");
+                    $("#myModalWarning").modal();
+                    $("#getDataQty").val(Number(stockAll))
+                }
+            });
+
+            if(usertype == "6") {
+                var select = $("#Slm");
+                    select.append($("<option>").val("").text("ALL"));
+                    $("#disslm").css("display","none");
+                    $("#discus").css("display", "block");
+                    $("#discus").prop("disabled", true);
+                $.ajax({
+                    url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
+                    data: {},
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        var select = $(".Customer");
+                        select.children().remove();
+                        $.each(data, function (key, value) {
+                            select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $("#disslm").css("display", "block");
+                    $.ajax({
+                    url: '@Url.Action("Getslmlogin", "OrderingReport")',
+                    data: {
+
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        // console.log(data);
+                        var select = $("#Slm");
+                        select.children().remove();
+                        var dataSlmCount = data.SlmList.length;
+                        if (dataSlmCount == 1) {
+                            //select.append($("<option>").val("0").text("เลือกSlmcod"));
+                            $(data.SlmList).each(function (index, item) {
+                                select.append($("<option>").val(item.SLMCOD).text(item.SLMCOD + "/" + item.SLMNAM));
+                            });
+                            ///Add Checkสินค้าต้างตระกร้า by Sale///
+                        } else {
+                            // select.append($("<option>").val("0").text("เลือกSlmcod"));
+                            $(data.SlmList).each(function (index, item) {
+                                select.append($("<option>").val(item.SLMCOD).text(item.SLMCOD + "/" + item.SLMNAM));
+                            });
+                        }
+                    }
+                });
+            }
+
+            //condition2 get customer by sale
+            setTimeout(function () {
+                var SLM = $("#Slm").val();
+                var SLMt = $("#Slm option:selected").text();
+                var select = $("#Slm");
+                    select.append($("<option>").val("").text("ALL"));
+                $.ajax({
+                    url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                    data: {
+                        SLXX: SLM,
+                        SLMNAME: SLMt
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        var select = $("#condi2");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("CUSTOMER"));
+                        $.each(data, function (key, value) {
+                            select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                        });
+                    }
+                });
+
+            }, 2000)
+
+            var waitingDialog = waitingDialog || (function ($) {
+                'use strict';
+
+                // Creating modal dialog's DOM
+                var $dialog = $(
+                    '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+                    '<div class="modal-dialog modal-m">' +
+                    '<div class="modal-content">' +
+                        '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+                        '<div class="modal-body">' +
+                            '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+                        '</div>' +
+                    '</div></div></div>');
+
+                return {
+
+                    show: function (message, options) {
+                        // Assigning defaults
+                        if (typeof options === 'undefined') {
+                            options = {};
+                        }
+                        if (typeof message === 'undefined') {
+                            message = 'Loading...';
+                        }
+                        var settings = $.extend({
+                            dialogSize: 'm',
+                            progressType: '',
+                            onHide: null // This callback runs after the dialog was hidden
+                        }, options);
+
+                        // Configuring dialog
+                        $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+                        $dialog.find('.progress-bar').attr('class', 'progress-bar');
+                        if (settings.progressType) {
+                            $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+                        }
+                        $dialog.find('h3').text(message);
+                        // Adding callbacks
+                        if (typeof settings.onHide === 'function') {
+                            $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+                                settings.onHide.call($dialog);
+                            });
+                        }
+                        // Opening dialog
+                        $dialog.modal();
+                    },
+                    /**
+                     * Closes dialog
+                     */
+                    hide: function () {
+                        $dialog.modal('hide');
+                    }
+                };
+
+            })(jQuery);
+            function commaSeparateNumber(val) {
+                while (/(\d+)(\d{3})/.test(val.toString())) {
+                    val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+                }
+                return val;
+            }
+
+            $('#dyk').change(function () {
+                var dyk = $('#dyk').val();
+                $('.Customer').val("");
+                $('#condi1').val("");
+                $('#condi2').val("");
+                $('#condi3').val("");
+                $('#STKGRP_ID').val("");
+                $.ajax({
+                    url: '@Url.Action("GetCondition", "OrderingReport")',
+                    data: {
+                        dyk: dyk
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        var select = $("#condi1");
+                        select.children().remove();
+                        $(data).each(function (index, item) {
+                            select.append($("<option>").val(item.Code).text(item.Description));
+                        });
+
+                    }
+                });
+                @*$.ajax({
+                    url: '@Url.Action("GetCondition1", "OrderingReport")',
+                    data: {
+                        dyk: dyk
+
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                       // console.log(data);
+                        var select = $("#condi2");
+                        select.children().remove();
+                        $(data).each(function (index, item) {
+                            select.append($("<option>").val(item.Code).text(item.Description));
+                        });
+
+                    }
+                });*@
+                if (dyk == 'Q2' || dyk == 'Q6' || dyk == 'Q5' || dyk == 'Q7' || dyk == 'Q8') {
+                    $("#discus").css('display', 'block');
+                    if (usertype == "6") {
+                        $.ajax({
+                            url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
+                            data: {},
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                //console.log(data);
+                                var select = $(".Customer");
+                                select.children().remove();
+                                $.each(data, function (key, value) {
+                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                                });
+                            }
+                        });
+                    } else {
+                        Getslm();
+                    }
+                    if (dyk == "Q6") {
+                        $("#divSearchItem").css('display', 'block');
+
+                    } else {
+                        $("#divSearchItem").css('display', 'none');
+                    }
+                } else {
+                    $("#discus").css('display', 'none'); $("#divSearchItem").css('display', 'none');
+                }
+                //
+                if (dyk == "Q2") {
+                    $("#divStkgrp").css("display", "block");
+                    $("#divCon1").css("display", "none");
+                    $("#textCondi2").text("Condition 1");
+                    $("#textCondi3").text("Condition 2");
+                } else {
+                    $("#divStkgrp").css("display", "none");
+                    $("#divCon1").css("display", "block");
+                    $("#textCondi2").text("Condition 2");
+                    $("#textCondi3").text("Condition 3");
+                }
+            });
+            function Getslm() {
+                var SLM = $("#Slm").val();
+                var SLMt = $("#Slm option:selected").text();
+                $.ajax({
+                    url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                    data: {
+                        SLXX: SLM,
+                        SLMNAME: SLMt
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        var select = $(".Customer");
+                        select.children().remove();
+                        // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
+                        select.append($("<option>").val("").text("ลูกค้าทั้งหมด"));
+                        $.each(data, function (key, value) {
+                            select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                        });
+                    }
+                });
+                //condition2 get customer by sale
+                $.ajax({
+                    url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                    data: {
+                        SLXX: SLM,
+                        SLMNAME: SLMt
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        var select = $("#condi2");
+                        select.children().remove();
+                        select.append($("<option>").val("").text("CUSTOMER"));
+                        $.each(data, function (key, value) {
+                            select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                        });
+                    }
+                });
+            }
+            function GetStkgrp(sec) {
+                $.ajax({
+                    url: '@Url.Action("GetDataStkgrpBySec", "OrderingReport")',
+                    data: {
+                        sec: sec,
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        var select = $("#STKGRP_ID");
+                        select.children().remove();
+                        // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
+                        select.append($("<option>").val("").text("STKGRP"));
+                        $.each(data, function (key, value) {
+                            select.append('<option value=' + value.Code + '>' + value.Description + '</option>');
+                        });
+                    }
+                });
+            }
+            //เลือก sale
+            $('#Slm').change(function () {
+                Getslm();
+            });
+            //เลือก section -> stkgrp เปลี่ยน
+            $('#condi3').change(function () {
+                var dyk = $('#dyk option:selected').val();
+                //ถ้าเลือกคำถามที่ Q2(เบอร์ที่ไม่เคยซื้อตามกลุ่ม) ให้ส่ง stkgrp ด้วย
+                if (dyk == "Q2") {
+                    $("#divStkgrp").css("display", "block");
+                    GetStkgrp($(this).val());
+                } else {
+                    $("#divStkgrp").css("display", "none");
+                }
+            });
+
+            $("#txtSearchItem").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                source: function (request, response) {
+
+                    var param = {
+                        Name: $('#txtSearchItem').val(),
+                        Xcus: "",
+                        XvalCompany: $('#Company').val()
+
+                    };
+                    // alert(param.XvalCompany);
+                    if (param.XvalCompany == "") {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Company");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                    //alert(param.cityName);
+                    //console.log(param.Name);
+                    $.ajax({
+                        url: '@Url.Action("GetdateStockCode", "OrderingReport")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            //console.log(data.length
+                            //console.log(data);
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+                        },
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+
+
+
+                    var val = ui.item.value;
+                    if (val == "ค้นหาสินค้า" || val == "") {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Stock code");
+                        $("#myModalWarning").modal(); return false;
+                    }
+                    //////////////////********//////////////////
+                    var StockCode = val;
+                    var split_StockCode = StockCode.split('|');
+                    var stkitem = split_StockCode[0].trim();
+                    //var StockCodedro = $("#StockCode_ID").val();
+
+
+
+
+
+
+                    var SLMID = $("#Slm").val();
+                    var COM = $("#Company").val();
+                    var ItemSearch = $("#txtSearchItem").val().trim();
+                    var Stock_Flag = Stock_Flag;
+
+                },
+                minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+            });
+
+            $('#condi1').change(function () {
+                var dyk = $('#dyk').val();
+                var con1 = $('#condi1').val();
+                var con2 = $('#condi2').val();
+                var con3 = $('#condi3').val();
+                $.ajax({
+                    url: '@Url.Action("GetCondition1", "OrderingReport")',
+                    data: {
+                        dyk: dyk
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                       // console.log(data);
+                        var select = $("#condi2");
+                        select.children().remove();
+                        $(data).each(function (index, item) {
+                            select.append($("<option>").val(item.Code).text(item.Description));
+                        });
+                    }
+                });
+                // fnGet(dyk, con1, con2, con3)
+            });
+            $('#condi2').change(function () {
+                var dyk = $('#dyk').val();
+                var con1 = $('#condi1').val();
+                var con2 = $('#condi2').val();
+                var con3 = $('#condi3').val();
+                var con4 = $('#STKGRP_ID').val();
+                //fnGet(dyk, con1, con2, con3)
+            });
+            $('#condi3').change(function () {
+                var dyk = $('#dyk').val();
+                var con1 = $('#condi1').val();
+                var con2 = $('#condi2').val();
+                var con3 = $('#condi3').val();
+                // fnGet(dyk, con1, con2, con3)
+            });
+
+            $('#btnSeach').click(function () {
+                var dyk = $('#dyk').val();
+                var dykText = $('#dyk option:selected').text();
+                var con1 = $("#condi1 option:selected").val();
+                var con2 = $("#condi2 option:selected").val();
+                var con3 = $("#condi3 option:selected").val();
+                var con4 = $("#STKGRP_ID option:selected").val();
+                var res = [];
+                var resitem = [];
+                //var MyIndexValue = $('#condi2 option:selected').val(); //condition 2 ลูกค้า
+                //var Valueitem = $('#txtSearchItem').val();
+                //if (MyIndexValue !== "") {
+                //   // res = MyIndexValue.split("|");
+                //    res[0] =  $('.Customer').val();
+                //} else {
+                //    res[0] = "0";
+                //}
+                ////alert(Valueitem);
+                //if (Valueitem !== "" && Valueitem !== undefined) {
+                //    resitem = Valueitem.split("|");
+                //} else {
+                //    resitem[0] = "0";
+                //}
+                //if (dyk == "Q6") {
+                //    if (res[0] == "0") {
+                //        con1 = "%";
+                //    } else {
+                //        con1 = res[0].trim();
+                //    }
+                //    if (resitem[0] == "0") {
+                //        con2 = "";
+                //    } else {
+                //        con2 = resitem[0].trim();
+                //    }
+                //} else {
+                //    con1 = $('#condi1').val();
+                //}
+
+                //if (dyk == "Q2") {
+                //    if (res[0] == "0") {
+                //        con2 = "%";
+                //    } else {
+                //        con2 = res[0].trim();
+                //    }
+                //} else if (dyk == "Q6") {
+                //    if (resitem[0] == "0") {
+                //        con2 = "";
+                //    } else {
+                //        con2 = resitem[0].trim();
+                //    }
+                //} else if (dyk == "Q5") {
+                //    if (res[0] == "0") {
+                //        con2 = "%";
+                //    } else {
+                //        con2 = res[0].trim();
+                //    }
+                //} else if (dyk == "Q7") {
+                //    if (res[0] == "0") {
+                //        con2 = "%";
+                //    } else {
+                //        con2 = res[0].trim();
+                //    }
+                //} else if (dyk == "Q8") {
+                //    if (res[0] == "0") {
+                //        con2 = "%";
+                //    } else {
+                //        con2 = res[0].trim();
+                //    }
+                //} else {
+                //    con2 = $('#condi2').val();
+                //}
+                if (dyk == "" || dyk == null) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาเลือก Did you know");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
+                //Q1(เบอร์มาใหม่)
+                //Q2(เบอร์ที่ไม่เคยซื้อแล้วยังไม่ถุกซื้อ)
+                //Q7(เบอร์ที่เคยซื้อแล้วยังไม่ถุกซื้อ)
+                if (dyk == "Q2") {
+                    con1 = con2;
+                    con2 = con3;
+                    con3 = con4;
+                    con4 = "";
+                    if (con1 == "" || con1 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 1 (Customer)");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                    if (con2 == "" || con2 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 2 (Section)");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                    if (con3 == "" || con3 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Stock group");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                } else { //เคสปกติ
+                    con4 = "";
+                    if (con1 == "" || con1 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 1");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                    if (con2 == "" || con2 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 2 (Customer)");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                    if (con3 == "" || con3 == null) {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 3 (Section)");
+                        $("#myModalWarning").modal();
+                        return false;
+                    }
+                }
+
+                $("#searchDid").text(dyk + " " + dykText);
+                $("#searchCon1").text(con1);
+                $("#searchCon2").text(con2);
+                $("#searchCon3").text(con3);
+                $("#searchCon4").text(con4);
+
+                console.log("dyk = " + dyk + " " + dykText)
+                console.log("con1 = " + con1);
+                console.log("con2 = " + con2);
+                console.log("con3 = " + con3);
+                console.log("con4 = " + con4);
+
+                fnGet(dyk, con1, con2, con3, con4)
+                //console.log(con2);
+            });
+
+            function fnGet(dyk, con1, con2, con3, con4) {
+                waitingDialog.show();
+                var User = $('#User').val();
+                $.ajax({
+                    url: '@Url.Action("GetdataDidYouKnowL", "OrderingReport")',
+                    data: {
+                        dyk: dyk,
+                        con1: con1,
+                        con2: con2,
+                        con3: con3,
+                        con4: con4,
+                        User: User
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log("GetdataDidYouKnowL = " + data)
+                        $("#tblOrderDetail > tbody").html("");
+                        waitingDialog.hide();
+                        if (data != "") {
+                            var com = $('#Company').val();
+                            if (data.length != 0) {
+                                var SubmithtmlPage = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    var totalRowCount = $("#tblOrderDetail tr").length;
+                                    //alert(com + " / " +data[i].val.Company)
+                                    if (com == data[i].val.Company) {
+                                        SubmithtmlPage = '<tr><td align="center">' + totalRowCount + '</td>';
+                                        SubmithtmlPage += '<td align="center">' + data[i].val.Company + '</td>';
+                                        //SubmithtmlPage += '<td align="left"><div id="divitem" style="cursor: pointer;color: darkorchid;text-decoration: underline;" item="' + data[i].val.STKCOD + '" com="' + data[i].val.Company + '">' + data[i].val.STKCOD + '</div></td>';
+                                        SubmithtmlPage += '<td align="center" width="10%" valign="middle">' + '<button type="button" class="addItemToCart btn btn-sm btn-warning" id="" data-stkcod="' + data[i].val.STKCOD + '"  data-des="' + data[i].val.Description + '" data-stock="' + data[i].val.Stock + '" data-endprice="' + data[i].val.SalesPrice + '" data-company="' + data[i].val.Company + '"> <i class="fa fa-cart-plus fa-1x" aria-hidden="true"></i> </button>' + '&nbsp;' + data[i].val.STKCOD + '</td>';
+
+                                        SubmithtmlPage += '<td align="left">' + data[i].val.Description + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.Stock) + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.SalesPrice) + '</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        $('#tblOrderDetail > tbody:last-child').append(SubmithtmlPage);
+                                    } else if (com == "") {
+                                        SubmithtmlPage = '<tr><td align="center">' + totalRowCount + '</td>';
+                                        SubmithtmlPage += '<td align="center">' + data[i].val.Company + '</td>';
+                                       // SubmithtmlPage += '<td align="left"><div id="divitem" style="cursor: pointer;color: darkorchid;text-decoration: underline;" item="' + data[i].val.STKCOD + '" com="' + data[i].val.Company + '">' + data[i].val.STKCOD + '</div></td>';
+                                        SubmithtmlPage += '<td align="center" width="10%" valign="middle">' + '<button type="button" class="addItemToCart btn btn-sm btn-warning" id="" data-stkcod="' + data[i].val.STKCOD + '"  data-des="' + data[i].val.Description + '" data-stock="' + data[i].val.Stock + '" data-endprice="' + data[i].val.SalesPrice + '" data-company="' + data[i].val.Company + '"> <i class="fa fa-cart-plus fa-1x" aria-hidden="true"></i> </button>' + '&nbsp;' + data[i].val.STKCOD + '</td>';
+
+                                        SubmithtmlPage += '<td align="left">' + data[i].val.Description + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.Stock) + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.SalesPrice) + '</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        $('#tblOrderDetail > tbody:last-child').append(SubmithtmlPage);
+                                    }
+                                }
+                            }
+                        } else {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ไม่มีข้อมูลที่ท่านต้องการค้นหา");
+                           $("#myModalWarning").modal();
+                        }
+                    }
+                });
+            }
+            function GetCusoutput(param) {
+
+
+            }
+            $(".Customer").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                source: function (request, response) {
+                    var param = { Cus: $('.Customer').val(), Slm: $('#Slm').val() };//$('#Slm').val() };
+
+                   // console.log(param);
+                    $.ajax({
+                        url: '@Url.Action("GetdateCus", "DataCenter")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+
+                        dataFilter: function (data) { return data; },
+
+
+                        success: function (data) {
+                            //console.log(data);
+
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+
+                        },
+
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+
+                },
+                select: function (event, ui) {
+                    //console.log(ui.item.value);
+                    var Code = ui.item.value;
+                    var split_ = Code.split('|');
+                    var cus = "";
+                    if (split_[0] != "") {
+                        cus = split_[0].trim();
+                    }
+                    //var  item = split_StockCode[0];
+                    //alert(cus);
+                    //return false;
+                    var XXusrlogin = $("#User").val();
+                    //var itemcusname = split_[1];
+                    $.ajax({
+                        url: '@Url.Action("GetdataSlm", "OrderingReport")',
+                        data: { Cus: cus },
+
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                           // console.log(data);
+                            $('#Slm').val(data.Slm);
+
+                        }
+                    });
+                }
+            });
+            $("#roldo").autocomplete({
+                selectFirst: true,
+                autoFocus: true,
+                source: function (request, response) {
+                    var param = { Cus: $('#roldo').val(), Slm: $('#Slm').val() };//$('#Slm').val()Slm: null };
+                    //console.log(param);
+                    $.ajax({
+                          url: '@Url.Action("GetdateCus", "DataCenter")',
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                           // console.log(data);
+
+                            response($.map(data.slice(0, 50), function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+
+                        },
+                        error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                   // console.log(ui.item.value);
+                    var Code = ui.item.value;
+                    var split_ = Code.split('|');
+                    var cus = "";
+                    if (split_[0] != "") {
+                        cus = split_[0].trim();
+                    }
+                    //var  item = split_StockCode[0];
+                    //alert(cus);
+                    //return false;
+                    var XXusrlogin = $("#User").val();
+                    //var itemcusname = split_[1];
+                    $.ajax({
+                        url: '@Url.Action("GetdataSlm", "OrderingReport")',
+                        data: { Cus: cus },
+
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //alert(data.Slm)
+                            //console.log(data);
+                            $('#Slm').val(data.Slm);
+                        }
+                    });
+                }
+            });
+            var itemNo;
+            var comval;
+            $(document).on('click', '#divitem', function () {
+
+                var Xout = $('.Customer').val();
+                if (Xout != '') {
+                    $('#roldo').val(Xout);
+                } else {
+                    $('#roldo').val("");
+                }
+                //$('#Customer').val("");
+                itemNo = $(this).attr('item').trim();
+                comval = $(this).attr('com').trim();
+
+                $('#displaypn').val(itemNo);
+
+                $("#myModalInputCustomer").modal();
+
+            });
+            $(document).on("click", "#btndetail", function () {
+                //var wi = window.open("../Cart/Index");
+                window.location.replace("../SeleScrCustomer/dashboard");
+
+
+            });
+            @*function checkcustomerinactive(cuscod) {
+
+            var typin;
+            var retval = [];
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                async: false, //IGNORED!!
+                success: function (data) {
+                    // //console.log(data);
+                    typin = data[0].INACTIVE;
+                    block = data[0].BLOCKED;
+                    alert(data[0].SLMCOD)
+                    $("#Slm").val(data[0].SLMCOD);
+
+                    if (typin == "Y") {
+                        if (block == "0") {
+                            $("#myModalInputCustomer").hide();
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+                            return false;
+                        } else {
+                            //alert("yy")
+                            $("#myModalInputCustomer").hide();
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+                            //$("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+
+                        }
+
+                    } else {
+                        //alert("zz")
+                        //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                        if (block == "1") {
+                            $("#myModalInputCustomer").hide();
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#myModalWarning").modal();
+
+                        } else {
+                            $("#myModalInputCustomer").hide();
+                            alert(cuscod)
+                            window.open("../Shoppinglist/Index?numcuber=" + btoa(cuscod));
+                        }
+
+                    }
+
+                },
+                async: false
+
+            });
+            return retval;
+        }
+            $('#btnshopp').click(function () {
+                //var CUS = $('.Customer').val()
+                var CUS = $('#roldo').val();
+                var SLM = $('#Slm').val()
+                var split_ = CUS.split('|');
+                var cus = "";
+                //console.log(split_[0]);
+
+                if (split_[0] != "") {
+                    cus = split_[0].trim();
+                } else {
+                    //$("#myModalInputCustomer").
+                    //$("#textAlertWarning").empty();
+                    //$("#textAlertWarning").text("กรุณาระบุลูกค้า");
+                    //$("#myModalWarning").modal();
+                    alert("กรุณาระบุลูกค้า");
+                    return false;
+                }
+                checkcustomerinactive(cus)
+                return false;
+                var encodeduser = btoa(User);
+                var encodedCus = btoa(cus);
+                var encodedStringiSlm = btoa(SLM);
+                var encodedStringiSlm = btoa(SLM);
+                var encodedStringiitem = btoa(itemNo);
+                var encodedStringicom = btoa(comval);
+                //window.open(url, '_blank');
+
+                var url = window.location.href;
+                var str = url;
+                var res = str.split("/");
+
+                window.open("https://" + res[2] + "/MobileOrder/Shopping/Index?display='00DUN'&encodedCus=" + encodedCus + "&slm=" + encodedStringiSlm + "&item=" + encodedStringiitem + "&com=" + encodedStringicom);
+
+            });*@
+
+        });
+    </script>
+</body>
+</html>

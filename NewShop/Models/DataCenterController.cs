@@ -523,6 +523,50 @@ namespace NewShop.Models
             return Json(CUSList, JsonRequestBehavior.AllowGet);
 
         }
+        public JsonResult GetdateCus(string Cus, string Slm)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<CUS> CUSList = new List<CUS>();
+            string SLMCOD = string.Empty;
+            string query = string.Empty;
+            if (Slm == "0" || Slm == null || Slm == "(ALL)")
+            {
+
+                SLMCOD = "";
+                query = string.Format("select distinct pc.CUSCOD,pc.CUSCOD + ' | ' + pc.CUSNAM from v_CUSPROV pc    where  pc.CUSCOD LIKE '%{0}%'or pc.CUSNAM  LIKE '%{0}%'", Cus);
+            }
+            else
+            {
+                SLMCOD = Slm;
+                query = string.Format("select distinct pc.CUSCOD,pc.CUSCOD + ' | ' + pc.CUSNAM from v_CUSPROV pc    where  pc.SLMCOD ='" + SLMCOD + "' and (pc.CUSCOD LIKE '%{0}%'or pc.CUSNAM  LIKE '%{0}%')", Cus);
+
+            }
+
+            List<string> Code = new List<string>();
+            using (SqlCommand cmd = new SqlCommand(query, Connection))
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    Code.Add(reader.GetString(1));
+                }
+                // reader.Dispose();
+                //S20161016
+                reader.Close();
+                reader.Dispose();
+                cmd.Dispose();
+                //E20161016
+            }
+
+
+            Connection.Close();
+
+            return Json(Code, JsonRequestBehavior.AllowGet);
+
+        }
         public JsonResult GetdatabyCus(string cusel)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;

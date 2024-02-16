@@ -424,6 +424,7 @@ namespace NewShop.Controllers
                         model.InsertedDate = dr["Inserted Date"].ToString();
                         model.LineNote = dr["LineNote"].ToString();
                         model.UNITCOST = dr["UNITCOST"].ToString();
+                        model.readyQty = dr["readyQty"].ToString();
                         // sumQty += Convert.ToInt32(dr.GetValue(15));
                         // sumSalePrice += Convert.ToInt32(dr.GetValue(9));
                         Getdata.Add(new ItemList_PriceApprove { val = model });
@@ -753,6 +754,7 @@ namespace NewShop.Controllers
 
         public string Prcdes { get; set; }
         public string UNITCOST { get; set; }
+        public string readyQty { get; set; }
 
     }
 }
