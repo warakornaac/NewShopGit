@@ -243,7 +243,7 @@
                                 <th>CustomerPo</th>
                                 <th>หมายเหตุ</th>
                                 <th>Ship to</th>
-
+                                
                                 @*<th>Cus Po</th>*@
                                 <th> Promo</th>
                                 <th>SLMCOD</th>
@@ -433,7 +433,7 @@
                 }
                 //checkcustomerinactive(item);
                 countorder(item, usertype, userid, Slm);
-
+                
             },
 
             minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
@@ -457,7 +457,7 @@
                     $("#Slm").val(data[0].SLMCOD);
                     if (typin == "Y") {
                         if (block == "0") {
-
+                         
                             $("#search").val("");
                             $("#textAlertWarning").empty();
                             $("#textAlertWarning").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
@@ -726,9 +726,7 @@
                         Show_Flag: Show_Flag,
                         Stock_Flag: Stock_Flag,
                         COM: COM,
-                        DocumentNo: $("#txtSearchord").val(),
-                        UserType: '@Session["UserType"]'
-
+                        DocumentNo: $("#txtSearchord").val()
                     },
                     type: "POST",
                     dataType: "JSON",
@@ -767,8 +765,8 @@
                             //SubmithtmlPage += ' </tr>';
                             //SubmithtmlPage += '</thead> ';
                             //SubmithtmlPage += '<tbody> ';
-
-
+                           
+                           
                             var SubmithtmlPage = "";
                             for (var i = 0; i < data.length; i++) {
                                 let text = data[i].OrdTyp;
@@ -843,7 +841,7 @@
                                 SubmithtmlPage += '<td>' + data[i].Comment + '</td>';
                                 //SubmithtmlPage += '<td>' + data[i].CUSPO + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].shipto + '</td>';
-
+                               
                                 SubmithtmlPage += '<td>' + data[i].Promo + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].SLMCOD + "/" + data[i].SLMNAM + '</td>';
                                 // SubmithtmlPage += '<td>' + data[i].SeqNum + '</td>';
@@ -920,7 +918,7 @@
                 var $idValuecusuppo = $(this).parents("tr:eq(0)").find(".tcusuppo").find("input[name='S_cusuppo']").attr('id');
                 var MyIndexValuecusuppo = $("#" + $idValuecusuppo + "").val();
 
-
+               
                 $.ajax({
                     url: '@Url.Action("InsertdataBackorder", "BackOrderAll")',
                     data: {
@@ -1157,9 +1155,7 @@
                     Show_Flag: Show_Flag,
                     Stock_Flag: Stock_Flag,
                     COM: COM,
-                    DocumentNo: $("#txtSearchord").val(),
-                    UserType: '@Session["UserType"]'
-
+                    DocumentNo: $("#txtSearchord").val()
 
                 }, function (result) {
 
