@@ -46,7 +46,7 @@ namespace NewShop.Controllers
                         // Doc = Docdisplay;
                         // Docsub = Docdisplay;
                     }
-                   
+
                     var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
                     SqlConnection Connection = new SqlConnection(connectionString);
                     Connection.Open();
@@ -68,7 +68,7 @@ namespace NewShop.Controllers
                     ViewBag.Xcusdiscount = discount;
                     command.Dispose();
 
-                  
+
                     List<SelectListItem> Code = new List<SelectListItem>();
                     var commandTermDay = new SqlCommand("P_CusCreditTermDay", Connection);
                     commandTermDay.CommandType = CommandType.StoredProcedure;
@@ -84,7 +84,7 @@ namespace NewShop.Controllers
                             Value = TermDay["Lookup ID"].ToString(),
                             Text = TermDay["Lookup ID"].ToString()
                         });
-                       
+
                     }
                     //CrTerm.Dispose();
                     //S20161016
@@ -95,7 +95,7 @@ namespace NewShop.Controllers
 
                     ViewBag.TermDay = Code;
 
-                    
+
                     string company = string.Empty;
                     var commandCom = new SqlCommand("P_Get_Companny_catalog", Connection);
                     commandCom.CommandType = CommandType.StoredProcedure;
@@ -106,7 +106,7 @@ namespace NewShop.Controllers
                     {
                         company = CrCom["Company"].ToString();
                     }
-                   
+
                     CrCom.Close();
                     CrCom.Dispose();
                     commandCom.Dispose();
@@ -128,7 +128,7 @@ namespace NewShop.Controllers
             {
 
                 var command = new SqlCommand("P_CheckOrderCart_Catalog", Connection);
-                
+
                 // var command = new SqlCommand("P_ShoppingCart_list", Connection);
                 command.CommandTimeout = 0;
                 command.CommandType = CommandType.StoredProcedure;
@@ -144,7 +144,7 @@ namespace NewShop.Controllers
                     model = new ItemOrdering();
 
                     model.CUSCOD = dr["CUSCOD"].ToString();
-                  
+
                     Getdata.Add(new ItemListGetdata { val = model });
 
                 }
@@ -185,7 +185,7 @@ namespace NewShop.Controllers
                 command.CommandTimeout = 0;
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@QuatationNo", Quatation);
-               
+
                 command.ExecuteNonQuery();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
@@ -234,8 +234,8 @@ namespace NewShop.Controllers
             {
 
                 var command = new SqlCommand("P_ShoppingCart_list_catalog", Connection);
-               
-               // var command = new SqlCommand("P_ShoppingCart_list", Connection);
+
+                // var command = new SqlCommand("P_ShoppingCart_list", Connection);
                 command.CommandTimeout = 0;
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
@@ -245,7 +245,7 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@usrlogin", usrlogin);
                 command.Parameters.AddWithValue("@usrtype", usrtype);
                 command.Parameters.AddWithValue("@shiptocode", shiptocode);
-               // command.Parameters.AddWithValue("@QuotationNo", quatation);
+                // command.Parameters.AddWithValue("@QuotationNo", quatation);
                 //command.ExecuteNonQuery();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
@@ -289,10 +289,10 @@ namespace NewShop.Controllers
                     model.WH_Location = dr["WH Location"].ToString();
                     model.KDC_QTY = dr["KDC-QTY"].ToString();
                     model.PDC_QTY = dr["PDC-QTY"].ToString();
-                    model.AccessID = dr["AccessID"].ToString(); 
-                    model.AccessID = dr["AccessID"].ToString(); 
-                    model.AccessID = dr["AccessID"].ToString(); 
-                    model.Intransit = dr["Intrnsit"].ToString(); 
+                    model.AccessID = dr["AccessID"].ToString();
+                    model.AccessID = dr["AccessID"].ToString();
+                    model.AccessID = dr["AccessID"].ToString();
+                    model.Intransit = dr["Intrnsit"].ToString();
                     //model.Promotion_Foc = dr["Promotion_Foc"].ToString();
                     //sumSalePrice += Convert.(sum);
                     Getdata.Add(new ItemListGetdata { val = model });
@@ -334,6 +334,7 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice, sumDiscount, creditterm, exerror }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
         public JsonResult GetTransportation(string cucod)
         {
             List<Transport_DenyK99> List = new List<Transport_DenyK99>();
@@ -389,7 +390,7 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(ListQno, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetdataCusQuatation(string CUSCOD, string Company, string usrlogin, string _valQuatation,string usrtype, string shiptocode)
+        public JsonResult GetdataCusQuatation(string CUSCOD, string Company, string usrlogin, string _valQuatation, string usrtype, string shiptocode)
         {
             int sumQty = 0;
             int sumSalePrice = 0;
@@ -420,56 +421,56 @@ namespace NewShop.Controllers
                 while (dr.Read())
                 {
                     model = new ItemOrdering();
-                   // DateTime date = Convert.ToDateTime(dr["ORDDAT"].ToString());
-                   // string formatted = date.ToString("dd/M/yyyy");
-                   // model.CartID = dr.GetValue(0).ToString();
-                   // model.PRCLST_NO = dr["PRCLST_NO"].ToString();
-                   // model.CUSCOD = dr["CUSCOD"].ToString();
-                   // model.ORDDAT = formatted;
-                   // model.STKCOD = dr["STKCOD"].ToString();
-                   // model.Company = dr["Company"].ToString();
-                   // model.STKGRP = dr["STKGRP"].ToString();
-                   // stkgrp = model.STKGRP;
-                   
-                   // model.STKGRPNam = "-";
-                   // model.STKDES = dr["STKDES"].ToString();
-                   // model.MINORD = dr["MINORD"].ToString();
-                   // model.Price = dr["Price"].ToString();
-                   // model.SalePrice = dr["SalePrice"].ToString();
-                   // model.ExpectPrice = dr["ExpectPrice"].ToString();
-                   // model.Qty = dr["Qty"].ToString();
-                   // model.TotalPrice = dr["TotalPrice"].ToString();
-                   // model.TotalDiscount = dr["TotalDiscount"].ToString();
-                   // model.Amt = dr["Amt"].ToString();
-                   // model.Discount = dr["Discount"].ToString();
-                   // //sumDiscount += Convert.ToInt32(dr["Discount"].ToString());
-                   // model.Status = dr["Status"].ToString();
-                   // model.LineNote = dr["LineNote"].ToString();
-                   // model.UOM = dr["UOM"].ToString();
-                   // model.Promotion = dr["Promotion"].ToString();
-                   // model.PromotionDesc = dr["PromotionDesc"].ToString();
-                   // sumQty += Convert.ToInt32(dr["Qty"].ToString());
-                   // string sum = dr["SalePrice"].ToString();
-                   // model.Item_Type = dr["Item_Type"].ToString();
-                   // model.InStock = dr["InStock"].ToString();
-                   // model.PrcApproveBy = dr["PrcApproveBy"].ToString();
-                   // model.Stock = dr["Stock"].ToString();
-                   // model.Backorder = dr["BackOrder"].ToString();
-                   // model.Ready_Status = dr["Ready_Status"].ToString();
-                   // model.maxord = dr["maxord"].ToString();
-                   // model.maxord = dr["maxord"].ToString();
-                   // model.PrcRemark = dr["PrcRemark"].ToString();
-                   // model.WH_Location = dr["WH Location"].ToString();
+                    // DateTime date = Convert.ToDateTime(dr["ORDDAT"].ToString());
+                    // string formatted = date.ToString("dd/M/yyyy");
+                    // model.CartID = dr.GetValue(0).ToString();
+                    // model.PRCLST_NO = dr["PRCLST_NO"].ToString();
+                    // model.CUSCOD = dr["CUSCOD"].ToString();
+                    // model.ORDDAT = formatted;
+                    // model.STKCOD = dr["STKCOD"].ToString();
+                    // model.Company = dr["Company"].ToString();
+                    // model.STKGRP = dr["STKGRP"].ToString();
+                    // stkgrp = model.STKGRP;
+
+                    // model.STKGRPNam = "-";
+                    // model.STKDES = dr["STKDES"].ToString();
+                    // model.MINORD = dr["MINORD"].ToString();
+                    // model.Price = dr["Price"].ToString();
+                    // model.SalePrice = dr["SalePrice"].ToString();
+                    // model.ExpectPrice = dr["ExpectPrice"].ToString();
+                    // model.Qty = dr["Qty"].ToString();
+                    // model.TotalPrice = dr["TotalPrice"].ToString();
+                    // model.TotalDiscount = dr["TotalDiscount"].ToString();
+                    // model.Amt = dr["Amt"].ToString();
+                    // model.Discount = dr["Discount"].ToString();
+                    // //sumDiscount += Convert.ToInt32(dr["Discount"].ToString());
+                    // model.Status = dr["Status"].ToString();
+                    // model.LineNote = dr["LineNote"].ToString();
+                    // model.UOM = dr["UOM"].ToString();
+                    // model.Promotion = dr["Promotion"].ToString();
+                    // model.PromotionDesc = dr["PromotionDesc"].ToString();
+                    // sumQty += Convert.ToInt32(dr["Qty"].ToString());
+                    // string sum = dr["SalePrice"].ToString();
+                    // model.Item_Type = dr["Item_Type"].ToString();
+                    // model.InStock = dr["InStock"].ToString();
+                    // model.PrcApproveBy = dr["PrcApproveBy"].ToString();
+                    // model.Stock = dr["Stock"].ToString();
+                    // model.Backorder = dr["BackOrder"].ToString();
+                    // model.Ready_Status = dr["Ready_Status"].ToString();
+                    // model.maxord = dr["maxord"].ToString();
+                    // model.maxord = dr["maxord"].ToString();
+                    // model.PrcRemark = dr["PrcRemark"].ToString();
+                    // model.WH_Location = dr["WH Location"].ToString();
 
 
-                   //// model.Type_Cal = dr["Type_Cal"].ToString();
-                   // //model.Special_Discount = dr["Special_Discount"].ToString();
-                   model.DiscountPercent = dr["ORD_DiscountPercent"].ToString();
-                   // model.ORDMOD_Type = dr["ORDMOD_Type"].ToString();
-                   // model.ORD_Type = dr["ORD_Type"].ToString();
-                   // model.GenID = dr["GenID"].ToString();
-                   // model.PrcRemark = dr["PrcRemark"].ToString();
-                   // model.WH_Location = dr["WH Location"].ToString();
+                    //// model.Type_Cal = dr["Type_Cal"].ToString();
+                    // //model.Special_Discount = dr["Special_Discount"].ToString();
+                    model.DiscountPercent = dr["ORD_DiscountPercent"].ToString();
+                    // model.ORDMOD_Type = dr["ORDMOD_Type"].ToString();
+                    // model.ORD_Type = dr["ORD_Type"].ToString();
+                    // model.GenID = dr["GenID"].ToString();
+                    // model.PrcRemark = dr["PrcRemark"].ToString();
+                    // model.WH_Location = dr["WH Location"].ToString();
                     //sumSalePrice += Convert.(sum);
                     model.CartID = dr["ID"].ToString();
                     model.PRCLST_NO = dr["PRCLST_NO"].ToString();
@@ -548,7 +549,7 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice, sumDiscount, creditterm, exerror }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult DeliveryMode(string userid,string cuscod)
+        public JsonResult DeliveryMode(string userid, string cuscod)
         {
             List<Itemordertype> ordertype = new List<Itemordertype>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -625,7 +626,7 @@ namespace NewShop.Controllers
         }
         public JsonResult Getordertypeby(string type)
         {
-           
+
             List<Itemordertype> ordertype = new List<Itemordertype>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -655,35 +656,35 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(ordertype, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult CusDiscount(string cuscod ,string type)
+        public JsonResult CusDiscount(string cuscod, string type)
         {
-           
-                
-                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-                SqlConnection Connection = new SqlConnection(connectionString);
-                Connection.Open();
-                string discount = string.Empty;
-                string CashDiscount = string.Empty;
-                var command = new SqlCommand("P_Search_CusDiscount", Connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@inCUSCOD", cuscod);
-                command.Parameters.AddWithValue("@UsrTyp", type);
-                //commandCrTerm.ExecuteNonQuery();
-                SqlDataReader cusdis = command.ExecuteReader();
-                while (cusdis.Read())
-                {
-                    CashDiscount = cusdis["Cash Discount"].ToString();
-                    discount = cusdis["Discount"].ToString();
-                }
-                //CrTerm.Dispose();
-                //S20161016
-                cusdis.Close();
-                cusdis.Dispose();
 
-                command.Dispose();
-                Connection.Close();
+
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            string discount = string.Empty;
+            string CashDiscount = string.Empty;
+            var command = new SqlCommand("P_Search_CusDiscount", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inCUSCOD", cuscod);
+            command.Parameters.AddWithValue("@UsrTyp", type);
+            //commandCrTerm.ExecuteNonQuery();
+            SqlDataReader cusdis = command.ExecuteReader();
+            while (cusdis.Read())
+            {
+                CashDiscount = cusdis["Cash Discount"].ToString();
+                discount = cusdis["Discount"].ToString();
+            }
+            //CrTerm.Dispose();
+            //S20161016
+            cusdis.Close();
+            cusdis.Dispose();
+
+            command.Dispose();
+            Connection.Close();
             return Json(new { discount, CashDiscount }, JsonRequestBehavior.AllowGet);
-           
+
         }
         public JsonResult CusCreditTermDay()
         {
@@ -695,7 +696,7 @@ namespace NewShop.Controllers
             List<string> Code = new List<string>();
             var command = new SqlCommand("P_CusCreditTermDay", Connection);
             command.CommandType = CommandType.StoredProcedure;
-         
+
 
             //commandCrTerm.ExecuteNonQuery();
             SqlDataReader cusdis = command.ExecuteReader();
@@ -802,7 +803,7 @@ namespace NewShop.Controllers
                         cmd.Dispose();
                     }
                 }
-               
+
                 conn.Close();
                 message = true;
             }
@@ -889,7 +890,7 @@ namespace NewShop.Controllers
                         cmd.Parameters.AddWithValue("@inRemark", Remark);
                         cmd.Parameters.AddWithValue("@inInsertBy", Xusrlogin);
                         cmd.Parameters.AddWithValue("@inTakeORDBy", takeorderby);
-                       // cmd.Parameters.AddWithValue("@inCreditTerm", CreditTerm);
+                        // cmd.Parameters.AddWithValue("@inCreditTerm", CreditTerm);
                         cmd.Parameters.AddWithValue("@inCreditTerm", "3");
                         cmd.Parameters.AddWithValue("@inCusPo", CusPo);
                         cmd.Parameters.AddWithValue("@intypecke", Convert.ToInt32(typecke));
@@ -1188,12 +1189,12 @@ namespace NewShop.Controllers
         }
 
 
-       // public JsonResult Confirmationdata(string company, string ordidtemp, string takeorderby, string Remark, string codetransportation, string CusShipping, string codeShipping, string Moddate, string Modtime, string Modtype, string Xusrlogin, string Xcus, string XSul, string DataSend, string DataSendPro, string sumvat, string sumpro, string ORD_TotalPrice, string ORD_TotalDiscount, string sumqty, string sumstk, string dateDelivery, string DeliveryTime)
+        // public JsonResult Confirmationdata(string company, string ordidtemp, string takeorderby, string Remark, string codetransportation, string CusShipping, string codeShipping, string Moddate, string Modtime, string Modtype, string Xusrlogin, string Xcus, string XSul, string DataSend, string DataSendPro, string sumvat, string sumpro, string ORD_TotalPrice, string ORD_TotalDiscount, string sumqty, string sumstk, string dateDelivery, string DeliveryTime)
         public JsonResult Confirmationdata(string DataSend, string Xusrlogin, string ordidtemp)
         {
 
             List<ItemConfirm> _ItemList = new JavaScriptSerializer().Deserialize<List<ItemConfirm>>(DataSend);
-         
+
             string message = "false";
             string Docorder = string.Empty;
 
@@ -1211,7 +1212,7 @@ namespace NewShop.Controllers
             if (_ItemList.Count > 0)
             {
 
-               // string CUSID = Xcus;
+                // string CUSID = Xcus;
                 //string SLMCOD = XSul;
                 string com = _ItemList[0].VCompany;
                 //string com = "TAC";
@@ -1237,7 +1238,7 @@ namespace NewShop.Controllers
                     rev_.Close();
                     rev_.Dispose();
                     cmd.Dispose();
-                    
+
                     for (int i = 0; i < _ItemList.Count; i++)
                     {
                         SqlCommand cmdupdate = new SqlCommand("P_UpdateStatus_Ordering_Cart", conn);
@@ -1245,14 +1246,14 @@ namespace NewShop.Controllers
                         cmdupdate.CommandType = CommandType.StoredProcedure;
                         cmdupdate.Parameters.AddWithValue("@inCart_ID", _ItemList[i].Vidorder);
                         //cmdupdate.Parameters.AddWithValue("@inCart_ID", null);
-	                    cmdupdate.Parameters.AddWithValue("@inUser",Xusrlogin);
+                        cmdupdate.Parameters.AddWithValue("@inUser", Xusrlogin);
                         cmdupdate.Parameters.AddWithValue("@inDocNo", DocNo);
                         //cmdupdate.Parameters.Add(returnValue);
                         cmdupdate.ExecuteReader();
 
                         cmdupdate.Dispose();
-                       
-                        
+
+
 
                     }
 
@@ -1298,8 +1299,8 @@ namespace NewShop.Controllers
             command.Parameters.AddWithValue("@cuscod", cuscod);
             SqlParameter returnFlag = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
             returnFlag.Direction = System.Data.ParameterDirection.Output;
-            command.Parameters.Add(returnFlag);  
-            
+            command.Parameters.Add(returnFlag);
+
             SqlParameter returnUserLast = new SqlParameter("@outUser", SqlDbType.NVarChar, 100);
             returnUserLast.Direction = System.Data.ParameterDirection.Output;
             command.Parameters.Add(returnUserLast);
