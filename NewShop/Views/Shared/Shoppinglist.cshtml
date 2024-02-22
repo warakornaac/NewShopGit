@@ -35,7 +35,7 @@
 
     <!-- jquery latest version -->
     <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
- 
+
     <style>
         .header {
             /*background-color: #3c8dbc;*/
@@ -100,81 +100,81 @@
                     {
                         @*<li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="btnhome">ช้อปปิ้ง</a>
-                        </li>
-                        <li class="nav-item dropdown messages-menu">
+                                <a class="nav-link dropdown-toggle" id="btnhome">ช้อปปิ้ง</a>
+                            </li>
+                            <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="btncart">ตระกร้าสินค้า</a>
-                        </li>*@
-                       if (Session["UserType"].ToString() == "1") 
-                       {
+                                <a class="nav-link dropdown-toggle" id="btncart">ตระกร้าสินค้า</a>
+                            </li>*@
+                        if (Session["UserType"].ToString() == "1")
+                        {
                             <li class="nav-item dropdown messages-menu">
 
                                 <a class="nav-link dropdown-toggle" id="nextcheckstock">ตรวจสอบ Stock สินค้า</a>
                             </li>
                             <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="nextcrm">CRM</a>
+                                <a class="nav-link dropdown-toggle" id="nextcrm">CRM</a>
                             </li>
                             <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="nextbck">Back Order</a>
+                                <a class="nav-link dropdown-toggle" id="nextbck">Back Order</a>
                             </li>
-                       
+
                             <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="btnstatus">การสั่งซื้อของฉัน</a>
-                          </li>
+                                <a class="nav-link dropdown-toggle" id="btnstatus">การสั่งซื้อของฉัน</a>
+                            </li>
                             <li class="nav-item dropdown messages-menu">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarshowdetail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-cart" style="font-size: 1.7em;"></i>
-                                <span class="label label-success bg-success" id="countsku"></span>
-                                <span>ตะกร้าสินค้า</span>
-                            </a>
-                        
-                       </li>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarshowdetail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" style="font-size: 1.7em;"></i>
+                                    <span class="label label-success bg-success" id="countsku"></span>
+                                    <span>ตะกร้าสินค้า</span>
+                                </a>
+
+                            </li>
                             <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="btndetail">บัญชีลูกค้า</a>
-                        </li>
-                         }
-                       else if (Session["UserType"].ToString() == "2")
-                         {
-                         
-                        <li class="nav-item dropdown messages-menu">
+                                <a class="nav-link dropdown-toggle" id="btndetail">บัญชีลูกค้า</a>
+                            </li>
+                        }
+                        else if (Session["UserType"].ToString() == "2")
+                        {
 
-                            <a class="nav-link dropdown-toggle" id="btnstatus">การสั่งซื้อของฉัน</a>
-                        </li>
-                        <li class="nav-item dropdown messages-menu">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarshowdetail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-cart" style="font-size: 1.7em;"></i>
-                                <span class="label label-success bg-success" id="countsku"></span>
-                                <span>ตะกร้าสินค้า</span>
-                            </a>
-                        
-                       </li>
-                        <li class="nav-item dropdown messages-menu">
+                            <li class="nav-item dropdown messages-menu">
 
-                            <a class="nav-link dropdown-toggle" id="btndetail">บัญชีลูกค้า</a>
-                        </li>
+                                <a class="nav-link dropdown-toggle" id="btnstatus">การสั่งซื้อของฉัน</a>
+                            </li>
+                            <li class="nav-item dropdown messages-menu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarshowdetail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" style="font-size: 1.7em;"></i>
+                                    <span class="label label-success bg-success" id="countsku"></span>
+                                    <span>ตะกร้าสินค้า</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item dropdown messages-menu">
+
+                                <a class="nav-link dropdown-toggle" id="btndetail">บัญชีลูกค้า</a>
+                            </li>
                         }
                     }
-                   
+
                     else if (Session["UserType"].ToString() == "5")
                     {
-                         <li class="nav-item dropdown messages-menu">
+                        <li class="nav-item dropdown messages-menu">
 
-                             <a class="nav-link dropdown-toggle" href="https://app.powerbi.com/view?r=eyJrIjoiZGZhMzcyZDQtNjE2ZC00NWIxLTk0NGMtMzM1NDJlYmIxZTY2IiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D" target="_blank">Dashboard TAC Expro</a>
+                            <a class="nav-link dropdown-toggle" href="https://app.powerbi.com/view?r=eyJrIjoiZGZhMzcyZDQtNjE2ZC00NWIxLTk0NGMtMzM1NDJlYmIxZTY2IiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D" target="_blank">Dashboard Event</a>
                         </li>
-                         <li class="nav-item dropdown messages-menu">
+                        <li class="nav-item dropdown messages-menu">
 
                             <a class="nav-link dropdown-toggle" href="~/Orderlist/Index">ช้อปปิ้ง</a>
                         </li>
-                         <li class="nav-item dropdown messages-menu">
+                        <li class="nav-item dropdown messages-menu">
 
                             <a class="nav-link dropdown-toggle" href="~/SCStockSco/Index">ตรวจสอบ Stock สินค้า</a>
                         </li>
-                         <li class="nav-item dropdown messages-menu">
+                        <li class="nav-item dropdown messages-menu">
 
                             <a class="nav-link dropdown-toggle" href="~/PriceApproval/Index">อนุมัติราคา</a>
                         </li>
@@ -262,7 +262,7 @@
 
 
                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            
+
                             @if (Session["UserType"].ToString() != "6")
                             {
                                 <span class="toggle__menu hidden-xs">บัญชีของคุณ @Session["UserID"]  </span>
@@ -294,7 +294,7 @@
                         <a class="nav-link dropdown-toggle" href="~/Account/LogIn">ออกจากระบบ</a>
                     </li>
 
-                   
+
 
 
 
@@ -304,16 +304,15 @@
             </div>
         </nav>
     </header>
-   
+
 
     @RenderBody()
 
     <!-- Body main wrapper end -->
     <!-- Placed js at the end of the document so the pages load faster -->
-   
     <!-- Bootstrap framework js -->
     <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
- 
+
 </body>
 
 </html>
