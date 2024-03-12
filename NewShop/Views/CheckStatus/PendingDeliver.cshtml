@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 @{
-    Layout = "~/Views/Shared/_Layoutcus_center.cshtml";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
 
 }
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Centre</title>
-    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">
+    <title>ยอดสินค้าค้างส่ง</title>
+    @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
@@ -22,10 +22,7 @@
     <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
-    <!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
-
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
     <script src="~/CSS/jQueryv3.1.1.js"></script>
@@ -358,413 +355,18 @@
     </style>
 </head>
 
-<body style="background-color: #f2f7ff;">
+<body style="background-color: #f2f7ff; font-family: Lato, sans-serif; ">
     <div id="app">
-
-
-        <!--<div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="index.html"><img src="~/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-
-                        <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>Components</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="component-alert.html">Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-badge.html">Badge</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-breadcrumb.html">Breadcrumb</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-button.html">Button</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-card.html">Card</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-carousel.html">Carousel</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-dropdown.html">Dropdown</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-list-group.html">List Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-modal.html">Modal</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-navs.html">Navs</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-pagination.html">Pagination</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-progress.html">Progress</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-spinner.html">Spinner</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-tooltip.html">Tooltip</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Forms &amp; Tables</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="form-layout.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Form Layout</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>Form Editor</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="form-editor-quill.html">Quill</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-ckeditor.html">CKEditor</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-summernote.html">Summernote</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-tinymce.html">TinyMCE</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="table.html" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Table</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="table-datatable.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Datatable</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-title">Extra UI</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pentagon-fill"></i>
-                                <span>Widgets</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-chatbox.html">Chatbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-pricing.html">Pricing</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-todolist.html">To-do List</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-egg-fill"></i>
-                                <span>Icons</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-dripicons.html">Dripicons</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Charts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-apexcharts.html">Apexcharts</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="ui-file-uploader.html" class='sidebar-link'>
-                                <i class="bi bi-cloud-arrow-up-fill"></i>
-                                <span>File Uploader</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-map-fill"></i>
-                                <span>Maps</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-map-google-map.html">Google Map</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Pages</li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-email.html" class='sidebar-link'>
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Email Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-chat.html" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
-                                <i class="bi bi-image-fill"></i>
-                                <span>Photo Gallery</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Errors</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="error-403.html">403</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="error-404.html">404</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="error-500.html">500</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Raise Support</li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://zuramai.github.io/mazer/docs" class='sidebar-link'>
-                                <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class='sidebar-link'>
-                                <i class="bi bi-puzzle"></i>
-                                <span>Contribute</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer#donate" class='sidebar-link'>
-                                <i class="bi bi-cash"></i>
-                                <span>Donate</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>-->
-        <div id="main">
-            @*<header class="mb-3">
-                    <a href="#" class="burger-btn d-block d-xl-none">
-                        <i class="bi bi-justify fs-3"></i>
-                    </a>
-                </header>*@
-
+        <div id="main" style=" padding-right:20px; padding-left:20px;">
             <div class="page-heading">
-
-
-
-                @*<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-long-arrow-right" style="font-size: 1.7em; color: chartreuse;"></i>
-
-                        <span style="color: chartreuse;" id="btnnewitem">สินค้ามาใหม่</span>
-                    </a>*@
-
             </div>
             <div class="page-content">
                 <section class="row">
                     <div class="col-12 col-lg-4">
-
-                        <!-- <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-xl">
-                                        <img src="assets/images/faces/1.jpg" alt="Face 1">
-                                    </div>
-                                    <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">johnducky</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExtraLargeModalLabel" id="btnnewitem">New Item</button>*@
                         <div class="row">
-
                             <p id="demo"></p>
                             <div class="col-12 caption">
-                                <div class="card">
+                                <div class="card" style="font-family: Lato, sans-serif; ">
                                     <div class="card-header">
                                         <h4 id="h2title">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
                                     </div>
@@ -775,7 +377,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                         <span style="color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
                                         <br />
                                         <div id="prvs">
@@ -786,11 +387,15 @@
 
                                             <div class="single-checkout-box select-option mt--10">
                                                 <button type="button" class="btn-gray" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
-
-
                                             </div>
                                             <div class="single-checkout-box checkbox">
 
+                                            </div>
+                                            <div>
+                                                <input type="hidden" id="cushid" />
+                                                <input type="hidden" id="slmhid" />
+                                                <input type="hidden" id="nocusses" />
+                                                <input class="note-desc" id="cussend" type="hidden">
                                             </div>
                                         </div>
                                         <div class="appendbtnshopbysales"></div>
@@ -800,414 +405,12 @@
 
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>บัญชีลูกค้า</h4>
-                            </div>
-                            <div class="recent-message" style="font-size: small; padding-left: 15px;">
-                                <div class="checkout-right-sidebar">
-                                    <input type="hidden" id="cushid" />
-                                    <input type="hidden" id="slmhid" />
-                                    <input type="hidden" id="nocusses" />
-                                    <input class="note-desc" id="cussend" type="hidden">
-                                    <div class="our-important-note">
-                                        @*<h4 class="section-title-2">บัญชีลูกค้า:</h4>*@
-
-                                        <p class="note-desc" style="cursor: help;" id="cus" title=""></p>
-                                    </div>
-                                    <div class="our-important-note">
-                                        <h5 class="section-title-2">ที่อยู่ในการออกใบกำกับภาษี:</h5>
-                                        <p class="note-desc" id="addcus"></p>
-
-                                    </div>
-                                    <span style="color: blue; cursor: pointer;" id="mapcu" class="fa fa-map-marked">แผนที่ร้านลูกค้า</span>
-                                </div>
-                                <div class="appendbtnshop">
-
-                                </div>
-                                <a href="#" id="changepass" style="display:none"> >>>> Change password >>>></a><br /><br />
-                                <!--  <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/4.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Hank Schrader</h5>
-                                        <h6 class="text-muted mb-0">johnducky</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/5.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Dean Winchester</h5>
-                                        <h6 class="text-muted mb-0">imdean</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/1.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">John Dodol</h5>
-                                        <h6 class="text-muted mb-0">dodoljohn</h6>
-                                    </div>
-                                </div>
-                                <div class="px-4">
-                                    <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>
-                                        Start
-                                        Conversation
-                                    </button>
-                                </div>-->
-
-                            </div>
-                        </div>
                         <div id="appadjall"></div>
-                        <!--- <div class="row">
-                            <div class="col-12 col-xl-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>รายการเครดิต</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive" style="font-size: x-small;">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span id="dnow"></span></th>
-                                                        <th>TAC</th>
-                                                        <th>AAC</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody style="font-size: x-small;">
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0"><span id="crlicustac"></span></p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0"><span id="crlicusaac"></span></p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">
-                                                                <span id="crbarcustac"></span>
-                                                            </p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">
-                                                                <span id="crbarcusaac"></span>
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">
-                                                                <span id="crlicustacday"></span>
-                                                            </p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">
-                                                                <span id="crlicusaacday"></span>
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>-->
-
-
                     </div>
 
-                    <div class="col-12 col-lg-5">
+                    <div class="col-12 col-lg-8">
                         <div id="dfch">
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <div class="card">
-
-                                        <div class="card-header">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>ยอดซื้อรวม</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="amtdoffon"></span>
-                                                </label><div class='statusamt'>Untoggled</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="card-body">
-                                                <div id="chart-profile-visit"></div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtmtd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
-                                                    <div id="amtmtd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
-                                                    <div id="amtmtd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtytd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
-                                                    <div id="amtytd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
-                                                    <div id="amtytd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>ยอดซื้อตามร้านค้า</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="amtchildoffon"></span>
-                                                </label><div class='statusamtchild'>Untoggled</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="card-body">
-                                                <div id="chart-profile-visit-child"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtmtd_aac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
-                                                    <div id="amtmtd_tac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
-                                                    <div id="amtmtd_all_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtytd_aac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
-                                                    <div id="amtytd_tac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
-                                                    <div id="amtytd_all_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @*TOP20*@
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>ยอดซื้อ TOP 20</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="btnoffonTop20"></span>
-                                                </label>
-                                                <div class='statusTop20'>Untoggled</div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive" style="height:400px">
-                                                <table class="table table-striped mb-0" id="tableListTop20" style="padding: 7px;font-size: small;">
-                                                    <thead style="font-size: small;">
-                                                        <tr>
-                                                            <th>ลำดับ</th>
-                                                            <th>บริษัท</th>
-                                                            <th>รหัสสินค้า</th>
-                                                            <th>ชื่อสินค้า</th>
-                                                            <th>จำนวนสั่งซื้อ</th>
-                                                            <th>ยอดสั่งซื้อ</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @*</div>*@
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <!-- Rounded switch -->
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>โปรโมชั่น</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="promooffon"></span>
-                                                </label><div class='statuspromotion'>Untoggled</div>
-                                            </div>
-                                        </div>
-                                        <div class="w3-bar w3-black">
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('yearly',this.id)" id="btn_yearly">เป้าปี</button>
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('quater', this.id)" id="btn_quater">เป้าไตรมาส</button>
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('other', this.id)" id="btn_other">เป้ารายเดือน</button>
-                                        </div>
-                                        <div class="card">
-                                            <div id="yearly" class="city">
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped mb-0" id="promotiontbyearly" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                <th>จาก</th>
-                                                                <th>ถึง</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <div id="quater" class="city" style="display:none">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                <th>จาก</th>
-                                                                <th>ถึง</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <div id="other" class="city" style="display:none">
-                                                <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small;">
-                                                    <thead style="font-size: small;">
-                                                        <tr>
-                                                            <th>โปรโมชั่น</th>
-                                                            <th>เงื่อนไข</th>
-                                                            <th>จาก</th>
-                                                            <th>ถึง</th>
-                                                            <th>ยอดซื้อ</th>
-                                                            <th>ยังขาดอีก</th>
-                                                            <th>ของรางวัล</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                            @*<div class="card-header">
-                                                    <h4>เป้าโปรโมชั่น</h4>
-                                                </div>*@
-                                            @*<div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped mb-0" id="promotiontb" style="padding: 7px;font-size: small;">
-                                                            <thead style="font-size: small;">
-                                                                <tr>
-                                                                    <th>โปรโมชั่น</th>
-                                                                    <th>เงื่อนไข</th>
-                                                                    <th>จาก</th>
-                                                                    <th>ถึง</th>
-                                                                    <th>ยอดซื้อ</th>
-                                                                    <th>ยังขาดอีก</th>
-                                                                    <th>ของรางวัล</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>*@
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>งานเคลมสินค้า</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="cliamoffon"></span>
-                                                </label><div class='statuscliamoffon'>Untoggled</div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped mb-0" id="climtb" style="padding: 7px;font-size: small;">
-                                                    <thead style="font-size: small;">
-                                                        <tr>
-                                                            <th>รอดำเนินงาน</th>
-                                                            <th>กำลังตรวจสอบ</th>
-                                                            <th>รอส่งสินค้าทดแทน</th>
-
-                                                        </tr>
-
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @* สินค้าค้างส่ง *@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
@@ -1216,12 +419,13 @@
                                                 <h4>รายการค้างส่งสินค้า</h4>
                                             </div>
                                             <div class="col-sm-6 text-right">
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="backordoffon"></span>
-                                                </label><div class='statusbackord'>Untoggled</div>
+                                                @*<label class="switch">
+                                                        <input type="checkbox">
+                                                        <span class="slider" id="backordoffon"></span>
+                                                    </label><div class='statusbackord'>Untoggled</div>*@
+                                                มีสินค้าใน Stock <input type="checkbox" id="chkSelect" class="fa-3x" style="zoom: 1.0;" /><span></span>&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+
                                             </div>
-                                            มีสินค้าใน Stock <input type="checkbox" id="chkSelect" class="fa-3x" style="zoom: 1.0;" /><span></span>&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
                                         </div>
                                         <div class="card-body">
 
@@ -1246,126 +450,12 @@
                         </div>
                         <div id="appadj"></div>
                     </div>
-                    <div class="col-12 col-lg-3">
-                        <!-- <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-xl">
-                                        <img src="assets/images/faces/1.jpg" alt="Face 1">
-                                    </div>
-                                    <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">johnducky</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div id="btnnewitem" style="cursor: pointer;"><img src="~/images/newitem.png" /></div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Company Information</h4>
-                                @*<h5 class="section-title-2">Company Information</h5>*@
-                            </div>
-                            <div class="card-content pb-4" style="padding: 7px; font-size: small;">
-                                <div class="pp" id="aaccomname" style="font-weight: bold;"></div>
-                                <div class="pp" id="aacaddress"></div>
-                                <div class="pp" id="aacphone"></div>
-                                <div class="pp" id="aacfax"></div>
-                                <div class="pp" id="aactax"></div>
-                                <div class="pp" id="aacBank1"></div>
-                                <div class="pp" id="aacBank2"></div>
-                                <div class="pp" id="taccomname" style="font-weight: bold;"></div>
-
-                                <div class="pp" id="tacphone"></div>
-                                <div class="pp" id="tacfax"></div>
-                                <div class="pp" id="tactax"></div>
-                                <div class="pp" id="tacBank1"></div>
-                                <div class="pp" id="tacBank2"></div>
-                                <div class="pp" id="tacaddress"></div>
-                                @*<div class="recent-message d-flex px-4 py-3">
-
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">Hank Schrader</h5>
-                                            <h6 class="text-muted mb-0">johnducky</h6>
-                                        </div>
-                                    </div>
-                                    <div class="recent-message d-flex px-4 py-3">
-
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">Dean Winchester</h5>
-                                            <h6 class="text-muted mb-0">imdean</h6>
-                                        </div>
-                                    </div>
-                                    <div class="recent-message d-flex px-4 py-3">
-
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">John Dodol</h5>
-                                            <h6 class="text-muted mb-0">dodoljohn</h6>
-                                        </div>
-                                    </div>*@
-                                <div class="px-4">
-                                    @*<button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>
-                                            Start
-                                            Conversation
-                                        </button>*@
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Contact Center</h4>
-                            </div>
-                            <div class="card-body" style="padding: 7px; font-size: small;">
-                                <div class="pp" id="chart-Salesman"></div>
-                                <div class="pp" id="chart-Salesmanphone"></div>
-                                <div class="pp" id="chart-SalesCo"></div>
-                                <div class="pp" id="chart-SalesCophone"></div>
-
-                                @*<div>Salesman:</div>*@
-                            </div>
-                        </div>
-                        <div class="card aboutoffice">
-
-                            <div class="card-body">
-                                <div class="card-header">
-                                    <h4 id="h2title">Application menu</h4>
-                                </div>
-                                @*<div class="puick-contact-area mt--10">
-                                        <div class="contact-btn">
-                                            <button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">
-                                                Shopping
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />*@
-
-
-
-                                <a href="#" id="nextcheckstock"> >>>> ตรวจสอบ Stock สินค้า >>>></a><br />
-                                <a href="#" id="nextbck"> >>>> Back Order  >>>></a><br />
-                                <a href="#" id="nextcrm"> >>>> CRM  >>>></a><br />
-                                @*<a href="#" id="nextdas"> >>>> Dashboard TAC Expro  >>>></a>*@
-
-                                <div class="dropdown" id="desb">
-                                    <button class="dropbtn">>>>>Dashboard Sales Man >>>></button>
-                                    <div class="dropdown-content">
-                                        <a href="#" id="nextdas"> >>>> Event  >>>></a>
-                                        @*<a href="#" id="nextkpi"> >>>> KPI Sales >>>></a>*@
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
                 </section>
             </div>
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2021 &copy; TAC&AAC</p>
+                        <p>2024 &copy; TAC&AAC</p>
                     </div>
                     <div class="float-end">
                         @*<p>
@@ -1597,15 +687,9 @@
 
         </div>
     </div>
-
-    @*<script src="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="~/dashboard/assets/js/bootstrap.bundle.min.js"></script*@>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
-    @*<script src="~/dashboard/assets/js/pages/dashboard.js"></script>*@
-    @*<script src="~/dashboard/assets/js/main.js"></script>*@
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <!-- <link href="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.css" rel="stylesheet" />-->
-    @*<script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>*@
     <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
@@ -1799,282 +883,195 @@
 
                 $("#dfch").css("display", "block");
                 $('#appadjall').html("");
-                var SubmithtmlPage = "";
-                SubmithtmlPage += '<div class="row">';
-                SubmithtmlPage += '<div class="col-12 col-xl-12">';
-                SubmithtmlPage += '<div class="card">';
-                SubmithtmlPage += '<div class="card-header">';
-                SubmithtmlPage += '<h4>รายการเครดิต</h4>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '<div class="card-body">';
-                SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
-                SubmithtmlPage += '<table class="table table-hover table-lg">';
-                SubmithtmlPage += '<thead>';
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<th><span id="dnow"></span></th>';
-                SubmithtmlPage += '<th>TAC</th>';
-                SubmithtmlPage += '<th>AAC</th>';
-                SubmithtmlPage += '</tr>';
-                SubmithtmlPage += '</thead>';
-                SubmithtmlPage += '<tbody style="font-size: x-small;">';
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<td class="col-3">';
-                SubmithtmlPage += '<div class="d-flex align-items-center">';
-                SubmithtmlPage += '<div class="avatar avatar-md">';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '</tr>';
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<td class="col-3">';
-                SubmithtmlPage += '<div class="d-flex align-items-center">';
-                SubmithtmlPage += '<div class="avatar avatar-md">';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0">';
-                SubmithtmlPage += '<span id="crbarcustac"></span>';
-                SubmithtmlPage += '</p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0">';
-                SubmithtmlPage += '<span id="crbarcusaac"></span>';
-                SubmithtmlPage += '</p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '</tr>';
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<td class="col-3">';
-                SubmithtmlPage += '<div class="d-flex align-items-center">';
-                SubmithtmlPage += '<div class="avatar avatar-md">';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0">';
-                SubmithtmlPage += '<span id="crlicustacday"></span>';
-                SubmithtmlPage += '</p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '<td class="col-auto">';
-                SubmithtmlPage += '<p class=" mb-0">';
-                SubmithtmlPage += '<span id="crlicusaacday"></span>';
-                SubmithtmlPage += '</p>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '</tr>';
-                //rating
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
-                SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
-                SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
-                SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
-                SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
-                SubmithtmlPage += '</span>';
-                SubmithtmlPage += '</td>';
-                SubmithtmlPage += '</tr>';
-                //
-                SubmithtmlPage += '</tbody>';
-                SubmithtmlPage += '</table>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</div>';
-                SubmithtmlPage += '</div>';
-                $("#appadjall").append(SubmithtmlPage);
-            } else {
+                //var SubmithtmlPage = "";
+                //SubmithtmlPage += '<div class="row">';
+                //SubmithtmlPage += '<div class="col-12 col-xl-12">';
+                //SubmithtmlPage += '<div class="card">';
+                //SubmithtmlPage += '<div class="card-header">';
+                //SubmithtmlPage += '<h4>รายการเครดิต</h4>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '<div class="card-body">';
+                //SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
+                //SubmithtmlPage += '<table class="table table-hover table-lg">';
+                //SubmithtmlPage += '<thead>';
+                //SubmithtmlPage += '<tr>';
+                //SubmithtmlPage += '<th><span id="dnow"></span></th>';
+                //SubmithtmlPage += '<th>TAC</th>';
+                //SubmithtmlPage += '<th>AAC</th>';
+                //SubmithtmlPage += '</tr>';
+                //SubmithtmlPage += '</thead>';
+                //SubmithtmlPage += '<tbody style="font-size: x-small;">';
+                //SubmithtmlPage += '<tr>';
+                //SubmithtmlPage += '<td class="col-3">';
+                //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                //SubmithtmlPage += '<div class="avatar avatar-md">';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '</tr>';
+                //SubmithtmlPage += '<tr>';
+                //SubmithtmlPage += '<td class="col-3">';
+                //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                //SubmithtmlPage += '<div class="avatar avatar-md">';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0">';
+                //SubmithtmlPage += '<span id="crbarcustac"></span>';
+                //SubmithtmlPage += '</p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0">';
+                //SubmithtmlPage += '<span id="crbarcusaac"></span>';
+                //SubmithtmlPage += '</p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '</tr>';
+                //SubmithtmlPage += '<tr>';
+                //SubmithtmlPage += '<td class="col-3">';
+                //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                //SubmithtmlPage += '<div class="avatar avatar-md">';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0">';
+                //SubmithtmlPage += '<span id="crlicustacday"></span>';
+                //SubmithtmlPage += '</p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '<td class="col-auto">';
+                //SubmithtmlPage += '<p class=" mb-0">';
+                //SubmithtmlPage += '<span id="crlicusaacday"></span>';
+                //SubmithtmlPage += '</p>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '</tr>';
+                ////rating
+                //SubmithtmlPage += '<tr>';
+                //SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
+                //SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
+                //SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
+                //SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
+                //SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
+                //SubmithtmlPage += '</span>';
+                //SubmithtmlPage += '</td>';
+                //SubmithtmlPage += '</tr>';
+                ////
+                //SubmithtmlPage += '</tbody>';
+                //SubmithtmlPage += '</table>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</div>';
+                //SubmithtmlPage += '</div>';
+                //$("#appadjall").append(SubmithtmlPage);
+            }
+            else {
                 $("#amtdoffon").css("display", "block");
                 $("#amtchildoffon").css("display", "block");
                 $("#btnoffonTop20").css("display", "block");
                 $("#promooffon").css("display", "block");
                 $("#dfch").css("display", "block");
                             $('#appadjall').html("");
-                            var SubmithtmlPage = "";
-                            SubmithtmlPage += '<div class="row">';
-                            SubmithtmlPage += '<div class="col-12 col-xl-12">';
-                            SubmithtmlPage += '<div class="card">';
-                            SubmithtmlPage += '<div class="card-header">';
-                            SubmithtmlPage += '<h4>รายการเครดิต</h4>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '<div class="card-body">';
-                            SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
-                            SubmithtmlPage += '<table class="table table-hover table-lg">';
-                            SubmithtmlPage += '<thead>';
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<th><span id="dnow"></span></th>';
-                            SubmithtmlPage += '<th>TAC</th>';
-                            SubmithtmlPage += '<th>AAC</th>';
-                            SubmithtmlPage += '</tr>';
-                            SubmithtmlPage += '</thead>';
-                            SubmithtmlPage += '<tbody style="font-size: x-small;">';
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="col-3">';
-                            SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            SubmithtmlPage += '<div class="avatar avatar-md">';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '</tr>';
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="col-3">';
-                            SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            SubmithtmlPage += '<div class="avatar avatar-md">';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0">';
-                            SubmithtmlPage += '<span id="crbarcustac"></span>';
-                            SubmithtmlPage += '</p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0">';
-                            SubmithtmlPage += '<span id="crbarcusaac"></span>';
-                            SubmithtmlPage += '</p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '</tr>';
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="col-3">';
-                            SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            SubmithtmlPage += '<div class="avatar avatar-md">';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0">';
-                            SubmithtmlPage += '<span id="crlicustacday"></span>';
-                            SubmithtmlPage += '</p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '<td class="col-auto">';
-                            SubmithtmlPage += '<p class=" mb-0">';
-                            SubmithtmlPage += '<span id="crlicusaacday"></span>';
-                            SubmithtmlPage += '</p>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '</tr>';
-                            //rating
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
-                            SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
-                            SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
-                            SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
-                            SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
-                            SubmithtmlPage += '</span>';
-                            SubmithtmlPage += '</td>';
-                            SubmithtmlPage += '</tr>';
-                            //
-                            SubmithtmlPage += '</tbody>';
-                            SubmithtmlPage += '</table>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</div>';
-                            SubmithtmlPage += '</div>';
-                            $("#appadjall").append(SubmithtmlPage);
+                            //var SubmithtmlPage = "";
+                            //SubmithtmlPage += '<div class="row">';
+                            //SubmithtmlPage += '<div class="col-12 col-xl-12">';
+                            //SubmithtmlPage += '<div class="card">';
+                            //SubmithtmlPage += '<div class="card-header">';
+                            //SubmithtmlPage += '<h4>รายการเครดิต</h4>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '<div class="card-body">';
+                            //SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
+                            //SubmithtmlPage += '<table class="table table-hover table-lg">';
+                            //SubmithtmlPage += '<thead>';
+                            //SubmithtmlPage += '<tr>';
+                            //SubmithtmlPage += '<th><span id="dnow"></span></th>';
+                            //SubmithtmlPage += '<th>TAC</th>';
+                            //SubmithtmlPage += '<th>AAC</th>';
+                            //SubmithtmlPage += '</tr>';
+                            //SubmithtmlPage += '</thead>';
+                            //SubmithtmlPage += '<tbody style="font-size: x-small;">';
+                            //SubmithtmlPage += '<tr>';
+                            //SubmithtmlPage += '<td class="col-3">';
+                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                            //SubmithtmlPage += '<div class="avatar avatar-md">';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '</tr>';
+                            //SubmithtmlPage += '<tr>';
+                            //SubmithtmlPage += '<td class="col-3">';
+                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                            //SubmithtmlPage += '<div class="avatar avatar-md">';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0">';
+                            //SubmithtmlPage += '<span id="crbarcustac"></span>';
+                            //SubmithtmlPage += '</p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0">';
+                            //SubmithtmlPage += '<span id="crbarcusaac"></span>';
+                            //SubmithtmlPage += '</p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '</tr>';
+                            //SubmithtmlPage += '<tr>';
+                            //SubmithtmlPage += '<td class="col-3">';
+                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
+                            //SubmithtmlPage += '<div class="avatar avatar-md">';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0">';
+                            //SubmithtmlPage += '<span id="crlicustacday"></span>';
+                            //SubmithtmlPage += '</p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '<td class="col-auto">';
+                            //SubmithtmlPage += '<p class=" mb-0">';
+                            //SubmithtmlPage += '<span id="crlicusaacday"></span>';
+                            //SubmithtmlPage += '</p>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '</tr>';
+                            ////rating
+                            //SubmithtmlPage += '<tr>';
+                            //SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
+                            //SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
+                            //SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
+                            //SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
+                            //SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
+                            //SubmithtmlPage += '</span>';
+                            //SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '</tr>';
+                            ////
+                            //SubmithtmlPage += '</tbody>';
+                            //SubmithtmlPage += '</table>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</div>';
+                            //SubmithtmlPage += '</div>';
+                            //$("#appadjall").append(SubmithtmlPage);
             }
-            //if (usrclmstaff == "1") {//appadj
-               // $("#dfch").css("display", "none");
-
-
-                //}
-            //else {
-            //            $("#dfch").css("display", "block");
-            //            $('#appadjall').html("");
-            //            var SubmithtmlPage = "";
-            //            SubmithtmlPage += '<div class="row">';
-            //            SubmithtmlPage += '<div class="col-12 col-xl-12">';
-            //            SubmithtmlPage += '<div class="card">';
-            //            SubmithtmlPage += '<div class="card-header">';
-            //            SubmithtmlPage += '<h4>รายการเครดิต</h4>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '<div class="card-body">';
-            //            SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
-            //            SubmithtmlPage += '<table class="table table-hover table-lg">';
-            //            SubmithtmlPage += '<thead>';
-            //            SubmithtmlPage += '<tr>';
-            //            SubmithtmlPage += '<th><span id="dnow"></span></th>';
-            //            SubmithtmlPage += '<th>TAC</th>';
-            //            SubmithtmlPage += '<th>AAC</th>';
-            //            SubmithtmlPage += '</tr>';
-            //            SubmithtmlPage += '</thead>';
-            //            SubmithtmlPage += '<tbody style="font-size: x-small;">';
-            //            SubmithtmlPage += '<tr>';
-            //            SubmithtmlPage += '<td class="col-3">';
-            //            SubmithtmlPage += '<div class="d-flex align-items-center">';
-            //            SubmithtmlPage += '<div class="avatar avatar-md">';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '</tr>';
-            //            SubmithtmlPage += '<tr>';
-            //            SubmithtmlPage += '<td class="col-3">';
-            //            SubmithtmlPage += '<div class="d-flex align-items-center">';
-            //            SubmithtmlPage += '<div class="avatar avatar-md">';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0">';
-            //            SubmithtmlPage += '<span id="crbarcustac"></span>';
-            //            SubmithtmlPage += '</p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0">';
-            //            SubmithtmlPage += '<span id="crbarcusaac"></span>';
-            //            SubmithtmlPage += '</p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '</tr>';
-            //            SubmithtmlPage += '<tr>';
-            //            SubmithtmlPage += '<td class="col-3">';
-            //            SubmithtmlPage += '<div class="d-flex align-items-center">';
-            //            SubmithtmlPage += '<div class="avatar avatar-md">';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0">';
-            //            SubmithtmlPage += '<span id="crlicustacday"></span>';
-            //            SubmithtmlPage += '</p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '<td class="col-auto">';
-            //            SubmithtmlPage += '<p class=" mb-0">';
-            //            SubmithtmlPage += '<span id="crlicusaacday"></span>';
-            //            SubmithtmlPage += '</p>';
-            //            SubmithtmlPage += '</td>';
-            //            SubmithtmlPage += '</tr>';
-            //            SubmithtmlPage += '</tbody>';
-            //            SubmithtmlPage += '</table>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</div>';
-            //            SubmithtmlPage += '</div>';
-            //            $("#appadjall").append(SubmithtmlPage);
-            // }
             $("#nextcheckstock").css("display", "none");
             $("#nextcrm").css("display", "none");
             $("#nextbck").css("display", "none");
@@ -2082,9 +1079,11 @@
             $(".aboutoffice").css("display", "none");
             $("#nextdas").css("display", "none");
             $("#desb").css("display", "none");
-        } else {
+        }
+        else {
             $("#dfch").css("display", "block");
-            $('#appadjall').html("");
+            $('#appadjall8').html("");
+            /*
             var SubmithtmlPage = "";
             SubmithtmlPage += '<div class="row">';
             SubmithtmlPage += '<div class="col-12 col-xl-12">';
@@ -2175,6 +1174,8 @@
             SubmithtmlPage += '</div>';
             SubmithtmlPage += '</div>';
             $("#appadjall").append(SubmithtmlPage);
+
+            */
         }
 
         if (usertype == "2") {
@@ -2467,6 +1468,10 @@
                 $('.offsetmenu').removeClass('offsetmenu__on');
                 // $('.body__overlay').removeClass('is-visible');
             });
+            $("#selcus").on("change", function () {
+                var cuscod = $("#selcus").val();
+                getbackord(cuscod);
+            });
             chkcustomer();
         });
         expire(usrexpire)
@@ -2737,6 +1742,40 @@
                             $('#amtmtd_aac').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
                             $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
                             $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
+
+                            console.log(data[0].AmtMTD);
+                            const dataP = {
+                                labels: [
+                                    'AAC',
+                                    'TAC',
+
+                                ],
+                                datasets: [{
+                                    label: 'ยอดซื้อรวมทั้งเดือน',
+                                    data: [data[0].AmtYTD, data[1].AmtYTD],
+                                    backgroundColor: [
+                                        'rgb(54, 162, 235)',
+                                        'rgb(255, 99, 132)',
+                                    ],
+                                    hoverOffset: 4
+                                }]
+                            };
+                            const config = {
+                                type: 'pie',
+                                data: dataP,
+                                //options: {
+                                //    plugins: {
+                                //        title: {
+                                //            display: true,
+                                //            text: 'ยอดซื้อรวมทั้งเดือน'
+                                //        }
+                                //    }
+                                //}
+                            };
+
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var myChart = new Chart(ctx, config);
+
                         } else {
                             var optionsProfileVisit = {
                                 annotations: {
@@ -3195,7 +2234,7 @@
 
             var Stock_Flag = Stock_Flag;
             var current_status = $('.statusbackord').text();
-            if (current_status != "Untoggled") {
+
                 $.ajax({
                     url: '@Url.Action("getbackorder", "BackOrderAll")',
                     data: {
@@ -3237,7 +2276,6 @@
                         }
                     }
                 });
-            }
         }
         function getCompanyInformation(cusnc) {
 
@@ -3762,15 +2800,6 @@
                                 $("#divrating").css("display", "");
                                 $("#crlicusrating").text(data[0].RATING);
                             }
-
-
-                            //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                            //$("#crlicustacday").text(data[0].TACPAYTRM);
-
                             $("#selslm").val(data[0].SLMCOD);
 
                             $("#cushid").val(data[0].CUSCOD);
@@ -4295,6 +3324,7 @@
             }
 
         });
+
         $(document).on("click", "#mapcu", function () {
             // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
@@ -4362,6 +3392,7 @@
             }
 
         });
+
         $(document).on("click", "#nextcheckstock", function () {
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
 
@@ -4770,20 +3801,20 @@
                                 }
                             }
                         });
-                        var SubmithtmlPage = "";
-                        SubmithtmlPage += '<div class="card-body">';
+                        //var SubmithtmlPage = "";
+                        //SubmithtmlPage += '<div class="card-body">';
 
-                        SubmithtmlPage += '<div class="mt--10">';
-                        SubmithtmlPage += '<div class="contact-btn">';
-                        SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                        SubmithtmlPage += 'Shopping';
-                        SubmithtmlPage += '</button>';
-                        SubmithtmlPage += '</div>';
-                        SubmithtmlPage += '</div>';
-                        SubmithtmlPage += '<a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />';
+                        //SubmithtmlPage += '<div class="mt--10">';
+                        //SubmithtmlPage += '<div class="contact-btn">';
+                        //SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
+                        //SubmithtmlPage += 'Shopping';
+                        //SubmithtmlPage += '</button>';
+                        //SubmithtmlPage += '</div>';
+                        //SubmithtmlPage += '</div>';
+                        //SubmithtmlPage += '<a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />';
 
-                        SubmithtmlPage += '</div>';
-                        $('.appendbtnshopbysales').append(SubmithtmlPage);
+                        //SubmithtmlPage += '</div>';
+                        //$('.appendbtnshopbysales').append(SubmithtmlPage);
                         //  window.location.replace("../Account/LogIn");
                     } else {
 
@@ -4855,6 +3886,7 @@
                                 });
                             }
                         });
+                        /*
                         var SubmithtmlPage = "";
                         SubmithtmlPage += '<div class="card-body">';
 
@@ -4869,6 +3901,7 @@
 
                         SubmithtmlPage += '</div>';
                         $('.appendbtnshopbysales').append(SubmithtmlPage);
+                        */
 
                         //getcuschamt(cuscod) //charts
                         //getcuschamt_child(cuscod)//charts_child
@@ -4902,6 +3935,7 @@
                             if (data.length == 1) {
                                 $('.caption').css("display", "none");
                                 $('#prvs').css("display", "none");
+                                /*
                                 var SubmithtmlPage = "";
                                 SubmithtmlPage += '<div class="card-body">';
 
@@ -4916,6 +3950,7 @@
 
                                 SubmithtmlPage += '</div>';
                                 $('.appendbtnshop').append(SubmithtmlPage);
+                                */
                             } else {
                                 var select = $("#selcus");
                                 select.children().remove();
@@ -4996,6 +4031,7 @@
                             });
                         }
                     });
+                    /*
                     var SubmithtmlPage = "";
                     SubmithtmlPage += '<div class="card-body">';
 
@@ -5010,7 +4046,7 @@
 
                     SubmithtmlPage += '</div>';
                     $('.appendbtnshopbysales').append(SubmithtmlPage);
-
+                    */
                     //window.location.replace("../Account/LogIn");
                 } else {
 
@@ -5129,6 +4165,7 @@
                                 $('.caption').css("display", "none");
                                 $('#prvs').css("display", "none");
                                 $("#selcus").prop("disabled", true);
+                                /*
                                 var SubmithtmlPage = "";
                                 SubmithtmlPage += '<div class="card-body">';
 
@@ -5143,6 +4180,7 @@
 
                                 SubmithtmlPage += '</div>';
                                 $('.appendbtnshop').append(SubmithtmlPage);
+                                */
                             } else {
                                 $("#selcus").prop("disabled", false);
                                 var select = $("#selcus");
@@ -5155,7 +4193,7 @@
                                 });
                                 $('.selectpicker').selectpicker('refresh');
                                 $(".caret").css("display", "none");
-
+                                /*
                                 var SubmithtmlPage = "";
                                 SubmithtmlPage += '<div class="card-body">';
 
@@ -5170,6 +4208,7 @@
 
                                 SubmithtmlPage += '</div>';
                                 $('.appendbtnshopbysales').append(SubmithtmlPage);
+                                */
                             }
                         }
                     });
@@ -5182,26 +4221,6 @@
                 window.location.replace("../ChangePassword/Index");
             }
         });
-        //Lock show code display //
-        //$(document).bind("contextmenu", function (e) {
-        //    e.preventDefault();
-        //    alert('not allowed');
-        //})
-        //document.onkeydown = function (e) {
-
-        //    if (e.ctrlKey &&
-        //    (e.keyCode === 85)) {
-        //        return false;
-        //        alert('not allowed');
-        //    }else {
-        //          return true;
-
-        //      }
-        //};
-        //Lock show code display //
-
-
-
     </script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>
