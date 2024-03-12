@@ -25,8 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/jquery-2.2.4.js"></script>
     <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
     <link href="~/Content/Normalize.css" rel="stylesheet" />
 
@@ -37,12 +36,16 @@
     <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
     <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
 
-
-    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="~/Scripts/jquery-ui-1.13.2.js"></script>
     <script src="~/Scripts/webAddress.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    @*select*@
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.bundle.min.4.5.0.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.1.13.17.js"></script>
+
     <style>
         .jumbotron {
             padding: 30px;
@@ -179,7 +182,7 @@
                             <label for="dataStock" class="col-sm-12 col-form-label">Stock:  <label style="font-weight: 400;" id="getDataStock"></label> </label>
                         </div>
                         <div class="form-group row" style="margin-top: -20px;">
-                            <label for="dataEndPrice" class="col-sm-12 col-form-label">EndPrice: <label style="font-weight: 400;" id="getDataEndPrice"></label> </label>
+                            <label for="dataEndPrice" class="col-sm-12 col-form-label">ราคาซื้อ: <label style="font-weight: 400;" id="getDataEndPrice"></label> </label>
                         </div>
                         <div class="form-group row" style="margin-top: -20px;">
                             <label for="dataQty" class="col-sm-2 col-form-label">จำนวน: </label>
@@ -264,28 +267,25 @@
                 </div>
                 <div class="card-body">
                     <div class="row" style="padding-top: 10px;">
+                        <input type="hidden" id="cuscodSearchLast" />
+                        <input type="hidden" id="custextSearchLast" />
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group" id="disslm" style="display:none">
                                     <div class="input-group">
-
                                         <span class="col-sm-3 input-group-addon">Slmcod</span>
                                         <select id="Slm" class="form-control" style="color:black">
                                             <!--<option value="0">เลือกSlmcod</option>-->
-
                                         </select>
-
                                         <span class="input-group-addon "></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
-
                                         <span class="col-sm-3 input-group-addon">Did you know</span>
                                         <select id="dyk" class="form-control" style="color:black">
                                             <option value="">Did you know</option>
@@ -293,7 +293,6 @@
                                             {
                                                 <option value="@Xdyk[i].Value">@Xdyk[i].Text</option>
                                             }
-
                                         </select>
                                         <span class="input-group-addon "></span>
                                     </div>
@@ -336,11 +335,22 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
-
                                         <span class="col-sm-3 input-group-addon" id="textCondi2">Condition 2</span>
-                                        <select id="condi2" class="form-control" style="color:black">
+                                        <select id="condi2" class="form-control selectpicker" data-container="body" data-live-search="true" style="color:black">
                                             <option value="">Customer</option>
                                         </select>
+                                        <span class="input-group-addon "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*stkcod*@
+                        <div class="col-md-12" style="display: none;" id="divStkcod">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="col-sm-3 input-group-addon">Stock Code</span>
+                                        <input type="Text" onfocus="this.select();" onmouseup="return false;" class="form-control " id="txtSearchItem" placeholder="กรอกรหัสสินค้า" style="height: 38px;" />
                                         <span class="input-group-addon "></span>
                                     </div>
                                 </div>
@@ -353,6 +363,7 @@
                                         <span class="col-sm-3 input-group-addon" id="textCondi3">Condition 3</span>
                                         <select id="condi3" class="form-control" style="color:black">
                                             <option value="">Section</option>
+                                            <option value="">ALL</option>
                                             @for (var i = 0; i < getSection.Count; i++)
                                             {
                                                 <option value="@getSection[i].Value">@getSection[i].Text</option>
@@ -364,7 +375,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-6" id="divStkgrp" style="display: none;">
+                            <div class="col-md-6" id="divStkgrp">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="col-sm-3 input-group-addon">Stock Group</span>
@@ -375,13 +386,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="input-group">
 
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -401,7 +406,7 @@
         </div>
 
         @*show att search*@
-        <div class="col-md-12" style="font-size: 13px;">
+        <div class="col-md-12" style="font-size: 13px; display: none;">
             Did you know= <span id="searchDid"></span> &nbsp;
             Condition1= <span id="searchCon1"></span> &nbsp;
             Condition2= <span id="searchCon2"></span> &nbsp;
@@ -420,7 +425,8 @@
                                 <th style="text-align: center;width:10%">Stkcod</th>
                                 <th style="text-align: center;width:20%">Description</th>
                                 <th style="text-align: center; width: 7%">Stock</th>
-                                <th style="text-align: center; width: 7%">SalesPrice</th>
+                                <th style="text-align: center; width: 7%">ราคาซื้อ</th>
+                                <th style="text-align: center; width: 7%">ราคาป้าย</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -433,6 +439,10 @@
     <input type="hidden" id="User" value="@usreId">
     <input type="hidden" id="Slm">
     <script type="text/javascript">
+        $('.selectpicker').selectpicker({
+            noneResultsText: 'I found no results'
+
+        });
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         var userID = '@Request.RequestContext.HttpContext.Session["UserID"]';
         //open modal
@@ -444,8 +454,8 @@
             var getStock = _self.data('stock');
             var getEndprice = _self.data('endprice');
             var getCompany = _self.data('company');
-            var getCuscode = $("#condi2 option:selected").val();
-            var getCuscodeText = $('#condi2 option:selected').text();
+            var getCuscode = $("#cuscodSearchLast").val().replace(/,/g, "");
+            var getCuscodeText = $('#custextSearchLast').val().replace(/,/g, "");
             $("#getDataQty").val("");
             //check inactive customer
             if (getCuscode != "") {
@@ -668,6 +678,7 @@
                         $.each(data, function (key, value) {
                             select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
                         });
+                        $('.selectpicker').selectpicker('refresh');
                     }
                 });
 
@@ -756,7 +767,7 @@
                         $(data).each(function (index, item) {
                             select.append($("<option>").val(item.Code).text(item.Description));
                         });
-
+                        $('.selectpicker').selectpicker('refresh');
                     }
                 });
                 @*$.ajax({
@@ -777,7 +788,7 @@
 
                     }
                 });*@
-                if (dyk == 'Q2' || dyk == 'Q6' || dyk == 'Q5' || dyk == 'Q7' || dyk == 'Q8') {
+                @*if (dyk == 'Q2' || dyk == 'Q6' || dyk == 'Q5' || dyk == 'Q7' || dyk == 'Q8') {
                     $("#discus").css('display', 'block');
                     if (usertype == "6") {
                         $.ajax({
@@ -797,26 +808,35 @@
                     } else {
                         Getslm();
                     }
-                    if (dyk == "Q6") {
-                        $("#divSearchItem").css('display', 'block');
+                    //if (dyk == "Q6") {
+                    //    $("#divSearchItem").css('display', 'block');
 
-                    } else {
-                        $("#divSearchItem").css('display', 'none');
-                    }
+                    //} else {
+                    //    $("#divSearchItem").css('display', 'none');
+                    //}
                 } else {
-                    $("#discus").css('display', 'none'); $("#divSearchItem").css('display', 'none');
-                }
+                    //$("#discus").css('display', 'none'); $("#divSearchItem").css('display', 'none');
+                }*@
                 //
+                $("#txtSearchItem").val("");
                 if (dyk == "Q2") {
-                    $("#divStkgrp").css("display", "block");
                     $("#divCon1").css("display", "none");
                     $("#textCondi2").text("Condition 1");
                     $("#textCondi3").text("Condition 2");
-                } else {
+                    $("#divStkcod").css("display", "none");
+                    $("#divStkgrp").css("display", "block");
+                } else if (dyk == "Q6") {//เปิดช่อง stkcod
+                    $("#divStkcod").css("display", "block");
                     $("#divStkgrp").css("display", "none");
+                    $("#divCon1").css("display", "none");
+                    $("#textCondi2").text("Condition 1");
+                    $("#textCondi3").text("Condition 3");
+                } else {
                     $("#divCon1").css("display", "block");
                     $("#textCondi2").text("Condition 2");
                     $("#textCondi3").text("Condition 3");
+                    $("#divStkcod").css("display", "none");
+                    $("#divStkgrp").css("display", "block");
                 }
             });
             function Getslm() {
@@ -839,6 +859,7 @@
                         $.each(data, function (key, value) {
                             select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
                         });
+                        $('.selectpicker').selectpicker('refresh');
                     }
                 });
                 //condition2 get customer by sale
@@ -857,28 +878,37 @@
                         $.each(data, function (key, value) {
                             select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
                         });
+                        $('.selectpicker').selectpicker('refresh');
+
                     }
                 });
             }
             function GetStkgrp(sec) {
-                $.ajax({
-                    url: '@Url.Action("GetDataStkgrpBySec", "OrderingReport")',
-                    data: {
-                        sec: sec,
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        var select = $("#STKGRP_ID");
-                        select.children().remove();
-                        // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                        select.append($("<option>").val("").text("STKGRP"));
-                        $.each(data, function (key, value) {
-                            select.append('<option value=' + value.Code + '>' + value.Description + '</option>');
-                        });
-                    }
-                });
+                if (sec != "") {//sec ว่างจะไม่ดึง stkgrp
+                    $.ajax({
+                        url: '@Url.Action("GetDataStkgrpBySec", "OrderingReport")',
+                        data: {
+                            sec: sec,
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+                            var select = $("#STKGRP_ID");
+                            select.children().remove();
+                            select.append($("<option>").val("").text("STKGRP"));
+                            select.append($("<option>").val("").text("ALL"));
+                            $.each(data, function (key, value) {
+                                select.append('<option value=' + value.Code + '>' + value.Description + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    var select = $("#STKGRP_ID");
+                    select.children().remove();
+                    select.append($("<option>").val("").text("STKGRP"));
+                    select.append($("<option>").val("").text("ALL"));
+                }
             }
             //เลือก sale
             $('#Slm').change(function () {
@@ -888,11 +918,11 @@
             $('#condi3').change(function () {
                 var dyk = $('#dyk option:selected').val();
                 //ถ้าเลือกคำถามที่ Q2(เบอร์ที่ไม่เคยซื้อตามกลุ่ม) ให้ส่ง stkgrp ด้วย
-                if (dyk == "Q2") {
+                if (dyk == "Q6") {
+                    $("#divStkgrp").css("display", "none");
+                } else {
                     $("#divStkgrp").css("display", "block");
                     GetStkgrp($(this).val());
-                } else {
-                    $("#divStkgrp").css("display", "none");
                 }
             });
 
@@ -900,15 +930,14 @@
                 selectFirst: true,
                 autoFocus: true,
                 source: function (request, response) {
-
                     var param = {
                         Name: $('#txtSearchItem').val(),
                         Xcus: "",
                         XvalCompany: $('#Company').val()
-
                     };
                     // alert(param.XvalCompany);
                     if (param.XvalCompany == "") {
+                        $("#txtSearchItem").val("");
                         $("#textAlertWarning").empty();
                         $("#textAlertWarning").text("กรุณาเลือก Company");
                         $("#myModalWarning").modal(); return false;
@@ -924,7 +953,7 @@
                         dataFilter: function (data) { return data; },
                         success: function (data) {
                             //console.log(data.length
-                            //console.log(data);
+                            console.log(data);
                             response($.map(data.slice(0, 50), function (item) {
                                 return {
                                     value: item
@@ -937,9 +966,6 @@
                     });
                 },
                 select: function (event, ui) {
-
-
-
                     var val = ui.item.value;
                     if (val == "ค้นหาสินค้า" || val == "") {
                         $("#textAlertWarning").empty();
@@ -951,26 +977,20 @@
                     var split_StockCode = StockCode.split('|');
                     var stkitem = split_StockCode[0].trim();
                     //var StockCodedro = $("#StockCode_ID").val();
-
-
-
-
-
-
                     var SLMID = $("#Slm").val();
                     var COM = $("#Company").val();
                     var ItemSearch = $("#txtSearchItem").val().trim();
                     var Stock_Flag = Stock_Flag;
-
                 },
-                minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
+                minLength: 2
             });
-
-            $('#condi1').change(function () {
+            //condition1
+            @*$('#condi1').change(function () {
                 var dyk = $('#dyk').val();
-                var con1 = $('#condi1').val();
+                var con1 = $(this).val();//$('#condi1').val();
                 var con2 = $('#condi2').val();
                 var con3 = $('#condi3').val();
+                console.log("con1 = " + con1);
                 $.ajax({
                     url: '@Url.Action("GetCondition1", "OrderingReport")',
                     data: {
@@ -988,7 +1008,7 @@
                     }
                 });
                 // fnGet(dyk, con1, con2, con3)
-            });
+            });*@
             $('#condi2').change(function () {
                 var dyk = $('#dyk').val();
                 var con1 = $('#condi1').val();
@@ -997,6 +1017,7 @@
                 var con4 = $('#STKGRP_ID').val();
                 //fnGet(dyk, con1, con2, con3)
             });
+
             $('#condi3').change(function () {
                 var dyk = $('#dyk').val();
                 var con1 = $('#condi1').val();
@@ -1015,7 +1036,7 @@
                 var res = [];
                 var resitem = [];
                 //var MyIndexValue = $('#condi2 option:selected').val(); //condition 2 ลูกค้า
-                //var Valueitem = $('#txtSearchItem').val();
+                var valueitem = $('#txtSearchItem').val().trim();
                 //if (MyIndexValue !== "") {
                 //   // res = MyIndexValue.split("|");
                 //    res[0] =  $('.Customer').val();
@@ -1023,59 +1044,11 @@
                 //    res[0] = "0";
                 //}
                 ////alert(Valueitem);
-                //if (Valueitem !== "" && Valueitem !== undefined) {
-                //    resitem = Valueitem.split("|");
-                //} else {
-                //    resitem[0] = "0";
-                //}
-                //if (dyk == "Q6") {
-                //    if (res[0] == "0") {
-                //        con1 = "%";
-                //    } else {
-                //        con1 = res[0].trim();
-                //    }
-                //    if (resitem[0] == "0") {
-                //        con2 = "";
-                //    } else {
-                //        con2 = resitem[0].trim();
-                //    }
-                //} else {
-                //    con1 = $('#condi1').val();
-                //}
-
-                //if (dyk == "Q2") {
-                //    if (res[0] == "0") {
-                //        con2 = "%";
-                //    } else {
-                //        con2 = res[0].trim();
-                //    }
-                //} else if (dyk == "Q6") {
-                //    if (resitem[0] == "0") {
-                //        con2 = "";
-                //    } else {
-                //        con2 = resitem[0].trim();
-                //    }
-                //} else if (dyk == "Q5") {
-                //    if (res[0] == "0") {
-                //        con2 = "%";
-                //    } else {
-                //        con2 = res[0].trim();
-                //    }
-                //} else if (dyk == "Q7") {
-                //    if (res[0] == "0") {
-                //        con2 = "%";
-                //    } else {
-                //        con2 = res[0].trim();
-                //    }
-                //} else if (dyk == "Q8") {
-                //    if (res[0] == "0") {
-                //        con2 = "%";
-                //    } else {
-                //        con2 = res[0].trim();
-                //    }
-                //} else {
-                //    con2 = $('#condi2').val();
-                //}
+                if (valueitem !== "" && valueitem !== undefined) {
+                    resitem = valueitem.split("|");
+                } else {
+                    resitem[0] = "0";
+                }
                 if (dyk == "" || dyk == null) {
                     $("#textAlertWarning").empty();
                     $("#textAlertWarning").text("กรุณาเลือก Did you know");
@@ -1085,7 +1058,8 @@
                 //Q1(เบอร์มาใหม่)
                 //Q2(เบอร์ที่ไม่เคยซื้อแล้วยังไม่ถุกซื้อ)
                 //Q7(เบอร์ที่เคยซื้อแล้วยังไม่ถุกซื้อ)
-                if (dyk == "Q2") {
+                if (dyk == "Q2") { //condition 2 = dept ต้องเปลี่ยนเป็น customer
+                    getSearchLastCustomer("condi2");
                     con1 = con2;
                     con2 = con3;
                     con3 = con4;
@@ -1096,20 +1070,32 @@
                         $("#myModalWarning").modal();
                         return false;
                     }
-                    if (con2 == "" || con2 == null) {
+                    //if (con2 == "" || con2 == null) {
+                    //    $("#textAlertWarning").empty();
+                    //    $("#textAlertWarning").text("กรุณาเลือก Condition 2 (Section)");
+                    //    $("#myModalWarning").modal();
+                    //    return false;
+                    //}
+                } else if (dyk == "Q6") {
+                    getSearchLastCustomer("condi2");
+                    con1 = con2;
+                    con2 = resitem[0];
+                    con3 = con3;
+                    if (con1 == "" || con1 == null) {
                         $("#textAlertWarning").empty();
-                        $("#textAlertWarning").text("กรุณาเลือก Condition 2 (Section)");
+                        $("#textAlertWarning").text("กรุณาเลือก Condition 1 (Customer)");
                         $("#myModalWarning").modal();
                         return false;
                     }
-                    if (con3 == "" || con3 == null) {
+                    if (con2 == "" || con2 == null || con2 == "0") {
                         $("#textAlertWarning").empty();
-                        $("#textAlertWarning").text("กรุณาเลือก Stock group");
+                        $("#textAlertWarning").text("กรุณาเลือกกรอกรหัสสินค้า (Stock Code)");
                         $("#myModalWarning").modal();
                         return false;
                     }
                 } else { //เคสปกติ
-                    con4 = "";
+                    getSearchLastCustomer("condi2");
+                    con4 = con4;
                     if (con1 == "" || con1 == null) {
                         $("#textAlertWarning").empty();
                         $("#textAlertWarning").text("กรุณาเลือก Condition 1");
@@ -1122,12 +1108,12 @@
                         $("#myModalWarning").modal();
                         return false;
                     }
-                    if (con3 == "" || con3 == null) {
-                        $("#textAlertWarning").empty();
-                        $("#textAlertWarning").text("กรุณาเลือก Condition 3 (Section)");
-                        $("#myModalWarning").modal();
-                        return false;
-                    }
+                    //if (con3 == "" || con3 == null) {
+                    //    $("#textAlertWarning").empty();
+                    //    $("#textAlertWarning").text("กรุณาเลือก Condition 3 (Section)");
+                    //    $("#myModalWarning").modal();
+                    //    return false;
+                    //}
                 }
 
                 $("#searchDid").text(dyk + " " + dykText);
@@ -1146,6 +1132,18 @@
                 //console.log(con2);
             });
 
+            function getSearchLastCustomer(idCuscod) {
+                var getCuscode = $("#" + idCuscod + " option:selected").val();
+                var getCuscodeText = $("#" + idCuscod + " option:selected").text();
+                console.log("getCuscode = " + getCuscode + " getCuscodeText = " + getCuscodeText);
+                if (getCuscode != "") {
+                    $("#cuscodSearchLast").val(getCuscode);
+                }
+                if (getCuscodeText != "") {
+                    $("#custextSearchLast").val(getCuscodeText);
+                }
+            }
+
             function fnGet(dyk, con1, con2, con3, con4) {
                 waitingDialog.show();
                 var User = $('#User').val();
@@ -1153,9 +1151,9 @@
                     url: '@Url.Action("GetdataDidYouKnowL", "OrderingReport")',
                     data: {
                         dyk: dyk,
-                        con1: con1,
-                        con2: con2,
-                        con3: con3,
+                        con1: con1.replace(/(^[\s]+|[\s]+$)/g, ''),
+                        con2: con2.replace(/(^[\s]+|[\s]+$)/g, ''),
+                        con3: con3.replace(/(^[\s]+|[\s]+$)/g, ''),
                         con4: con4,
                         User: User
                     },
@@ -1181,6 +1179,7 @@
                                         SubmithtmlPage += '<td align="left">' + data[i].val.Description + '</td>';
                                         SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.Stock) + '</td>';
                                         SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.SalesPrice) + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.EndPrice) + '</td>';
                                         SubmithtmlPage += '</tr>';
                                         $('#tblOrderDetail > tbody:last-child').append(SubmithtmlPage);
                                     } else if (com == "") {
@@ -1192,6 +1191,7 @@
                                         SubmithtmlPage += '<td align="left">' + data[i].val.Description + '</td>';
                                         SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.Stock) + '</td>';
                                         SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.SalesPrice) + '</td>';
+                                        SubmithtmlPage += '<td align="right">' + commaSeparateNumber(data[i].val.EndPrice) + '</td>';
                                         SubmithtmlPage += '</tr>';
                                         $('#tblOrderDetail > tbody:last-child').append(SubmithtmlPage);
                                     }
@@ -1205,10 +1205,7 @@
                     }
                 });
             }
-            function GetCusoutput(param) {
 
-
-            }
             $(".Customer").autocomplete({
                 selectFirst: true,
                 autoFocus: true,

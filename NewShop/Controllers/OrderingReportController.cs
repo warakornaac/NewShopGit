@@ -20,7 +20,7 @@ namespace NewShop.Controllers
         //}
         //
         // GET: /OrderingReport/
-       // MobileOrderEntities db = new MobileOrderEntities();
+        // MobileOrderEntities db = new MobileOrderEntities();
         public ActionResult Index(string slm, string encodedCus)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -56,7 +56,7 @@ namespace NewShop.Controllers
                     byte[] dataCus = System.Convert.FromBase64String(base64Cus);
                     base64CusDecoded = System.Text.ASCIIEncoding.ASCII.GetString(dataCus);
                 }
-              
+
                 ViewBag.UserId = usre;
                 // ViewBag.UserInsert = GroupUserInsert;
                 if (this.Session["UserType"] == null)
@@ -66,7 +66,7 @@ namespace NewShop.Controllers
                 }
                 else
                 {
-                    getusertype =  Session["UserType"].ToString();
+                    getusertype = Session["UserType"].ToString();
                 }
                 //var usertype = db.UsrTbl.Where(c => c.UsrID == usre).ToArray();
                 //if (usertype.Length == 1)
@@ -278,7 +278,7 @@ namespace NewShop.Controllers
                 Model.Company = rev_["Company"].ToString();
                 Model.STKCOD = rev_["STKCOD"].ToString();
                 Model.Description = rev_["Description"].ToString();
-               // Model.Description = "";
+                // Model.Description = "";
                 Model.Stock = rev_["Stock"].ToString();
                 Model.SalesPrice = rev_["SalesPrice"].ToString();
                 Model.EndPrice = rev_["End Price"].ToString();
