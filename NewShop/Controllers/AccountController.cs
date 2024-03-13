@@ -92,7 +92,7 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand("select * From UsrTbl_line where UserIdLine =N'" + userId, Connection);
+                SqlCommand cmd = new SqlCommand("select * From UsrTbl_line where UserIdLine =N'" + userId + "'", Connection);
                 SqlDataReader rev = cmd.ExecuteReader();
                 while (rev.Read())
                 {
