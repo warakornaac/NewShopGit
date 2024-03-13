@@ -117,7 +117,7 @@
                             dataType: "JSON",
                             success: function (result) {
                                 if (result.message == "Y") {
-                                    console.log("GetDataLoginExternal Success!!!" );
+                                    console.log("GetDataLoginExternal Success!!!");
                                     console.log("userId = " + result.UserId);
                                     console.log("UserType = " + result.UserType);
                                     console.log("ID = " + result.ID);
@@ -127,7 +127,7 @@
                                     //พาไปหน้า
                                     if (result.page != null && result.page != '') {
                                         if (result.page == "amount") { //หน้ายอดซื้อ
-                                           //alert("amount");
+                                            //alert("amount");
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
                                         } else if (page == "promotion") {//หน้าโปรโมชั่น
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
@@ -140,6 +140,9 @@
                                         //window.location.assign("@domainName" + "/MobileCatalog_Test");
                                         alert("Message Is " + result.message);
                                     }
+                                }
+                                else {
+                                    alert("Message Is " + result.message);
                                 }
                             },
                             error: function (ex) {
