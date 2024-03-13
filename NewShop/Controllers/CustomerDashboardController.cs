@@ -13,10 +13,10 @@ using NewShop.Models;
 
 namespace NewShop.Controllers
 {
-    public class CheckStatusController : Controller
+    public class CustomerDashboardController : Controller
     {
         //
-        // GET: /SrcSaleCoCrmStatus/ to CheckStatus
+        // GET: /SrcSaleCoCrmStatus/ to CheckStatus / CustomerDashboard
 
         public ActionResult Index()
         {

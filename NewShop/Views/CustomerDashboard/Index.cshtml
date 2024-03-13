@@ -437,6 +437,7 @@
                                         <div class="card-header">
                                             <div class="col-sm-6 text-left">
                                                 <h4>ยอดซื้อรวม</h4>
+                                                <button type="button" onclick="clearChartsamt();">Clear</button>
                                             </div>
                                         </div>
 
@@ -958,6 +959,7 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]';
+        console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
         var chartProfileVisit;

@@ -155,7 +155,7 @@
     <Compile Include="Controllers\SeleScrCustomerController.cs" />
     <Compile Include="Controllers\ShoppinglistController.cs" />
     <Compile Include="Controllers\SrcSaleCoCrmController.cs" />
-    <Compile Include="Controllers\CheckStatusController.cs" />
+    <Compile Include="Controllers\CustomerDashboardController.cs" />
     <Compile Include="Controllers\StatuslistController.cs" />
     <Compile Include="Controllers\UploadsExcelController.cs" />
     <Compile Include="MobileOrderDataSet.Designer.cs">
@@ -7833,9 +7833,9 @@
     <Content Include="Views\Cart\Index_back.cshtml" />
     <Content Include="Views\OrderingReport\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\CheckStatus\Index.cshtml" />
-    <Content Include="Views\CheckStatus\Promotion.cshtml" />
-    <Content Include="Views\CheckStatus\PendingDeliver.cshtml" />
+    <Content Include="Views\CustomerDashboard\Index.cshtml" />
+    <Content Include="Views\CustomerDashboard\Promotion.cshtml" />
+    <Content Include="Views\CustomerDashboard\PendingDeliver.cshtml" />
     <Content Include="Views\Account\CheckLoginExternal.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
