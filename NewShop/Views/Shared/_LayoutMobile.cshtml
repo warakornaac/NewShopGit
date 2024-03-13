@@ -140,10 +140,11 @@
                     <li class="nav-item dropdown messages-menu d-flex align-items-center">
                         @if (Session["UserType"].ToString() != "6")
                         {
-                            <span style=" padding: 12px 0px 0px;color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>}
+                            <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                        }
                         else if (Session["UserType"].ToString() == "6")
                         {
-                            <span style=" padding: 12px 0px 0px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]  </span>
+                            <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
                         }
                         @*@if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
                             {

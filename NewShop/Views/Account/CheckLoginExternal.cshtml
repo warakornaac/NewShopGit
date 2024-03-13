@@ -128,12 +128,12 @@
                                     if (result.page != null && result.page != '') {
                                         if (result.page == "amount") { //หน้ายอดซื้อ
                                             alert("amount");
-                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/index");
+                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
                                         } else if (page == "promotion") {//หน้าโปรโมชั่น
-                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/Promotion");
+                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
                                         }
                                         else if (page == "PendingDelivery") {
-                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
+                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                                         }
                                     } else {//ไม่มีการลงทะเบียนลูกค้าไว้
                                        // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
@@ -179,6 +179,9 @@
                     window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/index");
                 } else if (page == "promotion") {//หน้าโปรโมชั่น
                     window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/Promotion");
+                }
+                else if (page == "PendingDelivery") {
+
                 }
             } else { //หน้าสินค้าค้างส่ง
                // window.location.assign("https://mst.aac.co.th/e-Warranty_Test");

@@ -645,7 +645,7 @@
                                             <table>
                                                 <tr>
                                                     <td class="pr-2 text-right">
-                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> AAC :</div>
+                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> ยอดซื้อที่บริษัท AAC :</div>
                                                     </td>
                                                     <td>
                                                         <div id="amtmtd_aac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> AAC :</div>
@@ -653,7 +653,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="pr-2 text-right">
-                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold;"> TAC :</div>
+                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold;">ยอดซื้อที่บริษัท TAC :</div>
                                                     </td>
                                                     <td>
                                                         <div id="amtmtd_tac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
@@ -661,7 +661,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="pr-2 text-right">
-                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: green; font-weight: bold;"> ALL :</div>
+                                                        <div style="font-family: Lato, sans-serif; font-size: 14px; color: green; font-weight: bold;">ยอดซื้อรวมทุกบริษัท :</div>
                                                     </td>
                                                     <td>
                                                         <div id="amtmtd_all_below" style="font-family: Lato,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>
@@ -959,6 +959,7 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]';
+        //var cuscod = "";
         console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
