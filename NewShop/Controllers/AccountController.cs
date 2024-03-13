@@ -102,6 +102,7 @@ namespace NewShop.Controllers
                         this.Session["UserID"] = rev["UsrID"].ToString();
                         this.Session["UserName"] = rev["DisplayName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
+                        this.Session["CusCod"] = rev["CusCod"].ToString();
                         //get sesssion
                         string sessionId = string.Empty;
                         string httpCookie = string.Empty;

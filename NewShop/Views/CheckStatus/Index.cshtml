@@ -957,12 +957,18 @@
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
-        var cuscod;
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]';
         var myChartM;
         var myChartY;
         var chartProfileVisit;
         var chartdefault = $("#cushid").val();
-        if (chartdefault == "") {
+        //if (chartdefault == "") {
+        //    clearChartsamt();
+        //}
+        if (cuscod != "") {
+            getcuschamt(cuscod);
+        }
+        else {
             clearChartsamt();
         }
 
