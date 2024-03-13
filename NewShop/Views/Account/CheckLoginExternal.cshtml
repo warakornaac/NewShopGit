@@ -127,7 +127,7 @@
                                     //พาไปหน้า
                                     if (result.page != null && result.page != '') {
                                         if (result.page == "amount") { //หน้ายอดซื้อ
-                                            alert("amount");
+                                           //alert("amount");
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
                                         } else if (page == "promotion") {//หน้าโปรโมชั่น
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
@@ -136,7 +136,8 @@
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                                         }
                                     } else {//ไม่มีการลงทะเบียนลูกค้าไว้
-                                       // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
+                                        // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
+                                       window.location.assign("@domainName" + "/MobileCatalog_Test");
                                     }
                                 }
                             },
@@ -148,7 +149,7 @@
                                 //LoadingHide();
                             }
                         }).fail(function (error) {
-
+                            console.log("Error : " + error)
                         });
 
                     } else { //ไมเป็นสมาชิก
