@@ -117,11 +117,13 @@
                             dataType: "JSON",
                             success: function (result) {
                                 if (result.message == "Y") {
+                                    console.log("GetDataLoginExternal Success!!!" );
                                     console.log("userId = " + result.UserId);
                                     console.log("UserType = " + result.UserType);
                                     console.log("ID = " + result.ID);
                                     console.log("Page = " + result.page);
-                                    //return false;
+
+                                    return false;
                                     //พาไปหน้า
                                     if (result.page != null && result.page != '') {
                                         if (result.page == "amount") { //หน้ายอดซื้อ

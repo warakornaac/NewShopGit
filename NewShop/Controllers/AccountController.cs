@@ -100,6 +100,7 @@ namespace NewShop.Controllers
                     {
                         message = "Y";
                         this.Session["UserID"] = rev["UsrID"].ToString();
+                        this.Session["UserName"] = rev["DisplayName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         //get sesssion
                         string sessionId = string.Empty;
