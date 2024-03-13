@@ -79,7 +79,7 @@
             })
 
         }
-        @*function getDataLoginExternal(pictureUrl, userId, displayName, email, page) {
+        function getDataLoginExternal(pictureUrl, userId, displayName, email, page) {
             var userId = userId || "";
             var displayName = displayName || "";
             var getDecodedIDToken = email || "";
@@ -125,12 +125,16 @@
                                     if (result.page != null && result.page != '') {
                                         if (result.page == "amount") { //หน้ายอดซื้อ
                                             alert("amount");
-                                           // window.location.assign("@domainName" + "/e-Warranty_test/Warrantyregister/Index");
+                                            // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/index");
                                         } else if (page == "promotion") {//หน้าโปรโมชั่น
-                                            //window.location.assign("@domainName" + "/e-Warranty_test/Inquiry/Index");
+                                            //window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/Promotion");
                                         }
-                                    } else {//หน้าสินค้าค้างส่ง
-                                       // window.location.assign("@domainName" + "/e-Warranty_test/Account/Register");
+                                        else if (page == "PendingDelivery") {
+                                       // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
+
+                                        }
+                                    } else {//ถ้าไม่มีการลงทะเบียนไว้
+                                       // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
                                     }
                                 }
                             },
@@ -159,7 +163,7 @@
             }).fail(function (error) {
 
             });
-        }*@
+        }
 
         //get page
         function getPageLocation() {
@@ -169,9 +173,9 @@
             document.getElementById("page").innerHTML = '<b>Page:</b> ' + page;
             if (page != null && page != '') {
                 if (page == "amount") { //หน้ายอดซื้อ
-                    //window.location.assign("https://mst.aac.co.th/e-Warranty_Test/Warrantyregister/Index");
+                    //window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/index");
                 } else if (page == "promotion") {//หน้าโปรโมชั่น
-                   // window.location.assign("https://mst.aac.co.th/e-Warranty_Test/Inquiry/Index");
+                   // window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/Promotion");
                 }
             } else { //หน้าสินค้าค้างส่ง
                // window.location.assign("https://mst.aac.co.th/e-Warranty_Test");
@@ -187,15 +191,16 @@
                 document.getElementById("statusMessage").innerHTML =  profile.statusMessage;
                 document.getElementById("getDecodedIDToken").innerHTML = liff.getDecodedIDToken().email;
 
-                $("body").empty();
-                $("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div style="padding: 50px; font-size: 18px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <br> LOADING... </div> </div> </div>')
+                //$("body").empty();
+                //$("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div style="padding: 50px; font-size: 18px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <br> LOADING... </div> </div> </div>')
 
                 setTimeout(() => {
                     const queryString = decodeURIComponent(window.location.search);
                     const params = new URLSearchParams(queryString);
                     const page = params.get('page');
                     return false;
-                   // getDataLoginExternal(profile.pictureUrl, profile.userId, profile.displayName, liff.getDecodedIDToken().email, page);
+                    //return false;
+                  // getDataLoginExternal(profile.pictureUrl, profile.userId, profile.displayName, liff.getDecodedIDToken().email, page);
                 }, 2000);
 
             }).catch(err => console.error(err));
