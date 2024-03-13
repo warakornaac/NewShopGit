@@ -121,7 +121,7 @@ namespace NewShop.Controllers
                             this.Session["ID"] = "775.333";
                         }
                         //set session id
-                        message = "Y";
+
                         var command = new SqlCommand("P_logSingin_customer_mobileStatus", Connection);
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@UsrID", userId);
@@ -135,6 +135,7 @@ namespace NewShop.Controllers
                 rev.Dispose();
                 cmd.Dispose();
                 Connection.Close();
+                message = "Y";
             }
             catch (Exception ex)
             {
