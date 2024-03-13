@@ -2,7 +2,7 @@
     ViewBag.Title = "CheckLoginExternal";
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 }
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -139,6 +139,7 @@
                             },
                             error: function (ex) {
                                 //notify(ex, 'danger');
+                                console.log(ex);
                             },
                             complete: function (res) {
                                 //LoadingHide();
