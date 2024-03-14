@@ -150,6 +150,13 @@
 
 
     <div class="container pt-3">
+        <div>
+            <input type="hidden" id="cushid" />
+            <input type="hidden" id="cusname" />
+            <input type="hidden" id="slmhid" />
+            <input type="hidden" id="nocusses" />
+            <input class="note-desc" id="cussend" type="hidden">
+        </div>
         <div class="container">
             <h3>เพิ่มบัญชีลูกค้าใช้งานระบบไลน์</h3>
             <div class="container border">
@@ -158,7 +165,33 @@
                 </label>
                 <form method="post" id="register_tab" action="" onsubmit="return regisUser();">
                     <div class="row">
-
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-3">
+                                    Sale<span class="red-star">*</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group ">
+                                        <select class="form-control custom-select" id="selslm">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-3">
+                                    Cuscode<span class="red-star">*</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div>
+                                        <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0" data-name="0"></option></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-md-3">
@@ -172,18 +205,6 @@
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-md-3">
-                                    Cuscode<span class="red-star">*</span>
-                                </label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="r_cuscod" name="r_cuscod" required />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-md-3">
                                     Telephone
                                 </label>
                                 <div class="col-md-9">
@@ -191,17 +212,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-md-3">
-                                    LineID**
-                                </label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="r_line" name="r_line" />
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
                     <div class="row">
                         <div class="co-6">
                             <div class="form-group row">
@@ -220,7 +232,9 @@
                         </div>
                     </div>
                 </form>
+
             </div>
+            @*<button type="button" class="btn btn-default" onclick="regisUser();">check</button>*@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -228,13 +242,22 @@
         function regisUser() {
             var email = $('#r_email').val();
             var tel = $('#r_phone').val();
-            var line = $('#r_line').val();
-            var cuscod = $('#r_cuscod').val();
-            if (cuscod.trim() == "") {
-                alert("Enter Customer Code please!!!");
+            var select = $('#selcus option:selected');
+            var cuscod = select.val();
+            var cusname = select.data("name");
+            if (cuscod.trim() == "0") {
+                alert("select Customer Code please!!!");
+                return false;
+            }
+            else if (cuscod.trim() == "") {
+                lert("select Customer Code please!!!");
                 return false;
             }
             else {
+                console.log("name : " + cuscod);
+                console.log("code : " + cusname);
+               // alert("cuscode =" + cuscod + " name =" + cusname);
+               // return false;
                // alert("Register Success !!!");
                 $.ajax({
                     type: 'POST',
@@ -243,8 +266,8 @@
                     data: JSON.stringify({
                         email: email,
                         tel: tel,
-                        line: line,
                         cuscos: cuscod,
+                        cusname: cusname,
                         user: '@Session["UserID"]'
                     }),
                     dataType: 'json',
@@ -257,7 +280,7 @@
                     success: function (result) {
                         if (result.status == "success") {
                             alert("Customer registered!!!");
-                            //window.location.assign("@domainName" + "/CheckStatus/index");
+
                         }
                     },
                     error: function (ex) {
@@ -279,6 +302,1003 @@
                 });
             }
 
+        }
+    </script>
+    <script type="text/javascript">
+
+        var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]';
+
+        function checkPrivilege(userid, cuscod) {
+            $.ajax({
+                url: '@Url.Action("GetdataPrivilege", "DataCenter")',
+                data: {
+                    UsrID: userid,
+                    cuscod: cuscod
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var splitstring = data.StrStstuslogin;
+                    //console.log(splitstring);
+                    //let text = splitstring;
+                    //const myArray = text.split("|");
+                    //let mysession = myArray[1];
+                    //let mystatus = myArray[0];
+                    // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
+                    if (splitstring=="1") {
+                        $("#texterror").empty();
+                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
+                        $("#myModal").modal();
+                        return false;
+
+                    }
+                }
+            });
+
+        }
+
+
+        //var cuscod = "";
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        //window.onload = function () {
+        //    var script = document.createElement("script");
+        //    script.type = "text/javascript";
+        //    script.src = "https://api.ipify.org?format=jsonp&callback=DisplayIP";
+        //    document.getElementsByTagName("head")[0].appendChild(script);
+        //};
+
+        $(document).ready(function () {
+            $(document).on("click", "#myModal", function () {
+                if (usertype == "6") {
+                    $("#myModal").modal({ backdrop: "static" });
+                }
+            });
+
+            chkcustomer();
+        });
+
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+
+        $("#myInput").on("keyup", function () {
+
+            var value = $(this).val().toLowerCase();
+            $(".dropdown-menu li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        // $('#selcus').selectpicker();
+        $(".dropdown-menu").on("click", ".searchterm", function (event) {
+            var _val = $(this).attr('data-input');
+            //alert(_val)
+            $('#selcus').val(_val);
+            Cusdetail()
+        });
+
+        $('#selslm').change(function () {
+            var SLM = $(this).val()
+            var SLMt = $("#selslm option:selected").text();
+            var cuskey = "";
+            cuskey = $("#nocusses").val();
+            var cusel = $("#cushid").val();
+            if (cuskey == "") {
+                cuskey = cusel;
+            }
+            if (SLM != "ALL") {
+
+            } else {
+                window.location.replace("../Account/Register");
+            }
+
+            $("#cus").text("");
+            $("#addcus").text("");
+            $("#cushid").val("");
+
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
+                    select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+                    $.each(data, function (key, value) {
+                        select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                        //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM +' >' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                    $(".caret").css("display", "none");
+                }
+            });
+
+        });
+
+        function datacus(slmco) {
+            // var SLM = $('#selslm').val();
+
+            var SLM = slmco;
+            var SLMt = $("#selslm option:selected").text();
+
+            $("#selslm").val(SLM);
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
+                    select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+                    $.each(data, function (key, value) {
+                        select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                        //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                        //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                    $(".caret").css("display", "none");
+                }
+            });
+
+        }
+
+        function showalr(cusname) {
+            $("#textAlertWarning").empty();
+            $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+            $("#myModalWarning").modal();
+        }
+        function checkcustomerinactive(cuscod) {
+            var SLMt = $("#selslm option:selected").text();
+            var typin;
+            var retval = [];
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                async: false, //IGNORED!!
+                success: function (data) {
+                    // //console.log(data);
+                    typin = data[0].INACTIVE;
+                    block = data[0].BLOCKED;
+                    //alert(data[0].SLMCOD)
+                    $("#selslm").val(data[0].SLMCOD);
+                    if (usertype == "6") {
+
+
+                    } else {
+                        $.ajax({
+                            url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                            data: {
+                                SLXX: data[0].SLMCOD,
+                                SLMNAME: ""
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                //console.log(data);
+                                var select = $("#selcus");
+                                select.children().remove();
+                                select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("ลูกค้าทั้งหมดของ " + SLMt));
+                                $.each(data, function (key, value) {
+                                    select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                                    //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                                    //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
+                                });
+                                $('#selcus').val(data[0].CUSCOD);
+                                $('.selectpicker').selectpicker('refresh');
+                                $(".caret").css("display", "none");
+                            }
+                        });
+                    }
+                    if (typin == "Y") {
+                        if (block == "0") {
+                            //$("#textAlertWarning").empty();
+                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            //$("#myModalWarning").modal();
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
+
+                            $("#addcus").text("");
+                            $("#crlicusaac").text("");
+                            $("#crlicustac").text("");
+                            $("#crbarcusaac").text("");
+                            $("#crbarcustac").text("");
+                            $("#crlicusaacday").text("");
+                            $("#crlicustacday").text("");
+                            $("#crlicusrating").text("");
+
+                            $("#selslm").val(data[0].SLMCOD);
+                            //$("#selslm").val("");
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#nocusses").val(data[0].CUSCOD);//master key customer
+
+
+                            return retval = ["1", data[0].CUSNAM];
+                        } else {
+                            //alert("yy")
+                            //$("#textAlertWarning").empty();
+                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            //$("#myModalWarning").modal();
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+
+                            if (usertype == "6") {
+                                if (usrclmstaff == "1") {
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crbarcusaac").text("xxxx");
+                                    $("#crbarcustac").text("xxxx");
+                                    $("#crlicusaacday").text("xxxx");
+                                    $("#crlicustacday").text("xxxx");
+                                    $("#crlicusrating").text("xxxx");
+
+                                } else {
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#divrating").css("display", "");
+                                    $("#crlicusrating").text(data[0].RATING);
+                                }
+                            } else {
+                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                $("#divrating").css("display", "");
+                                $("#crlicusrating").text(data[0].RATING);
+                            }
+
+                            $("#selslm").val(data[0].SLMCOD);
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#nocusses").val(data[0].CUSCOD);//master key customer
+                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                            return retval = ["1", data[0].CUSNAM];
+                        }
+
+                    } else {
+                        //alert("zz")
+                        //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                        if (block == "1") {
+                            //$("#textAlertWarning").empty();
+                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            //$("#myModalWarning").modal();
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                            if (usertype == "6") {
+                                if (usrclmstaff == "1") {
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crbarcusaac").text("xxxx");
+                                    $("#crbarcustac").text("xxxx");
+                                    $("#crlicusaacday").text("xxxx");
+                                    $("#crlicustacday").text("xxxx");
+                                    $("#crlicusrating").text("xxxx");
+
+                                } else {
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#divrating").css("display", "");
+                                    $("#crlicusrating").text(data[0].RATING);
+                                }
+                            } else {
+                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                $("#divrating").css("display", "");
+                                $("#crlicusrating").text(data[0].RATING);
+                            }
+
+                            $("#selslm").val(data[0].SLMCOD);
+
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#nocusses").val(data[0].CUSCOD);//master key customer
+                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                            return retval = ["1", data[0].CUSNAM];
+                        }
+                        else {
+                            //alert("aa")
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                            if (usertype == "6") {
+                                if (usrclmstaff == "1") {
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crbarcusaac").text("xxxx");
+                                    $("#crbarcustac").text("xxxx");
+                                    $("#crlicusaacday").text("xxxx");
+                                    $("#crlicustacday").text("xxxx");
+                                    $("#crlicusrating").text("xxxx");
+
+                                } else {
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#divrating").css("display", "");
+                                    $("#crlicusrating").text(data[0].RATING);
+                                }
+                            } else {
+                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                $("#divrating").css("display", "");
+                                $("#crlicusrating").text(data[0].RATING);
+                            }
+
+                            $("#cushid").val(data[0].CUSCOD);
+                            $("#selslm").val(data[0].SLMCOD);
+
+                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                            $("#nocusses").val(data[0].CUSCOD);//master key customer
+                            getCreditcuskey(cuscod)
+                            //getcuschamt(data[0].CUSCOD);
+                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                            return retval = ["2", data[0].CUSNAM];
+                        }
+                    }
+
+                },
+                async: false
+
+            });
+            return retval;
+        }
+        function getCreditcuskey(cusel) {
+            $.ajax({
+                url: '@Url.Action("GetdCustomerCredit", "DataCenter")',
+                data: {
+                    cusel: cusel
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    //APS//
+                    if (usertype == "6") {
+                        if (usrclmstaff == "1") {
+                            $("#crlicusaac").text("xxxx");
+                            $("#crlicustac").text("xxxx");
+
+                        } else {
+                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));;
+                        }
+                    } else {
+                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                    }
+                }
+            });
+        }
+
+        $('#selcus').change(function () {
+            var cusel = $("#selcus").val();
+            var Slm = $("#selslm").val();
+
+
+            var selcusoption = $("#selcus option:selected").text();
+            //var cusold = cuscod;
+            var cusold = $("#nocusses").val();
+
+            if (cusel == "0") {
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการลงทะเบียน");
+                $("#myModalWarning").modal();
+                return false;
+            } else if (cusel != "ALL") {
+                var typin;
+                var block;
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cusel
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        typin = data[0].INACTIVE;
+                        block = data[0].BLOCKED;
+                        //alert(block)
+                        if (typin == "Y") {
+                            if (block == "0") {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text("");
+                                $("#crlicusaac").text("");
+                                $("#crlicustac").text("");
+                                $("#crbarcusaac").text("");
+                                $("#crbarcustac").text("");
+                                $("#crlicusaacday").text("");
+                                $("#crlicustacday").text("");
+                                $("#crlicusrating").text("");
+
+                                $("#selslm").val(data[0].SLMCOD);
+
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);//master key customer
+                                return false;
+                            } else {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text("");
+                                $("#crlicusaac").text("");
+                                $("#crlicustac").text("");
+                                $("#crbarcusaac").text("");
+                                $("#crbarcustac").text("");
+                                $("#crlicusaacday").text("");
+                                $("#crlicustacday").text("");
+                                $("#crlicusrating").text("");
+
+                                $("#selslm").val(data[0].SLMCOD);
+
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);//master key customer
+                                return false;
+                            }
+
+                        } else {
+                            //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                            if (block == "1") {
+                                $("#textAlertWarning").empty();
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#myModalWarning").modal();
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text("");
+                                $("#crlicusaac").text("");
+                                $("#crlicustac").text("");
+                                $("#crbarcusaac").text("");
+                                $("#crbarcustac").text("");
+                                $("#crlicusaacday").text("");
+                                $("#crlicustacday").text("");
+                                $("#crlicusrating").text("");
+
+                                $("#selslm").val(data[0].SLMCOD);
+
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);//master key customer
+                                return false;
+                            }
+                            else {
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+
+                                if (usertype == "6") {
+                                    if (usrclmstaff == "1") {
+                                        $("#crlicusaac").text("xxxx");
+                                        $("#crlicustac").text("xxxx");
+                                        $("#crlicusaac").text("xxxx");
+                                        $("#crlicustac").text("xxxx");
+                                        $("#crbarcusaac").text("xxxx");
+                                        $("#crbarcustac").text("xxxx");
+                                        $("#crlicusaacday").text("xxxx");
+                                        $("#crlicustacday").text("xxxx");
+                                        $("#crlicusrating").text("xxxx");
+
+                                    } else {
+                                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                        $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                        $("#crlicustacday").text(data[0].TACPAYTRM);
+                                        $("#divrating").css("display", "");
+                                        $("#crlicusrating").text(data[0].RATING);
+                                    }
+                                } else {
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#divrating").css("display", "");
+                                    $("#crlicusrating").text(data[0].RATING);
+                                }
+
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#selslm").val(data[0].SLMCOD);
+
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);//master key customer
+
+                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                                getCreditcuskey(cusel);
+                               // getcuschamt(data[0].CUSCOD);
+                            }
+                        }
+
+                    }
+                });
+            } else if (cusel == "ALL") {
+
+                $("#cus").text("");
+                $("#addcus").text("");
+                $("#crlicusaac").text("");
+                $("#crlicustac").text("");
+                $("#crbarcusaac").text("");
+                $("#crbarcustac").text("");
+                $("#crlicusaacday").text("");
+                $("#crlicustacday").text("");
+                $("#crlicusrating").text("");
+
+                $('#cus').attr('title', "");
+                //$("#selslm").val(data[0].SLMCOD);
+
+                $("#cushid").val("");
+                $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
+                $("#nocusses").val("");//master key customer
+
+            }
+           // alert(cusel)
+
+        });
+        function getslmandcus() {
+            $.ajax({
+                url: '@Url.Action("Getdateslm", "DataCenter")',
+                data: {
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+
+                    var select = $("#selslm");
+                    select.children().remove();
+                    //if (usertype == "1") {
+                    //    select.append($("<option>").val("ALL").text("ALL Sales Man"));
+                    //}
+                    select.append($("<option>").val("0").text("เลือก Sale"));
+
+                    $(data).each(function (index, item) {
+                        select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                    });
+                }
+            });
+        }
+        $(document).on("click", "#btnnot", function () {
+            //chkcustomer()
+            getslmandcus(); //get salesman
+            var cusel = $("#cushid").val();
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cusel
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    $("#selslm").val(data[0].SLMCOD);
+                    chkcustomer()
+                }
+            });
+        });
+        $(document).on("click", "#btnok", function () {
+            // var cusel = $("#nocusses").val();
+            var cusel = $(this).attr('cusdata');
+            var retval = checkcustomerinactive(item)
+
+            if (retval[0] == "1") {
+                showalr(retval[1])
+                return false;
+            } else {
+                $.ajax({
+                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                    data: {
+                        cusel: cusel
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data);
+                        $("#smallModal").modal('hide');
+
+                        // $("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                        $("#crlicusaacday").text(data[0].AACPAYTRM);
+                        $("#crlicustacday").text(data[0].TACPAYTRM);
+                        $("#divrating").css("display", "");
+                        $("#crlicusrating").text(data[0].RATING);
+                        $("#cushid").val(data[0].CUSCOD);
+                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                        $("#nocusses").val(data[0].CUSCOD);//master key customer
+                        $("#selslm").val(data[0].SLMCOD);
+                        datacus(data[0].SLMCOD);                    }
+                });
+            }
+            // }
+
+            //});
+
+
+        });
+        function chkcustomer() {
+
+            if (usertype != "6") {
+
+                if (usertype == "5") {
+
+                } else {
+                    if (cuscod == "") {
+
+                        $.ajax({
+                            url: '@Url.Action("Getdateslm", "DataCenter")',
+                            data: {
+
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+
+                                var select = $("#selslm");
+                                select.children().remove();
+                                //if (usertype == "1") {//sales co
+                                //    select.append($("<option>").val("ALL").text("ALL Sales Man"));
+                                //}
+                                select.append($("<option>").val("0").text("เลือก Sale"));
+                                $(data).each(function (index, item) {
+                                    select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
+                                });
+                                if (usertype == "2") { //sales
+                                    getcus();
+                                    var slmcod = $("#selslm").val();
+                                    //Getdatacartslm(slmcod)
+
+                                }
+                            }
+                        });
+                    } else {
+
+                        getslmandcus()
+                        $.ajax({
+                            url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                            data: {
+                                cusel: cuscod
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (data) {
+                                //console.log(data);
+                                // $("#cus").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+
+
+
+
+                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                $("#divrating").css("display", "");
+                                $("#crlicusrating").text(data[0].RATING);
+
+                                $("#cushid").val(data[0].CUSCOD);
+                                //$("#selslm").prepend(new Option(data[0].SLMCOD));
+                                //$("#selslm").prepend(data[0].SLMCOD)
+                                // $("#selslm").val(data[0].SLMCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);
+
+                                //$("#slmhid").val(data[0].SLMCOD);
+                                //$('#selslm option[value="' + data[0].SLMCOD + '"]').prop("selected", true);
+                                //$("#selslm").val(data[0].SLMCOD).change();
+                                datacus(data[0].SLMCOD);  ///auto get customer to option select customer
+                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
+                              //  getcuschamt(data[0].CUSCOD);
+                                getCompanyInformationbysalman(data[0].SLMCOD);//Company Information
+
+
+
+
+                                $.ajax({
+                                    url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
+                                    data: {
+                                        codeslm: data[0].SLMCOD
+                                    },
+                                    type: "POST",
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        //console.log(data)
+                                        optText = data[0].SLMCOD + "|" + data[0].SLMNAM;
+                                        optValue = data[0].SLMCOD;
+                                        // $('#selslm').prepend(new Option(optText, optValue));
+                                        //$('#selslm option[value="' + optValue + '"]').prop("selected", true);
+                                        // $("#SalepersonCode option[value='ALL']").remove();
+                                        //$("#selslm option[value='ALL']").remove();
+                                        $("#selslm").prepend($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
+                                        $("#selslm").val($("#selslm option:first").val());
+                                        return false;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            } else if (usertype == "6") {
+
+                if (cuscod == ""){
+                    $('#nextspold').css("display", "none");
+                    //$('#h2title').html("พนักงานขาย");
+                    $('#h2title').html("เลือกบัญชีร้านค้า");
+                    $('#prvs').css("margin-top", "-39px");
+                    $('#selslm').css("display", "none");
+                    $('#btnshsche').css("display", "none");
+                    $('#btnclear').css("display", "none");
+                    $("#changepass").css("display", "block");
+                    var cuslog = "";
+                    $.ajax({
+                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
+                        data: {},
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+
+
+                            if (data.length == 1) {
+                                $('.caption').css("display", "none");
+                                $('#prvs').css("display", "none");
+                            } else {
+                                var select = $("#selcus");
+                                select.children().remove();
+                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
+                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
+                                $.each(data, function (key, value) {
+                                    select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                                    //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                                });
+                                $('.selectpicker').selectpicker('refresh');
+                                $(".caret").css("display", "none");
+
+
+                            }
+                            cuslog = data[0].CUSCOD;
+                            $.ajax({
+                                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                                data: {
+                                    cusel: cuslog
+                                },
+                                type: "POST",
+                                dataType: "JSON",
+                                success: function (data) {
+                                    //console.log(data);
+                                    if (data.length == 1) {
+                                        //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                        $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+
+
+                                            if (usrclmstaff == "1") {
+
+                                                $("#crlicusaac").text("xxxx");
+                                                $("#crlicustac").text("xxxx");
+                                                $("#crbarcusaac").text("xxxx");
+                                                $("#crbarcustac").text("xxxx");
+                                                $("#crlicusaacday").text("xxxx");
+                                                $("#crlicustacday").text("xxxx");
+                                                $("#crlicusrating").text("xxxx");
+                                            } else {
+                                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                                $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                                $("#crlicustacday").text(data[0].TACPAYTRM);
+                                                $("#divrating").css("display", "");
+                                                $("#crlicusrating").text(data[0].RATING);
+                                            }
+
+                                        //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                        //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                        //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                        //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                        //$("#crlicusaacday").text(data[0].AACPAYTRM);
+                                        //$("#crlicustacday").text(data[0].TACPAYTRM);
+                                        $("#cushid").val(data[0].CUSCOD);
+                                        $("#selslm").val(data[0].SLMCOD);
+                                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                        $("#nocusses").val(data[0].CUSCOD);
+                                        //datacus();  ///auto get customer to option select customer
+                                        //Getdatacartcus(data[0].CUSCOD)
+                                        getCreditcuskey(cuslog);//get เครดิตรร้านแม่
+                                       // getcuschamt(data[0].CUSCOD);
+                                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                                    } else {
+                                        window.location.replace("../Account/LogIn");
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $('#nextspold').css("display", "none");
+                    //$('#h2title').html("พนักงานขาย");
+
+                    $('#h2title').html("เลือกบัญชีร้านค้า");
+                    $('#prvs').css("margin-top", "-39px");
+                    $('#selslm').css("display", "none");
+
+                    $('#btnshsche').css("display", "none");
+                    $('#btnclear').css("display", "none");
+                    $("#changepass").css("display", "block");
+                    $.ajax({
+                        url: '@Url.Action("Getdateslmbycustomer", "DataCenter")',
+                        data: {
+                            cuscod: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+
+                            $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
+
+                            $("#selslm").prop("disabled", true);
+                            //datacus();  ///auto get customer to option select customer
+                            getCompanyInformationbysalman(data[0].SLMCOD)//Company Information
+
+                        }
+                    });
+                    $.ajax({
+                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        data: {
+                            cusel: cuscod
+                        },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+                            if (data.length == 1) {
+
+                                //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
+                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
+                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
+                                if (usrclmstaff == "1") {
+
+                                    $("#crlicusaac").text("xxxx");
+                                    $("#crlicustac").text("xxxx");
+                                    $("#crbarcusaac").text("xxxx");
+                                    $("#crbarcustac").text("xxxx");
+                                    $("#crlicusaacday").text("xxxx");
+                                    $("#crlicustacday").text("xxxx");
+                                    $("#crlicusrating").text("xxxx");
+                                } else {
+                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
+                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
+                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
+                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
+                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
+                                    $("#crlicustacday").text(data[0].TACPAYTRM);
+                                    $("#divrating").css("display", "");
+                                    $("#crlicusrating").text(data[0].RATING);
+                                }
+                                $("#cushid").val(data[0].CUSCOD);
+                                $("#selslm").val(data[0].SLMCOD);
+                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
+                                $("#nocusses").val(data[0].CUSCOD);
+                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
+                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
+                            } else {
+                                window.location.replace("../Account/LogIn");
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
+                        data: {},
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            //console.log(data);
+                            if (data.length == 1) {
+
+                                $('.caption').css("display", "none");
+                                $('#prvs').css("display", "none");
+                                $("#selcus").prop("disabled", true);
+                            } else {
+                                $("#selcus").prop("disabled", false);
+                                var select = $("#selcus");
+                                select.children().remove();
+                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
+                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
+                                $.each(data, function (key, value) {
+                                    select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                                    //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                                });
+                                $('.selectpicker').selectpicker('refresh');
+                                $(".caret").css("display", "none");
+                            }
+                        }
+                    });
+                }
+            }
+            return false;
         }
     </script>
 </body>

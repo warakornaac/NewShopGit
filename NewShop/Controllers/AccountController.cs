@@ -54,6 +54,7 @@ namespace NewShop.Controllers
         public ActionResult CheckDataLoginExternal(string userId, string email, string displayName)
         {
             string message = string.Empty;
+            this.Session["UserPassword"] = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             try
@@ -86,20 +87,22 @@ namespace NewShop.Controllers
         {
             this.Session["UserID"] = string.Empty;
             this.Session["UserType"] = string.Empty;
+            this.Session["DisplayName"] = string.Empty;
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand("select * From UsrTbl_line where UserIdLine =N'" + userId + "'", Connection);
+                SqlCommand cmd = new SqlCommand("select * From UsrTbl_line where Email =N'" + userId + "'", Connection);
                 SqlDataReader rev = cmd.ExecuteReader();
                 while (rev.Read())
                 {
                     if (!string.IsNullOrEmpty(rev["UsrID"].ToString()))
                     {
 
-                        this.Session["UserID"] = rev["DisplayName"].ToString();
+                        this.Session["UserID"] = rev["UsrID"].ToString();
+                        this.Session["DisplayName"] = rev["DisplayName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CusCod"] = rev["CusCode"].ToString();
                         //get sesssion
@@ -159,6 +162,7 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
+                this.Session["DisplayName"] = string.Empty;
                 this.Session["UserType"] = null;
                 this.Session["UserID"] = User.Usre;
                 this.Session["UserPassword"] = User.Password;
@@ -856,7 +860,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddUser(string email, string tel, string line, string cuscos, string user)
+        public ActionResult AddUser(string email, string tel, string cuscos, string cusname, string user)
         {
 
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -869,13 +873,12 @@ namespace NewShop.Controllers
                     conn.Open();
                     var cmd = new SqlCommand("P_Register_customer", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    // cmd.Parameters.AddWithValue("@inpassword", password.Trim());
                     cmd.Parameters.AddWithValue("@inemail", email.Trim());
                     cmd.Parameters.AddWithValue("@intel", tel.Trim()); ;
-                    cmd.Parameters.AddWithValue("@inlineid", line.Trim());
                     cmd.Parameters.AddWithValue("@inuserId", lindId.Trim());
                     cmd.Parameters.AddWithValue("@indisplayName", displayName.Trim());
-                    cmd.Parameters.AddWithValue("@incuscod", cuscos);
+                    cmd.Parameters.AddWithValue("@incuscod", cuscos.Trim());
+                    cmd.Parameters.AddWithValue("@incusname", cusname);
                     cmd.Parameters.AddWithValue("@inUser", user.Trim());
                     int INSID = cmd.ExecuteNonQuery();
                     if (INSID > 0)
