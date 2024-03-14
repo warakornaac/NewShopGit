@@ -88,6 +88,7 @@ namespace NewShop.Controllers
             this.Session["UserID"] = string.Empty;
             this.Session["UserType"] = string.Empty;
             this.Session["DisplayName"] = string.Empty;
+            this.Session["CUSCOD"] = string.Empty;
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);

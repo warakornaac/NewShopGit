@@ -762,16 +762,17 @@
 
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
 
-        resourceAddress.hash();
-        console.log(param_values.numcuber)
-        if (param_values.numcuber != undefined) {
-            cuscod = atob(param_values.numcuber)
+        //resourceAddress.hash();
+        //console.log(param_values.numcuber)
+        //if (param_values.numcuber != undefined) {
+        //    cuscod = atob(param_values.numcuber)
 
-        } else {
-            cuscod = "";
-        }
+        //} else {
+        //    cuscod = "";
+        //}
 
         if (cuscod != "") {
+            $("#cushid").val(cuscod)
             getPromotion_Cus(cuscod, 'yearly');
         }
         //alert(cuscod);

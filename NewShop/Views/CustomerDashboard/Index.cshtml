@@ -687,10 +687,38 @@
                                             </div>
                                             <br />
                                             <div>
-                                                <div id="amtytd_aac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;">AAC :</div>
-                                                <div id="amtytd_tac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
-                                                <br />
-                                                <div id="amtytd_all_below" style="font-family: Lato,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>
+                                                @*<div id="amtytd_aac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;">AAC :</div>
+                                                    <div id="amtytd_tac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
+                                                    <br />
+                                                    <div id="amtytd_all_below" style="font-family: Lato,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>*@
+
+
+                                                <table>
+                                                    <tr>
+                                                        <td class="pr-2 text-right">
+                                                            <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> ยอดซื้อที่บริษัท AAC :</div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="amtytd_aac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> AAC :</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pr-2 text-right">
+                                                            <div style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold;">ยอดซื้อที่บริษัท TAC :</div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="amtytd_tac_below" style="font-family: Lato, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pr-2 text-right">
+                                                            <div style="font-family: Lato, sans-serif; font-size: 14px; color: green; font-weight: bold;">ยอดซื้อรวมทุกบริษัท :</div>
+                                                        </td>
+                                                        <td>
+                                                            <div id="amtytd_all_below" style="font-family: Lato,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -969,6 +997,7 @@
         //    clearChartsamt();
         //}
         if (cuscod != "") {
+            $("#cushid").val(cuscod)
             getcuschamt(cuscod);
         }
         else {
@@ -981,14 +1010,7 @@
 
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
 
-        resourceAddress.hash();
-        console.log(param_values.numcuber)
-        if (param_values.numcuber != undefined) {
-            cuscod = atob(param_values.numcuber)
 
-        } else {
-            cuscod = "";
-        }
         //alert(cuscod);
         // var cuscod = atob(param_values.numcuber)
         //$(window).click(function (e) {
@@ -1782,9 +1804,9 @@
                             }
                             else {
                                 //$('#ytdnull').html('');
-                                $('#amtytd_aac_below').html('AAC : ' + commaSeparateNumber(data[0].AmtYTD));
-                                $('#amtytd_tac_below').html('TAC : ' + commaSeparateNumber(data[1].AmtYTD));
-                                $('#amtytd_all_below').html('ALL : ' + commaSeparateNumber(data[2].AmtYTD));
+                                $('#amtytd_aac_below').html(commaSeparateNumber(data[0].AmtYTD));
+                                $('#amtytd_tac_below').html(commaSeparateNumber(data[1].AmtYTD));
+                                $('#amtytd_all_below').html(commaSeparateNumber(data[2].AmtYTD));
                             }
 
 
