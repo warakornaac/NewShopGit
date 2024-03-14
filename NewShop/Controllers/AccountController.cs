@@ -101,7 +101,7 @@ namespace NewShop.Controllers
                     if (!string.IsNullOrEmpty(rev["UsrID"].ToString()))
                     {
 
-                        this.Session["UserID"] = rev["UsrID"].ToString();
+                        this.Session["UserID"] = rev["Email"].ToString();
                         this.Session["DisplayName"] = rev["DisplayName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CusCod"] = rev["CusCode"].ToString();
