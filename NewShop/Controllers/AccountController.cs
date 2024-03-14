@@ -104,7 +104,7 @@ namespace NewShop.Controllers
                         this.Session["UserID"] = rev["Email"].ToString();
                         this.Session["DisplayName"] = rev["DisplayName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
-                        this.Session["CusCod"] = rev["CusCode"].ToString();
+                        this.Session["CUSCOD"] = rev["CusCode"].ToString();
                         //get sesssion
                         string sessionId = string.Empty;
                         string httpCookie = string.Empty;
@@ -144,7 +144,7 @@ namespace NewShop.Controllers
             {
                 message = ex.Message;
             }
-            var returnField = new { UserId = this.Session["UserID"], UserType = this.Session["UserType"], ID = this.Session["ID"], page = page, message = message };
+            var returnField = new { UserId = this.Session["UserID"], UserType = this.Session["UserType"], ID = this.Session["ID"], page = page, message = message, CUDCOD = this.Session["CUSCOD"] };
             return Json(returnField, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
