@@ -758,7 +758,7 @@
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
-        var cuscod;
+        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
 
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
 
@@ -769,6 +769,10 @@
 
         } else {
             cuscod = "";
+        }
+
+        if (cuscod != "") {
+            getPromotion_Cus(cuscod, 'yearly');
         }
         //alert(cuscod);
         // var cuscod = atob(param_values.numcuber)
@@ -806,7 +810,7 @@
             });
 
         }
-
+        @*
         function checklogin(userid, id) {
             $.ajax({
                 url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
@@ -886,9 +890,8 @@
             });
 
         }
+        *@
 
-
-        getCompanyInfor();
         //var cuscod = "";
         if (usertype == "1") {
             $("#nextcheckstock").css("display", "block");
@@ -900,35 +903,35 @@
             if (cuscod != "") {
                 checkPrivilege(userid, cuscod)
             }
-            $(window).on('load', function () {
-                //alert("load")
-                checklogin(userid, id)
-            });
-            window.onclick = function () {
-                //alert("onclick")
-                checklogin(userid, id)
-            };
-            $('.navbar-nav').click(function () {
-               // alert("navbar-nav")
-                checklogin(userid, id)
+            //$(window).on('load', function () {
+            //    //alert("load")
+            //    checklogin(userid, id)
+            //});
+            //window.onclick = function () {
+            //    //alert("onclick")
+            //    checklogin(userid, id)
+            //};
+            //$('.navbar-nav').click(function () {
+            //   // alert("navbar-nav")
+            //    checklogin(userid, id)
 
-            });
-            $('a').click(function () {
-              //  alert("a")
-                checklogin(userid, id)
+            //});
+            //$('a').click(function () {
+            //  //  alert("a")
+            //    checklogin(userid, id)
 
-            });
+            //});
             //$(document).bind('keypress.session', function (ed, e) {
             //    checklogin(userid, id)
             //});
-            $(document).bind('mousedown keydown', function (ed, e) {
+            //$(document).bind('mousedown keydown', function (ed, e) {
 
-                checklogin(userid, id)
-            });
-            $(window).scroll(function (e) {
+            //    checklogin(userid, id)
+            //});
+            //$(window).scroll(function (e) {
 
-                checklogin(userid, id)
-            });
+            //    checklogin(userid, id)
+            //});
             if (usrclmstaff == "1") {
                 $("#amtdoffon").css("display", "none");
                 $("#amtchildoffon").css("display", "none");
@@ -937,96 +940,6 @@
 
                 $("#dfch").css("display", "block");
                 $('#appadjall').html("");
-                //var SubmithtmlPage = "";
-                //SubmithtmlPage += '<div class="row">';
-                //SubmithtmlPage += '<div class="col-12 col-xl-12">';
-                //SubmithtmlPage += '<div class="card">';
-                //SubmithtmlPage += '<div class="card-header">';
-                //SubmithtmlPage += '<h4>รายการเครดิต</h4>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '<div class="card-body">';
-                //SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
-                //SubmithtmlPage += '<table class="table table-hover table-lg">';
-                //SubmithtmlPage += '<thead>';
-                //SubmithtmlPage += '<tr>';
-                //SubmithtmlPage += '<th><span id="dnow"></span></th>';
-                //SubmithtmlPage += '<th>TAC</th>';
-                //SubmithtmlPage += '<th>AAC</th>';
-                //SubmithtmlPage += '</tr>';
-                //SubmithtmlPage += '</thead>';
-                //SubmithtmlPage += '<tbody style="font-size: x-small;">';
-                //SubmithtmlPage += '<tr>';
-                //SubmithtmlPage += '<td class="col-3">';
-                //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                //SubmithtmlPage += '<div class="avatar avatar-md">';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '</tr>';
-                //SubmithtmlPage += '<tr>';
-                //SubmithtmlPage += '<td class="col-3">';
-                //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                //SubmithtmlPage += '<div class="avatar avatar-md">';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0">';
-                //SubmithtmlPage += '<span id="crbarcustac"></span>';
-                //SubmithtmlPage += '</p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0">';
-                //SubmithtmlPage += '<span id="crbarcusaac"></span>';
-                //SubmithtmlPage += '</p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '</tr>';
-                //SubmithtmlPage += '<tr>';
-                //SubmithtmlPage += '<td class="col-3">';
-                //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                //SubmithtmlPage += '<div class="avatar avatar-md">';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0">';
-                //SubmithtmlPage += '<span id="crlicustacday"></span>';
-                //SubmithtmlPage += '</p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '<td class="col-auto">';
-                //SubmithtmlPage += '<p class=" mb-0">';
-                //SubmithtmlPage += '<span id="crlicusaacday"></span>';
-                //SubmithtmlPage += '</p>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '</tr>';
-                ////rating
-                //SubmithtmlPage += '<tr>';
-                //SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
-                //SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
-                //SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
-                //SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
-                //SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
-                //SubmithtmlPage += '</span>';
-                //SubmithtmlPage += '</td>';
-                //SubmithtmlPage += '</tr>';
-                ////
-                //SubmithtmlPage += '</tbody>';
-                //SubmithtmlPage += '</table>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</div>';
-                //SubmithtmlPage += '</div>';
-                //$("#appadjall").append(SubmithtmlPage);
             }
             else {
                 $("#amtdoffon").css("display", "block");
@@ -1035,96 +948,6 @@
                 $("#promooffon").css("display", "block");
                 $("#dfch").css("display", "block");
                             $('#appadjall').html("");
-                            //var SubmithtmlPage = "";
-                            //SubmithtmlPage += '<div class="row">';
-                            //SubmithtmlPage += '<div class="col-12 col-xl-12">';
-                            //SubmithtmlPage += '<div class="card">';
-                            //SubmithtmlPage += '<div class="card-header">';
-                            //SubmithtmlPage += '<h4>รายการเครดิต</h4>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '<div class="card-body">';
-                            //SubmithtmlPage += '<div class="table-responsive" style="font-size: x-small;">';
-                            //SubmithtmlPage += '<table class="table table-hover table-lg">';
-                            //SubmithtmlPage += '<thead>';
-                            //SubmithtmlPage += '<tr>';
-                            //SubmithtmlPage += '<th><span id="dnow"></span></th>';
-                            //SubmithtmlPage += '<th>TAC</th>';
-                            //SubmithtmlPage += '<th>AAC</th>';
-                            //SubmithtmlPage += '</tr>';
-                            //SubmithtmlPage += '</thead>';
-                            //SubmithtmlPage += '<tbody style="font-size: x-small;">';
-                            //SubmithtmlPage += '<tr>';
-                            //SubmithtmlPage += '<td class="col-3">';
-                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            //SubmithtmlPage += '<div class="avatar avatar-md">';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">วงเงินเครดิต</p>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0"><span id="crlicustac"></span></p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0"><span id="crlicusaac"></span></p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '</tr>';
-                            //SubmithtmlPage += '<tr>';
-                            //SubmithtmlPage += '<td class="col-3">';
-                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            //SubmithtmlPage += '<div class="avatar avatar-md">';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">ยอดเครดิตที่ใช้</p>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0">';
-                            //SubmithtmlPage += '<span id="crbarcustac"></span>';
-                            //SubmithtmlPage += '</p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0">';
-                            //SubmithtmlPage += '<span id="crbarcusaac"></span>';
-                            //SubmithtmlPage += '</p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '</tr>';
-                            //SubmithtmlPage += '<tr>';
-                            //SubmithtmlPage += '<td class="col-3">';
-                            //SubmithtmlPage += '<div class="d-flex align-items-center">';
-                            //SubmithtmlPage += '<div class="avatar avatar-md">';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '<p class="font-bold ms-3 mb-0">เครดิต(วัน)</p>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0">';
-                            //SubmithtmlPage += '<span id="crlicustacday"></span>';
-                            //SubmithtmlPage += '</p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '<td class="col-auto">';
-                            //SubmithtmlPage += '<p class=" mb-0">';
-                            //SubmithtmlPage += '<span id="crlicusaacday"></span>';
-                            //SubmithtmlPage += '</p>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '</tr>';
-                            ////rating
-                            //SubmithtmlPage += '<tr>';
-                            //SubmithtmlPage += '<td colspan="3" style="padding: 5px; text-align: center; display: none;" id="divrating">';
-                            //SubmithtmlPage += '<span class="badge badge-warning" style="padding: 7px;">';
-                            //SubmithtmlPage += '<span class="fa fa-star fa-2x" style="color: coral;"></span>&nbsp;';
-                            //SubmithtmlPage += '<span style="font-size: 14px; font-weight: bold; color: black;" id="crlicusrating"> </span>';
-                            //SubmithtmlPage += '&nbsp; <span class="fa fa-star fa-2x" style="color: coral;"></span>';
-                            //SubmithtmlPage += '</span>';
-                            //SubmithtmlPage += '</td>';
-                            //SubmithtmlPage += '</tr>';
-                            ////
-                            //SubmithtmlPage += '</tbody>';
-                            //SubmithtmlPage += '</table>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</div>';
-                            //SubmithtmlPage += '</div>';
-                            //$("#appadjall").append(SubmithtmlPage);
             }
             $("#nextcheckstock").css("display", "none");
             $("#nextcrm").css("display", "none");
@@ -1281,46 +1104,13 @@
                                                                 '</div>' +
                                                             '</div>' +
                                                         '</div>');
-
-
-                            // $('[data-u="slides"]').append('<div class="card-group">' +
-                            //$("#fixboxs").append('<div class="card-group">' +
-                            //$("#fixboxs").append('<div class="card">' +
-                            //               '<div>' +
-                            //                 '<img src="' + strph + '" class="card-img-top" alt="..." / style="width: 63%;">' +
-                            //                 '</div>' +
-                            //                 '<div class="card-body jssora_1coN">' +
-                            //                 '<h5 class="card-title" style="text-align: center;">' + ItemNo + ' </h5>' +
-                            //                 '<div class="stkdes"> ' + sprstkdes + '  </div>' +
-                            //                 '</div>' +
-
-                            //               '<div class="card-footer">' +
-                            //                 '<div class="_rightfooter">' +
-                            //                  '<small class="text-muted" style="float: left;">฿ ' + commaSeparateNumber(Price) + '</small>' +
-                            //                   '<small class="text-muted" style="float: right;"><a href="#"  id="_btnlinkdetail" com=' + Company + ' stock="' + ItemNo + '" style="color: blue;">See Detail</a> </small>' +
-                            //                   '</div>' +
-                            //               //'</div>' +
-                            //            '</div>');
-
-
                         }
-                        //jssor_1_slider_init();
-                        // jssor_1_slider_init();
-
-                        //}
-
                     } else {
-                        //$('.loader').css("display", "none");
+
                         $('#fixboxs').empty();
-                        // alert("No Data.....")
-
                     }
-                    //jssor_1_slider_init();
-                    //$("#ExtraLargeModalLabel").modal();
                 }
-
             });
-            // jssor_1_slider_init();
         }
         $(document).ready(function () {
             $(document).on("click", "#myModal", function () {
@@ -1372,22 +1162,22 @@
                     $('#tableListTop20 tbody:last-child').html("");
                 }
             });
-            $('#promooffon').click(function () {
-                var current_status = $('.statuspromotion').text();
+           // $('#promooffon').click(function () {
+           //     var current_status = $('.statuspromotion').text();
 
-                    var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                    if (current_status == 'Untoggled') {
-                        $('.statuspromotion').html('Toggled');
-                        getPromotion_Cus(cuskey, 'yearly')//โปรโมชั่น
-                    }
-                    else {
-                        $('.statuspromotion').html('Untoggled');
+           //         var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
+           //         if (current_status == 'Untoggled') {
+           //             $('.statuspromotion').html('Toggled');
+           //             getPromotion_Cus(cuskey, 'yearly')//โปรโมชั่น
+           //         }
+           //         else {
+           //             $('.statuspromotion').html('Untoggled');
 
-                        $('#promotiontbyearly tbody:last-child').html("");
-                        $('#promotiontbquater tbody:last-child').html("");
-                        $('#promotiontbother tbody:last-child').html("");
-                    }
-           });
+           //             $('#promotiontbyearly tbody:last-child').html("");
+           //             $('#promotiontbquater tbody:last-child').html("");
+           //             $('#promotiontbother tbody:last-child').html("");
+           //         }
+           //});
             $('#cliamoffon').click(function () {
                 var current_status = $('.statuscliamoffon').text();
 
@@ -1961,23 +1751,6 @@
             var _vfd = $(this).attr('stock');
             var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
             wi.focus();
-            //if (usertype == "6") {
-            //    if (cuscod != "") {
-            //        ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
-            //        var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
-            //        wi.focus();
-            //    } else {
-            //        //login//
-            //    }
-            //} else {//saleman//
-            //    if (cuscod != "") {
-            //        var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
-            //        wi.focus();
-
-            //    } else {
-
-            //    }
-            //}
         });
 
         function openPeriod(PeriodName, id) {

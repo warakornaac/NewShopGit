@@ -98,7 +98,7 @@ namespace NewShop.Controllers
                 SqlDataReader rev = cmd.ExecuteReader();
                 while (rev.Read())
                 {
-                    if (!string.IsNullOrEmpty(rev["UsrID"].ToString()))
+                    if (!string.IsNullOrEmpty(rev["Email"].ToString()))
                     {
 
                         this.Session["UserID"] = rev["Email"].ToString();
