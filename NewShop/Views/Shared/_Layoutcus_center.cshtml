@@ -167,8 +167,8 @@
                             <a class="nav-link" href="~/OrderingReport/Index">
                                 <span>Did You Knows</span>
                             </a>
-                            <a class="nav-link" href="~/CheckStatus/Index">
-                                <span>stock</span>
+                            <a class="nav-link" href="~/Account/Register">
+                                <span>RegisterCustomerLine</span>
                             </a>
                         </div>
 
@@ -307,7 +307,7 @@
                             }
                         </div>
                     </li>
-                    @if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
+                    @if (Session["UserType"].ToString() != "6")
                     {
                         <li class="nav-item dropdown messages-menu">
                             <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">

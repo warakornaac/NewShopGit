@@ -7838,6 +7838,7 @@
     <Content Include="Views\CustomerDashboard\PendingDeliver.cshtml" />
     <Content Include="Views\Account\CheckLoginExternal.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\CustomerDashboard\CustomerAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

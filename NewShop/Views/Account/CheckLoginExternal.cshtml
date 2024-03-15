@@ -138,11 +138,11 @@
                                     } else {//ไม่มีการลงทะเบียนลูกค้าไว้
                                         // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
                                         //window.location.assign("@domainName" + "/MobileCatalog_Test");
-                                        alert("Message Is " + result.message);
+                                        window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
                                     }
                                 }
                                 else {
-                                    alert("Message Is " + result.message);
+                                    window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
                                 }
                             },
                             error: function (ex) {
@@ -202,8 +202,8 @@
                 document.getElementById("statusMessage").innerHTML =  profile.statusMessage;
                 document.getElementById("getDecodedIDToken").innerHTML = liff.getDecodedIDToken().email;
                 //document.getElementById("page").innerHTML = profile.page
-                //$("body").empty();
-                //$("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div style="padding: 50px; font-size: 18px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <br> LOADING... </div> </div> </div>')
+                $("body").empty();
+                $("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div style="padding: 50px; font-size: 18px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <br> LOADING... </div> </div> </div>')
 
                 setTimeout(() => {
                     const queryString = decodeURIComponent(window.location.search);
@@ -212,7 +212,6 @@
                     //return false;
                     getDataLoginExternal(profile.pictureUrl, profile.userId, profile.displayName, liff.getDecodedIDToken().email, page);
                 }, 2000);
-
             }).catch(err => console.error(err));
         }
         //line login

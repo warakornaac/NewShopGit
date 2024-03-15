@@ -707,17 +707,7 @@
         var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]';
 
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
-
-        resourceAddress.hash();
-        console.log(param_values.numcuber)
-        if (param_values.numcuber != undefined) {
-            cuscod = atob(param_values.numcuber)
-
-        } else {
-            cuscod = "";
-        }
-
-
+        console.log(cuscod);
         if (cuscod != "") {
             getbackord(cuscod);
             $("#cushid").val(cuscod)
@@ -3769,8 +3759,6 @@
                         success: function (data) {
                             //console.log(data);
                             if (data.length == 1) {
-
-                                //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
                                 $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
                                 $('#cus').attr('title', data[0].Hierarchy2_Channel);
                                 $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -3793,19 +3781,11 @@
                                     $("#divrating").css("display", "");
                                     $("#crlicusrating").text(data[0].RATING);
                                 }
-                                //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                                //$("#crlicustacday").text(data[0].TACPAYTRM);
                                 $("#cushid").val(data[0].CUSCOD);
                                 $("#selslm").val(data[0].SLMCOD);
                                 $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
                                 $("#nocusses").val(data[0].CUSCOD);
                                 countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                //datacus();  ///auto get customer to option select customer
-                                //Getdatacartcus(data[0].CUSCOD)
                                 getCreditcuskey(cuscod);//get เครดิตรร้านแม่
                                 $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
                             } else {
@@ -3854,22 +3834,6 @@
                                 });
                                 $('.selectpicker').selectpicker('refresh');
                                 $(".caret").css("display", "none");
-                                /*
-                                var SubmithtmlPage = "";
-                                SubmithtmlPage += '<div class="card-body">';
-
-                                SubmithtmlPage += '<div class="mt--10">';
-                                SubmithtmlPage += '<div class="contact-btn">';
-                                SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                                SubmithtmlPage += 'Shopping';
-                                SubmithtmlPage += '</button>';
-                                SubmithtmlPage += '</div>';
-                                SubmithtmlPage += '</div>';
-
-
-                                SubmithtmlPage += '</div>';
-                                $('.appendbtnshopbysales').append(SubmithtmlPage);
-                                */
                             }
                         }
                     });

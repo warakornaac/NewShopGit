@@ -23,7 +23,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserType"] == null)
             {
-                return RedirectToAction("LogIn", "Account");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
             }
             return View();
         }
@@ -32,7 +32,8 @@ namespace NewShop.Controllers
 
             if (Session["UserType"] == null)
             {
-                return RedirectToAction("LogIn", "Account");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=promotion");
+
             }
             return View();
 
@@ -41,8 +42,13 @@ namespace NewShop.Controllers
         {
             if (Session["UserType"] == null)
             {
-                return RedirectToAction("LogIn", "Account");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+
             }
+            return View();
+        }
+        public ActionResult CustomerAlert()
+        {
             return View();
         }
 
