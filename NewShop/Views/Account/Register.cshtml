@@ -168,7 +168,7 @@
                 <label>
                     กรุณากรอกข้อมูล <span class="red-star">*</span> ให้ครบถ้วน
                 </label>
-                <form method="post" id="register_tab" action="" onsubmit="return regisUser();">
+                <form method="post" id="register_tab">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -213,7 +213,7 @@
                                     Telephone
                                 </label>
                                 <div class="col-md-9">
-                                    <input type="tel" class="form-control input-form" id="r_phone" name="r_phone" maxlength="10" />
+                                    <input type="tel" class="form-control input-form" id="r_phone" name="r_phone" maxlength="10" title="Enter phone number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                                 </div>
                             </div>
                         </div>
@@ -227,10 +227,11 @@
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
                                     <div class="col-md-2">
-                                        <input type="submit" class="btn btn-success form-btn" value="SignUp" />
+                                        @*<input type="submit" class="btn btn-success form-btn" value="SignUp" />*@
+                                        <button type="button" class="btn btn-success form-btn" onclick="regisUser();">SignUp</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="reset" class="btn btn-danger form-btn" value="Clear" />
+                                        <input type="reset" class="btn btn-danger form-btn" id="clearButton" value="Clear" />
                                     </div>
                                 </div>
                             </div>
@@ -247,6 +248,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
         function regisUser() {
             var email = $('#r_email').val();
             var tel = $('#r_phone').val();
@@ -283,12 +295,15 @@
                     contentType: "application/json; charset=utf-8",
                     processData: false,
                     beforeSend: function () {
-                        // LoadingShow();
+
                     },
                     success: function (result) {
                         if (result.status == "success") {
-                            alert("Customer registered!!!");
-
+                            Toast.fire({
+                                icon: "success",
+                                title: "ลงทะเบียนลูกค้าสำเร็จ"
+                            });
+                            $('#clearButton').click();
                         }
                     },
                     error: function (ex) {
@@ -311,6 +326,12 @@
             }
 
         }
+        $('#clearButton').click(function () {
+            var select = $("#selcus");
+            select.children().remove();
+            select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+            $('#selcus').selectpicker('refresh');
+        });
     </script>
     <script type="text/javascript">
 
@@ -531,10 +552,16 @@
                     }
                     if (typin == "Y") {
                         if (block == "0") {
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            });
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
 
                             $("#addcus").text("");
@@ -555,10 +582,15 @@
 
                             return retval = ["1", data[0].CUSNAM];
                         } else {
-                            //alert("yy")
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            });
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -611,6 +643,15 @@
                             //$("#textAlertWarning").empty();
                             //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             //$("#myModalWarning").modal();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            });
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -770,6 +811,15 @@
                         //alert(block)
                         if (typin == "Y") {
                             if (block == "0") {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                    html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                });
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
@@ -791,6 +841,15 @@
                                 $("#nocusses").val(data[0].CUSCOD);//master key customer
                                 return false;
                             } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                    html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                });
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
@@ -816,6 +875,15 @@
                         } else {
                             //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
                             if (block == "1") {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'ลูกค้า ' + ' (' + data[0].CUSCOD + ')' + '<br>' + ' ไม่สามารถลงทะเบียนได้<br>',
+                                    html: data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin",
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                });
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
