@@ -437,7 +437,7 @@
                                         <div class="card-header">
                                             <div class="col-sm-6 text-left">
                                                 <h4>ยอดซื้อรวม</h4>
-                                                <button type="button" onclick="testlink();">Clear</button>
+                                                @*<button type="button" onclick="testlink();">Clear</button>*@
                                             </div>
                                         </div>
 
@@ -845,10 +845,6 @@
         }
         else {
             clearChartsamt();
-        }
-
-        function testlink() {
-            window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
         }
 
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
