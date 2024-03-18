@@ -187,8 +187,21 @@
 
                     } else { //ไมเป็นสมาชิก
                         //window.location.replace(currentURL + "Register?flagApp=line&userId=" + userId + "&displayName=" + displayName + "&email=" + getDecodedIDToken);
-                        alert("ไม่พบข้อมูลสมาชิก!!!");
-                        console.log(result.UserId);
+                        //alert("ไม่พบข้อมูลสมาชิก!!!");
+                        Swal.fire({
+                            title: "การเข้าใช้งานผิดพลาด",
+                            text: "ไม่พบข้อมูลสมาชิก",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: []'#d33',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // ปิดแท็บปัจจุบัน
+                                window.close();
+                            }
+                        });
                     }
                 },
                 error: function (ex) {
