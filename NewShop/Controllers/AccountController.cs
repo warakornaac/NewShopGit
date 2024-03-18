@@ -858,6 +858,10 @@ namespace NewShop.Controllers
 
         public ActionResult Register()
         {
+            if (Session["UserType"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             return View();
         }
         [HttpPost]

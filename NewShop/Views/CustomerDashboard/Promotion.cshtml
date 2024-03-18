@@ -35,7 +35,7 @@
 
     <style>
         .selected {
-            background: #910000;
+            background: #ACE2E1;
             color: #FFFFFF;
         }
 
@@ -355,12 +355,16 @@
         .dropdown:hover .dropbtn {
             background-color: #bee0ed;
         }
+
+        .font-kanit {
+            font-family: Kanit, sans-serif;
+        }
     </style>
 </head>
 
-<body style="background-color: #f2f7ff;">
+<body style="background-color: #f2f7ff; ">
     <div id="app">
-        <div id="main" style=" padding-right:20px; padding-left:20px;">
+        <div id="main" style=" padding-right: 20px; padding-left: 20px; font-family: Kanit, sans-serif;">
             <div class="page-heading">
             </div>
             <div class="page-content">
@@ -380,16 +384,16 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <span style="color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
+                                        <span style="font-family: Kanit, sans-serif; color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
                                         <br />
                                         <div id="prvs">
                                             <h8>ลูกค้า</h8>
                                             <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
+                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"></select>
                                             </div>
 
                                             <div class="single-checkout-box select-option mt--10">
-                                                <button type="button" class="btn-gray" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
+                                                <button type="button" class="btn-gray font-kanit" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
                                             </div>
                                             <div class="single-checkout-box checkbox">
 
@@ -429,10 +433,10 @@
                                                 </label><div class='statuspromotion'>Untoggled</div>
                                             </div>
                                         </div>
-                                        <div class="w3-bar w3-black">
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('yearly',this.id)" id="btn_yearly">เป้าปี</button>
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('quater', this.id)" id="btn_quater">เป้าไตรมาส</button>
-                                            <button class="w3-bar-item w3-button btnpromotion" onclick="openPeriod('other', this.id)" id="btn_other">เป้ารายเดือน</button>
+                                        <div class="w3-bar w3-round bg-info opacity-75">
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('yearly',this.id)" id="btn_yearly">เป้าปี</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('quater', this.id)" id="btn_quater">เป้าไตรมาส</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('other', this.id)" id="btn_other">เป้ารายเดือน</button>
                                         </div>
                                         <div class="card">
                                             <div id="yearly" class="city">
@@ -520,28 +524,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
                     <strong>สินค้าใหม่!</strong>
                     <div class="modal-body">
-                        @*<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:758px;height:250px;overflow:hidden;visibility:hidden;">
-                                <!-- Loading Screen -->
-                                <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-                                    <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
-                                </div>
-                                <div data-u="slides" id="fixboxs" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:250px;overflow:hidden;">
-
-                                </div>
-                                <a data-scale="0" href="#" style="display:none;position:absolute;">web animation composer</a>
-
-                                <!-- Arrow Navigator -->
-                                <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
-                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                        <path class="a" d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z"></path>
-                                    </svg>
-                                </div>
-                                <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
-                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                        <path class="a" d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z"></path>
-                                    </svg>
-                                </div>
-                            </div>*@
                         <div class="container">
 
                             <div class="row" id="fixboxs">
@@ -641,7 +623,6 @@
                                         <th>Customer</th>
                                         <th>Salesman</th>
                                         <th>จำนวนชิ้น</th>
-
                                     </tr>
                                 </thead>
                             </table>
@@ -744,6 +725,9 @@
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <!-- <link href="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.css" rel="stylesheet" />-->
     @*<script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>*@
+    @*<script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
@@ -1849,21 +1833,21 @@
                             }
                             if (period == 'yearly') {
                                 $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#910000");
+                                $('#btn_yearly').css("background", "#ACE2E1");
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
                             } else if (period == 'quater') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#910000");
+                                $('#btn_quater').css("background", "#ACE2E1");
                                 $('#btn_other').removeAttr('style');
                             } else if (period == 'other') {
                                 $("#promotiontbother").append(SubmithtmlPage);
 
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#910000");
+                                $('#btn_other').css("background", "#ACE2E1");
                             }
                         }
                     }
@@ -3494,19 +3478,19 @@
         //    alert(this.id);
         //});
         $('#btn_yearly').click(function () {
-             $('#btn_yearly').css("background", "#910000");
+            $('#btn_yearly').css("background", "#ACE2E1");
              $('#btn_quater').removeAttr('style');
              $('#btn_other').removeAttr('style');
         });
         $('#btn_quater').click(function () {
             $('#btn_yearly').removeAttr( 'style' );
-            $('#btn_quater').css("background", "#910000");
+            $('#btn_quater').css("background", "#ACE2E1");
             $('#btn_other').removeAttr( 'style' );
         });
         $('#btn_other').click(function () {
             $('#btn_yearly').removeAttr('style');
             $('#btn_quater').removeAttr('style');
-            $('#btn_other').css("background", "#910000");
+            $('#btn_other').css("background", "#ACE2E1");
         });
 
         function chkcustomer() {

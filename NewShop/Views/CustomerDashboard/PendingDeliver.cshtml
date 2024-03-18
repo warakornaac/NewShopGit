@@ -311,6 +311,11 @@
             display: inline-block;
         }
 
+        .bootstrap-select.btn-group .dropdown-toggle {
+            font-family: 'Kanit', sans-serif;
+        }
+
+
         /* Dropdown Content (Hidden by Default) */
         /*.dropdown-content {
             display: none;
@@ -352,10 +357,14 @@
         .dropdown:hover .dropbtn {
             background-color: #bee0ed;
         }
+
+        .font-kanit {
+            font-family: Kanit, sans-serif;
+        }
     </style>
 </head>
 
-<body style="background-color: #f2f7ff; font-family: Lato, sans-serif; ">
+<body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
     <div id="app">
         <div id="main" style=" padding-right:20px; padding-left:20px;">
             <div class="page-heading">
@@ -366,9 +375,9 @@
                         <div class="row">
                             <p id="demo"></p>
                             <div class="col-12 caption">
-                                <div class="card" style="font-family: Lato, sans-serif; ">
+                                <div class="card">
                                     <div class="card-header">
-                                        <h4 id="h2title">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
+                                        <h4 id="h2title" style="font-family: Kanit, sans-serif;">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
@@ -377,16 +386,16 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <span style="color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
+                                        <span style="color: blue; cursor: pointer; font-family: Kanit, sans-serif;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
                                         <br />
                                         <div id="prvs">
-                                            <h8>ลูกค้า</h8>
+                                            <h8 style="font-family: Kanit, sans-serif;">ลูกค้า</h8>
                                             <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
+                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"></select>
                                             </div>
 
                                             <div class="single-checkout-box select-option mt--10">
-                                                <button type="button" class="btn-gray" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
+                                                <button type="button" class="btn-gray" id="btnshsche" style="font-family: Kanit, sans-serif;">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
                                             </div>
                                             <div class="single-checkout-box checkbox">
 
@@ -415,16 +424,11 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="col-sm-6 text-left">
+                                            <div class="col-md-6 col-sm-12 text-md-left text-sm-left">
                                                 <h4>รายการค้างส่งสินค้า</h4>
                                             </div>
-                                            <div class="col-sm-6 text-right">
-                                                @*<label class="switch">
-                                                        <input type="checkbox">
-                                                        <span class="slider" id="backordoffon"></span>
-                                                    </label><div class='statusbackord'>Untoggled</div>*@
+                                            <div class="col-md-6 col-sm-12 text-md-right text-sm-left" ">
                                                 มีสินค้าใน Stock <input type="checkbox" id="chkSelect" class="fa-3x" style="zoom: 1.0;" /><span></span>&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
-
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -690,7 +694,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    @*<script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+
     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
     <script src="~/Scripts/webAddress.js"></script>
@@ -3682,22 +3691,6 @@
                             });
                         }
                     });
-                    /*
-                    var SubmithtmlPage = "";
-                    SubmithtmlPage += '<div class="card-body">';
-
-                    SubmithtmlPage += '<div class="mt--10">';
-                    SubmithtmlPage += '<div class="contact-btn">';
-                    SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                    SubmithtmlPage += 'Shopping';
-                    SubmithtmlPage += '</button>';
-                    SubmithtmlPage += '</div>';
-                    SubmithtmlPage += '</div>';
-
-
-                    SubmithtmlPage += '</div>';
-                    $('.appendbtnshopbysales').append(SubmithtmlPage);
-                    */
                     //window.location.replace("../Account/LogIn");
                 } else {
 
@@ -3734,21 +3727,6 @@
 
                         }
                     });
-                    @*$.ajax({
-                        url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
-                        data: {
-                            cusel: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-
-
-                            $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM + " เบอร์ติดต่อ:" + data[0].SLMPhone);
-                            $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo + " เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                            //datacus();  ///auto get customer to option select customer
-                        }
-                    });*@
                     $.ajax({
                         url: '@Url.Action("GetdatabyCus", "DataCenter")',
                         data: {
