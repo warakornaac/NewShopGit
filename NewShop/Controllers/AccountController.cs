@@ -871,6 +871,7 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             string lindId = " ";
             string displayName = "";
+            string status = string.Empty;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -885,14 +886,18 @@ namespace NewShop.Controllers
                     cmd.Parameters.AddWithValue("@incuscod", cuscos.Trim());
                     cmd.Parameters.AddWithValue("@incusname", cusname);
                     cmd.Parameters.AddWithValue("@inUser", user.Trim());
+                    SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                    p.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(p);
                     int INSID = cmd.ExecuteNonQuery();
                     if (INSID > 0)
                     {
 
                     }
+                    status = cmd.Parameters["@outGenstatus"].Value.ToString();
 
                 }
-                return Json(new { status = "success", message = "Success" });
+                return Json(new { status = status, message = "Success" });
             }
             catch (Exception ex)
             {

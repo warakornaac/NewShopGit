@@ -276,9 +276,7 @@
             else {
                 console.log("name : " + cuscod);
                 console.log("code : " + cusname);
-               // alert("cuscode =" + cuscod + " name =" + cusname);
-               // return false;
-               // alert("Register Success !!!");
+
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -298,12 +296,25 @@
 
                     },
                     success: function (result) {
-                        if (result.status == "success") {
+
+
+                        if (result.status == "Y") {
                             Toast.fire({
                                 icon: "success",
                                 title: "ลงทะเบียนลูกค้าสำเร็จ"
                             });
                             $('#clearButton').click();
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ลงทะเบียนผิดพลาด',
+                                html: 'E-mail : ' + email + '<br>' + result.status,
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            });
                         }
                     },
                     error: function (ex) {
@@ -316,7 +327,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'ระบบทำงานผิดพลาด()',
-                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>saveForecastSale' + error + '<br><br>',
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>Register Customer Line ' + error + '<br><br>',
                         confirmButtonColor: '#d33',
                         confirmButtonText: 'ปิด',
                         allowOutsideClick: false,
