@@ -759,16 +759,8 @@
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeAttr('hidden');
-            }, 2400);
+            }, 1000);
         });
-
-        //alert(cuscod);
-        // var cuscod = atob(param_values.numcuber)
-        //$(window).click(function (e) {
-        //    alert(e.target.id); // gives the element's ID
-        //    alert(e.target.className); // gives the elements class(es)
-        //});
-        //alert("id   " + id)
         function checkPrivilege(userid, cuscod) {
             $.ajax({
                 url: '@Url.Action("GetdataPrivilege", "DataCenter")',
@@ -879,8 +871,6 @@
 
         }
         *@
-
-        getCompanyInfor();
         //var cuscod = "";
         if (usertype == "1") {
             $("#nextcheckstock").css("display", "block");
@@ -892,35 +882,6 @@
             if (cuscod != "") {
                 checkPrivilege(userid, cuscod)
             }
-            //$(window).on('load', function () {
-            //    //alert("load")
-            //    checklogin(userid, id)
-            //});
-            //window.onclick = function () {
-            //    //alert("onclick")
-            //    checklogin(userid, id)
-            //};
-            //$('.navbar-nav').click(function () {
-            //   // alert("navbar-nav")
-            //    checklogin(userid, id)
-
-            //});
-            //$('a').click(function () {
-            //  //  alert("a")
-            //    checklogin(userid, id)
-
-            //});
-            ////$(document).bind('keypress.session', function (ed, e) {
-            ////    checklogin(userid, id)
-            ////});
-            //$(document).bind('mousedown keydown', function (ed, e) {
-
-            //    checklogin(userid, id)
-            //});
-            //$(window).scroll(function (e) {
-
-            //    checklogin(userid, id)
-            //});
             if (usrclmstaff == "1") {
                 $("#amtdoffon").css("display", "none");
                 $("#amtchildoffon").css("display", "none");
@@ -1150,62 +1111,6 @@
                     clearChartsamt_child();
                 }
             });
-            //TOP20
-            $('#btnoffonTop20').click(function () {
-                var current_status = $('.statusTop20').text();
-                var cuscod = $("#cushid").val();
-                if (current_status == 'Untoggled') {
-                    $('.statusTop20').html('Toggled');
-                    getListTop20(cuscod);
-                } else {
-                    $('.statusTop20').html('Untoggled');
-                    $('#tableListTop20 tbody:last-child').html("");
-                }
-            });
-            $('#promooffon').click(function () {
-                var current_status = $('.statuspromotion').text();
-
-                    var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                    if (current_status == 'Untoggled') {
-                        $('.statuspromotion').html('Toggled');
-                        getPromotion_Cus(cuskey, 'yearly')//โปรโมชั่น
-                    }
-                    else {
-                        $('.statuspromotion').html('Untoggled');
-
-                        $('#promotiontbyearly tbody:last-child').html("");
-                        $('#promotiontbquater tbody:last-child').html("");
-                        $('#promotiontbother tbody:last-child').html("");
-                    }
-           });
-            $('#cliamoffon').click(function () {
-                var current_status = $('.statuscliamoffon').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statuscliamoffon').html('Toggled');
-                    getWarrantyClaim_Cu(cuskey) //WarrantyClaim
-                }
-                else {
-                    $('.statuscliamoffon').html('Untoggled');
-                    $('#climtb tbody:last-child').html("");
-
-                }
-            });
-            $('#backordoffon').click(function () {
-                var current_status = $('.statusbackord').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusbackord').html('Toggled');
-                    getbackord(cuskey)//backorder
-                }
-                else {
-                    $('.statusbackord').html('Untoggled');
-                    $('#backordtb tbody:last-child').html("");
-
-                }
-            });
             $('.button-left').click(function () {
                 $('.sidebar').toggleClass('fliph');
             });
@@ -1225,157 +1130,12 @@
             });
             chkcustomer();
         });
-        if (usertype == "6") {
-            setTimeout(function () {
-                checkDateExpireCustomer(usrexpire)
-            }, 1000);
-        }
 
         function commaSeparateNumber(val) {
             while (/(\d+)(\d{3})/.test(val.toString())) {
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
             }
             return val;
-        }
-        function clearChartsamt() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac').html('Amt YTD AAC: 0');
-            $('#amtytd_tac').html('Amt YTD TAC: 0');
-            $('#amtytd_all').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac').html('Amt MTD TAC: 0');
-            $('#amtmtd_all').html('Amt MTD ALL: 0');
-        }
-
-        function clearChartsamt_child() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-        }
-
-        function clearChartTop20() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
         }
 
         function getcuschamt(cusnc) {
@@ -3823,22 +3583,6 @@
                                 $('.caption').css("display", "none");
                                 $('#prvs').css("display", "none");
                                 $("#selcus").prop("disabled", true);
-                                /*
-                                var SubmithtmlPage = "";
-                                SubmithtmlPage += '<div class="card-body">';
-
-                                SubmithtmlPage += '<div class="mt--10">';
-                                SubmithtmlPage += '<div class="contact-btn">';
-                                SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                                SubmithtmlPage += 'Shopping';
-                                SubmithtmlPage += '</button>';
-                                SubmithtmlPage += '</div>';
-                                SubmithtmlPage += '</div>';
-
-
-                                SubmithtmlPage += '</div>';
-                                $('.appendbtnshop').append(SubmithtmlPage);
-                                */
                             } else {
                                 $("#selcus").prop("disabled", false);
                                 var select = $("#selcus");
