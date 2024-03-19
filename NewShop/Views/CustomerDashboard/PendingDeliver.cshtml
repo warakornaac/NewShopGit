@@ -362,6 +362,48 @@
             font-family: Kanit, sans-serif;
         }
     </style>
+    <style>
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            background-color: rgba(255, 255, 255, 0.8); /* สีพื้นหลังของ loader */
+            padding: 20px;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
@@ -370,7 +412,15 @@
             <div class="page-heading">
             </div>
             <div class="page-content">
-                <section class="row">
+                <div class="container" id="loader">
+                    <div class="d-flex justify-content-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Loading...</h3>
+                    </div>
+                </div>
+                <section class="row" id="content" hidden>
                     <div class="col-12 col-lg-4">
                         <div class="row">
                             <p id="demo"></p>
@@ -435,7 +485,7 @@
 
                                             <div class="table-responsive" style="height:500px">
                                                 <table class="table table-striped mb-0" id="backordtb" style="padding: 7px;font-size: small;">
-                                                    <thead style="font-size: small;">
+                                                    <thead class="thead-default" style="font-size: small;">
                                                         <tr>
                                                             <th>เลขที่สั่งซื้อ</th>
                                                             <th>ชื่อสินค้า</th>
@@ -456,18 +506,6 @@
                     </div>
                 </section>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2024 &copy; TAC&AAC</p>
-                    </div>
-                    <div class="float-end">
-                        @*<p>
-                                Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
-                            </p>*@
-                    </div>
-                </div>
-            </footer>
         </div>
 
         <div class="modal" id="ExtraLargeModalLabel">
@@ -502,15 +540,8 @@
 
                             <div class="row" id="fixboxs">
 
-
-
-
-
-
                             </div>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -722,6 +753,14 @@
             $("#cushid").val(cuscod)
             $('#cussend').val(cuscod);
         }
+
+        $(document).ready(function () {
+            $('#loader').show();
+            setTimeout(function () {
+                $('#loader').hide();
+                $('#content').removeAttr('hidden');
+            }, 1000);
+        });
 
         //alert(cuscod);
         // var cuscod = atob(param_values.numcuber)

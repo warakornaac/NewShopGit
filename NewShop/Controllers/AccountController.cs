@@ -103,7 +103,7 @@ namespace NewShop.Controllers
                     {
 
                         this.Session["UserID"] = rev["Email"].ToString();
-                        this.Session["DisplayName"] = rev["DisplayName"].ToString();
+                        this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CUSCOD"] = rev["CusCode"].ToString();
                         //get sesssion

@@ -125,6 +125,22 @@
         .dropdownb:hover .dropbtnb {
             background-color: #3e8e41;
         }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        @@media only screen and (max-width: 600px) {
+            .logo-nav {
+                width: 135px;
+                height: auto;
+            }
+        }
     </style>
 </head>
 
@@ -137,7 +153,7 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand p-0 mr-5" href="#"><img src="~/images/logo/AACTAC185x70.jpg" /></a>
+            <a class="navbar-brand p-0 " href="#"><img class="logo-nav" src="~/images/logo/AACTAC185x70.jpg" /></a>
 
             <div class="collapse navbar-collapse flex-row-reverse " id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -150,7 +166,7 @@
                         {
                             if (Session["DisplayName"].ToString() != "")
                             {
-                                <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["DisplayName"]</span>
+                                <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">ร้าน @Session["DisplayName"]</span>
 
                             }
                             else
@@ -179,6 +195,8 @@
             </div>
         </nav>
     </header>
+
+
     <div>
         @RenderBody()
 
@@ -283,6 +301,11 @@
             </div>
         </div>
     </div>
+    <footer class="footer">
+        <div>
+            <p>2024 &copy; TAC&AAC</p>
+        </div>
+    </footer>
     <!-- Body main wrapper end -->
     <!-- Placed js at the end of the document so the pages load faster -->
     <!-- jquery latest version -->
