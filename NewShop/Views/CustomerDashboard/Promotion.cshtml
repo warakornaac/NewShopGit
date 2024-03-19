@@ -408,6 +408,12 @@
     <div id="app">
         <div id="main" style=" padding-right: 20px; padding-left: 20px; font-family: Kanit, sans-serif;">
             <div class="page-heading">
+                <div>
+                    <input type="hidden" id="cushid" />
+                    <input type="hidden" id="slmhid" />
+                    <input type="hidden" id="nocusses" />
+                    <input class="note-desc" id="cussend" type="hidden">
+                </div>
             </div>
 
             <div class="page-content">
@@ -419,8 +425,8 @@
                         <h3>Loading...</h3>
                     </div>
                 </div>
-                <section class="row" id="content" hidden>
-                    <div class="col-12 col-lg-4">
+                <section class="row justify-content-center d-none" id="content" hidden>
+                    <div class="col-12 col-lg-4" id="cushead">
                         <div class="row">
                             <p id="demo"></p>
                             <div class="col-12 caption">
@@ -449,12 +455,7 @@
                                             <div class="single-checkout-box checkbox">
 
                                             </div>
-                                            <div>
-                                                <input type="hidden" id="cushid" />
-                                                <input type="hidden" id="slmhid" />
-                                                <input type="hidden" id="nocusses" />
-                                                <input class="note-desc" id="cussend" type="hidden">
-                                            </div>
+
                                         </div>
                                         <div class="appendbtnshopbysales"></div>
                                     </div>
@@ -788,7 +789,7 @@
             $('#loader').show();
             setTimeout(function() {
                 $('#loader').hide();
-                $('#content').removeAttr('hidden');
+                $('#content').removeClass('d-none').addClass('d-flex');
             }, 1000);
         });
 
@@ -3698,6 +3699,7 @@
 
 
                             if (data.length == 1) {
+                                $('#cushead').remove();
                                 $('.caption').css("display", "none");
                                 $('#prvs').css("display", "none");
                                 /*
@@ -3926,7 +3928,7 @@
                         success: function (data) {
                             //console.log(data);
                             if (data.length == 1) {
-
+                                $('#cushead').remove();
                                 $('.caption').css("display", "none");
                                 $('#prvs').css("display", "none");
                                 $("#selcus").prop("disabled", true);

@@ -193,15 +193,16 @@
             document.getElementById("page").innerHTML = '<b>Page:</b> ' + page;
             if (page != null && page != '') {
                 if (page == "amount") { //หน้ายอดซื้อ
-                    window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/index");
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/index");
                 } else if (page == "promotion") {//หน้าโปรโมชั่น
-                    window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CheckStatus/Promotion");
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/Promotion");
                 }
                 else if (page == "PendingDelivery") {
-
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/pendingDeliver");
                 }
-            } else { //หน้าสินค้าค้างส่ง
-               // window.location.assign("https://mst.aac.co.th/e-Warranty_Test");
+            } else { //log in ครั้งแรก
+                // window.location.assign("https://mst.aac.co.th/e-Warranty_Test");
+                window.location.assign("https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
             }
         }
 
