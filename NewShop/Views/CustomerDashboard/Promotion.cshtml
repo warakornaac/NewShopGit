@@ -486,9 +486,9 @@
                                             </div>
                                         </div>
                                         <div class="w3-bar w3-round bg-info opacity-75">
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('yearly',this.id)" id="btn_yearly">เป้าปี</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('quater', this.id)" id="btn_quater">เป้าไตรมาส</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('other', this.id)" id="btn_other">เป้ารายเดือน</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('yearly',this.id)" id="btn_yearly">โปรโมชั่นรายปี</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('quater', this.id)" id="btn_quater">โปรโมชั่นรายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('other', this.id)" id="btn_other">โปรโมชั่นรายเดือน</button>
                                         </div>
                                         <div class="card">
                                             <div id="yearly" class="city">
@@ -499,8 +499,8 @@
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
                                                                 <th>เงื่อนไข</th>
-                                                                <th>จาก</th>
-                                                                <th>ถึง</th>
+                                                                @*<th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
                                                                 <th>ยอดซื้อ</th>
                                                                 <th>ยังขาดอีก</th>
                                                                 <th>ของรางวัล</th>
@@ -518,8 +518,8 @@
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
                                                                 <th>เงื่อนไข</th>
-                                                                <th>จาก</th>
-                                                                <th>ถึง</th>
+                                                                @* <th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
                                                                 <th>ยอดซื้อ</th>
                                                                 <th>ยังขาดอีก</th>
                                                                 <th>ของรางวัล</th>
@@ -536,8 +536,8 @@
                                                         <tr>
                                                             <th>โปรโมชั่น</th>
                                                             <th>เงื่อนไข</th>
-                                                            <th>จาก</th>
-                                                            <th>ถึง</th>
+                                                            @*<th>จาก</th>*@
+                                                            <th>สิ้นสุด</th>
                                                             <th>ยอดซื้อ</th>
                                                             <th>ยังขาดอีก</th>
                                                             <th>ของรางวัล</th>
@@ -1842,6 +1842,7 @@
 
         function getPromotion_Cus(cusnc, period) { //โปรโมชั่น ฟังก์ชั่น
             var current_status = $('.statuspromotion').text();
+            var reward_color = "";
             console.log("Promotion Cus : " + cusnc);
                 $.ajax({
                     url: '@Url.Action("GetdataPromotion_Cus", "DataCenter")',
@@ -1859,14 +1860,28 @@
                         var SubmithtmlPage = "";
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
+
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td>' + data[i].Promotion_Name + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].Condition) + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].StartDate + '</td>';
+                                //SubmithtmlPage += '<td>' + data[i].StartDate + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].EndDate + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].INVAMT) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].RemainAmt) + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].Reward + '</td>';
+                                if (data[i].Reward.toString().toLowerCase().includes("ticket")) {
+                                    reward_color = "bg-warning bg-opacity-75";
+                                }
+                                else if (data[i].Reward.toString().includes("ตั๋ว")) {
+                                    reward_color = "bg-warning bg-opacity-75 ";
+                                }
+                                else if (data[i].Reward.toString().includes("เช็ค")) {
+                                    reward_color = "bg-success bg-opacity-75 ";
+                                }
+                                else {
+                                    reward_color = "bg-info bg-opacity-75 ";
+                                }
+
+                                SubmithtmlPage += '<td> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
                                 SubmithtmlPage += '</tr>';
                             }
                             if (period == 'yearly') {
@@ -3483,7 +3498,7 @@
             //});
         });
         $('#btnclear').click(function () {
-            window.location.replace("../SeleScrCustomer/dashboard");
+            window.location.replace("../CustomerDashboard/Promotion");
         });
         $('#nextdas').click(function () {
 
