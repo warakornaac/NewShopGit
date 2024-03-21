@@ -375,8 +375,17 @@
         }
     </style>
     <style>
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
         #loader {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -418,7 +427,7 @@
     </style>
 </head>
 
-<body style="background-color: #f2f7ff; ">
+<body style="background-color: #f2f7ff; margin-bottom:5px; ">
     <div id="app">
         <div id="main" style=" padding-right:20px; padding-left:20px;">
             <div>
@@ -428,7 +437,7 @@
                 <input class="note-desc" id="cussend" type="hidden">
             </div>
             <div class="page-heading">
-
+                <br />
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -845,6 +854,11 @@
             </div>
 
         </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
     </div>
 
     @*<script src="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -885,6 +899,8 @@
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+
             }, 1000);
         });
         //if (chartdefault == "") {

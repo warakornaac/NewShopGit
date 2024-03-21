@@ -361,6 +361,15 @@
         }
     </style>
     <style>
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
         #loader {
             position: fixed;
             top: 50%;
@@ -414,6 +423,8 @@
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
+                <br />
+
             </div>
 
             <div class="page-content">
@@ -755,6 +766,11 @@
             </div>
 
         </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @*<script src="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -790,6 +806,7 @@
             setTimeout(function() {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
             }, 1000);
         });
 
@@ -1875,7 +1892,7 @@
                                     reward_color = "bg-warning bg-opacity-75 ";
                                 }
                                 else if (data[i].Reward.toString().includes("เช็ค")) {
-                                    reward_color = "bg-success bg-opacity-75 ";
+                                    reward_color = "bg-success bg-opacity-75";
                                 }
                                 else {
                                     reward_color = "bg-info bg-opacity-75 ";
