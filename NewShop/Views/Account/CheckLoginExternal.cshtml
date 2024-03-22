@@ -43,7 +43,11 @@
             width: 60px;
         }
 
-
+        .loading-group {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+        }
 
         .loader {
             border: 16px solid #f3f3f3;
@@ -177,12 +181,12 @@
                                     } else {//ไม่มีการลงทะเบียนลูกค้าไว้
                                         // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
                                         //window.location.assign("@domainName" + "/MobileCatalog_Test");
-
+                                        window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
 
                                     }
                                 }
                                 else {
-                                   window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
+
                                 }
                             },
                             error: function (ex) {
