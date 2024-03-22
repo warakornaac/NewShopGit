@@ -440,7 +440,7 @@
                     <div class="col-12 col-lg-4" id="cushead">
                         <div class="row">
                             <p id="demo"></p>
-                            <div class="col-12 caption">
+                            <div class="col-12 caption" hidden>
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 id="h2title" style="font-family: Kanit, sans-serif;">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
@@ -776,7 +776,7 @@
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
                 $('.footer').removeAttr('hidden');
-            }, 1000);
+            }, 3000);
         });
         function checkPrivilege(userid, cuscod) {
             $.ajax({
@@ -3244,7 +3244,7 @@
         function chkcustomer() {
 
             if (usertype != "6") {
-
+                $('.caption').removeAttr('hidden');
                 if (usertype == "5") {
 
                 } else {
@@ -3388,7 +3388,7 @@
                     }
                 }
             } else if (usertype == "6") {
-
+                //$('.caption').attr('hidden');
                 if (cuscod == ""){
                     $('#nextspold').css("display", "none");
                     //$('#h2title').html("พนักงานขาย");
@@ -3428,7 +3428,10 @@
                                 SubmithtmlPage += '</div>';
                                 $('.appendbtnshop').append(SubmithtmlPage);
                                 */
-                            } else {
+                            }
+
+                            else {
+
                                 var select = $("#selcus");
                                 select.children().remove();
                                 // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
@@ -3554,6 +3557,7 @@
                         success: function (data) {
                             //console.log(data);
                             if (data.length == 1) {
+
                                 $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
                                 $('#cus').attr('title', data[0].Hierarchy2_Channel);
                                 $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -3602,6 +3606,7 @@
                                 $('#prvs').css("display", "none");
                                 $("#selcus").prop("disabled", true);
                             } else {
+                                $('.caption').removeAttr('hidden');
                                 $("#selcus").prop("disabled", false);
                                 var select = $("#selcus");
                                 select.children().remove();
