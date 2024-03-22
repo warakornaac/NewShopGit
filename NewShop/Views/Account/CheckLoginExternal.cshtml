@@ -175,12 +175,10 @@
                                         } else if (page == "promotion") {//หน้าโปรโมชั่น
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
                                         }
-                                        else if (page == "PendingDelivery") {
+                                        else if (page == "PendingDelivery") {//หน้าค้างส่ง
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                                         }
-                                    } else {//ไม่มีการลงทะเบียนลูกค้าไว้
-                                        // window.location.assign("@domainName" + "/MobileCatalog_Test/CheckStatus/PendingDeliver");
-                                        //window.location.assign("@domainName" + "/MobileCatalog_Test");
+                                    } else {//เขาใช้งานครั้งแรก
                                         window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerAlert");
 
                                     }
@@ -201,8 +199,6 @@
                         });
 
                     } else { //ไมเป็นสมาชิก
-                        //window.location.replace(currentURL + "Register?flagApp=line&userId=" + userId + "&displayName=" + displayName + "&email=" + getDecodedIDToken);
-                        //alert("ไม่พบข้อมูลสมาชิก!!!");
                         Swal.fire({
                             title: "การเข้าใช้งานผิดพลาด",
                             text: "ไม่พบข้อมูลสมาชิก",
@@ -258,7 +254,7 @@
                 document.getElementById("getDecodedIDToken").innerHTML = liff.getDecodedIDToken().email;
                 //document.getElementById("page").innerHTML = profile.page
                 $("body").empty();
-                $("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div class="d-flex justify-content-center" style="padding: 50px; font-size: 18px;"><table><tr><td><div class="loader"></div></td></tr><tr><td class="text-center"><br />LOADING...</td></tr></table>    </div> </div> </div>')
+                $("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div class="d-flex justify-content-center" style="padding: 50px; font-size: 18px;"><table class="loading-group"><tr><td><div class="loader"></div></td></tr><tr><td class="text-center"><br />LOADING...</td></tr></table>    </div> </div> </div>')
 
                 setTimeout(() => {
                     const queryString = decodeURIComponent(window.location.search);
