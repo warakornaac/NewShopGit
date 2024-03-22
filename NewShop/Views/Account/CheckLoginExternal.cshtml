@@ -39,15 +39,7 @@
             margin: 0 auto
         }
 
-        #loader {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
-            background-color: rgba(255, 255, 255, 0.8); /* สีพื้นหลังของ loader */
-            padding: 20px;
-        }
+
 
         .loader {
             border: 16px solid #f3f3f3;
@@ -57,7 +49,8 @@
             height: 120px;
             -webkit-animation: spin 2s linear infinite; /* Safari */
             animation: spin 2s linear infinite;
-            position: absolute; /* or absolute */
+            position: relative; /* or absolute */
+            z-index: 999;
         }
         /* Safari */
         @@-webkit-keyframes spin {
