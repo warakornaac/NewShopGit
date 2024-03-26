@@ -173,26 +173,26 @@
                     <li class="nav-item dropdown messages-menu">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarpromotion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa fa-product-hunt"></i>
-                            <span class="label label-success bg-success" id="rd"></span>
                             <span>โปรโมชั่น</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown messages-menu">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarpending" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa fa-truck"></i>
-                            <span class="label label-success bg-success" id="rd"></span>
+                            @*<span class="label label-success bg-success" id="rd"></span>*@
                             <span>สินค้าค้างส่ง</span>
                         </a>
                     </li>
+                    &nbsp;
                     @if (Session["UserType"].ToString() != "6")
                     {
-                        <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                        <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;"> บัญชีของคุณ @Session["UserID"]</span>
                     }
                     else if (Session["UserType"].ToString() == "6")
                     {
                         if (Session["DisplayName"].ToString() != "")
                         {
-                            <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">ร้าน @Session["DisplayName"]</span>
+                            <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">  @Session["DisplayName"]</span>
 
                         }
                         else
