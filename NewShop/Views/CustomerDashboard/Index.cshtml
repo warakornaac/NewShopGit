@@ -3166,46 +3166,19 @@
             }
 
         });
-        $(document).on("click", "#navbarload", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            if (cuskey == "") {
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Upload order");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../UploadsExcel/Index?numcuber=" + btoa(cuskey));
-                }
-
-                        }
-
-                });
-        $(document).on("click", "#navbarstatus", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            if (cuskey == "") {
-                window.location.replace("../Statuslist/Index");
-                return false;
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuskey));
-                }
-
-            }
-
+        //ปุ่มยอดซื้อ
+        $(document).on("click", "#navbaramount", function () {
+            window.location.replace("../CustomerDashboard/index");
         });
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มสินค้าค้างส่ง
+        $(document).on("click", "#navbarpending", function () {
+            window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+
         $('#navbarshowdetail').click(function () {
 
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:

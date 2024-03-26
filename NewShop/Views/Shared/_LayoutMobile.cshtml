@@ -164,39 +164,59 @@
             <div class="collapse navbar-collapse flex-row-reverse " id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown messages-menu d-flex align-items-center">
-                        @if (Session["UserType"].ToString() != "6")
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbaramount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>ยอดซื้อ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarpromotion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa fa-product-hunt"></i>
+                            <span class="label label-success bg-success" id="rd"></span>
+                            <span>โปรโมชั่น</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarpending" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa fa-truck"></i>
+                            <span class="label label-success bg-success" id="rd"></span>
+                            <span>สินค้าค้างส่ง</span>
+                        </a>
+                    </li>
+                    @if (Session["UserType"].ToString() != "6")
+                    {
+                        <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                    }
+                    else if (Session["UserType"].ToString() == "6")
+                    {
+                        if (Session["DisplayName"].ToString() != "")
                         {
-                            <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                            <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">ร้าน @Session["DisplayName"]</span>
+
                         }
-                        else if (Session["UserType"].ToString() == "6")
+                        else
                         {
-                            if (Session["DisplayName"].ToString() != "")
-                            {
-                                <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">ร้าน @Session["DisplayName"]</span>
+                            <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
 
-                            }
-                            else
-                            {
-                                <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
-
-                            }
-                            //<span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
                         }
-                        @*@if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
-                            {
-                                <li class="nav-item dropdown messages-menu">
-                                    <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">
-                                        <i class="fa fa fa-undo"></i>
-                                        <span>Change Password</span>
-                                    </a>
-                                </li>
-                            }*@
-                        @*<li class="nav-item dropdown messages-menu">
-                                <a class="nav-link dropdown-toggle" href="~/Account/LogIn">
-                                    <i class="fa fa fa-outdent"></i>
-                                    <span>ออกจากระบบ</span>
+                        //<span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                    }
+                    @*@if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
+                        {
+                            <li class="nav-item dropdown messages-menu">
+                                <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">
+                                    <i class="fa fa fa-undo"></i>
+                                    <span>Change Password</span>
                                 </a>
-                            </li>*@
+                            </li>
+                        }*@
+                    @*<li class="nav-item dropdown messages-menu">
+                            <a class="nav-link dropdown-toggle" href="~/Account/LogIn">
+                                <i class="fa fa fa-outdent"></i>
+                                <span>ออกจากระบบ</span>
+                            </a>
+                        </li>*@
                 </ul>
             </div>
         </nav>
