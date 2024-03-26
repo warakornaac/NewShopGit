@@ -176,9 +176,8 @@
                                         else if (page == "PendingDelivery") {//หน้าค้างส่ง
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                                         }
-                                    } else {//เขาใช้งานครั้งแรก
+                                    } else {//กรณีเข้าครั้งแรกจะไปที่หน้ายอดซื้อทันที
                                         window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
-
                                     }
                                 }
                                 else {
@@ -269,7 +268,8 @@
                 //getPage();
                 runApp();
             } else {
-                liff.login();
+                const destinationURL = window.location.href;
+                liff.login({ redirectUri: destinationURL });
             }
         }, err => console.error(err.code, error.message));
 
