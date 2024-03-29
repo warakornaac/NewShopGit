@@ -237,7 +237,6 @@
                 }
             }
         }
-
         //get profile line
         function runApp() {
             liff.getProfile().then(profile => {
@@ -259,13 +258,14 @@
                 }, 2000);
             }).catch(err => console.error(err));
         }
+
         //line login
+        const destinationURL = window.location.href;
         liff.init({ liffId: "2004036305-aJVm4b34" }, () => {
             if (liff.isLoggedIn()) {
                 //getPage();
                 runApp();
             } else {
-                const destinationURL = window.location.href;
                 liff.login({ redirectUri: destinationURL });
             }
         }, err => console.error(err.code, error.message));
