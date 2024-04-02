@@ -425,7 +425,7 @@
                 </div>
                 @if (Session["DisplayName"].ToString() != "")
                 {
-                    <h4>@Session["DisplayName"].ToString()</h4>
+                    <h4 class="text-truncate pt-2">@Session["DisplayName"].ToString()</h4>
                 }
 
             </div>
@@ -499,10 +499,10 @@
                                                 </label><div class='statuspromotion'>Untoggled</div>
                                             </div>
                                         </div>
-                                        <div class="w3-bar w3-round bg-info opacity-75 pt-2 pl-1">
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
+                                        <div class="w3-bar rounded-top bg-info opacity-75 pt-2 pl-1">
+                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
+                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
                                         </div>
                                         <div class="card">
                                             <div id="yearly" class="city">
@@ -1906,21 +1906,21 @@
                             }
                             if (period == 'yearly') {
                                 $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#ACE2E1");
+                                $('#btn_yearly').css("background", "#87CEEB");
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
                             } else if (period == 'quater') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#ACE2E1");
+                                $('#btn_quater').css("background", "#87CEEB");
                                 $('#btn_other').removeAttr('style');
                             } else if (period == 'other') {
                                 $("#promotiontbother").append(SubmithtmlPage);
 
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#ACE2E1");
+                                $('#btn_other').css("background", "#87CEEB");
                             }
                         }
                     }
@@ -3416,19 +3416,19 @@
         //    alert(this.id);
         //});
         $('#btn_yearly').click(function () {
-            $('#btn_yearly').css("background", "#ACE2E1");
+            $('#btn_yearly').css("background", "#87CEEB");
              $('#btn_quater').removeAttr('style');
              $('#btn_other').removeAttr('style');
         });
         $('#btn_quater').click(function () {
             $('#btn_yearly').removeAttr( 'style' );
-            $('#btn_quater').css("background", "#ACE2E1");
+            $('#btn_quater').css("background", "#87CEEB");
             $('#btn_other').removeAttr( 'style' );
         });
         $('#btn_other').click(function () {
             $('#btn_yearly').removeAttr('style');
             $('#btn_quater').removeAttr('style');
-            $('#btn_other').css("background", "#ACE2E1");
+            $('#btn_other').css("background", "#87CEEB");
         });
 
         function chkcustomer() {

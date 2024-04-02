@@ -190,7 +190,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div>
-                                        <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua"><option value="0" data-name="0"></option></select>
+                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua"><option value="0" data-name="0"></option></select>
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                                     Telephone
                                 </label>
                                 <div class="col-md-9">
-                                    <input type="tel" class="form-control input-form" id="r_phone" name="r_phone" maxlength="10" title="Enter phone number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                                    <input type="tel" class="form-control input-form" id="r_phone" name="r_phone" maxlength="10" title="Enter phone number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required />
                                 </div>
                             </div>
                         </div>
@@ -265,12 +265,16 @@
             var select = $('#selcus option:selected');
             var cuscod = select.val();
             var cusname = select.data("name");
-            if (cuscod.trim() == "0") {
+            if (cuscod.trim() == "") {
                 alert("select Customer Code please!!!");
                 return false;
             }
-            else if (cuscod.trim() == "") {
-                lert("select Customer Code please!!!");
+            //else if (tel.trim() == "") {
+            //    alert("Enter PhoneNumber please!!!");
+            //    return false;
+            //}
+            else if (email.trim() == "") {
+                alert("Enter Email please!!!");
                 return false;
             }
             else {
@@ -572,6 +576,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
 
@@ -602,6 +607,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -663,6 +669,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
@@ -831,6 +838,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
@@ -861,6 +869,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
@@ -895,6 +904,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
