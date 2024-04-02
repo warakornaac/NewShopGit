@@ -423,7 +423,10 @@
                 <input class="note-desc" id="cussend" type="hidden">
             </div>
             <div class="page-heading">
-                <br />
+                @if (Session["DisplayName"].ToString() != "")
+                {
+                    <h4>@Session["DisplayName"].ToString()</h4>
+                }
             </div>
             <div class="page-content">
                 <div class="container" id="loader">

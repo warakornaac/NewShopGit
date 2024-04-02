@@ -425,7 +425,10 @@
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
-                <br />
+                @if (Session["DisplayName"].ToString() != "")
+                {
+                    <h4>@Session["DisplayName"].ToString()</h4>
+                }
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -3137,14 +3140,6 @@
             }
 
         });
-
-        //$('.w3-bar-item w3-button btnpromotion').click(function (ev) {
-        //    $('#menu ul li').removeClass('selected');
-        //    $(ev.currentTarget).parent('li').addClass('selected');
-        //});
-        //$(".w3-bar-item w3-button btnpromotion").click(function () {
-        //    alert(this.id);
-        //});
         $('#btn_yearly').click(function () {
              $('#btn_yearly').css("background", "#910000");
              $('#btn_quater').removeAttr('style');
@@ -3197,21 +3192,6 @@
                                 }
                             }
                         });
-                        //var SubmithtmlPage = "";
-                        //SubmithtmlPage += '<div class="card-body">';
-
-                        //SubmithtmlPage += '<div class="mt--10">';
-                        //SubmithtmlPage += '<div class="contact-btn">';
-                        //SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                        //SubmithtmlPage += 'Shopping';
-                        //SubmithtmlPage += '</button>';
-                        //SubmithtmlPage += '</div>';
-                        //SubmithtmlPage += '</div>';
-                        //SubmithtmlPage += '<a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />';
-
-                        //SubmithtmlPage += '</div>';
-                        //$('.appendbtnshopbysales').append(SubmithtmlPage);
-                        //  window.location.replace("../Account/LogIn");
                     } else {
 
                         getslmandcus()

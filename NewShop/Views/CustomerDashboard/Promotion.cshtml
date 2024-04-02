@@ -423,7 +423,10 @@
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
-                <br />
+                @if (Session["DisplayName"].ToString() != "")
+                {
+                    <h4>@Session["DisplayName"].ToString()</h4>
+                }
 
             </div>
 
@@ -496,10 +499,10 @@
                                                 </label><div class='statuspromotion'>Untoggled</div>
                                             </div>
                                         </div>
-                                        <div class="w3-bar w3-round bg-info opacity-75">
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('yearly',this.id)" id="btn_yearly">โปรโมชั่นรายปี</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('quater', this.id)" id="btn_quater">โปรโมชั่นรายไตรมาส</button>
-                                            <button class="w3-bar-item w3-button btnpromotion font-kanit" onclick="openPeriod('other', this.id)" id="btn_other">โปรโมชั่นรายเดือน</button>
+                                        <div class="w3-bar w3-round bg-info opacity-75 pt-2 pl-1">
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
                                         </div>
                                         <div class="card">
                                             <div id="yearly" class="city">
@@ -3160,40 +3163,12 @@
                 } else {
                     window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
                 }
-                @*$.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cuskey
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        checkcustomerinactive(cuskey)
-                        //if (data.length > 0) {
-                        //    typin = data[0].INACTIVE;
-
-                        //    if (typin == "Y") {
-
-                        //        $("#textAlertWarning").empty();
-                        //        $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                        //        $("#myModalWarning").modal();
-
-                        //        return false;
-
-
-                        //    } else {
-                        //        window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
-                        //    }
-                        //}
-                    }
-                });*@
             }
 
         });
 
         $(document).on("click", "#nextcheckstock", function () {
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
             if (cuskey == "") {
                 window.location.replace("../SCStockSco/Index");
             } else {
@@ -3205,33 +3180,6 @@
                 } else {
                     window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
                 }
-                @*$.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cuskey
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        checkcustomerinactive(cuskey)*@
-                //if (data.length > 0) {
-                //    typin = data[0].INACTIVE;
-
-                //    if (typin == "Y") {
-
-                //        $("#textAlertWarning").empty();
-                //        $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                //        $("#myModalWarning").modal();
-
-                //        return false;
-
-
-                //    } else {
-                //        window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
-                //    }
-                //}
-                //}
-                //});
             }
 
         });
