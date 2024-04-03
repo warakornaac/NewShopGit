@@ -503,7 +503,7 @@
                                                             <th>วันที่ส่ง</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
+                                                    <tbody></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -1728,9 +1728,7 @@
                         $('#backordtb tbody:last-child').html("");
                         if (data.length > 0) {
                             var SubmithtmlPage = "";
-                            var CountBackOrder = 0;
                             for (var i = 0; i < data.length; i++) {
-                                if (data[i].CUSCOD == cusnc) {
                                 // SubmithtmlPage += ' <table class="fancyTable" id="myTable05" cellpadding="0" cellspacing="0">';
                                 SubmithtmlPage += '<tr data-index=' + data[i].SeqNum + data[i].SaleOrder_No + '>';
                                 SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
@@ -1739,13 +1737,8 @@
                                 SubmithtmlPage += '<td>' + data[i].SaleOrder_Date + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].DLVDAT + '</td>';
                                 SubmithtmlPage += '</tr >';
-                                CountBackOrder++;
-                                }
-                                console.log("Num of order : " + CountBackOrder);
                             }
-                            if (CountBackOrder <= 0) {
-                                SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
-                            }
+
                             $("#backordtb").append(SubmithtmlPage);
 
                         } else if (data.length <=0) {
