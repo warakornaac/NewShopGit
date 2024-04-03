@@ -458,9 +458,9 @@
                                         <span style="color: blue; cursor: pointer; font-family: Kanit, sans-serif;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
                                         <br />
                                         <div id="prvs">
-                                            <h8 style="font-family: Kanit, sans-serif;">ลูกค้า</h8>
+                                            <h8 style="font-family: Kanit, sans-serif;">ร้านค้า</h8>
                                             <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"></select>
+                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกร้านค้า" data-hide-disabled="true" id="selcus"></select>
                                             </div>
 
                                             <div class="single-checkout-box select-option mt--10">
@@ -487,7 +487,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
-                                        <div class="card-header pr-1">
+                                        <div class="card-header pr-1 bg-info">
                                             <div class="col-7 col-md-12 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
                                                 <h4>รายการค้างส่งสินค้า</h4>
                                             </div>
@@ -1711,8 +1711,6 @@
 
 
             var Stock_Flag = Stock_Flag;
-            var current_status = $('.statusbackord').text();
-
                 $.ajax({
                     url: '@Url.Action("getbackorder", "BackOrderAll")',
                     data: {
@@ -1737,6 +1735,7 @@
 
                             var SubmithtmlPage = "";
                             for (var i = 0; i < data.length; i++) {
+                                if (data[i].CUSCOD == cusnc) {
                                 // SubmithtmlPage += ' <table class="fancyTable" id="myTable05" cellpadding="0" cellspacing="0">';
                                 SubmithtmlPage += '<tr data-index=' + data[i].SeqNum + data[i].SaleOrder_No + '>';
                                 SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
@@ -1745,6 +1744,7 @@
                                 SubmithtmlPage += '<td>' + data[i].SaleOrder_Date + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].DLVDAT + '</td>';
                                 SubmithtmlPage += '</tr >';
+                                }
 
                             }
                             $("#backordtb").append(SubmithtmlPage);
@@ -1773,7 +1773,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
                     $.each(data, function (key, value) {
 
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
@@ -1898,7 +1898,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ"));
                     $.each(data, function (key, value) {
 
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
@@ -1930,7 +1930,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
                     $.each(data, function (key, value) {
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
                         //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
@@ -2114,7 +2114,7 @@
                                 //console.log(data);
                                 var select = $("#selcus");
                                 select.children().remove();
-                                select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
+                                select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ " + SLMt));
                                 $.each(data, function (key, value) {
                                     select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
                                     //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');

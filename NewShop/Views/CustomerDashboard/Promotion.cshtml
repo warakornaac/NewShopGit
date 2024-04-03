@@ -458,9 +458,9 @@
                                         <span style="font-family: Kanit, sans-serif; color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
                                         <br />
                                         <div id="prvs">
-                                            <h8>ลูกค้า</h8>
+                                            <h8>ร้านค้า</h8>
                                             <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"></select>
+                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกร้านค้า" data-hide-disabled="true" id="selcus"></select>
                                             </div>
 
                                             <div class="single-checkout-box select-option mt--10">
@@ -488,7 +488,7 @@
                                 <div class="col-12">
                                     <!-- Rounded switch -->
                                     <div class="card">
-                                        <div class="card-header">
+                                        <div class="card-header bg-info">
                                             <div class="col-sm-6 text-left pl-1">
                                                 <h4>โปรโมชั่น</h4>
                                             </div>
@@ -504,12 +504,11 @@
                                             <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
                                             <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
                                         </div>
-                                        <div class="card">
+                                        <div class="card m-0">
                                             <div id="yearly" class="city">
-
                                                 <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbyearly" style="padding: 7px; font-size: small; overflow: auto;">
-                                                        <thead style="font-size: small;">
+                                                        <thead class="thead-default" style="font-size: small;">
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
                                                                 <th>เงื่อนไข</th>
@@ -530,7 +529,7 @@
                                             <div id="quater" class="city" style="display:none">
                                                 <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px; font-size: small; overflow: auto;">
-                                                        <thead style="font-size: small;">
+                                                        <thead class="thead-default" style="font-size: small;">
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
                                                                 <th>เงื่อนไข</th>
@@ -549,7 +548,7 @@
                                             <div id="other" class="city" style="display:none">
                                                 <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small; overflow:auto;">
-                                                        <thead style="font-size: small;">
+                                                        <thead class="thead-default" style="font-size: small;">
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
                                                                 <th>เงื่อนไข</th>
@@ -2197,7 +2196,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
                     $.each(data, function (key, value) {
 
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
@@ -2323,7 +2322,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ"));
                     $.each(data, function (key, value) {
 
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
@@ -2355,7 +2354,7 @@
                     var select = $("#selcus");
                     select.children().remove();
                     //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
+                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
                     $.each(data, function (key, value) {
                         select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
                         //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
@@ -2540,7 +2539,7 @@
                                 //console.log(data);
                                 var select = $("#selcus");
                                 select.children().remove();
-                                select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
+                                select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ " + SLMt));
                                 $.each(data, function (key, value) {
                                     select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
                                     //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
