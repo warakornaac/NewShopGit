@@ -500,9 +500,9 @@
                                             </div>
                                         </div>
                                         <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
-                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
-                                            <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
                                         </div>
                                         <div class="card m-0">
                                             <div id="yearly" class="city">
@@ -815,7 +815,7 @@
                 $('.footer').removeAttr('hidden');
             }, 2000);
         });
-        $('#btn_yearly').css("background", "#87CEEB");
+        $('#btn_yearly').css("background", "#DEAF5B");
         if (cuscod != "") {
             $("#cushid").val(cuscod)
             getPromotion_Cus(cuscod, 'yearly');
@@ -1909,42 +1909,42 @@
                             }
                             if (period == 'yearly') {
                                 $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#87CEEB");
+                                $('#btn_yearly').css("background", "#DEAF5B");
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
                             } else if (period == 'quater') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#87CEEB");
+                                $('#btn_quater').css("background", "#DEAF5B");
                                 $('#btn_other').removeAttr('style');
                             } else if (period == 'other') {
                                 $("#promotiontbother").append(SubmithtmlPage);
 
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#87CEEB");
+                                $('#btn_other').css("background", "#DEAF5B");
                             }
                         }
                         else if (data.length <= 0) {
                             SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
                             if (period == 'yearly') {
                                 $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#87CEEB");
+                                $('#btn_yearly').css("background", "#DEAF5B");
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
                             } else if (period == 'quater') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#87CEEB");
+                                $('#btn_quater').css("background", "#DEAF5B");
                                 $('#btn_other').removeAttr('style');
                             } else if (period == 'other') {
                                 $("#promotiontbother").append(SubmithtmlPage);
 
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#87CEEB");
+                                $('#btn_other').css("background", "#DEAF5B");
                             }
                         }
                     }
@@ -3440,19 +3440,19 @@
         //    alert(this.id);
         //});
         $('#btn_yearly').click(function () {
-            $('#btn_yearly').css("background", "#87CEEB");
+            $('#btn_yearly').css("background", "#DEAF5B");
              $('#btn_quater').removeAttr('style');
              $('#btn_other').removeAttr('style');
         });
         $('#btn_quater').click(function () {
             $('#btn_yearly').removeAttr( 'style' );
-            $('#btn_quater').css("background", "#87CEEB");
+            $('#btn_quater').css("background", "#DEAF5B");
             $('#btn_other').removeAttr( 'style' );
         });
         $('#btn_other').click(function () {
             $('#btn_yearly').removeAttr('style');
             $('#btn_quater').removeAttr('style');
-            $('#btn_other').css("background", "#87CEEB");
+            $('#btn_other').css("background", "#DEAF5B");
         });
 
         function chkcustomer() {

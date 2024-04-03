@@ -149,13 +149,14 @@
                     @if (Session["UserType"].ToString() != "6")
                     {
 
+
+
                         <div class="dropdownb">
                             @*<button class="dropbtn">Dashboard Sales Man</button>*@
                             @*<span class="dropbtn">Dashboard Sales Man</span>*@
                         <li class="nav-item dropdown messages-menu">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa fa-address-book-o" style="font-size: 1.7em;"></i>
-
                                 <span class="dropbtnb">Dashboard Sales Man</span>
                             </a>
                         </li>
@@ -167,9 +168,13 @@
                             <a class="nav-link" href="~/OrderingReport/Index">
                                 <span>Did You Knows</span>
                             </a>
-                            <a class="nav-link" href="~/Account/Register">
-                                <span>RegisterCustomerLine</span>
-                            </a>
+                            @if (Session["UserType"].ToString() == "1")
+                            {
+                                <a class="nav-link" href="~/Account/Register">
+                                    <span>RegisterCustomerLine</span>
+                                </a>
+                            }
+
                         </div>
 
                 </div>

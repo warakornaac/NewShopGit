@@ -1748,12 +1748,12 @@
                                 console.log("Num of order : " + CountBackOrder);
                             }
                             if (CountBackOrder <= 0) {
-                                SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
+                                SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
                             }
                             $("#backordtb").append(SubmithtmlPage);
 
                         } else if (data.length <=0) {
-                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
+                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
                             $("#backordtb").append(SubmithtmlPage);
                         }
                     }
