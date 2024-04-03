@@ -488,7 +488,7 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header pr-1">
-                                            <div class="col-7 col-md-12 col-lg-6 col-sm-6 text-md-left  text-sm-left">
+                                            <div class="col-7 col-md-12 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
                                                 <h4>รายการค้างส่งสินค้า</h4>
                                             </div>
                                             <div class="col-5 col-md-12 col-lg-6 col-sm-6 text-right text-md-right text-sm-right p-0">
@@ -507,7 +507,7 @@
                                                             <th>วันที่ส่ง</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody></tbody>
+                                                    <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -1749,98 +1749,13 @@
                             }
                             $("#backordtb").append(SubmithtmlPage);
 
-                        } else {
-
+                        } else if (data.length <=0) {
+                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
+                            $("#backordtb").append(SubmithtmlPage);
                         }
                     }
                 });
         }
-        function getCompanyInformation(cusnc) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
-                data: {
-                    cusel: cusnc
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].SLMPhone)
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInformationbysalman(slm) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInformation", "DataCenter")',
-                data: {
-                    Slm: slm
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    //  $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    // $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].Phone);
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInfor() {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInfo", "DataCenter")',
-                data: {
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    //  $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    // $("#selslm").prop("disabled", true);
-
-                    $("#aaccomname").text(data[0].Name);
-                    // $("#aacaddress").text(data[0].Address1 + ' ' + data[0].Address2);
-                    $("#aacphone").text("Tel: " + data[0].Phone);
-                    $("#aacfax").text('Fax:' + data[0].Fax);
-                    $("#aactax").text("Tax: " + data[0].Tax);
-                    $("#aacBank1").text("Bank1: " + data[0].Bank1);
-                    $("#aacBank2").text("Bank2: " + data[0].Bank2);
-
-                    $("#taccomname").text(data[1].Name);
-                    $("#tacaddress").text(data[1].Address1 + ' ' + data[1].Address2);
-                    $("#tacphone").text("Tel: " + data[1].Phone);
-                    $("#tacfax").text('Fax:' + data[1].Fax);
-                    $("#tactax").text("Tax: " + data[1].Tax);
-                    $("#tacBank1").text("Bank1: " + data[1].Bank1);
-                    $("#tacBank2").text("Bank2: " + data[1].Bank2);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
         function getcus() {
 
             var SLM = $("#selslm").val();
@@ -1948,7 +1863,6 @@
             } else {
                 window.location.replace("../SeleScrCustomer/dashboard");
             }
-            getCompanyInformationbysalman(SLM);//Company Information
             //if (SLMt == "ALL") {
 
             //    $("#textfree").css("display", "block");
@@ -2151,7 +2065,6 @@
                 } else {
                     countorder(item, $('#selslm').val());
                     datacus($('#selslm').val());
-                    getCompanyInformationbysalman($('#selslm').val());//Company Information
                 }
                 //getcuschamt(item)//ยอดซื้อรวม
                 //getcuschamt_child(item) //ยอดซื้อตามร้านค้า
@@ -3187,7 +3100,6 @@
                                     countorder("", slmcod);
                                     //Getdatacartslm(slmcod)
 
-                                    getCompanyInformationbysalman(slmcod)
                                 }
                             }
                         });
@@ -3234,7 +3146,6 @@
                                 countorder(data[0].CUSCOD, data[0].SLMCOD);
                                 $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
                                 getCreditcuskey(cuscod);//get เครดิตรร้านแม่
-                                getCompanyInformationbysalman(data[0].SLMCOD);//Company Information
 
 
 
@@ -3442,7 +3353,6 @@
 
                             $("#selslm").prop("disabled", true);
                             //datacus();  ///auto get customer to option select customer
-                            getCompanyInformationbysalman(data[0].SLMCOD)//Company Information
 
                         }
                     });

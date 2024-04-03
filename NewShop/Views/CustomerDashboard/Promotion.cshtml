@@ -489,7 +489,7 @@
                                     <!-- Rounded switch -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="col-sm-6 text-left">
+                                            <div class="col-sm-6 text-left pl-1">
                                                 <h4>โปรโมชั่น</h4>
                                             </div>
                                             <div class="col-sm-6 text-right" hidden>
@@ -499,7 +499,7 @@
                                                 </label><div class='statuspromotion'>Untoggled</div>
                                             </div>
                                         </div>
-                                        <div class="w3-bar rounded-top bg-info opacity-75 pt-2 pl-1">
+                                        <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
                                             <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
                                             <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
                                             <button class="w3-bar-item w3-button w3-hover-light-blue btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
@@ -507,7 +507,7 @@
                                         <div class="card">
                                             <div id="yearly" class="city">
 
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbyearly" style="padding: 7px; font-size: small; overflow: auto;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -520,13 +520,15 @@
                                                                 <th>ของรางวัล</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody>
+                                                            <tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
 
                                             <div id="quater" class="city" style="display:none">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px; font-size: small; overflow: auto;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -539,13 +541,13 @@
                                                                 <th>ของรางวัล</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
                                                     </table>
                                                 </div>
                                             </div>
 
                                             <div id="other" class="city" style="display:none">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small; overflow:auto;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -558,7 +560,7 @@
                                                                 <th>ของรางวัล</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -814,7 +816,7 @@
                 $('.footer').removeAttr('hidden');
             }, 2000);
         });
-
+        $('#btn_yearly').css("background", "#87CEEB");
         if (cuscod != "") {
             $("#cushid").val(cuscod)
             getPromotion_Cus(cuscod, 'yearly');
@@ -1906,6 +1908,27 @@
                                 SubmithtmlPage += '<td> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
                                 SubmithtmlPage += '</tr>';
                             }
+                            if (period == 'yearly') {
+                                $("#promotiontbyearly").append(SubmithtmlPage);
+                                $('#btn_yearly').css("background", "#87CEEB");
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').removeAttr('style');
+
+                            } else if (period == 'quater') {
+                                $("#promotiontbquater").append(SubmithtmlPage);
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').css("background", "#87CEEB");
+                                $('#btn_other').removeAttr('style');
+                            } else if (period == 'other') {
+                                $("#promotiontbother").append(SubmithtmlPage);
+
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').css("background", "#87CEEB");
+                            }
+                        }
+                        else if (data.length <= 0) {
+                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
                             if (period == 'yearly') {
                                 $("#promotiontbyearly").append(SubmithtmlPage);
                                 $('#btn_yearly').css("background", "#87CEEB");

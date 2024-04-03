@@ -1017,7 +1017,6 @@
                     //    select.append($("<option>").val("ALL").text("ALL Sales Man"));
                     //}
                     select.append($("<option>").val("0").text("เลือก Sale"));
-
                     $(data).each(function (index, item) {
                         select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
                     });
