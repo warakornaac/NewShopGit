@@ -433,6 +433,49 @@
             $('#selcus').val(_val);
             Cusdetail()
         });
+        function customerRecheck() {
+            var SLM = $('#selslm').val()
+            var SLMt = $("#selslm option:selected").text();
+            var cuskey = "";
+            cuskey = $("#nocusses").val();
+            var cusel = $("#cushid").val();
+            if (cuskey == "") {
+                cuskey = cusel;
+            }
+            if (SLM != "ALL") {
+
+            } else {
+                window.location.replace("../Account/Register");
+            }
+
+            $("#cus").text("");
+            $("#addcus").text("");
+            $("#cushid").val("");
+
+            $.ajax({
+                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                data: {
+                    SLXX: SLM,
+                    SLMNAME: SLMt
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    //console.log(data);
+                    var select = $("#selcus");
+                    select.children().remove();
+                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
+                    select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+                    $.each(data, function (key, value) {
+                        select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+
+                        //select.append('<option value=' + value.CUSCOD + ' data-name=' + value.CUSNAM +' >' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                    $(".caret").css("display", "none");
+                }
+            });
+        }
 
         $('#selslm').change(function () {
             var SLM = $(this).val()
@@ -576,6 +619,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            customerRecheck();
                             $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการลงทะเบียนได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
@@ -607,6 +651,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            customerRecheck();
                             $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
@@ -669,6 +714,7 @@
                                 allowOutsideClick: false,
                                 focusConfirm: false,
                             });
+                            customerRecheck();
                             $("#selcus").val("0");
                             $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
@@ -838,6 +884,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                customerRecheck();
                                 $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
@@ -869,6 +916,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                customerRecheck();
                                 $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
@@ -904,6 +952,7 @@
                                     allowOutsideClick: false,
                                     focusConfirm: false,
                                 });
+                                customerRecheck();
                                 $("#selcus").val("0");
                                 $("#textAlertWarning").empty();
                                 $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการลงทะเบียน กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
