@@ -438,10 +438,10 @@
                     </div>
                 </div>
                 <section class="row justify-content-center d-none" id="content">
-                    <div class="col-12 col-lg-3" id="cushead">
+                    <div class="col-12 col-lg-3" id="cushead" hidden>
                         <div class="row">
                             <p id="demo"></p>
-                            <div class="col-12 caption">
+                            <div class="col-12 caption" hidden>
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 id="h2title" style="font-family: Kanit, sans-serif;">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
@@ -844,7 +844,7 @@
             clearChartsamt();
         }
 
-        console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
+        console.log("usertype = " + usertype);
 
 
         //alert(cuscod);
@@ -3119,8 +3119,10 @@
                             if (data.length == 1) {
                                 $('#cushead').remove();
                                 $('.caption').css("display", "none");
+                                $('.caption').attr('hidden')
                                 $('#prvs').css("display", "none");
                             } else {
+                                $('.caption').removeAttr('hidden');
                                 var select = $("#selcus");
                                 select.children().remove();
                                 // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));

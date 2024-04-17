@@ -315,15 +315,19 @@
                 return false;
             }
             if (tel.trim() == "") {
-                alert("Enter PhoneNumber please!!!");
+                alert("Please enter phonenumber.");
                 return false;
             }
             if (username.trim() == "") {
-                alert("Enter username please!!!");
+                alert("Please enter username.");
                 return false;
             }
             if (pass.trim() == "") {
-                alert("Enter password please!!!");
+                alert("Please enter a password");
+                return false;
+            }
+            if (pass.length < 6) {
+                alert("Please enter a password with at least 6 characters.");
                 return false;
             }
             else {

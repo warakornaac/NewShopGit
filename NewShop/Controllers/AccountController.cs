@@ -73,7 +73,7 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("P_Check_Login_External", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@userId", userId);
-                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@email", email.Trim());
                 command.Parameters.AddWithValue("@displayName", displayName);
 
                 SqlParameter returnValuedoc = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
