@@ -574,7 +574,7 @@ namespace NewShop.Controllers
             List<Itemapproval> _ItemList = new JavaScriptSerializer().Deserialize<List<Itemapproval>>(data);
             int cid = 0;
             int Smoq = 0;
-            DateTime SpcEndDate = new DateTime();
+            string spcEndDate = string.Empty;
             string strspcend = string.Empty;
             string strSmoq = string.Empty;
             string usre = Session["UserID"].ToString();
@@ -600,10 +600,12 @@ namespace NewShop.Controllers
                             strspcend = _ItemList[i].spcend_date;
                             if (strspcend != "")
                             {
-                                SpcEndDate = DateTime.ParseExact(strspcend, "dd/MM/yyyy", null);
+                                //SpcEndDate = DateTime.ParseExact(strspcend, "dd/MM/yyyy", null);
+                                spcEndDate = Convert.ToDateTime(strspcend.ToString()).ToString("dd/MM/yyyy");
+                                //formatspc_s_date = SpcEndDate.ToString("dd/MM/yyyy");
 
-                                //Convert.ToDateTime(_ItemList[i].spcend_date);
-                                //SpcEndDate = _ItemList[i].spcend_date;
+                                //convert.todatetime(_itemlist[i].spcend_date);
+                                //spcenddate = _itemlist[i].spcend_date;
                             }
                             stremake = _ItemList[i].remake;
                             //SqlCommand command = new SqlCommand("P_Save_Price_Approve", connection);
@@ -616,7 +618,7 @@ namespace NewShop.Controllers
                                 command.Parameters.AddWithValue("@inUser", usre);
                                 command.Parameters.AddWithValue("@inStatus", vStatus);
                                 command.Parameters.AddWithValue("@inSpcmoq", Smoq);
-                                command.Parameters.AddWithValue("@inSpcEnddate", SpcEndDate);
+                                command.Parameters.AddWithValue("@inSpcEnddate", spcEndDate);
                                 command.Parameters.AddWithValue("@inRemake", stremake);
                             }
                             else
