@@ -176,12 +176,20 @@
                                         else if (page == "PendingDelivery") {//หน้าค้างส่ง
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                                         }
-                                    } else {//กรณีเข้าครั้งแรกจะไปที่หน้ายอดซื้อทันที
-                                        window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
                                     }
                                 }
                                 else {
-
+                                      if (result.page != null && result.page != '') {
+                                            if (result.page == "amount") { //หน้ายอดซื้อ
+                                                //alert("amount");
+                                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=amount");
+                                            } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=promotion");
+                                            }
+                                            else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=PendingDelivery");
+                                            }
+                                        }
                                 }
                             },
                             error: function (ex) {
@@ -245,7 +253,6 @@
                 document.getElementById("displayName").innerHTML = profile.displayName;
                 document.getElementById("statusMessage").innerHTML =  profile.statusMessage;
                 document.getElementById("getDecodedIDToken").innerHTML = liff.getDecodedIDToken().email;
-                return false;
                 //document.getElementById("page").innerHTML = profile.page
                 //$("body").empty();
                 //$("body").html('<div class="row"> <div class="col-lg-12 text-center"> <div class="d-flex justify-content-center" style="padding: 50px; font-size: 18px;"><table class="loading-group"><tr><td><div class="loader"></div></td></tr><tr><td class="text-center"><br />LOADING...</td></tr></table>    </div> </div> </div>')
@@ -254,8 +261,7 @@
                     const queryString = decodeURIComponent(window.location.search);
                     const params = new URLSearchParams(queryString);
                     const page = params.get('page');
-                    //return false;
-                    getDataLoginExternal(profile.pictureUrl, profile.userId, profile.displayName, liff.getDecodedIDToken().email, page);
+                    //getDataLoginExternal(profile.pictureUrl, profile.userId, profile.displayName, liff.getDecodedIDToken().email, page);
                 }, 2000);
             }).catch(err => console.error(err));
         }

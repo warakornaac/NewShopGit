@@ -48,21 +48,21 @@ namespace NewShop.Models
         public string Company { get; set; }
         public string ProductGroup { get; set; }
         public string ProductLine { get; set; }
-      
+
     }
     public class LookupVehicle
-    {  
-       public string Type { get; set; }
-       public string Code { get; set; }
-       public string Description{ get; set; }
-       public string SearchDescription{ get; set; }
-       public string CodeRelation{ get; set; }
-       public string YrStart{ get; set; }
-       public string YrEnd{ get; set; }
-       public string EngineType{ get; set; }
-       public string CC{ get; set; }
-       public string Picture { get; set; }
-       public string sort { get; set; }
+    {
+        public string Type { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public string SearchDescription { get; set; }
+        public string CodeRelation { get; set; }
+        public string YrStart { get; set; }
+        public string YrEnd { get; set; }
+        public string EngineType { get; set; }
+        public string CC { get; set; }
+        public string Picture { get; set; }
+        public string sort { get; set; }
     }
     public class Stkgrop
     {
@@ -74,7 +74,7 @@ namespace NewShop.Models
         public string COMPANY { get; set; }
     }
 
-   
+
     public class logincutomer
     {
         public string EmpID { get; set; }
@@ -91,7 +91,7 @@ namespace NewShop.Models
         public string SLMNAM { get; set; }
         public string PasswordExpiredDate { get; set; }
         public string DatetoExpire { get; set; }
-        public string SLMPhone{ get; set; }
+        public string SLMPhone { get; set; }
         public string SalesCo { get; set; }
         public string SalesCoPhone { get; set; }
     }
@@ -99,7 +99,7 @@ namespace NewShop.Models
     {
         public string CODE { get; set; }
         public string Description { get; set; }
-      
+
     }
     public class Segmentgrop
     {
@@ -112,14 +112,14 @@ namespace NewShop.Models
     {
         public string CODE { get; set; }
         public string NAME { get; set; }
-      
+
 
     }
     public class Searchitem
     {
         public string ItemNo { get; set; }
         public string Description { get; set; }
-       
+
     }
     public class SearchitemDetailGetdata
     {
@@ -188,11 +188,11 @@ namespace NewShop.Models
     }
     public class vehicle_PlusItem
     {
-        public string Company	  { get; set; }
-        public string STKCOD	  { get; set; }
-        public string Description	 { get; set; }
-        public string Stock	 { get; set; }
-        public string EndPrice	 { get; set; }
+        public string Company { get; set; }
+        public string STKCOD { get; set; }
+        public string Description { get; set; }
+        public string Stock { get; set; }
+        public string EndPrice { get; set; }
         public string IMAGE_NAME { get; set; }
 
     }
@@ -263,7 +263,7 @@ namespace NewShop.Models
         public string Promotion_Foc { get; set; }
         public string WH_Location { get; set; }
         public string KDC_QTY { get; set; }
-        public string  PDC_QTY { get; set; }
+        public string PDC_QTY { get; set; }
         public string AccessID { get; set; }
         public string Intransit { get; set; }
 
@@ -276,27 +276,27 @@ namespace NewShop.Models
     }
     public class CUS
     {
-      public string CUSCOD{ get; set; }
-      public string CUSNAM { get; set; }
-      public string PRO { get; set; }
-      public string ADDR_01{ get; set; }
-      public string ADDR_02 { get; set; }
-      public string CUSTYP { get; set; }
-      public string AACCrlimit { get; set; }
-      public string AACBalance  { get; set; }
-      public string TACCrlimit  { get; set; }
-      public string TACBalance { get; set; }
-      public string SLMCOD { get; set; }
-      public string INACTIVE { get; set; }
-      public string BLOCKED { get; set; }
-      public string AACPAYTRM { get; set; }
-      public string TACPAYTRM { get; set; }
-      public string TELNUM { get; set; }
-      public string RATING { get; set; }
+        public string CUSCOD { get; set; }
+        public string CUSNAM { get; set; }
+        public string PRO { get; set; }
+        public string ADDR_01 { get; set; }
+        public string ADDR_02 { get; set; }
+        public string CUSTYP { get; set; }
+        public string AACCrlimit { get; set; }
+        public string AACBalance { get; set; }
+        public string TACCrlimit { get; set; }
+        public string TACBalance { get; set; }
+        public string SLMCOD { get; set; }
+        public string INACTIVE { get; set; }
+        public string BLOCKED { get; set; }
+        public string AACPAYTRM { get; set; }
+        public string TACPAYTRM { get; set; }
+        public string TELNUM { get; set; }
+        public string RATING { get; set; }
 
-      public string Hierarchy1_Market_Segment { get; set; }
-      public string Hierarchy2_Channel { get; set; }
-      public string Hierarchy3_Bussiness_Type { get; set; }
+        public string Hierarchy1_Market_Segment { get; set; }
+        public string Hierarchy2_Channel { get; set; }
+        public string Hierarchy3_Bussiness_Type { get; set; }
 
     }
     public class shipto
@@ -525,7 +525,7 @@ namespace NewShop.Models
         public string Qtybo { get; set; }
         public string PlcPrice { get; set; }
         public string SpcPrice { get; set; }
-      
+
     }
     public class ItemFoc
     {
@@ -584,7 +584,7 @@ namespace NewShop.Models
         public string Qty10 { get; set; }
         public string Qty11 { get; set; }
         public string Qty12 { get; set; }
-    
+
 
 
     }
@@ -895,35 +895,41 @@ namespace NewShop.Models
     }
     public class Salesamt
     {
-        public string Cuscod { get; set; }	
-        public string Company { get; set; }	
-        public string Amt    { get; set; }	
-        public string YTD	 { get; set; }	
-        public string Jan	 { get; set; }	
-        public string Feb	 { get; set; }	
-        public string Mar	 { get; set; }	
-        public string Apr	 { get; set; }	
-        public string May  { get; set; }	
-        public string Jun	{ get; set; }	
-        public string Jul	 { get; set; }	
-        public string Aug	{ get; set; }	
-        public string Sep   { get; set; }	
-        public string Oct	{ get; set; }	
-        public string Nov	{ get; set; }
-        public string Dec  { get; set; }	
+        public string Cuscod { get; set; }
+        public string Company { get; set; }
+        public string Amt { get; set; }
+        public string YTD { get; set; }
+        public string Jan { get; set; }
+        public string Feb { get; set; }
+        public string Mar { get; set; }
+        public string Apr { get; set; }
+        public string May { get; set; }
+        public string Jun { get; set; }
+        public string Jul { get; set; }
+        public string Aug { get; set; }
+        public string Sep { get; set; }
+        public string Oct { get; set; }
+        public string Nov { get; set; }
+        public string Dec { get; set; }
 
     }
     public class Upload_History
     {
-        public string Reference_No { get; set; }	
-	    public string ID { get; set; }	
-	    public string CUSCOD { get; set; }	
-	    public string STKCOD { get; set; }	
-	    public string Qty { get; set; }	
-	    public string Status { get; set; }	
-	    public string Status_Message { get; set; }	
-	    public string Inserted_Date { get; set; }	
-	    public string Inserted_By { get; set; }
+        public string Reference_No { get; set; }
+        public string ID { get; set; }
+        public string CUSCOD { get; set; }
+        public string STKCOD { get; set; }
+        public string Qty { get; set; }
+        public string Status { get; set; }
+        public string Status_Message { get; set; }
+        public string Inserted_Date { get; set; }
+        public string Inserted_By { get; set; }
         public string UOM { get; set; }
+    }
+    public class PhoneOtp
+    {
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
     }
 }

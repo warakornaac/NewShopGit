@@ -36,6 +36,15 @@ namespace NewShop.Controllers
 
         }
         [HttpGet]
+        public ActionResult LoginCus()
+        {
+            if (this.Session["UserType"] == null)
+            {
+                this.Session["UserType"] = "";
+            }
+            return View();
+        }
+        [HttpGet]
         public ActionResult LogIn()
         {
             if (this.Session["UserType"] == null)
@@ -803,7 +812,59 @@ namespace NewShop.Controllers
 
         */
 
+        [HttpPost]
+        public ActionResult LoginCus(string User, string password, string page)
+        {
+            string message = string.Empty;
+            string phoneNum = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                this.Session["DisplayName"] = string.Empty;
+                this.Session["UserType"] = null;
+                this.Session["UserID"] = User;
+                this.Session["UserPassword"] = password;
+                this.Session["UsrGrpspecial"] = 0;
+                this.Session["DatetoExpire"] = "..";
+                this.Session["UsrClmStaff"] = "0";
+                string UserType = string.Empty;
+                string sessionId = Request["http_cookie"];
+                string secCodeArr = string.Empty;
+                string OtpFlag = string.Empty;
+                SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
+                SqlDataReader revcus = cmdcus.ExecuteReader();
 
+                while (revcus.Read())
+                {
+                    if (!string.IsNullOrEmpty(revcus["Email"].ToString()))
+                    {
+                        this.Session["UserID"] = revcus["Email"].ToString();
+                    }
+                    phoneNum = revcus["Tel"].ToString();
+                    this.Session["UserType"] = revcus["UsrTyp"].ToString();
+                    this.Session["CUSCOD"] = revcus["CusCode"].ToString();
+                    this.Session["DisplayName"] = revcus["CusName"].ToString();
+                    OtpFlag = revcus["VerifyFlag"].ToString();
+                    message = revcus["VerifyFlag"].ToString();
+                    UserType = Session["UserType"].ToString();
+                    sessionId = sessionId.Substring(sessionId.Length - 24);
+                    this.Session["ID"] = sessionId;
+                }
+                revcus.Close();
+                revcus.Dispose();
+                cmdcus.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                ViewData["ErrorMessage"] = "Login details are wrong.";
+            }
+
+            return Json(new { message = message, tel = phoneNum, page = page }, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
         {
@@ -865,7 +926,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddUser(string email, string tel, string cuscos, string cusname, string user)
+        public ActionResult AddUser(string email, string username, string pass, string tel, string cuscos, string cusname, string user)
         {
 
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -880,6 +941,8 @@ namespace NewShop.Controllers
                     var cmd = new SqlCommand("P_Register_customer", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@inemail", email.Trim());
+                    cmd.Parameters.AddWithValue("@inusername", username.Trim());
+                    cmd.Parameters.AddWithValue("@inpassword", pass.Trim());
                     cmd.Parameters.AddWithValue("@intel", tel.Trim()); ;
                     cmd.Parameters.AddWithValue("@inuserId", lindId.Trim());
                     cmd.Parameters.AddWithValue("@indisplayName", displayName.Trim());
