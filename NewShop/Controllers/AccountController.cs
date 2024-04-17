@@ -832,7 +832,6 @@ namespace NewShop.Controllers
                 string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
-                string OtpFlag = string.Empty;
                 SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
 
@@ -846,7 +845,6 @@ namespace NewShop.Controllers
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();
                     this.Session["DisplayName"] = revcus["CusName"].ToString();
-                    OtpFlag = revcus["VerifyFlag"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
                     sessionId = sessionId.Substring(sessionId.Length - 24);
@@ -856,6 +854,7 @@ namespace NewShop.Controllers
                 revcus.Dispose();
                 cmdcus.Dispose();
                 Connection.Close();
+                message = "Y";
             }
             catch (Exception ex)
             {
