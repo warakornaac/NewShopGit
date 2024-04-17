@@ -204,17 +204,17 @@
                         });
 
                     } else { //ไมเป็นสมาชิก
-                        Swal.fire({
-                            title: "การเข้าใช้งานผิดพลาด",
-                            text: "ไม่พบข้อมูลสมาชิก",
-                            icon: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                liff.closeWindow();
-                            }
-                        });
+                        if (result.page != null && result.page != '') {
+                              if (result.page == "amount") { //หน้ายอดซื้อ
+                                  //alert("amount");
+                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=amount");
+                              } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=promotion");
+                              }
+                              else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=PendingDelivery");
+                              }
+                          }
                     }
                 },
                 error: function (ex) {
