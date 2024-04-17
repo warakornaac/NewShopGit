@@ -16,6 +16,7 @@ using System.DirectoryServices;
 using System.Web.Security;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
+using System.DirectoryServices.Protocols;
 
 namespace NewShop.Controllers
 {
@@ -60,7 +61,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CheckDataLoginExternal(string userId, string email, string displayName)
+        public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page)
         {
             string message = string.Empty;
             this.Session["UserPassword"] = string.Empty;
@@ -90,7 +91,7 @@ namespace NewShop.Controllers
 
             Connection.Close();
 
-            return Json(new { message }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetDataLoginExternal(string userId, string page)
         {

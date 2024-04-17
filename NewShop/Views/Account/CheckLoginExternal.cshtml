@@ -121,6 +121,7 @@
             })
 
         }
+
         function getDataLoginExternal(pictureUrl, userId, displayName, email, page) {
             var userId = userId || "";
             var displayName = displayName || "";
@@ -138,6 +139,7 @@
                     userId: userId,
                     email: getDecodedIDToken,
                     displayName: displayName,
+                    page: page
                 },
                 dataType: "JSON",
                 beforeSend: function () {
@@ -203,12 +205,16 @@
                             console.log("Error : " + error)
                         });
 
-                    } else { //ไมเป็นสมาชิก
+                    }
+
+                    else { //ไมเป็นสมาชิก
+                        console.log("Non OTP");
+                        console.log("Page : " + result.page)
                         if (result.page != null && result.page != '') {
                               if (result.page == "amount") { //หน้ายอดซื้อ
-                                  //alert("amount");
                                   window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=amount");
-                              } else if (page == "promotion") {//หน้าโปรโมชั่น
+                              }
+                              else if (page == "promotion") {//หน้าโปรโมชั่น
                                   window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=promotion");
                               }
                               else if (page == "PendingDelivery") {//หน้าค้างส่ง
