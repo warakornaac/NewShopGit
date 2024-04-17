@@ -11,8 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
     <style>
         a, a:hover {
             color: #333
@@ -22,8 +20,31 @@
             color: red;
         }
 
+        .red-star {
+            color: red;
+        }
+
         .bg-login-color-redient {
             background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,123,255,1) 100%);
+        }
+
+        .disable-link {
+            pointer-events: none;
+            cursor: default;
+            color: dimgray;
+        }
+
+        .otp {
+            height: 50px;
+            width: 50px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        .otp-form {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
         }
     </style>
 </head>
@@ -33,8 +54,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">เข้าสู่ระบบ</h3>
-                    <input type="text" id="phone" />
-                    <button class="btn btn-info" type="button" id="test_open">otp</button>
+                    <input type="hidden" id="phone" />
+                    <input type="hidden" id="cuscod" />
+                    @*<button class="btn btn-info" type="button" id="test_open">otp</button>*@
                 </div>
                 <form class="form-horizontal" action="~/Account/LoginCus" method="post">
                     <div class="card-body">
@@ -88,12 +110,50 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body d-flex justify-content-center">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                กรอกรหัส OTP<span class="red-star">*</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="otp-form">
+                                                    <input type="tel" class="otp form-control" id="enterotp1" pattern="[0-9]+" maxlength="1">
+                                                    <input type="tel" class="otp form-control" id="enterotp2" pattern="[0-9]+" maxlength="1">
+                                                    <input type="tel" class="otp form-control" id="enterotp3" pattern="[0-9]+" maxlength="1">
+                                                    <input type="tel" class="otp form-control" id="enterotp4" pattern="[0-9]+" maxlength="1">
+                                                    <input type="tel" class="otp form-control" id="enterotp5" pattern="[0-9]+" maxlength="1">
+                                                    <input type="tel" class="otp form-control" id="enterotp6" pattern="[0-9]+" maxlength="1" onkeyup="testPress();">
+                                                </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <p class="mb-0">รหัส OTP มีอายุอีก <span id="login-counter">05:00</span> <span id="label-countdown">นาที</span></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="countdown" style="color:red;"></div>
+                                                <p class="red-star" hidden="">รหัสไม่ถูกต้อง</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pt-3">
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn btn-success">
+                                                        Verify
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -102,16 +162,48 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         const queryString = decodeURIComponent(window.location.search);
         const params = new URLSearchParams(queryString);
         const page = params.get('page');
         console.log("Page: " + page);
+
+        function testPress() {
+            var amount = $('#enterotp6');
+            var pes = amount.val();
+            var otpValues = '';
+
+            if (pes !== "") {
+                if (!isNaN(pes)) {
+                    $('.otp').each(function () {
+                        otpValues += $(this).val();
+                    });
+                    alert("OTP is " + otpValues);
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            var inputs = $('.otp');
+            inputs.on('input', function () {
+                if (isNaN(parseInt($(this).val()))) {
+                    $(this).val('');
+                } else {
+                    if ($(this).val() !== '' && inputs.index(this) < inputs.length - 1) {
+                        inputs.eq(inputs.index(this) + 1).select();
+                    }
+                }
+            });
+            inputs.on('click', function () {
+                $(this).select();
+            });
+        });
+
         $(document).ready(function () {
             $("#show_hide_password a").on('click', function (event) {
                 event.preventDefault();
@@ -134,16 +226,13 @@
             $('#inputPassword').change(function () {
                 $('#wrongpass').attr('hidden', true);
             });
-            $('#test_open').click(function () {
-                $('.modal').modal('show');
-                console.log('otp clicked');
-            });
         });
 
         function Login() {
             var username = $('#inputusername').val();
             var pass = $('#inputPassword').val();
             var phonenum = '';
+            var cuscod = '';
             $.ajax({
                 url: '@Url.Action("LoginCus","Account")',
                 data: JSON.stringify({
@@ -166,23 +255,26 @@
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
                                 //alert("amount");
-                                window.location.assign("@domainName" + "/CustomerDashboard/index");
-                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
+                                //window.location.assign("@domainName" + "/CustomerDashboard/index");
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
                             } else if (page == "promotion") {//หน้าโปรโมชั่น
-                                window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
-                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
+                                //window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
                             }
                             else if (page == "PendingDelivery") {//หน้าค้างส่ง
-                                window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
-                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
+                                //window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                             }
                         }
                     }
                     else if (result.message == "N") {
-                        console.log("N Result " + result.message);
                         phonenum = result.tel;
+                        console.log("N Result " + result.message);
                         console.log("Phone is " + phonenum);
+                        console.log("cuscod is " + result.cuscod);
                         $('#phone').val(phonenum);
+                        $('#cuscod').val(result.cuscod);
+                        $('.modal').modal('show');
                     }
                     else {
                         $('#wronguser').removeAttr('hidden');
@@ -199,6 +291,26 @@
             }).fail(function (ex) {
                 console.log("fail");
             });
+        }
+        function delaySendOtp() {
+            $('#sendotp').addClass("disable-link");
+            var startTime = new Date().getTime();
+            var endTime = startTime + (17 * 1000);
+            var countdownInterval = setInterval(function () {
+                var currentTime = new Date().getTime();
+                var timeDifference = endTime - currentTime;
+                var seconds = Math.floor(timeDifference / 1000);
+                var countdownText = "ส่งรหัสยืนยันใหม่ในอีก " + seconds + " วินาที";
+                $('#countdown').text(countdownText);
+                if (timeDifference <= 0) {
+                    clearInterval(countdownInterval);
+                    $('#countdown').text("");
+                }
+            }, 1000);
+            setTimeout(
+                function () {
+                    $('#sendotp').removeClass("disable-link");
+                }, 17000);
         }
     </script>
 </body>

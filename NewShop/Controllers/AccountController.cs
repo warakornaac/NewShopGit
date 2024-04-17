@@ -817,6 +817,7 @@ namespace NewShop.Controllers
         {
             string message = string.Empty;
             string phoneNum = string.Empty;
+            string cuscode = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -845,6 +846,7 @@ namespace NewShop.Controllers
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();
                     this.Session["DisplayName"] = revcus["CusName"].ToString();
+                    cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
                     sessionId = sessionId.Substring(sessionId.Length - 24);
@@ -853,6 +855,13 @@ namespace NewShop.Controllers
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
+                SqlCommand cmdlogin = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'N' where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
+                int rowsAffected = cmdlogin.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+
+                }
+                cmdlogin.Dispose();
                 Connection.Close();
                 message = "Y";
             }
@@ -862,7 +871,7 @@ namespace NewShop.Controllers
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
 
-            return Json(new { message = message, tel = phoneNum, page = page }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
