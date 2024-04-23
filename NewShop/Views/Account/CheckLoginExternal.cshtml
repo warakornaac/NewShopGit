@@ -154,7 +154,7 @@
                             type: 'POST',
                             url: '@Url.Action("GetDataLoginExternal", "Account")',
                             data: {
-                                userId: userId,
+                                email: getDecodedIDToken,
                                 page: page,
                             },
                             dataType: "JSON",

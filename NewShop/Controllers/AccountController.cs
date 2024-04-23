@@ -22,6 +22,7 @@ namespace NewShop.Controllers
 {
     public class AccountController : Controller
     {
+        string _Email = "";
         //
         // GET: /Account/
 
@@ -93,9 +94,10 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetDataLoginExternal(string userId, string page)
+        public JsonResult GetDataLoginExternal(string email, string page)
         {
             this.Session["UserID"] = string.Empty;
+            //this.Session["Email"] = string.Empty;
             this.Session["UserType"] = string.Empty;
             this.Session["DisplayName"] = string.Empty;
             this.Session["CUSCOD"] = string.Empty;
@@ -105,13 +107,13 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand("select * From UsrTbl_line where UserIdLine =N'" + userId + "'", Connection);
+                SqlCommand cmd = new SqlCommand("select * From UsrTbl_Portal where Email =N'" + email + "'", Connection);
                 SqlDataReader rev = cmd.ExecuteReader();
                 while (rev.Read())
                 {
                     if (!string.IsNullOrEmpty(rev["Email"].ToString()))
                     {
-
+                        _Email = rev["Email"].ToString();
                         this.Session["UserID"] = rev["Email"].ToString();
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
@@ -138,7 +140,7 @@ namespace NewShop.Controllers
 
                         var command = new SqlCommand("P_logSingin_customer_mobileStatus", Connection);
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UsrID", userId);
+                        command.Parameters.AddWithValue("@UsrID", email);
                         command.Parameters.AddWithValue("@SessionId", sessionId);
                         command.Parameters.AddWithValue("@flag", "external");
                         command.ExecuteReader();
@@ -819,6 +821,7 @@ namespace NewShop.Controllers
             string message = string.Empty;
             string phoneNum = string.Empty;
             string cuscode = string.Empty;
+            string email = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -834,19 +837,50 @@ namespace NewShop.Controllers
                 string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
-                SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
+                SqlCommand cmdlogin = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'N' where Username = @user and [dbo].F_decrypt([Password]) = @pass", Connection);
+                cmdlogin.Parameters.AddWithValue("user", User);
+                cmdlogin.Parameters.AddWithValue("pass", password);
+                int rowsAffected = cmdlogin.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    //message = "Y";
+                }
+                else
+                {
+                    message = "Fail Login";
+                }
+                var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
+                //SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
+                SqlCommand cmdcus = new SqlCommand(sqlString, Connection);
+                cmdcus.Parameters.AddWithValue("user", User);
+                cmdcus.Parameters.AddWithValue("pass", password);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
-
                 while (revcus.Read())
                 {
                     if (!string.IsNullOrEmpty(revcus["Email"].ToString()))
                     {
                         this.Session["UserID"] = revcus["Email"].ToString();
                     }
+                    else
+                    {
+                        this.Session["UserID"] = revcus["Username"].ToString();
+                    }
+
+                    if (_Email != null && revcus["Email"] != null && _Email.ToString() == revcus["Email"].ToString() && !string.IsNullOrEmpty(revcus["Email"].ToString()))
+                    {
+                        SqlCommand mailCheck = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'Y' where Username = @user and [dbo].F_decrypt([Password]) = @pass", Connection);
+                        mailCheck.Parameters.AddWithValue("user", User);
+                        mailCheck.Parameters.AddWithValue("pass", password);
+                        int mailrowsAffected = mailCheck.ExecuteNonQuery();
+                        if (mailrowsAffected > 0)
+                        {
+                        }
+                    }
                     phoneNum = revcus["Tel"].ToString();
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();
                     this.Session["DisplayName"] = revcus["CusName"].ToString();
+                    email = revcus["Email"].ToString();
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
@@ -856,15 +890,10 @@ namespace NewShop.Controllers
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
-                SqlCommand cmdlogin = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'N' where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
-                int rowsAffected = cmdlogin.ExecuteNonQuery();
-                if (rowsAffected > 0)
-                {
-
-                }
                 cmdlogin.Dispose();
                 Connection.Close();
-                message = "Y";
+
+
             }
             catch (Exception ex)
             {
@@ -872,7 +901,7 @@ namespace NewShop.Controllers
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
 
-            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)

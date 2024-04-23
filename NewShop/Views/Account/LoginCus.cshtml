@@ -56,12 +56,13 @@
                     <h3 class="card-title">เข้าสู่ระบบ</h3>
                     <input type="hidden" id="phone" />
                     <input type="hidden" id="cuscod" />
-                    @*<button class="btn btn-info" type="button" id="test_open">otp</button>*@
+                    <input type="hidden" id="email" />
+                    <button class="btn btn-info" type="button" id="test_open" onclick="">otp TEST</button>
                 </div>
                 <form class="form-horizontal" action="~/Account/LoginCus" method="post">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-4 col-form-label">Username / Email</label>
+                            <label for="inputUser" class="col-sm-4 col-form-label">Username / Email</label>
                             <div class="col-sm-8">
                                 @*<div class="col-sm-8 d-flex align-items-center">*@
                                 <div class="input-group">
@@ -134,7 +135,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>
+                                                <a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp(); sendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -275,6 +276,7 @@
                         $('#phone').val(phonenum);
                         $('#cuscod').val(result.cuscod);
                         $('.modal').modal('show');
+                        sendOtp();
                     }
                     else {
                         $('#wronguser').removeAttr('hidden');
@@ -311,6 +313,57 @@
                 function () {
                     $('#sendotp').removeClass("disable-link");
                 }, 17000);
+        }
+        function otpCheck() {
+            var number = '';
+            $('.otp').each(function () {
+                number += $(this).val();
+            });
+            alert("Otp is : " + number);
+            console.log("OP : " + number);
+        }
+        function sendOtp() {
+            var phone = $('#phone').val();
+            var mail = $('#email').val();
+            var username = $('#inputusername').val();
+            var cuscod = $('#cuscod').val();
+            $.ajax({
+                url: '@Url.Action("SendOtp", "Verification")',
+                data: JSON.stringify({
+                    phone: phone,
+                    user: username,
+                }),
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result.status == "Y") {
+                        console.log("API res : " + result.Apisend);
+                        if (result.Apisend == "200")
+                            alert("Send Success");
+                        else
+                            alert("Fail");
+                    }
+                    else {
+                        alert(result.message);
+                    }
+                },
+                error: function (er) {
+
+                },
+                complete: function (res) {
+
+                }
+
+            }).fail(function (ex) {
+                console.log("fail");
+            });
         }
     </script>
 </body>

@@ -932,4 +932,11 @@ namespace NewShop.Models
         [Phone]
         public string PhoneNumber { get; set; }
     }
+    public class SmsModels
+    {
+        public string Phone { get; set; }
+        public string Otp { get; set; }
+        public string Ref { get; set; }
+        public string User { get; set; }
+    }
 }
