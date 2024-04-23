@@ -71,9 +71,23 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, status = status, Apisend = Api }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Verify(string phone, string cuscode)
+        public JsonResult Verify(string phone, string user)
         {
+            var connectString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connectString);
+            try
+            {
+                conn.Open();
+                var command = new SqlCommand("P_CHECK_OTP", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@user", user);
+                command.Parameters.AddWithValue("@Phone", phone);
+                command.Parameters.AddWithValue("@OTP", phone);
+            }
+            catch (Exception ex)
+            {
 
+            }
             return Json("");
         }
         public string GenerateRandomString(int length)

@@ -22,7 +22,6 @@ namespace NewShop.Controllers
 {
     public class AccountController : Controller
     {
-        string _Email = "";
         //
         // GET: /Account/
 
@@ -113,7 +112,6 @@ namespace NewShop.Controllers
                 {
                     if (!string.IsNullOrEmpty(rev["Email"].ToString()))
                     {
-                        _Email = rev["Email"].ToString();
                         this.Session["UserID"] = rev["Email"].ToString();
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
@@ -864,17 +862,6 @@ namespace NewShop.Controllers
                     else
                     {
                         this.Session["UserID"] = revcus["Username"].ToString();
-                    }
-
-                    if (_Email != null && revcus["Email"] != null && _Email.ToString() == revcus["Email"].ToString() && !string.IsNullOrEmpty(revcus["Email"].ToString()))
-                    {
-                        SqlCommand mailCheck = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'Y' where Username = @user and [dbo].F_decrypt([Password]) = @pass", Connection);
-                        mailCheck.Parameters.AddWithValue("user", User);
-                        mailCheck.Parameters.AddWithValue("pass", password);
-                        int mailrowsAffected = mailCheck.ExecuteNonQuery();
-                        if (mailrowsAffected > 0)
-                        {
-                        }
                     }
                     phoneNum = revcus["Tel"].ToString();
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
