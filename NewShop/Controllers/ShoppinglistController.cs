@@ -227,7 +227,6 @@ namespace NewShop.Controllers
                         Model.spc_end_date = "-";
                         Model.CCheck_date = "T";
                     }
-
                     Model.spc_remark = dr["spc_remark"].ToString();
                     Model.spc_PRODAPP = dr["spc_PRODAPP"].ToString();
                     Model.PRODNAM = dr["PRODNAM"].ToString();
@@ -235,7 +234,6 @@ namespace NewShop.Controllers
                     Model.Special_Price = dr["Special_Price"].ToString();
                     Model.spc_moq = dr["spc_moq"].ToString();
                     // Model.spc_start_date	 = dr["spc_start_date"].ToString(); 	
-
                     Model.spc_remark = dr["spc_remark"].ToString();
                     Model.PromotionCode = dr["PromotionCode"].ToString();
                     Model.PromoDesc = dr["PromoDesc"].ToString();
@@ -246,8 +244,9 @@ namespace NewShop.Controllers
                     Model.SPackUOM = dr["SPackUOM"].ToString();
                     Model.Expected_Receipt_Date  =dr["Expected Receipt Date"].ToString();
                     Model.Clearance = dr["Clearance"].ToString();
+                    Model.Intransit = dr["Intransit"].ToString();
                     //Model.expired = dr["expired"].ToString();
-                    // Model.itemblock = dr["itemblock"].ToString();
+                    //Model.itemblock = dr["itemblock"].ToString();
                     Getdata.Add(new ListPagedList { val = Model });
                 }
                 dr.Close();
