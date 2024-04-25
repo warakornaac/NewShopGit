@@ -217,8 +217,8 @@
         const page = params.get('page');
         console.log("Page: " + page);
         console.log("Line : " + '@_lineUser');
-        $('#lineid').val('@_lineUser');
-
+        var sessionLine = '@Request.RequestContext.HttpContext.Session["Line"]';
+        $('#lineid').val(sessionLine);
         function testPress() {
             var amount = $('#enterotp6');
             var pes = amount.val();
