@@ -77,7 +77,7 @@
                     <input type="hidden" id="phone" />
                     <input type="hidden" id="cuscod" />
                     <input type="hidden" id="email" />
-                    <input type="text" id="lineid" />
+                    <input type="hidden" id="lineid" />
                     @*<button class="btn btn-info" type="button" id="test_open" onclick="">otp TEST</button>*@
                 </div>
                 <form class="form-horizontal" action="~/Account/LoginCus" method="post">
@@ -274,8 +274,8 @@
         });
 
         function Login() {
-            $('#count_p').attr('hidden');
-            $('#ref_show').attr('hidden');
+            $('#count_p').attr('hidden', true);
+            $('#ref_show').attr('hidden', true);
             var username = $('#inputusername').val();
             var pass = $('#inputPassword').val();
             var phonenum = $('#phone').val();
@@ -384,11 +384,14 @@
             var phone = $('#otpphone').val();
             var refer = $('#ref_show').text();
             var username = $('#inputusername').val();
+            var line = $('#lineid').val();
             //alert("Otp is : " + otpenter);
             console.log("OP : " + otpenter);
+            console.log("LineID : " + line)
             $.ajax({
                 url: '@Url.Action("Verify", "Verification")',
                 data: JSON.stringify({
+                    lineid:line,
                     phone: phone,
                     user: username,
                     otp: otpenter,
