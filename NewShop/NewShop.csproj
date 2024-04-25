@@ -7842,6 +7842,7 @@
     <Content Include="Views\CustomerDashboard\CustomerAlert.cshtml" />
     <Content Include="Views\Verification\Index.cshtml" />
     <Content Include="Views\Account\LoginCus.cshtml" />
+    <Content Include="Views\CustomerDashboard\DeliveryTrack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

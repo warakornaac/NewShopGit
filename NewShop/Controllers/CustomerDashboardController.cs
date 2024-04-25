@@ -47,6 +47,14 @@ namespace NewShop.Controllers
             }
             return View();
         }
+        public ActionResult DeliveryTrack()
+        {
+            if (Session["UserType"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            return View();
+        }
         public ActionResult CustomerAlert()
         {
             return View();

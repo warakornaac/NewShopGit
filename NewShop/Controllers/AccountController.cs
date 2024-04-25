@@ -22,9 +22,9 @@ namespace NewShop.Controllers
 {
     public class AccountController : Controller
     {
-        //
+        //global variable
+        string _Userlineid = string.Empty;
         // GET: /Account/
-
         public ActionResult Index()
         {
             if (this.Session["UserType"] == null)
@@ -43,6 +43,7 @@ namespace NewShop.Controllers
             {
                 this.Session["UserType"] = "";
             }
+            ViewBag.Userlineid = _Userlineid;
             return View();
         }
         [HttpGet]
@@ -64,6 +65,7 @@ namespace NewShop.Controllers
         public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page)
         {
             string message = string.Empty;
+            _Userlineid = userId;
             this.Session["UserPassword"] = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -79,7 +81,6 @@ namespace NewShop.Controllers
                 SqlParameter returnValuedoc = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                 returnValuedoc.Direction = System.Data.ParameterDirection.Output;
                 command.Parameters.Add(returnValuedoc);
-
                 command.ExecuteNonQuery();
                 message = returnValuedoc.Value.ToString();
                 command.Dispose();

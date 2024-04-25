@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutStatus.cshtml";
-   @model NewShop.Models.SaleOrder_History
+    @model NewShop.Models.SaleOrder_History
     NewShop.Models.SaleOrder_History SaleOrder_History = new NewShop.Models.SaleOrder_History();
 }
 <html lang="en">
@@ -14,10 +14,10 @@
     <title>Status Order</title>
     <!-- Custom fonts for this template -->
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <link href="~/sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">  
+    <link href="~/sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
     <link href="~/sb-admin/css/sb-admin-2.css" rel="stylesheet" />
-    <!-- Custom styles for this page -->  
+    <!-- Custom styles for this page -->
     <link href="~/sb-admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
     <style>
         .bannercol {
@@ -27,7 +27,7 @@
             background: -ms-linear-gradient(left,#001338 0,#00466d 50%,#336ca4 100%);
             background: -o-linear-gradient(left,#001338 0,#00466d 50%,#336ca4 100%);*/
         }
-        
+
         /*Responsive table*/
         #dataTablex {
             width: 100%;
@@ -50,6 +50,7 @@
                 color: bisque;
                 font-size: smaller;
             }
+
             #dataTablex tbody tr td {
                 background-color: #eef2f9;
                 background-image: -moz-linear-gradient( top, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 51%, rgba(255,255,255,0.0) 100%);
@@ -57,6 +58,7 @@
                 color: #262c31;
                 font-size: 11px;
             }
+
         .track {
             position: relative;
             background-color: #ddd;
@@ -169,6 +171,7 @@
         .description {
             width: auto;
         }
+
         #changepass {
             color: #0275d8;
             text-decoration: none;
@@ -181,15 +184,15 @@
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-       
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-               
+
                 <div class="container-fluid">
 
-                    <div class="card shadow mb-4 bannercol" >
+                    <div class="card shadow mb-4 bannercol">
                         <div class="card-body">
 
                             <div class="row">
@@ -237,8 +240,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" >
-                                    <div class="form-group"  id="typecuslog">
+                                <div class="col-md-4">
+                                    <div class="form-group" id="typecuslog">
                                         <div class="input-group">
                                             <label class="input-group-addon">ลูกค้า</label>
                                             <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
@@ -284,7 +287,7 @@
                             </div>
 
                             <div class="row">
-                                
+
                                 <div id="forsales" style="display:none">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -357,16 +360,16 @@
 
                     </div>
                 </div>
-              
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div id="ordercur" style="display:block">
                         <h1 class="h3 mb-2 text-gray-800">ติดตามการสั่งซื้อ</h1>
                         <!-- <p class="mb-4">
-            DataTables is a third party plugin that is used to generate the demo table below.
-            For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.
-        </p>-->
+                            DataTables is a third party plugin that is used to generate the demo table below.
+                            For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.
+                        </p>-->
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
@@ -482,7 +485,7 @@
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-          
+
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -627,7 +630,7 @@
 
     </div>
     <!-- Bootstrap core JavaScript-->
-    
+
     <script src="~/sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="~/sb-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -648,7 +651,7 @@
     <script src="~/fixed-table-master/fixed-table.js"></script>
     <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
     <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-   
+
     <script type="text/javascript">
     var id = '@Request.RequestContext.HttpContext.Session["ID"]';
     var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
@@ -657,7 +660,7 @@
     var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
     var cuscod;
     resourceAddress.hash();
-   
+
     expire(usrexpire)
     function checklogin(userid, id) {
         $.ajax({
@@ -676,7 +679,7 @@
                 const myArray = text.split("|");
                 let mysession = myArray[1];
                 let mystatus = myArray[0];
-               
+
                 if (id != mysession) {
                     $("#texterror").empty();
                     $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวาลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
@@ -707,7 +710,7 @@
                 dataType: "JSON",
                 success: function (data) {
                     var splitstring = data.StrStstuslogin;
-                   
+
                     if (splitstring == "1") {
                         $("#texterror").empty();
                         $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
@@ -737,7 +740,7 @@
             var cuscod = "";
             $("#changepass").css("display", "none");
         } else if (usertype == "6") {
-           
+
             $(window).on('load', function () {
                 //alert("load")
                 checklogin(userid, id)
@@ -758,10 +761,10 @@
 
                 checklogin(userid, id)
             });
-           
+
             if (param_values.numcuber != undefined) {
                 cuscod = atob(param_values.numcuber)
-               
+
             } else {
                 cuscod = "";
             }
@@ -837,13 +840,13 @@
                 var select = $("#Slm");
                  select.children().remove();
                 $("#Slm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-              
+
                 $("#Slm").prop("disabled", true);
-             
+
                 //datacus();  ///auto get customer to option select customer
             }
         });
-       
+
         $.ajax({
             url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
             data: {},
@@ -851,10 +854,10 @@
             dataType: "JSON",
             success: function (data) {
                 //console.log(data);
-              
+
                     var select = $("#selcus");
                     select.children().remove();
-                    
+
                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมด"));
                     $.each(data, function (key, value) {
 
@@ -1217,7 +1220,7 @@
                 _CUSCOD = res[0];
             } else if (Usertype == "6") {
                 _CUSCOD = $('#selcus').val();
-                
+
             }
         }
         else {
@@ -1246,7 +1249,7 @@
         var _str = "";
         $('#ordercur').css("dispaly", "block");
         var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
-       
+
         $.ajax({
             url: '@Url.Action("GetOrder", "Statuslist")',
             data: {
@@ -1319,7 +1322,7 @@
         });
     }
 
-        
+
         function subdate(_datesup) {
             //var today = new Date(_datesup);
             ////var str = _datesup;
@@ -1366,7 +1369,7 @@
         var ORD_ID = $(this).attr('ORD_ID');
         var ORD_DocNo_x = $(this).attr('ORD_DocNo');
         var ORD_DocNo = ORD_DocNo_x.substring(0, 11)   //
-       
+
         var ORD_Cus = $(this).attr('cus');
         window.open("../Report/SOForm.aspx?SONUM=" + ORD_DocNo + "/" + ORD_Cus);
 
@@ -1502,7 +1505,7 @@
         $(document).on("click", "#btnhisto", function () {
             //_CUSCOD = $('#CUSCOD').val();
             var _CUSCOD;
-           
+
             var Usertype = usertype;
             if (Usertype != "6") {
                 var MyIndexValue = $('#Customer').val();
@@ -1531,7 +1534,7 @@
             //_CUSCOD = $('#CUSCOD').val();
             var _CUSCOD;
             //var MyIndexValue = $('#Customer').val();
-            
+
             //if (MyIndexValue !== "") {
             //    res = MyIndexValue.split("|");
             //    _CUSCOD = res[0];
@@ -1672,7 +1675,7 @@
             //alert(usertype)
             var res = [];
             //var MyIndexValue = $('#Customer').val();
-           
+
             //if (MyIndexValue !== "") {
             //    res = MyIndexValue.split("|");
 
@@ -1736,7 +1739,7 @@
                 UserCreate: UserCreate,
                 typeUser: typeUser
 
-            }, 
+            },
             function (result) {
             //debugger;
             $('#EmployeeViewGrid').html(result);

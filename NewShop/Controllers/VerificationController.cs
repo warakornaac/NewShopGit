@@ -30,7 +30,7 @@ namespace NewShop.Controllers
             return View();
         }
 
-        public async Task<JsonResult> SendOtp(string phone, string user)
+        public async Task<JsonResult> SendOtp(string phone, string user, string refer)
         {
             string otp = new string(Enumerable.Repeat(_otpChars, 6)
             .Select(s => s[_random.Next(s.Length)]).ToArray());
@@ -46,10 +46,10 @@ namespace NewShop.Controllers
                 conn.Open();
                 var command = new SqlCommand("P_ADD_OTP", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@user", user);
-                command.Parameters.AddWithValue("@Phone", phone);
-                command.Parameters.AddWithValue("@ref", reff);
-                command.Parameters.AddWithValue("@OTP", otp);
+                command.Parameters.AddWithValue("@user", user.Trim());
+                command.Parameters.AddWithValue("@Phone", phone.Trim());
+                command.Parameters.AddWithValue("@ref", refer.Trim());
+                command.Parameters.AddWithValue("@OTP", otp.Trim());
                 SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                 p.Direction = ParameterDirection.Output;
                 SqlParameter m = new SqlParameter("@outColumn", SqlDbType.NVarChar, 100);
@@ -60,8 +60,9 @@ namespace NewShop.Controllers
                 message = command.Parameters["@outColumn"].Value.ToString();
                 status = command.Parameters["@outGenstatus"].Value.ToString();
                 command.Dispose();
-                var statusApi = Apiservice(phone, user, otp, reff);
-                Api = await statusApi;
+                //var statusApi = Apiservice(phone, user, otp, reff);
+                //Api = await statusApi;
+                Api = "YES";
             }
             catch (Exception ex)
             {
@@ -71,8 +72,9 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, status = status, Apisend = Api }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Verify(string phone, string user)
+        public JsonResult Verify(string phone, string user, string otp, string refer, string page)
         {
+            var message = string.Empty;
             var connectString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection conn = new SqlConnection(connectString);
             try
@@ -80,15 +82,21 @@ namespace NewShop.Controllers
                 conn.Open();
                 var command = new SqlCommand("P_CHECK_OTP", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@user", user);
-                command.Parameters.AddWithValue("@Phone", phone);
-                command.Parameters.AddWithValue("@OTP", phone);
+                command.Parameters.AddWithValue("@user", user.Trim());
+                command.Parameters.AddWithValue("@Phone", phone.Trim());
+                command.Parameters.AddWithValue("@OTP", otp.Trim());
+                command.Parameters.AddWithValue("@ref", refer.Trim());
+                SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                command.Parameters.Add(p);
+                command.ExecuteNonQuery();
+                message = command.Parameters["@outGenstatus"].Value.ToString();
             }
             catch (Exception ex)
             {
-
+                message = ex.Message;
             }
-            return Json("");
+            return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
         }
         public string GenerateRandomString(int length)
         {

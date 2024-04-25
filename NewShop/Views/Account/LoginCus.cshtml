@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "LoginCus";
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    string _lineUser = ViewBag.Userlineid;
 }
 <html lang="en">
 <head>
@@ -35,10 +36,29 @@
         }
 
         .otp {
-            height: 50px;
-            width: 50px;
             margin: 5px;
             text-align: center;
+        }
+
+        @@media only screen and (min-width: 412px) {
+            .otp {
+                height: 50px;
+                width: 50px;
+            }
+        }
+
+        @@media only screen and (min-width: 375px) {
+            .otp {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        @@media only screen and (max-width: 374px) {
+            .otp {
+                height: 30px;
+                width: 30px;
+            }
         }
 
         .otp-form {
@@ -57,7 +77,8 @@
                     <input type="hidden" id="phone" />
                     <input type="hidden" id="cuscod" />
                     <input type="hidden" id="email" />
-                    <button class="btn btn-info" type="button" id="test_open" onclick="">otp TEST</button>
+                    <input type="text" id="lineid" />
+                    @*<button class="btn btn-info" type="button" id="test_open" onclick="">otp TEST</button>*@
                 </div>
                 <form class="form-horizontal" action="~/Account/LoginCus" method="post">
                     <div class="card-body">
@@ -116,26 +137,48 @@
                                     <tbody>
                                         <tr>
                                             <td>
+                                                <div class="row">
+                                                    <label class="col-12 " style="opacity:0.5;">
+                                                        กรุณากดปุ่ม "ขอรหัส OTP" กรอกรหัส OTP ที่ได้รับทาง SMS ด้านล่างเพื่อยืนยันตัวตน หากไม่ได้รับรหัส OTP กรุณาตรวจสอบเบอร์โทรศัพท์มือถือด้านล่างให้ถูกต้องและกดปุ่ม "ขอรหัส OTP" อีกครั้ง
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                                 กรอกรหัส OTP<span class="red-star">*</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input type="text" id="otpphone" class="form-control" readonly />
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button class="btn btn-success" id="sendotp_btn" onclick="delaySendOtp(); sendOtp();">ขอรหัส OTP</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
                                                 <div class="otp-form">
                                                     <input type="tel" class="otp form-control" id="enterotp1" pattern="[0-9]+" maxlength="1">
                                                     <input type="tel" class="otp form-control" id="enterotp2" pattern="[0-9]+" maxlength="1">
                                                     <input type="tel" class="otp form-control" id="enterotp3" pattern="[0-9]+" maxlength="1">
                                                     <input type="tel" class="otp form-control" id="enterotp4" pattern="[0-9]+" maxlength="1">
                                                     <input type="tel" class="otp form-control" id="enterotp5" pattern="[0-9]+" maxlength="1">
-                                                    <input type="tel" class="otp form-control" id="enterotp6" pattern="[0-9]+" maxlength="1" onkeyup="testPress();">
+                                                    <input type="tel" class="otp form-control" id="enterotp6" pattern="[0-9]+" maxlength="1">
                                                 </div>
-
-                                                <p class="mb-0">รหัส OTP มีอายุอีก <span id="login-counter">05:00</span> <span id="label-countdown">นาที</span></p>
+                                                <p class="m-0" id="refid"><span id="refhead">Ref : </span><span id="ref_show"></span> </p>
+                                                <p class="mb-0" hidden id="count_p">รหัส OTP มีอายุอีก <span id="login-counter">05:00</span> <span id="label-countdown">นาที</span></p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp(); sendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>
+                                                @*<a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp(); sendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>*@
                                             </td>
                                         </tr>
                                         <tr>
@@ -147,7 +190,7 @@
                                         <tr>
                                             <td class="pt-3">
                                                 <div class="d-flex justify-content-end">
-                                                    <button class="btn btn-success">
+                                                    <button class="btn btn-success" id="otpcheck" onclick="otpCheck();">
                                                         Verify
                                                     </button>
                                                 </div>
@@ -173,6 +216,8 @@
         const params = new URLSearchParams(queryString);
         const page = params.get('page');
         console.log("Page: " + page);
+        console.log("Line : " + '@_lineUser');
+        $('#lineid').val('@_lineUser');
 
         function testPress() {
             var amount = $('#enterotp6');
@@ -219,7 +264,6 @@
                 }
             });
         });
-
         $(document).ready(function () {
             $('#inputusername').change(function () {
                 $('#wronguser').attr('hidden', true);
@@ -230,9 +274,11 @@
         });
 
         function Login() {
+            $('#count_p').attr('hidden');
+            $('#ref_show').attr('hidden');
             var username = $('#inputusername').val();
             var pass = $('#inputPassword').val();
-            var phonenum = '';
+            var phonenum = $('#phone').val();
             var cuscod = '';
             $.ajax({
                 url: '@Url.Action("LoginCus","Account")',
@@ -273,10 +319,12 @@
                         console.log("N Result " + result.message);
                         console.log("Phone is " + phonenum);
                         console.log("cuscod is " + result.cuscod);
+                        console.log("Line : ");
                         $('#phone').val(phonenum);
+                        $('#otpphone').val(phonenum);
                         $('#cuscod').val(result.cuscod);
+
                         $('.modal').modal('show');
-                        sendOtp();
                     }
                     else {
                         $('#wronguser').removeAttr('hidden');
@@ -294,44 +342,114 @@
                 console.log("fail");
             });
         }
+        //count OTP
+        var counter;
         function delaySendOtp() {
+            var reff = generateRef(4);
+            $('#ref_show').removeAttr('hidden');
+            $('#count_p').removeAttr('hidden');
+            $('#ref_show').text(reff);
             $('#sendotp').addClass("disable-link");
-            var startTime = new Date().getTime();
-            var endTime = startTime + (17 * 1000);
-            var countdownInterval = setInterval(function () {
-                var currentTime = new Date().getTime();
-                var timeDifference = endTime - currentTime;
-                var seconds = Math.floor(timeDifference / 1000);
-                var countdownText = "ส่งรหัสยืนยันใหม่ในอีก " + seconds + " วินาที";
-                $('#countdown').text(countdownText);
-                if (timeDifference <= 0) {
-                    clearInterval(countdownInterval);
-                    $('#countdown').text("");
+            resetCountdown();
+        }
+        function startCountdown() {
+            counter = setInterval(function () {
+                var minutes = Math.floor(countDownTime / 60000);
+                var seconds = Math.floor((countDownTime % 60000) / 1000);
+                $('#login-counter').text(pad(minutes) + ':' + pad(seconds));
+                countDownTime -= 1000;
+                if (countDownTime < 0) {
+                    clearInterval(counter);
+                    $('#login-counter').text('00:00');
+                    $('#label-countdown').text('');
                 }
             }, 1000);
-            setTimeout(
-                function () {
-                    $('#sendotp').removeClass("disable-link");
-                }, 17000);
         }
+        function resetCountdown() {
+            clearInterval(counter);
+            countDownTime = 5 * 60 * 1000;
+            startCountdown();
+        }
+        function pad(val) {
+            return val < 10 ? '0' + val : val;
+        }
+        ////////
+
+
         function otpCheck() {
-            var number = '';
+            var otpenter = '';
             $('.otp').each(function () {
-                number += $(this).val();
+                otpenter += $(this).val();
             });
-            alert("Otp is : " + number);
-            console.log("OP : " + number);
+            var phone = $('#otpphone').val();
+            var refer = $('#ref_show').text();
+            var username = $('#inputusername').val();
+            //alert("Otp is : " + otpenter);
+            console.log("OP : " + otpenter);
+            $.ajax({
+                url: '@Url.Action("Verify", "Verification")',
+                data: JSON.stringify({
+                    phone: phone,
+                    user: username,
+                    otp: otpenter,
+                    refer: refer,
+                    page:page
+                }),
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result.message == 'Y') {
+                        alert("login Success!!!" + "Page : " + result.page);
+                        if (result.page != null && result.page != '') {
+                            if (result.page == "amount") { //หน้ายอดซื้อ
+                                //alert("amount");
+                                window.location.assign("@domainName" + "/CustomerDashboard/index");
+                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
+                            } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
+                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
+                            }
+                            else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
+                                //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
+                            }
+                        }
+                    }
+                    else {
+                        alert(result.message);
+                    }
+                },
+                error: function (er) {
+
+                },
+                complete: function (res) {
+
+                }
+
+            }).fail(function (ex) {
+                console.log("fail");
+            });
         }
         function sendOtp() {
+            var reff = generateRef(4);
             var phone = $('#phone').val();
             var mail = $('#email').val();
             var username = $('#inputusername').val();
             var cuscod = $('#cuscod').val();
+            $('#ref_show').text(reff);
             $.ajax({
                 url: '@Url.Action("SendOtp", "Verification")',
                 data: JSON.stringify({
                     phone: phone,
                     user: username,
+                    refer: reff
                 }),
                 type: "POST",
                 cache: false,
@@ -364,6 +482,15 @@
             }).fail(function (ex) {
                 console.log("fail");
             });
+        }
+        function generateRef(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
         }
     </script>
 </body>
