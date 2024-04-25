@@ -296,6 +296,7 @@
                                 <th>Price<br />Str</th>
                                 <th>ราคาพิเศษ</th>
                                 <th>Stock</th>
+                                <th>In-transit</th>
                                 <th>Back<br>Order</th>
                                 <th>Clearance</th>
                                 <th>ราคาต่อรอง</th>
@@ -737,6 +738,7 @@
                                 SubmithtmlPage += '<td class="valPrice"><div class="PCDESstr">' + nl3br(data[i].val.PCDES) + '</div></td>';
                                 SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="Special_Price">' + data[i].val.Special_Price + '</div>' + dtachcolo + '</td>';
                                 SubmithtmlPage += '<td  class="valStock"><div class="TOTBAL">' + data[i].val.TOTBAL + '</td>';
+                                SubmithtmlPage += '<td  class="Intransit"><div class="Intransit">' + data[i].val.Intransit + '</td>';
                                 if (BackOrder == "") {
                                     SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"><div class="BackOrder">0</div></td>';
                                 } else {
