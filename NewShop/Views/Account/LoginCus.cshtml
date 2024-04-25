@@ -387,7 +387,7 @@
             var line = $('#lineid').val();
             //alert("Otp is : " + otpenter);
             console.log("OP : " + otpenter);
-            console.log("LineID : " + line)
+            console.log("LineUserId : " + line)
             $.ajax({
                 url: '@Url.Action("Verify", "Verification")',
                 data: JSON.stringify({

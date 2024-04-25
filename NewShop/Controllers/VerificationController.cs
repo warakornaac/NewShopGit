@@ -34,7 +34,6 @@ namespace NewShop.Controllers
         {
             string otp = new string(Enumerable.Repeat(_otpChars, 6)
             .Select(s => s[_random.Next(s.Length)]).ToArray());
-            string reff = GenerateRandomString(4);
             string status = string.Empty;
             string message = string.Empty;
             //string statusApi = string.Empty;
@@ -60,9 +59,9 @@ namespace NewShop.Controllers
                 message = command.Parameters["@outColumn"].Value.ToString();
                 status = command.Parameters["@outGenstatus"].Value.ToString();
                 command.Dispose();
-                //var statusApi = Apiservice(phone, user, otp, reff);
-                //Api = await statusApi;
-                Api = "YES";
+                var statusApi = Apiservice(phone, user, otp, refer);
+                Api = await statusApi;
+                //Api = "YES";
             }
             catch (Exception ex)
             {
