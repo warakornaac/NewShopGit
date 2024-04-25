@@ -59,9 +59,9 @@ namespace NewShop.Controllers
                 message = command.Parameters["@outColumn"].Value.ToString();
                 status = command.Parameters["@outGenstatus"].Value.ToString();
                 command.Dispose();
-                var statusApi = Apiservice(phone, user, otp, refer);
-                Api = await statusApi;
-                //Api = "YES";
+                //var statusApi = Apiservice(phone, user, otp, refer);
+                //Api = await statusApi;
+                Api = "YES";
             }
             catch (Exception ex)
             {
@@ -145,9 +145,5 @@ namespace NewShop.Controllers
                 return ex.Message;
             }
         }
-
-
-
-
     }
 }
