@@ -2832,41 +2832,9 @@
         $(document).on("click", "#navbarpending", function () {
             window.location.replace("../CustomerDashboard/PendingDeliver");
         });
-        $('#navbarshowdetail').click(function () {
-
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            var codval = $('#selslm').val();
-            if (usertype != "6") {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartslm(codval)
-                }
-
-            } else {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartcus(cuskey)
-                }
-            }
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
         function Getdatacartcus(cuskey) {
             $.ajax({
@@ -2889,7 +2857,7 @@
                         SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
 
                         SubmithtmlPage += '</tr>';
-                        $('#wConfirm').prepend(SubmithtmlPage);
+                        $('#wConfirmwConfirm').prepend(SubmithtmlPage);
                     }
 
 

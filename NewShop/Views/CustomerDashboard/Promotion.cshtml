@@ -3204,7 +3204,6 @@
                     window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
                 }
             }
-
         });
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
@@ -3217,6 +3216,10 @@
         //ปุ่มสินค้าค้างส่ง
         $(document).on("click", "#navbarpending", function () {
             window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
         $('#navbarshowdetail').click(function () {
 

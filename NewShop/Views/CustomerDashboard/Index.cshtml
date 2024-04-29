@@ -2777,7 +2777,10 @@
         $(document).on("click", "#navbarpending", function () {
             window.location.replace("../CustomerDashboard/PendingDeliver");
         });
-
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        });
         $('#navbarshowdetail').click(function () {
 
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:

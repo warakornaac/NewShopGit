@@ -111,7 +111,7 @@ namespace NewShop.Controllers
         }
         private async Task<string> Apiservice(string phone, string user, string otp, string reff)
         {
-            var urlAPI = "https://localhost:44361/Post/Sms";
+            var urlAPI = "https://mst.aac.co.th/APIService/Post/Sms";
             var post = new SmsModels
             {
                 Phone = phone,

@@ -111,20 +111,20 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-                 List<SelectListItem> GroupUserInsert = new List<SelectListItem>();
-                 SqlCommand cmduser = new SqlCommand("select * from  v_UserInsert where InsertBy=N'" + usre + "'", Connection);
-                 SqlDataReader rev_UserInsert = cmduser.ExecuteReader();
-                while (rev_UserInsert.Read())
+            List<SelectListItem> GroupUserInsert = new List<SelectListItem>();
+            SqlCommand cmduser = new SqlCommand("select * from  v_UserInsert where InsertBy=N'" + usre + "'", Connection);
+            SqlDataReader rev_UserInsert = cmduser.ExecuteReader();
+            while (rev_UserInsert.Read())
+            {
+                GroupUserInsert.Add(new SelectListItem()
                 {
-                    GroupUserInsert.Add(new SelectListItem()
-                    {
 
-                        Value = rev_UserInsert.GetValue(0).ToString(),
-                    });
-                }
-                rev_UserInsert.Dispose();
-                Connection.Close();
-                return Json(new { GroupUserInsert}, JsonRequestBehavior.AllowGet);
+                    Value = rev_UserInsert.GetValue(0).ToString(),
+                });
+            }
+            rev_UserInsert.Dispose();
+            Connection.Close();
+            return Json(new { GroupUserInsert }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetOrder(string Usertype, string SOW, string UserCreate, string CUSCOD, string SLMCODE, string SO_SDate, string SO_EDate, string STKCOD, string DType)
         {
@@ -155,8 +155,8 @@ namespace NewShop.Controllers
                 while (dr.Read())
                 {
                     model = new SaleOrderList();
-                   // DateTime date = Convert.ToDateTime(dr.GetValue(""));
-                   // string formatted = date.ToString("dd/M/yyyy");
+                    // DateTime date = Convert.ToDateTime(dr.GetValue(""));
+                    // string formatted = date.ToString("dd/M/yyyy");
                     model.DType = dr["DType"].ToString();
                     model.RowNo = dr["RowNo"].ToString();
                     model.ORD_ID = dr["ORD_ID"].ToString();
@@ -188,7 +188,7 @@ namespace NewShop.Controllers
                 //E20161016
                 connection.Close();
             }
-             return Json(new { Getdata, Getdatatop }, JsonRequestBehavior.AllowGet);
+            return Json(new { Getdata, Getdatatop }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -196,7 +196,6 @@ namespace NewShop.Controllers
         {
             List<OrderListDetailGetdata> Getdata = new List<OrderListDetailGetdata>();
             SaleOrderDetail model = null;
-
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString))
             {
                 connection.Open();
@@ -212,17 +211,14 @@ namespace NewShop.Controllers
                 while (dr.Read())
                 {
                     model = new SaleOrderDetail();
-
                     model.RowNo = dr["RowNo"].ToString();
                     model.VSTKCOD = dr["ORD_STKCOD"].ToString();
                     model.VSTKDES = dr["STKDES"].ToString();
                     model.VSTKGRP = dr["ORD_STKGRP"].ToString();
                     model.VPrice = dr["ORD_Price"].ToString();
                     model.VSalePrice = dr["ORD_SalePrice"].ToString();
-
                     model.VORDDAT = dr["ORD_Date"].ToString();
                     model.Item_Type = dr["Item_Type"].ToString();
-
                     model.VDiscount = dr["ORD_Discount"].ToString();
                     model.AmtQty = dr["ORD_Qty"].ToString();
                     model.TotalAmt = dr["ORD_Amt"].ToString();
@@ -244,5 +240,5 @@ namespace NewShop.Controllers
 
         }
     }
-  
+
 }
