@@ -940,4 +940,37 @@ namespace NewShop.Models
         public string Ref { get; set; }
         public string User { get; set; }
     }
+    public class CustomerCredit
+    {
+        public string CUSCOD { get; set; }
+        public string CUSNAME { get; set; }
+        public string ADDR_01 { get; set; }
+        public string ADDR_02 { get; set; }
+        public string PRO { get; set; }
+        public string CUSTYP { get; set; }
+        public string AACCRLINE { get; set; }
+        public string AACBAL { get; set; }
+        public string AACBALDue { get; set; }
+        public string TACCRLINE { get; set; }
+        public string TACBAL { get; set; }
+        public string TACBALDue { get; set; }
+        public string OMPCRLINE { get; set; }
+        public string OMPBAL { get; set; }
+        public string OMPBALDue { get; set; }
+        public string SLMCOD { get; set; }
+        public string INACTIVE { get; set; }
+        public string BLOCKED { get; set; }
+        public string AACPAYTR { get; set; }
+        public string TACPAYTR { get; set; }
+        public string OMPPAYTR { get; set; }
+        public string TELNUM { get; set; }
+    }
+    public class BackOrder_Notify
+    {
+        public string STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string Qty { get; set; }
+        public string SaleOrderDate { get; set; }
+        public string DeliveryDate { get; set; }
+    }
 }

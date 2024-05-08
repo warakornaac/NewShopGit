@@ -113,11 +113,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-info float-right" onclick="Login();">Sign in</button>
-                        @*<button type="reset" class="btn btn-default float-right">Cancel</button>*@
-                    </div>
                 </form>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-info float-right" onclick="Login();">Sign in</button>
+                    @*<button type="reset" class="btn btn-default float-right">Cancel</button>*@
+                </div>
+
                 <div class="otp-content">
 
                 </div>
@@ -191,7 +192,7 @@
                                             <td class="pt-3">
                                                 <div class="d-flex justify-content-end">
                                                     <button class="btn btn-success" id="otpcheck" onclick="otpCheck();">
-                                                        Verify
+                                                        ยืนยัน OTP
                                                     </button>
                                                 </div>
                                             </td>
@@ -297,7 +298,7 @@
 
                 },
                 success: function (result) {
-                    if (result.message == "Y") {
+                    if (result.message == "N") {
                         console.log("Result is " + result.message);
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
@@ -314,7 +315,7 @@
                             }
                         }
                     }
-                    else if (result.message == "N") {
+                    else if (result.message == "Y") {
                         phonenum = result.tel;
                         console.log("N Result " + result.message);
                         console.log("Phone is " + phonenum);

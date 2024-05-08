@@ -392,6 +392,35 @@
             animation: spin 2s linear infinite;
             position: relative; /* or absolute */
         }
+
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 400px !important;
+                height: 1.2em;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (max-width: 586px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 200px !important;
+                height: 1.2em;
+                white-space: nowrap;
+            }
+        }
+
+
+        /*.cut-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 200px !important;
+            height: 1.2em;
+            white-space: nowrap;
+        }*/
         /* Safari */
         @@-webkit-keyframes spin {
             0% {
@@ -487,20 +516,19 @@
                                             <div class="col-6 col-md-6 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
                                                 <h4 class="m-0">รายการค้างส่งสินค้า</h4>
                                             </div>
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 text-right text-md-right text-sm-right p-0 pr-md-5 d-flex align-items-center">
-                                                <div class="ml-auto mr-1">มีสินค้าใน Stock</div> <input type="checkbox" id="chkSelect" class="fa-3x" style="zoom: 1.0;" />
-                                            </div>
+                                            @*<div class="col-6 col-md-6 col-lg-6 col-sm-6 text-right text-md-right text-sm-right p-0 pr-md-5 d-flex align-items-center" hidden>
+                                                    <div class="ml-auto mr-1">มีสินค้าพร้อมส่ง</div> <input type="checkbox" id="chkSelect" class="fa-3x" style="zoom: 1.0;" />
+                                                </div>*@
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="table-responsive m-0" style="height:500px">
                                                 <table class="table table-striped mb-0" id="backordtb" style="padding: 7px;font-size: small;">
                                                     <thead class="thead-default" style="font-size: small;">
                                                         <tr>
-                                                            <th>เลขที่สั่งซื้อ</th>
-                                                            <th>ชื่อสินค้า</th>
+                                                            <th style="max-width:60px">ชื่อสินค้า</th>
                                                             <th>ยอดค้างส่ง</th>
                                                             <th>วันที่สั่ง</th>
-                                                            <th>วันที่ส่ง</th>
+                                                            <th>กำหนดส่ง</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -515,220 +543,6 @@
                     </div>
                 </section>
             </div>
-        </div>
-
-        <div class="modal" id="ExtraLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div class="alert alert-light alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>สินค้าใหม่!</strong>
-                    <div class="modal-body">
-                        @*<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:758px;height:250px;overflow:hidden;visibility:hidden;">
-                                <!-- Loading Screen -->
-                                <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-                                    <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
-                                </div>
-                                <div data-u="slides" id="fixboxs" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:250px;overflow:hidden;">
-
-                                </div>
-                                <a data-scale="0" href="#" style="display:none;position:absolute;">web animation composer</a>
-
-                                <!-- Arrow Navigator -->
-                                <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
-                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                        <path class="a" d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z"></path>
-                                    </svg>
-                                </div>
-                                <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
-                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                        <path class="a" d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z"></path>
-                                    </svg>
-                                </div>
-                            </div>*@
-                        <div class="container">
-
-                            <div class="row" id="fixboxs">
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ModalWarning -->
-        <div class="modal" id="myModalWarning">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong>
-                    <div class="modal-body">
-                        <div id="textAlertWarning">Some text in the modal.</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="smallModal">
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <div class="modal-header">
-
-                    </div>
-
-                    <div class="modal-body">
-                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
-                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="smallModalselcus">
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <div class="modal-header">
-
-                    </div>
-
-                    <div class="modal-body">
-                        ใส่ชื่อร้านหรือรหัสร้านค้า
-                        <div id="blcslm" style="display:block">
-                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- ModalWarning -->
-        <!-- ModalwConfirm -->
-        <div id="ModalwConfirm" class="modal">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content " id="ColorboxError">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" style="color:black;">สินค้าค้างในตะกร้า</h4>
-
-                    <div class="modal-body" style="overflow-y: scroll;overflow-x: scroll;">
-                        <div id="textAlert">
-                            <table class="table table-bordered" id="wConfirm">
-                                <thead style="background-color: rgb(51, 51, 51);color: white;">
-                                    <tr>
-                                        <th>Customer</th>
-                                        <th>Salesman</th>
-                                        <th>จำนวนชิ้น</th>
-
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" id="CancalShippto" data-dismiss="modal">X</button>
-
-                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @*Modal date expire*@
-        <div class="modal" id="myModalWarningDateExpire" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>แจ้งเตือน!</strong>
-                    <div class="modal-body">
-                        <div id="textAlertWarningDateExpire">Some text in the modal.</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- EndModalwConfirm-->
-
-        <div class="modal" id="myModalclimtb">
-            @*<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">*@
-            <div class="modal-dialog modal-lg">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <strong style="padding: 4px;">รายละเอียดงานเคลม</strong>
-                    <div class="table-responsive m-0" style="height: 500px; padding: 6px;">
-                        <table class="table table-striped mb-0" id="climtbdatail" style="padding: 7px;font-size: small;">
-                            <thead style="font-size: small;">
-                                <tr>
-                                    <th>เลขเคลม</th>
-                                    <th>เบอร์สินค้า</th>
-                                    <th>จำนวน</th>
-                                    <th>วันที่แจ้งเคลม</th>
-                                    <th>วันที่รับเคลม</th>
-                                    <th>ต้องการให้ดำเนิน</th>
-                                    <th>สถานะเคลม</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="myModal" style="background-color: black;">
-
-            <div class="modal-dialog" role="document" style="width: 360px;">
-
-                <div class="modal-content">
-
-                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
-
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-
-                    </div>
-
-                    <div class="modal-body" id="texterror">
-                    </div>
-
-                    <div class="modal-footer">
-
-                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
         <footer class="footer" hidden>
             <div class="container">
@@ -1695,59 +1509,43 @@
 
         });
         function getbackord(cusnc) {
-            var Stock_Flag = ""
-            var isChecked = $('#chkSelect').is(':checked');
-            if (isChecked == true) {
-                Stock_Flag = "1";
-            } else {
-                Stock_Flag = "0";
-            }
-
-            var Show_Flag = "2";
-
-
-            var Stock_Flag = Stock_Flag;
                 $.ajax({
-                    url: '@Url.Action("getbackorder", "BackOrderAll")',
+                    url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
                     data: {
                         CUSCOD: cusnc,
-                        SLMID: '0',
-                        stkcod: '',
-                        Show_Flag: Show_Flag,
-                        Stock_Flag: Stock_Flag,
-                        //Stock_Flag: "0",
-                        COM: "ALL",
-                        DocumentNo: "",
-                        UserType: '@Session["UserType"]'
                     },
                     type: "POST",
                     dataType: "JSON",
                     success: function (data) {
                         //console.log(data)
-
                         $('#backordtb tbody:last-child').html("");
-                        if (data.length > 0) {
-                            var SubmithtmlPage = "";
-                            for (var i = 0; i < data.length; i++) {
-                                // SubmithtmlPage += ' <table class="fancyTable" id="myTable05" cellpadding="0" cellspacing="0">';
-                                SubmithtmlPage += '<tr data-index=' + data[i].SeqNum + data[i].SaleOrder_No + '>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].STKCOD + '/' + data[i].STKDES + '</td>';
-                                SubmithtmlPage += '<td class="orgbck">' + data[i].Qty + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_Date + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].DLVDAT + '</td>';
-                                SubmithtmlPage += '</tr >';
+                        if (data.message == "Y") {
+
+                            if (data.backorder.length > 0) {
+                                var SubmithtmlPage = "";
+
+                                for (var i = 0; i < data.backorder.length; i++) {
+
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td><p class="cut-text">' + data.backorder[i].STKCOD + '/' + data.backorder[i].STKDES + ' </p></td>';
+                                    SubmithtmlPage += '<td class="orgbck">' + data.backorder[i].Qty + '</td>';
+                                    SubmithtmlPage += '<td>' + data.backorder[i].SaleOrderDate + '</td>';
+                                    SubmithtmlPage += '<td>' + data.backorder[i].DeliveryDate + '</td>';
+                                    SubmithtmlPage += '</tr >';
+                                }
+                                $("#backordtb").append(SubmithtmlPage);
+                            } else if (data.length <= 0) {
+                                SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
+                                $("#backordtb").append(SubmithtmlPage);
                             }
-
-                            $("#backordtb").append(SubmithtmlPage);
-
-                        } else if (data.length <=0) {
-                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
-                            $("#backordtb").append(SubmithtmlPage);
+                        }
+                        else {
+                            console.log(data.message);
                         }
                     }
                 });
         }
+
         function getcus() {
 
             var SLM = $("#selslm").val();
