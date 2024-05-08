@@ -1,0 +1,38 @@
+﻿@{
+    <div class="container">
+        <div class="row">
+                <div class="col-md-4">
+                    <div class="card-counter primary">
+                        <i class="fa fa-list"></i>
+                        <span class="count-numbers"> @ViewBag.countlistDataAll </span>
+                        <span class="count-name">ทั้งหมด</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-counter success">
+                        <i class="fa fa-check-square-o"></i>
+                        <span class="count-numbers"> @ViewBag.numSuccess</span>
+                        <span class="count-name">สำเร็จ</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-counter danger">
+                        <i class="fa fa-window-close"></i>
+                        <span class="count-numbers"> @ViewBag.numError </span>
+                        <span class="count-name">ผิดพลาด</span>
+                    </div>
+                </div>
+
+
+                @*<div class="col-md-3">
+                        <div class="card-counter info">
+                            <i class="fa fa-users"></i>
+                            <span class="count-numbers">35</span>
+                            <span class="count-name">Users</span>
+                        </div>
+                    </div>*@
+        </div>
+    </div> 
+}

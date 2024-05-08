@@ -973,4 +973,14 @@ namespace NewShop.Models
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
     }
+
+    public class ListSendDelivery
+    {
+        public string Uid { get; set; }
+        public string Docno { get; set; }
+        public string Docdate { get; set; }
+        public string Cusname { get; set; }
+        public string Delivery { get; set; }
+        public string User { get; set; }
+    }
 }

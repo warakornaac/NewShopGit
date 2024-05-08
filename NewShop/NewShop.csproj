@@ -153,6 +153,7 @@
     <Compile Include="Controllers\SCStockScoController.cs" />
     <Compile Include="Controllers\SelectPrintStatementController.cs" />
     <Compile Include="Controllers\SeleScrCustomerController.cs" />
+    <Compile Include="Controllers\SendDeliveryStatusController.cs" />
     <Compile Include="Controllers\ShoppinglistController.cs" />
     <Compile Include="Controllers\SrcSaleCoCrmController.cs" />
     <Compile Include="Controllers\CustomerDashboardController.cs" />
@@ -7843,6 +7844,9 @@
     <Content Include="Views\Verification\Index.cshtml" />
     <Content Include="Views\Account\LoginCus.cshtml" />
     <Content Include="Views\CustomerDashboard\DeliveryTrack.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\Index.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\SearchSendDeliveryStatus.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\_listDataSendDeliveryStatusAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
