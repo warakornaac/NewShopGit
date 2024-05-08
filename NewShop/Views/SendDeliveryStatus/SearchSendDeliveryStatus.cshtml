@@ -1,0 +1,389 @@
+﻿@{
+    // ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layoutcus_center.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+
+
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
+
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/CSS/jQueryv3.1.1.js"></script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css">
+
+    <style>
+        /*@@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
+
+        html body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        html body {*/
+        /*font-family: 'Kanit', sans-serif;*/
+        /*font-size: calc(0.75em + 1vmin);
+        }
+
+        .content-wrapper {
+            background: #F3F3F3;
+            padding: 0.5pc 0.7pc;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .container-fluid {
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }*/
+    </style>
+
+</head>
+<h2>SearchSendDeliveryStatus</h2>
+<div class="content-wrapper" style="padding-top: 50px;">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-sm-12">
+            @*ประวัติการเคลม*@
+            <div class="card">
+                <h5 class="card-header"><b><i class="fa fa-list"></i> List Order</b></h5>
+                <div class="card-body" style="padding: 0px 0px;">
+                    <div class="table-responsive">
+                        <table class="table dataTable table-striped table-bordered nowrap table-hover" width="100%" style="margin-bottom: 0px;">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th></th>
+                                    <th>#</th>
+                                    <th class="text-center"><b>UID</b></th>
+                                    <th class="text-center"><b>เลขที่เอกสาร</b></th>
+                                    <th class="text-center"><b>วันที่ส่ง</b></th>
+                                    <th class="text-center"><b>ชื่อร้าน</b></th>
+                                    <th class="text-center"><b>สถานะส่งสินค้า</b></th>
+                                    <th class="text-center"><b>Send message</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int rowShop = 1;
+                                    foreach (var rowListData in ViewBag.listData)
+                                    {
+                                        <tr>
+                                            <td class="text-center"> <button type="button" class="btn btn-sm btn-info" style="cursor:pointer;" onclick="getDataDelivery('@rowListData.Uid', '@rowListData.Docno', '@rowListData.Docdate', '@rowListData.Cusname', '@rowListData.Delivery')"><i class="fa fa-eye"></i></button></td>
+                                            <td class="text-center">@rowShop</td>
+                                            <td>@rowListData.Uid</td>
+                                            <td>@rowListData.Docno</td>
+                                            <td>@rowListData.Docdate</td>
+                                            <td>@rowListData.Cusname</td>
+                                            <td>@rowListData.Delivery</td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                        rowShop++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*show detail before send*@
+    <div class="row justify-content-center" style="padding-top: 5px;">
+        <div class="col-md-10 col-sm-12" id="OrderDetail" style="display: none;">
+            <div class="card">
+                <h5 class="card-header"><b>Order Detail</b></h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="">UID</label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtUid" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" for="">เลขที่เอกสาร</label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtDocno" value="" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" for="">วันที่ส่ง</label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtDocdate" value="" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" for="">ชื่อร้าน	</label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtCusname" value="" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" for="">สถานะส่งสินค้า</label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtDelivery" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="btn btn-md btn-success" onclick="sendDataDelivery();"><i class="fa fa-send"></i> Send </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getDataDelivery(Uid, Docno, Docdate, Cusname, Delivery) {
+        $('#txtUid').val(Uid.trim());
+        $('#txtDocno').val(Docno.trim());
+        $('#txtDocdate').val(Docdate.trim());
+        $('#txtCusname').val(Cusname.trim());
+        $('#txtDelivery').val(Delivery.trim());
+
+        $("#OrderDetail").css("display", "block");
+
+        //var eleTabShop = $("#shop" + shop_id);
+        //// var shop_id = eleTabShop.attr('shop-id');
+        //var shop_name = eleTabShop.attr('shop-name');
+        //var scheduled_date = $('#shop' + shop_id + '_scheduled_date').val();
+        //var scheduled_time = $('#shop' + shop_id + '_scheduled_time').val();
+        //var vat_type = $('input[name="shop' + shop_id + '_vat_type"]:checked').val();
+        //var error = 0;
+        //var errorMsg = '';
+        //if (scheduled_date == '') {
+        //    error++;
+        //    errorMsg += error + '. ระบุวันที่กำหนดส่ง<br/>';
+        //}
+
+        //if (scheduled_time == '') {
+        //    error++;
+        //    errorMsg += error + '. ระบุเวลาที่กำหนดส่ง<br/>';
+        //}
+
+        //if (vat_type == '' || (typeof $('input[name="shop' + shop_id + '_vat_type"]:checked').val() === "undefined")) {
+        //    error++;
+        //    errorMsg += error + '. เลือกประเภท VAT<br/>';
+        //}
+
+        //if (error > 0) {
+        //    $('a[href="#shop' + shop_id + '"]').click();
+        //    errorMsg = '<p><strong>ร้าน' + shop_name + '</strong></p><br/>' + errorMsg;
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'แจ้งเตือน',
+        //        html: errorMsg,
+        //        confirmButtonColor: '#d33',
+        //        confirmButtonText: 'ปิด',
+        //        allowOutsideClick: false,
+        //        focusConfirm: false,
+        //    });
+        //    return false;
+        //}
+
+        //var remark = $('#shop' + shop_id + '_remark').val();
+        //var total_amt = $('#shop' + shop_id + '_total_amt').val().replace(/\,/g, '');
+        //var discount_amt = $('#shop' + shop_id + '_discount_amt').val().replace(/\,/g, '');
+        //var vat_amt = $('#shop' + shop_id + '_vat_amt').val().replace(/\,/g, '');
+        //var sum_amt = $('#shop' + shop_id + '_sum_vat').val().replace(/\,/g, '');
+        //var adjust_balance = $('#shop' + shop_id + '_adjust_balance').val().replace(/\,/g, '');
+        //var adjust_balance_type = (typeof $('input[name="shop' + shop_id + '_adjust_balance_type"]:checked').val() === "undefined") ? "" : $('input[name="shop' + shop_id + '_adjust_balance_type"]:checked').val();
+        //var net_total_amt = $('#shop' + shop_id + '_net_total_amt').val().replace(/\,/g, '');
+        //var net_amt = $('#shop' + shop_id + '_net_amt').val().replace(/\,/g, '');
+
+        //var purchase_detail_arr = [];
+        //var pr_arr = [];
+        //var products_arr = [];
+        //eleTabShop.find('.shop' + shop_id + '_product').each(function () {
+        //    var product_amt = $(this).attr('product-amt');
+        //    if (product_amt > 0) {
+        //        products_arr.push($(this).attr('product-id'));
+        //        purchase_detail_arr.push({
+        //            tucomp_id: $(this).attr('comp-id'),
+        //            products_id: $(this).attr('product-id'),
+        //            product_unit_id: $(this).attr('unit-id'),
+        //            purchase_price: $(this).attr('product-price'),
+        //            purchase_amt: $(this).attr('product-amt'),
+        //            price_total: $(this).val(),
+        //            pr_id: $(this).attr('pr-id')
+        //        });
+
+        //        pr_arr.push($(this).attr('pr-id'));
+        //    }
+        //});
+
+        //var uniquePr_arr = [];
+        //$.each(pr_arr, function (i, el) {
+        //    if ($.inArray(el, uniquePr_arr) === -1) uniquePr_arr.push(el);
+        //});
+
+        //var purchase_arr = [{
+        //    pr_arr: uniquePr_arr,
+        //    shop_id: shop_id,
+        //    scheduled_date: scheduled_date,
+        //    scheduled_time: scheduled_time,
+        //    remark: remark,
+        //    total_amt: total_amt,
+        //    discount_amt: discount_amt,
+        //    vat_type: vat_type,
+        //    vat_amt: vat_amt,
+        //    sum_amt: sum_amt,
+        //    adjust_balance: adjust_balance,
+        //    adjust_balance_type: adjust_balance_type,
+        //    net_total_amt: net_total_amt,
+        //    net_amt: net_amt,
+        //    purchase_detail: purchase_detail_arr
+        //}];
+
+        //Swal.fire({
+        //    title: 'ยืนยัน',
+        //    text: 'ต้องการยืนยันออกใบสั่งซื้อ ใช่หรือไม่?',
+        //    icon: 'question',
+        //    showCancelButton: true,
+        //    confirmButtonColor: '#00a65a',
+        //    cancelButtonColor: '#d33',
+        //    confirmButtonText: 'ใช่',
+        //    cancelButtonText: 'ไม่',
+        //    allowOutsideClick: false,
+        //    focusConfirm: false,
+        //}).then((result) => {
+        //    if (result.value) {
+        //        $.ajax({
+        //            url: '<?php echo Url::to(["/purchase/purchase-request/create-purchase"]); ?>',
+        //            type: 'POST',
+        //            data: {
+        //                purchase_arr
+        //            },
+        //            dataType: 'json',
+        //            beforeSend: function () {
+        //                LoadingShow();
+        //            },
+        //            success: function (res) {
+        //                LoadingHide();
+        //                if (!res.success) {
+        //                    Swal.fire('', res.msg, 'warning');
+        //                    return false;
+        //                } else {
+        //                    let tebleTabEle;
+        //                    $("input[name='product_id[]']:checked").each(function () {
+        //                        let chk_product_id = $(this).val();
+        //                        let product_ele = $(this);
+        //                        $.each(products_arr, function (index, item) {
+        //                            if (item == chk_product_id) {
+        //                                tebleTabEle = product_ele.parent().parent().parent();
+        //                                product_ele.parent().parent().remove();
+        //                            }
+        //                        });
+        //                    });
+
+        //                    tebleTabEle.each(function () {
+        //                        $.each($(this).find('tr'), function (index) {
+        //                            $(this).find("td:eq(0)").text((index + 1));
+        //                        });
+        //                    });
+
+        //                    previewPurchaseOrder();
+        //                    Swal.fire({
+        //                        position: 'center',
+        //                        icon: 'success',
+        //                        title: res.msg,
+        //                        confirmButtonText: 'ปิด',
+        //                        allowOutsideClick: false,
+        //                        focusConfirm: false,
+        //                    }).then(function () {
+        //                        // localStorage.removeItem("prArr");
+        //                    });
+        //                }
+        //            },
+        //            complete: function (res) {
+        //                LoadingHide();
+        //            }
+        //        });
+        //    }
+        //});
+    }
+    function sendDataDelivery() {
+        var Uid = $("#txtUid").val();
+        var Docno = $("#txtDocno").val();
+        var Docdate = $("#txtDocdate").val();
+        var Cusname = $("#txtCusname").val();
+        var Delivery = $("#txtDelivery").val();
+        Swal.fire({
+            title: 'ยืนยัน',
+            text: 'ยืนยัน ใช่หรือไม่?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#00a65a',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่',
+            cancelButtonText: 'ไม่',
+            allowOutsideClick: false,
+            focusConfirm: false,
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '@Url.Action("ApiPushMessage", "SendDeliveryStatus")',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        Uid: Uid,
+                        Docno: Docno,
+                        Docdate: Docdate,
+                        Cusname: Cusname,
+                        Delivery: Delivery,
+                        User:"warakorn.pra"
+                    }),
+                    type: "POST",
+                    cache: false,
+                    dataType: 'json',
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    beforeSend: function () {
+                        //LoadingShow();
+                    },
+                    success: function (res) {
+                        //LoadingHide();
+                        console.log(res);
+                        if (res.status != "OK") {
+                            Swal.fire('', res.message, 'warning');
+                            return false;
+                        } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'ส่งสำเร็จ',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            }).then(function () {
+                                // localStorage.removeItem("prArr");
+                            });
+                        }
+                    },
+                    complete: function (res) {
+                        //LoadingHide();
+                    }
+                });
+            }
+        });
+    }
+</script>
