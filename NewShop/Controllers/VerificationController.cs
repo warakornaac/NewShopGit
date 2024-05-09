@@ -74,6 +74,7 @@ namespace NewShop.Controllers
         public JsonResult Verify(string lineid, string phone, string user, string otp, string refer, string page)
         {
             var message = string.Empty;
+            this.Session["UserID"] = null;
             var connectString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection conn = new SqlConnection(connectString);
             try
@@ -91,6 +92,14 @@ namespace NewShop.Controllers
                 command.Parameters.Add(p);
                 command.ExecuteNonQuery();
                 message = command.Parameters["@outGenstatus"].Value.ToString();
+                if (message == "Y")
+                {
+                    this.Session["UserID"] = user;
+                }
+                else
+                {
+                    this.Session["UserID"] = null;
+                }
             }
             catch (Exception ex)
             {
