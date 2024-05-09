@@ -117,7 +117,7 @@ namespace NewShop.Controllers
                 @ViewBag.arrSuccess
             });
         }
-
+        //ส่ง
         public ActionResult SendDeliveryStatusAuto()
         {
             int numSuccess = 0;
