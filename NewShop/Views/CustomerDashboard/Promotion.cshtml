@@ -502,7 +502,9 @@
                                         <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายเดือน</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">Expo</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">Road Show</button>
                                         </div>
                                         <div class="card m-0">
                                             <div id="yearly" class="city">
@@ -548,6 +550,44 @@
                                             <div id="other" class="city" style="display:none">
                                                 <div class="table-responsive m-0" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small; overflow:auto;">
+                                                        <thead class="thead-default" style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>เงื่อนไข</th>
+                                                                @*<th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="expo" class="city" style="display:none">
+                                                <div class="table-responsive m-0" style="height:500px">
+                                                    <table class="table table-striped mb-0" id="promotiontbexpo" style="padding: 7px;font-size: small; overflow:auto;">
+                                                        <thead class="thead-default" style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>เงื่อนไข</th>
+                                                                @*<th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="roadshow" class="city" style="display:none">
+                                                <div class="table-responsive m-0" style="height:500px">
+                                                    <table class="table table-striped mb-0" id="promotiontbroadshow" style="padding: 7px;font-size: small; overflow:auto;">
                                                         <thead class="thead-default" style="font-size: small;">
                                                             <tr>
                                                                 <th>โปรโมชั่น</th>
@@ -856,88 +896,6 @@
             });
 
         }
-        @*
-        function checklogin(userid, id) {
-            $.ajax({
-                url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    SessionId: id
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    //console.log(splitstring);
-                    let text = splitstring;
-                    const myArray = text.split("|");
-                    let mysession = myArray[1];
-                    let mystatus = myArray[0];
-                   // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (id != mysession) {
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-                        return false;
-                        //window.location.replace("../Account/LogIn");
-                    } else {
-
-                        if (mystatus == "0") {
-                            $("#texterror").empty();
-                            $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                            $("#myModal").modal();
-                            return false;
-                            //window.location.replace("../Account/LogIn");
-                        }
-                    }
-                }
-            });
-
-        }
-
-        function checklogin(userid, id) {
-            $.ajax({
-                url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    SessionId: id
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    console.log(splitstring);
-                    let text = splitstring;
-                    const myArray = text.split("|");
-                    let mysession = myArray[1];
-                    let mystatus = myArray[0];
-                   // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (id != mysession) {
-                       // alert("xxxx")
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-
-                        return false;
-                        //window.location.replace("../Account/LogIn");
-                    } else {
-
-                        if (mystatus == "0") {
-                            $("#texterror").empty();
-                            $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                            $("#myModal").modal();
-                            return false;
-                            //window.location.replace("../Account/LogIn");
-                        }
-                    }
-                }
-            });
-
-        }
-        *@
-
         //var cuscod = "";
         if (usertype == "1") {
             $("#nextcheckstock").css("display", "block");
@@ -949,35 +907,6 @@
             if (cuscod != "") {
                 checkPrivilege(userid, cuscod)
             }
-            //$(window).on('load', function () {
-            //    //alert("load")
-            //    checklogin(userid, id)
-            //});
-            //window.onclick = function () {
-            //    //alert("onclick")
-            //    checklogin(userid, id)
-            //};
-            //$('.navbar-nav').click(function () {
-            //   // alert("navbar-nav")
-            //    checklogin(userid, id)
-
-            //});
-            //$('a').click(function () {
-            //  //  alert("a")
-            //    checklogin(userid, id)
-
-            //});
-            //$(document).bind('keypress.session', function (ed, e) {
-            //    checklogin(userid, id)
-            //});
-            //$(document).bind('mousedown keydown', function (ed, e) {
-
-            //    checklogin(userid, id)
-            //});
-            //$(window).scroll(function (e) {
-
-            //    checklogin(userid, id)
-            //});
             if (usrclmstaff == "1") {
                 $("#amtdoffon").css("display", "none");
                 $("#amtchildoffon").css("display", "none");
@@ -1207,22 +1136,6 @@
                     $('#tableListTop20 tbody:last-child').html("");
                 }
             });
-           // $('#promooffon').click(function () {
-           //     var current_status = $('.statuspromotion').text();
-
-           //         var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-           //         if (current_status == 'Untoggled') {
-           //             $('.statuspromotion').html('Toggled');
-           //             getPromotion_Cus(cuskey, 'yearly')//โปรโมชั่น
-           //         }
-           //         else {
-           //             $('.statuspromotion').html('Untoggled');
-
-           //             $('#promotiontbyearly tbody:last-child').html("");
-           //             $('#promotiontbquater tbody:last-child').html("");
-           //             $('#promotiontbother tbody:last-child').html("");
-           //         }
-           //});
             $('#cliamoffon').click(function () {
                 var current_status = $('.statuscliamoffon').text();
 
@@ -3037,38 +2950,6 @@
         $(document).on("click", "#btnok", function () {
             // var cusel = $("#nocusses").val();
             var cusel = $(this).attr('cusdata');
-            // $("#nocusses").val(data[0].CUSCOD);//master key customer
-            // $.ajax({
-            //    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-            //    data: {
-            //        cusel: cusel
-            //    },
-            //    type: "POST",
-            //    dataType: "JSON",
-            //    success: function (data) {
-            //typin = data[0].INACTIVE;
-
-            // if (typin == "Y") {
-            //    $("#smallModal").modal('hide');
-            //    $("#textAlertWarning").empty();
-            //    $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-            //    $("#myModalWarning").modal();
-            //    $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-            //    $("#addcus").text("");
-            //    $("#crlicusaac").text("");
-            //    $("#crlicustac").text("");
-            //    $("#crbarcusaac").text("");
-            //    $("#crbarcustac").text("");
-            //    $("#crlicusaacday").text("");
-            //    $("#crlicustacday").text("");
-            //    $("#cushid").val(data[0].CUSCOD);
-            //    $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-            //    $("#nocusses").val(data[0].CUSCOD);//master key customer
-
-            //    $("#selslm").val(data[0].SLMCOD);
-
-            // checkcustomerinactive(cuskey)
-            //    return false;
             var retval = checkcustomerinactive(item)
 
             if (retval[0] == "1") {
@@ -3117,14 +2998,6 @@
         $(document).on("click", "#nextsp", function () {
             // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
             var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            //var cuskey = "";
-            //cuskey = $("#nocusses").val();
-            //var cusel = $("#cushid").val();
-            //if (cuskey == "") {
-            //    cuskey = cusel;
-            //}
-
-            //var cusel = $("#cus").html();
 
             if (cuskey == "") {
                 //if(cuddroplist == ""){
@@ -3408,18 +3281,6 @@
 
             //});
         });
-        $('#btnclear').click(function () {
-            window.location.replace("../CustomerDashboard/Promotion");
-        });
-        $('#nextdas').click(function () {
-
-            window.open('https://app.powerbi.com/view?r=eyJrIjoiZGZhMzcyZDQtNjE2ZC00NWIxLTk0NGMtMzM1NDJlYmIxZTY2IiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D', 'name');
-        });
-
-        $('#nextkpi').click(function () {
-
-            window.open('https://app.powerbi.com/view?r=eyJrIjoiZjc5YmU5ODctNDdlMy00NGI0LTk2MzItYjM5MmRmMzUxZTNiIiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D', 'name');
-        });
         $('#nextbck').click(function () {
             // checkcustomerinactive(cuskey)
             // window.location.replace("../SrcSaleCoCrm/Index");
@@ -3433,14 +3294,6 @@
             }
 
         });
-
-        //$('.w3-bar-item w3-button btnpromotion').click(function (ev) {
-        //    $('#menu ul li').removeClass('selected');
-        //    $(ev.currentTarget).parent('li').addClass('selected');
-        //});
-        //$(".w3-bar-item w3-button btnpromotion").click(function () {
-        //    alert(this.id);
-        //});
         $('#btn_yearly').click(function () {
             $('#btn_yearly').css("background", "#DEAF5B");
              $('#btn_quater').removeAttr('style');

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization;
+<!DOCTYPE html>
 @{
     Layout = "~/Views/Shared/_LayoutMobile.cshtml";
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
@@ -476,7 +477,7 @@
                     <div class="col-12 col-lg-6" style="font-family: Kanit,sans-serif;">
                         <div id="dfch">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12" hidden>
                                     <div class="card">
                                         <div class="card-header bg-info">
                                             <div class="col-sm-6 text-left">
@@ -509,105 +510,66 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                            <div class="col-sm-6 text-left">
+                                                <h4>เครดิต</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered m-0" id="credit-table">
+                                                    <tr>
+                                                        <td></td>
+                                                        <th class="text-center">AAC</th>
+                                                        <th class="text-center">TAC</th>
+                                                        <th class="text-center">OMP</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>วงเงินที่ได้รับ</th>
+                                                        <td><span id="aac-crline">200000</span></td>
+                                                        <td><span id="tac-crline">200000</span></td>
+                                                        <td><span id="omp-crline">200000</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เครดิต</th>
+                                                        <td class="text-center" colspan="3" id="cr-numdate"><span id="credit-duedate"> </span> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>วงเงินที่ใช้ไป</th>
+                                                        <td><span id="aac-bal">200000</span></td>
+                                                        <td><span id="tac-bal">200000</span></td>
+                                                        <td><span id="omp-bal">200000</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>วงเงินคงเหลือ</th>
+                                                        <td><span id="aac-res">200000</span></td>
+                                                        <td><span id="tac-res">200000</span></td>
+                                                        <td><span id="omp-res">200000</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>วงเงินถึงกำหนดชำระ</th>
+
+                                                        <td><span id="aac-baldue">200000</span></td>
+                                                        <td><span id="tac-baldue">200000</span></td>
+                                                        <td><span id="omp-baldue">200000</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>วันที่สรุป</th>
+                                                        <td class="text-center" colspan="3">
+                                                            2024-04-27
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="appadj"></div>
-                    </div>
-                    <div class="col-12 col-lg-3">
-                        <div class="row">
-                            <div class="col-12 col-lg-12">
-                                <div class="card">
-                                    <div class="card-header bg-info">
-                                        <div class="col-sm-12 text-left">
-                                            <h4>ยอดซื้อรวมทั้งเดือน</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="container d-flex justify-content-center">
-                                            <div id="mtd" style="width:188px; height:188px;">
-                                                <canvas id="mtd_chart" width="188" height="188"></canvas>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> ยอดซื้อที่บริษัท AAC :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtmtd_aac_below" style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> AAC :</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold;">ยอดซื้อที่บริษัท TAC :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtmtd_tac_below" style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: green; font-weight: bold;">ยอดซื้อรวมทุกบริษัท :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtmtd_all_below" style="font-family: Kanit,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-12">
-                                <div class="card">
-                                    <div class="card-header bg-info">
-                                        <div class="col-sm-12 text-left pl-1">
-                                            <h4>ยอดซื้อรวมทั้งปี</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="container d-flex justify-content-center">
-                                            <div id="mty" class="text-center" style="width:188px; height:188px;">
-                                                <canvas id="ytd_chart" width="188" height="188"></canvas>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> ยอดซื้อที่บริษัท AAC :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtytd_aac_below" style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(54, 162, 235); font-weight: bold;"> AAC :</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold;">ยอดซื้อที่บริษัท TAC :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtytd_tac_below" style="font-family: Kanit, sans-serif; font-size: 14px; color: rgb(255, 99, 132); font-weight: bold; ">TAC :</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pr-2 text-right">
-                                                        <div style="font-family: Kanit, sans-serif; font-size: 14px; color: green; font-weight: bold;">ยอดซื้อรวมทุกบริษัท :</div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <div id="amtytd_all_below" style="font-family: Kanit,sans-serif; font-size: 14px; color: green; font-weight: bold;">Total :</div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
             </div>
@@ -671,119 +633,6 @@
                 </div>
             </div>
         </div>
-        <!-- ModalWarning -->
-        <!-- ModalwConfirm -->
-        <div id="ModalwConfirm" class="modal">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content " id="ColorboxError">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" style="color:black;">สินค้าค้างในตะกร้า</h4>
-
-                    <div class="modal-body" style="overflow-y: scroll;overflow-x: scroll;">
-                        <div id="textAlert">
-                            <table class="table table-bordered" id="wConfirm">
-                                <thead style="background-color: rgb(51, 51, 51);color: white;">
-                                    <tr>
-                                        <th>Customer</th>
-                                        <th>Salesman</th>
-                                        <th>จำนวนชิ้น</th>
-
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" id="CancalShippto" data-dismiss="modal">X</button>
-
-                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @*Modal date expire*@
-        <div class="modal" id="myModalWarningDateExpire" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>แจ้งเตือน!</strong>
-                    <div class="modal-body">
-                        <div id="textAlertWarningDateExpire">Some text in the modal.</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- EndModalwConfirm-->
-
-        <div class="modal" id="myModalclimtb">
-            @*<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">*@
-            <div class="modal-dialog modal-lg">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <strong style="padding: 4px;">รายละเอียดงานเคลม</strong>
-                    <div class="table-responsive" style="height: 500px; padding: 6px;">
-                        <table class="table table-striped mb-0" id="climtbdatail" style="padding: 7px;font-size: small;">
-                            <thead style="font-size: small;">
-                                <tr>
-                                    <th>เลขเคลม</th>
-                                    <th>เบอร์สินค้า</th>
-                                    <th>จำนวน</th>
-                                    <th>วันที่แจ้งเคลม</th>
-                                    <th>วันที่รับเคลม</th>
-                                    <th>ต้องการให้ดำเนิน</th>
-                                    <th>สถานะเคลม</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="myModal" style="background-color: black;">
-
-            <div class="modal-dialog" role="document" style="width: 360px;">
-
-                <div class="modal-content">
-
-                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
-
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-
-                    </div>
-
-                    <div class="modal-body" id="texterror">
-                    </div>
-
-                    <div class="modal-footer">
-
-                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
         <footer class="footer" hidden>
             <div class="container">
                 <p>2024 &copy; TAC&AAC</p>
@@ -833,27 +682,12 @@
 
             }, 2000);
         });
-        //if (chartdefault == "") {
-        //    clearChartsamt();
-        //}
+
         if (cuscod != "") {
             $("#cushid").val(cuscod)
-            getcuschamt(cuscod);
+           // getcuschamt(cuscod);
+            getCreditCus(cuscod);
         }
-        else {
-            clearChartsamt();
-        }
-
-        console.log("usertype = " + usertype);
-
-
-        //alert(cuscod);
-        // var cuscod = atob(param_values.numcuber)
-        //$(window).click(function (e) {
-        //    alert(e.target.id); // gives the element's ID
-        //    alert(e.target.className); // gives the elements class(es)
-        //});
-        //alert("id   " + id)
         function checkPrivilege(userid, cuscod) {
             $.ajax({
                 url: '@Url.Action("GetdataPrivilege", "DataCenter")',
@@ -883,179 +717,10 @@
             });
 
         }
-
-        @*function checklogin(userid, id) {
-            $.ajax({
-                url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    SessionId: id
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    //console.log(splitstring);
-                    let text = splitstring;
-                    const myArray = text.split("|");
-                    let mysession = myArray[1];
-                    let mystatus = myArray[0];
-                   // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (id != mysession) {
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-                        return false;
-                        //window.location.replace("../Account/LogIn");
-                    } else {
-
-                        if (mystatus == "0") {
-                            $("#texterror").empty();
-                            $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                            $("#myModal").modal();
-                            return false;
-                            //window.location.replace("../Account/LogIn");
-                        }
-                    }
-                }
-            });
-
-        }
-
-        function checklogin(userid, id) {
-            $.ajax({
-                url: '@Url.Action("GetdataSessionlogin", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    SessionId: id
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    console.log(splitstring);
-                    let text = splitstring;
-                    const myArray = text.split("|");
-                    let mysession = myArray[1];
-                    let mystatus = myArray[0];
-                   // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (id != mysession) {
-                       // alert("xxxx")
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-
-                        return false;
-                        //window.location.replace("../Account/LogIn");
-                    } else {
-
-                        if (mystatus == "0") {
-                            $("#texterror").empty();
-                            $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                            $("#myModal").modal();
-                            return false;
-                            //window.location.replace("../Account/LogIn");
-                        }
-                    }
-                }
-            });
-
-        }*@
-
-
-        getCompanyInfor();
-        //var cuscod = "";
-        if (usertype == "1") {
-            $("#nextcheckstock").css("display", "block");
-            $("#nextcrm").css("display", "block");
-            $("#nextbck").css("display", "block");
-            $("#changepass").css("display", "none");
-        }
-        if (usertype == "6") {
-            if (cuscod != "") {
-                checkPrivilege(userid, cuscod)
-            }
-            //$(window).on('load', function () {
-            //    //alert("load")
-            //    checklogin(userid, id)
-            //});
-            //window.onclick = function () {
-            //    //alert("onclick")
-            //    checklogin(userid, id)
-            //};
-            //$('.navbar-nav').click(function () {
-            //   // alert("navbar-nav")
-            //    checklogin(userid, id)
-
-            //});
-            //$('a').click(function () {
-            //  //  alert("a")
-            //    checklogin(userid, id)
-
-            //});
-            //$(document).bind('keypress.session', function (ed, e) {
-            //    checklogin(userid, id)
-            //});
-            //$(document).bind('mousedown keydown', function (ed, e) {
-
-            //    checklogin(userid, id)
-            //});
-            //$(window).scroll(function (e) {
-
-            //    checklogin(userid, id)
-            //});
-            if (usrclmstaff == "1") {
-                $("#amtdoffon").css("display", "none");
-                $("#amtchildoffon").css("display", "none");
-                $("#btnoffonTop20").css("display", "none");
-                $("#promooffon").css("display", "none");
-
-                $("#dfch").css("display", "block");
-                $('#appadjall').html("");
-            }
-            else {
-                $("#amtdoffon").css("display", "block");
-                $("#amtchildoffon").css("display", "block");
-                $("#btnoffonTop20").css("display", "block");
-                $("#promooffon").css("display", "block");
-                $("#dfch").css("display", "block");
-                $('#appadjall').html("");
-            }
-            $("#nextcheckstock").css("display", "none");
-            $("#nextcrm").css("display", "none");
-            $("#nextbck").css("display", "none");
-            $("#changepass").css("display", "block");
-            $(".aboutoffice").css("display", "none");
-            $("#nextdas").css("display", "none");
-            $("#desb").css("display", "none");
-        }
-        else {
-            $("#dfch").css("display", "block");
-            $('#appadjall8').html("");
-        }
-
-        if (usertype == "2") {
-            $("#nextbck").css("display", "block");
-            $("#changepass").css("display", "none");
-            $("#nextcheckstock").css("display", "none");
-            $("#nextcrm").css("display", "none");
-        }
         n = new Date();
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        window.onload = function () {
-            var script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://api.ipify.org?format=jsonp&callback=DisplayIP";
-            document.getElementsByTagName("head")[0].appendChild(script);
-        };
-        function DisplayIP(response) {
-            //document.getElementById("ipaddress").innerHTML = "Your IP Address is " + response.ip;
-            //alert(response.ip);
-        }
         function jssor_1_slider_init() {
 
             var jssor_1_options = {
@@ -1106,44 +771,6 @@
 
         };
         $(document).ready(function () {
-            $(document).on("click", "#myModal", function () {
-                if (usertype == "6") {
-                    $("#myModal").modal({ backdrop: "static" });
-                }
-            });
-            $('#btnlogin').click(function () {
-                if (usertype == "6") {
-                    window.location.replace("../Account/LogIn");
-                }
-            });
-
-            $('#amtdoffon').click(function () {
-                var current_status = $('.statusamt').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusamt').html('Toggled');
-                    getcuschamt(cuskey);
-                }
-                else {
-                    $('.statusamt').html('Untoggled');
-                    clearChartsamt();
-
-                }
-            });
-            $('#amtchildoffon').click(function () {
-                var current_status = $('.statusamtchild').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusamtchild').html('Toggled');
-                    getcuschamt_child(cuskey);
-                }
-                else {
-                    $('.statusamtchild').html('Untoggled');
-                    clearChartsamt_child();
-                }
-            });
             $('.button-left').click(function () {
                 $('.sidebar').toggleClass('fliph');
             });
@@ -1163,194 +790,12 @@
             });
             chkcustomer();
         });
-        expire(usrexpire)
-        function checkDateExpireCustomer(usrexpire) {
-            if (parseInt(usrexpire) <= 15) {
-                $("#textAlertWarningDateExpire").empty();
-                $("#textAlertWarningDateExpire").html("Password ของท่านอีก " + usrexpire + " วัน ใกล้หมดอายุ <br> กรุณาเปลี่ยน Password โดยเข้าที่เมนู Change password");
-                $("#myModalWarningDateExpire").modal();
-            }
-        }
-        if (usertype == "6") {
-            setTimeout(function () {
-                checkDateExpireCustomer(usrexpire)
-            }, 1000);
-        }
-
         function commaSeparateNumber(val) {
             while (/(\d+)(\d{3})/.test(val.toString())) {
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
             }
             return val;
         }
-        function clearChartsamt() {
-            var chartData = {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [
-                    {
-                        label: 'AAC',
-                        backgroundColor: 'rgb(54, 162, 235)',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    },
-                    {
-                        label: 'TAC',
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    },
-                    {
-                        label: 'ALL',
-                        backgroundColor: '#4bf942',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    }
-                ]
-            };
-
-
-            var options = {
-                scales: {
-                    y: {
-                        ticks: {
-                            beginAtZero: true,
-                            callback: function (value, index, values) {
-                                return commaSeparateNumber(value);
-                            }
-                        }
-                    }
-                }
-            };
-
-            if (chartProfileVisit) {
-                chartProfileVisit.destroy();
-            }
-
-            var ctx = document.getElementById('chart-profile-visit').getContext('2d');
-            chartProfileVisit = new Chart(ctx, {
-                type: 'bar',
-                data: chartData,
-                options: options
-            });
-
-            window.dispatchEvent(new Event('resize'));
-            $('#amtytd_aac').html('Amt YTD AAC: 0');
-            $('#amtytd_tac').html('Amt YTD TAC: 0');
-            $('#amtytd_all').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac').html('Amt MTD TAC: 0');
-            $('#amtmtd_all').html('Amt MTD ALL: 0');
-
-            $('#amtytd_aac_below').html('0');
-            $('#amtytd_tac_below').html('0');
-            $('#amtytd_all_below').html('0');
-
-            $('#amtmtd_aac_below').html('0');
-            $('#amtmtd_tac_below').html('0');
-            $('#amtmtd_all_below').html('0');
-            if (myChartM) {
-                myChartM.destroy();
-            }
-            if (myChartY) {
-                myChartY.destroy();
-            }
-        }
-        function clearChartsamt_child() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                   // height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', 'rgb(255, 99, 132)', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-        }
-
-        function clearChartTop20() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', 'rgb(255, 99, 132)', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-
-            //month pie
-            $('#amtmtd_aac_below').html('');
-            $('#amtmtd_tac_below').html('');
-            $('#amtmtd_all_below').html('');
-            //year pie
-            $('#amtytd_aac_below').html('');
-            $('#amtytd_tac_below').html('');
-            $('#amtytd_all_below').html('');
-        }
-
         function getcuschamt(cusnc) {
             // var current_status = $('.statusamt').text();
             console.log("Cuscod : "+cusnc);
@@ -1365,7 +810,10 @@
                     dataType: "JSON",
                     success: function (data) {
                         // console.log(data)
-
+                        //$('#credit-table tbody:last-child').html("");
+                        $('#amtmonth-table tbody:last-child').html("");
+                        var SubmithtmlPages = "";
+                        var BodyCredit = "";
                         if (data.length > 0) {
                             var chartData = {
                                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -1387,6 +835,7 @@
                                     }
                                 ]
                             };
+
 
 
                             var options = {
@@ -1450,6 +899,37 @@
                                 $('#amtytd_all_below').html(commaSeparateNumber(data[2].AmtYTD));
                             }
 
+                            //AmtMonth-Table
+                            //data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec
+                            SubmithtmlPages += '<tr>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jan || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Feb || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Mar || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Apr || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].May || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jun || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jul || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Aug || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Sep || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Oct || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Nov || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Dec || 0.0) + '</td>';
+                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].AmtMTD || 0.0) + '</td>';
+                            SubmithtmlPages += '</tr>';
+                            $("#amtmonth-table").append(SubmithtmlPages);
+
+
+
+                            //Credit-table
+                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
+                            //BodyCredit += '<tr><td colspan="4" class="text-center">90วัน</td></tr>';
+                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
+                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
+                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
+                            //BodyCredit += '<tr><td colspan="4" class="text-center">27-04-2024</td></tr>';
+
+                            //$("#credit-table tbody").append(BodyCredit);
+
 
 
                             //MTD Chart
@@ -1511,10 +991,6 @@
                             var ctx = document.getElementById('ytd_chart').getContext('2d');
                             myChartY = new Chart(ctx, configY);
                             //////
-
-
-
-
                         } else {
                             var chartData = {
                                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -1594,6 +1070,66 @@
                 });
             }
         }
+
+
+
+        function getCreditCus(cus) {
+            $.ajax({
+                url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
+                data: {
+                    cuscod: cus
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        //console.log("NAME : " + data.credits[0].CUSNAME);
+                        var aaccrbal = data.credits[0].AACCRLINE;
+                        var taccrbal = data.credits[0].TACCRLINE;
+                        var ompcrbal = data.credits[0].OMPCRLINE;
+
+                        var aacbal = data.credits[0].AACBAL;
+                        var tacbal = data.credits[0].TACBAL;
+                        var ompbal = data.credits[0].OMPBAL;
+
+                        var resaacbal = Number(aaccrbal) - Number(aacbal);
+                        var restacbal = Number(taccrbal) - Number(tacbal);
+                        var resompbal = Number(ompcrbal) - Number(ompbal);
+
+
+                        var aacbaldue = data.credits[0].AACBALDue;
+                        var tacbaldue = data.credits[0].TACBALDue;
+                        var ompbaldue = data.credits[0].OMPBALDue;
+
+                        var creditdue = data.credits[0].AACPAYTR;
+
+
+
+                        $('#credit-duedate').text(creditdue);
+
+
+                        $('#aac-crline').text(commaSeparateNumber(aaccrbal));
+                        $('#tac-crline').text(commaSeparateNumber(taccrbal));
+                        $('#omp-crline').text(commaSeparateNumber(ompcrbal));
+
+                        $('#aac-bal').text(commaSeparateNumber(aacbal));
+                        $('#tac-bal').text(commaSeparateNumber(tacbal));
+                        $('#omp-bal').text(commaSeparateNumber(ompbal));
+
+                        $('#aac-res').text(commaSeparateNumber(resaacbal.toString()));
+                        $('#tac-res').text(commaSeparateNumber(restacbal.toString()));
+                        $('#omp-res').text(commaSeparateNumber(resompbal.toString()));
+
+                        $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
+                        $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
+                        $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+            })
+        }
         function openPeriod(PeriodName, id) {
             var i;
             var x = document.getElementsByClassName("city");
@@ -1604,208 +1140,6 @@
             var cusnc = $('#cussend').val();
             var period = PeriodName;
             //alert(period)
-        }
-        function getPromotion_Cus(cusnc, period) {
-            var current_status = $('.statuspromotion').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("GetdataPromotion_Cus", "DataCenter")',
-                    data: {
-                        strcustome: cusnc,
-                        period: period
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-                        $('#promotiontbyearly tbody:last-child').html("");
-                        $('#promotiontbquater tbody:last-child').html("");
-                        $('#promotiontbother tbody:last-child').html("");
-                        var SubmithtmlPage = "";
-                        if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td>' + data[i].Promotion_Name + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].Condition) + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].StartDate + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].EndDate + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].INVAMT) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data[i].RemainAmt) + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].Reward + '</td>';
-                                SubmithtmlPage += '</tr>';
-                            }
-                            if (period == 'yearly') {
-
-                                $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#910000");
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').removeAttr('style');
-
-                            } else if (period == 'quater') {
-                                $("#promotiontbquater").append(SubmithtmlPage);
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#910000");
-                                $('#btn_other').removeAttr('style');
-                            } else if (period == 'other') {
-                                $("#promotiontbother").append(SubmithtmlPage);
-
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#910000");
-                            }
-                        }
-                    }
-                });
-            }
-        }
-        $('#chkSelect').change(function () {
-            if (this.checked) {
-                var cusnc = $('#nocusses').val();
-                getbackord(cusnc)
-                //var returnVal = confirm("Are you sure?");
-                //$(this).prop("checked", returnVal);
-            } else {
-                var cusnc = $('#nocusses').val();
-                getbackord(cusnc)
-            }
-
-        });
-        function getbackord(cusnc) {
-            var Stock_Flag = ""
-            var isChecked = $('#chkSelect').is(':checked');
-            if (isChecked == true) {
-                Stock_Flag = "1";
-            } else {
-                Stock_Flag = "0";
-            }
-
-            var Show_Flag = "2";
-
-
-            var Stock_Flag = Stock_Flag;
-            var current_status = $('.statusbackord').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("getbackorder", "BackOrderAll")',
-                    data: {
-                        CUSCOD: cusnc,
-                        SLMID: '0',
-                        stkcod: '',
-                        Show_Flag: Show_Flag,
-                        Stock_Flag: Stock_Flag,
-                        //Stock_Flag: "0",
-                        COM: "ALL",
-                        DocumentNo: "",
-                        UserType: '@Session["UserType"]'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-
-                        $('#backordtb tbody:last-child').html("");
-                        if (data.length > 0) {
-                            var SubmithtmlPage = "";
-
-                            var SubmithtmlPage = "";
-                            for (var i = 0; i < data.length; i++) {
-                                // SubmithtmlPage += ' <table class="fancyTable" id="myTable05" cellpadding="0" cellspacing="0">';
-                                SubmithtmlPage += '<tr data-index=' + data[i].SeqNum + data[i].SaleOrder_No + '>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].STKCOD + '/' + data[i].STKDES + '</td>';
-                                SubmithtmlPage += '<td class="orgbck">' + data[i].Qty + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_Date + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].DLVDAT + '</td>';
-                                SubmithtmlPage += '</tr >';
-
-                            }
-                            $("#backordtb").append(SubmithtmlPage);
-
-                        } else {
-
-                        }
-                    }
-                });
-            }
-        }
-        function getCompanyInformation(cusnc) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
-                data: {
-                    cusel: cusnc
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].SLMPhone)
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInformationbysalman(slm) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInformation", "DataCenter")',
-                data: {
-                    Slm: slm
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    //  $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    // $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].Phone);
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInfor() {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInfo", "DataCenter")',
-                data: {
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    $("#aaccomname").text(data[0].Name);
-                    // $("#aacaddress").text(data[0].Address1 + ' ' + data[0].Address2);
-                    $("#aacphone").text("Tel: " + data[0].Phone);
-                    $("#aacfax").text('Fax:' + data[0].Fax);
-                    $("#aactax").text("Tax: " + data[0].Tax);
-                    $("#aacBank1").text("Bank1: " + data[0].Bank1);
-                    $("#aacBank2").text("Bank2: " + data[0].Bank2);
-
-                    $("#taccomname").text(data[1].Name);
-                    $("#tacaddress").text(data[1].Address1 + ' ' + data[1].Address2);
-                    $("#tacphone").text("Tel: " + data[1].Phone);
-                    $("#tacfax").text('Fax:' + data[1].Fax);
-                    $("#tactax").text("Tax: " + data[1].Tax);
-                    $("#tacBank1").text("Bank1: " + data[1].Bank1);
-                    $("#tacBank2").text("Bank2: " + data[1].Bank2);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
         }
 
         function getcus() {
@@ -1859,31 +1193,6 @@
                 }
             });
         }
-
-        $("#myInput").on("keyup", function () {
-
-            var value = $(this).val().toLowerCase();
-            $(".dropdown-menu li").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        $('#selcus').selectpicker();
-        $(".dropdown-menu").on("click", ".searchterm", function (event) {
-            var _val = $(this).attr('data-input');
-            //alert(_val)
-            $('#selcus').val(_val);
-            Cusdetail()
-        });
-        $("#btnshsche").on("click", function () {
-            if (usertype != "1") {
-                //getslmandcus()
-            } else {
-                // $("#selslm").val("ALL");
-            }
-            $("#textfree").val("");
-            $("#smallModalselcus").modal('show');
-            // myFunction()
-        });
         function myFunction() {
             var x = document.getElementById("blcslm");
             if (x.style.display === "none") {
@@ -1979,71 +1288,6 @@
                 }
             });
 
-        }
-
-        function Cusdetail() {
-            var cusel = $("#selcus").val();
-
-            if (cusel == "0") {
-
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                return false;
-            } else {
-
-                // $.session.set("myVarcus", cusel);
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-
-                        //console.log(data);
-                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                        if (usertype == "6") {
-                            if (usrclmstaff == "1") {
-
-                                $("#crlicusaac").text("xxxx");
-                                $("#crlicustac").text("xxxx");
-                                $("#crbarcusaac").text("xxxx");
-                                $("#crbarcustac").text("xxxx");
-                                $("#crlicusaacday").text("xxxx");
-                                $("#crlicustacday").text("xxxx");
-                                $("#crlicusrating").text("xxxx");
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-                        } else {
-                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            $("#crlicusaacday").text(data[0].AACPAYTRM);
-                            $("#crlicustacday").text(data[0].TACPAYTRM);
-                            $("#divrating").css("display", "");
-                            $("#crlicusrating").text(data[0].RATING);
-                        }
-                        $("#cushid").val(data[0].CUSCOD);
-                        $("#selslm").val(data[0].SLMCOD);
-                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-
-                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-
-                    }
-                });
-
-            }
         }
         $('.selectpicker').selectpicker({
             noneResultsText: 'Not found'
@@ -2652,119 +1896,6 @@
 
         });
 
-
-        $(document).on("click", "#nextsp", function () {
-            // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            //var cuskey = "";
-            //cuskey = $("#nocusses").val();
-            //var cusel = $("#cushid").val();
-            //if (cuskey == "") {
-            //    cuskey = cusel;
-            //}
-
-            //var cusel = $("#cus").html();
-
-            if (cuskey == "") {
-                //if(cuddroplist == ""){
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    //window.location.replace("../Home/Index?numcuber=" + btoa(cuskey));
-                    window.location.replace("../Orderlist/Index?numcuber=" + btoa(cuskey));
-                }
-
-            }
-
-        });
-
-        $(document).on("click", "#mapcu", function () {
-            // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            if (cuskey == "") {
-                window.location.replace("../CustomerMap/Index");
-                return false;
-            } else {
-                window.location.replace("../CustomerMap/Index?numcuber=" + btoa(cuskey));
-            }
-        });
-        $(document).on("click", "#nextspold", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            if (cuskey == "") {
-                //if(cuddroplist == ""){
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
-                }
-                @*$.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cuskey
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        checkcustomerinactive(cuskey)
-                        //if (data.length > 0) {
-                        //    typin = data[0].INACTIVE;
-
-                        //    if (typin == "Y") {
-
-                        //        $("#textAlertWarning").empty();
-                        //        $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "INACTIVE กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                        //        $("#myModalWarning").modal();
-
-                        //        return false;
-
-
-                        //    } else {
-                        //        window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
-                        //    }
-                        //}
-                    }
-                });*@
-            }
-
-        });
-
-        $(document).on("click", "#nextcheckstock", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            if (cuskey == "") {
-                window.location.replace("../SCStockSco/Index");
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
-                }
-
-            }
-
-        });
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
             window.location.replace("../CustomerDashboard/index");
@@ -2780,42 +1911,6 @@
         //ปุ่มสถานะการสั่งซื้อ
         $(document).on("click", "#navbardeliverytrack", function () {
             window.location.replace("../CustomerDashboard/DeliveryTrack");
-        });
-        $('#navbarshowdetail').click(function () {
-
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            var codval = $('#selslm').val();
-            if (usertype != "6") {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartslm(codval)
-                }
-
-            } else {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartcus(cuskey)
-                }
-            }
         });
         function Getdatacartcus(cuskey) {
             $.ajax({
@@ -2935,60 +2030,6 @@
 
             }
         });
-        $('#nextcrm').click(function () {
-            // checkcustomerinactive(cuskey)
-            // window.location.replace("../SrcSaleCoCrm/Index");
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var retval = checkcustomerinactive(cuskey)
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                window.location.replace("../SrcSaleCoCrm/Index");
-            }
-
-        });
-        $('#btnclear').click(function () {
-            window.location.replace("../CustomerDashboard/index");
-        });
-        $('#nextdas').click(function () {
-
-            window.open('https://app.powerbi.com/view?r=eyJrIjoiZGZhMzcyZDQtNjE2ZC00NWIxLTk0NGMtMzM1NDJlYmIxZTY2IiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D', 'name');
-        });
-
-        $('#nextkpi').click(function () {
-
-            window.open('https://app.powerbi.com/view?r=eyJrIjoiZjc5YmU5ODctNDdlMy00NGI0LTk2MzItYjM5MmRmMzUxZTNiIiwidCI6IjBjYzc5Nzg2LTAxMWItNDkwOS1hYjNjLTFlMDJjOTRmYTRmZSIsImMiOjEwfQ%3D%3D', 'name');
-        });
-        $('#nextbck').click(function () {
-            // checkcustomerinactive(cuskey)
-            // window.location.replace("../SrcSaleCoCrm/Index");
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var retval = checkcustomerinactive(cuskey)
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                window.location.replace("../BackorderAll/Index");
-            }
-
-        });
-        $('#btn_yearly').click(function () {
-             $('#btn_yearly').css("background", "#910000");
-             $('#btn_quater').removeAttr('style');
-             $('#btn_other').removeAttr('style');
-        });
-        $('#btn_quater').click(function () {
-            $('#btn_yearly').removeAttr( 'style' );
-            $('#btn_quater').css("background", "#910000");
-            $('#btn_other').removeAttr( 'style' );
-        });
-        $('#btn_other').click(function () {
-            $('#btn_yearly').removeAttr('style');
-            $('#btn_quater').removeAttr('style');
-            $('#btn_other').css("background", "#910000");
-        });
-
         function chkcustomer() {
 
             if (usertype != "6") {
@@ -3021,7 +2062,7 @@
                                     countorder("", slmcod);
                                     //Getdatacartslm(slmcod)
 
-                                    getCompanyInformationbysalman(slmcod)
+
                                 }
                             }
                         });
@@ -3041,10 +2082,6 @@
                                 $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
                                 $('#cus').attr('title', data[0].Hierarchy2_Channel);
                                 $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-
-
-
                                 $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
                                 $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
                                 $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
@@ -3069,11 +2106,6 @@
                                 $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
                                 getCreditcuskey(cuscod);//get เครดิตรร้านแม่
                               //  getcuschamt(data[0].CUSCOD);
-                                getCompanyInformationbysalman(data[0].SLMCOD);//Company Information
-
-
-
-
                                 $.ajax({
                                     url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
                                     data: {
@@ -3224,7 +2256,7 @@
 
                             $("#selslm").prop("disabled", true);
                             //datacus();  ///auto get customer to option select customer
-                            getCompanyInformationbysalman(data[0].SLMCOD)//Company Information
+
 
                         }
                     });
@@ -3314,6 +2346,9 @@
                 window.location.replace("../ChangePassword/Index");
             }
         });
+    </script>
+    <script>
+
     </script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>
