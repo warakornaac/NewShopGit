@@ -983,4 +983,15 @@ namespace NewShop.Models
         public string Delivery { get; set; }
         public string User { get; set; }
     }
+    public class DeliveryTrackNotify
+    {
+        public string ORD_DocNo { get; set; }
+        public string CUSCOD { get; set; }
+        public string NotifyID { get; set; }
+        public string Notify { get; set; }
+        public string StatusDate { get; set; }
+        public string ORD_TotalItem { get; set; }
+        public string ORD_TotalQty { get; set; }
+        public string ORD_TotalAmt { get; set; }
+    }
 }

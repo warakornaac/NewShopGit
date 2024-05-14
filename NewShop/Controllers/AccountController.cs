@@ -829,7 +829,7 @@ namespace NewShop.Controllers
             {
                 this.Session["DisplayName"] = string.Empty;
                 this.Session["UserType"] = null;
-                this.Session["UserID"] = User;
+                this.Session["UserID"] = null;
                 this.Session["UserPassword"] = password;
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
@@ -857,14 +857,14 @@ namespace NewShop.Controllers
                 SqlDataReader revcus = cmdcus.ExecuteReader();
                 while (revcus.Read())
                 {
-                    if (!string.IsNullOrEmpty(revcus["Email"].ToString()))
-                    {
-                        this.Session["UserID"] = revcus["Email"].ToString();
-                    }
-                    else
-                    {
-                        this.Session["UserID"] = revcus["Username"].ToString();
-                    }
+                    //if (!string.IsNullOrEmpty(revcus["Email"].ToString()))
+                    //{
+                    //    this.Session["UserID"] = revcus["Email"].ToString();
+                    //}
+                    //else
+                    //{
+                    //    this.Session["UserID"] = revcus["Username"].ToString();
+                    //}
                     phoneNum = revcus["Tel"].ToString();
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();

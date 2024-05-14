@@ -434,75 +434,75 @@
                     </div>
                 </div>
                 <section class="row justify-content-center d-none" id="content" hidden>
-                    <div class="col-12 col-lg-8">
-                        <div id="tool-top">
-                            <div class="row">
-                                <div class="col-12" hidden>
-                                    <div class="card">
-                                        <h4 class="card-link card-header card-info" href="#tool-track" style="font-family: Kanit, sans-serif; ">
-                                            ค้นหา
-                                        </h4>
-                                        <div class="card-body pt-2" id="tool-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="col-5">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4">
-                                                                วันที่ซื้อ
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" id="startdate" />
+                    @*<div class="col-12 col-lg-8">
+                            <div id="tool-top">
+                                <div class="row">
+                                    <div class="col-12" hidden>
+                                        <div class="card">
+                                            <h4 class="card-link card-header card-info" href="#tool-track" style="font-family: Kanit, sans-serif; ">
+                                                ค้นหา
+                                            </h4>
+                                            <div class="card-body pt-2" id="tool-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="col-5">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4">
+                                                                    วันที่ซื้อ
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" id="startdate" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1"></div>
+                                                        <div class="col-5">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4">
+                                                                    ถึง
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" id="enddate" />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-1"></div>
-                                                    <div class="col-5">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4">
-                                                                ถึง
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" id="enddate" />
+                                                    <div class="col-12">
+                                                        <div class="col-md-5">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4">
+                                                                    เบอร์สินค้า
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" id="txtSTKCOD" />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="col-md-5">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4">
-                                                                เบอร์สินค้า
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" id="txtSTKCOD" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-1">
+                                                        <div class="col-md-1">
 
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4">
-                                                                เลขคำสั่งซื้อ
-                                                            </label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" id="txtsow" />
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4">
+                                                                    เลขคำสั่งซื้อ
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" id="txtsow" />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 text-right">
-                                                    <button class="btn btn-success" onclick="getDeliveryTrack();">ค้นหา</button>
+                                                    <div class="col-12 text-right">
+                                                        <button class="btn btn-success" onclick="getDeliveryTrack();">ค้นหา</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-8">
+                        </div>*@
+                    <div class="col-12 col-lg-12">
                         <div id="dfch">
                             @* สินค้าค้างส่ง *@
                             <div class="row">
@@ -519,7 +519,7 @@
                                                     <thead class="thead-default" style="font-size: small;">
                                                         <tr>
                                                             <th>หมายเลขคำสั่งซื้อ</th>
-                                                            <th>วันที่ส่ง</th>
+                                                            <th>วันที่สั่ง</th>
                                                             <th>จำนวนสั่งซื้อ</th>
                                                             @*<th>ยอดซื้อทั้งหมด</th>*@
                                                             <th>สถานะสินค้า</th>
@@ -734,32 +734,11 @@
 
 
         function getDeliveryTrack() {
-            var User = user;
-            var slm = "";
-            var Usertype = usertype;
             var _CUSCOD = cuscod;
-            var res = [];
-            var _SOStartDate = $('#startdate').val();
-            var _SOEndDate = $('#enddate').val();
-            var _STKCOD = $('#txtSTKCOD').val();
-            var _DType ="";
-            var _Sow = $('#txtsow').val();
-            var UserCreate = "";
-            var _latitude = "";
-            var _longitude = "";
-            var txtWarning = "";
             $.ajax({
-            url: '@Url.Action("GetOrder", "Statuslist")',
+            url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
             data: {
                 CUSCOD: _CUSCOD
-                , SLMCODE: slm
-                , SO_SDate: _SOStartDate
-                , SO_EDate: _SOEndDate
-                , STKCOD: _STKCOD
-                , DType: _DType
-                , SOW: _Sow
-                , UserCreate: UserCreate
-                , Usertype: Usertype
             },
             type: "POST",
             dataType: "JSON",
@@ -770,29 +749,18 @@
                 var SubmithtmlPage = "";
                 if (data.Getdata.length > 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
-                        _latitude = data.Getdata[i].val.Latitude;
-                        _longitude = data.Getdata[i].val.Longitude;
-                        _str = data.Getdata[i].val.Order_Status;
 
-
-                        SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].val.ORD_ID + '\', \'' + data.Getdata[i].val.ORD_DocNo.toString() + '\', \'' + data.Getdata[i].val.DType + '\', \'' + data.Getdata[i].val.Order_Status + '\', \'' + data.Getdata[i].val.ORD_Date.substring(0, 10) + '\', \'' + commaSeparateNumber(data.Getdata[i].val.ORD_TotalAmt)  + '\');">';
-
-                        // SubmithtmlPage += '<td style="width: 45px; position: absolute; left: 0px;"><button class=""><span class="purchase-card-buttons__button-content"> ซื้ออีกครั้ง </span></button></td>';
-                        //SubmithtmlPage += '<td>' + nl1br(data.Getdata[i].val.Customer) + '</td>';
-
+                        SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\''+',' + '\'' + data.Getdata[i].Notify +'\');">';
                         SubmithtmlPage += '</td>';
-                        if (data.Getdata[i].val.ORD_DocN != "") {
-                            SubmithtmlPage += '<td >' + data.Getdata[i].val.ORD_DocNo + '<br>วันที่สั่ง:' + data.Getdata[i].val.ORD_Date.substring(0, 10) + '</td>';
+                        if (data.Getdata[i].ORD_DocN != "") {
+                            SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
                         } else {
                             SubmithtmlPage += '<td></td>';
                         }
-
-
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.DeliveryDate.substring(0, 10) + '</td>';
-                      //SubmithtmlPage += '<td>' + data.Getdata[i].val.DeliveryDate + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.QTY + '</td>';
-                        //SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.ORD_TotalAmt) + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.Order_Status + '<br>';
+                        //SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.substring(0, 10) + '</td>';
+                        SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                        SubmithtmlPage += '<td>' + data.Getdata[i].ORD_TotalQty + '</td>';
+                        SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '<br>';
                         SubmithtmlPage += '</tr>';
                     }
                 } else {
@@ -805,54 +773,49 @@
         });
         }
 
-        function GetOrderDetail(ORD_ID, ORD_DocNo, DType,Status,Datesel,Amtsel) {
+        function GetOrderDetail(ORD_DocNo,Status) {
             // var CUSCOD = $('#XXcus').val();
             $('#DetailModalCenter').modal('show');
-            $('#statusord').text(Status);
-            $('#orddate').text(Datesel);
-            $('#ordtotal').text(Amtsel);
+            $('#orderno').text(ORD_DocNo);
+            $('#statusord').text(Status)
             var CUSCOD = cuscod;
-            var _STKCOD = $('#txtSTKCOD').val();
+            //var _STKCOD = $('#txtSTKCOD').val();
             $.ajax({
-                url: '@Url.Action("GetOrderDetail", "Statuslist")',
+                url: '@Url.Action("GetDeliveryDetail", "CustomerDashboard")',
                 data: {
-                    ORD_ID: ORD_ID
-                    , ORD_DocNo: ORD_DocNo
-                    , DType: DType
-                    , STKCOD: _STKCOD
-                    , CUSCOD: CUSCOD
-
+                    ORD_DocNo: ORD_DocNo
                 },
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
                     //$("#tblOrderDetail > tbody").html("");
                     $('#tblOrderDetail tbody:last-child').html("");
-                    if (data != "") {
-
+                    if (data.message == "Y") {
+                        console.log("Detail :");
                         if (data.Getdata.length != 0) {
                             var SubmithtmlPage = '';
+                            var dateOrder = '';
                             $('#orderno').text(ORD_DocNo);
                             for (var i = 0; i < data.Getdata.length; i++) {
+                                dateOrder = data.Getdata[i].VORDDAT;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td align="left">' + data.Getdata[i].val.VSTKCOD + '</td>';
-                                SubmithtmlPage += '<td align="left">' + nl3br(data.Getdata[i].val.VSTKDES) + '</td>';
-                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.AmtQty + '</td>';
+                                SubmithtmlPage += '<td align="left">' + data.Getdata[i].VSTKCOD + '</td>';
+                                SubmithtmlPage += '<td align="left">' + nl3br(data.Getdata[i].VSTKDES) + '</td>';
+                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].AmtQty + '</td>';
                                 SubmithtmlPage += '</tr>';
 
                             }
+                            console.log("Date :" + dateOrder);
+                            $('#orddate').text(dateOrder);
                             $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
                         }
                     }
-                    //var fixedTable2 = fixTable(document.getElementById('fixed-table-container-2'));
+                    else {
+                        console.log(data.message);
+                    }
                 }
 
             });
-        }
-
-        function testclick() {
-           // alert("Test Clickable");
-
         }
     </script>
 </body>
