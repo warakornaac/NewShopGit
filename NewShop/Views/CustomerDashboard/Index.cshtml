@@ -9,33 +9,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ยอดซื้อ</title>
-    @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
-    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
 
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
 
-    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
-    <!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
-
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/CSS/jQueryv3.1.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+    @*<script src="~/CSS/jQueryv3.1.1.js"></script>*@
+    @*<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>*@
 
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
 
     <style>
         html body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .font-me {
             font-family: 'Kanit', sans-serif;
         }
 
@@ -342,26 +342,82 @@
             display: block;
         }
 
+        .select-year {
+            width: 105px;
+            text-align: center;
+            font-family: Kanit,sans-serif;
+        }
+
+        .form-select option {
+            text-align: center; /* สำหรับตัวเลือกใน drop-down */
+        }
         /* Change the background color of the dropdown button when the dropdown content is shown */
         .dropdown:hover .dropbtn {
             background-color: #bee0ed;
         }
-    </style>
-    @* CSS Chart *@
-    <style>
-        @@media screen and (min-width: 960px) {
-            .chart-graph {
-                height: 400px;
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightsteelblue;
+        }
+
+        .td-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 0;
+        }
+
+        @@media only screen and (min-width: 319px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 135px;
             }
         }
 
-        @@media screen and (max-width:960px) {
-            .chart-graph {
-                height: 300px;
+        @@media only screen and (min-width: 374px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 185px;
+            }
+        }
+
+        @@media only screen and (min-width: 389px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 200px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
             }
         }
     </style>
+    @* CSS Chart *@
     <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
         .footer {
             position: relative;
             left: 0;
@@ -411,6 +467,14 @@
                 transform: rotate(360deg);
             }
         }
+
+        .text-truncate {
+            display: inline-block; /* หรือ block */
+            max-width: 100%; /* กำหนดให้ข้อความไม่ขยายเกิน */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 
@@ -442,84 +506,30 @@
                     <div class="col-12 col-lg-3" id="cushead" hidden>
                         <div class="row">
                             <p id="demo"></p>
-                            <div class="col-12 caption" hidden>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 id="h2title" style="font-family: Kanit, sans-serif;">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="input-group ">
-                                                <select class="form-control custom-select" id="selslm">
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <span style="color: blue; cursor: pointer; font-family: Kanit, sans-serif;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
-                                        <br />
-                                        <div id="prvs">
-                                            <h8 style="font-family: Kanit, sans-serif;">ร้านค้า</h8>
-                                            <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกร้านค้า" data-hide-disabled="true" id="selcus"><option value="0"></option></select>
-                                            </div>
-                                            <div class="single-checkout-box select-option mt--10">
-                                                <button type="button" class="btn-gray" id="btnshsche" style="font-family: Kanit, sans-serif;">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
-                                            </div>
-                                            <div class="single-checkout-box checkbox">
-                                            </div>
-                                        </div>
-                                        <div class="appendbtnshopbysales"></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div id="appadjall"></div>
                     </div>
-                    <div class="col-12 col-lg-6" style="font-family: Kanit,sans-serif;">
+                    <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
                         <div id="dfch">
                             <div class="row">
-                                <div class="col-12" hidden>
-                                    <div class="card">
-                                        <div class="card-header bg-info">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>ยอดซื้อรวม</h4>
-                                                @*<button type="button" onclick="testlink();">Clear</button>*@
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="card-body p-0 pb-3">
-                                                <div class="graph">
-                                                    <canvas id="chart-profile-visit" class="chart-graph"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12" hidden>
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtmtd_aac" style="font-family: Kanit, sans-serif; font-size: 11px; color: rgb(54, 162, 235); font-weight:bold;">Amt MTD AAC:</div>
-                                                    <div id="amtmtd_tac" style="font-family: Kanit, sans-serif; font-size: 11px; color: rgb(255, 99, 132); font-weight: bold;">Amt MTD TAC:</div>
-                                                    <div id="amtmtd_all" style="font-family: Kanit, sans-serif; font-size: 11px; color: green; font-weight: bold;">Amt MTD ALL:</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="card-header">
-                                                    <div id="amtytd_aac" style="font-family: Kanit, sans-serif; font-size: 11px; color: rgb(54, 162, 235); font-weight: bold;">Amt YTD AAC:</div>
-                                                    <div id="amtytd_tac" style="font-family: Kanit, sans-serif; font-size: 11px; color: rgb(255, 99, 132); font-weight: bold;">Amt YTD TAC:</div>
-                                                    <div id="amtytd_all" style="font-family: Kanit, sans-serif; font-size: 11px; color: green; font-weight: bold;">Amt YTD ALL:</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header bg-info">
-                                            <div class="col-sm-6 text-left">
-                                                <h4>เครดิต</h4>
+                                            <div class="col-sm-12 d-flex align-items-center mb-2 text-left m-0 p-0">
+                                                <h4 class="m-0">เครดิต</h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="m-0 font-me"> เครดิต : <span id="credit-duedate"></span> วัน</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="m-0 font-me">วันที่สรุป : <span id="cr-date">24-04-2024</span></p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered m-0" id="credit-table">
+                                            <div class="m-0 table-responsive">
+                                                <table class="table table-sm table-bordered m-0" id="credit-table">
                                                     <tr>
                                                         <td></td>
                                                         <th class="text-center">AAC</th>
@@ -528,40 +538,69 @@
                                                     </tr>
                                                     <tr>
                                                         <th>วงเงินที่ได้รับ</th>
-                                                        <td><span id="aac-crline">200000</span></td>
-                                                        <td><span id="tac-crline">200000</span></td>
-                                                        <td><span id="omp-crline">200000</span></td>
+                                                        <td><span id="aac-crline">0</span></td>
+                                                        <td><span id="tac-crline">0</span></td>
+                                                        <td><span id="omp-crline">0</span></td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>เครดิต</th>
-                                                        <td class="text-center" colspan="3" id="cr-numdate"><span id="credit-duedate"> </span> วัน</td>
-                                                    </tr>
+                                                    @*<tr>
+                                                            <th>เครดิต</th>
+                                                            <td class="text-center" colspan="3" id="cr-numdate"><span id="credit-duedate"> </span> วัน</td>
+                                                        </tr>*@
                                                     <tr>
                                                         <th>วงเงินที่ใช้ไป</th>
-                                                        <td><span id="aac-bal">200000</span></td>
-                                                        <td><span id="tac-bal">200000</span></td>
-                                                        <td><span id="omp-bal">200000</span></td>
+                                                        <td><span id="aac-bal">0</span></td>
+                                                        <td><span id="tac-bal">0</span></td>
+                                                        <td><span id="omp-bal">0</span></td>
                                                     </tr>
                                                     <tr>
                                                         <th>วงเงินคงเหลือ</th>
-                                                        <td><span id="aac-res">200000</span></td>
-                                                        <td><span id="tac-res">200000</span></td>
-                                                        <td><span id="omp-res">200000</span></td>
+                                                        <td><span id="aac-res">0</span></td>
+                                                        <td><span id="tac-res">0</span></td>
+                                                        <td><span id="omp-res">0</span></td>
+                                                    </tr>
+                                                    <tr data-toggle="collapse" data-target="#baldue-show" class="accordion-toggle table-hover">
+                                                        <th>ยอดถึงกำหนดชำระ <br />วันที่กำหนดชำระ</th>
+                                                        <td><span id="aac-baldue">0</span><br /><span id="aac-baldue-date">2024-04-23</span></td>
+                                                        <td><span id="tac-baldue">0</span><br /><span id="tac-baldue-date">2024-04-23</span></td>
+                                                        <td><span id="omp-baldue">0</span><br /><span id="omp-baldue-date">2024-04-23</span></td>
                                                     </tr>
                                                     <tr>
-                                                        <th>วงเงินถึงกำหนดชำระ</th>
-
-                                                        <td><span id="aac-baldue">200000</span></td>
-                                                        <td><span id="tac-baldue">200000</span></td>
-                                                        <td><span id="omp-baldue">200000</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>วันที่สรุป</th>
-                                                        <td class="text-center" colspan="3">
-                                                            2024-04-27
+                                                        <td class="p-0"></td>
+                                                        <td colspan="3" class="hiddenRow">
+                                                            <div class="accordian-body collapse table-responsive m-0" id="baldue-show">
+                                                                <table class="table table-borderless">
+                                                                    <thead class="thead-default">
+                                                                        <tr>
+                                                                            <th>
+                                                                                header1
+                                                                            </th>
+                                                                            <th>
+                                                                                header2
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                test1-1
+                                                                            </td>
+                                                                            <td>
+                                                                                Test1-2
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                test2-1
+                                                                            </td>
+                                                                            <td>
+                                                                                Test2-2
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </td>
                                                     </tr>
-
                                                 </table>
                                             </div>
                                         </div>
@@ -571,9 +610,100 @@
                         </div>
                         <div id="appadj"></div>
                     </div>
+                    <div class="col-12" style="font-family: Kanit,sans-serif;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-info">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
+                                                <h4 class=" m-0">
+                                                    ยอดซื้อ
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                    <span>ปี-เดือน : </span>
+                                                </div>
+                                                <div class="col-md-6 m-0 p-0">
+                                                    <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0  ">
+                                        <div class="m-0 table-responsive">
+                                            <table class="table table-sm table-light m-0 " id="amt-table" style="width:100%">
+                                                <thead class="thead-default">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>ชื่อร้านค้า</th>
+                                                        <th>จำนวนเงิน</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot class="bg-warning ">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td><strong id="total-text"></strong> <strong class="float-right" id="loading-text-table"></strong> </td>
+                                                        <td colspan="5" style="text-align:right"><strong id="amt-total"></strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
+                <!-- Modal -->
+                <div class="modal fade" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header ">
+                                <strong>รหัสการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body d-flex justify-content-center row">
+                                <div class="col-12">
+                                    <article class="card">
+                                        <div class="card-body row">
+                                            <div class="col p-0">
+                                                <strong>ผู้ซื้อ : </strong>
+                                                <span id="namecus-item"></span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <hr />
+                                <div class="col-12">
+                                    <div class="table-responsive m-0" style="height:500px">
+                                        <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
+                                            <thead class="thead-default" style="font-size: small;">
+                                                <tr>
+                                                    <th>บริษัท</th>
+                                                    <th>รหัสสินค้า</th>
+                                                    <th>ชื่อสินค้า</th>
+                                                    <th>จำนวน</th>
+                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th>ส่วนลด</th>
+                                                    <th>ราคารวม</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+
         <!-- ModalWarning -->
         <div class="modal" id="myModalWarning">
             <div class="modal-dialog">
@@ -605,7 +735,6 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
                         <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -627,9 +756,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -640,26 +767,17 @@
         </footer>
     </div>
 
-    @*<script src="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="~/dashboard/assets/js/bootstrap.bundle.min.js"></script*@
-    <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
-    @*<script src="~/dashboard/assets/js/pages/dashboard.js"></script>*@
-    @*<script src="~/dashboard/assets/js/main.js"></script>*@
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <!-- <link href="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.css" rel="stylesheet" />-->
-    @*<script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>*@
-    @*<script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
-    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-    <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-    <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
-    <script type="text/javascript">
 
+    @*<link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+        <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>*@
+    @*<script src="~/Scripts/webAddress.js"></script>
+        <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+        <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />*@
+
+    <script type="text/javascript">
         var id = '@Request.RequestContext.HttpContext.Session["ID"]';
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -675,54 +793,57 @@
 
         $(document).ready(function () {
             $('#loader').show();
+            getSelectMonth();
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
                 $('.footer').removeAttr('hidden');
-
             }, 2000);
         });
 
         if (cuscod != "") {
             $("#cushid").val(cuscod)
-           // getcuschamt(cuscod);
+            // getcuschamt(cuscod);
+            var currentDate = new Date();
+            var currentDay = (currentDate.getDate()).toString().padStart(2, "0")
+            var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+            var currentYear = currentDate.getFullYear();
+            var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
+
             getCreditCus(cuscod);
-        }
-        function checkPrivilege(userid, cuscod) {
-            $.ajax({
-                url: '@Url.Action("GetdataPrivilege", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    cuscod: cuscod
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    //console.log(splitstring);
-                    //let text = splitstring;
-                    //const myArray = text.split("|");
-                    //let mysession = myArray[1];
-                    //let mystatus = myArray[0];
-                    // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (splitstring=="1") {
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-                        return false;
-
-                    }
-                }
-            });
-
+            getCusMonth(cuscod, currentYear, currentMonth);
         }
         n = new Date();
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        function jssor_1_slider_init() {
 
+
+        function getLastSixMonths() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 6; i++) {
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const formattedMonth = month; //< 10 ? `0${month}` : `${month}`;
+                result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
+                date.setMonth(date.getMonth() - 1);
+            }
+            return result;
+        }
+
+        function getSelectMonth() {
+            const dropdown = $('#select-month-year');
+            const lastSixMonths = getLastSixMonths();
+            lastSixMonths.forEach(monthYear => {
+                const option = $('<option></option>')
+                    .text(monthYear.display)
+                    .val(monthYear.value);
+                dropdown.append(option);
+            });
+        }
+
+        function jssor_1_slider_init() {
             var jssor_1_options = {
                 $AutoPlay: 0,
                 $AutoPlaySteps: 5,
@@ -739,22 +860,13 @@
                     $SpacingY: 16
                 }
             };
-
             var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-
-            /*#region responsive code begin*/
-
             var MAX_WIDTH = 758;
-
             function ScaleSlider() {
-
                 var containerElement = jssor_1_slider.$Elmt.parentNode;
                 var containerWidth = containerElement.clientWidth;
-
                 if (containerWidth) {
-
                     var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
-
                     jssor_1_slider.$ScaleWidth(expectedWidth);
                 }
                 else {
@@ -771,24 +883,11 @@
 
         };
         $(document).ready(function () {
-            $('.button-left').click(function () {
-                $('.sidebar').toggleClass('fliph');
+            $('#select-month-year').on('change', function () {
+                const selectMonthYear = $(this).val();
+                const [year, month] = selectMonthYear.split(',');
+                getCusMonth(cuscod, year.trim(), month.trim());
             });
-            $('li a .toggle__menu').on('click', function () {
-                //alert("xxxx")
-                $('.offsetmenu').addClass('offsetmenu__on');
-                $('.body__overlay').addClass('is-visible');
-
-            });
-            $('.offsetmenu__close__btn').on('click', function () {
-                $('.offsetmenu').removeClass('offsetmenu__on');
-                // $('.body__overlay').removeClass('is-visible');
-            });
-            $("#selcus").on("change", function () {
-                var cuscod = $("#selcus").val();
-                    getcuschamt(cuscod);
-            });
-            chkcustomer();
         });
         function commaSeparateNumber(val) {
             while (/(\d+)(\d{3})/.test(val.toString())) {
@@ -796,282 +895,166 @@
             }
             return val;
         }
-        function getcuschamt(cusnc) {
-            // var current_status = $('.statusamt').text();
-            console.log("Cuscod : "+cusnc);
-            if (cusnc != "") {
-                $.ajax({
-                    url: '@Url.Action("GetdataCusAmt", "DataCenter")',
-                    data: {
-                        strcustome: cusnc
 
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        // console.log(data)
-                        //$('#credit-table tbody:last-child').html("");
-                        $('#amtmonth-table tbody:last-child').html("");
-                        var SubmithtmlPages = "";
-                        var BodyCredit = "";
-                        if (data.length > 0) {
-                            var chartData = {
-                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                datasets: [
-                                    {
-                                        label: 'AAC',
-                                        backgroundColor: 'rgb(54, 162, 235) ',
-                                        data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                                    },
-                                    {
-                                        label: 'TAC',
-                                        backgroundColor: 'rgb(255, 99, 132)',
-                                        data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                                    },
-                                    {
-                                        label: 'ALL',
-                                        backgroundColor: '#4bf942',
-                                        data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                                    }
-                                ]
-                            };
+        function getCusMonth(cus,year,month) {
+            //$("#amt-table").DataTable();
+            $.ajax({
+                url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus,
+                    Month: month,
+                    Year: year
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.Getdata.length > 0) {
+                        var resTotal = 0.00;
+                        var SubmithtmlPage = "";
+                        $('#amt-table tbody').html("");
+                        $.ajax({
+                            url: '@Url.Action("GetCusInvMonth", "CustomerDashboard")',
+                            data: {
+                                CUSCOD: cus,
+                                Month: month,
+                                Year: year
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            beforeSend: function () {
+                                $('#total-text').text("");
 
+                                $("#amt-total").text("");
+                                $("#loading-text-table").text("Loading...");
+                            },
+                            success: function (result) {
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                    $('#sec-table-' + i + ' tbody').html("");
+                                    SubmithtmlPage += '<tr data-toggle="collapse" data-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<td><h4><span id="row-show-'+ i +'">+</span></h4></td>';
+                                    SubmithtmlPage += '<td class="ellipsis"><p class="text-truncate m-0 p-0">' + data.Getdata[i].CUSNAM + '</p></td>'; //class="ellipsis"
+                                    SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                    SubmithtmlPage += '</tr>';
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td colspan="4" class="hiddenRow">'
+                                    SubmithtmlPage += '<div class="accordian-body collapse table-responsive" id="col-detail-' + i + '"> ';
+                                    SubmithtmlPage += '<table class="table table-light table-striped table-bordered table-hover " id="sec-table-' + i + '">';
+                                    SubmithtmlPage += '<thead class="thead-default">';
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<th>จากบริษัท</th>';
+                                    SubmithtmlPage += '<th>วันที่สั่งซื้อ</th>';
+                                    SubmithtmlPage += '<th>รหัสการสั่งซื้อ</th>';
+                                    SubmithtmlPage += '<th>จำนวนเงิน</th>';
+                                    SubmithtmlPage += '<th>สถานะ</th>';
+                                    SubmithtmlPage += '</tr>';
+                                    SubmithtmlPage += '</thead>';
 
+                                    SubmithtmlPage += '<tbody>';
 
-                            var options = {
-                                scales: {
-                                    y: {
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function (value, index, values) {
-                                                return commaSeparateNumber(value);
+                                    if (result.Getdata.length > 0) {
+
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
+                                                SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
+                                                SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
+                                                SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
+                                                SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
+                                                SubmithtmlPage += '</tr>'
                                             }
                                         }
                                     }
-                                },
-                                responsive: true,
-                                maintainAspectRatio: false
-                            };
+                                    SubmithtmlPage += '</tbody>';
+                                    SubmithtmlPage += '</table>'
+                                    SubmithtmlPage += '</div>';
+                                    SubmithtmlPage += '</td>';
+                                    SubmithtmlPage += '</tr>';
 
-                            if (chartProfileVisit) {
-                                chartProfileVisit.destroy();
-                            }
-
-                            var ctx = document.getElementById('chart-profile-visit').getContext('2d');
-                             chartProfileVisit = new Chart(ctx, {
-                                type: 'bar',
-                                data: chartData,
-                                options: options
-                            });
-
-                            window.dispatchEvent(new Event('resize'));
-                            $('#amtytd_aac').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
-                            $('#amtytd_tac').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
-                            $('#amtytd_all').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
-                            $('#amtmtd_aac').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
-                            $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
-                            $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
-
-
-                            //pie chart not null month
-                            if (data[2].AmtMTD.toString() == '0') {
-                                $('#amtmtd_aac_below').html('');
-                                $('#amtmtd_tac_below').html('');
-                                $('#amtmtd_all_below').html('');
-                            }
-                            else {
-                                //$('#mtdnull').html('');
-                                $('#amtmtd_aac_below').html(commaSeparateNumber(data[0].AmtMTD));
-                                $('#amtmtd_tac_below').html(commaSeparateNumber(data[1].AmtMTD));
-                                $('#amtmtd_all_below').html(commaSeparateNumber(data[2].AmtMTD));
-                            }
-                            //pieChart not null year
-                            if (data[2].AmtYTD.toString() == '0') {
-
-                                $('#amtytd_aac_below').html('');
-                                $('#amtytd_tac_below').html('');
-                                $('#amtytd_all_below').html('');
-                            }
-                            else {
-                                //$('#ytdnull').html('');
-                                $('#amtytd_aac_below').html(commaSeparateNumber(data[0].AmtYTD));
-                                $('#amtytd_tac_below').html(commaSeparateNumber(data[1].AmtYTD));
-                                $('#amtytd_all_below').html(commaSeparateNumber(data[2].AmtYTD));
-                            }
-
-                            //AmtMonth-Table
-                            //data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec
-                            SubmithtmlPages += '<tr>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jan || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Feb || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Mar || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Apr || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].May || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jun || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Jul || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Aug || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Sep || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Oct || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Nov || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].Dec || 0.0) + '</td>';
-                            SubmithtmlPages += '<td>' + commaSeparateNumber(data[2].AmtMTD || 0.0) + '</td>';
-                            SubmithtmlPages += '</tr>';
-                            $("#amtmonth-table").append(SubmithtmlPages);
-
-
-
-                            //Credit-table
-                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
-                            //BodyCredit += '<tr><td colspan="4" class="text-center">90วัน</td></tr>';
-                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
-                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
-                            //BodyCredit += '<tr><td></td><td>100,000</td><td>200,000</td><td>30,000</td></tr>';
-                            //BodyCredit += '<tr><td colspan="4" class="text-center">27-04-2024</td></tr>';
-
-                            //$("#credit-table tbody").append(BodyCredit);
-
-
-
-                            //MTD Chart
-                            const dataM = {
-                                labels: [
-                                    'AAC',
-                                    'TAC',
-
-                                ],
-                                datasets: [{
-                                    label: 'ยอดซื้อรวมทั้งเดือน',
-                                    data: [data[0].AmtMTD, data[1].AmtMTD],
-                                    backgroundColor: [
-                                        'rgb(54, 162, 235)',
-                                        'rgb(255, 99, 132)',
-                                    ],
-                                    hoverOffset: 8
-                                }]
-                            };
-                            const configM = {
-                                type: 'pie',
-                                data: dataM,
-                            };
-                            if (myChartM) {
-                                myChartM.destroy();
-                                console.log("Chart month Destroyed .");
-                            }
-
-                            var ctx = document.getElementById('mtd_chart').getContext('2d');
-                            myChartM = new Chart(ctx, configM);
-                            ////////
-
-                            //YTD Chart
-                            const dataY = {
-                                labels: [
-                                    'AAC',
-                                    'TAC',
-
-                                ],
-                                datasets: [{
-                                    label: 'ยอดซื้อรวมทั้งปี',
-                                    data: [data[0].AmtYTD, data[1].AmtYTD],
-                                    backgroundColor: [
-                                        'rgb(54, 162, 235)',
-                                        'rgb(255, 99, 132)',
-                                    ],
-                                    hoverOffset: 8
-                                }]
-                            };
-                            const configY = {
-                                type: 'pie',
-                                data: dataY,
-                            };
-                            if (myChartY) {
-                                myChartY.destroy();
-                                console.log("Chart month Destroyed .");
-                            }
-
-                            var ctx = document.getElementById('ytd_chart').getContext('2d');
-                            myChartY = new Chart(ctx, configY);
-                            //////
-                        } else {
-                            var chartData = {
-                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                datasets: [
-                                    {
-                                        label: 'AAC',
-                                        backgroundColor: 'rgb(54, 162, 235)',
-                                        data: [0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                    },
-                                    {
-                                        label: 'TAC',
-                                        backgroundColor: 'rgb(255, 99, 132)',
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                    },
-                                    {
-                                        label: 'ALL',
-                                        backgroundColor: '#4bf942',
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                    }
-                                ]
-                            };
-
-
-                            var options = {
-                                scales: {
-                                    y: {
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function (value, index, values) {
-                                                return commaSeparateNumber(value);
-                                            }
-                                        }
+                                    var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
+                                    if (!isNaN(amount)) {
+                                        resTotal += amount;
                                     }
                                 }
-                            };
-
-
-                            if (chartProfileVisit) {
-                                chartProfileVisit.destroy();
+                                $('#total-text').text("Total");
+                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)))
+                                $("#loading-text-table").text("");
+                                $("#amt-table tbody").append(SubmithtmlPage);
                             }
-                            var ctx = document.getElementById('chart-profile-visit').getContext('2d');
-                            chartProfileVisit = new Chart(ctx, {
-                                type: 'bar',
-                                data: chartData,
-                                options: options
-                            });
+                        });
+                    }
+                    else {
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="4" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#amt-table tbody").append(SubmithtmlPage);
+                    }
+                    console.log(data.message);
 
-                            window.dispatchEvent(new Event('resize'));
+                }
+            });
+        }
+        function toggleRowAndButton(row, index) {
+            var text = $('#row-show-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+            } else {
+                text.text("+");
+            }
 
-
-                            $('#amtytd_aac').html('Amt YTD AAC: 0');
-                            $('#amtytd_tac').html('Amt YTD TAC: 0');
-                            $('#amtytd_all').html('Amt YTD ALL: 0');
-                            $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
-                            $('#amtmtd_tac').html('Amt MTD TAC: 0');
-                            $('#amtmtd_all').html('Amt MTD ALL: 0');
-
-
-                            if (myChartM) {
-                                myChartM.destroy();
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function getDetailCusinv(DocNum) {
+            $('#cusMonthItemModal').modal('show');
+            $('#docno-item').text(DocNum);
+            $.ajax({
+                url: '@Url.Action("GetCusinvDetail", "CustomerDashboard")',
+                data: {
+                    Docno: DocNum
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#namecus-item').text("");
+                    $('#cusMonthItemDetail tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
+                    SubmithtmlPage += '<tr>';
+                    $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#cusMonthItemDetail tbody').html("");
+                    if (data.message == "Y") {
+                        var SubmithtmlPage = "";
+                        if (data.Getdata.length != 0) {
+                            var cusName = "";
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                cusName = data.Getdata[i].CUSNAM;
+                                SubmithtmlPage += '<tr >';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + data.Getdata[i].Qty + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Discount) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '</tr>';
                             }
-                            if (myChartY) {
-                                myChartY.destroy();
-                            }
-
-
-                            $('#amtytd_aac_below').html('0' );
-                            $('#amtytd_tac_below').html('0' );
-                            $('#amtytd_all_below').html('0');
-
-                            $('#amtmtd_aac_below').html('0');
-                            $('#amtmtd_tac_below').html('0' );
-                            $('#amtmtd_all_below').html('0' );
-
+                            $('#namecus-item').text(cusName);
+                            $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
                         }
                     }
-                });
-            }
+                    else {
+                        console.log("Error : "+data.message);
+                    }
+                }
+            });
         }
-
-
 
         function getCreditCus(cus) {
             $.ajax({
@@ -1083,7 +1066,11 @@
                 dataType: "JSON",
                 success: function (data) {
                     if (data.message == 'Y') {
-                        //console.log("NAME : " + data.credits[0].CUSNAME);
+
+                        var lastInvoiceDate = data.credits[0].LASIVC;
+
+
+                        $('#cr-date').text(lastInvoiceDate);
                         var aaccrbal = data.credits[0].AACCRLINE;
                         var taccrbal = data.credits[0].TACCRLINE;
                         var ompcrbal = data.credits[0].OMPCRLINE;
@@ -1096,7 +1083,6 @@
                         var restacbal = Number(taccrbal) - Number(tacbal);
                         var resompbal = Number(ompcrbal) - Number(ompbal);
 
-
                         var aacbaldue = data.credits[0].AACBALDue;
                         var tacbaldue = data.credits[0].TACBALDue;
                         var ompbaldue = data.credits[0].OMPBALDue;
@@ -1104,9 +1090,7 @@
                         var creditdue = data.credits[0].AACPAYTR;
 
 
-
                         $('#credit-duedate').text(creditdue);
-
 
                         $('#aac-crline').text(commaSeparateNumber(aaccrbal));
                         $('#tac-crline').text(commaSeparateNumber(taccrbal));
@@ -1128,773 +1112,22 @@
                         console.log(data.message);
                     }
                 }
-            })
-        }
-        function openPeriod(PeriodName, id) {
-            var i;
-            var x = document.getElementsByClassName("city");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(PeriodName).style.display = "block";
-            var cusnc = $('#cussend').val();
-            var period = PeriodName;
-            //alert(period)
-        }
-
-        function getcus() {
-
-            var SLM = $("#selslm").val();
-            var SLMt = $("#selslm option:selected").text();
-            $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
-                    $.each(data, function (key, value) {
-
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
-
-                }
             });
         }
-        function countorder(cus, Slm) {
-            // var SLM = $("#Slm").val()
 
-            $.ajax({
-                url: '@Url.Action("GetdateContorder", "DataCenter")',
-                data: {
-                    cus: cus,
-                    Slm: Slm,
-                    Usertype: usertype,
-                    UserIn: userid
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    // //console.log(data);
-                    //$('#countsku').text(data.Getdata[0].val.Countrow);
-                    //$('#rd').text(data.Getdata[1].val.Countrow);
-                    $('#countsku').text(data.Getdata[0].val.SumQty);
-                    $('#rd').text(data.Getdata[1].val.SumQty);
-
-                }
-            });
-        }
         function myFunction() {
             var x = document.getElementById("blcslm");
             if (x.style.display === "none") {
                 x.style.display = "block";
                 $("#selslm").val("ALL");
-
             } else {
                 x.style.display = "none";
                 $("#selcus").prop("disabled", false);
             }
         }
 
-        $('#selslm').change(function () {
-            var SLM = $(this).val()
-            var SLMt = $("#selslm option:selected").text();
-            var cuskey = "";
-            cuskey = $("#nocusses").val();
-            var cusel = $("#cushid").val();
-            if (cuskey == "") {
-                cuskey = cusel;
-            }
-            if (SLM != "ALL") {
-                countorder(cuskey, SLM)
-            } else {
-                window.location.replace("../SeleScrCustomer/dashboard");
-            }
-           // getCompanyInformationbysalman(SLM);
-            $("#cus").text("");
-            $("#addcus").text("");
-            $("#crlicusaac").text("");
-            $("#crlicustac").text("");
-            $("#crbarcusaac").text("");
-            $("#crbarcustac").text("");
-            $("#crlicusaacday").text("");
-            $("#crlicustacday").text("");
-            $("#crlicusrating").text("");
 
-            $("#cushid").val("");
-            $("#nocusses").val("");
-            $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
-            $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ"));
-                    $.each(data, function (key, value) {
 
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
-                }
-            });
-
-        });
-
-        function datacus(slmco) {
-            // var SLM = $('#selslm').val();
-
-            var SLM = slmco;
-            var SLMt = $("#selslm option:selected").text();
-
-            $("#selslm").val(SLM);
-            $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
-                    $.each(data, function (key, value) {
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                        //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
-                }
-            });
-
-        }
-        $('.selectpicker').selectpicker({
-            noneResultsText: 'Not found'
-
-        });
-
-        $("#textfree").autocomplete({
-            selectFirst: true,
-            autoFocus: true,
-            source: function (request, response) {
-                // var param = { Name: $('input[type="search"]').val(), Slm: $('#selslm').val() };
-                var slmcus = "";
-                if ($('#selslm').val() == null) {
-                    slmcus = "ALL";
-                } else {
-                    slmcus = $('#selslm').val();
-                }
-                var param = { Name: $("#textfree").val(), Slm: slmcus };
-                $.ajax({
-                    url: '@Url.Action("GetdateCusCode", "DataCenter")',
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-
-                        response($.map(data.slice(0, 50), function (item) {
-                            return {
-                                value: item
-                            }
-                        }))
-
-                    },
-                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            },
-            select: function (event, ui) {
-                //console.log(ui.item.value);
-                var cusname
-                var Code = ui.item.value;
-                var split_StockCode = Code.split('|');
-
-                var item = "";
-                if (split_StockCode[0] != "") {
-                    item = split_StockCode[0].trim();
-                    cusname = split_StockCode[1].trim();
-                }
-                $("#smallModalselcus").modal('hide');
-
-                var retval = checkcustomerinactive(item)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    countorder(item, $('#selslm').val());
-                    datacus($('#selslm').val());
-
-                    //getCompanyInformationbysalman($('#selslm').val());//Company Information
-                }
-            },
-
-            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
-        });
-        function showalr(cusname) {
-            $("#textAlertWarning").empty();
-            $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-            $("#myModalWarning").modal();
-        }
-        function checkcustomerinactive(cuscod) {
-            var SLMt = $("#selslm option:selected").text();
-            var typin;
-            var retval = [];
-            $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                data: {
-                    cusel: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                async: false, //IGNORED!!
-                success: function (data) {
-                    // //console.log(data);
-                    typin = data[0].INACTIVE;
-                    block = data[0].BLOCKED;
-                    //alert(data[0].SLMCOD)
-                    $("#selslm").val(data[0].SLMCOD);
-                    if (usertype == "6") {
-
-
-                    } else {
-                        $.ajax({
-                            url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                            data: {
-                                SLXX: data[0].SLMCOD,
-                                SLMNAME: ""
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-                                //console.log(data);
-                                var select = $("#selcus");
-                                select.children().remove();
-                                select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ " + SLMt));
-                                $.each(data, function (key, value) {
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                    //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
-                                });
-                                $('#selcus').val(data[0].CUSCOD);
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-                            }
-                        });
-                    }
-                    if (typin == "Y") {
-                        if (block == "0") {
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-
-                            $("#addcus").text("");
-                            $("#crlicusaac").text("");
-                            $("#crlicustac").text("");
-                            $("#crbarcusaac").text("");
-                            $("#crbarcustac").text("");
-                            $("#crlicusaacday").text("");
-                            $("#crlicustacday").text("");
-                            $("#crlicusrating").text("");
-
-                            $("#selslm").val(data[0].SLMCOD);
-                            //$("#selslm").val("");
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-
-
-                            return retval = ["1", data[0].CUSNAM];
-                        } else {
-                            //alert("yy")
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-
-                            $("#selslm").val(data[0].SLMCOD);
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
-                        }
-
-                    } else {
-                        //alert("zz")
-                        //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                        if (block == "1") {
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-
-                            $("#selslm").val(data[0].SLMCOD);
-
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
-                        }
-                        else {
-                            //alert("aa")
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#selslm").val(data[0].SLMCOD);
-
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            getCreditcuskey(cuscod)
-                            //getcuschamt(data[0].CUSCOD);
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["2", data[0].CUSNAM];
-                        }
-                    }
-
-                },
-                async: false
-
-            });
-            return retval;
-        }
-        function getCreditcuskey(cusel) {
-            $.ajax({
-                url: '@Url.Action("GetdCustomerCredit", "DataCenter")',
-                data: {
-                    cusel: cusel
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    //APS//
-                    if (usertype == "6") {
-                        if (usrclmstaff == "1") {
-                            $("#crlicusaac").text("xxxx");
-                            $("#crlicustac").text("xxxx");
-
-                        } else {
-                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));;
-                        }
-                    } else {
-                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                    }
-                }
-            });
-        }
-        function cleardataselect() {
-            $("#addcus").text("");
-            $("#crlicusaac").text("");
-            $("#crlicustac").text("");
-            $("#crbarcusaac").text("");
-            $("#crbarcustac").text("");
-            $("#crlicusaacday").text("");
-            $("#crlicustacday").text("");
-            $("#crlicusrating").text("");
-
-            //$("#selslm").val();
-            $("#cus").text("");
-            $("#cushid").val("");
-            $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
-            $("#nocusses").val("");//master key customer
-        }
-
-        $('#selcus').change(function () {
-            var cusel = $("#selcus").val();
-            var Slm = $("#selslm").val();
-            // var cusold = $("#cus").html();
-            //var cusold = $("#cushid").val();
-            // countorder(cusel, Slm)
-
-            var selcusoption = $("#selcus option:selected").text();
-            //var cusold = cuscod;
-            var cusold = $("#nocusses").val();
-
-            if (cusel == "0") {
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                return false;
-            } else if (cusel != "ALL") {
-                countorder(cusel, Slm)
-                var typin;
-                var block;
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        typin = data[0].INACTIVE;
-                        block = data[0].BLOCKED;
-                        //alert(block)
-                        if (typin == "Y") {
-                            if (block == "0") {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            } else {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            }
-
-                        } else {
-                            //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                            if (block == "1") {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            }
-                            else {
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-                                if (usertype == "6") {
-                                    if (usrclmstaff == "1") {
-                                        $("#crlicusaac").text("xxxx");
-                                        $("#crlicustac").text("xxxx");
-                                        $("#crlicusaac").text("xxxx");
-                                        $("#crlicustac").text("xxxx");
-                                        $("#crbarcusaac").text("xxxx");
-                                        $("#crbarcustac").text("xxxx");
-                                        $("#crlicusaacday").text("xxxx");
-                                        $("#crlicustacday").text("xxxx");
-                                        $("#crlicusrating").text("xxxx");
-
-                                    } else {
-                                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                        $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                        $("#crlicustacday").text(data[0].TACPAYTRM);
-                                        $("#divrating").css("display", "");
-                                        $("#crlicusrating").text(data[0].RATING);
-                                    }
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                getCreditcuskey(cusel);
-                               // getcuschamt(data[0].CUSCOD);
-                            }
-                        }
-
-                    }
-                });
-            } else if (cusel == "ALL") {
-
-                countorder("", Slm)
-                $("#cus").text("");
-                $("#addcus").text("");
-                $("#crlicusaac").text("");
-                $("#crlicustac").text("");
-                $("#crbarcusaac").text("");
-                $("#crbarcustac").text("");
-                $("#crlicusaacday").text("");
-                $("#crlicustacday").text("");
-                $("#crlicusrating").text("");
-
-                $('#cus').attr('title', "");
-                //$("#selslm").val(data[0].SLMCOD);
-
-                $("#cushid").val("");
-                $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
-                $("#nocusses").val("");//master key customer
-
-            }
-           // alert(cusel)
-
-        });
-        function getslmandcus() {
-
-            $.ajax({
-                url: '@Url.Action("Getdateslm", "DataCenter")',
-                data: {
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-
-                    var select = $("#selslm");
-                    select.children().remove();
-                    if (usertype == "1") {
-                        select.append($("<option>").val("ALL").text("ALL Sales Man"));
-                    }
-                    $(data).each(function (index, item) {
-                        select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
-                    });
-                }
-            });
-        }
-        $(document).on("click", "#btnnot", function () {
-            //chkcustomer()
-            getslmandcus(); //get salesman
-            var cusel = $("#cushid").val();
-            $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                data: {
-                    cusel: cusel
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    $("#selslm").val(data[0].SLMCOD);
-                    chkcustomer()
-                }
-            });
-        });
-        $(document).on("click", "#btnok", function () {
-            // var cusel = $("#nocusses").val();
-            var cusel = $(this).attr('cusdata');
-            var retval = checkcustomerinactive(item)
-
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        $("#smallModal").modal('hide');
-
-                        // $("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                        $("#crlicusaacday").text(data[0].AACPAYTRM);
-                        $("#crlicustacday").text(data[0].TACPAYTRM);
-                        $("#divrating").css("display", "");
-                        $("#crlicusrating").text(data[0].RATING);
-                        $("#cushid").val(data[0].CUSCOD);
-                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                        $("#nocusses").val(data[0].CUSCOD);//master key customer
-                        $("#selslm").val(data[0].SLMCOD);
-                        datacus(data[0].SLMCOD);
-
-
-
-                    }
-                });
-            }
-            // }
-
-            //});
-
-
-        });
 
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
@@ -1912,443 +1145,11 @@
         $(document).on("click", "#navbardeliverytrack", function () {
             window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
-        function Getdatacartcus(cuskey) {
-            $.ajax({
-                url: '@Url.Action("Getdatailorderbycustomer", "DataCenter")',
-                data: { codval: cuskey },
-
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    $("#ModalwConfirm").modal();
-
-                    $("#wConfirm > tbody").empty();
-
-                    for (var i = 0; i < data.Getdata.length; i++) {
-
-                        var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                        SubmithtmlPage += '</tr>';
-                        $('#wConfirm').prepend(SubmithtmlPage);
-                    }
-
-
-                }
-            });
-        }
-        function Getdatacartslm(slmcod) {
-            $.ajax({
-                url: '@Url.Action("Getdatailorder", "DataCenter")',
-                data: { codval: slmcod },
-
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    $("#ModalwConfirm").modal();
-
-                    $("#wConfirm > tbody").empty();
-
-                    for (var i = 0; i < data.Getdata.length; i++) {
-
-                        var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                        SubmithtmlPage += '</tr>';
-                        $('#wConfirm').prepend(SubmithtmlPage);
-                    }
-
-                }
-            });
-        }
-        $('#btncheckord').click(function () {
-
-            var codval = $('#selslm').val();
-            if (codval == "ALL") {
-                //alert("กรุณาเลือก Slmcod ");
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกพนักงานขาย");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                //var codval = $('#Slm').val();
-                $.ajax({
-                    url: '@Url.Action("Getdatailorder", "DataCenter")',
-                    data: { codval: codval },
-
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        // //console.log(data);
-                        $("#ModalwConfirm").modal();
-
-                        $("#wConfirm > tbody").empty();
-
-                        for (var i = 0; i < data.Getdata.length; i++) {
-
-                            var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                            SubmithtmlPage += '</tr>';
-                            $('#wConfirm').prepend(SubmithtmlPage);
-                        }
-
-                    }
-                });
-            }
-        });
-        $("#wConfirm").on("click", "tr", function () {
-            var cus = $(this).attr('cus');
-            var slm = $(this).attr('slm');
-            if (cus == "") {
-                //cuskey = cusel;
-                $("#ModalwConfirm").modal('hide');
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                $("#ModalwConfirm").modal('hide');
-                var retval = checkcustomerinactive(cus)
-                if (retval[0] == "1") {
-                    showalr(retval[1]) //csutomer block//
-                    return false;
-                } else {
-                    //Getdatacartslm(codval)
-                    window.location.replace("../Cart/Index?numcuber=" + btoa(cus));
-                }
-
-            }
-        });
-        function chkcustomer() {
-
-            if (usertype != "6") {
-
-                if (usertype == "5") {
-
-                } else {
-                    if (cuscod == "") {
-
-                        $.ajax({
-                            url: '@Url.Action("Getdateslm", "DataCenter")',
-                            data: {
-
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-
-                                var select = $("#selslm");
-                                select.children().remove();
-                                if (usertype == "1") {//sales co
-                                    select.append($("<option>").val("ALL").text("ALL Sales Man"));
-                                }
-                                $(data).each(function (index, item) {
-                                    select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
-                                });
-                                if (usertype == "2") { //sales
-                                    getcus();
-                                    var slmcod = $("#selslm").val();
-                                    countorder("", slmcod);
-                                    //Getdatacartslm(slmcod)
-
-
-                                }
-                            }
-                        });
-                    } else {
-
-                        getslmandcus()
-                        $.ajax({
-                            url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                            data: {
-                                cusel: cuscod
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-                                //console.log(data);
-                                // $("#cus").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                //$("#selslm").prepend(new Option(data[0].SLMCOD));
-                                //$("#selslm").prepend(data[0].SLMCOD)
-                                // $("#selslm").val(data[0].SLMCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);
-
-                                //$("#slmhid").val(data[0].SLMCOD);
-                                //$('#selslm option[value="' + data[0].SLMCOD + '"]').prop("selected", true);
-                                //$("#selslm").val(data[0].SLMCOD).change();
-                                datacus(data[0].SLMCOD);  ///auto get customer to option select customer
-                                countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
-                              //  getcuschamt(data[0].CUSCOD);
-                                $.ajax({
-                                    url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
-                                    data: {
-                                        codeslm: data[0].SLMCOD
-                                    },
-                                    type: "POST",
-                                    dataType: "JSON",
-                                    success: function (data) {
-                                        //console.log(data)
-                                        optText = data[0].SLMCOD + "|" + data[0].SLMNAM;
-                                        optValue = data[0].SLMCOD;
-                                        // $('#selslm').prepend(new Option(optText, optValue));
-                                        //$('#selslm option[value="' + optValue + '"]').prop("selected", true);
-                                        // $("#SalepersonCode option[value='ALL']").remove();
-                                        //$("#selslm option[value='ALL']").remove();
-                                        $("#selslm").prepend($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-                                        $("#selslm").val($("#selslm option:first").val());
-                                        return false;
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }
-            } else if (usertype == "6") {
-
-                if (cuscod == ""){
-                    $('#nextspold').css("display", "none");
-                    //$('#h2title').html("พนักงานขาย");
-                    $('#h2title').html("เลือกบัญชีร้านค้า");
-                    $('#prvs').css("margin-top", "-39px");
-                    $('#selslm').css("display", "none");
-                    $('#btnshsche').css("display", "none");
-                    $('#btnclear').css("display", "none");
-                    $("#changepass").css("display", "block");
-                    var cuslog = "";
-                    $.ajax({
-                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
-                        data: {},
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-
-
-                            if (data.length == 1) {
-                                $('#cushead').remove();
-                                $('.caption').css("display", "none");
-                                $('.caption').attr('hidden')
-                                $('#prvs').css("display", "none");
-                            } else {
-                                $('.caption').removeAttr('hidden');
-                                var select = $("#selcus");
-                                select.children().remove();
-                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
-                                $.each(data, function (key, value) {
-
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                });
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-
-
-                            }
-                            cuslog = data[0].CUSCOD;
-                            $.ajax({
-                                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                                data: {
-                                    cusel: cuslog
-                                },
-                                type: "POST",
-                                dataType: "JSON",
-                                success: function (data) {
-                                    //console.log(data);
-                                    if (data.length == 1) {
-                                        //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                        $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-
-                                            if (usrclmstaff == "1") {
-
-                                                $("#crlicusaac").text("xxxx");
-                                                $("#crlicustac").text("xxxx");
-                                                $("#crbarcusaac").text("xxxx");
-                                                $("#crbarcustac").text("xxxx");
-                                                $("#crlicusaacday").text("xxxx");
-                                                $("#crlicustacday").text("xxxx");
-                                                $("#crlicusrating").text("xxxx");
-                                            } else {
-                                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                                $("#divrating").css("display", "");
-                                                $("#crlicusrating").text(data[0].RATING);
-                                            }
-
-                                        //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                        //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                        //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                        //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                        //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                                        //$("#crlicustacday").text(data[0].TACPAYTRM);
-                                        $("#cushid").val(data[0].CUSCOD);
-                                        $("#selslm").val(data[0].SLMCOD);
-                                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                        $("#nocusses").val(data[0].CUSCOD);
-                                        countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                        //datacus();  ///auto get customer to option select customer
-                                        //Getdatacartcus(data[0].CUSCOD)
-                                        getCreditcuskey(cuslog);//get เครดิตรร้านแม่
-                                       // getcuschamt(data[0].CUSCOD);
-                                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                    } else {
-                                        window.location.replace("../Account/LogIn");
-                                    }
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    $('#nextspold').css("display", "none");
-                    //$('#h2title').html("พนักงานขาย");
-
-                    $('#h2title').html("เลือกบัญชีร้านค้า");
-                    $('#prvs').css("margin-top", "-39px");
-                    $('#selslm').css("display", "none");
-
-                    $('#btnshsche').css("display", "none");
-                    $('#btnclear').css("display", "none");
-                    $("#changepass").css("display", "block");
-                    $.ajax({
-                        url: '@Url.Action("Getdateslmbycustomer", "DataCenter")',
-                        data: {
-                            cuscod: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-
-                            $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                            $("#selslm").prop("disabled", true);
-                            //datacus();  ///auto get customer to option select customer
-
-
-                        }
-                    });
-                    $.ajax({
-                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                        data: {
-                            cusel: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-                            if (data.length == 1) {
-
-                                //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                                if (usrclmstaff == "1") {
-
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#selslm").val(data[0].SLMCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);
-                                countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                //datacus();  ///auto get customer to option select customer
-                                //Getdatacartcus(data[0].CUSCOD)
-                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
-                                //getcuschamt(data[0].CUSCOD);
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            } else {
-                                window.location.replace("../Account/LogIn");
-                            }
-                        }
-                    });
-
-                    $.ajax({
-                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
-                        data: {},
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-                            if (data.length == 1) {
-                                $('#cushead').remove();
-                                $('.caption').css("display", "none");
-                                $('#prvs').css("display", "none");
-                                $("#selcus").prop("disabled", true);
-                            } else {
-                                $("#selcus").prop("disabled", false);
-                                var select = $("#selcus");
-                                select.children().remove();
-                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
-                                $.each(data, function (key, value) {
-
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                });
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-                            }
-                        }
-                    });
-                }
-            }
-            return false;
-        }
         $('#changepass').click(function () {
             if (usertype == "6") {
                 window.location.replace("../ChangePassword/Index");
             }
         });
-    </script>
-    <script>
-
     </script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>

@@ -936,8 +936,7 @@ namespace NewShop.Models
     public class SmsModels
     {
         public string Phone { get; set; }
-        public string Otp { get; set; }
-        public string Ref { get; set; }
+        public string Text { get; set; }
         public string User { get; set; }
     }
     public class CustomerCredit
@@ -948,6 +947,7 @@ namespace NewShop.Models
         public string ADDR_02 { get; set; }
         public string PRO { get; set; }
         public string CUSTYP { get; set; }
+        public string LASIVC { get; set; }
         public string AACCRLINE { get; set; }
         public string AACBAL { get; set; }
         public string AACBALDue { get; set; }
@@ -983,6 +983,15 @@ namespace NewShop.Models
         public string Delivery { get; set; }
         public string User { get; set; }
     }
+    public class ListOrderNotifySum
+    {
+        public string sumOrderCurrentDate { get; set; }
+        public string sumOrderByMonth { get; set; }
+        public string sumOrderStatus1 { get; set; }
+        public string sumOrderStatus2 { get; set; }
+        public string sumOrderStatus3 { get; set; }
+        public string sumOrderStatus4 { get; set; }
+    }
     public class DeliveryTrackNotify
     {
         public string ORD_DocNo { get; set; }
@@ -993,5 +1002,38 @@ namespace NewShop.Models
         public string ORD_TotalItem { get; set; }
         public string ORD_TotalQty { get; set; }
         public string ORD_TotalAmt { get; set; }
+    }
+    public class CusAmtMonth
+    {
+        public string Peiord { get; set; }
+        public string CUSNAM { get; set; }
+        public string Amount { get; set; }
+    }
+    public class Cusinv_Month
+    {
+        public string Company { get; set; }
+        public string PSTDAT { get; set; }
+        public string DUEDAT { get; set; }
+        public string EXTDOC { get; set; }
+        public string CUSNAM { get; set; }
+        public string DOCNUM { get; set; }
+        public string Amount { get; set; }
+        public string Status { get; set; }
+
+    }
+    public class Cusinv_Item
+    {
+        public string Company { get; set; }
+        public string PSTDAT { get; set; }
+        public string DUEDAT { get; set; }
+        public string EXTDOC { get; set; }
+        public string CUSNAM { get; set; }
+        public string DOCNUM { get; set; }
+        public string STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string Qty { get; set; }
+        public string Unit_Price { get; set; }
+        public string Discount { get; set; }
+        public string Amount { get; set; }
     }
 }

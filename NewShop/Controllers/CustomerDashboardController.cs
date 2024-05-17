@@ -34,7 +34,6 @@ namespace NewShop.Controllers
             if (Session["UserID"] == null)
             {
                 return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=promotion");
-
             }
             return View();
 
@@ -44,7 +43,6 @@ namespace NewShop.Controllers
             if (Session["UserID"] == null)
             {
                 return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
-
             }
             return View();
         }
@@ -84,6 +82,7 @@ namespace NewShop.Controllers
                         ADDR_02 = reader["ADDR_02"].ToString(),
                         PRO = reader["PRO"].ToString(),
                         CUSTYP = reader["CUSTYP"].ToString(),
+                        LASIVC = reader["LASIVC"] != DBNull.Value ? Convert.ToDateTime(reader["LASIVC"]).ToString("dd/MM/yyyy") : "",
                         AACCRLINE = reader["AACCRLINE"].ToString(),
                         AACBAL = reader["AACBAL"].ToString(),
                         AACBALDue = reader["AACBALDue"].ToString(),
@@ -106,7 +105,6 @@ namespace NewShop.Controllers
                 cmd.Dispose();
                 Connection.Close();
                 message = "Y";
-
             }
             catch (Exception ex)
             {
@@ -230,6 +228,116 @@ namespace NewShop.Controllers
             {
                 message = ex.Message;
             }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCusMonth(string CUSCOD, string Month, string Year)
+        {
+            string message = "";
+            List<CusAmtMonth> Getdata = new List<CusAmtMonth>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_Search_Cus_Month", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@inYear", Year.Trim());
+                command.Parameters.AddWithValue("@inMonth", Month.Trim());
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new CusAmtMonth()
+                    {
+                        Peiord = reader["Peiord"].ToString(),
+                        CUSNAM = reader["CUSNAM"].ToString(),
+                        Amount = String.Format("{0:N2}", Convert.ToDecimal(reader["Amount"]))
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex) { message = ex.Message; }
+
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCusInvMonth(string CUSCOD, string Month, string Year)
+        {
+            string message = "";
+            List<Cusinv_Month> Getdata = new List<Cusinv_Month>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_Search_Cusinv_Month", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@inYear", Year.Trim());
+                command.Parameters.AddWithValue("@inMonth", Month.Trim());
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new Cusinv_Month()
+                    {
+                        Company = reader["Company"].ToString(),
+                        PSTDAT = Convert.ToDateTime(reader["PSTDAT"]).ToString("dd/MM/yyyy"),
+                        DUEDAT = Convert.ToDateTime(reader["DUEDAT"]).ToString("dd/MM/yyyy"),
+                        EXTDOC = reader["EXTDOC"].ToString(),
+                        CUSNAM = reader["CUSNAM"].ToString(),
+                        DOCNUM = reader["DOCNUM"].ToString(),
+                        Amount = reader["Amount"].ToString(),
+                        Status = reader["Status"].ToString()
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex) { message = ex.Message; }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCusinvDetail(string Docno)
+        {
+            string message = "";
+            List<Cusinv_Item> Getdata = new List<Cusinv_Item>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_Search_Cusinv_Month_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inDocno", Docno);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new Cusinv_Item()
+                    {
+                        Company = reader["Company"].ToString(),
+                        PSTDAT = reader["PSTDAT"].ToString(),
+                        DUEDAT = reader["DUEDAT"].ToString(),
+                        EXTDOC = reader["EXTDOC"].ToString(),
+                        CUSNAM = reader["CUSNAM"].ToString(),
+                        DOCNUM = reader["DOCNUM"].ToString(),
+                        STKCOD = reader["STKCOD"].ToString(),
+                        STKDES = reader["STKDES"].ToString(),
+                        Qty = reader["Qty"].ToString(),
+                        Unit_Price = reader["Unit Price"].ToString(),
+                        Discount = reader["Discount"].ToString(),
+                        Amount = reader["Amount"].ToString()
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
     }

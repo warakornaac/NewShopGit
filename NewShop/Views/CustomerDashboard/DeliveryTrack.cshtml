@@ -10,18 +10,14 @@
     @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
+
     <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
 
-    @*<link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />*@
-    @*<script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-        <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>*@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
@@ -434,74 +430,6 @@
                     </div>
                 </div>
                 <section class="row justify-content-center d-none" id="content" hidden>
-                    @*<div class="col-12 col-lg-8">
-                            <div id="tool-top">
-                                <div class="row">
-                                    <div class="col-12" hidden>
-                                        <div class="card">
-                                            <h4 class="card-link card-header card-info" href="#tool-track" style="font-family: Kanit, sans-serif; ">
-                                                ค้นหา
-                                            </h4>
-                                            <div class="card-body pt-2" id="tool-body">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="col-5">
-                                                            <div class="form-group row">
-                                                                <label class="col-md-4">
-                                                                    วันที่ซื้อ
-                                                                </label>
-                                                                <div class="col-md-8">
-                                                                    <input type="text" class="form-control" id="startdate" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1"></div>
-                                                        <div class="col-5">
-                                                            <div class="form-group row">
-                                                                <label class="col-md-4">
-                                                                    ถึง
-                                                                </label>
-                                                                <div class="col-md-8">
-                                                                    <input type="text" class="form-control" id="enddate" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="col-md-5">
-                                                            <div class="form-group row">
-                                                                <label class="col-md-4">
-                                                                    เบอร์สินค้า
-                                                                </label>
-                                                                <div class="col-md-8">
-                                                                    <input type="text" class="form-control" id="txtSTKCOD" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1">
-
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <div class="form-group row">
-                                                                <label class="col-md-4">
-                                                                    เลขคำสั่งซื้อ
-                                                                </label>
-                                                                <div class="col-md-8">
-                                                                    <input type="text" class="form-control" id="txtsow" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 text-right">
-                                                        <button class="btn btn-success" onclick="getDeliveryTrack();">ค้นหา</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
                     <div class="col-12 col-lg-12">
                         <div id="dfch">
                             @* สินค้าค้างส่ง *@
@@ -514,40 +442,14 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="table-responsive m-0" style="height:500px">
-                                                <table class="table table-striped table-bordered table-hover mb-0 overflow-auto" id="deliverytrack" style="padding: 7px;font-size: small;">
+                                            <div class="m-0" style="height:500px;">
+                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack" style="padding: 7px;font-size: small;">
                                                     <thead class="thead-default" style="font-size: small;">
                                                         <tr>
-                                                            <th>หมายเลขคำสั่งซื้อ</th>
+                                                            <th>เลขคำสั่งซื้อ</th>
                                                             <th>วันที่สั่ง</th>
-                                                            <th>จำนวนสั่งซื้อ</th>
-                                                            @*<th>ยอดซื้อทั้งหมด</th>*@
-                                                            <th>สถานะสินค้า</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12" hidden>
-                                    <div class="card">
-                                        <div class="card-header pr-1 bg-info">
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
-                                                <h4 class="m-0">สถานะการสั่งซื้อ 2</h4>
-                                            </div>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <div class="table-responsive m-0" style="height:500px">
-                                                <table class="table table-striped table-bordered table-hover mb-0 overflow-auto" id="deliverytrack2" style="padding: 7px;font-size: small;">
-                                                    <thead class="thead-default" style="font-size: small;">
-                                                        <tr>
-                                                            <th>รหัสสินค้า</th>
-                                                            <th>วันที่สั่ง</th>
-                                                            <th>จำนวนสั่งซื้อ</th>
-                                                            <th>ยอดซื้อทั้งหมด</th>
-                                                            <th>สถานะสินค้า</th>
+                                                            <th>จำนวน</th>
+                                                            <th>สถานะ</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -561,15 +463,13 @@
                         <div id="appadj"></div>
                     </div>
                 </section>
+
                 <!-- Modal -->
                 <div class="modal fade in" id="DetailModalCenter" role="dialog" aria-labelledby="ModalCenterTitle" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title float-left" id="DetailModalLongTitle">หมายเลขคำสั่งซื้อ : <span id="orderno"></span></h5>
-                                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>*@
                                 <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body d-flex justify-content-center row">
@@ -615,17 +515,14 @@
                 </div>
             </div>
         </div>
-
     </div>
-    @*<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>*@
-    @*<script src="~/contentfilter/js/jquery-2.1.1.js"></script>*@
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>*@
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    @*<script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>*@
+
     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
     <script src="~/Scripts/webAddress.js"></script>
@@ -687,7 +584,6 @@
             var yyyy = today.getFullYear();
 
             today = dd + '/' + mm + '/' + '2023';
-            //twodayago = dd2 + '/' + mm + '/' + yyyy;
             twodayago = '01' + '/' + '05' + '/' + '2023';
             $('#startdate').datepicker({
                 dateFormat: 'dd/mm/yy',
@@ -732,7 +628,6 @@
             return val;
         }
 
-
         function getDeliveryTrack() {
             var _CUSCOD = cuscod;
             $.ajax({
@@ -743,8 +638,6 @@
             type: "POST",
             dataType: "JSON",
             success: function (data) {
-                //console.log(data)
-                console.log("data Lenght : " + data.Getdata.length);
                 $('#deliverytrack tbody:last-child').html("");
                 var SubmithtmlPage = "";
                 if (data.Getdata.length > 0) {
@@ -759,7 +652,7 @@
                         }
                         //SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.substring(0, 10) + '</td>';
                         SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].ORD_TotalQty + '</td>';
+                        SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                         SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '<br>';
                         SubmithtmlPage += '</tr>';
                     }
@@ -788,10 +681,8 @@
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
-                    //$("#tblOrderDetail > tbody").html("");
                     $('#tblOrderDetail tbody:last-child').html("");
                     if (data.message == "Y") {
-                        console.log("Detail :");
                         if (data.Getdata.length != 0) {
                             var SubmithtmlPage = '';
                             var dateOrder = '';
@@ -803,9 +694,7 @@
                                 SubmithtmlPage += '<td align="left">' + nl3br(data.Getdata[i].VSTKDES) + '</td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].AmtQty + '</td>';
                                 SubmithtmlPage += '</tr>';
-
                             }
-                            console.log("Date :" + dateOrder);
                             $('#orddate').text(dateOrder);
                             $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
                         }

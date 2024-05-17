@@ -568,7 +568,6 @@
                     else {
 
                         Swal.fire({
-                            title: "Warning!",
                             text: result.message,
                             icon: "warning",
                         });
@@ -620,8 +619,7 @@
                     else {
                         //alert(result.message);
                         Swal.fire({
-                            title: "Warning!",
-                            text: result.message,
+                            title: result.message,
                             icon: "error",
                         });
                     }

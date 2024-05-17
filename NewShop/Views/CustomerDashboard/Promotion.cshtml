@@ -1098,32 +1098,6 @@
                     window.location.replace("../Account/LogIn");
                 }
             });
-            $('#amtdoffon').click(function () {
-                var current_status = $('.statusamt').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusamt').html('Toggled');
-                    getcuschamt(cuskey);
-                }
-                else {
-                    $('.statusamt').html('Untoggled');
-                    clearChartsamt();
-                }
-            });
-            $('#amtchildoffon').click(function () {
-                var current_status = $('.statusamtchild').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusamtchild').html('Toggled');
-                    getcuschamt_child(cuskey);
-                }
-                else {
-                    $('.statusamtchild').html('Untoggled');
-                    clearChartsamt_child();
-                }
-            });
             //TOP20
             $('#btnoffonTop20').click(function () {
                 var current_status = $('.statusTop20').text();
@@ -1223,493 +1197,7 @@
             }
             return val;
         }
-        function clearChartsamt() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
 
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac').html('Amt YTD AAC: 0');
-            $('#amtytd_tac').html('Amt YTD TAC: 0');
-            $('#amtytd_all').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac').html('Amt MTD TAC: 0');
-            $('#amtmtd_all').html('Amt MTD ALL: 0');
-        }
-
-        function clearChartsamt_child() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-        }
-
-        function clearChartTop20() {
-            var optionsProfileVisit = {
-                annotations: {
-                    position: 'back'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar',
-                    height: 200,
-
-                },
-
-                fill: {
-                    opacity: 1
-                },
-                plotOptions: {
-                },
-
-
-                series: [{
-                    name: 'sales',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                }],
-                //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
-                xaxis: {
-                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                },
-            }
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-            chartProfileVisit.render();
-
-            window.dispatchEvent(new Event('resize'));
-
-
-            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-        }
-
-        function getcuschamt(cusnc) {
-            var current_status = $('.statusamt').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("GetdataCusAmt", "DataCenter")',
-                    data: {
-                        strcustome: cusnc
-
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        // console.log(data)
-
-                        if (data.length > 0) {
-
-                            var optionsProfileVisit = {
-                                annotations: {
-                                    position: 'back'
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                chart: {
-                                    type: 'bar',
-                                    height: 200,
-
-
-                                },
-                                xaxis: {
-                                    labels: {
-                                        formatter: function (value) {
-                                            return commaSeparateNumber(value);
-                                        }
-                                    },
-
-                                },
-                                yaxis: {
-                                    labels: {
-                                        formatter: function (value) {
-                                            return commaSeparateNumber(value);
-                                        }
-                                    },
-                                },
-                                fill: {
-                                    opacity: 1
-                                },
-                                plotOptions: {
-                                },
-
-                                series: [
-                            {
-                                name: 'AAC',
-                                type: 'column',
-                                data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                            },
-                            {
-                                name: 'TAC',
-                                type: 'column',
-                                data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                            },
-                            {
-                                name: 'ALL',
-                                type: 'column',
-                                data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                            }],
-                                //series: [{
-                                //    name: 'sales',
-                                //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
-                                //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-
-                                //}],
-                                //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
-                                xaxis: {
-                                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                },
-                            }
-                            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                            chartProfileVisit.render();
-
-                            window.dispatchEvent(new Event('resize'));
-                            $('#amtytd_aac').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
-                            $('#amtytd_tac').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
-                            $('#amtytd_all').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
-                            $('#amtmtd_aac').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
-                            $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
-                            $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
-
-                            console.log(data[0].AmtMTD);
-                            const dataP = {
-                                labels: [
-                                    'AAC',
-                                    'TAC',
-
-                                ],
-                                datasets: [{
-                                    label: 'ยอดซื้อรวมทั้งเดือน',
-                                    data: [data[0].AmtYTD, data[1].AmtYTD],
-                                    backgroundColor: [
-                                        'rgb(54, 162, 235)',
-                                        'rgb(255, 99, 132)',
-                                    ],
-                                    hoverOffset: 4
-                                }]
-                            };
-                            const config = {
-                                type: 'pie',
-                                data: dataP,
-                                //options: {
-                                //    plugins: {
-                                //        title: {
-                                //            display: true,
-                                //            text: 'ยอดซื้อรวมทั้งเดือน'
-                                //        }
-                                //    }
-                                //}
-                            };
-
-                            var ctx = document.getElementById('myChart').getContext('2d');
-                            var myChart = new Chart(ctx, config);
-
-                        } else {
-                            var optionsProfileVisit = {
-                                annotations: {
-                                    position: 'back'
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                chart: {
-                                    type: 'bar',
-                                    height: 200,
-
-                                },
-
-                                fill: {
-                                    opacity: 1
-                                },
-                                plotOptions: {
-                                },
-
-
-                                series: [{
-                                    name: 'sales',
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                                }],
-                                //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
-                                xaxis: {
-                                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                },
-                            }
-                            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                            chartProfileVisit.render();
-
-                            window.dispatchEvent(new Event('resize'));
-
-
-                            $('#amtytd_aac').html('Amt YTD AAC: 0');
-                            $('#amtytd_tac').html('Amt YTD TAC: 0');
-                            $('#amtytd_all').html('Amt YTD ALL: 0');
-                            $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
-                            $('#amtmtd_tac').html('Amt MTD TAC: 0');
-                            $('#amtmtd_all').html('Amt MTD ALL: 0');
-                        }
-                    }
-                });
-            }
-        }
-        function getcuschamt_child(cusnc) {
-
-            //cusnc = '110K0140';
-            var current_status = $('.statusamtchild').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("GetdataCusAmtchild", "DataCenter")',
-                    data: {
-                        strcustome: cusnc
-
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-                        if (data.length > 0) {
-
-                            var optionsProfileVisit = {
-                                annotations: {
-                                    position: 'back'
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                chart: {
-                                    type: 'bar',
-                                    height: 200,
-
-                                },
-                                xaxis: {
-                                    labels: {
-                                        formatter: function (value) {
-                                            return commaSeparateNumber(value);
-                                        }
-                                    },
-
-                                },
-                                yaxis: {
-                                    labels: {
-                                        formatter: function (value) {
-                                            return commaSeparateNumber(value);
-                                        }
-                                    },
-                                },
-                                fill: {
-                                    opacity: 1
-                                },
-                                plotOptions: {
-                                },
-
-                                series: [
-                            {
-                                name: 'AAC',
-                                type: 'column',
-                                data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                            },
-                            {
-                                name: 'TAC',
-                                type: 'column',
-                                data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                            },
-                            {
-                                name: 'ALL',
-                                type: 'column',
-                                data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                            }],
-                                //series: [{
-                                //    name: 'sales',
-                                //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
-                                //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-
-                                //}],
-                                //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
-                                xaxis: {
-                                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                },
-                            }
-                            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-                            chartProfileVisit.render();
-
-                            window.dispatchEvent(new Event('resize'));
-
-                            $('#amtytd_aac_cus').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
-                            $('#amtytd_tac_cus').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
-                            $('#amtytd_all_cus').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
-                            $('#amtmtd_aac_cus').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
-                            $('#amtmtd_tac_cus').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
-                            $('#amtmtd_all_cus').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
-                        } else {
-                            var optionsProfileVisit = {
-                                annotations: {
-                                    position: 'back'
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                chart: {
-                                    type: 'bar',
-                                    height: 200,
-
-                                },
-
-                                fill: {
-                                    opacity: 1
-                                },
-                                plotOptions: {
-                                },
-
-
-                                series: [{
-                                    name: 'sales',
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                                }],
-                                //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
-                                xaxis: {
-                                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                },
-                            }
-                            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit-child"), optionsProfileVisit);
-                            chartProfileVisit.render();
-
-                            window.dispatchEvent(new Event('resize'));
-
-
-                            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
-                            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
-                            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
-                            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
-                            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
-                            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
-                        }
-                    }
-                });
-            }
-        }
-
-        $("#btnnewitem").on("click", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var cuscod = cuskey;
-            if (cuscod == "") {
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal(); return false;
-
-            } else {
-                getContinue_Newitwm();
-                $("#ExtraLargeModalLabel").modal();
-            }
-
-        });
-        $('#ExtraLargeModalLabel').on('hidden.bs.modal', function () {
-            //window.alert('hidden event fired!');
-            //$('#fixboxs').empty();
-            //location.reload();
-           // $('#fixboxs').remove();
-        })
-
-
-
-
-
-
-
-        $(document).on("click", "#_btnlinkdetail", function () {
-            var cuscod = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var _vcom = $(this).attr('com');
-            var _vfd = $(this).attr('stock');
-            var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_vfd) + "/" + btoa(_vcom) + "/" + btoa(cuscod));
-            wi.focus();
-        });
 
         function openPeriod(PeriodName, id) {
 
@@ -1816,7 +1304,7 @@
                                     reward_color = "bg-info bg-opacity-75 ";
                                 }
 
-                                SubmithtmlPage += '<td> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
+                                SubmithtmlPage += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
                                 SubmithtmlPage += '</tr>';
                             }
                             if (period == 'yearly') {
@@ -2403,11 +1891,6 @@
                     datacus($('#selslm').val());
                     getCompanyInformationbysalman($('#selslm').val());//Company Information
                 }
-                //getcuschamt(item)//ยอดซื้อรวม
-                //getcuschamt_child(item) //ยอดซื้อตามร้านค้า
-                //getPromotion_Cus(item, 'yearly')//โปรโมชั่น
-                //getWarrantyClaim_Cu(item) //WarrantyClaim
-                //getbackord(item)//backorder
             },
 
             minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
@@ -2872,13 +2355,7 @@
 
                     }
                 });
-                // }
 
-               // getcuschamt(cusel); //ยอดซื้อรวม
-               // getcuschamt_child(cusel) //ยอดซื้อตามร้านค้า
-               // getPromotion_Cus(cusel, 'yearly')//promotion
-                //getWarrantyClaim_Cu(cusel) //WarrantyClaim
-               // getbackord(cusel)//backorder
             } else if (cusel == "ALL") {
 
                 countorder("", Slm)
@@ -2898,12 +2375,7 @@
                 $("#cushid").val("");
                 $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
                 $("#nocusses").val("");//master key customer
-                //cleardataselect()
-                //getcuschamt(cusel); //ยอดซื้อรวม
-                //getcuschamt_child(cusel) //ยอดซื้อตามร้านค้า
-               // getPromotion_Cus(cusel, 'yearly')//promotion
-              //  getWarrantyClaim_Cu(cusel) //WarrantyClaim
-              //  getbackord(cusel)//backorder
+
             }
            // alert(cusel)
 
@@ -3431,29 +2903,6 @@
                                 });
                             }
                         });
-                        /*
-                        var SubmithtmlPage = "";
-                        SubmithtmlPage += '<div class="card-body">';
-
-                        SubmithtmlPage += '<div class="mt--10">';
-                        SubmithtmlPage += '<div class="contact-btn">';
-                        SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                        SubmithtmlPage += 'Shopping';
-                        SubmithtmlPage += '</button>';
-                        SubmithtmlPage += '</div>';
-                        SubmithtmlPage += '</div>';
-                        SubmithtmlPage += '<a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />';
-
-                        SubmithtmlPage += '</div>';
-                        $('.appendbtnshopbysales').append(SubmithtmlPage);
-                        */
-
-                        //getcuschamt(cuscod) //charts
-                        //getcuschamt_child(cuscod)//charts_child
-                        //getPromotion_Cus(cuscod, 'yearly')//promotion
-
-                        //getWarrantyClaim_Cu(cuscod) //WarrantyClaim
-                        //getbackord(cuscod)//backorder
                     }
                 }
             } else if (usertype == "6") {
@@ -3512,13 +2961,6 @@
 
                             }
                             cuslog = data[0].CUSCOD;
-
-                            //getcuschamt(cuslog) //charts
-                            //getcuschamt_child(cuslog)//charts_child
-                            //getPromotion_Cus(cuslog, 'yearly')//promotion
-                            //getCompanyInformation(cuslog)//Company Information
-                            //getWarrantyClaim_Cu(cuslog) //WarrantyClaim
-                           // getbackord(cuslog)//backorder
                             $.ajax({
                                 url: '@Url.Action("GetdatabyCus", "DataCenter")',
                                 data: {
@@ -3595,12 +3037,6 @@
                     */
                     //window.location.replace("../Account/LogIn");
                 } else {
-
-                   // getcuschamt(cuscod) //charts
-                    //getcuschamt_child(cuscod)//charts_child
-                    //getPromotion_Cus(cuscod,'yearly')//promotion
-                    //getWarrantyClaim_Cu(cuscod) //WarrantyClaim
-                    //getbackord(cuscod)//backorder
                     $('#nextspold').css("display", "none");
                     //$('#h2title').html("พนักงานขาย");
 

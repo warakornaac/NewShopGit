@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NewShop.Controllers
 {
@@ -43,7 +44,7 @@ namespace NewShop.Controllers
             try
             {
                 conn.Open();
-                var command = new SqlCommand("P_ADD_OTP", conn);
+                var command = new SqlCommand("P_Add_Otp", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@user", user.Trim());
                 command.Parameters.AddWithValue("@Phone", phone.Trim());
@@ -80,7 +81,7 @@ namespace NewShop.Controllers
             try
             {
                 conn.Open();
-                var command = new SqlCommand("P_CHECK_OTP", conn);
+                var command = new SqlCommand("P_Check_Otp", conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@lineid", lineid.Trim());
                 command.Parameters.AddWithValue("@user", user.Trim());
@@ -118,14 +119,13 @@ namespace NewShop.Controllers
             }
             return stringBuilder.ToString();
         }
-        private async Task<string> Apiservice(string phone, string user, string otp, string reff)
+        private async Task<string> Apiservice(string phone, string Text, string user)
         {
-            var urlAPI = "https://mst.aac.co.th/APIService/Post/Sms";
+            var urlAPI = "https://mst.aac.co.th/APIService/Post/SendSms";
             var post = new SmsModels
             {
                 Phone = phone,
-                Otp = otp,
-                Ref = reff,
+                Text = Text,
                 User = user
             };
             try
