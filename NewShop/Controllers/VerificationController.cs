@@ -61,11 +61,12 @@ namespace NewShop.Controllers
                 message = command.Parameters["@outColumn"].Value.ToString();
                 status = command.Parameters["@outGenstatus"].Value.ToString();
                 command.Dispose();
-                if (!string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(refer) && !string.IsNullOrEmpty(otp) && !string.IsNullOrEmpty(user)) {
+                if (!string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(refer) && !string.IsNullOrEmpty(otp) && !string.IsNullOrEmpty(user))
+                {
                     TextConfirmOtp = "OTP = " + otp + " [Ref:" + refer + "] สำหรับ Customer Portal จะหมดอายุภายใน 5 นาที";
                     var statusApi = Apiservice(phone, TextConfirmOtp, user);
-                    //Api = await statusApi;
-                    Api = "YES";
+                    Api = await statusApi;
+                    //Api = "YES";
                 }
             }
             catch (Exception ex)
