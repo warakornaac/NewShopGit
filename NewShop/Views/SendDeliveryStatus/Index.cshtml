@@ -29,6 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css">
 
+
     <style>
         /*@@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
 
@@ -169,58 +170,10 @@
             </div>
         </div>
     </div>
-    @*show detail before send*@
-    <div class="row justify-content-center" style="padding-top: 5px;">
-        <div class="col-md-10 col-sm-12" id="OrderDetail" style="display: none;">
-            <div class="card">
-                <h5 class="card-header"><b>Order Detail</b></h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="">UID</label>
-                                <input type="text" class="form-control" style="text-align: left;" id="txtUid" value="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="control-label" for="">เลขที่เอกสาร</label>
-                                <input type="text" class="form-control" style="text-align: left;" id="txtDocno" value="" />
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="control-label" for="">วันที่ส่ง</label>
-                                <input type="text" class="form-control" style="text-align: left;" id="txtDocdate" value="" />
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="control-label" for="">ชื่อร้าน	</label>
-                                <input type="text" class="form-control" style="text-align: left;" id="txtCusname" value="" />
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="control-label" for="">สถานะส่งสินค้า</label>
-                                <input type="text" class="form-control" style="text-align: left;" id="txtDelivery" value="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="col-sm-12 text-right">
-                        <button type="button" class="btn btn-md btn-success" onclick="sendDataDelivery();"><i class="fa fa-send"></i> Send </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     @*show detail after send*@
     <div class="row justify-content-center" id="showDeliveryStatusAll" style="padding-top: 5px;">
     </div>
+
 </div>
 
 <script>

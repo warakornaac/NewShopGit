@@ -37,6 +37,7 @@ namespace NewShop.Controllers
             .Select(s => s[_random.Next(s.Length)]).ToArray());
             string status = string.Empty;
             string message = string.Empty;
+            string TextConfirmOtp = string.Empty;
             //string statusApi = string.Empty;
             string Api = string.Empty;
             var connectString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -60,9 +61,12 @@ namespace NewShop.Controllers
                 message = command.Parameters["@outColumn"].Value.ToString();
                 status = command.Parameters["@outGenstatus"].Value.ToString();
                 command.Dispose();
-                //var statusApi = Apiservice(phone, user, otp, refer);
-                //Api = await statusApi;
-                Api = "YES";
+                if (!string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(refer) && !string.IsNullOrEmpty(otp) && !string.IsNullOrEmpty(user)) {
+                    TextConfirmOtp = "OTP = " + otp + " [Ref:" + refer + "] สำหรับ Customer Portal จะหมดอายุภายใน 5 นาที";
+                    var statusApi = Apiservice(phone, TextConfirmOtp, user);
+                    //Api = await statusApi;
+                    Api = "YES";
+                }
             }
             catch (Exception ex)
             {
@@ -110,7 +114,7 @@ namespace NewShop.Controllers
         }
         public string GenerateRandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Random random = new Random();
             StringBuilder stringBuilder = new StringBuilder(length);
             for (int i = 0; i < length; i++)

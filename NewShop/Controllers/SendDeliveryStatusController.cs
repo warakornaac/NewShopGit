@@ -183,12 +183,95 @@ namespace NewShop.Controllers
                 @ViewBag.arrSuccess
             });
         }
+        public ActionResult DashboardSendDeliveryStatusAuto()
+        {
+            int numSuccess = 0;
+            int numError = 0;
+            string[] arrSuccess = new string[2];
+            string[] arrError = new string[2];
 
+
+            ViewBag.listData = GetStoreSearchOrderNotify();
+            ViewBag.countlistDataAll = GetStoreSearchOrderNotify().Count;
+            //get data by stored
+            //if (List.Any())
+            //{
+            //    foreach (var rowList in List)
+            //    {
+            //        var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "Warakorn.pra");
+            //        string json = JsonConvert.SerializeObject(statusApi.Result.Data);
+            //        ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
+            //        //send fail
+            //        if (dto.status != "OK")
+            //        {
+            //            ++numError;
+            //            //arrError[numError] = rowList.Docno;
+            //        }
+            //        else
+            //        {
+            //            ++numSuccess;
+            //            //arrSuccess[numSuccess] = rowList.Docno;
+            //        }
+            //    }
+            //}
+            ViewBag.numError = numError;
+            ViewBag.arrError = arrError;
+            ViewBag.numSuccess = numSuccess;
+            ViewBag.arrSuccess = arrSuccess;
+
+            return View();
+        }
+        public List<ListSendDelivery> GetStoreSearchOrderNotify()
+        {
+            List<ListSendDelivery> List = new List<ListSendDelivery>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("p_Order_Notify", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            Connection.Open();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                List.Add(new NewShop.Models.ListSendDelivery()
+                {
+                    Uid = "Ucea94914394b7928e1c8dd37541d682a".ToString(),
+                    Docno = dr["Ord_DocNo"].ToString(),
+                    Docdate = dr["ORD_Date"].ToString(),
+                    Cusname = dr["CUSNAM"].ToString(),
+                    Delivery = dr["Notify"].ToString(),
+                    User = "superadmin",
+                });
+            }
+            return List;
+        }
+        public List<ListSendDelivery> GetStoreSearchOrderNotifySum()
+        {
+            List<ListSendDelivery> List = new List<ListSendDelivery>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("p_Order_Notify", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            Connection.Open();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                List.Add(new NewShop.Models.ListSendDelivery()
+                {
+                    Uid = "Ucea94914394b7928e1c8dd37541d682a".ToString(),
+                    Docno = dr["Ord_DocNo"].ToString(),
+                    Docdate = dr["ORD_Date"].ToString(),
+                    Cusname = dr["CUSNAM"].ToString(),
+                    Delivery = dr["Notify"].ToString(),
+                    User = "superadmin",
+                });
+            }
+            return List;
+        }
         public async Task<JsonResult> ApiPushMessage(string Uid, string Docno, string Docdate, string Cusname, string Delivery, string User)
         {
             string status = string.Empty;
             string message = string.Empty;
-            var urlAPI = "https://mst.aac.co.th/APIService/Post/PushMessage";
+            var url = "https://mst.aac.co.th/APIService/Post/PushMessage";
             var post = new ListSendDelivery
             {
                 Uid = Uid,
@@ -205,7 +288,7 @@ namespace NewShop.Controllers
                 var client = new HttpClient(handler);
                 string jsonContent = JsonConvert.SerializeObject(post);
                 HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(urlAPI, content).GetAwaiter().GetResult();
+                HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
