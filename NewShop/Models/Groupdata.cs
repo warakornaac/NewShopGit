@@ -952,12 +952,15 @@ namespace NewShop.Models
         public string AACCRLINE { get; set; }
         public string AACBAL { get; set; }
         public string AACBALDue { get; set; }
+        public string AACBilDue { get; set; }
         public string TACCRLINE { get; set; }
         public string TACBAL { get; set; }
         public string TACBALDue { get; set; }
+        public string TACBilDue { get; set; }
         public string OMPCRLINE { get; set; }
         public string OMPBAL { get; set; }
         public string OMPBALDue { get; set; }
+        public string OMPBilDue { get; set; }
         public string SLMCOD { get; set; }
         public string INACTIVE { get; set; }
         public string BLOCKED { get; set; }
@@ -1047,7 +1050,17 @@ namespace NewShop.Models
         public string Discount { get; set; }
         public string Amount { get; set; }
     }
-    public class NotifyCountList{
-        public string sumOrderCurrentDate { get; set; }
+
+    public class BillingDue
+    {
+        public string Company { get; set; }
+        public string DocDat { get; set; }
+        public string PstDat { get; set; }
+        public string InvDue { get; set; }
+        public string Invnum { get; set; }
+        public string Amt { get; set; }
+        public string BillNo { get; set; }
+        public string BillDat { get; set; }
+        public string BillDue { get; set; }
     }
 }
