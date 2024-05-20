@@ -188,8 +188,6 @@
     </style>
 
     <style>
-
-
         h5 {
             font-size: 1.28571429em;
             font-weight: 700;
@@ -301,7 +299,6 @@
                     color: rgba(0, 0, 0, .87);
                 }
         /* Dropdown Button */
-
         .dropbtn {
             /* background-color: #04AA6D; */
             color: #075896;
@@ -349,7 +346,7 @@
         }
 
         .form-select option {
-            text-align: center; /* สำหรับตัวเลือกใน drop-down */
+            text-align: center;
         }
         /* Change the background color of the dropdown button when the dropdown content is shown */
         .dropdown:hover .dropbtn {
@@ -542,10 +539,6 @@
                                                         <td><span id="tac-crline">0</span></td>
                                                         <td><span id="omp-crline">0</span></td>
                                                     </tr>
-                                                    @*<tr>
-                                                            <th>เครดิต</th>
-                                                            <td class="text-center" colspan="3" id="cr-numdate"><span id="credit-duedate"> </span> วัน</td>
-                                                        </tr>*@
                                                     <tr>
                                                         <th>วงเงินที่ใช้ไป</th>
                                                         <td><span id="aac-bal">0</span></td>
@@ -558,45 +551,40 @@
                                                         <td><span id="tac-res">0</span></td>
                                                         <td><span id="omp-res">0</span></td>
                                                     </tr>
-                                                    <tr data-toggle="collapse" data-target="#baldue-show" class="accordion-toggle table-hover">
+                                                    <tr data-toggle="collapse" data-target="#baldue-show" class="accordion-toggle " onclick="getBillingDue();">
                                                         <th>ยอดถึงกำหนดชำระ <br />วันที่กำหนดชำระ</th>
-                                                        <td><span id="aac-baldue">0</span><br /><span id="aac-baldue-date">2024-04-23</span></td>
-                                                        <td><span id="tac-baldue">0</span><br /><span id="tac-baldue-date">2024-04-23</span></td>
-                                                        <td><span id="omp-baldue">0</span><br /><span id="omp-baldue-date">2024-04-23</span></td>
+                                                        <td><span id="aac-baldue">0</span><br /><span id="aac-bildue-date"></span></td>
+                                                        <td><span id="tac-baldue">0</span><br /><span id="tac-bildue-date"></span></td>
+                                                        <td><span id="omp-baldue">0</span><br /><span id="omp-bildue-date"></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="p-0"></td>
                                                         <td colspan="3" class="hiddenRow">
                                                             <div class="accordian-body collapse table-responsive m-0" id="baldue-show">
-                                                                <table class="table table-borderless">
+                                                                <h4>
+                                                                    รายการรอชำระ
+                                                                </h4>
+                                                                <table class="table table-borderless" id="bildue-table">
                                                                     <thead class="thead-default">
                                                                         <tr>
                                                                             <th>
-                                                                                header1
+                                                                                บริษัท
                                                                             </th>
                                                                             <th>
-                                                                                header2
+                                                                                หมายเลขสั่งซื้อ
+                                                                            </th>
+                                                                            <th>
+                                                                                หมายเลขบิล
+                                                                            </th>
+                                                                            <th>
+                                                                                วันกำหนดชำระ
+                                                                            </th>
+                                                                            <th>
+                                                                                จำนวนเงิน
                                                                             </th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                test1-1
-                                                                            </td>
-                                                                            <td>
-                                                                                Test1-2
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                test2-1
-                                                                            </td>
-                                                                            <td>
-                                                                                Test2-2
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
+                                                                    <tbody></tbody>
                                                                 </table>
                                                             </div>
                                                         </td>
@@ -658,15 +646,15 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- Modal -->
-                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-backdrop="static" data-keyboard="false">
+                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header ">
                                 <strong>รหัสการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
                                 @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
                                 <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>
-
                             </div>
                             <div class="modal-body d-flex justify-content-center row">
                                 <div class="col-12">
@@ -702,10 +690,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
 
         <!-- ModalWarning -->
         <div class="modal" id="myModalWarning">
@@ -716,21 +702,17 @@
                     <div class="modal-body">
                         <div id="textAlertWarning">Some text in the modal.</div>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="modal" id="smallModal">
             <div class="modal-dialog">
-
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
                         &times;
                     </button>
                     <div class="modal-header">
-
                     </div>
-
                     <div class="modal-body">
                         ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
                     </div>
@@ -743,15 +725,12 @@
         </div>
         <div class="modal" id="smallModalselcus">
             <div class="modal-dialog">
-
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
                         &times;
                     </button>
                     <div class="modal-header">
-
                     </div>
-
                     <div class="modal-body">
                         ใส่ชื่อร้านหรือรหัสร้านค้า
                         <div id="blcslm" style="display:block">
@@ -770,18 +749,14 @@
         </footer>
     </div>
 
-    @*<script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>*@
 
-
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-
     @*<link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
         <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>*@
     @*<script src="~/Scripts/webAddress.js"></script>
@@ -795,7 +770,6 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
-        //var cuscod = "";
         console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
@@ -820,7 +794,6 @@
             var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
             var currentYear = currentDate.getFullYear();
             var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
-
             getCreditCus(cuscod);
             getCusMonth(cuscod, currentYear, currentMonth);
         }
@@ -828,7 +801,6 @@
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-
 
         function getLastSixMonths() {
             const result = [];
@@ -884,15 +856,12 @@
                     window.setTimeout(ScaleSlider, 30);
                 }
             }
-
             ScaleSlider();
-
             $Jssor$.$AddEvent(window, "load", ScaleSlider);
             $Jssor$.$AddEvent(window, "resize", ScaleSlider);
             $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-
-
         };
+
         $(document).ready(function () {
             $('#select-month-year').on('change', function () {
                 const selectMonthYear = $(this).val();
@@ -900,15 +869,15 @@
                 getCusMonth(cuscod, year.trim(), month.trim());
             });
         });
+
         function commaSeparateNumber(val) {
             while (/(\d+)(\d{3})/.test(val.toString())) {
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
             }
             return val;
         }
-
+        //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
         function getCusMonth(cus,year,month) {
-            //$("#amt-table").DataTable();
             $.ajax({
                 url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
                 data: {
@@ -934,7 +903,6 @@
                             dataType: "JSON",
                             beforeSend: function () {
                                 $('#total-text').text("");
-
                                 $("#amt-total").text("");
                                 $("#loading-text-table").text("Loading...");
                             },
@@ -949,8 +917,8 @@
                                     SubmithtmlPage += '<tr>';
                                     SubmithtmlPage += '<td colspan="4" class="hiddenRow">'
                                     SubmithtmlPage += '<div class="accordian-body collapse table-responsive" id="col-detail-' + i + '"> ';
-                                    SubmithtmlPage += '<table class="table table-light table-striped table-bordered table-hover " id="sec-table-' + i + '">';
-                                    SubmithtmlPage += '<thead class="thead-default">';
+                                    SubmithtmlPage += '<table class="table table-sm table-striped table-bordered table-hover " id="sec-table-' + i + '">';
+                                    SubmithtmlPage += '<thead ">';
                                     SubmithtmlPage += '<tr>';
                                     SubmithtmlPage += '<th>จากบริษัท</th>';
                                     SubmithtmlPage += '<th>วันที่สั่งซื้อ</th>';
@@ -959,7 +927,6 @@
                                     SubmithtmlPage += '<th>สถานะ</th>';
                                     SubmithtmlPage += '</tr>';
                                     SubmithtmlPage += '</thead>';
-
                                     SubmithtmlPage += '<tbody>';
 
                                     if (result.Getdata.length > 0) {
@@ -981,7 +948,6 @@
                                     SubmithtmlPage += '</div>';
                                     SubmithtmlPage += '</td>';
                                     SubmithtmlPage += '</tr>';
-
                                     var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
                                     if (!isNaN(amount)) {
                                         resTotal += amount;
@@ -1002,7 +968,6 @@
                         $("#amt-table tbody").append(SubmithtmlPage);
                     }
                     console.log(data.message);
-
                 }
             });
         }
@@ -1013,12 +978,12 @@
             } else {
                 text.text("+");
             }
-
             // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
             var targetId = row.getAttribute('data-target');
             var targetElement = document.getElementById(targetId.substring(1));
             $(targetElement).collapse('toggle');
         }
+        //รายละเอียดเลข invoice
         function getDetailCusinv(DocNum) {
             $('#cusMonthItemModal').modal('show');
             $('#docno-item').text(DocNum);
@@ -1066,7 +1031,7 @@
                 }
             });
         }
-
+        //ดึงข้อมูล credit
         function getCreditCus(cus) {
             $.ajax({
                 url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
@@ -1077,7 +1042,6 @@
                 dataType: "JSON",
                 success: function (data) {
                     if (data.message == 'Y') {
-
                         var lastInvoiceDate = data.credits[0].LASIVC;
 
                         $('#cr-date').text(lastInvoiceDate);
@@ -1098,7 +1062,9 @@
                         var ompbaldue = data.credits[0].OMPBALDue;
 
                         var creditdue = data.credits[0].AACPAYTR;
-
+                        var aacbildue = data.credits[0].AACBilDue;
+                        var tacbildue = data.credits[0].TACBilDue;
+                        var ompbildue = data.credits[0].OMPBilDue;
 
                         $('#credit-duedate').text(creditdue);
 
@@ -1117,12 +1083,91 @@
                         $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
                         $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
                         $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+
+                        $('#aac-bildue-date').text(aacbildue);
+                        $('#tac-bildue-date').text(tacbildue);
+                        $('#omp-bildue-date').text(ompbildue);
+
+
+
                     }
                     else {
                         console.log(data.message);
                     }
                 }
             });
+        }
+        function getBillingDue() {
+            var aacdue = $('#aac-bildue-date').text();
+            var tacdue = $('#tac-bildue-date').text();
+            var ompdue = $('#omp-bildue-date').text();
+
+            function parseDate(dateStr) {
+                if (!dateStr) return null;
+                var parts = dateStr.split('-');
+                var day = parseInt(parts[0], 10)+1;
+                var month = parseInt(parts[1], 10) - 1;
+                var year = parseInt(parts[2], 10);
+                var date = new Date(year, month, day);
+                return isNaN(date.getTime()) ? null : date;
+            }
+            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
+            if (dates.length > 0) {
+                var minDate = new Date(Math.min.apply(null, dates));
+                var maxDate = new Date(Math.max.apply(null, dates));
+                console.log("วันที่น้อยที่สุดคือ: " + minDate.toISOString().split('T')[0]);
+                console.log("วันที่มากที่สุดคือ: " + maxDate.toISOString().split('T')[0]);
+
+                 $.ajax({
+                     url: '@Url.Action("GetBilling", "CustomerDashboard")',
+                     data: {
+                         CUSCOD: cuscod,//cuscod
+                         DueDatMin: minDate.toISOString().split('T')[0],
+                         DueDatMax: maxDate.toISOString().split('T')[0]
+                     },
+                     type: 'POST',
+                     dataType: 'JSON',
+                     beforeSend: function(){
+                         $('#bildue-table tbody').html("");
+                         var SubmithtmlPage = "";
+                         SubmithtmlPage += '<tr>';
+                         SubmithtmlPage += '<td colspan="5">Loading....</td>';
+                         SubmithtmlPage += '<tr>';
+                         $('#bildue-table tbody').append(SubmithtmlPage);
+                     },
+                     success: function (data) {
+                         if (data.message == 'Y') {
+                             $('#bildue-table tbody').html("");
+                             var SubmithtmlPage = "";
+                             if (data.Getdata.length != 0) {
+                                 for (var i = 0; i < data.Getdata.length; i++) {
+                                     SubmithtmlPage += '<tr>';
+                                     SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                     SubmithtmlPage += '<td>' + data.Getdata[i].Invnum + '</td>';
+                                     SubmithtmlPage += '<td>' + data.Getdata[i].BillNo + '</td>';
+                                     SubmithtmlPage += '<td>' + data.Getdata[i].BillDue + '</td>';
+                                     SubmithtmlPage += '<td>' + data.Getdata[i].Amt + '</td>';
+                                     SubmithtmlPage += '</tr>';
+                                 }
+                                 $('#bildue-table tbody').append(SubmithtmlPage);
+                             }
+                             else {
+                                 $('#bildue-table tbody').html("");
+                                 var SubmithtmlPage = "";
+                                 SubmithtmlPage += '<tr>';
+                                 SubmithtmlPage += '<td colspan="5">ไม่พบข้อมูล</td>';
+                                 SubmithtmlPage += '<tr>';
+                                 $('#bildue-table tbody').append(SubmithtmlPage);
+                             }
+                         }
+                         else {
+                             console.log(data.message);
+                         }
+                     }
+
+                 });
+            }
+
         }
 
         function myFunction() {
@@ -1135,9 +1180,6 @@
                 $("#selcus").prop("disabled", false);
             }
         }
-
-
-
 
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {

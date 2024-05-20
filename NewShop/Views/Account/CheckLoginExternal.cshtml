@@ -95,33 +95,6 @@
         var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
         var currentURL = loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 
-        function addUserLine(userId,displayName,email,page) {
-            var userId = userId || "";
-            var displayName = displayName || "";
-            var getDecodedIDToken = email || "";
-            var page = page || "";
-            console.log("userId = " + userId);
-            console.log("displayName = " + displayName);
-            console.log("getDecodedIDToken = " + getDecodedIDToken);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("")',
-                data: {
-                    userId: userId,
-                    email: email,
-                    displayName: displayName,
-                },
-                dataType: 'JSON',
-                beforeSend: function () {
-
-                },
-                success: function (resault) {
-
-                }
-            })
-
-        }
-
         function getDataLoginExternal(pictureUrl, userId, displayName, email, page) {
             var userId = userId || "";
             var displayName = displayName || "";

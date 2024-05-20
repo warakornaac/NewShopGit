@@ -86,12 +86,15 @@ namespace NewShop.Controllers
                         AACCRLINE = reader["AACCRLINE"].ToString(),
                         AACBAL = reader["AACBAL"].ToString(),
                         AACBALDue = reader["AACBALDue"].ToString(),
+                        AACBilDue = reader["AACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["AACBilDue"]).ToString("dd/MM/yyyy") : "",
                         TACCRLINE = reader["TACCRLINE"].ToString(),
                         TACBAL = reader["TACBAL"].ToString(),
                         TACBALDue = reader["TACBALDue"].ToString(),
+                        TACBilDue = reader["TACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["TACBilDue"]).ToString("dd/MM/yyyy") : "",
                         OMPCRLINE = reader["OMPCRLINE"].ToString(),
                         OMPBAL = reader["OMPBAL"].ToString(),
                         OMPBALDue = reader["OMPBALDue"].ToString(),
+                        OMPBilDue = reader["OMPBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["OMPBilDue"]).ToString("dd/MM/yyyy") : "",
                         SLMCOD = reader["SLMCOD"].ToString(),
                         INACTIVE = reader["INACTIVE"].ToString(),
                         BLOCKED = reader["BLOCKED"].ToString(),
@@ -336,6 +339,45 @@ namespace NewShop.Controllers
                 command.Dispose();
                 Connection.Close();
                 message = "Y";
+            }
+            catch (Exception ex) { message = ex.Message; }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBilling(string CUSCOD, string DueDatMin, string DueDatMax)
+        {
+            string message = "";
+            List<BillingDue> Getdata = new List<BillingDue>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_FindBillingDueNotPayByCus", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Cuscod", CUSCOD);
+                command.Parameters.AddWithValue("@InDateMin", DueDatMin);
+                command.Parameters.AddWithValue("@InDateMax", DueDatMax);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new BillingDue
+                    {
+                        Company = reader["Company"].ToString(),
+                        DocDat = Convert.ToDateTime(reader["DocDat"]).ToString("dd/MM/yyyy"),
+                        PstDat = Convert.ToDateTime(reader["PstDat"]).ToString("dd/MM/yyyy"),
+                        InvDue = Convert.ToDateTime(reader["InvDue"]).ToString("dd/MM/yyyy"),
+                        Invnum = reader["Invnum"].ToString(),
+                        Amt = reader["Amt"].ToString(),
+                        BillNo = reader["BillNo"].ToString(),
+                        BillDat = Convert.ToDateTime(reader["BillDat"]).ToString("dd/MM/yyyy"),
+                        BillDue = Convert.ToDateTime(reader["BillingDue"]).ToString("dd/MM/yyyy")
+                    });
+                }
+                message = "Y";
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+
             }
             catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
