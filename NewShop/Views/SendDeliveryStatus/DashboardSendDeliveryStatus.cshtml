@@ -1,0 +1,340 @@
+﻿@{ ViewBag.Title = "DashboardSendDeliveryStatusAuto";
+    Layout = "~/Views/Shared/_LayoutSendDelivery.cshtml"; }
+<style>
+    .card-counter {
+        box-shadow: 2px 2px 10px #DADADA;
+        margin: 5px;
+        padding: 20px 10px;
+        background-color: #fff;
+        height: 100px;
+        border-radius: 5px;
+        transition: .3s linear all;
+    }
+
+        .card-counter:hover {
+            box-shadow: 4px 4px 20px #DADADA;
+            transition: .3s linear all;
+        }
+
+        .card-counter.primary {
+            background-color: #007bff;
+            color: #FFF;
+        }
+
+        .card-counter.danger {
+            background-color: #ef5350;
+            color: #FFF;
+        }
+
+        .card-counter.success {
+            background-color: #66bb6a;
+            color: #FFF;
+        }
+
+        .card-counter.info {
+            background-color: #26c6da;
+            color: #FFF;
+        }
+
+        .card-counter.warning {
+            background-color: #ffc107;
+            color: #FFF;
+        }
+
+        .card-counter i {
+            font-size: 5em;
+            opacity: 0.2;
+        }
+
+        .card-counter .count-numbers {
+            position: absolute;
+            right: 35px;
+            top: 20px;
+            font-size: 32px;
+            display: block;
+        }
+
+        .card-counter .count-name {
+            position: absolute;
+            right: 35px;
+            top: 65px;
+            font-style: italic;
+            text-transform: capitalize;
+            opacity: 0.5;
+            display: block;
+            font-size: 18px;
+        }
+        /*tableFixhead*/
+        .tableFixHead {
+            overflow-y: auto;
+            height: 640px;
+        }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+            background-color: #007bff;
+        }
+
+        .tableFixHead th {
+            background: white;
+        }
+</style>
+<div class="card card-custom" style="box-shadow: none;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row" style="margin-bottom: 50px;">
+                    <div class="col-sm-3 text-left">
+                        <a href="#"><img src="~/images/logo/AACTAC185x70.jpg" alt="" height="90" style="border-radius: 5px;"></a>
+                    </div>
+                    <div class="col-sm-5 text-right">
+                        @*<h1 class="card-label" style="margin-top: 22px; font-size: 45px;"></h1>*@
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <h2 style="font-size: 35px;margin-bottom: 0;margin-top: -20px;"><i class="fa fa-clock-o"></i> <small style="font-size: 50%; color:#767676;">Last update&nbsp;:&nbsp;<text id="sumDateCurrent"><div class="spinner-border"></div></text></small></h2>
+                        @*<h1 class="card-label" style="margin-top: 22px;">สาขา : <?php echo $companyName; ?></h1>*@
+                        <div class="countdown"></div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -10px;">
+                    <div class="col-sm-5">
+                        <div class="form-group highlight-addon">
+                            <h1 style="font-weight: bold; font-size: 30px;">Order All&nbsp;&nbsp;<i class="fas fa-chart-line fa-lg text-success"></i></h1>
+                            <div class="form-control-plaintext">
+                                <h1 style="font-size: 45px;"><text id="sumOrderAll"><div class="spinner-border"></div></text></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group highlight-addon">
+                            <h1 style="font-weight: bold; font-size: 30px;">Send Success&nbsp;<small style="font-size: 50%;color:#767676;">(วันนี้ / เดือนนี้)</small>&nbsp;&nbsp;<i class="fas fa-hand-holding-usd fa-lg text-warning"></i></h1>
+                            <div class="form-control-plaintext">
+                                <h1 style="font-size: 45px;"><text id="sumOrderCurrentDate" class="text-success"><div class="spinner-border"></div></text>&nbsp;/&nbsp;<text id="sumOrderByMonth" class="text-primary"><div class="spinner-border"></div></text></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <h5 class="card-header" style="padding-bottom: 5px;">
+                                <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-sm-6 col-md-6 text-left p-0">
+                                        <b><i class="fa fa-list"></i> List order last </b>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 text-right">
+                                        @*<button type="button" class="btn btn-md btn-success" onclick="sendDataDeliveryAll();"><i class="fa fa-send"></i> Send All </button>*@
+                                    </div>
+                                </div>
+                            </h5>
+                            <div class="card-body" style="padding: 0px 0px;">
+                                <div id="listOrderLast" >
+                                    <div class="table-responsive tableFixHead">
+                                        <table class="table tableFixHead table-striped table-bordered nowrap table-hover" width="100%" style="margin-bottom: 0px;">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center"><b>UID</b></th>
+                                                    <th class="text-center"><b>เลขที่เอกสาร</b></th>
+                                                    <th class="text-center"><b>วันที่ส่ง</b></th>
+                                                    <th class="text-center"><b>ชื่อร้าน</b></th>
+                                                    <th class="text-center"><b>สถานะสินค้า</b></th>
+                                                    @*<th class="text-center"><b>Send message</b></th>*@
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="6" class="text-center"> <div class="spinner-border"></div> กำลังโหลดข้อมูล ... </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" style="overflow: auto; height: 1050px;">
+                @*<div class="data-receive-teams"><div class="spinner-border"></div> กำลังโหลดข้อมูล ...</div>*@
+                <div class="row">
+
+                    <div class="col-sm-12" style="margin-bottom: 0px;">
+                        <div class="card-counter primary">
+                            <i class="fa fa-archive"></i>
+                            <span class="count-numbers"> <text id="sumOrderStatus1"><div class="spinner-border"></div></text> </span>
+                            <span class="count-name">รับ Order</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom: 0px;">
+                        <div class="card-counter info">
+                            <i class="fa fa-list"></i>
+                            <span class="count-numbers"> <text id="sumOrderStatus2"><div class="spinner-border"></div></text> </span>
+                            <span class="count-name">เตรียมจัดส่ง</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom: 0px;">
+                        <div class="card-counter warning">
+                            <i class="fa fa-truck"></i>
+                            <span class="count-numbers"> <text id="sumOrderStatus3"><div class="spinner-border"></div></text> </span>
+                            <span class="count-name">ระหว่างขนส่ง</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom: 0px;">
+                        <div class="card-counter success">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span class="count-numbers"> <text id="sumOrderStatus4"><div class="spinner-border"></div></text> </span>
+                            <span class="count-name">จัดส่งสำเร็จ</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function scrollSmoothToBottom() {
+        $('.tableFixHead').animate({ scrollTop: 1300 }, 60000, function () {
+            $('.tableFixHead').animate({ scrollTop: 0 }, 0);
+            scrollSmoothToBottom();
+        });
+    }
+    //data table list last
+    async function GetListOrderLast() {
+        console.log("GetListOrderLast");
+        try {
+            $.ajax({
+                type: 'post',
+                url: '/SendDeliveryStatus/GetStoreSearchOrderNotify',
+                data: {},
+                dataType: 'json',
+                beforeSend: function () {
+                  
+                },success: function (data) {
+                    if (data.length > 0) {
+                        var rowCount = 1;
+                        var htmlTable = "";
+                        for (var i = 0; i < data.length; i++) {
+                            //console.log(data[i]);
+                            htmlTable += "<tr>";
+                            htmlTable += "<td class='text-center'>" + rowCount++ + "</td>";
+                            htmlTable += "<td class='text-center'>" + data[i].Uid + "</td>";
+                            htmlTable += "<td>" + data[i].Docno + "</td>";
+                            htmlTable += "<td>" + data[i].Docdate + "</td>";
+                            htmlTable += "<td>" + data[i].Cusname + "</td>";
+                            htmlTable += "<td>" + data[i].Delivery + "</td>";
+                           // htmlTable += "<td class='text-center'>" + '' + "</td>";
+                            htmlTable += "</tr>";
+                        }
+
+                        $('#listOrderLast  tbody:last-child').html("");
+                        $('#listOrderLast  tbody:last-child').prepend(htmlTable);
+                        setTimeout(function () {
+                            scrollSmoothToBottom();
+                        }, 500);
+                    }
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    //data count
+    async function GetSendDeliveryCount() {
+        console.log("GetSendDeliveryCount");
+        try {
+            $.ajax({
+                type: 'post',
+                url: '/SendDeliveryStatus/GetStoreSearchOrderNotifyCount',
+                data: {},
+                dataType: 'json',
+                beforeSend: function () {
+                   
+                },
+                success: function (data) {
+                    //console.log(data[0].sumOrderAll);
+                    $('#sumOrderAll').text(data[0].sumOrderAll);
+                    $('#sumOrderCurrentDate').text(data[0].sumOrderCurrentDate);
+                    $('#sumOrderByMonth').text(data[0].sumOrderByMonth);
+                    $('#sumOrderStatus1').text(data[0].sumOrderStatus1);
+                    $('#sumOrderStatus2').text(data[0].sumOrderStatus2);
+                    $('#sumOrderStatus3').text(data[0].sumOrderStatus3);
+                    $('#sumOrderStatus4').text(data[0].sumOrderStatus4);
+                    $('#sumDateCurrent').text(data[0].sumDateCurrent);
+                }
+            }).fail(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ระบบทำงานผิดพลาด()',
+                    html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>saveForecastSale<br>' + error.responseText + '<br><br>',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false
+                });
+            });
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'ระบบทำงานผิดพลาด()',
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>saveForecastSale<br>' + erroพ + '<br><br>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false
+            });
+        }
+    }
+    //นับเวลา refresh
+    var timer2 = "5:01";
+    var interval = setInterval(function () {
+        var timer = timer2.split(':');
+        //by parsing integer, I avoid all extra string processing
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        if (minutes < 0) clearInterval(interval);
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        //minutes = (minutes < 10) ?  minutes : minutes;
+        $('.countdown').html(minutes + ':' + seconds);
+        timer2 = minutes + ':' + seconds;
+    }, 1000);
+
+    async function getReloadDashboard() {
+        const countData = await GetSendDeliveryCount();
+        const listlLastData = await GetListOrderLast();
+
+        //if (teamData.isdata == true) {
+        //    setTimeout(async function () {
+        //        await getReceiveSaleInsure();
+        //    }, 60000); // 1minute
+        //}
+
+        //setTimeout(function () {
+        //    $('#sumOrderAll').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderCurrentDate').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderByMonth').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderStatus1').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderStatus2').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderStatus3').html("<div class='spinner-border'></div>");
+        //    $('#sumOrderStatus4').html("<div class='spinner-border'></div>");
+        //    $('#sumDateCurrent').html("<div class='spinner-border'></div>");
+
+        //    $('#listOrderLast  tbody:last-child').html("");
+        //    $('#listOrderLast  tbody:last-child').prepend("<tr><td colspan = '6' class= 'text-center' > <div class='spinner-border'></div> กำลังโหลดข้อมูล ... </td ></tr>");
+
+        //    getReloadDashboard();
+        //}, 60000); // 1minute
+    }
+
+    $(function () {
+        getReloadDashboard();
+    });
+</script>

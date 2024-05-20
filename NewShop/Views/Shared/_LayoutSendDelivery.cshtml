@@ -39,12 +39,21 @@
     </div>
 </body>
 </html>
-@*<script type="text/javascript">
-        function LoadingShow() {
-            $.LoadingOverlay("show");
-        }
+@*
+<script type="text/javascript">
+    var pathname = window.location.pathname.split('/');
+    var pathId = pathname[1].replace('/', '');;
+    var hostName = "";
+    if (pathId != 'SendDeliveryStatus') {
+        hostName = '/' + pathId;
+    }
+    console.log("pathname = " + hostName);
 
-        function LoadingHide() {
-            $.LoadingOverlay("hide");
-        }
-    </script>*@
+    function LoadingShow() {
+        $.LoadingOverlay("show");
+    }
+
+    function LoadingHide() {
+        $.LoadingOverlay("hide");
+    }
+</script>*@

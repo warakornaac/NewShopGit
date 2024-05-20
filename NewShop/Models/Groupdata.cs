@@ -185,6 +185,7 @@ namespace NewShop.Models
         public string Clearance { get; set; }
         public string ItemClass { get; set; }
         public string Intransit { get; set; }
+        public string ReworkCanSales { get; set; }
         public List<PricelistpageingSearch> PricelistpageingSearch_Grid { get; set; }
     }
     public class vehicle_PlusItem
@@ -973,7 +974,6 @@ namespace NewShop.Models
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
     }
-
     public class ListSendDelivery
     {
         public string Uid { get; set; }
@@ -983,7 +983,18 @@ namespace NewShop.Models
         public string Delivery { get; set; }
         public string User { get; set; }
     }
-    public class ListOrderNotifySum
+    public class ListSendDeliveryCount
+    {
+        public string sumOrderAll { get; set; }
+        public string sumOrderCurrentDate { get; set; }
+        public string sumOrderByMonth { get; set; }
+        public string sumOrderStatus1 { get; set; }
+        public string sumOrderStatus2 { get; set; }
+        public string sumOrderStatus3 { get; set; }
+        public string sumOrderStatus4 { get; set; }
+        public string sumDateCurrent { get; set; }
+    }
+        public class ListOrderNotifySum
     {
         public string sumOrderCurrentDate { get; set; }
         public string sumOrderByMonth { get; set; }
@@ -1035,5 +1046,8 @@ namespace NewShop.Models
         public string Unit_Price { get; set; }
         public string Discount { get; set; }
         public string Amount { get; set; }
+    }
+    public class NotifyCountList{
+        public string sumOrderCurrentDate { get; set; }
     }
 }
