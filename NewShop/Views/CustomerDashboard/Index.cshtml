@@ -1159,7 +1159,8 @@
 
         function parseDate(dateStr) {
             if (!dateStr) return null;
-            var parts = dateStr.split('-');
+            // var parts = dateStr.split('/');
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
             var day = parseInt(parts[0], 10) + 1;
             var month = parseInt(parts[1], 10) - 1;
             var year = parseInt(parts[2], 10);
@@ -1170,17 +1171,15 @@
             var aacdue = $('#aac-bildue-date').text();
             var tacdue = $('#tac-bildue-date').text();
             var ompdue = $('#omp-bildue-date').text();
-            console.log('aac : ' + aacdue);
-            console.log('tac : ' + tacdue);
-            console.log('omp : ' + ompdue);
+            //console.log('aac : ' + aacdue);
+            //console.log('tac : ' + tacdue);
+            //console.log('omp : ' + ompdue);
 
 
             var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
             if (dates.length > 0) {
                 var minDate = new Date(Math.min.apply(null, dates));
                 var maxDate = new Date(Math.max.apply(null, dates));
-                console.log("วันที่น้อยที่สุดคือ: " + minDate.toISOString().split('T')[0]);
-                console.log("วันที่มากที่สุดคือ: " + maxDate.toISOString().split('T')[0]);
 
                 $.ajax({
                     url: '@Url.Action("GetBilling", "CustomerDashboard")',
