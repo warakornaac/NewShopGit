@@ -22,9 +22,7 @@ namespace NewShop.Controllers
 {
     public class SendDeliveryStatusController : Controller
     {
-        //
         // GET: /SendDeliveryStatus/
-
         public ActionResult Index()
         {
             //var getDateInput = Utils.PushMessage();
@@ -39,7 +37,7 @@ namespace NewShop.Controllers
             {
                 List.Add(new NewShop.Models.ListSendDelivery()
                 {
-                    Uid = "Ucea94914394b7928e1c8dd37541d682a".ToString(),
+                    Uid = dr["Uid"].ToString(),
                     Docno = dr["Ord_DocNo"].ToString(),
                     Docdate = dr["ORD_Date"].ToString(),
                     Cusname = dr["CUSNAM"].ToString(),
@@ -50,6 +48,50 @@ namespace NewShop.Controllers
 
             ViewBag.listData = List;
             return View();
+        }
+        public ActionResult DashboardSendDeliveryStatus()
+        {
+            int numSuccess = 0;
+            int numError = 0;
+            string[] arrSuccess = new string[2];
+            string[] arrError = new string[2];
+
+
+            ViewBag.listData = ""; // GetStoreSearchOrderNotify();
+            ViewBag.countlistDataAll = "";// GetStoreSearchOrderNotify();
+            //get data by stored
+            //if (List.Any())
+            //{
+            //    foreach (var rowList in List)
+            //    {
+            //        var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "Warakorn.pra");
+            //        string json = JsonConvert.SerializeObject(statusApi.Result.Data);
+            //        ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
+            //        //send fail
+            //        if (dto.status != "OK")
+            //        {
+            //            ++numError;
+            //            //arrError[numError] = rowList.Docno;
+            //        }
+            //        else
+            //        {
+            //            ++numSuccess;
+            //            //arrSuccess[numSuccess] = rowList.Docno;
+            //        }
+            //    }
+            //}
+            ViewBag.numError = numError;
+            ViewBag.arrError = arrError;
+            ViewBag.numSuccess = numSuccess;
+            ViewBag.arrSuccess = arrSuccess;
+
+            return View();
+        }
+        [HttpPost]
+        public JsonResult GetSendDeliveryCount()
+        {
+            var getNotifyCount = GetStoreSearchOrderNotifyCount();
+            return Json(getNotifyCount, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult SearchSendDeliveryStatusAll()
@@ -183,47 +225,10 @@ namespace NewShop.Controllers
                 @ViewBag.arrSuccess
             });
         }
-        public ActionResult DashboardSendDeliveryStatusAuto()
+        //list order
+        public JsonResult GetStoreSearchOrderNotify()
         {
-            int numSuccess = 0;
-            int numError = 0;
-            string[] arrSuccess = new string[2];
-            string[] arrError = new string[2];
-
-
-            ViewBag.listData = GetStoreSearchOrderNotify();
-            ViewBag.countlistDataAll = GetStoreSearchOrderNotify().Count;
-            //get data by stored
-            //if (List.Any())
-            //{
-            //    foreach (var rowList in List)
-            //    {
-            //        var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "Warakorn.pra");
-            //        string json = JsonConvert.SerializeObject(statusApi.Result.Data);
-            //        ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
-            //        //send fail
-            //        if (dto.status != "OK")
-            //        {
-            //            ++numError;
-            //            //arrError[numError] = rowList.Docno;
-            //        }
-            //        else
-            //        {
-            //            ++numSuccess;
-            //            //arrSuccess[numSuccess] = rowList.Docno;
-            //        }
-            //    }
-            //}
-            ViewBag.numError = numError;
-            ViewBag.arrError = arrError;
-            ViewBag.numSuccess = numSuccess;
-            ViewBag.arrSuccess = arrSuccess;
-
-            return View();
-        }
-        public List<ListSendDelivery> GetStoreSearchOrderNotify()
-        {
-            List<ListSendDelivery> List = new List<ListSendDelivery>();
+            List<ListSendDelivery> ListSendDelivery = new List<ListSendDelivery>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             var command = new SqlCommand("p_Order_Notify", Connection);
@@ -232,40 +237,50 @@ namespace NewShop.Controllers
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
-                List.Add(new NewShop.Models.ListSendDelivery()
+                ListSendDelivery.Add(new NewShop.Models.ListSendDelivery()
                 {
-                    Uid = "Ucea94914394b7928e1c8dd37541d682a".ToString(),
+                    Uid = dr["Uid"].ToString(),
                     Docno = dr["Ord_DocNo"].ToString(),
                     Docdate = dr["ORD_Date"].ToString(),
                     Cusname = dr["CUSNAM"].ToString(),
                     Delivery = dr["Notify"].ToString(),
-                    User = "superadmin",
+                    User = "System",
                 });
             }
-            return List;
+            return Json(ListSendDelivery, JsonRequestBehavior.AllowGet);
         }
-        public List<ListSendDelivery> GetStoreSearchOrderNotifySum()
+        //notify count
+        [HttpPost]
+        public JsonResult GetStoreSearchOrderNotifyCount()
         {
-            List<ListSendDelivery> List = new List<ListSendDelivery>();
+            List<ListSendDeliveryCount> ListSendDeliveryCount = new List<ListSendDeliveryCount>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
-            var command = new SqlCommand("p_Order_Notify", Connection);
+            var command = new SqlCommand("p_Order_Notify_Count", Connection);
             command.CommandType = CommandType.StoredProcedure;
             Connection.Open();
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
-                List.Add(new NewShop.Models.ListSendDelivery()
+                ListSendDeliveryCount.Add(new ListSendDeliveryCount()
                 {
-                    Uid = "Ucea94914394b7928e1c8dd37541d682a".ToString(),
-                    Docno = dr["Ord_DocNo"].ToString(),
-                    Docdate = dr["ORD_Date"].ToString(),
-                    Cusname = dr["CUSNAM"].ToString(),
-                    Delivery = dr["Notify"].ToString(),
-                    User = "superadmin",
+                    sumOrderAll = dr["sumOrderAll"].ToString(),
+                    sumOrderCurrentDate = dr["sumOrderCurrentDate"].ToString(),
+                    sumOrderByMonth = dr["sumOrderByMonth"].ToString(),
+                    sumOrderStatus1 = dr["sumOrderStatus1"].ToString(),
+                    sumOrderStatus2 = dr["sumOrderStatus2"].ToString(),
+                    sumOrderStatus3 = dr["sumOrderStatus3"].ToString(),
+                    sumOrderStatus4 = dr["sumOrderStatus4"].ToString(),
+                    sumDateCurrent = DateTime.Now.ToString(),
                 });
             }
-            return List;
+            dr.Close();
+            dr.Dispose();
+            command.Dispose();
+            Connection.Close();
+            //return Json(List, JsonRequestBehavior.AllowGet);
+            //return Json(new { data = ListSendDeliveryCount });
+            return Json(ListSendDeliveryCount, JsonRequestBehavior.AllowGet);
         }
         public async Task<JsonResult> ApiPushMessage(string Uid, string Docno, string Docdate, string Cusname, string Delivery, string User)
         {

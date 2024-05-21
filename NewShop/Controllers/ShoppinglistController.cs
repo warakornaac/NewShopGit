@@ -245,6 +245,7 @@ namespace NewShop.Controllers
                     Model.Expected_Receipt_Date  =dr["Expected Receipt Date"].ToString();
                     Model.Clearance = dr["Clearance"].ToString();
                     Model.Intransit = dr["Intransit"].ToString();
+                    Model.ReworkCanSales = dr["ReworkCanSales"].ToString();
                     //Model.expired = dr["expired"].ToString();
                     //Model.itemblock = dr["itemblock"].ToString();
                     Getdata.Add(new ListPagedList { val = Model });

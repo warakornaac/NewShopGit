@@ -7847,6 +7847,9 @@
     <Content Include="Views\SendDeliveryStatus\Index.cshtml" />
     <Content Include="Views\SendDeliveryStatus\SearchSendDeliveryStatus.cshtml" />
     <Content Include="Views\SendDeliveryStatus\_listDataSendDeliveryStatusAll.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\DashboardSendDeliveryStatus.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\DashboardSendDeliveryStatusAuto.cshtml" />
+    <Content Include="Views\SendDeliveryStatus\_listOrderLast.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
