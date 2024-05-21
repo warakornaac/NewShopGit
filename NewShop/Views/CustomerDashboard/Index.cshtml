@@ -1156,20 +1156,25 @@
                 }
             });
         }
+
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            var parts = dateStr.split('-');
+            var day = parseInt(parts[0], 10) + 1;
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+            var date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
         function getBillingDue() {
             var aacdue = $('#aac-bildue-date').text();
             var tacdue = $('#tac-bildue-date').text();
             var ompdue = $('#omp-bildue-date').text();
+            console.log('aac : ' + aacdue);
+            console.log('tac : ' + tacdue);
+            console.log('omp : ' + ompdue);
 
-            function parseDate(dateStr) {
-                if (!dateStr) return null;
-                var parts = dateStr.split('-');
-                var day = parseInt(parts[0], 10)+1;
-                var month = parseInt(parts[1], 10) - 1;
-                var year = parseInt(parts[2], 10);
-                var date = new Date(year, month, day);
-                return isNaN(date.getTime()) ? null : date;
-            }
+
             var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
             if (dates.length > 0) {
                 var minDate = new Date(Math.min.apply(null, dates));
