@@ -64,11 +64,12 @@
             display: block;
             font-size: 18px;
         }
-        /*tableFixhead*/
-        .tableFixHead {
-            overflow-y: auto;
-            height: 640px;
-        }
+    /*tableFixhead*/
+    .tableFixHead {
+        overflow-y: auto;
+        max-height: 640px;
+
+    }
 
         .tableFixHead thead th {
             position: sticky;
@@ -89,12 +90,12 @@
                         <a href="#"><img src="~/images/logo/AACTAC185x70.jpg" alt="" height="90" style="border-radius: 5px;"></a>
                     </div>
                     <div class="col-sm-5 text-right">
-                        @*<h1 class="card-label" style="margin-top: 22px; font-size: 45px;"></h1>*@
+                        @*<h2 style="margin-top: -20px; font-size: 25px;"> <i class="fa fa-refresh"></i><small style="font-size: 50%; color:#767676;"> <text id="countdown"></text> </small></h2>*@
                     </div>
                     <div class="col-sm-4 text-right">
                         <h2 style="font-size: 35px;margin-bottom: 0;margin-top: -20px;"><i class="fa fa-clock-o"></i> <small style="font-size: 50%; color:#767676;">Last update&nbsp;:&nbsp;<text id="sumDateCurrent"><div class="spinner-border"></div></text></small></h2>
                         @*<h1 class="card-label" style="margin-top: 22px;">สาขา : <?php echo $companyName; ?></h1>*@
-                        <div class="countdown"></div>
+                        <i class="fa fa-refresh"></i>&nbsp;<small style="font-size: 80%; color:#767676;"> <text id="countDown"></text> </small>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -10px;">
@@ -123,13 +124,14 @@
                                     <div class="col-sm-6 col-md-6 text-left p-0">
                                         <b><i class="fa fa-list"></i> List order last </b>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 text-right">
+                                    <div class="col-sm-6 col-md-6 text-right pr-0 text-success">
                                         @*<button type="button" class="btn btn-md btn-success" onclick="sendDataDeliveryAll();"><i class="fa fa-send"></i> Send All </button>*@
+                                        <small style="font-size: 80%;"> <text id="countRowSuccess" class="text-success"> <div class="spinner-border"></div> </text> </small>
                                     </div>
                                 </div>
                             </h5>
                             <div class="card-body" style="padding: 0px 0px;">
-                                <div id="listOrderLast" >
+                                <div id="listOrderLast">
                                     <div class="table-responsive tableFixHead">
                                         <table class="table tableFixHead table-striped table-bordered nowrap table-hover" width="100%" style="margin-bottom: 0px;">
                                             <thead>
@@ -214,29 +216,34 @@
                 data: {},
                 dataType: 'json',
                 beforeSend: function () {
-                  
-                },success: function (data) {
+
+                }, success: function (data) {
                     if (data.length > 0) {
                         var rowCount = 1;
                         var htmlTable = "";
                         for (var i = 0; i < data.length; i++) {
                             //console.log(data[i]);
                             htmlTable += "<tr>";
-                            htmlTable += "<td class='text-center'>" + rowCount++ + "</td>";
+                            htmlTable += "<td class='text-center'>" + (rowCount++) + "</td>";
                             htmlTable += "<td class='text-center'>" + data[i].Uid + "</td>";
                             htmlTable += "<td>" + data[i].Docno + "</td>";
                             htmlTable += "<td>" + data[i].Docdate + "</td>";
                             htmlTable += "<td>" + data[i].Cusname + "</td>";
                             htmlTable += "<td>" + data[i].Delivery + "</td>";
-                           // htmlTable += "<td class='text-center'>" + '' + "</td>";
+                            // htmlTable += "<td class='text-center'>" + '' + "</td>";
                             htmlTable += "</tr>";
+                        }
+                        if ((rowCount - 1) > 0) {
+                            $('#countRowSuccess').text((rowCount - 1) + " row");
+                        } else {
+                            $('#countRowSuccess').text("0 row");
                         }
 
                         $('#listOrderLast  tbody:last-child').html("");
                         $('#listOrderLast  tbody:last-child').prepend(htmlTable);
                         setTimeout(function () {
-                            scrollSmoothToBottom();
-                        }, 500);
+                            //scrollSmoothToBottom();
+                        }, 700);
                     }
                 }
             });
@@ -254,7 +261,7 @@
                 data: {},
                 dataType: 'json',
                 beforeSend: function () {
-                   
+
                 },
                 success: function (data) {
                     //console.log(data[0].sumOrderAll);
@@ -291,47 +298,55 @@
         }
     }
     //นับเวลา refresh
-    var timer2 = "5:01";
-    var interval = setInterval(function () {
-        var timer = timer2.split(':');
-        //by parsing integer, I avoid all extra string processing
-        var minutes = parseInt(timer[0], 10);
-        var seconds = parseInt(timer[1], 10);
-        --seconds;
-        minutes = (seconds < 0) ? --minutes : minutes;
-        if (minutes < 0) clearInterval(interval);
-        seconds = (seconds < 0) ? 59 : seconds;
-        seconds = (seconds < 10) ? '0' + seconds : seconds;
-        //minutes = (minutes < 10) ?  minutes : minutes;
-        $('.countdown').html(minutes + ':' + seconds);
-        timer2 = minutes + ':' + seconds;
-    }, 1000);
+    fiveMinutes = 60 * 1,
+    display = document.querySelector('#countDown');
+    var timer;
+    function startTimer(duration, display) {
+        timer = duration;
+        var minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+    function resetTimer() {
+        timer = 60 * 1;
+    }
 
     async function getReloadDashboard() {
         const countData = await GetSendDeliveryCount();
         const listlLastData = await GetListOrderLast();
-
-        //if (teamData.isdata == true) {
+        //resetTimer();
+       
+        //if (countData.isdata == true) {
         //    setTimeout(async function () {
-        //        await getReceiveSaleInsure();
+        //        await GetSendDeliveryCount();
         //    }, 60000); // 1minute
         //}
-
-        //setTimeout(function () {
-        //    $('#sumOrderAll').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderCurrentDate').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderByMonth').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderStatus1').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderStatus2').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderStatus3').html("<div class='spinner-border'></div>");
-        //    $('#sumOrderStatus4').html("<div class='spinner-border'></div>");
-        //    $('#sumDateCurrent').html("<div class='spinner-border'></div>");
-
-        //    $('#listOrderLast  tbody:last-child').html("");
-        //    $('#listOrderLast  tbody:last-child').prepend("<tr><td colspan = '6' class= 'text-center' > <div class='spinner-border'></div> กำลังโหลดข้อมูล ... </td ></tr>");
-
-        //    getReloadDashboard();
-        //}, 60000); // 1minute
+        startTimer(fiveMinutes, display);
+        setTimeout(function () {
+            $('#sumOrderAll').html("<div class='spinner-border'></div>");
+            $('#sumOrderCurrentDate').html("<div class='spinner-border'></div>");
+            $('#sumOrderByMonth').html("<div class='spinner-border'></div>");
+            $('#sumOrderStatus1').html("<div class='spinner-border'></div>");
+            $('#sumOrderStatus2').html("<div class='spinner-border'></div>");
+            $('#sumOrderStatus3').html("<div class='spinner-border'></div>");
+            $('#sumOrderStatus4').html("<div class='spinner-border'></div>");
+            $('#sumDateCurrent').html("<div class='spinner-border'></div>");
+            //set reload table
+            $('#listOrderLast  tbody:last-child').html("");
+            $('#listOrderLast  tbody:last-child').prepend("<tr><td colspan = '6' class= 'text-center' > <div class='spinner-border'></div> กำลังโหลดข้อมูล ... </td ></tr>");
+            getReloadDashboard();
+        }, 60000); //1 minute = 60000
     }
 
     $(function () {

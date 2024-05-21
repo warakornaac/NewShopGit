@@ -117,7 +117,7 @@ namespace NewShop.Controllers
                     Docdate = dr["ORD_Date"].ToString(),
                     Cusname = dr["CUSNAM"].ToString(),
                     Delivery = dr["Notify"].ToString(),
-                    User = "superadmin",
+                    User = "System",
                 });
             }
 
@@ -128,7 +128,7 @@ namespace NewShop.Controllers
             {
                 foreach (var rowList in List)
                 {
-                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "Warakorn.pra");
+                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "");
                     string json = JsonConvert.SerializeObject(statusApi.Result.Data);
                     ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
                     //send fail
@@ -228,6 +228,8 @@ namespace NewShop.Controllers
         //list order
         public JsonResult GetStoreSearchOrderNotify()
         {
+            int numSuccess = 0;
+            int numError = 0;
             List<ListSendDelivery> ListSendDelivery = new List<ListSendDelivery>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -247,6 +249,28 @@ namespace NewShop.Controllers
                     User = "System",
                 });
             }
+            //get data by stored
+            if (ListSendDelivery.Any())
+            {
+                foreach (var rowList in ListSendDelivery)
+                {
+                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "");
+                    string json = JsonConvert.SerializeObject(statusApi.Result.Data);
+                    ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
+                    //send fail
+                    if (dto.status != "OK")
+                    {
+                        ++numError;
+                        //arrError[numError] = rowList.Docno;
+                    }
+                    else
+                    {
+                        ++numSuccess;
+                        //arrSuccess[numSuccess] = rowList.Docno;
+                    }
+                }
+            }
+
             return Json(ListSendDelivery, JsonRequestBehavior.AllowGet);
         }
         //notify count
