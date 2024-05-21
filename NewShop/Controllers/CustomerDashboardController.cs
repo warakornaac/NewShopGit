@@ -306,7 +306,7 @@ namespace NewShop.Controllers
         }
         public JsonResult GetCusinvDetail(string Docno)
         {
-            string message = "";
+            string message = string.Empty;
             List<Cusinv_Item> Getdata = new List<Cusinv_Item>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
