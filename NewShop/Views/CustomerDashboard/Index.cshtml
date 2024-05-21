@@ -577,7 +577,7 @@
                                                                     <td><span id="tac-res">0</span></td>
                                                                     <td><span id="omp-res">0</span></td>
                                                                 </tr>
-                                                                <tr data-toggle="collapse" data-target="#baldue-show" class="accordion-toggle " onclick="getBillingDue(); toggleRowCredit(this); ">
+                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="getBillingDue(); toggleRowCredit(this); ">
                                                                     <th class="block_container">
                                                                         <div class="col-12 d-flex align-items-center p-0">
                                                                             <div class="col-1"><h4 style="display: inline;"><span id="show-billing-icon">+</span></h4></div>
@@ -952,7 +952,7 @@
                             success: function (result) {
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     $('#sec-table-' + i + ' tbody').html("");
-                                    SubmithtmlPage += '<tr data-toggle="collapse" data-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
                                     SubmithtmlPage += '<td><h4><span id="row-show-'+ i +'">+</span></h4></td>';
                                     SubmithtmlPage += '<td class="ellipsis"><p class="text-truncate m-0 p-0">' + data.Getdata[i].CUSNAM + '</p></td>'; //class="ellipsis"
                                     SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
@@ -1168,6 +1168,7 @@
             return isNaN(date.getTime()) ? null : date;
         }
         function getBillingDue() {
+
             var aacdue = $('#aac-bildue-date').text();
             var tacdue = $('#tac-bildue-date').text();
             var ompdue = $('#omp-bildue-date').text();
