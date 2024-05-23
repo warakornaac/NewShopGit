@@ -517,29 +517,32 @@
                     </div>
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header bg-info">
+                                <h4>ยอดรวม</h4>
+                            </div>
                             <div class="col-12 p-0 m-0">
                                 <div class="col-12 p-0 m-0">
-                                    <div class="w3-bar btn-group">
-                                        <button type="button" class="w3-button btn-primary w3-bar-item rounded-top" id="btn-show-credit">
+                                    <div class="w3-bar btn-group bg-info">
+                                        <button type="button" class="w3-button btn-info w3-bar-item rounded-top" id="btn-show-credit">
                                             เครดิต
                                         </button>
 
-                                        <button type="button" class="w3-button btn-primary w3-bar-item rounded-top" id="btn-show-amount">
+                                        <button type="button" class="w3-button btn-info w3-bar-item rounded-top" id="btn-show-amount">
                                             ยอดซื้อ
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body p-0 m-0">
+                            <div class="card-body p-0 m-0 bg-info">
                                 <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
                                     <div id="dfch">
                                         <div class="row">
 
                                             <div class="col-12 credit-div m-0 p-0">
-                                                <div class="card m-0">
-                                                    <div class="card-header bg-info">
+                                                <div class="card m-0 rounded-bottom border-0">
+                                                    <div class="card-header bg-info border-0">
                                                         <div class="col-sm-12 d-flex align-items-center mb-2 text-left m-0 p-0">
-                                                            <h4 class="m-0">เครดิต</h4>
+                                                            @*<h4 class="m-0">เครดิต</h4>*@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-6">
@@ -550,7 +553,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body p-0">
+                                                    <div class="card-body p-0 ">
                                                         <div class="m-0 table-responsive">
                                                             <table class="table table-sm table-bordered m-0" id="credit-table">
                                                                 <tr>
@@ -654,7 +657,7 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th>ชื่อร้านค้า</th>
-                                                                    <th>จำนวนเงิน</th>
+                                                                    <th class="text-right">จำนวนเงิน</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -840,15 +843,15 @@
             return result;
         }
         $('#btn-show-credit').click(function () {
-            $('.credit-div').show(1000);
-            $('.amount-div').hide(1000);
+            $('.credit-div').slideDown("slow");
+            $('.amount-div').slideUp("slow");
             $(this).css("background", "#01549b");
             $('#btn-show-amount').removeAttr('style');
 
         });
         $('#btn-show-amount').click(function () {
-            $('.amount-div').show(1000);
-            $('.credit-div').hide(1000);
+            $('.amount-div').slideDown("slow");
+            $('.credit-div').slideUp("slow");
             $(this).css("background", "#01549b");
             $('#btn-show-credit').removeAttr('style');
         });
@@ -1014,10 +1017,12 @@
                 }
             });
         }
+
         function toggleRowAndButton(row, index) {
             var text = $('#row-show-' + index);
             if (text.text() === '+') {
                 text.text("-");
+                //$('#')
             } else {
                 text.text("+");
             }
