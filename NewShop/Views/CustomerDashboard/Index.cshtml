@@ -507,14 +507,14 @@
 
         .tab-buttons {
             display: flex;
-            background-color: #004f6d;
+            /*background-color: #004f6d;*/
         }
 
             .tab-buttons button {
                 flex: 1;
                 padding: 10px;
                 border: none;
-                background-color: #004f6d;
+                /*background-color: #004f6d;*/
                 color: white;
                 font-size: 16px;
                 cursor: pointer;
@@ -522,7 +522,7 @@
             }
 
                 .tab-buttons button.active {
-                    background-color: #008cba;
+                    /*background-color: #008cba;*/
                 }
 
         .tab-content {
@@ -570,12 +570,10 @@
                     </div>
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header bg-info">
-                                <h4><span id="title-amt-card">ยอดรวม</span> </h4>
-                            </div>
+
                             <div class="col-12 p-0 m-0">
                                 <div class="col-12 p-0 m-0">
-                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group">
+                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-credit">
                                             เครดิต
                                         </button>
@@ -590,7 +588,6 @@
                                 <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
                                     <div id="dfch">
                                         <div class="row">
-
                                             <div class="col-12 credit-div m-0 p-0">
                                                 <div class="card m-0 rounded-bottom border-0">
                                                     <div class="card-header bg-secondary border-0">
@@ -863,7 +860,7 @@
             }, 2000);
             $('.amount-div').hide();
             $('#btn-show-credit').css("background", "#DEAF5B");
-            $('#title-amt-card').text("ยอดเครดิต");
+
         });
 
         if (cuscod != "") {
@@ -900,7 +897,7 @@
             //$('.amount-div').slideUp("slow");
             $(this).css("background", "#DEAF5B");
             $('#btn-show-amount').removeAttr('style');
-            $('#title-amt-card').text("ยอดเครดิต");
+
 
         });
         $('#btn-show-amount').click(function () {
@@ -908,7 +905,7 @@
             $('.credit-div').hide("slow");
             $(this).css("background", "#DEAF5B");
             $('#btn-show-credit').removeAttr('style');
-            $('#title-amt-card').text("ยอดซื้อ");
+
         });
 
 
