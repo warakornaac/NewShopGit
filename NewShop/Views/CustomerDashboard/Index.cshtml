@@ -534,12 +534,12 @@
                             </div>
                             <div class="col-12 p-0 m-0">
                                 <div class="col-12 p-0 m-0">
-                                    <div class="w3-bar btn-group bg-info">
-                                        <button type="button" class="w3-button w3-border btn btn-info w3-bar-item btn-font" id="btn-show-credit">
+                                    <div class="w3-bar rounded-top pt-2 pl-1">
+                                        <button type="button" class="w3-button  btn w3-hover-khaki  w3-bar-item btn-font" id="btn-show-credit">
                                             เครดิต
                                         </button>
 
-                                        <button type="button" class="w3-button w3-border btn btn-info w3-bar-item btn-font" id="btn-show-amount">
+                                        <button type="button" class="w3-button  btn w3-hover-khaki  w3-bar-item btn-font" id="btn-show-amount">
                                             ยอดซื้อ
                                         </button>
                                     </div>
@@ -552,7 +552,7 @@
 
                                             <div class="col-12 credit-div m-0 p-0">
                                                 <div class="card m-0 rounded-bottom border-0">
-                                                    <div class="card-header bg-info border-0">
+                                                    <div class="card-header bg-secondary border-0">
                                                         <div class="col-sm-12 d-flex align-items-center mb-2 text-left m-0 p-0">
                                                             @*<h4 class="m-0">เครดิต</h4>*@
                                                         </div>
@@ -645,7 +645,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card m-0">
-                                                <div class="card-header bg-info">
+                                                <div class="card-header bg-secondary">
                                                     <div class="row">
                                                         <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
 
@@ -821,7 +821,7 @@
                 $('.footer').removeAttr('hidden');
             }, 2000);
             $('.amount-div').hide();
-            $('#btn-show-credit').css("background", "#01549b");
+            $('#btn-show-credit').css("background", "#DEAF5B");
         });
 
         if (cuscod != "") {
@@ -856,14 +856,14 @@
             $('.credit-div').show("slow");
             $('.amount-div').hide("slow");
             //$('.amount-div').slideUp("slow");
-            $(this).css("background", "#01549b");
+            $(this).css("background", "#DEAF5B");
             $('#btn-show-amount').removeAttr('style');
 
         });
         $('#btn-show-amount').click(function () {
             $('.amount-div').show("slow");
             $('.credit-div').hide("slow");
-            $(this).css("background", "#01549b");
+            $(this).css("background", "#DEAF5B");
             $('#btn-show-credit').removeAttr('style');
         });
 
