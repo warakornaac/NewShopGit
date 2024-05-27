@@ -534,6 +534,14 @@
             .tab-content.active {
                 display: block;
             }
+
+        hr#line-tab-amt {
+            border-color: white;
+        }
+
+        hr#line-tab-credit {
+            border-color: white;
+        }
     </style>
 </head>
 
@@ -576,10 +584,12 @@
                                     <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-credit">
                                             เครดิต
+                                            <hr class="m-0" id="line-tab-amt" />
                                         </button>
 
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
                                             ยอดซื้อ
+                                            <hr class="m-0" id="line-tab-credit" />
                                         </button>
                                     </div>
                                 </div>
@@ -836,6 +846,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
     <script type="text/javascript">
         var id = '@Request.RequestContext.HttpContext.Session["ID"]';
@@ -844,7 +855,7 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
-        console.log("Cuscod : " + cuscod);
+        //console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
         var chartProfileVisit;
@@ -860,6 +871,7 @@
             }, 2000);
             $('.amount-div').hide();
             $('#btn-show-credit').css("background", "#DEAF5B");
+            $('#line-tab-credit').hide();
 
         });
 
@@ -894,18 +906,19 @@
         $('#btn-show-credit').click(function () {
             $('.credit-div').show("slow");
             $('.amount-div').hide("slow");
+            $('#line-tab-amt').show("slide", { direction: "right" }, 500);
+            $('#line-tab-credit').hide("slide", { direction: "left" }, 500);
             //$('.amount-div').slideUp("slow");
             $(this).css("background", "#DEAF5B");
             $('#btn-show-amount').removeAttr('style');
-
-
         });
         $('#btn-show-amount').click(function () {
             $('.amount-div').show("slow");
             $('.credit-div').hide("slow");
+            $('#line-tab-credit').show("slide", { direction: "left" }, 500);
+            $('#line-tab-amt').hide("slide", { direction: "right" }, 500)
             $(this).css("background", "#DEAF5B");
             $('#btn-show-credit').removeAttr('style');
-
         });
 
 
@@ -1018,6 +1031,7 @@
                                     SubmithtmlPage += '<table class="table table-sm table-striped table-bordered table-hover " id="sec-table-' + i + '">';
                                     SubmithtmlPage += '<thead ">';
                                     SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<th></th>';
                                     SubmithtmlPage += '<th>บริษัท</th>';
                                     SubmithtmlPage += '<th>วันที่สั่งซื้อ</th>';
                                     SubmithtmlPage += '<th>หมายเลขการสั่งซื้อ</th>';
@@ -1032,6 +1046,7 @@
                                         for (var j = 0; j < result.Getdata.length; j++) {
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
                                                 SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
                                                 SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
                                                 SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
@@ -1229,10 +1244,6 @@
             var aacdue = $('#aac-bildue-date').text();
             var tacdue = $('#tac-bildue-date').text();
             var ompdue = $('#omp-bildue-date').text();
-            //console.log('aac : ' + aacdue);
-            //console.log('tac : ' + tacdue);
-            //console.log('omp : ' + ompdue);
-
 
             var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
             if (dates.length > 0) {
