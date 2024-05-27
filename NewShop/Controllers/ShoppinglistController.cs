@@ -246,6 +246,7 @@ namespace NewShop.Controllers
                     Model.Clearance = dr["Clearance"].ToString();
                     Model.Intransit = dr["Intransit"].ToString();
                     Model.ReworkCanSales = dr["ReworkCanSales"].ToString();
+                    Model.ReworkClearance = dr["ReworkClearance"].ToString();
                     //Model.expired = dr["expired"].ToString();
                     //Model.itemblock = dr["itemblock"].ToString();
                     Getdata.Add(new ListPagedList { val = Model });
