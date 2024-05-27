@@ -296,10 +296,11 @@
                                 <th>Price<br />Str</th>
                                 <th>ราคาพิเศษ</th>
                                 <th>Stock</th>
+                                <th>Rework <br /> CanSales</th>
+                                <th>Rework <br /> Clearance</th>
+                                <th>Clearance</th>
                                 <th>In-transit</th>
                                 <th>Back<br>Order</th>
-                                <th>Clearance</th>
-                                <th>RW <br/> CanSales</th>
                                 <th>ราคาต่อรอง</th>
                                 <th>Line Note</th>
                                 <th>Spc<br />remark</th>
@@ -737,15 +738,16 @@
                                 SubmithtmlPage += '<td style="background-color:#FFCC66;" class="valPrice"><div class="SalePrice">' + commaSeparateNumber(data[i].val.SalePrice) + '</div></td>';
                                 SubmithtmlPage += '<td class="valPrice"><div class="PCDESstr">' + nl3br(data[i].val.PCDES) + '</div></td>';
                                 SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="Special_Price">' + data[i].val.Special_Price + '</div>' + dtachcolo + '</td>';
-                                SubmithtmlPage += '<td  class="valStock"><div class="TOTBAL">' + data[i].val.TOTBAL + '</td>';
+                                SubmithtmlPage += '<td style="background-color: rgb(153, 255, 102); font-weight: 500;" class="valStock"><div class="TOTBAL">' + data[i].val.TOTBAL + '</td>';
+                                SubmithtmlPage += '<td>' + data[i].val.ReworkCanSales + '</td>';
+                                SubmithtmlPage += '<td>' + data[i].val.ReworkClearance + '</td>';
+                                SubmithtmlPage += '<td>' + data[i].val.Clearance + '</td>';
                                 SubmithtmlPage += '<td  class="Intransit"><div class="Intransit">' + data[i].val.Intransit + '</td>';
                                 if (BackOrder == "") {
                                     SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"><div class="BackOrder">0</div></td>';
                                 } else {
                                     SubmithtmlPage += '<td style =" background-color: rgb(169, 169, 169); color: blue;"> <div class="BackOrder">' + data[i].val.BackOrder + '</div></td>';
                                 }
-                                SubmithtmlPage += '<td>' + data[i].val.Clearance + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].val.ReworkCanSales + '</td>';
                                 SubmithtmlPage += '<td><input id="ExpectPrice' + (i + 1) + 'A' + rowCount + '" type="number" min="1" name="Sum_Expect" class="Expect" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
                                 SubmithtmlPage += '<td><input id="Linenote' + (i + 1) + 'A' + rowCount + '" name="S_Linenote" class="tlinenote"  style=" background-color:white;"></td>';
                                 SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remark">' + data[i].val.spc_remark + '</div></td>';

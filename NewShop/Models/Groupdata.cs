@@ -186,6 +186,7 @@ namespace NewShop.Models
         public string ItemClass { get; set; }
         public string Intransit { get; set; }
         public string ReworkCanSales { get; set; }
+        public string ReworkClearance { get; set; }
         public List<PricelistpageingSearch> PricelistpageingSearch_Grid { get; set; }
     }
     public class vehicle_PlusItem
