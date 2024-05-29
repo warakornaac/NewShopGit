@@ -893,19 +893,22 @@
             return result;
         }
         $('#btn-show-credit').click(function () {
-            $('.credit-div').show("slow");
-            $('.amount-div').hide("slow");
+            //$('.credit-div').show("slow");
+            //$('.amount-div').hide("slow");
+            $('.amount-div').slideUp("slow");
+            $('.credit-div').slideDown("slow");
             $('#line-tab-amt').show("slide", { direction: "right" }, 500);
             $('#line-tab-credit').hide("slide", { direction: "left" }, 500);
-            //$('.amount-div').slideUp("slow");
             $(this).css("background", "#DEAF5B");
             $('#btn-show-amount').removeAttr('style');
 
 
         });
         $('#btn-show-amount').click(function () {
-            $('.amount-div').show("slow");
-            $('.credit-div').hide("slow");
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideDown("slow");
+            $('.credit-div').slideUp("slow");
             $('#line-tab-credit').show("slide", { direction: "left" }, 500);
             $('#line-tab-amt').hide("slide", { direction: "right" }, 500)
             $(this).css("background", "#DEAF5B");
