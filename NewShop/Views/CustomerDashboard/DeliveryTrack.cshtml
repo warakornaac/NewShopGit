@@ -1069,76 +1069,24 @@
                     if (data.Getdata.length > 0) {
                         //ssss
                         for (var i = 0; i < data.Getdata.length; i++) {
-                            if (NotiID == '1') {
-                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                if (data.Getdata[i].ORD_DocN != "") {
-                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                                } else {
-                                    SubmithtmlPage += '<td></td>';
-                                }
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                                SubmithtmlPage += '</tr>';
+                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage += '<td></td>';
                             }
-                            if (NotiID == '2') {
-                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                if (data.Getdata[i].ORD_DocN != "") {
-                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                                } else {
-                                    SubmithtmlPage += '<td></td>';
-                                }
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                                SubmithtmlPage += '</tr>';
-                            }
-                            if (NotiID == '3') {
-                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                if (data.Getdata[i].ORD_DocN != "") {
-                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                                } else {
-                                    SubmithtmlPage += '<td></td>';
-                                }
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                                SubmithtmlPage += '</tr>';
-                            }
-                            if (NotiID == '4') {
-                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                if (data.Getdata[i].ORD_DocN != "") {
-                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                                } else {
-                                    SubmithtmlPage += '<td></td>';
-                                }
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                                SubmithtmlPage += '</tr>';
-                            }
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '</tr>';
                         }
-                        //aaaa
 
-                        if (NotiID == '1' ) {
+                        if (NotiID == '1') {
                             if (SubmithtmlPage != "") {
                                 $("#deliverytrack-accept tbody").append(SubmithtmlPage);
                                 //$('#status-accept').text(alert_accept);
-                            }
-                            else {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
-                                $('#status-accept').attr('hidden', true);
                             }
                         }
                         if (NotiID == '2') {
@@ -1146,39 +1094,48 @@
                                 $("#deliverytrack-packing tbody").append(SubmithtmlPage);
                                 //$('#status-packing').text(alert_accept);
                             }
-                            else {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
-                                $('#status-packing').attr('hidden', true);
-                            }
                         }
                         if (NotiID == '3') {
                             if (SubmithtmlPage != "") {
                                 $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
-                                //$('#status-delivery').text(alert_accept);
-                            }
-                            else {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
-                                $('#status-delivery').attr('hidden', true);
                             }
                         }
                         if (NotiID == '4') {
                             if (SubmithtmlPage != "") {
                                 $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
-                                //$('#status-arrive').text(alert_accept);
                             }
-                            else {
+                        }
+                    }
+                    else {
+                        if (NotiID == '1') {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+                                $('#status-accept').attr('hidden', true);
+                        }
+                        if (NotiID == '2') {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
+                                $('#status-packing').attr('hidden', true);
+                        }
+                        if (NotiID == '3') {
+                            console.log("SubmithtmlPage:", SubmithtmlPage);
+                                console.log("is EMT");
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
+                                $('#status-delivery').attr('hidden', true);
+                        }
+                        if (NotiID == '4') {
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
                                 SubmithtmlPage += '</tr>';
                                 $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
                                 $('#status-arrive').attr('hidden', true);
-                            }
                         }
                     }
                 }
