@@ -8,22 +8,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สถานะการสั่งซื้อ</title>
     @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
+    @*<link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+        <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
+        <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="~/Content/Normalize.css" rel="stylesheet" />
+        <script src="~/Scripts/webAddress.js"></script>
+        <script src="~/CSS/jQueryv3.1.1.js"></script>
+        <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>*@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
 
     <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/CSS/jQueryv3.1.1.js"></script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Import jQuery 2.1.1 -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <style>
         .selected {
             background: #910000;
@@ -393,6 +416,83 @@
             }
         }
     </style>
+    <style>
+
+        .tab-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+            overflow-x: auto;
+        }
+
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
+        }
+
+            .tab-content.active {
+                display: block;
+            }
+
+        hr {
+            border-color: white;
+        }
+
+            hr#line-tab-credit {
+                border-color: white;
+            }
+
+        .btn-relative {
+            position: relative;
+        }
+
+        .badge-position {
+            position: absolute;
+            top: 0;
+            right: -10%;
+            transform: translate(50%, -50%);
+        }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+
+        .label-select-container {
+            display: flex;
+            align-items: center;
+        }
+
+            .label-select-container label {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+
+            .label-select-container select {
+                max-width: 200px;
+            }
+    </style>
 </head>
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
     <div id="app">
@@ -426,18 +526,90 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header pr-1 bg-info">
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
+                                            <div class="text-md-left text-sm-left pr-0 pl-1">
                                                 <h4 class="m-0">สถานะการสั่งซื้อ</h4>
                                             </div>
                                         </div>
+                                        <div class="w3-bar pt-3 tab-buttons bg-info ">
+                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-accept">
+                                                รับ Order <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-accept">0</span>
+                                                <hr class="m-0" id="line-tab-accept" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-packing">
+                                                เตรียมจัดส่ง <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-packing">0</span>
+                                                <hr class="m-0" id="line-tab-packing" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-delivering">
+                                                ระหว่างขนส่ง <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery">0</span>
+                                                <hr class="m-0" id="line-tab-delivering" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
+                                                จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
+                                                <hr class="m-0" id="line-tab-arrive" />
+                                            </button>
+                                        </div>
                                         <div class="card-body p-0">
-                                            <div class="m-0" style="height:500px;">
-                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack" style="padding: 7px;font-size: small;">
+                                            <div class="m-0 table-accept table-responsive" style="height:500px;">
+                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-accept" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
                                                             <th></th>
                                                             <th>เลขคำสั่งซื้อ</th>
                                                             <th>วันที่สั่ง</th>
+                                                            <th>วันที่รับออเดอร์</th>
+                                                            <th>จำนวน</th>
+                                                            <th>สถานะ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="m-0 table-packing table-responsive" style="height:500px;">
+                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
+                                                    <thead style="font-size: small;">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>เลขคำสั่งซื้อ</th>
+                                                            <th>วันที่สั่ง</th>
+                                                            <th>วันที่จัดเตรียมสินค้า</th>
+                                                            <th>จำนวน</th>
+                                                            <th>สถานะ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="m-0 table-delivery table-responsive" style="height:500px;">
+                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
+                                                    <thead style="font-size: small;">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>เลขคำสั่งซื้อ</th>
+                                                            <th>วันที่สั่ง</th>
+                                                            <th>วันที่ออกส่งสินค้า</th>
+                                                            <th>จำนวน</th>
+                                                            <th>สถานะ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="m-0 table-arrive table-responsive" style="height:500px;">
+                                                <div class=" col-12 float-end m-0 p-0 d-flex align-items-start">
+                                                    <div class="row col-12 m-0 pr-0">
+                                                        <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">
+                                                            <label for="select-month-year">เดือน : </label>
+                                                            <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-arrive" style="padding: 7px;font-size: small;">
+                                                    <thead style="font-size: small;">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>เลขคำสั่งซื้อ</th>
+                                                            <th>วันที่สั่ง</th>
+                                                            <th>วันที่รับสินค้า</th>
                                                             <th>จำนวน</th>
                                                             <th>สถานะ</th>
                                                         </tr>
@@ -507,23 +679,29 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+        <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+        <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+        <script src="~/Scripts/webAddress.js"></script>
+        <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+        <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
+        <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>*@
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-    <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-    <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
-    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
         var user = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         //console.log("COSCOD : " + cuscod);
+
         if (cuscod != "") {
             getDeliveryTrack();
         }
@@ -537,15 +715,14 @@
         });
         $(document).ready(function () {
             $("#tool-body").hide();
-
+            $('#btn-show-accept').css("background", "#DEAF5B");
+            $('.table-packing').hide();
+            $('.table-delivery').hide();
+            $('.table-arrive').hide();
             $(".card-link").click(function () {
                 var cardBody = $(this).next(".card-body");
                 cardBody.slideToggle(200);
             });
-            $('.modal').modal({
-                backdrop: 'static',
-                keyboard: true
-            })
         });
 
         $(document).ready(function () {
@@ -604,6 +781,68 @@
             return val;
         }
 
+        $('#btn-show-accept').click(function () {
+            $('.table-accept').show('slow');
+            $('.table-packing').hide('slow');
+            $('.table-delivery').hide('slow');
+            $('.table-arrive').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-packing').removeAttr('style');
+            $('#btn-show-delivering').removeAttr('style');
+            $('#btn-show-arrive').removeAttr('style');
+            getDeliveryTrack_test(1);
+        });
+        $('#btn-show-packing').click(function () {
+            $('.table-packing').show('slow');
+            $('.table-accept').hide('slow');
+            $('.table-delivery').hide('slow');
+            $('.table-arrive').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-accept').removeAttr('style');
+            $('#btn-show-delivering').removeAttr('style');
+            $('#btn-show-arrive').removeAttr('style');
+            getDeliveryTrack_test(2);
+        });
+        $('#btn-show-delivering').click(function () {
+            $('.table-delivery').show('slow');
+            $('.table-packing').hide('slow');
+            $('.table-accept').hide('slow');
+            $('.table-arrive').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-accept').removeAttr('style');
+            $('#btn-show-packing').removeAttr('style');
+            $('#btn-show-arrive').removeAttr('style');
+            getDeliveryTrack_test(3);
+        });
+        $('#btn-show-arrive').click(function () {
+            $('.table-arrive').show('slow');
+            $('.table-delivery').hide('slow');
+            $('.table-packing').hide('slow');
+            $('.table-accept').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-accept').removeAttr('style');
+            $('#btn-show-packing').removeAttr('style');
+            $('#btn-show-delivering').removeAttr('style');
+            getSelectMonth();
+            getDeliveryTrack_test(4);
+        });
+        $('#select-month-year').on('change', function () {
+            getDeliverySuccess(this.value);
+        });
+
+
+        function getSelectMonth() {
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const currentMonth = new Date().getMonth() + 1;
+            $.each(months, function (index, month) {
+                $('#select-month-year').append($('<option>', {
+                    value: index + 1,
+                    text: month
+                }));
+            });
+            $('#select-month-year').val(currentMonth);
+        }
+
         function getDeliveryTrack() {
             var _CUSCOD = cuscod;
             $.ajax({
@@ -614,33 +853,385 @@
             type: "POST",
             dataType: "JSON",
             success: function (data) {
-                $('#deliverytrack tbody:last-child').html("");
+                $('#deliverytrack-accept tbody').html("");
+                $('#deliverytrack-packing tbody').html("");
+                $('#deliverytrack-delivery tbody').html("");
+                $('#deliverytrack-arrive tbody').html("");
                 var SubmithtmlPage = "";
+                var SubmithtmlPage_packing = "";
+                var SubmithtmlPage_delivery = "";
+                var SubmithtmlPage_arrive = "";
+                var alert_accept = 0;
+                var alert_packing = 0;
+                var alert_delivery = 0;
+                var alert_arrive = 0;
                 if (data.Getdata.length > 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
-
-                        SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\''+',' + '\'' + data.Getdata[i].Notify +'\');">';
-                        //SubmithtmlPage += '</td>';
-                        SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                        if (data.Getdata[i].ORD_DocN != "") {
-                            SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                        } else {
-                            SubmithtmlPage += '<td></td>';
+                        // table Order
+                        if (data.Getdata[i].Notify.includes('รับ Order')) {
+                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage += '<td></td>';
+                            }
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '</tr>';
+                            alert_accept ++;
                         }
-                        //SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.substring(0, 10) + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
-                        SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                        SubmithtmlPage += '</tr>';
+
+                        //Table Packing
+                        if (data.Getdata[i].Notify.includes('เตรียมจัดส่ง')) {
+                            SubmithtmlPage_packing += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage_packing += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage_packing += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage_packing += '<td></td>';
+                            }
+                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_packing += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage_packing += '</tr>';
+                            alert_packing++;
+                        }
+
+                        //Table Delivery
+                        if (data.Getdata[i].Notify.includes('ระหว่างขนส่ง')) {
+                            SubmithtmlPage_delivery += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage_delivery += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage_delivery += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage_delivery += '<td></td>';
+                            }
+                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_delivery += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage_delivery += '</tr>';
+                            alert_delivery++;
+                        }
+
+                        //Table Arrive
+                        if (data.Getdata[i].Notify.includes('จัดส่งสำเร็จ')) {
+                            SubmithtmlPage_arrive += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage_arrive += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage_arrive += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage_arrive += '<td></td>';
+                            }
+                            SubmithtmlPage_arrive += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_arrive += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_arrive += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage_arrive += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage_arrive += '</tr>';
+                            alert_arrive++;
+                        }
                     }
-                } else {
-                    SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td colspan="8" align="center">-- ไม่พบข้อมูล --</td>';
-                    SubmithtmlPage += '</tr>';
+                    if (SubmithtmlPage != "") {
+                        if (alert_accept > 99) {
+                            $('#status-accept').text('99+');
+                        }
+                        else {
+                            $('#status-accept').text(alert_accept);
+                        }
+                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+
+                    }
+                    else {
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+                        $('#status-accept').attr('hidden',true);
+
+
+                    }
+
+                    if (SubmithtmlPage_packing != "") {
+                        if (alert_packing > 99) {
+                            $('#status-packing').text('99+');
+
+                        }
+                        else {
+                            $('#status-packing').text(alert_packing);
+
+                        }
+                        $('#deliverytrack-packing tbody').append(SubmithtmlPage_packing);
+                    }
+                    else {
+                        SubmithtmlPage_packing += '<tr>';
+                        SubmithtmlPage_packing += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage_packing += '</tr>';
+                        $("#deliverytrack-packing tbody").append(SubmithtmlPage_packing);
+                        $('#status-packing').attr('hidden', true);
+
+                    }
+
+                    if (SubmithtmlPage_delivery != "") {
+                        if (alert_delivery > 99) {
+                            $('#status-delivery').text('99+');
+                        }
+                        else {
+                            $('#status-delivery').text(alert_delivery);
+
+                        }
+                        $('#deliverytrack-delivery tbody').append(SubmithtmlPage_delivery);
+
+                    }
+                    else {
+                        SubmithtmlPage_delivery += '<tr>';
+                        SubmithtmlPage_delivery += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage_delivery += '</tr>';
+                        $("#deliverytrack-delivery tbody").append(SubmithtmlPage_delivery);
+                        $('#status-delivery').attr('hidden', true);
+                    }
+
+                    if (SubmithtmlPage_arrive != "") {
+                        if (alert_arrive > 99) {
+                            $('#status-arrive').text('99+');
+                        }
+                        else {
+                            $('#status-arrive').text(alert_arrive);
+                        }
+                        $('#deliverytrack-arrive tbody').append(SubmithtmlPage_arrive);
+
+                    }
+                    else {
+                        SubmithtmlPage_arrive += '<tr>';
+                        SubmithtmlPage_arrive += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage_arrive += '</tr>';
+                        $("#deliverytrack-arrive tbody").append(SubmithtmlPage_arrive);
+                        $('#status-arrive').attr('hidden', true);
+
+                        //$('#status-arrive').add;
+                    }
                 }
-                $("#deliverytrack").append(SubmithtmlPage);
             }
         });
+        }
+
+        function getDeliveryTrack_test(NotiID) {
+            var _CUSCOD = cuscod;
+            $.ajax({
+                url: '@Url.Action("GetDeliveryTrackTab", "CustomerDashboard")',
+                data: {
+                    CUSCOD: _CUSCOD,
+                    NotifID: NotiID
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    var SubmithtmlPage = '';
+                    if (NotiID == '1' ) {
+                        $('#deliverytrack-accept tbody').html("");
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+                    }
+                    if (NotiID == '2') {
+                        $('#deliverytrack-packing tbody').html("");
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-packing tbody").append(SubmithtmlPage);
+                    }
+                    if (NotiID == '3') {
+                        $('#deliverytrack-delivery tbody').html("");
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
+                    }
+                    if (NotiID == '4') {
+                        $('#deliverytrack-arrive tbody').html("");
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                    }
+
+                },
+                success: function (data) {
+                    var SubmithtmlPage = '';
+                    $('#deliverytrack-accept tbody').html("");
+                    $('#deliverytrack-packing tbody').html("");
+                    $('#deliverytrack-delivery tbody').html("");
+                    $('#deliverytrack-arrive tbody').html("");
+                    if (data.Getdata.length > 0) {
+                        //ssss
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            if (NotiID == '1') {
+                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                if (data.Getdata[i].ORD_DocN != "") {
+                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                } else {
+                                    SubmithtmlPage += '<td></td>';
+                                }
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            if (NotiID == '2') {
+                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                if (data.Getdata[i].ORD_DocN != "") {
+                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                } else {
+                                    SubmithtmlPage += '<td></td>';
+                                }
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            if (NotiID == '3') {
+                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                if (data.Getdata[i].ORD_DocN != "") {
+                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                } else {
+                                    SubmithtmlPage += '<td></td>';
+                                }
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            if (NotiID == '4') {
+                                SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                if (data.Getdata[i].ORD_DocN != "") {
+                                    SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                } else {
+                                    SubmithtmlPage += '<td></td>';
+                                }
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                                SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                        }
+                        //aaaa
+
+                        if (NotiID == '1' ) {
+                            if (SubmithtmlPage != "") {
+                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+                                //$('#status-accept').text(alert_accept);
+                            }
+                            else {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
+                                $('#status-accept').attr('hidden', true);
+                            }
+                        }
+                        if (NotiID == '2') {
+                            if (SubmithtmlPage != "") {
+                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
+                                //$('#status-packing').text(alert_accept);
+                            }
+                            else {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
+                                $('#status-packing').attr('hidden', true);
+                            }
+                        }
+                        if (NotiID == '3') {
+                            if (SubmithtmlPage != "") {
+                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
+                                //$('#status-delivery').text(alert_accept);
+                            }
+                            else {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
+                                $('#status-delivery').attr('hidden', true);
+                            }
+                        }
+                        if (NotiID == '4') {
+                            if (SubmithtmlPage != "") {
+                                $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                                //$('#status-arrive').text(alert_accept);
+                            }
+                            else {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                                $('#status-arrive').attr('hidden', true);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getDeliverySuccess(month) {
+            var _CUSCOD = cuscod;
+            $.ajax({
+                url: '@Url.Action("GetSuccessfulDeliveryByMonth", "CustomerDashboard")',
+                data: {
+                    CUSCOD: _CUSCOD,
+                    MONTH: month
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    var SubmithtmlPage = "";
+                    $('#deliverytrack-arrive tbody').html("");
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPage += '</tr>';
+                    $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    var SubmithtmlPage = '';
+                    $('#deliverytrack-arrive tbody').html("");
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
+                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            if (data.Getdata[i].ORD_DocN != "") {
+                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                            } else {
+                                SubmithtmlPage += '<td></td>';
+                            }
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '</tr>';
+                        }
+                        $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                    }
+                    else {
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                    }
+
+                }
+            });
         }
 
         function GetOrderDetail(ORD_DocNo,Status) {

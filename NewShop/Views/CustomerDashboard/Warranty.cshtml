@@ -437,6 +437,17 @@
         .btn-font {
             font-family: Kanit,sans-serif;
         }
+
+        .iconClass {
+            position: relative;
+        }
+
+            .iconClass span {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: block;
+            }
     </style>
 </head>
 <body style="background-color: #f2f7ff; margin-bottom:5px; ">
@@ -565,6 +576,49 @@
                                         </tfoot>
                                     </table>
                                 </div>
+                                <div class="w3-bar rounded-top pt-2 tab-buttons bg-info">
+                                    <button type="button" class="btn btn-info position-relative" id="btn-show-credit">
+
+                                        เครดิต
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
+                                            99+
+                                        </span>
+                                        <hr class="m-0" id="line-tab-amt" />
+
+                                    </button>
+
+                                    <button type="button" class="btn btn-primary position-relative" id="btn-show-amount">
+                                        ยอดซื้อ
+                                        <hr class="m-0" id="line-tab-credit" />
+                                    </button>
+                                    <button type="button" class="btn btn-info position-relative iconClass">
+                                        Inbox
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
+                                            99+
+
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Hreader
+                                                </th>
+                                                <th>
+                                                    SecHeader
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>123</td>
+                                                <td>456</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -585,8 +639,8 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
-        // var cuscod = '111B0005';
+        //var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+         var cuscod = '111B0005';
         var user = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         $(document).ready(function () {

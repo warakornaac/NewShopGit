@@ -998,7 +998,7 @@ namespace NewShop.Models
         public string sumOrderStatus4 { get; set; }
         public string sumDateCurrent { get; set; }
     }
-        public class ListOrderNotifySum
+    public class ListOrderNotifySum
     {
         public string sumOrderCurrentDate { get; set; }
         public string sumOrderByMonth { get; set; }
@@ -1014,6 +1014,7 @@ namespace NewShop.Models
         public string NotifyID { get; set; }
         public string Notify { get; set; }
         public string StatusDate { get; set; }
+        public string Order_Date { get; set; }
         public string ORD_TotalItem { get; set; }
         public string ORD_TotalQty { get; set; }
         public string ORD_TotalAmt { get; set; }

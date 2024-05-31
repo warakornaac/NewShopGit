@@ -7850,6 +7850,7 @@
     <Content Include="Views\SendDeliveryStatus\DashboardSendDeliveryStatus.cshtml" />
     <Content Include="Views\SendDeliveryStatus\DashboardSendDeliveryStatusAuto.cshtml" />
     <Content Include="Views\SendDeliveryStatus\_listOrderLast.cshtml" />
+    <Content Include="Views\CustomerDashboard\Warranty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

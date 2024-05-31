@@ -11,6 +11,7 @@ using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
 using System.DirectoryServices.Protocols;
+using System.Web.Services.Description;
 
 namespace NewShop.Controllers
 {
@@ -52,6 +53,11 @@ namespace NewShop.Controllers
             {
                 return RedirectToAction("LogIn", "Account");
             }
+            return View();
+        }
+        public ActionResult Warranty()
+        {
+
             return View();
         }
         public ActionResult CustomerAlert()
@@ -162,7 +168,7 @@ namespace NewShop.Controllers
             List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_List", Connection);
+                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
                 SqlDataReader reader = command.ExecuteReader();
@@ -175,6 +181,7 @@ namespace NewShop.Controllers
                         NotifyID = reader["NotifyID"].ToString(),
                         Notify = reader["Notify"].ToString(),
                         StatusDate = Convert.ToDateTime(reader["StatusDate"]).ToString("dd/MM/yyyy"),
+                        Order_Date = Convert.ToDateTime(reader["Order Date"]).ToString("dd/MM/yyyy"),
                         ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
                         ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
                         ORD_TotalAmt = reader["ORD_TotalAmt"].ToString()
@@ -190,6 +197,87 @@ namespace NewShop.Controllers
                 message = ex.Message;
             }
 
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDeliveryTrackTab(string CUSCOD, string NotifID)
+        {
+            string message = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
+            try
+            {
+                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
+                command.Parameters.AddWithValue("@NotifyID", NotifID);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new DeliveryTrackNotify()
+                    {
+                        ORD_DocNo = reader["ORD_DocNo"].ToString(),
+                        CUSCOD = reader["CUSCOD"].ToString(),
+                        NotifyID = reader["NotifyID"].ToString(),
+                        Notify = reader["Notify"].ToString(),
+                        StatusDate = Convert.ToDateTime(reader["StatusDate"]).ToString("dd/MM/yyyy"),
+                        Order_Date = Convert.ToDateTime(reader["Order Date"]).ToString("dd/MM/yyyy"),
+                        ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
+                        ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
+                        ORD_TotalAmt = reader["ORD_TotalAmt"].ToString()
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSuccessfulDeliveryByMonth(string CUSCOD, string MONTH)
+        {
+            string message = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
+            try
+            {
+                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
+                command.Parameters.AddWithValue("@NotifyID", "3");
+                command.Parameters.AddWithValue("Month", MONTH);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new DeliveryTrackNotify()
+                    {
+                        ORD_DocNo = reader["ORD_DocNo"].ToString(),
+                        CUSCOD = reader["CUSCOD"].ToString(),
+                        NotifyID = reader["NotifyID"].ToString(),
+                        Notify = reader["Notify"].ToString(),
+                        StatusDate = Convert.ToDateTime(reader["StatusDate"]).ToString("dd/MM/yyyy"),
+                        Order_Date = Convert.ToDateTime(reader["Order Date"]).ToString("dd/MM/yyyy"),
+                        ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
+                        ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
+                        ORD_TotalAmt = reader["ORD_TotalAmt"].ToString()
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+
+            }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetDeliveryDetail(string ORD_DocNo)
