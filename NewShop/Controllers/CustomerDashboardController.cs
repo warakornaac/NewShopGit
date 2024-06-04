@@ -29,6 +29,10 @@ namespace NewShop.Controllers
             }
             return View();
         }
+        public ActionResult Menu()
+        {
+            return View();
+        }
         public ActionResult Promotion()
         {
 
@@ -251,7 +255,7 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
-                command.Parameters.AddWithValue("@NotifyID", "3");
+                command.Parameters.AddWithValue("@NotifyID", "4");
                 command.Parameters.AddWithValue("Month", MONTH);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())

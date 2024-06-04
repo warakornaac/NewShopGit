@@ -490,7 +490,7 @@
             }
 
             .label-select-container select {
-                max-width: 200px;
+                max-width: 150px;
             }
     </style>
 </head>
@@ -595,7 +595,7 @@
                                                 </table>
                                             </div>
                                             <div class="m-0 table-arrive table-responsive" style="height:500px;">
-                                                <div class=" col-12 float-end m-0 p-0 d-flex align-items-start">
+                                                <div class=" col-12 float-end m-0 p-0 pb-1 pt-1 d-flex align-items-start">
                                                     <div class="row col-12 m-0 pr-0">
                                                         <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">
                                                             <label for="select-month-year">เดือน : </label>
@@ -832,8 +832,10 @@
 
 
         function getSelectMonth() {
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            $('#select-month-year')
+            const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
             const currentMonth = new Date().getMonth() + 1;
+            $('#select-month-year').empty();
             $.each(months, function (index, month) {
                 $('#select-month-year').append($('<option>', {
                     value: index + 1,
@@ -1148,6 +1150,7 @@
                 url: '@Url.Action("GetSuccessfulDeliveryByMonth", "CustomerDashboard")',
                 data: {
                     CUSCOD: _CUSCOD,
+
                     MONTH: month
                 },
                 type: 'POST',
