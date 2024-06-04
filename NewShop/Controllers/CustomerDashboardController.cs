@@ -29,8 +29,13 @@ namespace NewShop.Controllers
             }
             return View();
         }
-        public ActionResult Menu()
+        public ActionResult CustomerMenu()
         {
+            //this.Session["UserType"] = "";
+            if (Session["UserID"] == null)
+            {
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+            }
             return View();
         }
         public ActionResult Promotion()
@@ -55,7 +60,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return RedirectToAction("LogIn", "Account");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=DeliveryTrack");
             }
             return View();
         }
