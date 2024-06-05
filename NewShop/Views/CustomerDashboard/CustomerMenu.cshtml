@@ -38,7 +38,7 @@
     <div id="app">
         <div id="main">
             <div class="page-heading">
-                <h1 style="font-family: Kanit, sans-serif;">Customer Portal</h1>
+                <h1 class="fw-bold" style="font-family: Kanit, sans-serif;">Customer Portal</h1>
             </div>
             <div class="page-content">
                 <div class="container">
@@ -46,7 +46,7 @@
                         <div class="card-header">
                             @if (Session["DisplayName"].ToString() != "")
                             {
-                                <h1 class="font-kanit">@Session["DisplayName"].ToString()</h1>
+                                <h1 class="font-kanit fw-bold">@Session["DisplayName"].ToString()</h1>
                             }
                         </div>
                         <div class="card-body pt-2">
@@ -55,7 +55,7 @@
                                     <div class="card text-center p-4 bg-success w3-hover-khaki rounded text-white" id="menu_amt">
                                         <i class="fa fa-shopping-cart fa-3x"></i>
                                         <div class="card-body">
-                                            <h1 class="card-title font-kanit">ยอดซื้อ</h1>
+                                            <h1 class="card-title font-kanit fw-bold">ยอดซื้อ</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <div class="card text-center p-4 bg-success  w3-hover-khaki text-white" id="menu_deliverytracking">
                                         <i class="fa fa-shopping-bag fa-3x"></i>
                                         <div class="card-body">
-                                            <h1 class="card-title font-kanit">สถานะการสั่งซื้อ</h1>
+                                            <h1 class="card-title font-kanit fw-bold">สถานะการสั่งซื้อ</h1>
                                             @*<p class="card-text">Auscultation skills</p>*@
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                     <div class="card text-center p-4 bg-success  w3-hover-khaki text-white" id="menu_backorder">
                                         <i class="fa fa fa-truck fa-3x"></i>
                                         <div class="card-body">
-                                            <h1 class="card-title font-kanit">สินค้าค้างส่ง</h1>
+                                            <h1 class="card-title font-kanit fw-bold">สินค้าค้างส่ง</h1>
                                             @*<p class="card-text">Household medicine cabinet</p>*@
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                     <div class="card text-center p-4 bg-success  w3-hover-khaki text-white" id="menu_promotion">
                                         <i class="fa fa fa-product-hunt fa-3x"></i>
                                         <div class="card-body">
-                                            <h1 class="card-title font-kanit">โปรโมชั่น</h1>
+                                            <h1 class="card-title font-kanit fw-bold">โปรโมชั่น</h1>
                                             @*<p class="card-text">Telephone counseling</p>*@
                                         </div>
                                     </div>
