@@ -38,6 +38,10 @@
             background-color: #1ED31E;
         }
 
+        body {
+            height: 100vh;
+        }
+
         .header {
             background: #0dcaf0;
             color: white;
@@ -55,16 +59,10 @@
             font-size: 3em;
         }
 
-        .footer {
-            background: #0dcaf0;
-            color: white;
-            text-align: center;
-            padding: 10% 0;
-            overflow: hidden;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            clip-path: ellipse(75% 100% at 50% 100%);
+        @@media only screen and (min-width: 767px) {
+            .title-text {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -117,9 +115,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer">
-
     </div>
 
 
