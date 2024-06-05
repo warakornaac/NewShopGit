@@ -103,7 +103,6 @@ D:\dotnet\NewShopGit\NewShop\bin\System.Web.Razor.xml
 D:\dotnet\NewShopGit\NewShop\bin\System.Web.WebPages.xml
 D:\dotnet\NewShopGit\NewShop\bin\System.Web.WebPages.Deployment.xml
 D:\dotnet\NewShopGit\NewShop\bin\System.Web.WebPages.Razor.xml
-D:\dotnet\NewShopGit\NewShop\obj\Debug\NewShop.csproj.AssemblyReference.cache
 D:\dotnet\NewShopGit\NewShop\obj\Debug\RdlCompile.cache
 D:\dotnet\NewShopGit\NewShop\obj\Debug\RdlCompile.compiled
 D:\dotnet\NewShopGit\NewShop\obj\Debug\NewShop.csproj.CoreCompileInputs.cache
@@ -114,3 +113,4 @@ D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.Common.dll
 D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
 D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.WebForms.DLL
 D:\.net\NewShopGit\NewShop\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+D:\dotnet\NewShopGit\NewShop\obj\Debug\NewShop.csproj.AssemblyReference.cache

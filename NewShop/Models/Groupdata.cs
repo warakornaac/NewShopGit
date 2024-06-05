@@ -789,6 +789,7 @@ namespace NewShop.Models
         public string KDCQty { get; set; }
         public string PDCQty { get; set; }
         public string Rating { get; set; }
+        public string PrdPstGrp { get; set; }
 
         public List<BackOrderbyItem> BackOrderbyItem_Grid { get; set; }
     }

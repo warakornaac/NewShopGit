@@ -250,26 +250,26 @@ namespace NewShop.Controllers
                 });
             }
             //get data by stored
-            if (ListSendDelivery.Any())
-            {
-                foreach (var rowList in ListSendDelivery)
-                {
-                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "");
-                    string json = JsonConvert.SerializeObject(statusApi.Result.Data);
-                    ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
-                    //send fail
-                    if (dto.status != "OK")
-                    {
-                        ++numError;
-                        //arrError[numError] = rowList.Docno;
-                    }
-                    else
-                    {
-                        ++numSuccess;
-                        //arrSuccess[numSuccess] = rowList.Docno;
-                    }
-                }
-            }
+            //if (ListSendDelivery.Any())
+            //{
+            //    foreach (var rowList in ListSendDelivery)
+            //    {
+            //        var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, "");
+            //        string json = JsonConvert.SerializeObject(statusApi.Result.Data);
+            //        ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
+            //        //send fail
+            //        if (dto.status != "OK")
+            //        {
+            //            ++numError;
+            //            //arrError[numError] = rowList.Docno;
+            //        }
+            //        else
+            //        {
+            //            ++numSuccess;
+            //            //arrSuccess[numSuccess] = rowList.Docno;
+            //        }
+            //    }
+            //}
 
             return Json(ListSendDelivery, JsonRequestBehavior.AllowGet);
         }

@@ -1669,7 +1669,6 @@
                 url: '@Url.Action("Confirmationdata", "Shoppinglist")',
                 data: {
                     DataSend: DataSend,
-
                     DataSendPro: DataSendPro,
                     Cus: cuscod,
                     User: userid
@@ -1677,6 +1676,7 @@
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
+                    console.log("confirm = " + data);
                     if (data == "Y") {
                         $("#btnsubmitinsert").attr("disabled", false);
                         $(".fixed_headers > tbody").empty();

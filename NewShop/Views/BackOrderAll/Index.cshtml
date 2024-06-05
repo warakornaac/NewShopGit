@@ -212,18 +212,15 @@
                     <table cellspacing="0" id="table-basic" class="table table-sm table-bordered table-striped" style="min-width: 1200px;">
                         <thead>
                             <tr>
-
                                 <th>ลูกค้า</th>
                                 <th>วันที่สั่ง</th>
-
                                 <th>วันส่ง</th>
                                 <th>Ord type</th>
                                 <th>เบอร์สินค้า</th>
-
                                 <th>ชื่อสินค้า</th>
+                                <th>Type</th>
                                 <th>Service Part</th>
                                 <th>เลขที่Order</th>
-
                                 <th>จำนวน</th>
                                 <th>จำนวน B/O</th>
                                 <th>จำนวน<br>ที่ปล่อย b/o</th>
@@ -236,14 +233,12 @@
                                 <th>KDC</th>
                                 <th>PDC</th>
                                 @*<th></th>*@
-
                                 <th>Reserve</th>
                                 <th>OnOrd</th>
                                 <th>เข้าคลังล่าสุด</th>
                                 <th>CustomerPo</th>
                                 <th>หมายเหตุ</th>
                                 <th>Ship to</th>
-
                                 @*<th>Cus Po</th>*@
                                 <th> Promo</th>
                                 <th>SLMCOD</th>
@@ -802,6 +797,7 @@
                                 SubmithtmlPage += '<td>' + OrdTyp + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].STKCOD + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td align="center">' + data[i].PrdPstGrp + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].Servicepart + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].ORDQTY + '</td>';
