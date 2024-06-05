@@ -314,6 +314,7 @@ namespace NewShop.Controllers
                         KDCQty = drb["KDCQty"].ToString(),
                         PDCQty = drb["PDCQty"].ToString(),
                         Rating = drb["Rating"].ToString(),
+                        PrdPstGrp = drb["PrdPstGrp"].ToString(),
 
                     });
 

@@ -212,7 +212,7 @@
         try {
             $.ajax({
                 type: 'post',
-                url: '/SendDeliveryStatus/GetStoreSearchOrderNotify',
+                url: '@Url.Action("GetStoreSearchOrderNotify", "SendDeliveryStatus")',
                 data: {},
                 dataType: 'json',
                 beforeSend: function () {
@@ -257,7 +257,7 @@
         try {
             $.ajax({
                 type: 'post',
-                url: '/SendDeliveryStatus/GetStoreSearchOrderNotifyCount',
+                url: '@Url.Action("GetStoreSearchOrderNotifyCount", "SendDeliveryStatus")',
                 data: {},
                 dataType: 'json',
                 beforeSend: function () {
@@ -326,7 +326,7 @@
         const countData = await GetSendDeliveryCount();
         const listlLastData = await GetListOrderLast();
         //resetTimer();
-       
+
         //if (countData.isdata == true) {
         //    setTimeout(async function () {
         //        await GetSendDeliveryCount();
