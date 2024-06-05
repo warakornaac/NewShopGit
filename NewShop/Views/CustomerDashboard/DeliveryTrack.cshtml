@@ -1245,7 +1245,7 @@
                                 dateOrder = data.Getdata[i].VORDDAT;
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td align="left">' + data.Getdata[i].VSTKCOD + '</td>';
-                                SubmithtmlPage += '<td align="left">' + nl3br(data.Getdata[i].VSTKDES) + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;">' + data.Getdata[i].VSTKDES+ '</td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].AmtQty + '</td>';
                                 SubmithtmlPage += '</tr>';
                             }
