@@ -880,8 +880,8 @@
                                         SubmithtmlPage_A += '<td><p class=" m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_A += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].SalePrice + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].Amount + '</p></td>';
+                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
+                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_A += '</tr >';
                                         aac_count++;
@@ -892,8 +892,8 @@
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_T += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].SalePrice + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].Amount + '</p></td>';
+                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
+                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_T += '</tr >';
                                         tac_count++;
@@ -904,8 +904,8 @@
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_O += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].SalePrice + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].Amount + '</p></td>';
+                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
+                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_O += '</tr >';
                                         omp_count++;
