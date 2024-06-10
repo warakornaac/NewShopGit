@@ -754,15 +754,48 @@
                                             <div class="card m-0">
                                                 <div class="card-header bg-secondary">
                                                     <div class="row">
-                                                        <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
+                                                        <div class="col-12">
+                                                            <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
 
-                                                        </div>
-                                                        <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
-                                                            <div class="col-md-6 text-right m-0 p-0 pr-1">
-                                                                <span>ปี-เดือน : </span>
+
                                                             </div>
-                                                            <div class="col-md-6 m-0 p-0">
-                                                                <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                                    <span>ปี-เดือน : </span>
+                                                                </div>
+                                                                <div class="col-md-6 m-0 p-0">
+                                                                    <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <h4>ยอดซื้อที่บริษัท</h4>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="table-responsive m-0 p-0">
+                                                                        <table class="table table-bordered bg-white">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <th class="text-center">AAC</th>
+                                                                                    <th class="text-center">TAC</th>
+                                                                                    <th class="text-center">OMP</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th class="border-0 m-0">
+                                                                                        ยอดรวม
+                                                                                    </th>
+                                                                                    <td><span id="aac-amt"></span></td>
+                                                                                    <td><span id="tac-amt"></span></td>
+                                                                                    <td><span id="omp-amt"></span></td>
+                                                                                </tr>
+
+                                                                            </thead>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1084,6 +1117,9 @@
                                 var aac_count = 0;
                                 var tac_count = 0;
                                 var omp_count = 0;
+                                var amt_aac = 0;
+                                var amt_tac = 0;
+                                var amt_omp = 0;
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     $('#sec-table-' + i + ' tbody').html("");
                                     SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
@@ -1141,6 +1177,7 @@
                                                     SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
                                                     SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
                                                     SubmithtmlPage += '</tr>'
+                                                    amt_aac += Number(result.Getdata[j].Amount);
                                                     aac_count++;
                                                 }
                                             }
@@ -1205,6 +1242,7 @@
                                                     SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
                                                     SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
                                                     SubmithtmlPage += '</tr>'
+                                                    amt_tac += Number(result.Getdata[j].Amount);
                                                     tac_count++;
                                                 }
                                             }
@@ -1265,6 +1303,7 @@
                                                     SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
                                                     SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
                                                     SubmithtmlPage += '</tr>'
+                                                    amt_omp += Number(result.Getdata[j].Amount);
                                                     omp_count++;
                                                 }
                                             }
@@ -1301,6 +1340,9 @@
                                 $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)))
                                 $("#loading-text-table").text("");
                                 $("#amt-table tbody").append(SubmithtmlPage);
+                                $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
+                                $('#tac-amt').text(commaSeparateNumber(amt_tac.toFixed(2)));
+                                $('#omp-amt').text(commaSeparateNumber(amt_omp.toFixed(2)));
                             }
                         });
                     }
@@ -1651,9 +1693,9 @@
                                 }
                             }
                             console.log(bill_omp);
-                            //$('#bill-aac-amt').text(commaSeparateNumber(bill_aac));
-                            //$('#bill-tac-amt').text(commaSeparateNumber(bill_tac));
-                            //$('#bill-omp-amt').text(commaSeparateNumber(bill_omp));
+                            //$('#aac-amt').text(commaSeparateNumber(bill_aac));
+                            //$('#tac-amt').text(commaSeparateNumber(bill_tac));
+                            //$('#omp-amt').text(commaSeparateNumber(bill_omp));
                         }
                     }
 
