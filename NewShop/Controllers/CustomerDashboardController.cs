@@ -493,5 +493,9 @@ namespace NewShop.Controllers
             catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult BackordYear(string CUSCOD)
+        {
+            return Json(new { message = "Y", });
+        }
     }
 }

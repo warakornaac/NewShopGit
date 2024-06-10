@@ -981,7 +981,6 @@ namespace NewShop.Models
         public string Qty { get; set; }
         public string SalePrice { get; set; }
         public string Amount { get; set; }
-
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
     }
@@ -1071,5 +1070,31 @@ namespace NewShop.Models
         public string BillNo { get; set; }
         public string BillDat { get; set; }
         public string BillDue { get; set; }
+    }
+    public class PromotionYearList
+    {
+        public string Year { get; set; }
+        public string Reward_Amount { get; set; }
+        public string Paid_Amount { get; set; }
+        public string Waiting_Amount { get; set; }
+        public string WHT { get; set; }
+    }
+    public class Promotion_CusList
+    {
+        public string Company { get; set; }
+        public string Promotion_Code { get; set; }
+        public string Promotion_Name { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public string Condition { get; set; }
+        public string Invoice_Amount { get; set; }
+        public string Invoice_Paid { get; set; }
+        public string Remaining_Amount { get; set; }
+        public string Reward { get; set; }
+        public string Reward_Amt { get; set; }
+        public string Received_By { get; set; }
+        public string Received_Date { get; set; }
+        public string WHT { get; set; }
+        public string Status { get; set; }
     }
 }

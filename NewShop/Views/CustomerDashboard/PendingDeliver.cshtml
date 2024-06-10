@@ -791,12 +791,6 @@
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        window.onload = function () {
-            var script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://api.ipify.org?format=jsonp&callback=DisplayIP";
-            document.getElementsByTagName("head")[0].appendChild(script);
-        };
 
         function jssor_1_slider_init() {
             var jssor_1_options = {
@@ -918,7 +912,7 @@
                                         $('#status-aac').text('99+');
                                     }
                                     else {
-                                        $('#status-aac').text(alert_accept);
+                                        $('#status-aac').text(aac_count);
                                     }
                                     aac.append(SubmithtmlPage_A);
                                 }

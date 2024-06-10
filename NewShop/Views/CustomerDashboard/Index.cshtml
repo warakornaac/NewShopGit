@@ -629,7 +629,7 @@
                                                                     <td><span id="tac-res">0</span></td>
                                                                     <td><span id="omp-res">0</span></td>
                                                                 </tr>
-                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="getAllBillAmout(); toggleRowCredit(this); ">
+                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="toggleRowCredit(this); ">
                                                                     <th class="block_container">
                                                                         <div class="col-12 d-flex align-items-center p-0">
                                                                             <div class="col-1"><h4 style="display: inline;"><span id="show-billing-icon">+</span></h4></div>
@@ -1354,6 +1354,7 @@
             var targetElement = document.getElementById(targetId.substring(1));
             $(targetElement).collapse('toggle');
         }
+
         function toggleRowBill(comp) {
             var text = $('#show-billing-'+comp+'-icon');
             if (text.text() === '+') {
@@ -1361,8 +1362,8 @@
             } else {
                 text.text("+");
             }
-            var targetId = row.getAttribute('data-bs-target');
-            var targetElement = document.getElementById(targetId.substring(1));
+            var targetId = $('#bill-' + comp + '-show').attr('id');
+            var targetElement = document.getElementById(targetId);
             $(targetElement).collapse('toggle');
         }
 
@@ -1395,7 +1396,6 @@
                             var cusName = "";
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 cusName = data.Getdata[i].CUSNAM;
-
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + '</td>';
@@ -1516,44 +1516,44 @@
                         var aac = $('#bill-aac-detail tbody');
                         var tac = $('#bill-tac-detail tbody');
                         var omp = $('#bill-omp-detail tbody');
-                        if (comp == 'AAC') {
+                        if (comp === 'AAC') {
                             aac.html("");
                         }
-                        if (comp == 'TAC') {
+                        if (comp === 'TAC') {
                             tac.html("");
                         }
-                        if (comp == 'OMP') {
+                        if (comp === 'OMP') {
                             omp.html("");
                         }
-                        var SubmithtmlPage = "";
+                        var SubmithtmlPage = '';
                         SubmithtmlPage += '<tr>';
                         SubmithtmlPage += '<td colspan="2">Loading....</td>';
                         SubmithtmlPage += '</tr>';
-                        if (comp == 'AAC') {
+                        if (comp === 'AAC') {
                             aac.append(SubmithtmlPage);
                         }
-                        if (comp == 'TAC') {
+                        if (comp === 'TAC') {
                             tac.append(SubmithtmlPage);
                         }
-                        if (comp == 'OMP') {
+                        if (comp === 'OMP') {
                             omp.append(SubmithtmlPage);
                         }
                     },
                     success: function (data) {
-                        if (data.message == 'Y') {
+                        if (data.message === 'Y') {
                             var aac = $('#bill-aac-detail tbody');
                             var tac = $('#bill-tac-detail tbody');
                             var omp = $('#bill-omp-detail tbody');
-                            if (comp == 'AAC') {
+                            if (comp === 'AAC') {
                                 aac.html("");
                             }
-                            if (comp == 'TAC') {
+                            if (comp === 'TAC') {
                                 tac.html("");
                             }
-                            if (comp == 'OMP') {
+                            if (comp === 'OMP') {
                                 omp.html("");
                             }
-                            var SubmithtmlPage = "";
+                            var SubmithtmlPage = '';
                             if (data.Getdata.length != 0) {
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                         SubmithtmlPage += '<tr>';
@@ -1563,14 +1563,13 @@
                                         SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amt) + '</td>';
                                         SubmithtmlPage += '</tr>';
                                 }
-                                if (comp == 'AAC') {
-                                    console.log
+                                if (comp === 'AAC') {
                                     aac.append(SubmithtmlPage);
                                 }
-                                if (comp == 'TAC') {
+                                if (comp === 'TAC') {
                                     tac.append(SubmithtmlPage);
                                 }
-                                if (comp == 'OMP') {
+                                if (comp === 'OMP') {
                                     omp.append(SubmithtmlPage);
                                 }
                             }
@@ -1579,27 +1578,27 @@
                                 var tac = $('#bill-tac-detail tbody');
                                 var omp = $('#bill-omp-detail tbody');
 
-                                if (comp == 'AAC') {
+                                if (comp === 'AAC') {
                                     aac.html("");
                                 }
-                                if (comp == 'TAC') {
+                                if (comp === 'TAC') {
                                     tac.html("");
                                 }
-                                if (comp == 'OMP') {
+                                if (comp === 'OMP') {
                                     omp.html("");
                                 }
-                                var SubmithtmlPage = "";
+                                var SubmithtmlPage = '';
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td class="text-center" colspan="3">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '<tr>';
-                                $('#bildue-table tbody').append(SubmithtmlPage);
-                                if (comp == 'AAC') {
+                                SubmithtmlPage += '</tr>';
+                                //$('#bildue-table tbody').append(SubmithtmlPage);
+                                if (comp === 'AAC') {
                                     aac.append(SubmithtmlPage);
                                 }
-                                if (comp == 'TAC') {
+                                if (comp === 'TAC') {
                                     tac.append(SubmithtmlPage);
                                 }
-                                if (comp == 'OMP') {
+                                if (comp === 'OMP') {
                                     omp.append(SubmithtmlPage);
                                 }
                             }

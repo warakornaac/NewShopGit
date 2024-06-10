@@ -486,6 +486,108 @@
                             @*Promotion*@
                             <div class="row">
                                 <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                            <h4>
+                                                โปรโมชั่น
+                                            </h4>
+                                        </div>
+                                        <div class="card-body m-0">
+                                            <div class="table-responsive m-0">
+                                                <table class="table table-borderless" id="table-promotion-year">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ปี</th>
+                                                            <th>มูลค่าของรางวัล</th>
+                                                            <th>มูลค่าของรางวัลที่รับแล้ว</th>
+                                                            <th>มูลค่าของรางวัลที่รอจ่าย</th>
+                                                            <th>ภาษีที่ทำการหัก</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                            <h4>
+                                                โปรโมชั่น
+                                            </h4>
+                                        </div>
+                                        <div class="w3-bar tab-buttons bg-info ">
+                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-wait">
+                                                โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait">0</span>
+                                                <hr class="m-0" id="line-tab-wait" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
+                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect">0</span>
+                                                <hr class="m-0" id="line-tab-inspect" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-delivery">
+                                                โปรโมชั่นรายเดือน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery">0</span>
+                                                <hr class="m-0" id="line-tab-delivering" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
+                                                รวมทุกโปรโมชั่น <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
+                                                <hr class="m-0" id="line-tab-arrive" />
+                                            </button>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="card-body p-0">
+                                                <div class="m-0 table-aac table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-waiting-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>ชื่อสินค้า</th>
+                                                                <th>จำนวน</th>
+                                                                <th>วันที่แจ้งเคลม</th>
+                                                                <th>วันที่รับเคลม</th>
+                                                                <th>ดำเนินการ</th>
+                                                                <th>สถานะการเคลม</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="m-0 table-tac table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-inspecting-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>ชื่อสินค้า</th>
+                                                                <th>จำนวน</th>
+                                                                <th>วันที่แจ้งเคลม</th>
+                                                                <th>วันที่รับเคลม</th>
+                                                                <th>ดำเนินการ</th>
+                                                                <th>สถานะการเคลม</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="m-0 table-omp table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-delivering-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>ชื่อสินค้า</th>
+                                                                <th>จำนวน</th>
+                                                                <th>วันที่แจ้งเคลม</th>
+                                                                <th>วันที่รับเคลม</th>
+                                                                <th>ดำเนินการ</th>
+                                                                <th>สถานะการเคลม</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
                                     <!-- Rounded switch -->
                                     <div class="card">
                                         <div class="card-header bg-info">
@@ -503,8 +605,8 @@
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">Expo</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">Road Show</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other" hidden>Expo</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other" hidden>Road Show</button>
                                         </div>
                                         <div class="card m-0">
                                             <div id="yearly" class="city">
