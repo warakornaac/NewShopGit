@@ -56,6 +56,14 @@ namespace NewShop.Controllers
             }
             return View();
         }
+        public ActionResult PendingDeliver_Bk()
+        {
+            if (Session["UserID"] == null)
+            {
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+            }
+            return View();
+        }
         public ActionResult DeliveryTrack()
         {
             if (Session["UserID"] == null)
@@ -147,9 +155,14 @@ namespace NewShop.Controllers
                 {
                     backorder.Add(new BackOrder_Notify()
                     {
+                        Company = reader["Company"].ToString(),
+                        Document_No = reader["Document No"].ToString(),
+                        SONUM = reader["SONUM"].ToString(),
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         Qty = reader["Qty"].ToString(),
+                        SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
+                        Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yyyy"),
                         DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["DeliveryDate"]).ToString("dd/MM/yyyy") : ""
                     });
@@ -440,7 +453,7 @@ namespace NewShop.Controllers
             catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetBilling(string CUSCOD, string DueDatMin, string DueDatMax)
+        public JsonResult GetBilling(string CUSCOD, string Company, string DueDatMin, string DueDatMax)
         {
             string message = "";
             List<BillingDue> Getdata = new List<BillingDue>();
@@ -452,6 +465,7 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_FindBillingDueNotPayByCus", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Cuscod", CUSCOD);
+                command.Parameters.AddWithValue("@Company", Company);
                 command.Parameters.AddWithValue("@InDateMin", DueDatMin);
                 command.Parameters.AddWithValue("@InDateMax", DueDatMax);
                 SqlDataReader reader = command.ExecuteReader();

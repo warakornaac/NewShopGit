@@ -9,10 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รายการสินค้าค้างส่ง</title>
     @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
-    <!--<link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
-    <!--<link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -27,30 +27,7 @@
     <script src="~/Scripts/webAddress.js"></script>
     <script src="~/CSS/jQueryv3.1.1.js"></script>
 
-    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
-
-    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
-    <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
-
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <link href="~/Content/Normalize.css" rel="stylesheet" />
-    <script src="~/Scripts/webAddress.js"></script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-
-
-    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <!-- Import jQuery 2.1.1 -->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- Import jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 
     <style>
@@ -462,7 +439,7 @@
             .cut-text {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                width: 300px !important;
+                width: 500px !important;
                 white-space: nowrap;
             }
         }
@@ -495,59 +472,6 @@
                 transform: rotate(360deg);
             }
         }
-    </style>
-    <style>
-        hr {
-            border-color: white;
-        }
-
-        .btn-relative {
-            position: relative;
-        }
-
-        .badge-position {
-            position: absolute;
-            top: 0;
-            right: -10%;
-            transform: translate(50%, -50%);
-        }
-
-        .btn-font {
-            font-family: Kanit,sans-serif;
-        }
-
-        .label-select-container {
-            display: flex;
-            align-items: center;
-        }
-
-            .label-select-container label {
-                margin-right: 10px;
-                margin-bottom: 0;
-            }
-
-            .label-select-container select {
-                max-width: 150px;
-            }
-
-        .tab-buttons {
-            display: flex;
-            overflow-x: auto;
-        }
-
-            .tab-buttons button {
-                flex: 1;
-                padding: 10px;
-                border: none;
-                color: white;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-                .tab-buttons button.active {
-                    background-color: #008cba;
-                }
     </style>
 </head>
 
@@ -583,73 +507,112 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header pr-1 bg-info">
-                                            <div class="col-12 col-md-6  text-md-left text-sm-left pr-0 pl-1">
+                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 text-md-left text-sm-left pr-0 pl-1">
                                                 <h4 class="m-0">รายการค้างส่งสินค้า</h4>
                                             </div>
                                         </div>
-                                        <div class="w3-bar pt-3 tab-buttons bg-info overflow-auto">
-                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-aac">
-                                                บริษัท AAC <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-aac">0</span>
-                                                <hr class="m-0" id="line-tab-aac" />
-                                            </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-tac">
-                                                บริษัท TAC <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-tac">0</span>
-                                                <hr class="m-0" id="line-tab-tac" />
-                                            </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-omp">
-                                                บริษัท OMP <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-omp">0</span>
-                                                <hr class="m-0" id="line-tab-omp" />
-                                            </button>
-
-                                        </div>
                                         <div class="card-body p-0">
-                                            <div class="card-body p-0">
-                                                <div class="m-0 table-aac table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-aac" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>เลขคำสั่งซื้อ</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>วันกำหนดส่ง</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="m-0 table-tac table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-tac" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>เลขคำสั่งซื้อ</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>วันกำหนดส่ง</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="m-0 table-omp table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-omp" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>เลขคำสั่งซื้อ</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>วันกำหนดส่ง</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>สินค้าค้างส่งที่บริษัท</th>
+                                                            <th></th>
+                                                            @*<th>จำนวนรวม(ชิ้น)</th>*@
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*AAC*@
+                                                        <tr data-toggle="collapse" data-target="#backorder-aac-show" class="accordion-toggle " onclick="">
+                                                            <th class="block_container border-0">
+                                                                <div class="col-12 d-flex align-items-center p-0">
+                                                                    <div class="col-1"><h4 style="display: inline;"><span id="show-backorder-aac-icon">+</span></h4></div>
+                                                                    <div class="col-11"><span>AAC</span></div>
+                                                                </div>
+                                                            </th>
+                                                            <th class="border-0"></th>
+                                                            @*<th><span id="backorder-sum-aac"></span></th>*@
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="hiddeRow p-0">
+                                                                <div class="accordian-body collapse table-responsive m-0" id="backorder-aac-show">
+                                                                    <table class="table table-borderless table-striped" id="backorder-aac-detail">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>หมายเลขสั่งซื้อ</th>
+                                                                                <th>วันกำหนดชำระ</th>
+                                                                                <th>จำนวนเงิน</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
+                                                        @*TAC*@
+                                                        <tr data-toggle="collapse" data-target="#backorder-tac-show" class="accordion-toggle " onclick="">
+                                                            <th class="block_container border-0">
+                                                                <div class="col-12 d-flex align-items-center p-0">
+                                                                    <div class="col-1"><h4 style="display: inline;"><span id="show-backorder-tac-icon">+</span></h4></div>
+                                                                    <div class="col-11"><span>TAC</span></div>
+                                                                </div>
+                                                            </th>
+                                                            <th class="border-0"></th>
+                                                            @*<th><span id="backorder-sum-tac"></span></th>*@
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="hiddeRow p-0">
+                                                                <div class="accordian-body collapse table-responsive m-0" id="backorder-tac-show">
+                                                                    <table class="table table-borderless table-striped" id="backorder-tac-detail">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>หมายเลขสั่งซื้อ</th>
+                                                                                <th>วันกำหนดชำระ</th>
+                                                                                <th>จำนวนเงิน</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        @*OMP*@
+                                                        <tr data-toggle="collapse" data-target="#backorder-omp-show" class="accordion-toggle " onclick="">
+                                                            <th class="block_container border-0">
+                                                                <div class="col-12 d-flex align-items-center p-0">
+                                                                    <div class="col-1"><h4 style="display: inline;"><span id="show-backorder-omp-icon">+</span></h4></div>
+                                                                    <div class="col-11"><span>OMP</span></div>
+                                                                </div>
+                                                            </th>
+                                                            <th class="border-0"></th>
+                                                            @*<th><span id="backorder-sum-omp"></span></th>*@
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="hiddeRow p-0">
+                                                                <div class="accordian-body collapse table-responsive m-0" id="backorder-omp-show">
+                                                                    <table class="table table-borderless table-striped" id="backorder-omp-detail">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>หมายเลขสั่งซื้อ</th>
+                                                                                <th>วันกำหนดชำระ</th>
+                                                                                <th>จำนวนเงิน</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-warning ">
+                                                        <tr>
+                                                            <td><strong id="total-text">รวมทั้งหมด</strong> <strong id="loading-text-table"></strong> </td>
+                                                            <td colspan="2"><strong id="backorder-total">0</strong></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -659,55 +622,6 @@
                         <div id="appadj"></div>
                     </div>
                 </section>
-                <!-- Modal -->
-                <div class="modal fade in" id="DetailModalCenter" role="dialog" aria-labelledby="ModalCenterTitle" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title float-left" id="DetailModalLongTitle">หมายเลขคำสั่งซื้อ : <span id="orderno"></span></h5>
-                                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body d-flex justify-content-center row">
-                                <div class="col-12">
-                                    <article class="card">
-                                        <div class="card-body row overflow-auto">
-                                            <div class="col">
-                                                <strong>สั่งซื้อวันที่ :</strong>
-                                                <br />
-                                                <span id="orddate"></span>
-                                            </div>
-                                            <div class="col">
-                                                <strong>วันกำหนดส่ง : </strong>
-                                                <br />
-                                                <span id="orddelivery"></span>
-                                                <br />
-                                                <strong>ยอดรวม : </strong>
-                                                <br />
-                                                <span id="ordtotal"></span>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <hr />
-                                <div class="col-12">
-                                    <div class="table-responsive m-0" style="height:500px">
-                                        <table class="table table-striped table-bordered mb-0" id="tblOrderDetail" style="padding: 7px;font-size: small; overflow:auto;">
-                                            <thead class="thead-default" style="font-size: small;">
-                                                <tr>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวนสั่งซื้อ</th>
-                                                    <th>ราคาต่อชิ้น</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <footer class="footer" hidden>
@@ -716,26 +630,20 @@
             </div>
         </footer>
     </div>
-    @*<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
-        <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
-
-        <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-        <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-        <script src="~/Scripts/webAddress.js"></script>
-        <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-        <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-        <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />*@
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
 
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+    <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
     <script type="text/javascript">
 
         var id = '@Request.RequestContext.HttpContext.Session["ID"]';
@@ -754,37 +662,11 @@
 
         $(document).ready(function () {
             $('#loader').show();
-            $('.table-tac').hide();
-            $('.table-omp').hide();
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
                 $('.footer').removeAttr('hidden');
             }, 3000);
-        });
-        $('#btn-show-aac').click(function () {
-            $('.table-aac').show('slow');
-            $('.table-tac').hide('slow');
-            $('.table-omp').hide('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-tac').removeAttr('style');
-            $('#btn-show-omp').removeAttr('style');
-        });
-        $('#btn-show-tac').click(function () {
-            $('.table-aac').hide('slow');
-            $('.table-tac').show('slow');
-            $('.table-omp').hide('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-aac').removeAttr('style');
-            $('#btn-show-omp').removeAttr('style');
-        });
-        $('#btn-show-omp').click(function () {
-            $('.table-aac').hide('slow');
-            $('.table-tac').hide('slow');
-            $('.table-omp').show('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-tac').removeAttr('style');
-            $('#btn-show-aac').removeAttr('style');
         });
 
         n = new Date();
@@ -858,9 +740,9 @@
                         var tac_count = 0;
                         var omp_count = 0;
 
-                        var aac = $('#backor-aac tbody');
-                        var tac = $('#backor-tac tbody');
-                        var omp = $('#backor-omp tbody');
+                        var aac = $('#backorder-aac-detail tbody');
+                        var tac = $('#backorder-tac-detail tbody');
+                        var omp = $('#backorder-omp-detail tbody');
 
                         var SubmithtmlPage_A = "";
                         var SubmithtmlPage_T = "";
@@ -878,10 +760,8 @@
                             if (data.backorder.length > 0) {
                                 for (var i = 0; i < data.backorder.length; i++) {
                                     if (data.backorder[i].Company == 'AAC') {
-                                        SubmithtmlPage_A += '<tr onclick="getBackordDetail(\'' + data.backorder[i].Document_No + '\')">';
-                                        SubmithtmlPage_A += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                        SubmithtmlPage_A += '<td><p class=" m-0 p-0">' + data.backorder[i].Document_No +'</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
+                                        SubmithtmlPage_A += '<tr>';
+                                        SubmithtmlPage_A += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKCOD + ' / ' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_A += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
@@ -889,10 +769,8 @@
                                         aac_count++;
                                     }
                                     if (data.backorder[i].Company == 'TAC') {
-                                        SubmithtmlPage_T += '<tr onclick="getBackordDetail(\'' + data.backorder[i].Document_No + '\')">';
-                                        SubmithtmlPage_T += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].Document_No + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
+                                        SubmithtmlPage_T += '<tr>';
+                                        SubmithtmlPage_T += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKCOD + ' / ' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_T += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
@@ -900,10 +778,8 @@
                                         tac_count++;
                                     }
                                     if (data.backorder[i].Company == 'OMP') {
-                                        SubmithtmlPage_O += '<tr onclick="getBackordDetail(\'' + data.backorder[i].Document_No + '\')">';
-                                        SubmithtmlPage_O += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].Document_No + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
+                                        SubmithtmlPage_O += '<tr>';
+                                        SubmithtmlPage_O += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKCOD + ' / ' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_O += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
@@ -912,62 +788,10 @@
                                     }
 
                                 }
-                                //AAC
-                                if (SubmithtmlPage_A != "") {
-                                    if (aac_count > 99) {
-                                        $('#status-aac').text('99+');
-                                    }
-                                    else {
-                                        $('#status-aac').text(alert_accept);
-                                    }
-                                    aac.append(SubmithtmlPage_A);
-                                }
-                                else {
-                                    SubmithtmlPage_A += '<tr>';
-                                    SubmithtmlPage_A += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_A += '</tr>';
-                                    aac.append(SubmithtmlPage_A);
-                                    $('#status-aac').attr('hidden', true);
-                                }
-                                //TAC
-                                if (SubmithtmlPage_T != "") {
-                                    if (tac_count > 99) {
-                                        $('#status-tac').text('99+');
-                                    }
-                                    else {
-                                        $('#status-tac').text(tac_count);
-                                    }
-                                    tac.append(SubmithtmlPage_T);
-                                }
-                                else {
-                                    SubmithtmlPage_T += '<tr>';
-                                    SubmithtmlPage_T += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_T += '</tr>';
-                                    tac.append(SubmithtmlPage_T);
-                                    $('#status-tac').attr('hidden', true);
-                                }
-                                //OMP
-                                if (SubmithtmlPage_O != "") {
-                                    if (omp_count > 99) {
-                                        $('#status-omp').text('99+');
-                                    }
-                                    else {
-                                        $('#status-omp').text(tac_count);
-                                    }
-                                    omp.append(SubmithtmlPage_O);
-                                }
-                                else {
-                                    SubmithtmlPage_O += '<tr>';
-                                    SubmithtmlPage_O += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_O += '</tr>';
-                                    omp.append(SubmithtmlPage_O);
-                                    $('#status-omp').attr('hidden', true);
-                                }
-
                                 //$("#backordtb").append(SubmithtmlPage);
-                                //aac.append(SubmithtmlPage_A);
-                                //tac.append(SubmithtmlPage_T);
-                                //omp.append(SubmithtmlPage_O);
+                                aac.append(SubmithtmlPage_A);
+                                tac.append(SubmithtmlPage_T);
+                                omp.append(SubmithtmlPage_O);
 
                             } else if (data.length <= 0) {
                                 SubmithtmlPage_A += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
@@ -984,62 +808,6 @@
                         }
                     }
                 });
-        }
-
-        function getBackordDetail(orderId) {
-            var cuscode = cuscod;
-            $('#DetailModalCenter').modal('show');
-            $('#orderno').text(orderId);
-            $.ajax({
-                url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cuscode
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    var SubmithtmlPage = "";
-                    $('#orddate').text('');
-                    $('#ordtotal').text('');
-                    $('#orddelivery').text('');
-                    $('#tblOrderDetail tbody').html("");
-                    SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                    SubmithtmlPage += '</tr>';
-                    $("#tblOrderDetail tbody").append(SubmithtmlPage);
-                },
-                success: function (data) {
-                    var SubmithtmlPage = '';
-                    var amt_backorder = 0;
-                    var delivery_backord = "";
-                    var ord_date = "";
-                    if (data.message == "Y") {
-                        $('#tblOrderDetail tbody').html("");
-                        console.log();
-                        if (data.backorder.length > 0) {
-                            for (var i = 0; i < data.backorder.length; i++) {
-                                if (data.backorder[i].Document_No == orderId) {
-                                    SubmithtmlPage += '<tr>';
-                                   // SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].Company + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                    var SalePrice = data.backorder[i].SalePrice;
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + commaSeparateNumber(Number(data.backorder[i].SalePrice)) + '</p></td>';
-                                    SubmithtmlPage += '</tr>';
-                                    ord_date = data.backorder[i].SaleOrderDate;
-                                    amt_backorder += Number(data.backorder[i].Amount);
-                                    delivery_backord = data.backorder[i].DeliveryDate !== "" ? data.backorder[i].DeliveryDate : "--";
-                                }
-                            }
-                            $('#orddate').text(ord_date);
-                            $('#ordtotal').text(commaSeparateNumber(amt_backorder));
-                            $('#orddelivery').text(delivery_backord);
-                            $("#tblOrderDetail tbody").append(SubmithtmlPage);
-                        }
-                    }
-                }
-            });
         }
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {

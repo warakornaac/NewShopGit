@@ -629,7 +629,7 @@
                                                                     <td><span id="tac-res">0</span></td>
                                                                     <td><span id="omp-res">0</span></td>
                                                                 </tr>
-                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="getBillingDue(); toggleRowCredit(this); ">
+                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="getAllBillAmout(); toggleRowCredit(this); ">
                                                                     <th class="block_container">
                                                                         <div class="col-12 d-flex align-items-center p-0">
                                                                             <div class="col-1"><h4 style="display: inline;"><span id="show-billing-icon">+</span></h4></div>
@@ -644,27 +644,97 @@
                                                                     <td class="p-0"></td>
                                                                     <td colspan="3" class="hiddenRow">
                                                                         <div class="accordian-body collapse table-responsive m-0" id="baldue-show">
-                                                                            <h4>
-                                                                                รายการรอชำระ
-                                                                            </h4>
-                                                                            <table class="table table-borderless" id="bildue-table">
+                                                                            @*<h4>
+                                                                                    รายการรอชำระ
+                                                                                </h4>*@
+                                                                            <table class="table table-borderless" id="bildue-table-">
                                                                                 <thead class="thead-default">
                                                                                     <tr>
+
                                                                                         <th>
-                                                                                            บริษัท
+                                                                                            รายการรอชำระที่บริษัท
                                                                                         </th>
-                                                                                        <th>
-                                                                                            หมายเลขสั่งซื้อ
-                                                                                        </th>
-                                                                                        <th>
-                                                                                            วันกำหนดชำระ
-                                                                                        </th>
-                                                                                        <th>
-                                                                                            จำนวนเงิน
-                                                                                        </th>
+                                                                                        <th></th>
+
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody></tbody>
+                                                                                <tbody>
+                                                                                    <tr data-toggle="collapse" data-bs-target="#bill-aac-show" class="accordion-toggle " onclick="getBillingDue('AAC'); toggleRowBill('aac'); ">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-aac-icon">+</span></h4></div>
+                                                                                                <div class="col-11"><span>AAC</span></div>
+                                                                                            </div>
+                                                                                        </th>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-aac-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-aac-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-tac-show" class="accordion-toggle " onclick="getBillingDue('TAC');  toggleRowBill('tac');">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-tac-icon">+</span></h4></div>
+                                                                                                <div class="col-12"><span>TAC</span></div>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                        @* <th><span id="bill-tac-amt">0</span></th>*@
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-tac-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-tac-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-omp-show" class="accordion-toggle " onclick="getBillingDue('OMP'); toggleRowBill('omp');">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-omp-icon">+</span></h4></div>
+                                                                                                <div class="col-12"><span>OMP</span></div>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                        @*<th><span id="bill-omp-amt">0</span></th>*@
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-omp-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-omp-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
                                                                             </table>
                                                                         </div>
                                                                     </td>
@@ -707,8 +777,7 @@
                                                                     <th class="text-right">จำนวนเงิน</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                            </tbody>
+                                                            <tbody></tbody>
                                                             <tfoot class="bg-warning ">
                                                                 <tr>
                                                                     <td></td>
@@ -755,7 +824,7 @@
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
                                                     <th>บริษัท</th>
-                                                    <th>รหัสสินค้า</th>
+                                                    <th>เบอร์สินค้า</th>
                                                     <th>ชื่อสินค้า</th>
                                                     <th>จำนวน</th>
                                                     <th>ราคา <br /> (ต่อชิ้น)</th>
@@ -1012,6 +1081,9 @@
                                 $("#loading-text-table").text("Loading...");
                             },
                             success: function (result) {
+                                var aac_count = 0;
+                                var tac_count = 0;
+                                var omp_count = 0;
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     $('#sec-table-' + i + ' tbody').html("");
                                     SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
@@ -1019,42 +1091,207 @@
                                     SubmithtmlPage += '<td class="ellipsis"><p class="text-truncate m-0 p-0">' + data.Getdata[i].CUSNAM + '</p></td>'; //class="ellipsis"
                                     SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                     SubmithtmlPage += '</tr>';
+
+                                    ////TR
+                                    SubmithtmlPage += '<tr>';///
+                                    SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
+                                    SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
+                                    SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
+                                    SubmithtmlPage += '<thead class="thead-default">';
                                     SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<td colspan="4" class="hiddenRow">'
-                                    SubmithtmlPage += '<div class="accordian-body collapse table-responsive" id="col-detail-' + i + '"> ';
-                                    SubmithtmlPage += '<table class="table table-sm table-striped table-bordered table-hover " id="sec-table-' + i + '">';
-                                    SubmithtmlPage += '<thead ">';
-                                    SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<th></th>';
-                                    SubmithtmlPage += '<th>บริษัท</th>';
-                                    SubmithtmlPage += '<th>วันที่สั่งซื้อ</th>';
-                                    SubmithtmlPage += '<th>หมายเลขการสั่งซื้อ</th>';
-                                    SubmithtmlPage += '<th>จำนวนเงิน</th>';
-                                    SubmithtmlPage += '<th>สถานะ</th>';
+                                    SubmithtmlPage += '<th>บริษัท</th> ';
                                     SubmithtmlPage += '</tr>';
                                     SubmithtmlPage += '</thead>';
                                     SubmithtmlPage += '<tbody>';
 
+                                    ///AAC
+                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
+                                    SubmithtmlPage += '   <th class="block_container border-0">';
+                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
+                                    SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
+                                    SubmithtmlPage += '        </div>';
+                                    SubmithtmlPage += '     </th>';
+                                    //SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                    SubmithtmlPage += '</tr>';
+                                    SubmithtmlPage += '        <tr>';///tr tr
+                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                            <th></th>';
+                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
+                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
                                     if (result.Getdata.length > 0) {
-
+                                        aac_count = 0;
                                         for (var j = 0; j < result.Getdata.length; j++) {
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
-                                                SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                                SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
-                                                SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
-                                                SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
-                                                SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
-                                                SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
-                                                SubmithtmlPage += '</tr>'
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                                   // SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
+                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
+                                                    SubmithtmlPage += '</tr>'
+                                                    aac_count++;
+                                                }
                                             }
                                         }
+                                        if (aac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+
+                                        }
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
                                     }
-                                    SubmithtmlPage += '</tbody>';
-                                    SubmithtmlPage += '</table>'
-                                    SubmithtmlPage += '</div>';
-                                    SubmithtmlPage += '</td>';
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //AAC
+
+                                    //TAC
+                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
+                                    SubmithtmlPage += '   <th class="block_container border-0">';
+                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
+                                    SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
+                                    SubmithtmlPage += '        </div>';
+                                    SubmithtmlPage += '     </th>';
+                                   // SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
                                     SubmithtmlPage += '</tr>';
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                            <th></th>';
+                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
+                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                                    //SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
+                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
+                                                    SubmithtmlPage += '</tr>'
+                                                    tac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (tac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+                                    }
+                                    else {
+                                        tac_count = 0;
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr>';
+                                    //TAC
+
+                                    //OMP
+                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
+                                    SubmithtmlPage += '   <th class="block_container border-0">';
+                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
+                                    SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
+                                    SubmithtmlPage += '        </div>';
+                                    SubmithtmlPage += '     </th>';
+                                   // SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                    SubmithtmlPage += '</tr>';
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                            <th></th>';
+                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
+                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
+                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                                                    //SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
+                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
+                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
+                                                    SubmithtmlPage += '</tr>'
+                                                    omp_count++;
+                                                }
+                                            }
+                                        }
+                                        if (omp_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //OMP
+                                    SubmithtmlPage += '</tbody>';
+                                    SubmithtmlPage += '</table>';
+                                    SubmithtmlPage += '        </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr>';
+                                    ////TR
                                     var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
                                     if (!isNaN(amount)) {
                                         resTotal += amount;
@@ -1092,6 +1329,20 @@
             var targetElement = document.getElementById(targetId.substring(1));
             $(targetElement).collapse('toggle');
         }
+        function toggleRowColDetail(row,index,comp) {
+            var text = $('#show-sales-'+comp+'-icon-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+
         function toggleRowCredit(row) {
             var text = $('#show-billing-icon' );
             if (text.text() === '+') {
@@ -1099,7 +1350,17 @@
             } else {
                 text.text("+");
             }
-            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function toggleRowBill(comp) {
+            var text = $('#show-billing-'+comp+'-icon');
+            if (text.text() === '+') {
+                text.text("-");
+            } else {
+                text.text("+");
+            }
             var targetId = row.getAttribute('data-bs-target');
             var targetElement = document.getElementById(targetId.substring(1));
             $(targetElement).collapse('toggle');
@@ -1123,7 +1384,7 @@
                     var SubmithtmlPage = "";
                     SubmithtmlPage += '<tr>';
                     SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
-                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '</tr>';
                     $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
                 },
                 success: function (data) {
@@ -1135,10 +1396,10 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 cusName = data.Getdata[i].CUSNAM;
 
-                                SubmithtmlPage += '<tr >';
+                                SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 150px;">' + data.Getdata[i].STKDES + '</td>';
                                 SubmithtmlPage += '<td style="text-align: center;">' + data.Getdata[i].Qty + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
@@ -1233,56 +1494,114 @@
             var date = new Date(year, month, day);
             return isNaN(date.getTime()) ? null : date;
         }
-        function getBillingDue() {
-
+        function getBillingDue(comp) {
             var aacdue = $('#aac-bildue-date').text();
             var tacdue = $('#tac-bildue-date').text();
             var ompdue = $('#omp-bildue-date').text();
-
             var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
             if (dates.length > 0) {
                 var minDate = new Date(Math.min.apply(null, dates));
                 var maxDate = new Date(Math.max.apply(null, dates));
-
                 $.ajax({
                     url: '@Url.Action("GetBilling", "CustomerDashboard")',
                     data: {
                         CUSCOD: cuscod,//cuscod
+                        Company: comp,
                         DueDatMin: minDate.toISOString().split('T')[0],
                         DueDatMax: maxDate.toISOString().split('T')[0]
                     },
                     type: 'POST',
                     dataType: 'JSON',
                     beforeSend: function () {
-                        $('#bildue-table tbody').html("");
+                        var aac = $('#bill-aac-detail tbody');
+                        var tac = $('#bill-tac-detail tbody');
+                        var omp = $('#bill-omp-detail tbody');
+                        if (comp == 'AAC') {
+                            aac.html("");
+                        }
+                        if (comp == 'TAC') {
+                            tac.html("");
+                        }
+                        if (comp == 'OMP') {
+                            omp.html("");
+                        }
                         var SubmithtmlPage = "";
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="4">Loading....</td>';
-                        SubmithtmlPage += '<tr>';
-                        $('#bildue-table tbody').append(SubmithtmlPage);
+                        SubmithtmlPage += '<td colspan="2">Loading....</td>';
+                        SubmithtmlPage += '</tr>';
+                        if (comp == 'AAC') {
+                            aac.append(SubmithtmlPage);
+                        }
+                        if (comp == 'TAC') {
+                            tac.append(SubmithtmlPage);
+                        }
+                        if (comp == 'OMP') {
+                            omp.append(SubmithtmlPage);
+                        }
                     },
                     success: function (data) {
                         if (data.message == 'Y') {
-                            $('#bildue-table tbody').html("");
+                            var aac = $('#bill-aac-detail tbody');
+                            var tac = $('#bill-tac-detail tbody');
+                            var omp = $('#bill-omp-detail tbody');
+                            if (comp == 'AAC') {
+                                aac.html("");
+                            }
+                            if (comp == 'TAC') {
+                                tac.html("");
+                            }
+                            if (comp == 'OMP') {
+                                omp.html("");
+                            }
                             var SubmithtmlPage = "";
                             if (data.Getdata.length != 0) {
                                 for (var i = 0; i < data.Getdata.length; i++) {
-                                    SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                    SubmithtmlPage += '<td>' + data.Getdata[i].Invnum + '</td>';
-                                    SubmithtmlPage += '<td>' + data.Getdata[i].BillDue + '</td>';
-                                    SubmithtmlPage += '<td>' + data.Getdata[i].Amt + '</td>';
-                                    SubmithtmlPage += '</tr>';
+                                        SubmithtmlPage += '<tr>';
+                                        //SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                        SubmithtmlPage += '<td>' + data.Getdata[i].Invnum + '</td>';
+                                        SubmithtmlPage += '<td>' + data.Getdata[i].BillDue + '</td>';
+                                        SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amt) + '</td>';
+                                        SubmithtmlPage += '</tr>';
                                 }
-                                $('#bildue-table tbody').append(SubmithtmlPage);
+                                if (comp == 'AAC') {
+                                    console.log
+                                    aac.append(SubmithtmlPage);
+                                }
+                                if (comp == 'TAC') {
+                                    tac.append(SubmithtmlPage);
+                                }
+                                if (comp == 'OMP') {
+                                    omp.append(SubmithtmlPage);
+                                }
                             }
                             else {
-                                $('#bildue-table tbody').html("");
+                                var aac = $('#bill-aac-detail tbody');
+                                var tac = $('#bill-tac-detail tbody');
+                                var omp = $('#bill-omp-detail tbody');
+
+                                if (comp == 'AAC') {
+                                    aac.html("");
+                                }
+                                if (comp == 'TAC') {
+                                    tac.html("");
+                                }
+                                if (comp == 'OMP') {
+                                    omp.html("");
+                                }
                                 var SubmithtmlPage = "";
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td colspan="5">ไม่พบข้อมูล</td>';
+                                SubmithtmlPage += '<td class="text-center" colspan="3">-- ไม่พบข้อมูล --</td>';
                                 SubmithtmlPage += '<tr>';
                                 $('#bildue-table tbody').append(SubmithtmlPage);
+                                if (comp == 'AAC') {
+                                    aac.append(SubmithtmlPage);
+                                }
+                                if (comp == 'TAC') {
+                                    tac.append(SubmithtmlPage);
+                                }
+                                if (comp == 'OMP') {
+                                    omp.append(SubmithtmlPage);
+                                }
                             }
                         }
                         else {
@@ -1295,7 +1614,52 @@
             else {
                 console.log('Error!!!');
             }
+        }
 
+        function getAllBillAmout() {
+            var aacdue = $('#aac-bildue-date').text();
+            var tacdue = $('#tac-bildue-date').text();
+            var ompdue = $('#omp-bildue-date').text();
+
+            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
+            if (dates.length > 0) {
+                var minDate = new Date(Math.min.apply(null, dates));
+                var maxDate = new Date(Math.max.apply(null, dates));
+                $.ajax({
+                    url: '@Url.Action("GetBilling", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: cuscod,//cuscod
+                        Company: 'ALL',
+                        DueDatMin: minDate.toISOString().split('T')[0],
+                        DueDatMax: maxDate.toISOString().split('T')[0]
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var bill_aac = 0;
+                        var bill_tac = 0;
+                        var bill_omp = 0;
+                        if (data.Getdata.length != 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                if (data.Getdata[i].Company == 'AAC') {
+                                    bill_aac++;
+                                }
+                                if (data.Getdata[i].Company == 'TAC') {
+                                    bill_tac++;
+                                }
+                                if (data.Getdata[i].Company == 'OMP') {
+                                    bill_omp ++;
+                                }
+                            }
+                            console.log(bill_omp);
+                            //$('#bill-aac-amt').text(commaSeparateNumber(bill_aac));
+                            //$('#bill-tac-amt').text(commaSeparateNumber(bill_tac));
+                            //$('#bill-omp-amt').text(commaSeparateNumber(bill_omp));
+                        }
+                    }
+
+                 });
+            }
         }
 
         function myFunction() {

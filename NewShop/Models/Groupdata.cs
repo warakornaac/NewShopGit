@@ -973,9 +973,15 @@ namespace NewShop.Models
     }
     public class BackOrder_Notify
     {
+        public string Company { get; set; }
+        public string Document_No { get; set; }
+        public string SONUM { get; set; }
         public string STKCOD { get; set; }
         public string STKDES { get; set; }
         public string Qty { get; set; }
+        public string SalePrice { get; set; }
+        public string Amount { get; set; }
+
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
     }
