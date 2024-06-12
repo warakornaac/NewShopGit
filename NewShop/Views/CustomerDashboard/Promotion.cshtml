@@ -458,7 +458,7 @@
             .cut-text {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                width: 100% !important;
+                width: 450px !important;
                 white-space: nowrap;
             }
         }
@@ -567,7 +567,7 @@
                     </div>
                 </div>
                 <section class="row justify-content-center d-none" id="content" hidden>
-                    <div class="col-12 col-lg-4" id="cushead" hidden>
+                    <div class="col-12 col-lg-12" id="cushead" hidden>
                         <div class="row">
                             <p id="demo"></p>
                             <div class="col-12 caption" hidden>
@@ -608,7 +608,7 @@
                         <div id="appadjall"></div>
                     </div>
 
-                    <div class="col-12 col-lg-8">
+                    <div class="col-12 col-lg-12">
                         <div id="dfch">
                             @*Promotion*@
                             <div class="row">
@@ -619,7 +619,7 @@
                                                 โปรโมชั่น
                                             </h4>
                                         </div>
-                                        <div class="card-body m-0">
+                                        <div class="card-body m-0 p-0">
                                             <div class="table-responsive m-0">
                                                 <table class="table table-hover" id="table-promotion-year">
                                                     <thead>
@@ -1172,7 +1172,6 @@
                 $('#btn-show-all').removeAttr('style');
                 $('#yearpro').val(year);
                 $('#detail-pro').show("slow");
-
                 switch (lastperoid) {
                     case 'yearly':
                         $('#btn-show-yearly').css("background", "#DEAF5B");
@@ -1255,6 +1254,7 @@
                 },
                 success: function (data) {
                     var SubmithtmlPag = '';
+                    var reward_color = "";
                     if (data.message == 'Y') {
                         var yearly = $('#promotion-yearly-table tbody');
                         var quater = $('#promotion-quater-table tbody');
@@ -1275,7 +1275,20 @@
                                 SubmithtmlPag += '<td  align="right">' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</td>';
                                 SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Condition) + '</td>';
                                 SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Remaining_Amount) + '</td>';
-                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
+                                //SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
+                                if (data.Getdata[i].Reward.toString().toLowerCase().includes("ticket")) {
+                                    reward_color = "bg-warning bg-opacity-75";
+                                }
+                                else if (data.Getdata[i].Reward.toString().includes("ตั๋ว")) {
+                                    reward_color = "bg-warning bg-opacity-75 ";
+                                }
+                                else if (data.Getdata[i].Reward.toString().includes("เช็ค")) {
+                                    reward_color = "bg-success bg-opacity-75";
+                                }
+                                else {
+                                    reward_color = "bg-info bg-opacity-75 ";
+                                }
+                                SubmithtmlPag += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data.Getdata[i].Reward + '</span> </td>';
                                 SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Reward_Amt) + '</td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Status + '</td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Received_Date + '</td>';

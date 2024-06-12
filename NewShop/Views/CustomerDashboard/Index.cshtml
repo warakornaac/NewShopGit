@@ -465,14 +465,6 @@
             }
         }
 
-        .text-truncate {
-            display: inline-block; /* หรือ block */
-            max-width: 100%; /* กำหนดให้ข้อความไม่ขยายเกิน */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
         .block_container {
             display: flex;
             align-items: center;
@@ -525,13 +517,13 @@
                 display: block;
             }
 
-        hr#line-tab-amt {
+        hr {
             border-color: white;
         }
 
-        hr#line-tab-credit {
-            border-color: white;
-        }
+            hr#line-tab-credit {
+                border-color: white;
+            }
     </style>
 </head>
 
@@ -573,12 +565,12 @@
                                     <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-credit">
                                             เครดิต
-                                            <hr class="m-0" id="line-tab-amt" />
+                                            <hr class="m-0" />
                                         </button>
 
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
                                             ยอดซื้อ
-                                            <hr class="m-0" id="line-tab-credit" />
+                                            <hr class="m-0" />
                                         </button>
                                     </div>
                                 </div>
@@ -666,7 +658,6 @@
                                                                                                 <div class="col-11"><span>AAC</span></div>
                                                                                             </div>
                                                                                         </th>
-
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="2" class="hiddeRow p-0">
@@ -778,15 +769,15 @@
                                                                         <table class="table table-bordered bg-white">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <td></td>
+                                                                                    <th></th>
                                                                                     <th class="text-center">AAC</th>
                                                                                     <th class="text-center">TAC</th>
                                                                                     <th class="text-center">OMP</th>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th class="border-0 m-0">
-                                                                                        ยอดรวม
-                                                                                    </th>
+                                                                                    <td>
+                                                                                        <h5> ยอดซื้อ</h5>
+                                                                                    </td>
                                                                                     <td><span id="aac-amt"></span></td>
                                                                                     <td><span id="tac-amt"></span></td>
                                                                                     <td><span id="omp-amt"></span></td>
@@ -1440,8 +1431,8 @@
                                 cusName = data.Getdata[i].CUSNAM;
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 150px;">' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
                                 SubmithtmlPage += '<td style="text-align: center;">' + data.Getdata[i].Qty + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';

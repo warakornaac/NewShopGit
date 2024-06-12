@@ -881,8 +881,8 @@
                             } else {
                                 SubmithtmlPage += '<td></td>';
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
                             SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -898,8 +898,8 @@
                             } else {
                                 SubmithtmlPage_packing += '<td></td>';
                             }
-                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].StatusDate + '</td>';
                             SubmithtmlPage_packing += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                             SubmithtmlPage_packing += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage_packing += '</tr>';
@@ -915,8 +915,8 @@
                             } else {
                                 SubmithtmlPage_delivery += '<td></td>';
                             }
-                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].StatusDate + '</td>';
                             SubmithtmlPage_delivery += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                             SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage_delivery += '</tr>';
@@ -1038,8 +1038,8 @@
                             } else {
                                 SubmithtmlPage += '<td></td>';
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
                             SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -1135,8 +1135,8 @@
                             } else {
                                 SubmithtmlPage += '<td></td>';
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
                             SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -1186,8 +1186,8 @@
                              } else {
                                  SubmithtmlPage += '<td></td>';
                              }
-                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date.replace(/-/g, "/") + '</td>';
-                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate.replace(/-/g, "/") + '</td>';
+                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
+                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
                              SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
                              SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                              SubmithtmlPage += '</tr>';
@@ -1239,7 +1239,7 @@
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].AmtQty + '</td>';
                                 SubmithtmlPage += '</tr>';
                             }
-                            $('#orddate').text(dateOrder);
+                            $('#orddate').text(dateOrder.replace(/\//g,"-"));
                             $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
                         }
                     }
