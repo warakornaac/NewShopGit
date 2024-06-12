@@ -493,6 +493,8 @@ namespace NewShop.Controllers
             catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
+
+        //promotion
         public JsonResult GetYearPromotion(string CUSCOD)
         {
             string message = "";
