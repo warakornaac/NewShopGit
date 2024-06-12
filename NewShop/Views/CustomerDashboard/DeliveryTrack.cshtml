@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -922,8 +922,6 @@
                             SubmithtmlPage_delivery += '</tr>';
                             alert_delivery++;
                         }
-
-
                     }
                     if (SubmithtmlPage != "") {
                         if (alert_accept > 99) {
@@ -937,18 +935,15 @@
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#deliverytrack-accept tbody").append(SubmithtmlPage);
                         $('#status-accept').attr('hidden',true);
-
-
                     }
 
                     if (SubmithtmlPage_packing != "") {
                         if (alert_packing > 99) {
                             $('#status-packing').text('99+');
-
                         }
                         else {
                             $('#status-packing').text(alert_packing);
@@ -958,11 +953,10 @@
                     }
                     else {
                         SubmithtmlPage_packing += '<tr>';
-                        SubmithtmlPage_packing += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage_packing += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage_packing += '</tr>';
                         $("#deliverytrack-packing tbody").append(SubmithtmlPage_packing);
                         $('#status-packing').attr('hidden', true);
-
                     }
 
                     if (SubmithtmlPage_delivery != "") {
@@ -971,20 +965,16 @@
                         }
                         else {
                             $('#status-delivery').text(alert_delivery);
-
                         }
                         $('#deliverytrack-delivery tbody').append(SubmithtmlPage_delivery);
-
                     }
                     else {
                         SubmithtmlPage_delivery += '<tr>';
-                        SubmithtmlPage_delivery += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage_delivery += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage_delivery += '</tr>';
                         $("#deliverytrack-delivery tbody").append(SubmithtmlPage_delivery);
                         $('#status-delivery').attr('hidden', true);
                     }
-
-
                 }
             }
         });

@@ -493,9 +493,87 @@ namespace NewShop.Controllers
             catch (Exception ex) { message = ex.Message; }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult BackordYear(string CUSCOD)
+        public JsonResult GetYearPromotion(string CUSCOD)
         {
-            return Json(new { message = "Y", });
+            string message = "";
+            List<PromotionYearList> Getdata = new List<PromotionYearList>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Promotion_Cus_Notify", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new PromotionYearList
+                    {
+                        Year = reader["Year"].ToString(),
+                        Reward_Amount = reader["Reward Amount"].ToString(),
+                        Paid_Amount = reader["Paid Amount"].ToString(),
+                        Waiting_Amount = reader["Waiting Amount"].ToString(),
+                        WHT = reader["WHT"].ToString()
+                    });
+                }
+                message = "Y";
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPromotionDetail(string CUSCOD, string Period, string YEAR)
+        {
+            string message = "";
+            List<Promotion_CusList> Getdata = new List<Promotion_CusList>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Promotion_Cus", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+                command.Parameters.AddWithValue("@inPeriod", Period);
+                command.Parameters.AddWithValue("@inYear", YEAR);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new Promotion_CusList
+                    {
+                        Company = reader["company"].ToString(),
+                        Promotion_Code = reader["Promotion_Code"].ToString(),
+                        Promotion_Name = reader["Promotion_Name"].ToString(),
+                        StartDate = reader["StartDate"].ToString(),
+                        EndDate = reader["EndDate"].ToString(),
+                        Condition = reader["Condition"].ToString(),
+                        Invoice_Amount = reader["Invoice Amount"].ToString(),
+                        Invoice_Paid = reader["Invoice Paid"].ToString(),
+                        Remaining_Amount = reader["Remaining Amount"].ToString(),
+                        Reward = reader["Reward"].ToString(),
+                        Reward_Amt = reader["Reward_Amt"].ToString(),
+                        Received_By = reader["Received_By"].ToString(),
+                        Received_Date = Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yyyy"),
+                        WHT = reader["WHT"].ToString(),
+                        Status = reader["Status"].ToString()
+                    });
+                }
+                message = "Y";
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
@@ -390,6 +390,78 @@
             animation: spin 2s linear infinite;
             position: relative; /* or absolute */
         }
+
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 400px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (max-width: 586px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 200px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 400px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 819px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 500px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1000px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1100px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1279px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1439px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 100% !important;
+                white-space: nowrap;
+            }
+        }
         /* Safari */
         @@-webkit-keyframes spin {
             0% {
@@ -411,6 +483,59 @@
             }
         }
     </style>
+    <style>
+        hr {
+            border-color: white;
+        }
+
+        .btn-relative {
+            position: relative;
+        }
+
+        .badge-position {
+            position: absolute;
+            top: 0;
+            right: -10%;
+            transform: translate(50%, -50%);
+        }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+
+        .label-select-container {
+            display: flex;
+            align-items: center;
+        }
+
+            .label-select-container label {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+
+            .label-select-container select {
+                max-width: 150px;
+            }
+
+        .tab-buttons {
+            display: flex;
+            overflow-x: auto;
+        }
+
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+    </style>
 </head>
 
 <body style="background-color: #f2f7ff; ">
@@ -420,6 +545,8 @@
                 <div>
                     <input type="hidden" id="cushid" />
                     <input type="hidden" id="slmhid" />
+                    <input type="hidden" id="yearpro" />
+                    <input type="hidden" id="periodpro" />
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
@@ -486,7 +613,7 @@
                             @*Promotion*@
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="card">
+                                    <div class="card m-0">
                                         <div class="card-header bg-info">
                                             <h4>
                                                 โปรโมชั่น
@@ -494,9 +621,10 @@
                                         </div>
                                         <div class="card-body m-0">
                                             <div class="table-responsive m-0">
-                                                <table class="table table-borderless" id="table-promotion-year">
+                                                <table class="table table-hover" id="table-promotion-year">
                                                     <thead>
                                                         <tr>
+                                                            <th></th>
                                                             <th>ปี</th>
                                                             <th>มูลค่าของรางวัล</th>
                                                             <th>มูลค่าของรางวัลที่รับแล้ว</th>
@@ -504,90 +632,128 @@
                                                             <th>ภาษีที่ทำการหัก</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody></tbody>
+                                                    <tbody class="table"></tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" id="detail-pro">
                                     <div class="card">
-                                        <div class="card-header bg-info">
+                                        <div class="card-header bg-info ">
                                             <h4>
-                                                โปรโมชั่น
                                             </h4>
                                         </div>
                                         <div class="w3-bar tab-buttons bg-info ">
-                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-wait">
-                                                โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait">0</span>
-                                                <hr class="m-0" id="line-tab-wait" />
+
+                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-yearly">
+                                                โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-yearly" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-yearly" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
-                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect">0</span>
-                                                <hr class="m-0" id="line-tab-inspect" />
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-quater">
+                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-quater" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-quater" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-delivery">
-                                                โปรโมชั่นรายเดือน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery">0</span>
-                                                <hr class="m-0" id="line-tab-delivering" />
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-other">
+                                                โปรโมชั่นรายเดือน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-other" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-other" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
-                                                รวมทุกโปรโมชั่น <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
-                                                <hr class="m-0" id="line-tab-arrive" />
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-all">
+                                                รวมทุกโปรโมชั่น <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-all" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-all" />
                                             </button>
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="card-body p-0">
-                                                <div class="m-0 table-aac table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-waiting-table" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-yearly table-responsive overflow-auto" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-yearly-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่แจ้งเคลม</th>
-                                                                <th>วันที่รับเคลม</th>
-                                                                <th>ดำเนินการ</th>
-                                                                <th>สถานะการเคลม</th>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>วันเริ่มโปรโมชั่น</th>
+                                                                <th>โปรโมชั่นถึง</th>
+                                                                <th>เงื่อนไข</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                                <th>มูลค่า</th>
+                                                                <th>สถานะ</th>
+                                                                <th>วันรับของรางวัล</th>
+                                                                <th>ผู้รับ</th>
+                                                                <th>หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-tac table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-inspecting-table" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-quater table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quater-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่แจ้งเคลม</th>
-                                                                <th>วันที่รับเคลม</th>
-                                                                <th>ดำเนินการ</th>
-                                                                <th>สถานะการเคลม</th>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>วันเริ่มโปรโมชั่น</th>
+                                                                <th>โปรโมชั่นถึง</th>
+                                                                <th>เงื่อนไข</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                                <th>มูลค่า</th>
+                                                                <th>สถานะ</th>
+                                                                <th>วันรับของรางวัล</th>
+                                                                <th>ผู้รับ</th>
+                                                                <th>หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-omp table-responsive" style="height:500px;">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-delivering-table" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-other table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-other-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>วันที่แจ้งเคลม</th>
-                                                                <th>วันที่รับเคลม</th>
-                                                                <th>ดำเนินการ</th>
-                                                                <th>สถานะการเคลม</th>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>วันเริ่มโปรโมชั่น</th>
+                                                                <th>โปรโมชั่นถึง</th>
+                                                                <th>เงื่อนไข</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                                <th>มูลค่า</th>
+                                                                <th>สถานะ</th>
+                                                                <th>วันรับของรางวัล</th>
+                                                                <th>ผู้รับ</th>
+                                                                <th>หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-
+                                                <div class="m-0 table-all table-responsive" style="height:500px;">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-all-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>วันเริ่มโปรโมชั่น</th>
+                                                                <th>โปรโมชั่นถึง</th>
+                                                                <th>เงื่อนไข</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                                <th>มูลค่า</th>
+                                                                <th>สถานะ</th>
+                                                                <th>วันรับของรางวัล</th>
+                                                                <th>ผู้รับ</th>
+                                                                <th>หักภาษี</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" hidden>
                                     <!-- Rounded switch -->
                                     <div class="card">
                                         <div class="card-header bg-info">
@@ -605,8 +771,7 @@
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other" hidden>Expo</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other" hidden>Road Show</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('all', this.id)" id="btn_all">ALL</button>
                                         </div>
                                         <div class="card m-0">
                                             <div id="yearly" class="city">
@@ -667,44 +832,6 @@
                                                     </table>
                                                 </div>
                                             </div>
-
-                                            <div id="expo" class="city" style="display:none">
-                                                <div class="table-responsive m-0" style="height:500px">
-                                                    <table class="table table-striped mb-0" id="promotiontbexpo" style="padding: 7px;font-size: small; overflow:auto;">
-                                                        <thead class="thead-default" style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                @*<th>จาก</th>*@
-                                                                <th>สิ้นสุด</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <div id="roadshow" class="city" style="display:none">
-                                                <div class="table-responsive m-0" style="height:500px">
-                                                    <table class="table table-striped mb-0" id="promotiontbroadshow" style="padding: 7px;font-size: small; overflow:auto;">
-                                                        <thead class="thead-default" style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                @*<th>จาก</th>*@
-                                                                <th>สิ้นสุด</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -715,204 +842,6 @@
                     </div>
                 </section>
             </div>
-        </div>
-
-        <div class="modal" id="ExtraLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div class="alert alert-light alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>สินค้าใหม่!</strong>
-                    <div class="modal-body">
-                        <div class="container">
-
-                            <div class="row" id="fixboxs">
-
-
-
-
-
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ModalWarning -->
-        <div class="modal" id="myModalWarning">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong>
-                    <div class="modal-body">
-                        <div id="textAlertWarning">Some text in the modal.</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="smallModal">
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <div class="modal-header">
-
-                    </div>
-
-                    <div class="modal-body">
-                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
-                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="smallModalselcus">
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <div class="modal-header">
-
-                    </div>
-
-                    <div class="modal-body">
-                        ใส่ชื่อร้านหรือรหัสร้านค้า
-                        <div id="blcslm" style="display:block">
-                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- ModalWarning -->
-        <!-- ModalwConfirm -->
-        <div id="ModalwConfirm" class="modal">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content " id="ColorboxError">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" style="color:black;">สินค้าค้างในตะกร้า</h4>
-
-                    <div class="modal-body" style="overflow-y: scroll;overflow-x: scroll;">
-                        <div id="textAlert">
-                            <table class="table table-bordered" id="wConfirm">
-                                <thead style="background-color: rgb(51, 51, 51);color: white;">
-                                    <tr>
-                                        <th>Customer</th>
-                                        <th>Salesman</th>
-                                        <th>จำนวนชิ้น</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" id="CancalShippto" data-dismiss="modal">X</button>
-
-                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @*Modal date expire*@
-        <div class="modal" id="myModalWarningDateExpire" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                    <strong>แจ้งเตือน!</strong>
-                    <div class="modal-body">
-                        <div id="textAlertWarningDateExpire">Some text in the modal.</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- EndModalwConfirm-->
-
-        <div class="modal" id="myModalclimtb">
-            @*<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">*@
-            <div class="modal-dialog modal-lg">
-
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
-                        &times;
-                    </button>
-                    <strong style="padding: 4px;">รายละเอียดงานเคลม</strong>
-                    <div class="table-responsive" style="height: 500px; padding: 6px;">
-                        <table class="table table-striped mb-0" id="climtbdatail" style="padding: 7px;font-size: small;">
-                            <thead style="font-size: small;">
-                                <tr>
-                                    <th>เลขเคลม</th>
-                                    <th>เบอร์สินค้า</th>
-                                    <th>จำนวน</th>
-                                    <th>วันที่แจ้งเคลม</th>
-                                    <th>วันที่รับเคลม</th>
-                                    <th>ต้องการให้ดำเนิน</th>
-                                    <th>สถานะเคลม</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="myModal" style="background-color: black;">
-
-            <div class="modal-dialog" role="document" style="width: 360px;">
-
-                <div class="modal-content">
-
-                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
-
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-
-                    </div>
-
-                    <div class="modal-body" id="texterror">
-                    </div>
-
-                    <div class="modal-footer">
-
-                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
         <footer class="footer" hidden>
             <div class="container">
@@ -951,6 +880,7 @@
         console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
         $(document).ready(function () {
             $('#loader').show();
+
             setTimeout(function() {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
@@ -960,105 +890,20 @@
         $('#btn_yearly').css("background", "#DEAF5B");
         if (cuscod != "") {
             $("#cushid").val(cuscod)
-            getPromotion_Cus(cuscod, 'yearly');
         }
-        //alert(cuscod);
-        // var cuscod = atob(param_values.numcuber)
-        //$(window).click(function (e) {
-        //    alert(e.target.id); // gives the element's ID
-        //    alert(e.target.className); // gives the elements class(es)
-        //});
-        //alert("id   " + id)
-        function checkPrivilege(userid, cuscod) {
-            $.ajax({
-                url: '@Url.Action("GetdataPrivilege", "DataCenter")',
-                data: {
-                    UsrID: userid,
-                    cuscod: cuscod
+        $(document).ready(function () {
+            getYearpromotion();
+            $('.table-quater').hide();
+            $('.table-other').hide();
+            $('.table-all').hide();
+            $('#detail-pro').hide();
+        });
 
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    var splitstring = data.StrStstuslogin;
-                    //console.log(splitstring);
-                    //let text = splitstring;
-                    //const myArray = text.split("|");
-                    //let mysession = myArray[1];
-                    //let mystatus = myArray[0];
-                    // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
-                    if (splitstring=="1") {
-                        $("#texterror").empty();
-                        $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
-                        $("#myModal").modal();
-                        return false;
 
-                    }
-                }
-            });
-
-        }
-        //var cuscod = "";
-        if (usertype == "1") {
-            $("#nextcheckstock").css("display", "block");
-            $("#nextcrm").css("display", "block");
-            $("#nextbck").css("display", "block");
-            $("#changepass").css("display", "none");
-        }
-        if (usertype == "6") {
-            if (cuscod != "") {
-                checkPrivilege(userid, cuscod)
-            }
-            if (usrclmstaff == "1") {
-                $("#amtdoffon").css("display", "none");
-                $("#amtchildoffon").css("display", "none");
-                $("#btnoffonTop20").css("display", "none");
-                $("#promooffon").css("display", "none");
-
-                $("#dfch").css("display", "block");
-                $('#appadjall').html("");
-            }
-            else {
-                $("#amtdoffon").css("display", "block");
-                $("#amtchildoffon").css("display", "block");
-                $("#btnoffonTop20").css("display", "block");
-                $("#promooffon").css("display", "block");
-                $("#dfch").css("display", "block");
-                            $('#appadjall').html("");
-            }
-            $("#nextcheckstock").css("display", "none");
-            $("#nextcrm").css("display", "none");
-            $("#nextbck").css("display", "none");
-            $("#changepass").css("display", "block");
-            $(".aboutoffice").css("display", "none");
-            $("#nextdas").css("display", "none");
-            $("#desb").css("display", "none");
-        }
-        else {
-            $("#dfch").css("display", "block");
-            $('#appadjall8').html("");
-        }
-
-        if (usertype == "2") {
-            $("#nextbck").css("display", "block");
-            $("#changepass").css("display", "none");
-            $("#nextcheckstock").css("display", "none");
-            $("#nextcrm").css("display", "none");
-        }
         n = new Date();
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        window.onload = function () {
-            var script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://api.ipify.org?format=jsonp&callback=DisplayIP";
-            document.getElementsByTagName("head")[0].appendChild(script);
-        };
-        function DisplayIP(response) {
-            //document.getElementById("ipaddress").innerHTML = "Your IP Address is " + response.ip;
-            //alert(response.ip);
-        }
         function jssor_1_slider_init() {
 
             var jssor_1_options = {
@@ -1108,191 +953,6 @@
 
 
         };
-        function getContinue_Newitwm() {
-            //var stkcod = $("#_udernumber").val();
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var cuscod = cuskey;
-
-            //var stkcod = stkcod;
-            //$('#fixboxs').empty();
-
-            $.ajax({
-                url: '@Url.Action("GetdataContinue_Newitem", "DataCenter")',
-                data: {
-                    // Nodisplay: stkcod,
-                    strcustome: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    console.log(data);
-                    listnewitem = data;
-
-                    $('#fixboxs').empty();
-                    if (listnewitem.length > 0) {
-
-                        var favitm = "";
-                        var displ = "";
-                        var displstr = "";
-                        var displnew = "";
-                        var displstrnew = "";
-                        var newitem = "";
-                        var strph = "";
-                        var strphsrc = "";
-                        var strtop = "";
-                        var strtopint = 0;
-                        var runtop;
-                        var sprstkdes = "";
-                        //$('.loader').css("display", "none");
-
-                        for (var i = 0; i < listnewitem.length; i++) {
-                            ItemNo = listnewitem[i].STKCOD;
-                            Supdescri = listnewitem[i].Description;//.substr(0, 50);
-                            Price = listnewitem[i].EndPrice;
-                            Company = listnewitem[i].Company;
-                            //Available_Stock = listnewitem[i].Stock;
-                            strph = listnewitem[i].PATH;
-                            strtopint = i;
-                            runtop = strtopint + 1;
-
-                            strtop = "";
-                            if (Supdescri.length > 48) {
-
-                                sprstkdes = Supdescri.substr(0, 48) + "...";
-
-                            } else {
-                                sprstkdes = Supdescri;
-                            }
-
-                            $("#fixboxs").append('<div class="col-sm-6 col-md-4 col-lg-4 mt-4">' +
-                            '<div class="card">' +
-                            '<img class="card-img-top" src="' + strph + '" >' +
-                                    '<div class="card-block" style="height: 132px;">' +
-                                        '<h4 class="card-title">' + ItemNo + '</h4>' +
-                                        '<div class="meta">' +
-                                            // '<a href="#">Friends</a>' +
-                                        '</div>' +
-                                        '<div class="card-text"> ' + sprstkdes + '</div>' +
-                                        '</div>' +
-                                    '<div class="card-footer">' +
-                                        '<span class="float-right"><a href="#"  id="_btnlinkdetail" com=' + Company + ' stock="' + ItemNo + '" style="color: blue;">See Detail</a> </span>' +
-                                        '<span><i class="">฿ ' + commaSeparateNumber(Price) + '</span>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>');
-                        }
-                    } else {
-
-                        $('#fixboxs').empty();
-                    }
-                }
-            });
-        }
-        $(document).ready(function () {
-            $(document).on("click", "#myModal", function () {
-           // $('#myModal3').click(function () {
-                if (usertype == "6") {
-                    $("#myModal").modal({ backdrop: "static" });
-                }
-            });
-            $('#btnlogin').click(function () {
-                if (usertype == "6") {
-                    window.location.replace("../Account/LogIn");
-                }
-            });
-            //TOP20
-            $('#btnoffonTop20').click(function () {
-                var current_status = $('.statusTop20').text();
-                var cuscod = $("#cushid").val();
-                if (current_status == 'Untoggled') {
-                    $('.statusTop20').html('Toggled');
-                    getListTop20(cuscod);
-                } else {
-                    $('.statusTop20').html('Untoggled');
-                    $('#tableListTop20 tbody:last-child').html("");
-                }
-            });
-            $('#cliamoffon').click(function () {
-                var current_status = $('.statuscliamoffon').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statuscliamoffon').html('Toggled');
-                    getWarrantyClaim_Cu(cuskey) //WarrantyClaim
-                }
-                else {
-                    $('.statuscliamoffon').html('Untoggled');
-                    $('#climtb tbody:last-child').html("");
-
-                }
-            });
-            $('#backordoffon').click(function () {
-                var current_status = $('.statusbackord').text();
-
-                var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-                if (current_status == 'Untoggled') {
-                    $('.statusbackord').html('Toggled');
-                    getbackord(cuskey)//backorder
-                }
-                else {
-                    $('.statusbackord').html('Untoggled');
-                    $('#backordtb tbody:last-child').html("");
-
-                }
-            });
-            $('.button-left').click(function () {
-                $('.sidebar').toggleClass('fliph');
-            });
-            $('li a .toggle__menu').on('click', function () {
-                //alert("xxxx")
-                $('.offsetmenu').addClass('offsetmenu__on');
-                $('.body__overlay').addClass('is-visible');
-
-            });
-            $('.offsetmenu__close__btn').on('click', function () {
-                $('.offsetmenu').removeClass('offsetmenu__on');
-                // $('.body__overlay').removeClass('is-visible');
-            });
-            $("#selcus").on("change", function () {
-                var cuscod = $("#selcus").val();
-                getPromotion_Cus(cuscod, 'yearly') //โปรโมชั่นแบบใช้ตัวเลือก
-            });
-
-            chkcustomer();
-        });
-        expire(usrexpire)
-        //function expire(usrexpire) {
-        //    var expireval;
-        //    expireval = usrexpire;
-        //    var _typ = usertype;
-        //    var x = expireval.replace("Passwords expire '", "");
-        //    expireval = x.replace("' days", "");
-
-        //    if (parseInt(expireval) <= 15) {
-        //        $("#textAlertWarning").empty();
-        //        if (_typ == "2") {
-        //            $("#textAlertWarning").text("Password ของท่านอีก" + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password  เข้าไปเปลี่ยน Password ได้ที่ App Citrix");
-        //        } else if (_typ == "1") {
-        //            $("#textAlertWarning").text("Password ของท่านอีก " + usrexpire + "วัน ใกล้หมดอายุ กรุณาเปลี่ยน Password ");
-        //        }
-        //        //$("#myModalWarning").modal();
-        //        $('#myModal').modal('show');
-        //    }
-        //}
-
-        function checkDateExpireCustomer(usrexpire) {
-            if (parseInt(usrexpire) <= 15) {
-                $("#textAlertWarningDateExpire").empty();
-                $("#textAlertWarningDateExpire").html("Password ของท่านอีก " + usrexpire + " วัน ใกล้หมดอายุ <br> กรุณาเปลี่ยน Password โดยเข้าที่เมนู Change password");
-                $("#myModalWarningDateExpire").modal();
-            }
-        }
-        if (usertype == "6") {
-            setTimeout(function () {
-                checkDateExpireCustomer(usrexpire)
-            }, 1000);
-        }
-
         function commaSeparateNumber(val) {
             while (/(\d+)(\d{3})/.test(val.toString())) {
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
@@ -1302,25 +962,18 @@
 
 
         function openPeriod(PeriodName, id) {
-
-
-            // $('.btnpromotion').addClass('removeselected');
-            //
-            //  $('#' + id + '').addClass('selected');
-            //   $('#' + id + '').removeClass('removeselected');
-            //background: blueviolet;
-
             var i;
             var x = document.getElementsByClassName("city");
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
             }
             document.getElementById(PeriodName).style.display = "block";
-            var cusnc = $('#cussend').val();
+            var cusnc = cuscod;
             var period = PeriodName;
             //alert(period)
             getPromotion_Cus(cusnc, period);
         }
+
         //TOP20
         function getListTop20(cuscod) {
             var current_status = $('.statusTop20').text();
@@ -1364,7 +1017,6 @@
                 });
             }
         }
-
         function getPromotion_Cus(cusnc, period) { //โปรโมชั่น ฟังก์ชั่น
             var current_status = $('.statuspromotion').text();
             var reward_color = "";
@@ -1452,316 +1104,6 @@
                     }
                 });
         }
-        function getWarrantyClaim_Cu(cusnc) {
-            var current_status = $('.statuscliamoffon').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
-                    data: {
-                        strcustome: cusnc
-
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-                        $('#climtb tbody:last-child').html("");
-                        var SubmithtmlPage = "";
-                        if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td id="_btnview" style="cursor: pointer; color: darkorchid; text-decoration: underline; width: 118px;left: 0px;"cussend=' + cusnc + ' tap=a>' + data[i].A + '</a></td>';
-                                SubmithtmlPage += '<td id="_btnview" style="cursor: pointer; color: darkorchid; text-decoration: underline; width: 118px;left: 0px;"cussend=' + cusnc + ' tap=b>' + data[i].B + '</a></td>';
-                                SubmithtmlPage += '<td id="_btnview" style="cursor: pointer; color: darkorchid; text-decoration: underline; width: 118px;left: 0px;"cussend=' + cusnc + ' tap=c>' + data[i].C + '</a></td>';
-                                SubmithtmlPage += '</tr>';
-                            }
-                            $("#climtb").append(SubmithtmlPage);
-                        }
-                    }
-                });
-            }
-        }
-        $("table").on("click", "tr #_btnview", function () {
-            var cussend = $(this).attr('cussend');
-            var tap = $(this).attr('tap');
-            // alert(tap + '////' + cussend)
-
-            getWarrantyClaim_Cudetail(cussend, tap)
-        });
-        function getWarrantyClaim_Cudetail(cusnc, tap) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
-                data: {
-                    strcustome: cusnc,
-                    tap: tap
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data)
-
-                    $('#climtbdatail tbody:last-child').html("");
-                    var SubmithtmlPage = "";
-                    if (data.length > 0) {
-
-                        for (var i = 0; i < data.length; i++) {
-
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td>' + data[i].CLM_NO_SUB + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].STKCOD + '/' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].Qty + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].REQ_DATE + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].ReceiveDate + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].Request + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].Status + '</td>';
-                            SubmithtmlPage += '</tr>';
-                        }
-                        $("#climtbdatail").append(SubmithtmlPage);
-
-                        $("#myModalclimtb").modal();
-                    }
-                }
-            });
-        }
-        $('#chkSelect').change(function () {
-            if (this.checked) {
-                var cusnc = $('#nocusses').val();
-                getbackord(cusnc)
-                //var returnVal = confirm("Are you sure?");
-                //$(this).prop("checked", returnVal);
-            } else {
-                var cusnc = $('#nocusses').val();
-                getbackord(cusnc)
-            }
-
-        });
-        function getbackord(cusnc) {
-            var Stock_Flag = ""
-            var isChecked = $('#chkSelect').is(':checked');
-            if (isChecked == true) {
-                Stock_Flag = "1";
-            } else {
-                Stock_Flag = "0";
-            }
-
-            var Show_Flag = "2";
-
-
-            var Stock_Flag = Stock_Flag;
-            var current_status = $('.statusbackord').text();
-            if (current_status != "Untoggled") {
-                $.ajax({
-                    url: '@Url.Action("getbackorder", "BackOrderAll")',
-                    data: {
-                        CUSCOD: cusnc,
-                        SLMID: '0',
-                        stkcod: '',
-                        Show_Flag: Show_Flag,
-                        Stock_Flag: Stock_Flag,
-                        //Stock_Flag: "0",
-                        COM: "ALL",
-                        DocumentNo: "",
-                        UserType: '@Session["UserType"]'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-
-                        $('#backordtb tbody:last-child').html("");
-                        if (data.length > 0) {
-                            var SubmithtmlPage = "";
-
-                            var SubmithtmlPage = "";
-                            for (var i = 0; i < data.length; i++) {
-                                // SubmithtmlPage += ' <table class="fancyTable" id="myTable05" cellpadding="0" cellspacing="0">';
-                                SubmithtmlPage += '<tr data-index=' + data[i].SeqNum + data[i].SaleOrder_No + '>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_No + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].STKCOD + '/' + data[i].STKDES + '</td>';
-                                SubmithtmlPage += '<td class="orgbck">' + data[i].Qty + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].SaleOrder_Date + '</td>';
-                                SubmithtmlPage += '<td>' + data[i].DLVDAT + '</td>';
-                                SubmithtmlPage += '</tr >';
-
-                            }
-                            $("#backordtb").append(SubmithtmlPage);
-
-                        } else {
-
-                        }
-                    }
-                });
-            }
-        }
-        function getCompanyInformation(cusnc) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
-                data: {
-                    cusel: cusnc
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].SLMPhone)
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInformationbysalman(slm) {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInformation", "DataCenter")',
-                data: {
-                    Slm: slm
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    //  $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    // $("#selslm").prop("disabled", true);
-
-                    $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM);
-                    $("#chart-Salesmanphone").text("เบอร์ติดต่อ:" + data[0].Phone);
-                    $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo);
-                    $("#chart-SalesCophone").text("เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getCompanyInfor() {
-
-            $.ajax({
-                url: '@Url.Action("GetdataCompanyInfo", "DataCenter")',
-                data: {
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-
-                    //  $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                    // $("#selslm").prop("disabled", true);
-
-                    $("#aaccomname").text(data[0].Name);
-                    // $("#aacaddress").text(data[0].Address1 + ' ' + data[0].Address2);
-                    $("#aacphone").text("Tel: " + data[0].Phone);
-                    $("#aacfax").text('Fax:' + data[0].Fax);
-                    $("#aactax").text("Tax: " + data[0].Tax);
-                    $("#aacBank1").text("Bank1: " + data[0].Bank1);
-                    $("#aacBank2").text("Bank2: " + data[0].Bank2);
-
-                    $("#taccomname").text(data[1].Name);
-                    $("#tacaddress").text(data[1].Address1 + ' ' + data[1].Address2);
-                    $("#tacphone").text("Tel: " + data[1].Phone);
-                    $("#tacfax").text('Fax:' + data[1].Fax);
-                    $("#tactax").text("Tax: " + data[1].Tax);
-                    $("#tacBank1").text("Bank1: " + data[1].Bank1);
-                    $("#tacBank2").text("Bank2: " + data[1].Bank2);
-                    //datacus();  ///auto get customer to option select customer
-                }
-            });
-        }
-
-        function getcus() {
-
-            var SLM = $("#selslm").val();
-            var SLMt = $("#selslm option:selected").text();
-            $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
-                    $.each(data, function (key, value) {
-
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
-
-                }
-            });
-        }
-        function countorder(cus, Slm) {
-            // var SLM = $("#Slm").val()
-
-            $.ajax({
-                url: '@Url.Action("GetdateContorder", "DataCenter")',
-                data: {
-                    cus: cus,
-                    Slm: Slm,
-                    Usertype: usertype,
-                    UserIn: userid
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    // //console.log(data);
-                    //$('#countsku').text(data.Getdata[0].val.Countrow);
-                    //$('#rd').text(data.Getdata[1].val.Countrow);
-                    $('#countsku').text(data.Getdata[0].val.SumQty);
-                    $('#rd').text(data.Getdata[1].val.SumQty);
-
-                }
-            });
-        }
-
-        $("#myInput").on("keyup", function () {
-
-            var value = $(this).val().toLowerCase();
-            $(".dropdown-menu li").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        // $('#selcus').selectpicker();
-        $(".dropdown-menu").on("click", ".searchterm", function (event) {
-            var _val = $(this).attr('data-input');
-            //alert(_val)
-            $('#selcus').val(_val);
-            Cusdetail()
-        });
-        //$('#textfree').click(function () {
-        //    $("#selslm").val("ALL")
-        //});
-        // createOptions(30);
-
-        $("#btnshsche").on("click", function () {
-            if (usertype != "1") {
-                //getslmandcus()
-            } else {
-                // $("#selslm").val("ALL");
-            }
-            $("#textfree").val("");
-            $("#smallModalselcus").modal('show');
-            // myFunction()
-        });
         function myFunction() {
             var x = document.getElementById("blcslm");
             if (x.style.display === "none") {
@@ -1774,884 +1116,267 @@
             }
         }
 
-        $('#selslm').change(function () {
-            var SLM = $(this).val()
-            var SLMt = $("#selslm option:selected").text();
-            var cuskey = "";
-            cuskey = $("#nocusses").val();
-            var cusel = $("#cushid").val();
-            if (cuskey == "") {
-                cuskey = cusel;
-            }
-            if (SLM != "ALL") {
-                countorder(cuskey, SLM)
-            } else {
-                window.location.replace("../SeleScrCustomer/dashboard");
-            }
-            getCompanyInformationbysalman(SLM);//Company Information
-            //if (SLMt == "ALL") {
-
-            //    $("#textfree").css("display", "block");
-            //    $("#blcslm").css("display", "none");
-
-            //} else {
-            //    $("#textfree").css("display", "none");
-            //    $("#blcslm").css("display", "block");
-            //}
-            $("#cus").text("");
-            $("#addcus").text("");
-            $("#crlicusaac").text("");
-            $("#crlicustac").text("");
-            $("#crbarcusaac").text("");
-            $("#crbarcustac").text("");
-            $("#crlicusaacday").text("");
-            $("#crlicustacday").text("");
-            $("#crlicusrating").text("");
-
-            $("#cushid").val("");
-            $("#nocusses").val("");
-            $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
+        //GetYearOfPromotion
+        function getYearpromotion() {
+            var cus = cuscod;
             $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
+                url: '@Url.Action("GetYearPromotion", "CustomerDashboard")',
                 data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
+                    CUSCOD: cus
                 },
-                type: "POST",
-                dataType: "JSON",
+                dataType: 'JSON',
+                type: 'POST',
+                beforeSend: function () {
+                    $('#table-promotion-year tbody').html("");
+                    var SubmithtmlPag = '';
+                    SubmithtmlPag += '<tr>';
+                    SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPag += '</tr>';
+                    $('#table-promotion-year tbody').append(SubmithtmlPag);
+                },
                 success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ"));
-                    $.each(data, function (key, value) {
+                    if (data.message == 'Y') {
+                        var SubmithtmlPag = '';
 
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
+                        $('#table-promotion-year tbody').html("");
+                        if (data.Getdata.length != 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                SubmithtmlPag += '<tr onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" id="' + data.Getdata[i].Year + '">';
+                                SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>'
+                                SubmithtmlPag += '<td>' + data.Getdata[i].Year + '</td>';
+                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
+                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Paid_Amount) + '</td>';
+                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Waiting_Amount) + '</td>';
+                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                SubmithtmlPag += '</tr>';
+                            }
+                            $('#table-promotion-year tbody').append(SubmithtmlPag);
+                        }
+                    }
+                    else {
+                        console.log(data.message);
+                    }
                 }
             });
+        }
+
+        function yearPromotion(year) {
+
+            // $('#' + year + '').css("background", "#DEAF5B");
+            var lastperoid = $('#periodpro').val();
+            console.log("Peroid is " + lastperoid);
+            if (lastperoid != "") {
+                $('#btn-show-yearly').removeAttr('style');
+                $('#btn-show-quater').removeAttr('style');
+                $('#btn-show-other').removeAttr('style');
+                $('#btn-show-all').removeAttr('style');
+                $('#yearpro').val(year);
+                $('#detail-pro').show("slow");
+
+                switch (lastperoid) {
+                    case 'yearly':
+                        $('#btn-show-yearly').css("background", "#DEAF5B");
+                        $('.table-yearly').show('slow');
+                        $('.table-quater').hide('slow');
+                        $('.table-other').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('yearly');
+                        break;
+                    case 'quater':
+                        $('#btn-show-quater').css("background", "#DEAF5B");
+                        $('.table-quater').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-other').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('quater');
+                        break;
+                    case 'other':
+                        $('#btn-show-other').css("background", "#DEAF5B");
+                        $('.table-other').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-quater').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('other');
+                        break;
+                    case 'all':
+                        $('#btn-show-all').css("background", "#DEAF5B");
+                        $('.table-all').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-quater').hide('slow');
+                        $('.table-other').hide('slow');
+                        getPromotion('all');
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                $('#btn-show-yearly').css("background", "#DEAF5B");
+                $('#btn-show-quater').removeAttr('style');
+                $('#btn-show-other').removeAttr('style');
+                $('#btn-show-all').removeAttr('style');
+                $('.table-yearly').show('slow');
+                $('.table-quater').hide('slow');
+                $('.table-other').hide('slow');
+                $('.table-all').hide('slow');
+                $('#yearpro').val(year);
+                $('#detail-pro').show("slow");
+                getPromotion('yearly');
+            }
+
+        }
+
+        function getPromotion(period) {
+            var cus = cuscod;
+            var year = $('#yearpro').val();
+            $.ajax({
+                url: '@Url.Action("GetPromotionDetail", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus,
+                    Period: period,
+                    YEAR:year
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    var SubmithtmlPag = '';
+                    var yearly = $('#promotion-yearly-table tbody');
+                    var quater = $('#promotion-quater-table tbody');
+                    var other = $('#promotion-other-table tbody');
+                    var all = $('#promotion-all-table tbody');
+                    SubmithtmlPag += '<tr>';
+                    SubmithtmlPag += '<td class="text-center" colspan="12"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPag += '</tr>';
+
+                    yearly.append(SubmithtmlPag);
+                    quater.append(SubmithtmlPag);
+                    other.append(SubmithtmlPag);
+                    all.append(SubmithtmlPag);
+                },
+                success: function (data) {
+                    var SubmithtmlPag = '';
+                    if (data.message == 'Y') {
+                        var yearly = $('#promotion-yearly-table tbody');
+                        var quater = $('#promotion-quater-table tbody');
+                        var other = $('#promotion-other-table tbody');
+                        var all = $('#promotion-all-table tbody');
+
+                        var _count = 0;
+                        yearly.html("");
+                        quater.html("");
+                        other.html("");
+                        all.html("");
+                        if (data.Getdata.length != 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                SubmithtmlPag += '<tr>';
+                                SubmithtmlPag += '<td class="text-truncate"> <p class="cut-text m-0 p-0">' + data.Getdata[i].Promotion_Name + '</p></td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].StartDate + '</td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].EndDate + '</td>';
+                                SubmithtmlPag += '<td  align="right">' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</td>';
+                                SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Condition) + '</td>';
+                                SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Remaining_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
+                                SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Reward_Amt) + '</td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Status + '</td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Received_Date + '</td>';
+                                SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Received_By + '</td>';
+                                SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                SubmithtmlPag += '</tr>';
+                                _count++;
+                            }
+                            if (period === 'yearly') {
+                                console.log("test year");
+                                yearly.append(SubmithtmlPag);
+                            } else if (period === 'quater') {
+                                quater.append(SubmithtmlPag);
+                            } else if (period === 'other') {
+                                other.append(SubmithtmlPag);
+                            } else if (period === 'all') {
+                                all.append(SubmithtmlPag);
+                            }
+                        }
+                        else {
+                            //// ถ้าไม่มีโปรโมชั่นเลย
+                            SubmithtmlPag += '<tr>';
+                            SubmithtmlPag += '<tdclass="text-center" colspan="12">-- ไม่พบข้อมูล --</td>'
+                            SubmithtmlPag += '</tr>';
+                            if (period === 'yearly') {
+                                yearly.append(SubmithtmlPag);
+                            } else if (period === 'quater') {
+                                quater.append(SubmithtmlPag);
+                            } else if (period === 'other') {
+                                other.append(SubmithtmlPag);
+                            } else if (period === 'all') {
+                                all.append(SubmithtmlPag);
+                            }
+                        }
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+
+            });
+        }
+
+        //Tab Promotion
+        $('#btn-show-yearly').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('yearly');
+            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-yearly').show('slow');
+            $('.table-quater').hide('slow');
+            $('.table-other').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('yearly');
+        });
+        $('#btn-show-quater').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('quater');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-quater').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-other').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('quater');
+        });
+        $('#btn-show-other').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('other');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-other').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-quater').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('other');
+
+        });
+        $('#btn-show-all').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('all');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('.table-all').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-quater').hide('slow');
+            $('.table-other').hide('slow');
+            getPromotion('all');
 
         });
 
-        function datacus(slmco) {
-            // var SLM = $('#selslm').val();
-
-            var SLM = slmco;
-            var SLMt = $("#selslm option:selected").text();
-
-            $("#selslm").val(SLM);
-            $.ajax({
-                url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                data: {
-                    SLXX: SLM,
-                    SLMNAME: SLMt
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    var select = $("#selcus");
-                    select.children().remove();
-                    //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ " + SLMt));
-                    select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมด"));
-                    $.each(data, function (key, value) {
-                        select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                        //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
-                    });
-                    $('.selectpicker').selectpicker('refresh');
-                    $(".caret").css("display", "none");
-                }
-            });
-
-        }
-
-        function Cusdetail() {
-            var cusel = $("#selcus").val();
-
-            if (cusel == "0") {
-
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                return false;
-            } else {
-
-                // $.session.set("myVarcus", cusel);
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-
-                        //console.log(data);
-                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                        if (usertype == "6") {
-                            if (usrclmstaff == "1") {
-
-                                $("#crlicusaac").text("xxxx");
-                                $("#crlicustac").text("xxxx");
-                                $("#crbarcusaac").text("xxxx");
-                                $("#crbarcustac").text("xxxx");
-                                $("#crlicusaacday").text("xxxx");
-                                $("#crlicustacday").text("xxxx");
-                                $("#crlicusrating").text("xxxx");
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-                        } else {
-                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            $("#crlicusaacday").text(data[0].AACPAYTRM);
-                            $("#crlicustacday").text(data[0].TACPAYTRM);
-                            $("#divrating").css("display", "");
-                            $("#crlicusrating").text(data[0].RATING);
-                        }
-                        $("#cushid").val(data[0].CUSCOD);
-                        $("#selslm").val(data[0].SLMCOD);
-                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-
-                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-
-                    }
-                });
-
-            }
-        }
         $('.selectpicker').selectpicker({
             noneResultsText: 'Not found'
 
         });
 
-        $("#textfree").autocomplete({
-            selectFirst: true,
-            autoFocus: true,
-            source: function (request, response) {
-                // var param = { Name: $('input[type="search"]').val(), Slm: $('#selslm').val() };
-                var slmcus = "";
-                if ($('#selslm').val() == null) {
-                    slmcus = "ALL";
-                } else {
-                    slmcus = $('#selslm').val();
-                }
-                var param = { Name: $("#textfree").val(), Slm: slmcus };
-                $.ajax({
-                    url: '@Url.Action("GetdateCusCode", "DataCenter")',
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
 
-                        response($.map(data.slice(0, 50), function (item) {
-                            return {
-                                value: item
-                            }
-                        }))
-
-                    },
-                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            },
-            select: function (event, ui) {
-                //console.log(ui.item.value);
-                var cusname
-                var Code = ui.item.value;
-                var split_StockCode = Code.split('|');
-
-                var item = "";
-                if (split_StockCode[0] != "") {
-                    item = split_StockCode[0].trim();
-                    cusname = split_StockCode[1].trim();
-                }
-                $("#smallModalselcus").modal('hide');
-
-                var retval = checkcustomerinactive(item)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    countorder(item, $('#selslm').val());
-                    datacus($('#selslm').val());
-                    getCompanyInformationbysalman($('#selslm').val());//Company Information
-                }
-            },
-
-            minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
-        });
-        function showalr(cusname) {
-            $("#textAlertWarning").empty();
-            $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-            $("#myModalWarning").modal();
-        }
-        function checkcustomerinactive(cuscod) {
-            var SLMt = $("#selslm option:selected").text();
-            var typin;
-            var retval = [];
-            $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                data: {
-                    cusel: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                async: false, //IGNORED!!
-                success: function (data) {
-                    // //console.log(data);
-                    typin = data[0].INACTIVE;
-                    block = data[0].BLOCKED;
-                    //alert(data[0].SLMCOD)
-                    $("#selslm").val(data[0].SLMCOD);
-                    if (usertype == "6") {
-
-
-                    } else {
-                        $.ajax({
-                            url: '@Url.Action("Getdatabyslm", "DataCenter")',
-                            data: {
-                                SLXX: data[0].SLMCOD,
-                                SLMNAME: ""
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-                                //console.log(data);
-                                var select = $("#selcus");
-                                select.children().remove();
-                                select.append($("<option>").val("ALL").text("ร้านค้าทั้งหมดของ " + SLMt));
-                                $.each(data, function (key, value) {
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                    //select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
-                                });
-                                $('#selcus').val(data[0].CUSCOD);
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-                            }
-                        });
-                    }
-                    if (typin == "Y") {
-                        if (block == "0") {
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-
-                            $("#addcus").text("");
-                            $("#crlicusaac").text("");
-                            $("#crlicustac").text("");
-                            $("#crbarcusaac").text("");
-                            $("#crbarcustac").text("");
-                            $("#crlicusaacday").text("");
-                            $("#crlicustacday").text("");
-                            $("#crlicusrating").text("");
-
-                            $("#selslm").val(data[0].SLMCOD);
-                            //$("#selslm").val("");
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-
-
-                            return retval = ["1", data[0].CUSNAM];
-                        } else {
-                            //alert("yy")
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-
-
-                            //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                            //$("#crlicustacday").text(data[0].TACPAYTRM);
-
-                            $("#selslm").val(data[0].SLMCOD);
-
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
-                        }
-
-                    } else {
-                        //alert("zz")
-                        //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                        if (block == "1") {
-                            //$("#textAlertWarning").empty();
-                            //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-
-                            //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                            //$("#crlicustacday").text(data[0].TACPAYTRM);
-
-                            $("#selslm").val(data[0].SLMCOD);
-
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
-                        }
-                        else {
-                            //alert("aa")
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                            $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                            $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                            if (usertype == "6") {
-                                if (usrclmstaff == "1") {
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                            } else {
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-                            }
-                            //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                            //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                            //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                            //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                            //$("#crlicustacday").text(data[0].TACPAYTRM);
-
-                            $("#cushid").val(data[0].CUSCOD);
-                            $("#selslm").val(data[0].SLMCOD);
-
-                            $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                            $("#nocusses").val(data[0].CUSCOD);//master key customer
-                            getCreditcuskey(cuscod)
-                            $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["2", data[0].CUSNAM];
-                        }
-                    }
-
-                },
-                async: false
-
-            });
-            return retval;
-        }
-        function getCreditcuskey(cusel) {
-            $.ajax({
-                url: '@Url.Action("GetdCustomerCredit", "DataCenter")',
-                data: {
-                    cusel: cusel
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    //APS//
-                    if (usertype == "6") {
-                        if (usrclmstaff == "1") {
-                            $("#crlicusaac").text("xxxx");
-                            $("#crlicustac").text("xxxx");
-
-                        } else {
-                            $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                            $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));;
-                        }
-                    } else {
-                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                    }
-                   // $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                   // $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-
-
-                }
-            });
-        }
-        function cleardataselect() {
-            $("#addcus").text("");
-            $("#crlicusaac").text("");
-            $("#crlicustac").text("");
-            $("#crbarcusaac").text("");
-            $("#crbarcustac").text("");
-            $("#crlicusaacday").text("");
-            $("#crlicustacday").text("");
-            $("#crlicusrating").text("");
-
-            //$("#selslm").val();
-            $("#cus").text("");
-            $("#cushid").val("");
-            $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
-            $("#nocusses").val("");//master key customer
-        }
-
-        $('#selcus').change(function () {
-            var cusel = $("#selcus").val();
-            var Slm = $("#selslm").val();
-            // var cusold = $("#cus").html();
-            //var cusold = $("#cushid").val();
-            // countorder(cusel, Slm)
-
-            var selcusoption = $("#selcus option:selected").text();
-            //var cusold = cuscod;
-            var cusold = $("#nocusses").val();
-
-            if (cusel == "0") {
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                return false;
-            } else if (cusel != "ALL") {
-                countorder(cusel, Slm)
-                var typin;
-                var block;
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        typin = data[0].INACTIVE;
-                        block = data[0].BLOCKED;
-                        //alert(block)
-                        if (typin == "Y") {
-                            if (block == "0") {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            } else {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            }
-
-                        } else {
-                            //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                            if (block == "1") {
-                                $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text("");
-                                $("#crlicusaac").text("");
-                                $("#crlicustac").text("");
-                                $("#crbarcusaac").text("");
-                                $("#crbarcustac").text("");
-                                $("#crlicusaacday").text("");
-                                $("#crlicustacday").text("");
-                                $("#crlicusrating").text("");
-
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-                                return false;
-                            }
-                            else {
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-                                if (usertype == "6") {
-                                    if (usrclmstaff == "1") {
-                                        $("#crlicusaac").text("xxxx");
-                                        $("#crlicustac").text("xxxx");
-                                        $("#crlicusaac").text("xxxx");
-                                        $("#crlicustac").text("xxxx");
-                                        $("#crbarcusaac").text("xxxx");
-                                        $("#crbarcustac").text("xxxx");
-                                        $("#crlicusaacday").text("xxxx");
-                                        $("#crlicustacday").text("xxxx");
-                                        $("#crlicusrating").text("xxxx");
-
-                                    } else {
-                                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                        $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                        $("#crlicustacday").text(data[0].TACPAYTRM);
-                                        $("#divrating").css("display", "");
-                                        $("#crlicusrating").text(data[0].RATING);
-                                    }
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-
-                                //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                                //$("#crlicustacday").text(data[0].TACPAYTRM);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#selslm").val(data[0].SLMCOD);
-
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);//master key customer
-
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                getCreditcuskey(cusel);
-                            }
-                        }
-
-                    }
-                });
-
-            } else if (cusel == "ALL") {
-
-                countorder("", Slm)
-                $("#cus").text("");
-                $("#addcus").text("");
-                $("#crlicusaac").text("");
-                $("#crlicustac").text("");
-                $("#crbarcusaac").text("");
-                $("#crbarcustac").text("");
-                $("#crlicusaacday").text("");
-                $("#crlicustacday").text("");
-                $("#crlicusrating").text("");
-
-                $('#cus').attr('title', "");
-                //$("#selslm").val(data[0].SLMCOD);
-
-                $("#cushid").val("");
-                $("#cussend").val("");//checkcustomerบัญชีลูกค้า:
-                $("#nocusses").val("");//master key customer
-
-            }
-           // alert(cusel)
-
-        });
-        function getslmandcus() {
-
-            $.ajax({
-                url: '@Url.Action("Getdateslm", "DataCenter")',
-                data: {
-
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-
-                    var select = $("#selslm");
-                    select.children().remove();
-                    if (usertype == "1") {
-                        select.append($("<option>").val("ALL").text("ALL Sales Man"));
-                    }
-                    $(data).each(function (index, item) {
-                        select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
-                    });
-                }
-            });
-        }
-        $(document).on("click", "#btnnot", function () {
-            //chkcustomer()
-            getslmandcus(); //get salesman
-            var cusel = $("#cushid").val();
-            $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                data: {
-                    cusel: cusel
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    $("#selslm").val(data[0].SLMCOD);
-                    chkcustomer()
-                }
-            });
-        });
-        $(document).on("click", "#btnok", function () {
-            // var cusel = $("#nocusses").val();
-            var cusel = $(this).attr('cusdata');
-            var retval = checkcustomerinactive(item)
-
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                $.ajax({
-                    url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                    data: {
-                        cusel: cusel
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        $("#smallModal").modal('hide');
-
-                        // $("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                        $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                        $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                        $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                        $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                        $("#crlicusaacday").text(data[0].AACPAYTRM);
-                        $("#crlicustacday").text(data[0].TACPAYTRM);
-                        $("#divrating").css("display", "");
-                        $("#crlicusrating").text(data[0].RATING);
-                        $("#cushid").val(data[0].CUSCOD);
-                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                        $("#nocusses").val(data[0].CUSCOD);//master key customer
-                        $("#selslm").val(data[0].SLMCOD);
-                        datacus(data[0].SLMCOD);
-
-                    }
-                });
-            }
-            // }
-
-            //});
-
-
-        });
-
-
-        $(document).on("click", "#nextsp", function () {
-            // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            if (cuskey == "") {
-                //if(cuddroplist == ""){
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    //window.location.replace("../Home/Index?numcuber=" + btoa(cuskey));
-                    window.location.replace("../Orderlist/Index?numcuber=" + btoa(cuskey));
-                }
-
-            }
-
-        });
-
-        $(document).on("click", "#mapcu", function () {
-            // var cuddroplist = $("#cussend").val();//checkcustomerบัญชีลูกค้า:
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            //var cuskey = "";
-            //cuskey = $("#nocusses").val();
-            //var cusel = $("#cushid").val();
-            //if (cuskey == "") {
-            //    cuskey = cusel;
-            //}
-
-            //var cusel = $("#cus").html();
-
-            if (cuskey == "") {
-                window.location.replace("../CustomerMap/Index");
-                return false;
-            } else {
-                window.location.replace("../CustomerMap/Index?numcuber=" + btoa(cuskey));
-            }
-        });
-        $(document).on("click", "#nextspold", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            if (cuskey == "") {
-                //if(cuddroplist == ""){
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
-                }
-            }
-
-        });
-
-        $(document).on("click", "#nextcheckstock", function () {
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            if (cuskey == "") {
-                window.location.replace("../SCStockSco/Index");
-            } else {
-                var retval = checkcustomerinactive(cuskey)
-
-                if (retval[0] == "1") {
-                    showalr(retval[1])
-                    return false;
-                } else {
-                    window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
-                }
-            }
-        });
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
             window.location.replace("../CustomerDashboard/index");
@@ -2668,206 +1393,8 @@
         $(document).on("click", "#navbardeliverytrack", function () {
             window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
-        $('#navbarshowdetail').click(function () {
-
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-
-            var codval = $('#selslm').val();
-            if (usertype != "6") {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartslm(codval)
-                }
-
-            } else {
-                if (cuskey != "") {
-                    var retval = checkcustomerinactive(cuskey)
-                    if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
-                        return false;
-                    } else {
-                        //Getdatacartslm(codval)
-                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
-                    }
-
-                } else {
-                    Getdatacartcus(cuskey)
-                }
-            }
-        });
-        function Getdatacartcus(cuskey) {
-            $.ajax({
-                url: '@Url.Action("Getdatailorderbycustomer", "DataCenter")',
-                data: { codval: cuskey },
-
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    $("#ModalwConfirm").modal();
-
-                    $("#wConfirm > tbody").empty();
-
-                    for (var i = 0; i < data.Getdata.length; i++) {
-
-                        var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                        SubmithtmlPage += '</tr>';
-                        $('#wConfirm').prepend(SubmithtmlPage);
-                    }
 
 
-                }
-            });
-        }
-        function Getdatacartslm(slmcod) {
-            $.ajax({
-                url: '@Url.Action("Getdatailorder", "DataCenter")',
-                data: { codval: slmcod },
-
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //console.log(data);
-                    $("#ModalwConfirm").modal();
-
-                    $("#wConfirm > tbody").empty();
-
-                    for (var i = 0; i < data.Getdata.length; i++) {
-
-                        var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                        SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                        SubmithtmlPage += '</tr>';
-                        $('#wConfirm').prepend(SubmithtmlPage);
-                    }
-
-                }
-            });
-        }
-        $('#btncheckord').click(function () {
-
-            var codval = $('#selslm').val();
-            if (codval == "ALL") {
-                //alert("กรุณาเลือก Slmcod ");
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกพนักงานขาย");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                //var codval = $('#Slm').val();
-                $.ajax({
-                    url: '@Url.Action("Getdatailorder", "DataCenter")',
-                    data: { codval: codval },
-
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        // //console.log(data);
-                        $("#ModalwConfirm").modal();
-
-                        $("#wConfirm > tbody").empty();
-
-                        for (var i = 0; i < data.Getdata.length; i++) {
-
-                            var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data.Getdata[i].val.customer + '"  slm="' + data.Getdata[i].val.salmman + '"  Countrow="' + data.Getdata[i].val.Countrow + '" ">';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.customer + "/" + data.Getdata[i].val.customername + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.salmman + "/" + data.Getdata[i].val.salmmanname + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].val.sumqty + '</td>';
-
-                            SubmithtmlPage += '</tr>';
-                            $('#wConfirm').prepend(SubmithtmlPage);
-                        }
-
-                    }
-                });
-            }
-        });
-        $("#wConfirm").on("click", "tr", function () {
-            var cus = $(this).attr('cus');
-            var slm = $(this).attr('slm');
-            if (cus == "") {
-                //cuskey = cusel;
-                $("#ModalwConfirm").modal('hide');
-                $("#textAlertWarning").empty();
-                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
-                $("#myModalWarning").modal();
-                $("#myModal").modal('hide');
-                return false;
-            } else {
-                $("#ModalwConfirm").modal('hide');
-                var retval = checkcustomerinactive(cus)
-                if (retval[0] == "1") {
-                    showalr(retval[1]) //csutomer block//
-                    return false;
-                } else {
-                    //Getdatacartslm(codval)
-                    window.location.replace("../Cart/Index?numcuber=" + btoa(cus));
-                }
-
-            }
-        });
-        $('#nextcrm').click(function () {
-            // checkcustomerinactive(cuskey)
-            // window.location.replace("../SrcSaleCoCrm/Index");
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var retval = checkcustomerinactive(cuskey)
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                window.location.replace("../SrcSaleCoCrm/Index");
-            }
-            @*$.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                data: {
-                    cusel: cuskey
-                },
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    typin = data[0].INACTIVE;
-
-                    if (typin == "Y") {
-
-                        checkcustomerinactive(cuskey)
-
-
-                    } else {
-                        window.location.replace("../SrcSaleCoCrm/Index");ห
-                    }
-                }*@
-
-            //});
-        });
-        $('#nextbck').click(function () {
-            // checkcustomerinactive(cuskey)
-            // window.location.replace("../SrcSaleCoCrm/Index");
-            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
-            var retval = checkcustomerinactive(cuskey)
-            if (retval[0] == "1") {
-                showalr(retval[1])
-                return false;
-            } else {
-                window.location.replace("../BackorderAll/Index");
-            }
-
-        });
         $('#btn_yearly').click(function () {
             $('#btn_yearly').css("background", "#DEAF5B");
              $('#btn_quater').removeAttr('style');
@@ -2884,427 +1411,6 @@
             $('#btn_other').css("background", "#DEAF5B");
         });
 
-        function chkcustomer() {
-
-            if (usertype != "6") {
-
-                if (usertype == "5") {
-
-                } else {
-                    if (cuscod == "") {
-
-                        $.ajax({
-                            url: '@Url.Action("Getdateslm", "DataCenter")',
-                            data: {
-
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-
-                                var select = $("#selslm");
-                                select.children().remove();
-                                if (usertype == "1") {//sales co
-                                    select.append($("<option>").val("ALL").text("ALL Sales Man"));
-                                }
-                                $(data).each(function (index, item) {
-                                    select.append($("<option custyp=" + item.SLMCOD + ">").val(item.SLMCOD).text(item.SLMCOD + "|" + item.SLMNAM));
-                                });
-                                if (usertype == "2") { //sales
-                                    getcus();
-                                    var slmcod = $("#selslm").val();
-                                    countorder("", slmcod);
-                                    //Getdatacartslm(slmcod)
-
-                                    getCompanyInformationbysalman(slmcod)
-                                }
-                            }
-                        });
-                        //var SubmithtmlPage = "";
-                        //SubmithtmlPage += '<div class="card-body">';
-
-                        //SubmithtmlPage += '<div class="mt--10">';
-                        //SubmithtmlPage += '<div class="contact-btn">';
-                        //SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                        //SubmithtmlPage += 'Shopping';
-                        //SubmithtmlPage += '</button>';
-                        //SubmithtmlPage += '</div>';
-                        //SubmithtmlPage += '</div>';
-                        //SubmithtmlPage += '<a href="#" id="nextspold"> >>>> Shopping เวอร์ชั่นเก่า >>>></a><br /><br />';
-
-                        //SubmithtmlPage += '</div>';
-                        //$('.appendbtnshopbysales').append(SubmithtmlPage);
-                        //  window.location.replace("../Account/LogIn");
-                    } else {
-
-                        getslmandcus()
-                        $.ajax({
-                            url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                            data: {
-                                cusel: cuscod
-                            },
-                            type: "POST",
-                            dataType: "JSON",
-                            success: function (data) {
-                                //console.log(data);
-                                // $("#cus").text("Custome Code:" + data[0].CUSCOD + "/" + data[0].CUSNAM);
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-
-
-
-                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#divrating").css("display", "");
-                                $("#crlicusrating").text(data[0].RATING);
-
-                                $("#cushid").val(data[0].CUSCOD);
-                                //$("#selslm").prepend(new Option(data[0].SLMCOD));
-                                //$("#selslm").prepend(data[0].SLMCOD)
-                                // $("#selslm").val(data[0].SLMCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);
-
-                                //$("#slmhid").val(data[0].SLMCOD);
-                                //$('#selslm option[value="' + data[0].SLMCOD + '"]').prop("selected", true);
-                                //$("#selslm").val(data[0].SLMCOD).change();
-                                datacus(data[0].SLMCOD);  ///auto get customer to option select customer
-                                countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
-                                getCompanyInformationbysalman(data[0].SLMCOD);//Company Information
-
-
-
-
-                                $.ajax({
-                                    url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
-                                    data: {
-                                        codeslm: data[0].SLMCOD
-                                    },
-                                    type: "POST",
-                                    dataType: "JSON",
-                                    success: function (data) {
-                                        //console.log(data)
-                                        optText = data[0].SLMCOD + "|" + data[0].SLMNAM;
-                                        optValue = data[0].SLMCOD;
-                                        // $('#selslm').prepend(new Option(optText, optValue));
-                                        //$('#selslm option[value="' + optValue + '"]').prop("selected", true);
-                                        // $("#SalepersonCode option[value='ALL']").remove();
-                                        //$("#selslm option[value='ALL']").remove();
-                                        $("#selslm").prepend($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-                                        $("#selslm").val($("#selslm option:first").val());
-                                        return false;
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }
-            } else if (usertype == "6") {
-
-                if (cuscod == ""){
-                    $('#nextspold').css("display", "none");
-                    //$('#h2title').html("พนักงานขาย");
-                    $('#h2title').html("เลือกบัญชีร้านค้า");
-                    $('#prvs').css("margin-top", "-39px");
-                    $('#selslm').css("display", "none");
-                    $('#btnshsche').css("display", "none");
-                    $('#btnclear').css("display", "none");
-                    $("#changepass").css("display", "block");
-                    var cuslog = "";
-                    $.ajax({
-                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
-                        data: {},
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-
-
-                            if (data.length == 1) {
-                                $('#cushead').remove();
-                                $('.caption').css("display", "none");
-                                $('#prvs').css("display", "none");
-                                /*
-                                var SubmithtmlPage = "";
-                                SubmithtmlPage += '<div class="card-body">';
-
-                                SubmithtmlPage += '<div class="mt--10">';
-                                SubmithtmlPage += '<div class="contact-btn">';
-                                SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                                SubmithtmlPage += 'Shopping';
-                                SubmithtmlPage += '</button>';
-                                SubmithtmlPage += '</div>';
-                                SubmithtmlPage += '</div>';
-
-
-                                SubmithtmlPage += '</div>';
-                                $('.appendbtnshop').append(SubmithtmlPage);
-                                */
-                            } else {
-                                var select = $("#selcus");
-                                select.children().remove();
-                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
-                                $.each(data, function (key, value) {
-
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                });
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-
-
-                            }
-                            cuslog = data[0].CUSCOD;
-                            $.ajax({
-                                url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                                data: {
-                                    cusel: cuslog
-                                },
-                                type: "POST",
-                                dataType: "JSON",
-                                success: function (data) {
-                                    //console.log(data);
-                                    if (data.length == 1) {
-                                        //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                                        $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                        $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                        $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-
-
-                                            if (usrclmstaff == "1") {
-
-                                                $("#crlicusaac").text("xxxx");
-                                                $("#crlicustac").text("xxxx");
-                                                $("#crbarcusaac").text("xxxx");
-                                                $("#crbarcustac").text("xxxx");
-                                                $("#crlicusaacday").text("xxxx");
-                                                $("#crlicustacday").text("xxxx");
-                                                $("#crlicusrating").text("xxxx");
-                                            } else {
-                                                $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                                $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                                $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                                $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                                $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                                $("#crlicustacday").text(data[0].TACPAYTRM);
-                                                $("#divrating").css("display", "");
-                                                $("#crlicusrating").text(data[0].RATING);
-                                            }
-
-                                        //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                        //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                        //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                        //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                        //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                                        //$("#crlicustacday").text(data[0].TACPAYTRM);
-                                        $("#cushid").val(data[0].CUSCOD);
-                                        $("#selslm").val(data[0].SLMCOD);
-                                        $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                        $("#nocusses").val(data[0].CUSCOD);
-                                        countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                        //datacus();  ///auto get customer to option select customer
-                                        //Getdatacartcus(data[0].CUSCOD)
-                                        getCreditcuskey(cuslog);//get เครดิตรร้านแม่
-                                        $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                                    } else {
-                                        window.location.replace("../Account/LogIn");
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    /*
-                    var SubmithtmlPage = "";
-                    SubmithtmlPage += '<div class="card-body">';
-
-                    SubmithtmlPage += '<div class="mt--10">';
-                    SubmithtmlPage += '<div class="contact-btn">';
-                    SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                    SubmithtmlPage += 'Shopping';
-                    SubmithtmlPage += '</button>';
-                    SubmithtmlPage += '</div>';
-                    SubmithtmlPage += '</div>';
-
-
-                    SubmithtmlPage += '</div>';
-                    $('.appendbtnshopbysales').append(SubmithtmlPage);
-                    */
-                    //window.location.replace("../Account/LogIn");
-                } else {
-                    $('#nextspold').css("display", "none");
-                    //$('#h2title').html("พนักงานขาย");
-
-                    $('#h2title').html("เลือกบัญชีร้านค้า");
-                    $('#prvs').css("margin-top", "-39px");
-                    $('#selslm').css("display", "none");
-
-                    $('#btnshsche').css("display", "none");
-                    $('#btnclear').css("display", "none");
-                    $("#changepass").css("display", "block");
-                    $.ajax({
-                        url: '@Url.Action("Getdateslmbycustomer", "DataCenter")',
-                        data: {
-                            cuscod: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-
-                            $("#selslm").append($("<option custyp=" + data[0].SLMCOD + ">").val(data[0].SLMCOD).text(data[0].SLMCOD + "|" + data[0].SLMNAM));
-
-                            $("#selslm").prop("disabled", true);
-                            //datacus();  ///auto get customer to option select customer
-                            getCompanyInformationbysalman(data[0].SLMCOD)//Company Information
-
-                        }
-                    });
-                    @*$.ajax({
-                        url: '@Url.Action("GetdataCuslogincus", "DataCenter")',
-                        data: {
-                            cusel: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-
-
-                            $("#chart-Salesman").text("Salesman:" + data[0].SLMNAM + " เบอร์ติดต่อ:" + data[0].SLMPhone);
-                            $("#chart-SalesCo").text("SalesCo:" + data[0].SalesCo + " เบอร์ติดต่อ:" + data[0].SalesCoPhone);
-                            //datacus();  ///auto get customer to option select customer
-                        }
-                    });*@
-                    $.ajax({
-                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
-                        data: {
-                            cusel: cuscod
-                        },
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-                            if (data.length == 1) {
-
-                                //$("#cus").text("Custome Code" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
-                                $('#cus').attr('title', data[0].Hierarchy2_Channel);
-                                $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
-                                if (usrclmstaff == "1") {
-
-                                    $("#crlicusaac").text("xxxx");
-                                    $("#crlicustac").text("xxxx");
-                                    $("#crbarcusaac").text("xxxx");
-                                    $("#crbarcustac").text("xxxx");
-                                    $("#crlicusaacday").text("xxxx");
-                                    $("#crlicustacday").text("xxxx");
-                                    $("#crlicusrating").text("xxxx");
-                                } else {
-                                    $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                    $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                    $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                    $("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                    $("#crlicusaacday").text(data[0].AACPAYTRM);
-                                    $("#crlicustacday").text(data[0].TACPAYTRM);
-                                    $("#divrating").css("display", "");
-                                    $("#crlicusrating").text(data[0].RATING);
-                                }
-                                //$("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
-                                //$("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
-                                //$("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
-                                //$("#crbarcustac").text(commaSeparateNumber(data[0].TACBalance));
-                                //$("#crlicusaacday").text(data[0].AACPAYTRM);
-                                //$("#crlicustacday").text(data[0].TACPAYTRM);
-                                $("#cushid").val(data[0].CUSCOD);
-                                $("#selslm").val(data[0].SLMCOD);
-                                $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
-                                $("#nocusses").val(data[0].CUSCOD);
-                                countorder(data[0].CUSCOD, data[0].SLMCOD);
-                                //datacus();  ///auto get customer to option select customer
-                                //Getdatacartcus(data[0].CUSCOD)
-                                getCreditcuskey(cuscod);//get เครดิตรร้านแม่
-                                $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            } else {
-                                window.location.replace("../Account/LogIn");
-                            }
-                        }
-                    });
-
-                    $.ajax({
-                        url: '@Url.Action("Getdatalogincustomer", "DataCenter")',
-                        data: {},
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function (data) {
-                            //console.log(data);
-                            if (data.length == 1) {
-                                $('#cushead').remove();
-                                $('.caption').css("display", "none");
-                                $('#prvs').css("display", "none");
-                                $("#selcus").prop("disabled", true);
-                                /*
-                                var SubmithtmlPage = "";
-                                SubmithtmlPage += '<div class="card-body">';
-
-                                SubmithtmlPage += '<div class="mt--10">';
-                                SubmithtmlPage += '<div class="contact-btn">';
-                                SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                                SubmithtmlPage += 'Shopping';
-                                SubmithtmlPage += '</button>';
-                                SubmithtmlPage += '</div>';
-                                SubmithtmlPage += '</div>';
-
-
-                                SubmithtmlPage += '</div>';
-                                $('.appendbtnshop').append(SubmithtmlPage);
-                                */
-                            } else {
-                                $("#selcus").prop("disabled", false);
-                                var select = $("#selcus");
-                                select.children().remove();
-                                // select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ "+ SLMt));
-                                //select.append($("<option>").val("ALL").text("ลูกค้าทั้งหมดของ"));
-                                $.each(data, function (key, value) {
-
-                                    select.append('<option value=' + value.CUSCOD + '>' + value.CUSCOD + '|' + value.CUSNAM + "----ที่อยู่ " + value.ADDR_01 + " " + value.PRO + '</option>');
-                                });
-                                $('.selectpicker').selectpicker('refresh');
-                                $(".caret").css("display", "none");
-                                /*
-                                var SubmithtmlPage = "";
-                                SubmithtmlPage += '<div class="card-body">';
-
-                                SubmithtmlPage += '<div class="mt--10">';
-                                SubmithtmlPage += '<div class="contact-btn">';
-                                SubmithtmlPage += '<button type="submit" class="fv-btn" id="nextsp" style="background-color: aqua;">';
-                                SubmithtmlPage += 'Shopping';
-                                SubmithtmlPage += '</button>';
-                                SubmithtmlPage += '</div>';
-                                SubmithtmlPage += '</div>';
-
-
-                                SubmithtmlPage += '</div>';
-                                $('.appendbtnshopbysales').append(SubmithtmlPage);
-                                */
-                            }
-                        }
-                    });
-                }
-            }
-            return false;
-        }
-        $('#changepass').click(function () {
-            if (usertype == "6") {
-                window.location.replace("../ChangePassword/Index");
-            }
-        });
     </script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>

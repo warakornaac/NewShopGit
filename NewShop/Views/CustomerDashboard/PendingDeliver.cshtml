@@ -876,37 +876,37 @@
                                 for (var i = 0; i < data.backorder.length; i++) {
                                     if (data.backorder[i].Company == 'AAC') {
                                         SubmithtmlPage_A += '<tr>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class=" m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
+                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="  m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
+                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="text-truncate m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
+                                        SubmithtmlPage_A += '<td ><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_A += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
                                         SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
+                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_A += '</tr >';
                                         aac_count++;
                                     }
                                     if (data.backorder[i].Company == 'TAC') {
                                         SubmithtmlPage_T += '<tr>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
+                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
+                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_T += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
                                         SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
+                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_T += '</tr >';
                                         tac_count++;
                                     }
                                     if (data.backorder[i].Company == 'OMP') {
                                         SubmithtmlPage_O += '<tr>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
+                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
+                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
                                         SubmithtmlPage_O += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
                                         SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
+                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
                                         SubmithtmlPage_O += '</tr >';
                                         omp_count++;
                                     }
@@ -924,7 +924,7 @@
                                 }
                                 else {
                                     SubmithtmlPage_A += '<tr>';
-                                    SubmithtmlPage_A += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                    SubmithtmlPage_A += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
                                     SubmithtmlPage_A += '</tr>';
                                     aac.append(SubmithtmlPage_A);
                                     $('#status-aac').attr('hidden', true);
@@ -941,7 +941,7 @@
                                 }
                                 else {
                                     SubmithtmlPage_T += '<tr>';
-                                    SubmithtmlPage_T += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                    SubmithtmlPage_T += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
                                     SubmithtmlPage_T += '</tr>';
                                     tac.append(SubmithtmlPage_T);
                                     $('#status-tac').attr('hidden', true);
@@ -958,7 +958,7 @@
                                 }
                                 else {
                                     SubmithtmlPage_O += '<tr>';
-                                    SubmithtmlPage_O += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                    SubmithtmlPage_O += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
                                     SubmithtmlPage_O += '</tr>';
                                     omp.append(SubmithtmlPage_O);
                                     $('#status-omp').attr('hidden', true);
@@ -970,9 +970,9 @@
                                 //omp.append(SubmithtmlPage_O);
 
                             } else if (data.length <= 0) {
-                                SubmithtmlPage_A += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
-                                SubmithtmlPage_T += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
-                                SubmithtmlPage_O += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>';
+                                SubmithtmlPage_A += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                                SubmithtmlPage_T += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                                SubmithtmlPage_O += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
                                 aac.append(SubmithtmlPage_A);
                                 tac.append(SubmithtmlPage_T);
                                 omp.append(SubmithtmlPage_O);
