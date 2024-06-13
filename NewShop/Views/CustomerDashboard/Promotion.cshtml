@@ -1279,8 +1279,8 @@
                                 SubmithtmlPag += '<td class="text-truncate"> <p class="cut-text m-0 p-0">' + data.Getdata[i].Promotion_Name + '</p></td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].StartDate + '</td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].EndDate + '</td>';
-                                SubmithtmlPag += '<td  align="right">' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</td>';
                                 SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Condition) + '</td>';
+                                SubmithtmlPag += '<td  align="right">' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</td>';
                                 SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].Remaining_Amount) + '</td>';
                                 //SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
                                 if (data.Getdata[i].Reward.toString().toLowerCase().includes("ticket")) {
@@ -1393,7 +1393,6 @@
 
         $('.selectpicker').selectpicker({
             noneResultsText: 'Not found'
-
         });
 
 
