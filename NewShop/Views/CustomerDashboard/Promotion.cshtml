@@ -877,7 +877,6 @@
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
 
-        console.log("usertype = " + usertype + "usrexpire = " + usrexpire);
         $(document).ready(function () {
             $('#loader').show();
 
@@ -897,6 +896,14 @@
             $('.table-other').hide();
             $('.table-all').hide();
             $('#detail-pro').hide();
+        });
+
+        $(document).ready(function () {
+            $(document).on('click', 'tr[id^="pro-year"]', function () {
+                console.log("LOG CLICK");
+                $('tr[id^="pro-year"]').css("background", "");
+                $(this).css("background", "#DEAF5B");
+            });
         });
 
 
@@ -1141,7 +1148,7 @@
                         $('#table-promotion-year tbody').html("");
                         if (data.Getdata.length != 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
-                                SubmithtmlPag += '<tr onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" id="' + data.Getdata[i].Year + '">';
+                                SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year +'" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')">';
                                 SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>'
                                 SubmithtmlPag += '<td>' + data.Getdata[i].Year + '</td>';
                                 SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
