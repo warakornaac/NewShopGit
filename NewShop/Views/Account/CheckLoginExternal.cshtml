@@ -175,7 +175,7 @@
                                         else if (page == "deliveryTrack") {//หน้าค้างส่ง
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=deliveryTrack");
                                         }
-                                        else if (page == "menu") {
+                                        else if (page == "menu") {//หน้ายอดซื้อ
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
                                         }
                                     }
@@ -201,16 +201,25 @@
                         console.log("Non OTP");
                         console.log("Page : " + result.page)
                         if (result.page != null && result.page != '') {
-                              if (result.page == "amount") { //หน้ายอดซื้อ
-                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=amount");
-                              }
-                              else if (page == "promotion") {//หน้าโปรโมชั่น
-                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=promotion");
-                              }
-                              else if (page == "PendingDelivery") {//หน้าค้างส่ง
-                                  window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=PendingDelivery");
-                              }
-                          }
+                            if (result.page == "amount") { //หน้ายอดซื้อ
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=amount");
+                            }
+                            else if (page == "promotion") {//หน้าโปรโมชั่น
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=promotion");
+                            }
+                            else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=PendingDelivery");
+                            }
+                            else if (page == "deliveryTrack") {//หน้าค้างส่ง
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=deliveryTrack");
+                            }
+                            else if (page == "menu") {//หน้ายอดซื้อ
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
+                            }
+                        }
+                        else {
+                            window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
+                        }
                     }
                 },
                 error: function (ex) {
