@@ -1300,7 +1300,13 @@
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Status + '</td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Received_Date + '</td>';
                                 SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Received_By + '</td>';
-                                SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                if (data.Getdata[i].WHT != 0) {
+                                    SubmithtmlPag += '<td align="right">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                }
+                                else {
+                                    SubmithtmlPag += '<td align="right"></td>';
+                                }
+
                                 SubmithtmlPag += '</tr>';
                                 _count++;
                             }

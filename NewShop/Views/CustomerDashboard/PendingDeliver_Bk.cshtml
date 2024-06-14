@@ -617,6 +617,40 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>head</th>
+                                                    <th>head 1</th>
+                                                    <th>head 2</th>
+                                                    <th>head 3</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="tr-2024">
+                                                    <td>body 1</td>
+                                                    <td>body 1</td>
+                                                    <td>body 1</td>
+                                                    <td>body 1</td>
+                                                </tr>
+                                                <tr id="tr-2023">
+                                                    <td>body 2</td>
+                                                    <td>body 2</td>
+                                                    <td>body 2</td>
+                                                    <td>body 2</td>
+                                                </tr>
+                                                <tr id="tr-2022">
+                                                    <td>body 3</td>
+                                                    <td>body 3</td>
+                                                    <td>body 3</td>
+                                                    <td>body 3</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="appadj"></div>
@@ -667,6 +701,13 @@
                 $('#content').removeClass('d-none').addClass('d-flex');
                 $('.footer').removeAttr('hidden');
             }, 3000);
+        });
+
+        $(document).ready(function () {
+            $('tr[id^="tr-"]').click(function () {
+                $('tr[id^="tr-"]').css("background-color", "");
+                $(this).css("background-color", "yellow");
+            });
         });
 
         n = new Date();

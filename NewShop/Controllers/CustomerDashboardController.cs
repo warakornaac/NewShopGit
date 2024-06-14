@@ -68,7 +68,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=DeliveryTrack");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=deliveryTrack");
             }
             return View();
         }
@@ -561,7 +561,8 @@ namespace NewShop.Controllers
                         Reward = reader["Reward"].ToString(),
                         Reward_Amt = reader["Reward_Amt"].ToString(),
                         Received_By = reader["Received_By"].ToString(),
-                        Received_Date = Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yyyy"),
+                        Received_Date = reader["Received_date"] != DBNull.Value ?
+                                        Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yyyy") : "",
                         WHT = reader["WHT"].ToString(),
                         Status = reader["Status"].ToString()
                     });
