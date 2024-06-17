@@ -507,7 +507,7 @@
     <div id="app">
         <div id="main" style=" padding-right:20px; padding-left:20px;">
             <div class="page-heading">
-
+                <h4 class="pt-2" id="head-cusname"></h4>
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -528,20 +528,20 @@
                             </div>
                             <div class="w3-bar tab-buttons bg-info ">
                                 <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-wait">
-                                    รอดำเนินการ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait">0</span>
+                                    รอดำเนินการ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait"></span>
                                     <hr class="m-0" id="line-tab-wait" />
                                 </button>
                                 <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
-                                    กำลังตรวจสอบ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect">0</span>
+                                    กำลังตรวจสอบ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect"></span>
                                     <hr class="m-0" id="line-tab-inspect" />
                                 </button>
                                 <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-delivery">
-                                    รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery">0</span>
+                                    รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
                                     <hr class="m-0" id="line-tab-delivering" />
                                 </button>
                                 <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
                                     จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
-                                    <hr class="m-0" id="line-tab-arrive" />
+                                    <hr class="m-0" id="line-tab-success" />
                                 </button>
                             </div>
                             <div class="card-body p-0">
@@ -552,6 +552,7 @@
                                                 <tr>
                                                     <th>ชื่อสินค้า</th>
                                                     <th>จำนวน</th>
+                                                    <th>อาการ</th>
                                                     <th>วันที่แจ้งเคลม</th>
                                                     <th>วันที่รับเคลม</th>
                                                     <th>ดำเนินการ</th>
@@ -567,6 +568,7 @@
                                                 <tr>
                                                     <th>ชื่อสินค้า</th>
                                                     <th>จำนวน</th>
+                                                    <th>อาการ</th>
                                                     <th>วันที่แจ้งเคลม</th>
                                                     <th>วันที่รับเคลม</th>
                                                     <th>ดำเนินการ</th>
@@ -582,6 +584,7 @@
                                                 <tr>
                                                     <th>ชื่อสินค้า</th>
                                                     <th>จำนวน</th>
+                                                    <th>อาการ</th>
                                                     <th>วันที่แจ้งเคลม</th>
                                                     <th>วันที่รับเคลม</th>
                                                     <th>ดำเนินการ</th>
@@ -591,7 +594,22 @@
                                             <tbody></tbody>
                                         </table>
                                     </div>
-
+                                    <div class="m-0 table-arrive table-responsive" style="height:500px;">
+                                        <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-arrive-table" style="padding: 7px;font-size: small;">
+                                            <thead style="font-size: small;">
+                                                <tr>
+                                                    <th>ชื่อสินค้า</th>
+                                                    <th>จำนวน</th>
+                                                    <th>อาการ</th>
+                                                    <th>วันที่แจ้งเคลม</th>
+                                                    <th>วันที่รับเคลม</th>
+                                                    <th>ดำเนินการ</th>
+                                                    <th>สถานะการเคลม</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -613,13 +631,11 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
         //var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
-         var cuscod = '111B0005';
+        var cuscod = '110A0005';
         var user = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         $(document).ready(function () {
-            $('#status-wait').hide();
-            $('#status-inspect').hide();
-            $('#status-delivery').hide();
+
             $('#loader').show();
             setTimeout(function () {
                 $('#loader').hide();
@@ -628,12 +644,31 @@
             }, 2000);
         });
         $(document).ready(function () {
+            getCusName();
             $('.table-inspecting').hide();
             $('.table-delivering').hide();
+            $('.table-arrive').hide();
         });
         if (cuscod.trim() != '') {
-            getWarranty(cuscod);
+            getWarranty_Count(cuscod);
         }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
+        }
+
         function toggleRowWaranty(row,col) {
             var text = $('#show-'+col+'-icon');
             if (text.text() === '+') {
@@ -645,7 +680,8 @@
             var targetElement = document.getElementById(targetId.substring(1));
             $(targetElement).collapse('toggle');
         }
-        function getWarranty(cus) {
+
+        function getWarranty_Count(cus) {
             $.ajax({
                 url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
                 data: {
@@ -664,17 +700,18 @@
                             $('#status-wait').text(waiting);
                             $('#status-inspect').text(inprogress);
                             $('#status-delivery').text(pending);
-                            if (waiting != "0") {
-                                $('#status-wait').show();
 
+                            console.log(waiting);
+                            console.log(inprogress);
+                            console.log(pending);
+                            if (waiting == 0) {
+                                $('#status-wait').hide();
                             }
-                            else if (inprogress != "0") {
-                                $('#status-inspect').show();
-
+                            if (inprogress == 0) {
+                                $('#status-inspect').hide();
                             }
-                            else if (pending != "0") {
-                                $('#status-delivery').show();
-
+                            if (pending == 0) {
+                                $('#status-delivery').hide();
                             }
                             getWarrantyWaiting(cus);
                             getWarrantyInprogress(cus);
@@ -713,8 +750,9 @@
                              SubmithtmlPage += '<tr>';
                              SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                              SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
-                             SubmithtmlPage += '<td>' + data[i].REQ_DATE + '</td>';
-                             SubmithtmlPage += '<td>' + data[i].ReceiveDate + '</td>';
+                             SubmithtmlPage += '<td>' + data[i].Symptom +'</td>';
+                             SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
+                             SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                              SubmithtmlPage += '</tr>';
@@ -757,8 +795,9 @@
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].REQ_DATE + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].ReceiveDate + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -801,8 +840,9 @@
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].REQ_DATE + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].ReceiveDate + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -823,6 +863,7 @@
             $('.table-waiting').show('slow');
             $('.table-inspecting').hide('slow');
             $('.table-delivering').hide('slow');
+            $('.table-arrive').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-inspect').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
@@ -831,6 +872,7 @@
             $('.table-waiting').hide('slow');
             $('.table-inspecting').show('slow');
             $('.table-delivering').hide('slow');
+            $('.table-arrive').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
@@ -838,10 +880,22 @@
         $('#btn-show-delivery').click(function () {
             $('.table-waiting').hide('slow');
             $('.table-inspecting').hide('slow');
+            $('.table-arrive').hide('slow');
             $('.table-delivering').show('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
+            $('#btn-show-arrive').removeAttr('style');
+        });
+        $('#btn-show-arrive').click(function () {
+            $('.table-arrive').show('slow');
+            $('.table-waiting').hide('slow');
+            $('.table-inspecting').hide('slow');
+            $('.table-delivering').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-wait').removeAttr('style');
+            $('#btn-show-inspect').removeAttr('style');
+            $('#btn-show-delivery').removeAttr('style');
         });
 
         //ปุ่มยอดซื้อ

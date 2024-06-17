@@ -537,10 +537,7 @@
                 <input class="note-desc" id="cussend" type="hidden">
             </div>
             <div class="page-heading">
-                @if (Session["DisplayName"].ToString() != "")
-                {
-                    <h4 class="text-truncate pt-2">@Session["DisplayName"].ToString()</h4>
-                }
+                <h4 class="pt-2" id="head-cusname"></h4>
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -946,6 +943,7 @@
         $(document).ready(function () {
             $('#loader').show();
             getSelectMonth();
+            getCusName();
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
@@ -985,6 +983,23 @@
             }
             return result;
         }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
+        }
+
         $('#btn-show-credit').click(function () {
             //$('.credit-div').show("slow");
             //$('.amount-div').hide("slow");

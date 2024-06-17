@@ -504,10 +504,7 @@
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
-                @if (Session["DisplayName"].ToString() != "")
-                {
-                    <h4 class="text-truncate pt-2">@Session["DisplayName"].ToString()</h4>
-                }
+                <h4 class="pt-2" id="head-cusname"></h4>
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -549,7 +546,7 @@
                                             </button>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="m-0 table-accept table-responsive" style="height:500px;">
+                                            <div class="m-0 table-accept table-responsive" style="height:500px; overflow-y:auto;">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-accept" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -564,7 +561,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-packing table-responsive" style="height:500px;">
+                                            <div class="m-0 table-packing table-responsive" style="height: 500px; overflow-y: auto; ">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -579,7 +576,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-delivery table-responsive" style="height:500px;">
+                                            <div class="m-0 table-delivery table-responsive overflow-auto" style="height: 500px; overflow-y: auto;">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -594,7 +591,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-arrive table-responsive" style="height:500px;">
+                                            <div class="m-0 table-arrive table-responsive " style="height: 500px; overflow-y: auto;">
                                                 <div class=" col-12 float-end m-0 p-0 pb-1 pt-1 d-flex align-items-start">
                                                     <div class="row col-12 m-0 pr-0">
                                                         <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">
@@ -708,6 +705,7 @@
         }
         $(document).ready(function () {
             $('#loader').show();
+            getCusName();
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
@@ -780,6 +778,22 @@
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
             }
             return val;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
         }
 
         $('#btn-show-accept').click(function () {
@@ -883,7 +897,7 @@
                             }
                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
                             alert_accept ++;
@@ -900,7 +914,7 @@
                             }
                             SubmithtmlPage_packing += '<td>' + data.Getdata[i].Order_Date + '</td>';
                             SubmithtmlPage_packing += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage_packing += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage_packing += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                             SubmithtmlPage_packing += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage_packing += '</tr>';
                             alert_packing++;
@@ -917,7 +931,7 @@
                             }
                             SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Order_Date + '</td>';
                             SubmithtmlPage_delivery += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage_delivery += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage_delivery += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                             SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage_delivery += '</tr>';
                             alert_delivery++;
@@ -1040,7 +1054,7 @@
                             }
                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
                         }
@@ -1137,7 +1151,7 @@
                             }
                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
                         }
@@ -1188,7 +1202,7 @@
                              }
                              SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
                              SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                             SubmithtmlPage += '<td style="text-align:center">' + data.Getdata[i].ORD_TotalQty + '</td>';
+                             SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
                              SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
                              SubmithtmlPage += '</tr>';
                              alert_arrive++;
@@ -1235,8 +1249,8 @@
                                 dateOrder = data.Getdata[i].VORDDAT;
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td align="left">' + data.Getdata[i].VSTKCOD + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;">' + data.Getdata[i].VSTKDES+ '</td>';
-                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].AmtQty + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;">' + data.Getdata[i].VSTKDES + '</td>';
+                                SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].AmtQty) + '</td>';
                                 SubmithtmlPage += '</tr>';
                             }
                             $('#orddate').text(dateOrder.replace(/\//g,"-"));

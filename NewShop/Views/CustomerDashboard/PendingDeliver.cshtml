@@ -561,10 +561,7 @@
                     <input type="hidden" id="nocusses" />
                     <input class="note-desc" id="cussend" type="hidden">
                 </div>
-                @if (Session["DisplayName"].ToString() != "")
-                {
-                    <h4 class="text-truncate pt-2">@Session["DisplayName"].ToString()</h4>
-                }
+                <h4 class="pt-2" id="head-cusname"></h4>
             </div>
             <div class="page-content">
                 <div class="container" id="loader">
@@ -759,6 +756,7 @@
             $('#loader').show();
             $('.table-tac').hide();
             $('.table-omp').hide();
+            getCusName();
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
@@ -839,6 +837,22 @@
                 val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
             }
             return val;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
         }
 
         function getbackord(cusnc) {
