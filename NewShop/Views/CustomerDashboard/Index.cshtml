@@ -1448,7 +1448,7 @@
                                 SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
                                 SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
                                 SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
-                                SubmithtmlPage += '<td style="text-align: center;">' + data.Getdata[i].Qty + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
                                 SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';

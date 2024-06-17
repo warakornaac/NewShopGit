@@ -523,7 +523,7 @@
                         <div class="card">
                             <div class="card-header bg-info">
                                 <h4>
-                                    Warranty
+                                    การเคลมสินค้า
                                 </h4>
                             </div>
                             <div class="w3-bar tab-buttons bg-info ">
@@ -539,14 +539,14 @@
                                     รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
                                     <hr class="m-0" id="line-tab-delivering" />
                                 </button>
-                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
+                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive" hidden>
                                     จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
                                     <hr class="m-0" id="line-tab-success" />
                                 </button>
                             </div>
                             <div class="card-body p-0">
                                 <div class="card-body p-0">
-                                    <div class="m-0 table-waiting table-responsive" style="height:500px;">
+                                    <div class="m-0 table-waiting table-responsive" style="height:500px; overflow-y:auto;">
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-waiting-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
@@ -562,7 +562,7 @@
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                    <div class="m-0 table-inspecting table-responsive" style="height:500px;">
+                                    <div class="m-0 table-inspecting table-responsive" style="height: 500px; overflow-y: auto;">
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-inspecting-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
@@ -578,7 +578,7 @@
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                    <div class="m-0 table-delivering table-responsive" style="height:500px;">
+                                    <div class="m-0 table-delivering table-responsive" style="height: 500px; overflow-y: auto;">
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-delivering-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
@@ -594,7 +594,7 @@
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                    <div class="m-0 table-arrive table-responsive" style="height:500px;">
+                                    <div class="m-0 table-arrive table-responsive" style="height: 500px; overflow-y: auto;">
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-arrive-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
@@ -630,8 +630,8 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        //var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
-        var cuscod = '110A0005';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+       // var cuscod = '110A0005';
         var user = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         $(document).ready(function () {
@@ -667,6 +667,12 @@
                     }
                 }
             });
+        }
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
         }
 
         function toggleRowWaranty(row,col) {
@@ -746,10 +752,9 @@
                      var SubmithtmlPage = "";
                      if (data.length > 0) {
                          for (var i = 0; i < data.length; i++) {
-
                              SubmithtmlPage += '<tr>';
                              SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
-                             SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
+                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Symptom +'</td>';
                              SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
                              SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
@@ -761,7 +766,7 @@
                      }
                      else {
                          SubmithtmlPage += '<tr>';
-                         SubmithtmlPage += '<td colspan="6" align="center">-- ไม่พบข้อมูล --</td>';
+                         SubmithtmlPage += '<td colspan="7" align="center">-- ไม่พบข้อมูล --</td>';
                          SubmithtmlPage += '</tr>';
                          $("#warranty-waiting-table tbody").append(SubmithtmlPage);
                      }
@@ -791,10 +796,9 @@
                     var SubmithtmlPage = "";
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
-
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
                             SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
                             SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
@@ -806,7 +810,7 @@
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="6" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td colspan="7" align="center">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#warranty-inspecting-table tbody").append(SubmithtmlPage);
                     }
@@ -836,10 +840,9 @@
                     var SubmithtmlPage = "";
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
-
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td align="center">' + data[i].Qty + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
                             SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
                             SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
@@ -851,7 +854,7 @@
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="6" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td colspan="7" align="center">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#warranty-delivering-table tbody").append(SubmithtmlPage);
                     }
