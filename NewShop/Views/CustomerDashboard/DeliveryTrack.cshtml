@@ -380,7 +380,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 9999;
+            z-index: 4;
             background-color: rgba(0,0,0,0);
             padding: 20px;
         }
@@ -493,6 +493,21 @@
                 max-width: 150px;
             }
     </style>
+
+    @*table*@
+    <style>
+        .table-style {
+            height: 500px;
+            overflow-y: auto;
+        }
+
+            .table-style thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+    </style>
 </head>
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
     <div id="app">
@@ -546,7 +561,7 @@
                                             </button>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="m-0 table-accept table-responsive" style="height:500px; overflow-y:auto;">
+                                            <div class="m-0 table-accept table-style table-responsive">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-accept" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -561,7 +576,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-packing table-responsive" style="height: 500px; overflow-y: auto; ">
+                                            <div class="m-0 table-packing table-style table-responsive">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -576,7 +591,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-delivery table-responsive overflow-auto" style="height: 500px; overflow-y: auto;">
+                                            <div class="m-0 table-delivery table-style table-responsive overflow-auto">
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
@@ -591,7 +606,7 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <div class="m-0 table-arrive table-responsive " style="height: 500px; overflow-y: auto;">
+                                            <div class="m-0 table-arrive table-style table-responsive ">
                                                 <div class=" col-12 float-end m-0 p-0 pb-1 pt-1 d-flex align-items-start">
                                                     <div class="row col-12 m-0 pr-0">
                                                         <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">

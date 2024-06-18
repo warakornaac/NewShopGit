@@ -388,7 +388,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 9999;
+            z-index: 4;
             background-color: rgba(0,0,0,0);
             padding: 20px;
         }
@@ -549,6 +549,19 @@
                     background-color: #008cba;
                 }
     </style>
+    <style>
+        .table-style {
+            height: 500px;
+            overflow-y: auto;
+        }
+
+            .table-style thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+    </style>
 </head>
 
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
@@ -601,7 +614,7 @@
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="card-body p-0">
-                                                <div class="m-0 table-aac table-responsive" style="height:500px;">
+                                                <div class="m-0 table-aac table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="backor-aac" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -617,9 +630,9 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-tac table-responsive" style="height:500px;">
+                                                <div class="m-0 table-tac table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="backor-tac" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
+                                                        <thead style="font-size: small; position: sticky;">
                                                             <tr>
                                                                 <th>วันที่สั่ง</th>
                                                                 <th>เบอร์สินค้า</th>
@@ -633,7 +646,7 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-omp table-responsive" style="height:500px;">
+                                                <div class="m-0 table-omp table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="backor-omp" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>

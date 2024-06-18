@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 @{
     Layout = "~/Views/Shared/_LayoutMobile.cshtml";
-
 }
 <html lang="en">
 <head>
@@ -375,7 +374,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 9999; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            z-index: 4; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
             background-color: rgba(0,0,0,0); /* สีพื้นหลังของ loader */
             padding: 20px;
         }
@@ -536,6 +535,21 @@
                     background-color: #008cba;
                 }
     </style>
+
+    @*table*@
+    <style>
+        .table-style {
+            height: 500px;
+            overflow-y: auto;
+        }
+
+            .table-style thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+    </style>
 </head>
 
 <body style="background-color: #f2f7ff; ">
@@ -662,7 +676,7 @@
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="card-body p-0">
-                                                <div class="m-0 table-yearly table-responsive " style="height: 500px; overflow-y: auto;">
+                                                <div class="m-0 table-yearly table-style table-responsive ">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-yearly-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -683,7 +697,7 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-quater table-responsive" style="height: 500px; overflow-y: auto;">
+                                                <div class="m-0 table-quater table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quater-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -704,7 +718,7 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-other table-responsive" style="height: 500px; overflow-y: auto;">
+                                                <div class="m-0 table-other table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-other-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
@@ -725,7 +739,7 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-all table-responsive" style="height: 500px; overflow-y: auto;">
+                                                <div class="m-0 table-all table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-all-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
