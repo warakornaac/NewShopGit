@@ -1423,7 +1423,6 @@ namespace NewShop.Models
         }
         public JsonResult GetdataWarrantyClaim_Cus(string strcustome, string tap)
         {
-
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
