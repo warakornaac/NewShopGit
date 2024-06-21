@@ -599,12 +599,12 @@
                 var stockAll = $("#getDataStock").text() || 0;
                 var stockOrder = $(this).val();
                 console.log("stockAll = " + stockAll + " / " + " stockOrder = " + stockOrder);
-                if (Number(stockOrder) > Number(stockAll)) {
-                    $("#textAlertWarning").empty();
-                    $("#textAlertWarning").text("จำนวนสินค้าไม่เพียงพอ Stock คงเหลือ ("+ stockAll +")");
-                    $("#myModalWarning").modal();
-                    $("#getDataQty").val(Number(stockAll))
-                }
+                //if (Number(stockOrder) > Number(stockAll)) {
+                //    $("#textAlertWarning").empty();
+                //    $("#textAlertWarning").text("จำนวนสินค้าไม่เพียงพอ Stock คงเหลือ ("+ stockAll +")");
+                //    $("#myModalWarning").modal();
+                //    $("#getDataQty").val(Number(stockAll))
+                //}
             });
 
             if(usertype == "6") {
