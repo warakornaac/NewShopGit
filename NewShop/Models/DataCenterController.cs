@@ -1403,6 +1403,7 @@ namespace NewShop.Models
                         A = dr["รอดำเนินงาน"].ToString(),
                         B = dr["กำลังตรวจสอบ"].ToString(),
                         C = dr["รอส่งสินค้าทดแทน"].ToString(),
+                        D = dr["ส่งสินค้าทดแทนแล้ว"].ToString(),
 
                     });
 

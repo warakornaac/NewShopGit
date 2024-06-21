@@ -190,7 +190,7 @@ namespace NewShop.Controllers
             List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
+                var command = new SqlCommand("p_Order_Notify_List", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
                 SqlDataReader reader = command.ExecuteReader();
@@ -230,7 +230,7 @@ namespace NewShop.Controllers
             List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
+                var command = new SqlCommand("p_Order_Notify_List", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
                 command.Parameters.AddWithValue("@NotifyID", NotifID);
@@ -270,7 +270,7 @@ namespace NewShop.Controllers
             List<DeliveryTrackNotify> Getdata = new List<DeliveryTrackNotify>();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_List_Test", Connection);
+                var command = new SqlCommand("p_Order_Notify_List", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
                 command.Parameters.AddWithValue("@NotifyID", "4");

@@ -545,8 +545,8 @@
                                     รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
                                     <hr class="m-0" id="line-tab-delivering" />
                                 </button>
-                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive" hidden>
-                                    จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive">0</span>
+                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
+                                    จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive"></span>
                                     <hr class="m-0" id="line-tab-success" />
                                 </button>
                             </div>
@@ -712,9 +712,11 @@
                             var waiting = data[i].A != "" ? data[i].A : "0";
                             var inprogress = data[i].B != "" ? data[i].B : "0";
                             var pending = data[i].C != "" ? data[i].C : "0";
+                            var arrive = data[i].D != "" ? data[i].D : "0";
                             $('#status-wait').text(waiting);
                             $('#status-inspect').text(inprogress);
                             $('#status-delivery').text(pending);
+                            $('#status-arrive').text(arrive);
 
                             console.log(waiting);
                             console.log(inprogress);
@@ -728,9 +730,10 @@
                             if (pending == 0) {
                                 $('#status-delivery').hide();
                             }
-                            getWarrantyWaiting(cus);
-                            getWarrantyInprogress(cus);
-                            getWarrantyPending(cus);
+                            if (arrive == 0) {
+                                $('#status-arrive').hide();
+                            }
+                            getWarrantyWaiting();
                             total = Number(waiting) + Number(inprogress) + Number(pending);
                         }
 
@@ -874,6 +877,51 @@
             });
         }
 
+        function getWarrantyArrive() {
+            $.ajax({
+                url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
+                data: {
+                    strcustome: cuscod,
+                    tap: 'd'
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#warranty-arrive-table tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="8" align="center"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading...</td>';
+                    SubmithtmlPage += '</tr>';
+                    $("#warranty-arrive-table tbody").append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#warranty-arrive-table tbody').html("");
+                    var SubmithtmlPage = "";
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td>' + data[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Status + '</td>';
+                            SubmithtmlPage += '</tr>';
+                        }
+                        $("#warranty-arrive-table tbody").append(SubmithtmlPage);
+                    }
+                    else {
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="8" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#warranty-arrive-table tbody").append(SubmithtmlPage);
+                    }
+                }
+            });
+        }
+
         $('#btn-show-wait').click(function () {
             $('.table-waiting').show('slow');
             $('.table-inspecting').hide('slow');
@@ -882,6 +930,7 @@
             $(this).css("background", "#DEAF5B");
             $('#btn-show-inspect').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
+            getWarrantyWaiting();
         });
         $('#btn-show-inspect').click(function () {
             $('.table-waiting').hide('slow');
@@ -891,6 +940,7 @@
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
+            getWarrantyInprogress();
         });
         $('#btn-show-delivery').click(function () {
             $('.table-waiting').hide('slow');
@@ -901,6 +951,7 @@
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
             $('#btn-show-arrive').removeAttr('style');
+            getWarrantyPending();
         });
         $('#btn-show-arrive').click(function () {
             $('.table-arrive').show('slow');
@@ -911,6 +962,7 @@
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
+            getWarrantyArrive();
         });
 
         //ปุ่มยอดซื้อ
