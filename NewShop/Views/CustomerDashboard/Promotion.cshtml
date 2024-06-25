@@ -1347,11 +1347,13 @@
                         }
                         else {
                             //// ถ้าไม่มีโปรโมชั่นเลย
+
                             SubmithtmlPag += '<tr>';
-                            SubmithtmlPag += '<tdclass="text-center" colspan="12">-- ไม่พบข้อมูล --</td>'
+                            SubmithtmlPag += '<td class="text-center" colspan="12">-- ไม่พบข้อมูล --</td>'
                             SubmithtmlPag += '</tr>';
                             if (period === 'yearly') {
                                 yearly.append(SubmithtmlPag);
+
                             } else if (period === 'quater') {
                                 quater.append(SubmithtmlPag);
                             } else if (period === 'other') {
@@ -1437,6 +1439,10 @@
         //ปุ่มสินค้าค้างส่ง
         $(document).on("click", "#navbarpending", function () {
             window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+        //ปุ่มรายการเคลม
+        $(document).on("click", "#navbarwarranty", function () {
+            window.location.replace("../CustomerDashboard/Warranty");
         });
         //ปุ่มสถานะการสั่งซื้อ
         $(document).on("click", "#navbardeliverytrack", function () {
