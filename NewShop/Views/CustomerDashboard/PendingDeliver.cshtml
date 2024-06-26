@@ -1089,12 +1089,11 @@
         $(document).on("click", "#navbarpromotion", function () {
             window.location.replace("../CustomerDashboard/Promotion");
         });
-
-        $('#changepass').click(function () {
-            if (usertype == "6") {
-                window.location.replace("../ChangePassword/Index");
-            }
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=PendingDelivery");
         });
+
     </script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>

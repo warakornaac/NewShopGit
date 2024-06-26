@@ -1444,11 +1444,14 @@
         $(document).on("click", "#navbarwarranty", function () {
             window.location.replace("../CustomerDashboard/Warranty");
         });
-        //ปุ่มสถานะการสั่งซื้อ
+        //ปุ่มสถานะการสั่งซื้อ warranty
         $(document).on("click", "#navbardeliverytrack", function () {
             window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
-
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=promotion");
+        });
 
         $('#btn_yearly').click(function () {
             $('#btn_yearly').css("background", "#DEAF5B");

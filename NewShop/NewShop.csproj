@@ -7853,6 +7853,7 @@
     <Content Include="Views\CustomerDashboard\Warranty.cshtml" />
     <Content Include="Views\CustomerDashboard\CustomerMenu.cshtml" />
     <Content Include="Views\CustomerDashboard\PendingDeliver_Bk.cshtml" />
+    <Content Include="Views\Account\ChangePasswordPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

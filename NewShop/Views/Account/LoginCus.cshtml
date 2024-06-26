@@ -140,7 +140,7 @@
                                         <label class="control-label" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">USERNAME & EMAIL</label>
                                         <input type="text" class="form-control" id="inputusername" name="User" placeholder="Username" required>
                                         <label class="form-control-placeholder" for="username"></label>
-                                        <p class="warning-red" id="wronguser" hidden>Username หรือ Email ไม่ถูกต้อง</p>
+                                        <p class="warning-red" id="wronguser" hidden>Username ไม่ถูกต้อง</p>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px; ">PASSWORD</label>
@@ -151,6 +151,9 @@
                                             </div>
                                         </div>
                                         <p class="warning-red" id="wrongpass" hidden>Password ไม่ถูกต้อง</p>
+                                    </div>
+                                    <div class="form-group" id="link-forget-modal">
+                                        <p><a href="#" class="link-primary" id="forgetpassword">ลืมรหัสผ่าน</a></p>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary rounded submit px-3" onclick="Login();">Sign In</button>
@@ -216,12 +219,13 @@
             </div>
         </div>
     </form>
+
     @*OTP MODAL*@
     <!-- Modal -->
     <div class="otp-content">
 
     </div>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade modal-otp" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true" data-backdrop="static">
         <input type="hidden" id="phone" />
         <input type="hidden" id="cuscod" />
         <input type="hidden" id="email" />
@@ -230,7 +234,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">ยืนยันตัวตน</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal-otp" aria-label="Close" onclick="$('#exampleModalCenter').modal('hide');">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -239,7 +243,7 @@
                         <div class="box-header with-border">
                         </div>
                         <div class="box-body">
-                            <p class="text-07" style="line-height: 16pt;"> กรุณากรอกรหัส OTP ที่ได้รับทาง SMS ด้านล่างเพื่อยืนยันตัวตน หากไม่ได้รับรหัส OTP กรุณาตรวจสอบเบอร์โทรศัพท์มือถือด้านล่างให้ถูกต้องและกดปุ่ม “ขอรหัสใหม่”</p>
+                            <p class="text-07" style="line-height: 16pt;"> กรุณากรอกรหัส OTP ที่ได้รับทาง SMS ด้านล่างเพื่อยืนยันตัวตน หากไม่ได้รับรหัส OTP กรุณาตรวจสอบเบอร์โทรศัพท์มือถือด้านล่างให้ถูกต้องและกดปุ่ม “ขอรหัสOTP”</p>
                             <label class="control-label" style="color: #000000; font-weight: bold; font-size: 13px; margin-bottom: 2px;">เบอร์โทรศัพท์มือถือที่รับ OTP</label>
                             <div class="input-group mb-1">
                                 <input type="text" class="form-control" id="otpphone" aria-describedby="basic-addon2" readonly>
@@ -268,80 +272,33 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!--<table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <label class="col-12 " style="opacity:0.5;">
-                                        กรุณากดปุ่ม "ขอรหัส OTP" กรอกรหัส OTP ที่ได้รับทาง SMS ด้านล่างเพื่อยืนยันตัวตน หากไม่ได้รับรหัส OTP กรุณาตรวจสอบเบอร์โทรศัพท์มือถือด้านล่างให้ถูกต้องและกดปุ่ม "ขอรหัส OTP" อีกครั้ง
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                กรอกรหัส OTP<span class="red-star">*</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-8">
-                                            <input type="text" id="otpphone" class="form-control" readonly />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn btn-success" id="sendotp_btn" onclick="delaySendOtp(); sendOtp();">ขอรหัส OTP</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                                <div class="otp-form">
-                                    <input type="tel" class="otp form-control" id="enterotp1" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control" id="enterotp2" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control" id="enterotp3" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control" id="enterotp4" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control" id="enterotp5" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control" id="enterotp6" pattern="[0-9]+" maxlength="1">
-                                </div>
-                                <p class="m-0" id="refid"><span id="refhead">Ref : </span><span id="ref_show"></span> </p>
-                                <p class="mb-0" hidden id="count_p">รหัส OTP มีอายุอีก <span id="login-counter">05:00</span> <span id="label-countdown">นาที</span></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>-->
-                    @*<a href="#" id="sendotp" name="sendotp" onclick="delaySendOtp(); sendOtp();">ส่งรหัสยืนยันผ่าน SMS อีกครั้ง</a>*@
-                    <!--</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div id="countdown" style="color:red;"></div>
-                                    <p class="red-star" hidden="">รหัสไม่ถูกต้อง</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="pt-3">
-                                    <div class="d-flex justify-content-end">
-                                        <button class="btn btn-success" id="otpcheck" onclick="otpCheck();">
-                                            Verify
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>-->
                 </div>
             </div>
         </div>
     </div>
 
+    @*FORGET PASSWORD*@
+    <div class="modal fade modal-forget" id="modalForgetPassword" tabindex="-1" role="dialog" aria-labelledby="ModalForgetPassword" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ลืมรหัสผ่าน</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modalForgetPassword').modal('hide');">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-07" style="line-height: 16pt;"> กรุณาตรวจสอบเบอร์มือถือ หากเบอร์มือถือถูกต้องให้กดปุ่ม “รีเซ็ตรหัสผ่าน”</p>
+                    <div class="input-group mb-1">
+                        <input type="text" class="form-control" id="repass_phone" aria-describedby="basic-addon2" readonly>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary btn-info text-white" id="repass_btn" onclick="forgetPasswordSend();">รีเซ็ตรหัสผ่าน</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -406,6 +363,36 @@
                     $('#show_hide_password i').addClass("fa-eye");
                 }
             });
+            $('#link-forget-modal a').on('click', function (event) {
+                event.preventDefault();
+                var username = $('#inputusername').val();
+                $.ajax({
+                    url: '@Url.Action("CheckUsername", "Account")',
+                    data: {
+                        username: username
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+                        if (res.message == 'Y') {
+                            $('#wronguser').attr('hidden', true);
+                            $('.modal-forget').modal('show');
+                            $('#repass_phone').val(res.phone);
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Username ไม่ถูกต้อง",
+                                text: "กรุณากรอก Username ใหม่อีกครั้ง",
+                                icon: "warning"
+                            });
+                            $('#wronguser').removeAttr("hidden");
+                        }
+                    }
+                })
+            });
         });
         $(document).ready(function () {
             $('#inputusername').change(function () {
@@ -415,6 +402,46 @@
                 $('#wrongpass').attr('hidden', true);
             });
         });
+
+    $(document).ready(function () {
+        $('#inputusername').blur(function () {
+            checkUsername();
+        });
+    });
+
+    function generateRandomPassword(length) {
+        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var password = "";
+        for (var i = 0; i < length; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber + 1);
+        }
+        return password;
+    }
+
+    function checkUsername() {
+        var username = $('#inputusername').val();
+        $.ajax({
+            url: '@Url.Action("CheckUsername", "Account")',
+            data: {
+                username: username
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function () {
+
+            },
+            success: function (res) {
+                if (res.message == 'Y') {
+                    $('#wronguser').attr('hidden', true);
+                }
+                else {
+                    console.log('Login Log is ' + res.message);
+                    $('#wronguser').removeAttr("hidden");
+                }
+            }
+        })
+    }
 
         function Login() {
             $('#count_p').attr('hidden', true);
@@ -456,7 +483,7 @@
                                 //window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
                             }
                         }
-                    } else if (result.message == "N") {
+                    } else if (result.message == "N" || result.message == "R") {
                         phonenum = result.tel;
                         console.log("N Result " + result.message);
                         console.log("Phone is " + phonenum);
@@ -466,7 +493,7 @@
                         $('#otpphone').val(phonenum);
                         $('#cuscod').val(result.cuscod);
 
-                        $('.modal').modal('show');
+                        $('.modal-otp').modal('show');
                     }
                     else {
                         $('#wronguser').removeAttr('hidden');
@@ -483,7 +510,28 @@
             }).fail(function (ex) {
                 console.log("fail");
             });
+         }
+
+        function loginLog() {
+            var username = $('#inputusername').val();
+            $.ajax({
+                url: '@Url.Action("Log_Login", "Account")',
+                data: {
+                    username: username
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                    if (res.message == 'Y') {
+                        console.log('LOGIN LOG SAVED ');
+                    }
+                }
+            });
         }
+
         //count OTP
         var counter;
         function delaySendOtp() {
@@ -565,7 +613,10 @@
                             }
                             else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
                                         window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/DeliveryTrack");
-                                    }
+                            }
+                            else if (page == "warranty") {//หน้าสถานะการสั่งซื้อ
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Warranty");
+                            }
                             else  {
                                 window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerMenu");
                             }
@@ -573,6 +624,31 @@
                         }
                         else {
                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerMenu");
+                        }
+                    }
+                    //After Forget Password
+                    else if (result.message == 'R') {
+                        if (result.page != null && result.page != '') {
+                            if (result.page == "amount") { //หน้ายอดซื้อ
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=amount");
+                            } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=promotion");
+                            }
+                            else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=PendingDelivery");
+                            }
+                            else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=deliveryTrack");
+                            }
+                            else if (page == "warranty") {//warranty
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=warranty");
+                            }
+                            else  {//หน้าเมนู
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=menu");
+                            }
+                        }
+                        else {
+                            window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal");
                         }
                     }
                     else {
@@ -645,6 +721,39 @@
             }).fail(function (ex) {
                 console.log("fail");
             });
+    }
+        function forgetPasswordSend() {
+            var username = $('#inputusername').val();
+            var phone = $('#repass_phone').val();
+            var genPass = generateRandomPassword(8);
+            $.ajax({
+                url: '@Url.Action("ForgetPasswordCustomer", "Verification")',
+                data : {
+                    username: username,
+                    phone: phone,
+                    new_password: genPass
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                    if (res.message == 'Y') {
+                        console.log("SUCCESS! ");
+                        $('#modalForgetPassword').modal('hide');
+                        Swal.fire({
+                            title: "รีเซ็ต Password สำเร็จ",
+                            icon: "success"
+                        });
+                    }
+                    else {
+                        console.log(res.message);
+                    }
+                }
+
+            });
+
         }
         function generateRef(length) {
             var result = '';

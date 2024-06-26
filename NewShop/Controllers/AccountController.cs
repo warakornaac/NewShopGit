@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NewShop.Models;
+using System;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using NewShop.Controllers;
 using System.Data;
-using System.IO;
-using System.Web.Script.Serialization;
-using NewShop.Models;
-using System.Web.Services.Protocols;
-using System.Security.Principal;
+using System.Data.SqlClient;
 using System.DirectoryServices;
-using System.Web.Security;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
-using System.DirectoryServices.Protocols;
+using System.Security.Policy;
+using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.Services.Description;
+using System.Web.UI.WebControls;
 
 namespace NewShop.Controllers
 {
@@ -44,6 +37,10 @@ namespace NewShop.Controllers
                 this.Session["UserType"] = "";
             }
             ViewBag.Userlineid = _Userlineid;
+            return View();
+        }
+        public ActionResult ChangePasswordPortal()
+        {
             return View();
         }
         [HttpGet]
@@ -835,20 +832,8 @@ namespace NewShop.Controllers
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
                 string UserType = string.Empty;
-                string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
-                SqlCommand cmdlogin = new SqlCommand("update UsrTbl_Portal set VerifyFlag = 'N' where Username = @user and [dbo].F_decrypt([Password]) = @pass", Connection);
-                cmdlogin.Parameters.AddWithValue("user", User);
-                cmdlogin.Parameters.AddWithValue("pass", password);
-                int rowsAffected = cmdlogin.ExecuteNonQuery();
-                if (rowsAffected > 0)
-                {
-                    //message = "Y";
-                }
-                else
-                {
-                    message = "Fail Login";
-                }
+
                 var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
                 //SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
                 SqlCommand cmdcus = new SqlCommand(sqlString, Connection);
@@ -857,14 +842,6 @@ namespace NewShop.Controllers
                 SqlDataReader revcus = cmdcus.ExecuteReader();
                 while (revcus.Read())
                 {
-                    //if (!string.IsNullOrEmpty(revcus["Email"].ToString()))
-                    //{
-                    //    this.Session["UserID"] = revcus["Email"].ToString();
-                    //}
-                    //else
-                    //{
-                    //    this.Session["UserID"] = revcus["Username"].ToString();
-                    //}
                     phoneNum = revcus["Tel"].ToString();
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();
@@ -873,13 +850,10 @@ namespace NewShop.Controllers
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
-                    sessionId = sessionId.Substring(sessionId.Length - 24);
-                    this.Session["ID"] = sessionId;
                 }
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
-                cmdlogin.Dispose();
                 Connection.Close();
 
 
@@ -995,8 +969,97 @@ namespace NewShop.Controllers
             }
             // return Json(new { status = "success", });
         }
+        public JsonResult Log_Login(string username)
+        {
+            string message = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var cmd = new SqlCommand("P_CustomerPortal_Login_log", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inUser", username.Trim());
+                SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(p);
+                cmd.ExecuteNonQuery();
+                message = cmd.Parameters["@outGenstatus"].Value.ToString();
 
 
+                cmd.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+
+            }
+
+            return Json(new { message = message }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CheckUsername(string username)
+        {
+            string message = string.Empty;
+            string phone = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var cmd = new SqlCommand("P_CustomerPortal_CheckUserName", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inUser", username.Trim());
+                SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                SqlParameter Tel = new SqlParameter("@outPhone", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(p);
+                Tel.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(Tel);
+                cmd.ExecuteNonQuery();
+                message = cmd.Parameters["@outGenstatus"].Value.ToString();
+                phone = cmd.Parameters["@outPhone"].Value.ToString();
+
+                cmd.Dispose();
+                Connection.Close();
+
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return Json(new { message = message, phone = phone }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ChangeNewPasswordPortal(string USER, string password, string confirmpassword)
+        {
+            string message = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var cmd = new SqlCommand("P_CustomerPortal_ChangePassword", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inUser", USER);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@newPassword", confirmpassword);
+                SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(p);
+                cmd.ExecuteNonQuery();
+                message = cmd.Parameters["@outGenstatus"].Value.ToString();
+
+                cmd.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
     }
 
 }

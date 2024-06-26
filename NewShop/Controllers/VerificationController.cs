@@ -1,4 +1,5 @@
-﻿using NewShop.Models;
+﻿using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using NewShop.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,10 @@ namespace NewShop.Controllers
                 {
                     this.Session["UserID"] = user;
                 }
+                else if (message == "R")
+                {
+                    this.Session["UserID"] = user;
+                }
                 else
                 {
                     this.Session["UserID"] = null;
@@ -112,6 +117,44 @@ namespace NewShop.Controllers
                 message = ex.Message;
             }
             return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
+        }
+        public async Task<JsonResult> ForgetPasswordCustomer(string username, string phone, string new_password)
+        {
+            string message = string.Empty;
+            string textResetSMS = string.Empty;
+            string API = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var cmd = new SqlCommand("P_CustomerPortal_ForgetPassword", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inUser", username);
+                cmd.Parameters.AddWithValue("@inPhone", phone);
+                cmd.Parameters.AddWithValue("@resetPassword", new_password.Trim());
+                SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(p);
+                int INTCM = cmd.ExecuteNonQuery();
+                if (INTCM > 0)
+                {
+                    textResetSMS = $"รหัสผ่านใหม่สำหรับบัญชีบน Customer Portal \nUsername: < {username} >\nPassword: < {new_password} >";
+                    //textResetSMS = "รหัสผ่านใหม่สำหรับบัญชีบน Customer Portal  \nUsername: {username} \nPassword: {new_password}";
+                    var statusAPI = Apiservice(phone, textResetSMS, username);
+                    API = await statusAPI;
+                }
+                message = cmd.Parameters["@outGenstatus"].Value.ToString();
+
+                cmd.Dispose();
+                Connection.Close();
+
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message }, JsonRequestBehavior.AllowGet);
         }
         public string GenerateRandomString(int length)
         {
