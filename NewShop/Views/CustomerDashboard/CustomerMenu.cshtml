@@ -73,10 +73,7 @@
     <div class="container-fluid">
         <div class="card border-0">
             <div class="card-header text-center bg-white">
-                @if (Session["DisplayName"].ToString() != "")
-                {
-                    <h1 class="font-kanit fw-bold">@Session["DisplayName"].ToString()</h1>
-                }
+                <h1 class="font-kanit fw-bold" id="head-cusname"></h1>
             </div>
             <div class="card-body pt-2">
                 <div class="row">
@@ -137,7 +134,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
-
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
+        }
         //ปุ่มยอดซื้อ
         $(document).on("click", "#menu_amt", function () {
             window.location.replace("../CustomerDashboard/index");
