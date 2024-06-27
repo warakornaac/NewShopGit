@@ -74,7 +74,15 @@ namespace NewShop.Controllers
         }
         public ActionResult Warranty()
         {
+            if (Session["UserID"] == null)
+            {
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=warranty");
 
+            }
+            return View();
+        }
+        public ActionResult Credit()
+        {
             return View();
         }
         public ActionResult CustomerAlert()

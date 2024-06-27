@@ -855,6 +855,10 @@ namespace NewShop.Controllers
                 revcus.Dispose();
                 cmdcus.Dispose();
                 Connection.Close();
+                if (message == "Y")
+                {
+                    message = "N";
+                }
 
 
             }

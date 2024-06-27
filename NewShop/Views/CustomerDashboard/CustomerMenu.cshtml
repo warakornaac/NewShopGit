@@ -77,6 +77,43 @@
             </div>
             <div class="card-body pt-2">
                 <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-sm-6 text-left">
+                                    <h4>ยอดซื้อรวม</h4>
+                                </div>
+                                <div class="col-sm-6 text-right">
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card-body">
+                                    <div id="chart-profile-visit"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        <div class="card-header">
+                                            <div id="amtmtd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
+                                            <div id="amtmtd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
+                                            <div id="amtmtd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card-header">
+                                            <div id="amtytd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
+                                            <div id="amtytd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
+                                            <div id="amtytd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 mb-4 ">
                         <div class="card text-center p-4 bg-info w3-hover-khaki rounded text-white" id="menu_amt">
                             <i class="fa fa-shopping-cart fa-3x"></i>
@@ -127,13 +164,22 @@
     </div>
 
 
-
+    <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
+        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
+        $(document).ready(function () {
+            getCusName();
+            clearChartsamt();
+
+        });
+        if (cuscod != null) {
+            getChartsamt();
+        }
         function getCusName() {
             $.ajax({
                 url: '@Url.Action("GetdatabyCus", "DataCenter")',
@@ -149,6 +195,195 @@
                 }
             });
         }
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+        function clearChartsamt() {
+            var optionsProfileVisit = {
+                annotations: {
+                    position: 'back'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'bar',
+                    height: 200,
+
+                },
+
+                fill: {
+                    opacity: 1
+                },
+                plotOptions: {
+                },
+
+
+                series: [{
+                    name: 'sales',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
+                }],
+                //colors: '#435ebe',
+                colors: ['#424bf9', '#e70712', '#4bf942'],
+                xaxis: {
+                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                },
+            }
+            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+            chartProfileVisit.render();
+
+            window.dispatchEvent(new Event('resize'));
+
+
+            $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
+            $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
+            $('#amtytd_all_cus').html('Amt YTD ALL: 0');
+            $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
+            $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
+            $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
+        }
+
+        function getChartsamt() {
+            $.ajax({
+                url: '@Url.Action("GetdataCusAmt", "DataCenter")',
+                data: {
+                    strcustome: cuscod
+
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    // console.log(data)
+
+                    if (data.length > 0) {
+
+                        var optionsProfileVisit = {
+                            annotations: {
+                                position: 'back'
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            chart: {
+                                type: 'bar',
+                                height: 200,
+
+
+                            },
+                            xaxis: {
+                                labels: {
+                                    formatter: function (value) {
+                                        return commaSeparateNumber(value);
+                                    }
+                                },
+
+                            },
+                            yaxis: {
+                                labels: {
+                                    formatter: function (value) {
+                                        return commaSeparateNumber(value);
+                                    }
+                                },
+                            },
+                            fill: {
+                                opacity: 1
+                            },
+                            plotOptions: {
+                            },
+
+                            series: [
+                        {
+                            name: 'AAC',
+                            type: 'column',
+                            data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
+                        },
+                        {
+                            name: 'TAC',
+                            type: 'column',
+                            data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+                        },
+                        {
+                            name: 'ALL',
+                            type: 'column',
+                            data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
+                        }],
+                            //series: [{
+                            //    name: 'sales',
+                            //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
+                            //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+
+                            //}],
+                            //colors: '#435ebe',
+                            colors: ['#424bf9', '#e70712', '#4bf942'],
+                            xaxis: {
+                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                            },
+                        }
+                        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                        chartProfileVisit.render();
+
+                        window.dispatchEvent(new Event('resize'));
+                        $('#amtytd_aac').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
+                        $('#amtytd_tac').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
+                        $('#amtytd_all').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
+                        $('#amtmtd_aac').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
+                        $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
+                        $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
+                    } else {
+                        var optionsProfileVisit = {
+                            annotations: {
+                                position: 'back'
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            chart: {
+                                type: 'bar',
+                                height: 200,
+
+                            },
+
+                            fill: {
+                                opacity: 1
+                            },
+                            plotOptions: {
+                            },
+
+
+                            series: [{
+                                name: 'sales',
+                                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
+                            }],
+                            //colors: '#435ebe',
+                            colors: ['#424bf9', '#e70712', '#4bf942'],
+                            xaxis: {
+                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                            },
+                        }
+                        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                        chartProfileVisit.render();
+
+                        window.dispatchEvent(new Event('resize'));
+
+
+                        $('#amtytd_aac').html('Amt YTD AAC: 0');
+                        $('#amtytd_tac').html('Amt YTD TAC: 0');
+                        $('#amtytd_all').html('Amt YTD ALL: 0');
+                        $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
+                        $('#amtmtd_tac').html('Amt MTD TAC: 0');
+                        $('#amtmtd_all').html('Amt MTD ALL: 0');
+                    }
+                }
+            });
+        }
+
         //ปุ่มยอดซื้อ
         $(document).on("click", "#menu_amt", function () {
             window.location.replace("../CustomerDashboard/index");

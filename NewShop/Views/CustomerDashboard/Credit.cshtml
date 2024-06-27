@@ -1,0 +1,1365 @@
+﻿@using System.Globalization;
+<!DOCTYPE html>
+@{
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครดิต</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+
+
+    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Import jQuery 2.1.1 -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <style>
+        html body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .font-me {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .selected {
+            background: #910000;
+            color: #FFFFFF;
+        }
+
+        .removeselected {
+            color: #fff !important;
+            background-color: #000 !important;
+        }
+
+        .puick-contact-area {
+            background: #f6f6f6 none repeat scroll 0 0;
+            padding: 40px 0;
+            text-align: center;
+            width: 370px;
+        }
+
+        .contact-btn .fv-btn:hover {
+            border: 1px solid #ff4136;
+            color: #fff;
+            background: #ff4136;
+        }
+
+        .contact-btn .fv-btn {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid #d5d5d5;
+            color: #4b4b4b;
+            font-size: 14px;
+            height: 45px;
+            letter-spacing: 2px;
+            line-height: 45px;
+            padding: 0 70px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+        }
+
+        .section-title-2 {
+            color: #555555;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 14px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .ppp {
+            font-family: 'Poppins', sans-serif;
+            color: #303030;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
+            margin-bottom: 8px;
+        }
+
+        .statusamt {
+            display: none;
+        }
+
+        .statusamtchild {
+            display: none;
+        }
+
+        .statuspromotion {
+            display: none;
+        }
+
+        .statuscliamoffon {
+            display: none;
+        }
+
+        .statusbackord {
+            display: none;
+        }
+
+        .statusTop20 {
+            display: none;
+        }
+    </style>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            /*width: 60px;
+            height: 34px;*/
+            width: 54px;
+            height: 25px;
+            float: right;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 32px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                /*height: 26px;
+                width: 26px;*/
+                width: 20px;
+                height: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 30px;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style>
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 0;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        }
+
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card-img-top {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+        }
+
+        .card-text {
+            clear: both;
+            margin-top: .5em;
+            display: flexbox;
+            color: rgba(0, 0, 0, .68);
+        }
+
+        .card-footer {
+            font-size: 1em;
+            position: static;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            padding: .75em 1em;
+            color: rgba(0, 0, 0, .4);
+            border-top: 1px solid rgba(0, 0, 0, .05) !important;
+            background: #fff;
+        }
+
+        .card-inverse .btn {
+            border: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .profile {
+            position: absolute;
+            top: -12px;
+            display: inline-block;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .profile-avatar {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-inline {
+            position: relative;
+            top: 0;
+            display: inline-block;
+        }
+
+            .profile-inline ~ .card-title {
+                display: inline-block;
+                margin-left: 4px;
+                vertical-align: top;
+            }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+            .meta a {
+                text-decoration: none;
+                color: rgba(0, 0, 0, .4);
+            }
+
+                .meta a:hover {
+                    color: rgba(0, 0, 0, .87);
+                }
+        /* Dropdown Button */
+        .dropbtn {
+            /* background-color: #04AA6D; */
+            color: #075896;
+            padding: 7px;
+            font-size: 16px;
+            border: none;
+        }
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #b1bfce;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            z-index: 999;
+            position: relative;
+        }
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .select-year {
+            width: 105px;
+            text-align: center;
+            font-family: Kanit,sans-serif;
+        }
+
+        .form-select option {
+            text-align: center;
+        }
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #bee0ed;
+        }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightsteelblue;
+        }
+
+        .td-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 0;
+        }
+
+        @@media only screen and (min-width: 319px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 135px;
+            }
+        }
+
+        @@media only screen and (min-width: 374px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 185px;
+            }
+        }
+
+        @@media only screen and (min-width: 389px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 200px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+    </style>
+    <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            background-color: rgba(0,0,0,0); /* สีพื้นหลังของ loader */
+            padding: 20px;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .block_container {
+            display: flex;
+            align-items: center;
+        }
+
+            .block_container div {
+                margin-right: 10px; /* ระยะห่างระหว่างไอคอนและข้อความ */
+            }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+    </style>
+    <style>
+
+        .tab-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+        }
+
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
+        }
+
+            .tab-content.active {
+                display: block;
+            }
+
+        hr {
+            border-color: white;
+        }
+
+            hr#line-tab-credit {
+                border-color: white;
+            }
+    </style>
+</head>
+
+<body style="background-color: #f2f7ff; margin-bottom:5px; ">
+    <div id="app">
+        <div id="main" style=" padding-right:20px; padding-left:20px;">
+            <div>
+                <input type="hidden" id="cushid" />
+                <input type="hidden" id="slmhid" />
+                <input type="hidden" id="nocusses" />
+                <input class="note-desc" id="cussend" type="hidden">
+            </div>
+            <div class="page-heading">
+                <h4 class="pt-2" id="head-cusname"></h4>
+            </div>
+            <div class="page-content">
+                <div class="container" id="loader">
+                    <div class="d-flex justify-content-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Loading...</h3>
+                    </div>
+                </div>
+                <section class="row justify-content-center d-none" id="content">
+                    <div class="col-12 col-lg-3" id="cushead" hidden>
+                        <div class="row">
+                            <p id="demo"></p>
+                        </div>
+                        <div id="appadjall"></div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="col-12 p-0 m-0">
+                                <div class="col-12 p-0 m-0">
+                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-credit">
+                                            เครดิต
+                                            <hr class="m-0" />
+                                        </button>
+
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount" hidden>
+                                            ยอดซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0 m-0 bg-info">
+                                <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
+                                    <div id="dfch">
+                                        <div class="row">
+                                            <div class="col-12 credit-div m-0 p-0">
+                                                <div class="card m-0 rounded-bottom border-0">
+                                                    <div class="card-header bg-secondary border-0">
+                                                        <div class="col-sm-12 d-flex align-items-center mb-2 text-left m-0 p-0">
+                                                            @*<h4 class="m-0">เครดิต</h4>*@
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <p class="m-0 font-me"> เครดิต : <span id="credit-duedate"></span> วัน</p>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <p class="m-0 font-me">วันที่สรุป : <span id="cr-date"></span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body p-0 ">
+                                                        <div class="m-0 table-responsive">
+                                                            <table class="table table-sm table-borderless m-0" id="credit-table">
+                                                                <tr>
+                                                                    <th class=" text-right pl-0 pr-0 ">วงเงิน</th>
+                                                                    <th class="text-center pl-0 pr-0 ">AAC</th>
+                                                                    <th class="text-center pl-0 pr-0 ">TAC</th>
+                                                                    <th class="text-center pl-0 pr-0 ">OMP</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="text-right pl-0 pr-0">วงเงิน</th>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-crline">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-crline">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-crline">0</span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="text-right pl-0 pr-0">ใช้ไป</th>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-bal">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-bal">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-bal">0</span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="text-right pl-0 pr-0">คงเหลือ</th>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-res">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-res">0</span></td>
+                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-res">0</span></td>
+                                                                </tr>
+                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="toggleRowCredit(this); ">
+                                                                    <th class="block_container pl-0 pr-0">
+                                                                        <div class="col-12 d-flex align-items-center pl-0 pr-0 m-0">
+                                                                            @*<div class="col-1"><h4 style="display: inline;" hidden><span id="show-billing-icon">+</span></h4></div>*@
+                                                                            <div class="col-12 p-0 m-0"><span>ยอดถึงชำระ <br />กำหนดชำระ</span></div>
+                                                                        </div>
+                                                                    </th>
+                                                                    <td class="text-center pl-0 pr-0"><span id="aac-baldue">0</span><br /><span id="aac-bildue-date"></span></td>
+                                                                    <td class="text-center pl-0 pr-0"><span id="tac-baldue">0</span><br /><span id="tac-bildue-date"></span></td>
+                                                                    <td class="text-center pl-0 pr-0"><span id="omp-baldue">0</span><br /><span id="omp-bildue-date"></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @*<td class="p-0"></td>*@
+                                                                    <td colspan="4" class="hiddenRow">
+                                                                        <div class="accordian-body collapse table-responsive m-0" id="baldue-show">
+                                                                            @*<h4>
+                                                                                    รายการรอชำระ
+                                                                                </h4>*@
+                                                                            <table class="table table-borderless" id="bildue-table-">
+                                                                                <thead class="thead-default">
+                                                                                    <tr>
+
+                                                                                        <th>
+                                                                                            รายการรอชำระที่บริษัท
+                                                                                        </th>
+                                                                                        <th></th>
+
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-aac-show" class="accordion-toggle " onclick="getBillingDue('AAC'); toggleRowBill('aac'); ">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-aac-icon">+</span></h4></div>
+                                                                                                <div class="col-12"><span>AAC</span></div>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-aac-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-aac-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-tac-show" class="accordion-toggle " onclick="getBillingDue('TAC');  toggleRowBill('tac');">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-tac-icon">+</span></h4></div>
+                                                                                                <div class="col-12"><span>TAC</span></div>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                        @* <th><span id="bill-tac-amt">0</span></th>*@
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-tac-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-tac-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-omp-show" class="accordion-toggle " onclick="getBillingDue('OMP'); toggleRowBill('omp');">
+                                                                                        <th class="block_container border-0">
+                                                                                            <div class="col-12 d-flex align-items-center p-0">
+                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-omp-icon">+</span></h4></div>
+                                                                                                <div class="col-12"><span>OMP</span></div>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                        @*<th><span id="bill-omp-amt">0</span></th>*@
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="hiddeRow p-0">
+                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-omp-show">
+                                                                                                <table class="table table-borderless table-striped" id="bill-omp-detail">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th>หมายเลขสั่งซื้อ</th>
+                                                                                                            <th>วันกำหนดชำระ</th>
+                                                                                                            <th>จำนวนเงิน</th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody></tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="appadj"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Modal -->
+                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header ">
+                                <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
+                                <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body d-flex justify-content-center row">
+                                <div class="col-12">
+                                    <article class="card">
+                                        <div class="card-body row">
+                                            <div class="col p-0">
+                                                <strong>ผู้ซื้อ : </strong>
+                                                <span id="namecus-item"></span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <hr />
+                                <div class="col-12">
+                                    <div class="table-responsive m-0" style="height:500px">
+                                        <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
+                                            <thead class="thead-default" style="font-size: small;">
+                                                <tr>
+                                                    <th>บริษัท</th>
+                                                    <th>เบอร์สินค้า</th>
+                                                    <th>ชื่อสินค้า</th>
+                                                    <th>จำนวน</th>
+                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th>ส่วนลด</th>
+                                                    <th>ราคารวม</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ModalWarning -->
+        <div class="modal" id="myModalWarning">
+            <div class="modal-dialog">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong>
+                    <div class="modal-body">
+                        <div id="textAlertWarning">Some text in the modal.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
+                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModalselcus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ใส่ชื่อร้านหรือรหัสร้านค้า
+                        <div id="blcslm" style="display:block">
+                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        //console.log("Cuscod : " + cuscod);
+        var myChartM;
+        var myChartY;
+        var chartProfileVisit;
+        var chartdefault = $("#cushid").val();
+
+        $(document).ready(function () {
+            $('#loader').show();
+            getCusName();
+            getCreditCus(cuscod);
+            setTimeout(function () {
+                $('#loader').hide();
+                $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+            }, 2000);
+            $('#btn-show-credit').css("background", "#DEAF5B");
+            $('#line-tab-credit').hide();
+
+        });
+
+        if (cuscod != "") {
+            $("#cushid").val(cuscod)
+            // getcuschamt(cuscod);
+            var currentDate = new Date();
+            var currentDay = (currentDate.getDate()).toString().padStart(2, "0")
+            var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+            var currentYear = currentDate.getFullYear();
+            var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
+            getCreditCus(cuscod);
+
+        }
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+
+        function getLastSixMonths() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 6; i++) {
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const formattedMonth = month; //< 10 ? `0${month}` : `${month}`; #01549b
+                result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
+                date.setMonth(date.getMonth() - 1);
+            }
+            return result;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
+        }
+
+        $('#btn-show-credit').click(function () {
+            $('.amount-div').slideUp("slow");
+            $('.credit-div').slideDown("slow");
+            $('#line-tab-amt').show("slide", { direction: "right" }, 500);
+            $('#line-tab-credit').hide("slide", { direction: "left" }, 500);
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount').removeAttr('style');
+
+
+        });
+
+        function jssor_1_slider_init() {
+            var jssor_1_options = {
+                $AutoPlay: 0,
+                $AutoPlaySteps: 5,
+                $SlideDuration: 260,
+                $SlideWidth: 200,
+                $SlideSpacing: 3,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 1
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 16,
+                    $SpacingY: 16
+                }
+            };
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            var MAX_WIDTH = 758;
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+                if (containerWidth) {
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        };
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+
+
+
+        //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
+
+        function toggleRowAndButton(row, index) {
+            var text = $('#row-show-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function toggleRowColDetail(row,index,comp) {
+            var text = $('#show-sales-'+comp+'-icon-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+
+        function toggleRowCredit(row) {
+            var text = $('#show-billing-icon' );
+            if (text.text() === '+') {
+                text.text("-");
+            } else {
+                text.text("+");
+            }
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+
+        function toggleRowBill(comp) {
+            var text = $('#show-billing-'+comp+'-icon');
+            if (text.text() === '+') {
+                text.text("-");
+            } else {
+                text.text("+");
+            }
+            var targetId = $('#bill-' + comp + '-show').attr('id');
+            var targetElement = document.getElementById(targetId);
+            $(targetElement).collapse('toggle');
+        }
+
+
+        //รายละเอียดเลข invoice
+        function getDetailCusinv(DocNum) {
+            $('#cusMonthItemModal').modal('show');
+            $('#docno-item').text(DocNum);
+            $.ajax({
+                url: '@Url.Action("GetCusinvDetail", "CustomerDashboard")',
+                data: {
+                    Docno: DocNum
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#namecus-item').text("");
+                    $('#cusMonthItemDetail tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#cusMonthItemDetail tbody').html("");
+                    if (data.message == "Y") {
+                        var SubmithtmlPage = "";
+                        if (data.Getdata.length != 0) {
+                            var cusName = "";
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                cusName = data.Getdata[i].CUSNAM;
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '</tr>';
+
+                            }
+                            $('#namecus-item').text(cusName);
+                            $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                        }
+                    }
+                    else {
+                        console.log("Error : "+data.message);
+                    }
+                }
+            });
+        }
+        //ดึงข้อมูล credit
+        function getCreditCus(cus) {
+            $.ajax({
+                url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
+                data: {
+                    cuscod: '111B0005'
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        var lastInvoiceDate = data.credits[0].LASIVC;
+
+                        $('#cr-date').text(lastInvoiceDate);
+                        var aaccrbal = data.credits[0].AACCRLINE;
+                        var taccrbal = data.credits[0].TACCRLINE;
+                        var ompcrbal = data.credits[0].OMPCRLINE;
+
+                        var aacbal = data.credits[0].AACBAL;
+                        var tacbal = data.credits[0].TACBAL;
+                        var ompbal = data.credits[0].OMPBAL;
+
+                        var resaacbal = Number(aaccrbal) - Number(aacbal);
+                        var restacbal = Number(taccrbal) - Number(tacbal);
+                        var resompbal = Number(ompcrbal) - Number(ompbal);
+
+                        var aacbaldue = data.credits[0].AACBALDue;
+                        var tacbaldue = data.credits[0].TACBALDue;
+                        var ompbaldue = data.credits[0].OMPBALDue;
+
+                        var creditdue = data.credits[0].AACPAYTR;
+                        var aacbildue = data.credits[0].AACBilDue;
+                        var tacbildue = data.credits[0].TACBilDue;
+                        var ompbildue = data.credits[0].OMPBilDue;
+
+                        $('#credit-duedate').text(creditdue);
+
+                        $('#aac-crline').text(commaSeparateNumber(aaccrbal));
+                        $('#tac-crline').text(commaSeparateNumber(taccrbal));
+                        $('#omp-crline').text(commaSeparateNumber(ompcrbal));
+
+                        $('#aac-bal').text(commaSeparateNumber(aacbal));
+                        $('#tac-bal').text(commaSeparateNumber(tacbal));
+                        $('#omp-bal').text(commaSeparateNumber(ompbal));
+
+                        $('#aac-res').text(commaSeparateNumber(resaacbal.toString()));
+                        $('#tac-res').text(commaSeparateNumber(restacbal.toString()));
+                        $('#omp-res').text(commaSeparateNumber(resompbal.toString()));
+
+                        $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
+                        $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
+                        $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+
+                        $('#aac-bildue-date').text(aacbildue);
+                        $('#tac-bildue-date').text(tacbildue);
+                        $('#omp-bildue-date').text(ompbildue);
+
+
+
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+            });
+        }
+
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            // var parts = dateStr.split('/');
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+            var day = parseInt(parts[0], 10) + 1;
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+            var date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
+        function getBillingDue(comp) {
+            var aacdue = $('#aac-bildue-date').text();
+            var tacdue = $('#tac-bildue-date').text();
+            var ompdue = $('#omp-bildue-date').text();
+            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
+            if (dates.length > 0) {
+                var minDate = new Date(Math.min.apply(null, dates));
+                var maxDate = new Date(Math.max.apply(null, dates));
+                $.ajax({
+                    url: '@Url.Action("GetBilling", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: cuscod,//cuscod
+                        Company: comp,
+                        DueDatMin: minDate.toISOString().split('T')[0],
+                        DueDatMax: maxDate.toISOString().split('T')[0]
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    beforeSend: function () {
+                        var aac = $('#bill-aac-detail tbody');
+                        var tac = $('#bill-tac-detail tbody');
+                        var omp = $('#bill-omp-detail tbody');
+                        if (comp === 'AAC') {
+                            aac.html("");
+                        }
+                        if (comp === 'TAC') {
+                            tac.html("");
+                        }
+                        if (comp === 'OMP') {
+                            omp.html("");
+                        }
+                        var SubmithtmlPage = '';
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="2">Loading....</td>';
+                        SubmithtmlPage += '</tr>';
+                        if (comp === 'AAC') {
+                            aac.append(SubmithtmlPage);
+                        }
+                        if (comp === 'TAC') {
+                            tac.append(SubmithtmlPage);
+                        }
+                        if (comp === 'OMP') {
+                            omp.append(SubmithtmlPage);
+                        }
+                    },
+                    success: function (data) {
+                        if (data.message === 'Y') {
+                            var aac = $('#bill-aac-detail tbody');
+                            var tac = $('#bill-tac-detail tbody');
+                            var omp = $('#bill-omp-detail tbody');
+                            if (comp === 'AAC') {
+                                aac.html("");
+                            }
+                            if (comp === 'TAC') {
+                                tac.html("");
+                            }
+                            if (comp === 'OMP') {
+                                omp.html("");
+                            }
+                            var SubmithtmlPage = '';
+                            if (data.Getdata.length != 0) {
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                        SubmithtmlPage += '<tr>';
+                                        //SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                        SubmithtmlPage += '<td>' + data.Getdata[i].Invnum + '</td>';
+                                        SubmithtmlPage += '<td>' + data.Getdata[i].BillDue + '</td>';
+                                        SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amt) + '</td>';
+                                        SubmithtmlPage += '</tr>';
+                                }
+                                if (comp === 'AAC') {
+                                    aac.append(SubmithtmlPage);
+                                }
+                                if (comp === 'TAC') {
+                                    tac.append(SubmithtmlPage);
+                                }
+                                if (comp === 'OMP') {
+                                    omp.append(SubmithtmlPage);
+                                }
+                            }
+                            else {
+                                var aac = $('#bill-aac-detail tbody');
+                                var tac = $('#bill-tac-detail tbody');
+                                var omp = $('#bill-omp-detail tbody');
+
+                                if (comp === 'AAC') {
+                                    aac.html("");
+                                }
+                                if (comp === 'TAC') {
+                                    tac.html("");
+                                }
+                                if (comp === 'OMP') {
+                                    omp.html("");
+                                }
+                                var SubmithtmlPage = '';
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center" colspan="3">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '</tr>';
+                                //$('#bildue-table tbody').append(SubmithtmlPage);
+                                if (comp === 'AAC') {
+                                    aac.append(SubmithtmlPage);
+                                }
+                                if (comp === 'TAC') {
+                                    tac.append(SubmithtmlPage);
+                                }
+                                if (comp === 'OMP') {
+                                    omp.append(SubmithtmlPage);
+                                }
+                            }
+                        }
+                        else {
+                            console.log(data.message);
+                        }
+                    }
+
+                });
+            }
+            else {
+                console.log('Error!!!');
+            }
+        }
+
+        function getAllBillAmout() {
+            var aacdue = $('#aac-bildue-date').text();
+            var tacdue = $('#tac-bildue-date').text();
+            var ompdue = $('#omp-bildue-date').text();
+
+            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
+            if (dates.length > 0) {
+                var minDate = new Date(Math.min.apply(null, dates));
+                var maxDate = new Date(Math.max.apply(null, dates));
+                $.ajax({
+                    url: '@Url.Action("GetBilling", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: cuscod,//cuscod
+                        Company: 'ALL',
+                        DueDatMin: minDate.toISOString().split('T')[0],
+                        DueDatMax: maxDate.toISOString().split('T')[0]
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var bill_aac = 0;
+                        var bill_tac = 0;
+                        var bill_omp = 0;
+                        if (data.Getdata.length != 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                if (data.Getdata[i].Company == 'AAC') {
+                                    bill_aac++;
+                                }
+                                if (data.Getdata[i].Company == 'TAC') {
+                                    bill_tac++;
+                                }
+                                if (data.Getdata[i].Company == 'OMP') {
+                                    bill_omp ++;
+                                }
+                            }
+                            console.log(bill_omp);
+                        }
+                    }
+
+                 });
+            }
+        }
+
+        function myFunction() {
+            var x = document.getElementById("blcslm");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#selslm").val("ALL");
+            } else {
+                x.style.display = "none";
+                $("#selcus").prop("disabled", false);
+            }
+        }
+
+        //ปุ่มยอดซื้อ
+        $(document).on("click", "#navbaramount", function () {
+            window.location.replace("../CustomerDashboard/index");
+        });
+        //ปุ่มสินค้าค้างส่ง
+        $(document).on("click", "#navbarpending", function () {
+            window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        });
+        //ปุ่มรายการเคลม
+        $(document).on("click", "#navbarwarranty", function () {
+            window.location.replace("../CustomerDashboard/Warranty");
+        });
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=credit");
+        });
+
+    </script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+</body>
+</html>
