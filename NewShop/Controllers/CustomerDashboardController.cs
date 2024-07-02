@@ -353,13 +353,19 @@ namespace NewShop.Controllers
         }
         //get order detail notify in line
         [HttpGet]
-        public ActionResult GetDeliveryDetailByDocno(string getDocno)
+        public ActionResult GetDeliveryDetailByDocnoParams()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult GetDeliveryDetailByDocno()
         {
             //string getDocno = string.Empty;
             string setDocno = string.Empty;
             string encodeDocno = string.Empty;
+            string getDocno = string.Empty;
 
-            //getDocno = Request.QueryString["docno"];
+            getDocno = Request.Params["getDocno"];
             if (getDocno != null)
             {
                 byte[] data = System.Convert.FromBase64String(getDocno);

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order @ViewBag.Docno</title>
+    <title>รายละเอียด @ViewBag.Docno</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -42,44 +42,51 @@
 </head>
 <body>
     <div class="content-wrapper" style="padding: 0.5rem 0.5rem;">
-        <div class="panel panel-default">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel-heading bg-info">
-                        <i class="fa fa-list"></i> <b> หมายเลขคำสั่งซื้อ : @ViewBag.Docno </b>
-                    </div>
-                    <div class="panel-body" style="padding: 0px;">
-                        <div class="table-responsive" style="margin-bottom: 0;">
-                            <table class="table table-bordered table-hover" style="margin-bottom: 0px;">
-                                <thead>
-                                    <tr style="background-color: #cde4eb;">
-                                        <th style="text-align:center; width: 4%;">#</th>
-                                        <th style="text-align: center; width: 10%;">เบอร์สินค้า</th>
-                                        <th style="text-align:center; width: 50%;">ชื่อสินค้า</th>
-                                        <th style="text-align:center; width: 5%;">จำนวนสั่งซื้อ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        int rowShop = 1;
-                                        foreach (var rowData in ViewBag.Getdata)
-                                        {
-                                            <tr>
-                                                <td style="text-align:center;">@rowShop</td>
-                                                <td>@rowData.VSTKCOD </td>
-                                                <td><span>@rowData.VSTKDES</span></td>
-                                                <td style="text-align:center;">@rowData.AmtQty</td>
-                                            </tr>
-                                            rowShop++;
+        @if (ViewBag.Getdata.Count == 0)
+        {
+            <div class="alert alert-danger text-center" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบรายการสินค้า </div>
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-heading bg-info">
+                            <i class="fa fa-list"></i> <b> หมายเลขคำสั่งซื้อ : @ViewBag.Docno </b>
+                        </div>
+                        <div class="panel-body" style="padding: 0px;">
+                            <div class="table-responsive" style="margin-bottom: 0;">
+                                <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
+                                    <thead>
+                                        <tr style="background-color: #cde4eb;">
+                                            <th style="text-align:center; width: 4%;">#</th>
+                                            <th style="text-align:center; width: 10%;">เบอร์สินค้า</th>
+                                            <th style="text-align:center; width: 50%;">ชื่อสินค้า</th>
+                                            <th style="text-align:center; width: 5%;">จำนวน</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int rowShop = 1;
+                                            foreach (var rowData in ViewBag.Getdata)
+                                            {
+                                                <tr>
+                                                    <td style="text-align:center;">@rowShop</td>
+                                                    <td>@rowData.VSTKCOD </td>
+                                                    <td><span>@rowData.VSTKDES</span></td>
+                                                    <td style="text-align:center;">@rowData.AmtQty</td>
+                                                </tr>
+                                                rowShop++;
+                                            }
                                         }
-                                    }
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </body>
 </html>
