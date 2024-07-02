@@ -42,7 +42,7 @@ namespace NewShop.Controllers
                     Docdate = dr["ORD_Date"].ToString(),
                     Cusname = dr["CUSNAM"].ToString(),
                     Delivery = dr["Notify"].ToString(),
-                    User = "superadmin",
+                    User = "System",
                 });
             }
 
@@ -77,6 +77,10 @@ namespace NewShop.Controllers
         {
             int numSuccess = 0;
             int numError = 0;
+            var encodeDocno = string.Empty;
+            var encodeUrlDetail = string.Empty;
+           
+
             List<ListSendDelivery> ListSendDelivery = new List<ListSendDelivery>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -93,6 +97,7 @@ namespace NewShop.Controllers
                     Docdate = dr["ORD_Date"].ToString(),
                     Cusname = dr["CUSNAM"].ToString(),
                     Delivery = dr["Notify"].ToString(),
+                    Urldetail = dr["Docno"].ToString(),
                     User = "System",
                 });
             }
@@ -101,7 +106,12 @@ namespace NewShop.Controllers
             {
                 foreach (var rowList in ListSendDelivery)
                 {
-                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, rowList.User);
+                    if (!string.IsNullOrEmpty(rowList.Urldetail)){
+                        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(rowList.Urldetail);
+                        encodeDocno = System.Convert.ToBase64String(plainTextBytes);
+                        encodeUrlDetail = "https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/GetDeliveryDetailByDocno?getDocno=" + encodeDocno;
+                    }
+                    var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, encodeUrlDetail, rowList.User);
                     string json = JsonConvert.SerializeObject(statusApi.Result.Data);
                     ResultApi dto = JsonConvert.DeserializeObject<ResultApi>(json);
                     //send fail
@@ -153,11 +163,15 @@ namespace NewShop.Controllers
             //return Json(new { data = ListSendDeliveryCount });
             return Json(ListSendDeliveryCount, JsonRequestBehavior.AllowGet);
         }
-        public async Task<JsonResult> ApiPushMessage(string Uid, string Docno, string Docdate, string Cusname, string Delivery, string User)
+        public async Task<JsonResult> ApiPushMessage(string Uid, string Docno, string Docdate, string Cusname, string Delivery, string Urldetail, string User)
         {
+            var url = "https://mst.aac.co.th/APIService/Post/PushMessage";
+            //var url = "https://localhost:44361/Post/PushMessage";
             string status = string.Empty;
             string message = string.Empty;
-            var url = "https://mst.aac.co.th/APIService/Post/PushMessage";
+            string encodeDocno = string.Empty;
+            string encodeUrlDetail = string.Empty;
+          
             var post = new ListSendDelivery
             {
                 Uid = Uid,
@@ -165,6 +179,7 @@ namespace NewShop.Controllers
                 Docdate = Docdate,
                 Cusname = Cusname,
                 Delivery = Delivery,
+                Urldetail = Urldetail,
                 User = User
             };
             try

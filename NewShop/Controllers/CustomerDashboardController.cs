@@ -351,6 +351,69 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
+        //get order detail notify in line
+        [HttpGet]
+        public ActionResult GetDeliveryDetailByDocno(string getDocno)
+        {
+            //string getDocno = string.Empty;
+            string setDocno = string.Empty;
+            string encodeDocno = string.Empty;
+
+            //getDocno = Request.QueryString["docno"];
+            if (getDocno != null)
+            {
+                byte[] data = System.Convert.FromBase64String(getDocno);
+                setDocno = System.Text.ASCIIEncoding.ASCII.GetString(data);
+            }
+            @ViewBag.Docno = setDocno;
+
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("stc24125667");
+            encodeDocno = System.Convert.ToBase64String(plainTextBytes);
+
+            string message = "";
+            List<SaleOrderDetail> Getdata = new List<SaleOrderDetail>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_Order_Notify_List_Detail", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inORD_DocNo", setDocno);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new SaleOrderDetail()
+                    {
+                        RowNo = reader["RowNo"].ToString(),
+                        VSTKCOD = reader["ORD_STKCOD"].ToString(),
+                        VSTKDES = reader["STKDES"].ToString(),
+                        VSTKGRP = reader["ORD_STKGRP"].ToString(),
+                        VPrice = reader["ORD_Price"].ToString(),
+                        VSalePrice = reader["ORD_SalePrice"].ToString(),
+                        VORDDAT = reader["ORD_Date"].ToString(),
+                        Item_Type = reader["Item_Type"].ToString(),
+                        VDiscount = reader["ORD_Discount"].ToString(),
+                        AmtQty = reader["ORD_Qty"].ToString(),
+                        TotalAmt = reader["ORD_Amt"].ToString()
+                    });
+                }
+                @ViewBag.Getdata = Getdata;
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return PartialView("_DeliveryDetailByDocno", new
+            {
+                @ViewBag.Getdata,
+                @ViewBag.Docno
+            });
+        }
 
         public JsonResult GetCusMonth(string CUSCOD, string Month, string Year)
         {
