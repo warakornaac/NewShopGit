@@ -83,6 +83,10 @@ namespace NewShop.Controllers
         }
         public ActionResult Credit()
         {
+            if (Session["UserID"] == null)
+            {
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+            }
             return View();
         }
         public ActionResult CustomerAlert()
@@ -146,6 +150,48 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, credits }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult getbackorder_S_notify(string CUSCOD)
+        {
+            string message = "";
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<BackOrder_Notify> backorder = new List<BackOrder_Notify>();
+            try
+            {
+                var command = new SqlCommand("P_Search_BackOrder_S_Notify", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    backorder.Add(new BackOrder_Notify()
+                    {
+                        Company = reader["Company"].ToString(),
+                        Document_No = reader["Document No"].ToString(),
+                        SONUM = reader["SONUM"].ToString(),
+                        STKCOD = reader["STKCOD"].ToString(),
+                        STKDES = reader["STKDES"].ToString(),
+                        Qty = reader["Qty"].ToString(),
+                        SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
+                        Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
+                        SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yyyy"),
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : ""
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return Json(new { message = message, backorder }, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult getbackorder_notify(string CUSCOD)
         {
             string message = "";
@@ -172,7 +218,7 @@ namespace NewShop.Controllers
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yyyy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["DeliveryDate"]).ToString("dd/MM/yyyy") : ""
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : ""
                     });
                 }
                 reader.Close();
@@ -188,7 +234,6 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, backorder }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetDeliveryTracking(string CUSCOD)
         {
             string message = "";
@@ -573,6 +618,53 @@ namespace NewShop.Controllers
                                         Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yyyy") : "",
                         WHT = reader["WHT"].ToString(),
                         Status = reader["Status"].ToString()
+                    });
+                }
+                message = "Y";
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDetailPromotion(string CUSCOD, string proCODE)
+        {
+            string message = "";
+            List<Promotion_Detail> Getdata = new List<Promotion_Detail>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Promotion_Cus_Detail", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+                command.Parameters.AddWithValue("@inPromotion_Code", proCODE);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new Promotion_Detail
+                    {
+                        Promotion_code = reader["Promotion_code"].ToString(),
+                        Description = reader["Description"].ToString(),
+                        StartDate = reader["StartDate"].ToString(),
+                        EndDate = reader["EndDate"].ToString(),
+                        Company = reader["Company"].ToString(),
+                        DOCNUM = reader["DOCNUM"].ToString(),
+                        DOCDAT = Convert.ToDateTime(reader["DOCDAT"]).ToString("dd/MM/yyyy"),
+                        STKCOD = reader["STKCOD"].ToString(),
+                        STKDES = reader["STKDES"].ToString(),
+                        PEOPLE = reader["PEOPLE"].ToString(),
+                        QTY = reader["QTY"].ToString(),
+                        SP_LCY = reader["SP_LCY"].ToString(),
+                        NET_LCY = reader["NET_LCY"].ToString(),
+                        CMPCHK = reader["CMPCHK"].ToString(),
+                        CMPLDAT = reader["CMPLDAT"] != DBNull.Value ?
+                                        Convert.ToDateTime(reader["CMPLDAT"]).ToString("dd/MM/yyyy") : "",
                     });
                 }
                 message = "Y";

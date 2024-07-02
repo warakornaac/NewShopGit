@@ -1097,4 +1097,22 @@ namespace NewShop.Models
         public string WHT { get; set; }
         public string Status { get; set; }
     }
+    public class Promotion_Detail
+    {
+        public string Promotion_code { get; set; }
+        public string Description { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public string Company { get; set; }
+        public string DOCNUM { get; set; }
+        public string DOCDAT { get; set; }
+        public string STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string PEOPLE { get; set; }
+        public string QTY { get; set; }
+        public string SP_LCY { get; set; }
+        public string NET_LCY { get; set; }
+        public string CMPCHK { get; set; }
+        public string CMPLDAT { get; set; }
+    }
 }

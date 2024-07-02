@@ -561,6 +561,12 @@
                 background-color: white;
                 z-index: 3 !important;
             }
+
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -598,71 +604,49 @@
                                             </div>
                                         </div>
                                         <div class="w3-bar pt-3 tab-buttons bg-info overflow-auto">
-                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-aac">
-                                                บริษัท AAC <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-aac">0</span>
+                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-typeS">
+                                                Order นัดส่ง <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-aac"></span>
                                                 <hr class="m-0" id="line-tab-aac" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-tac">
-                                                บริษัท TAC <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-tac">0</span>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-backorder">
+                                                BackOrder <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-tac"></span>
                                                 <hr class="m-0" id="line-tab-tac" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-omp">
-                                                บริษัท OMP <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-omp">0</span>
-                                                <hr class="m-0" id="line-tab-omp" />
-                                            </button>
-
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="card-body p-0">
-                                                <div class="m-0 table-aac table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-aac" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-typeS table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-typeS" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>เบอร์สินค้า</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>ราคาต่อชิ้น</th>
-                                                                <th>ราคารวม</th>
-                                                                <th>วันกำหนดส่ง</th>
+                                                                <th><span>วันที่สั่ง</span></th>
+                                                                <th><span>เบอร์สินค้า</span></th>
+                                                                <th><span>ชื่อสินค้า</span></th>
+                                                                <th><span>จำนวน</span></th>
+                                                                <th><span>ราคาต่อชิ้น</span></th>
+                                                                <th><span>ราคารวม</span></th>
+                                                                <th><span>วันกำหนดส่ง</span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-tac table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-tac" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-backorder table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-backorder" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small; position: sticky;">
                                                             <tr>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>เบอร์สินค้า</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>ราคาต่อชิ้น</th>
-                                                                <th>ราคารวม</th>
-                                                                <th>วันกำหนดส่ง</th>
+                                                                <th><span>วันที่สั่ง</span></th>
+                                                                <th><span>เบอร์สินค้า</span></th>
+                                                                <th><span>ชื่อสินค้า</span></th>
+                                                                <th><span>จำนวน</span></th>
+                                                                <th><span>ราคาต่อชิ้น</span></th>
+                                                                <th><span>ราคารวม</span></th>
+                                                                <th><span>วันกำหนดส่ง</span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-omp table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-omp" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>วันที่สั่ง</th>
-                                                                <th>เบอร์สินค้า</th>
-                                                                <th>ชื่อสินค้า</th>
-                                                                <th>จำนวน</th>
-                                                                <th>ราคาต่อชิ้น</th>
-                                                                <th>ราคารวม</th>
-                                                                <th>วันกำหนดส่ง</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -760,16 +744,16 @@
 
         //console.log(cuscod);
         if (cuscod != "") {
-            getbackord(cuscod);
+            getbackordTypeS();
             $("#cushid").val(cuscod)
             $('#cussend').val(cuscod);
         }
 
         $(document).ready(function () {
             $('#loader').show();
-            $('.table-tac').hide();
+            $('.table-backorder').hide();
             $('.table-omp').hide();
-            $('#btn-show-aac').css("background", "#DEAF5B");
+            $('#btn-show-typeS').css("background", "#DEAF5B");
             getCusName();
             setTimeout(function () {
                 $('#loader').hide();
@@ -777,29 +761,23 @@
                 $('.footer').removeAttr('hidden');
             }, 3000);
         });
-        $('#btn-show-aac').click(function () {
-            $('.table-aac').show('slow');
-            $('.table-tac').hide('slow');
+        $('#btn-show-typeS').click(function () {
+            $('.table-typeS').show('slow');
+            $('.table-backorder').hide('slow');
             $('.table-omp').hide('slow');
             $(this).css("background", "#DEAF5B");
-            $('#btn-show-tac').removeAttr('style');
+            $('#btn-show-backorder').removeAttr('style');
             $('#btn-show-omp').removeAttr('style');
+            getbackordTypeS();
         });
-        $('#btn-show-tac').click(function () {
-            $('.table-aac').hide('slow');
-            $('.table-tac').show('slow');
+        $('#btn-show-backorder').click(function () {
+            $('.table-typeS').hide('slow');
+            $('.table-backorder').show('slow');
             $('.table-omp').hide('slow');
             $(this).css("background", "#DEAF5B");
-            $('#btn-show-aac').removeAttr('style');
+            $('#btn-show-typeS').removeAttr('style');
             $('#btn-show-omp').removeAttr('style');
-        });
-        $('#btn-show-omp').click(function () {
-            $('.table-aac').hide('slow');
-            $('.table-tac').hide('slow');
-            $('.table-omp').show('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-tac').removeAttr('style');
-            $('#btn-show-aac').removeAttr('style');
+            getbackorder();
         });
 
         n = new Date();
@@ -869,141 +847,47 @@
             });
         }
 
-        function getbackord(cusnc) {
+        function getbackordTypeS() {
+
                 $.ajax({
-                    url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
+                    url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
                     data: {
-                        CUSCOD: cusnc
+                        CUSCOD: cuscod
                     },
                     type: "POST",
                     dataType: "JSON",
+                    beforeSend: function () {
+                        $('#backor-typeS tbody').html("");
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $('#backor-typeS tbody').append(SubmithtmlPage);
+                    },
                     success: function (data) {
                         $('#backordtb tbody:last-child').html("");
-                        var aac_count = 0;
-                        var tac_count = 0;
-                        var omp_count = 0;
-
-                        var aac = $('#backor-aac tbody');
-                        var tac = $('#backor-tac tbody');
-                        var omp = $('#backor-omp tbody');
-
-                        var SubmithtmlPage_A = "";
-                        var SubmithtmlPage_T = "";
-                        var SubmithtmlPage_O = "";
-
+                        var aac = $('#backor-typeS tbody');
+                        var SubmithtmlPage = '';
                             aac.html("");
-
-
-                            tac.html("");
-
-
-                            omp.html("");
-
                         if (data.message == "Y") {
                             if (data.backorder.length > 0) {
                                 for (var i = 0; i < data.backorder.length; i++) {
-                                    if (data.backorder[i].Company == 'AAC') {
-                                        SubmithtmlPage_A += '<tr>';
-                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="  m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="text-truncate m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                        SubmithtmlPage_A += '<td ><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
-                                        SubmithtmlPage_A += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
-                                        SubmithtmlPage_A += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_A += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
-                                        SubmithtmlPage_A += '</tr >';
-                                        aac_count++;
-                                    }
-                                    if (data.backorder[i].Company == 'TAC') {
-                                        SubmithtmlPage_T += '<tr>';
-                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
-                                        SubmithtmlPage_T += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
-                                        SubmithtmlPage_T += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_T += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
-                                        SubmithtmlPage_T += '</tr >';
-                                        tac_count++;
-                                    }
-                                    if (data.backorder[i].Company == 'OMP') {
-                                        SubmithtmlPage_O += '<tr>';
-                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].SaleOrderDate + '</p></td>';
-                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="cut-text m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
-                                        SubmithtmlPage_O += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].SalePrice) + '</p></td>';
-                                        SubmithtmlPage_O += '<td><p class="m-0 p-0">' + commaSeparateNumber(data.backorder[i].Amount) + '</p></td>';
-                                        SubmithtmlPage_O += '<td class="text-truncate"><p class="m-0 p-0">' + data.backorder[i].DeliveryDate + '</p></td>';
-                                        SubmithtmlPage_O += '</tr >';
-                                        omp_count++;
-                                    }
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                    SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                        SubmithtmlPage += '</tr >';
 
                                 }
-                                //AAC
-                                if (SubmithtmlPage_A != "") {
-                                    if (aac_count > 99) {
-                                        $('#status-aac').text('99+');
-                                    }
-                                    else {
-                                        $('#status-aac').text(aac_count);
-                                    }
-                                    aac.append(SubmithtmlPage_A);
-                                }
-                                else {
-                                    SubmithtmlPage_A += '<tr>';
-                                    SubmithtmlPage_A += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_A += '</tr>';
-                                    aac.append(SubmithtmlPage_A);
-                                    $('#status-aac').attr('hidden', true);
-                                }
-                                //TAC
-                                if (SubmithtmlPage_T != "") {
-                                    if (tac_count > 99) {
-                                        $('#status-tac').text('99+');
-                                    }
-                                    else {
-                                        $('#status-tac').text(tac_count);
-                                    }
-                                    tac.append(SubmithtmlPage_T);
-                                }
-                                else {
-                                    SubmithtmlPage_T += '<tr>';
-                                    SubmithtmlPage_T += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_T += '</tr>';
-                                    tac.append(SubmithtmlPage_T);
-                                    $('#status-tac').attr('hidden', true);
-                                }
-                                //OMP
-                                if (SubmithtmlPage_O != "") {
-                                    if (omp_count > 99) {
-                                        $('#status-omp').text('99+');
-                                    }
-                                    else {
-                                        $('#status-omp').text(tac_count);
-                                    }
-                                    omp.append(SubmithtmlPage_O);
-                                }
-                                else {
-                                    SubmithtmlPage_O += '<tr>';
-                                    SubmithtmlPage_O += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
-                                    SubmithtmlPage_O += '</tr>';
-                                    omp.append(SubmithtmlPage_O);
-                                    $('#status-omp').attr('hidden', true);
-                                }
+                                aac.append(SubmithtmlPage);
 
-                                //$("#backordtb").append(SubmithtmlPage);
-                                //aac.append(SubmithtmlPage_A);
-                                //tac.append(SubmithtmlPage_T);
-                                //omp.append(SubmithtmlPage_O);
-
-                            } else if (data.length <= 0) {
-                                SubmithtmlPage_A += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
-                                SubmithtmlPage_T += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
-                                SubmithtmlPage_O += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
-                                aac.append(SubmithtmlPage_A);
-                                tac.append(SubmithtmlPage_T);
-                                omp.append(SubmithtmlPage_O);
+                            } else {
+                                SubmithtmlPage += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                                aac.append(SubmithtmlPage);
                             }
 
                         }
@@ -1049,11 +933,11 @@
                                 if (data.backorder[i].Document_No == orderId) {
                                     SubmithtmlPage += '<tr>';
                                    // SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].Company + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].STKCOD + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].STKDES + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].Qty + '</p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                     var SalePrice = data.backorder[i].SalePrice;
-                                    SubmithtmlPage += '<td><p class="m-0 p-0">' + commaSeparateNumber(Number(data.backorder[i].SalePrice)) + '</p></td>';
+                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(Number(data.backorder[i].SalePrice)) + '</span></p></td>';
                                     SubmithtmlPage += '</tr>';
                                     ord_date = data.backorder[i].SaleOrderDate;
                                     amt_backorder += Number(data.backorder[i].Amount);
@@ -1068,6 +952,70 @@
                     }
                 }
             });
+        }
+
+        function getbackorder() {
+             $.ajax({
+                 url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
+                 data: {
+                     CUSCOD: cuscod
+                 },
+                 type: "POST",
+                 dataType: "JSON",
+                 beforeSend: function () {
+                     $('#backor-backorder tbody').html("");
+                     var SubmithtmlPage = "";
+                     SubmithtmlPage += '<tr>';
+                     SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                     SubmithtmlPage += '</tr>';
+                     $('#backor-backorder tbody').append(SubmithtmlPage);
+                 },
+                 success: function (data) {
+                     var aac_count = 0;
+
+                     var aac = $('#backor-backorder tbody');
+
+                     var SubmithtmlPage = "";
+
+                         aac.html("");
+
+                     if (data.message == "Y") {
+                         if (data.backorder.length > 0) {
+                             for (var i = 0; i < data.backorder.length; i++) {
+                                     SubmithtmlPage += '<tr>';
+                                 SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                 SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
+                                 SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
+                                 SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                     SubmithtmlPage += '</tr >';
+
+                             }
+                             //AAC
+                             if (SubmithtmlPage != "") {
+                                 aac.append(SubmithtmlPage);
+                             }
+                             else {
+                                 SubmithtmlPage += '<tr>';
+                                 SubmithtmlPage += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
+                                 SubmithtmlPage += '</tr>';
+                                 aac.append(SubmithtmlPage);
+                             }
+                         } else if (data.length <= 0) {
+                             SubmithtmlPage += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                             aac.append(SubmithtmlPage);
+                             tac.append(SubmithtmlPage_T);
+                             omp.append(SubmithtmlPage_O);
+                         }
+
+                     }
+                     else {
+                         console.log(data.message);
+                     }
+                 }
+             });
         }
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
@@ -1088,6 +1036,10 @@
         //ปุ่มโปรโมชัน
         $(document).on("click", "#navbarpromotion", function () {
             window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
         });
         //ปุ่มเปลี่ยนรหัสผ่าน
         $(document).on("click", "#navbarchangepassword", function () {
