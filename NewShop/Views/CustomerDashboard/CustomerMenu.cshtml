@@ -89,23 +89,23 @@
                             </div>
                             <div class="col-12">
                                 <div class="card-body">
-                                    <div id="chart-profile-visit"></div>
+                                    <div id="chart-profile-visit" style="height:500px"></div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="row mb-1">
                                     <div class="col-6">
                                         <div class="card-header">
-                                            <div id="amtmtd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
-                                            <div id="amtmtd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
-                                            <div id="amtmtd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
+                                            <div id="amtmtd_aac" class="text-primary" style="font-family: Kanit; font-weight: bold; font-size: 16px; ">Amt MTD AAC:</div>
+                                            <div id="amtmtd_tac" class="text-danger" style="font-family: Kanit; font-weight: bold; font-size: 16px; ">Amt MTD TAC:</div>
+                                            <div id="amtmtd_all" class="text-success" style="font-family: Kanit; font-weight: bold; font-size: 16px; ">Amt MTD ALL:</div>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="card-header">
-                                            <div id="amtytd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
-                                            <div id="amtytd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
-                                            <div id="amtytd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
+                                            <div id="amtytd_aac" class="text-primary" style="font-family: Kanit; font-weight: bold; font-size: 16px; color: blue; ">Amt YTD AAC:</div>
+                                            <div id="amtytd_tac" class="text-danger" style="font-family: Kanit; font-weight: bold; font-size: 16px; color: red; ">Amt YTD TAC:</div>
+                                            <div id="amtytd_all" class="text-success" style="font-family: Kanit; font-weight: bold; font-size: 16px; color: green; ">Amt YTD ALL:</div>
                                         </div>
                                     </div>
                                 </div>
@@ -114,14 +114,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-6 col-md-6 mb-4 ">
-                        <div class="card text-center p-4 bg-info w3-hover-khaki rounded text-white" id="menu_amt">
-                            <i class="fa fa-shopping-cart fa-3x"></i>
-                            <div class="card-body">
-                                <h2 class=" font-kanit fw-bold title-text">ยอดซื้อ</h2>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-12 col-sm-6 col-md-6 mb-4">
                         <div class="card text-center p-4 bg-info  w3-hover-khaki text-white" id="menu_deliverytracking">
                             <i class="fa fa-shopping-bag fa-3x"></i>
@@ -146,10 +139,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-12 col-sm-6">
+
+                    <div class="col-12 col-sm-6 col-md-6 mb-4">
                         <div class="card text-center p-4 bg-info  w3-hover-khaki text-white" id="menu_promotion">
                             <i class="fa fa fa-product-hunt fa-3x"></i>
                             <div class="card-body">
@@ -157,8 +148,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3"></div>
+                    <div class="col-12 col-sm-6 col-md-6 mb-4 ">
+                        <div class="card text-center p-4 bg-info w3-hover-khaki rounded text-white" id="menu_amt">
+                            <i class="fa fa-shopping-cart fa-3x"></i>
+                            <div class="card-body">
+                                <h2 class=" font-kanit fw-bold title-text">ประวัติซื้อ</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 mb-4">
+                        <div class="card text-center p-4 bg-info  w3-hover-khaki text-white" id="menu_credit">
+                            <i class="fa fa fa-credit-card-alt fa-3x"></i>
+                            <div class="card-body">
+                                <h2 class="font-kanit fw-bold title-text">เครดิต</h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -211,7 +218,7 @@
                 },
                 chart: {
                     type: 'bar',
-                    height: 200,
+                    height: 500,
 
                 },
 
@@ -229,7 +236,7 @@
 
                 }],
                 //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
+                colors: ['#3591e0', '#e17572', '#7dc67d'],
                 xaxis: {
                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 },
@@ -271,7 +278,7 @@
                             },
                             chart: {
                                 type: 'bar',
-                                height: 200,
+                                height: 500,
 
 
                             },
@@ -319,7 +326,7 @@
 
                             //}],
                             //colors: '#435ebe',
-                            colors: ['#424bf9', '#e70712', '#4bf942'],
+                            colors: ['#3591e0', '#e17572', '#7dc67d'],
                             xaxis: {
                                 categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                             },
@@ -344,7 +351,7 @@
                             },
                             chart: {
                                 type: 'bar',
-                                height: 200,
+                                height: 500,
 
                             },
 
@@ -362,7 +369,7 @@
 
                             }],
                             //colors: '#435ebe',
-                            colors: ['#424bf9', '#e70712', '#4bf942'],
+                            colors: ['#3591e0', '#e17572', '#7dc67d'],
                             xaxis: {
                                 categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                             },
@@ -403,6 +410,10 @@
         //ปุ่มโปรโมชัน
         $(document).on("click", "#menu_promotion", function () {
             window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#menu_credit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
         });
     </script>
 </body>

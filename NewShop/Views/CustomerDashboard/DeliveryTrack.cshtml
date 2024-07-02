@@ -507,6 +507,12 @@
                 background-color: white;
                 z-index: 3 !important;
             }
+
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
@@ -643,8 +649,11 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title float-left" id="DetailModalLongTitle">หมายเลขคำสั่งซื้อ : <span id="orderno"></span></h5>
-                                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');"><span aria-hidden="true">&times;</span></button>
+                                <div class="col-12">
+                                    <h5 class="modal-title float-left" id="DetailModalLongTitle">หมายเลขคำสั่งซื้อ : <span id="orderno"></span></h5>
+                                    <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');">&times;</button>
+                                </div>
+
                             </div>
                             <div class="modal-body d-flex justify-content-center row">
                                 <div class="col-12">
@@ -909,16 +918,16 @@
                         // table Order
                         if (data.Getdata[i].Notify.includes('รับ Order')) {
                             SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                             if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                             } else {
                                 SubmithtmlPage += '<td></td>';
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
                             alert_accept ++;
                         }
@@ -926,15 +935,15 @@
                         //Table Packing
                         if (data.Getdata[i].Notify.includes('เตรียมจัดส่ง')) {
                             SubmithtmlPage_packing += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage_packing += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            SubmithtmlPage_packing += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                             if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage_packing += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                SubmithtmlPage_packing += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                             } else {
                                 SubmithtmlPage_packing += '<td></td>';
                             }
-                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage_packing += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
+                            SubmithtmlPage_packing += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
+                            SubmithtmlPage_packing += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                            SubmithtmlPage_packing += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
                             SubmithtmlPage_packing += '<td>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage_packing += '</tr>';
                             alert_packing++;
@@ -943,16 +952,16 @@
                         //Table Delivery
                         if (data.Getdata[i].Notify.includes('ระหว่างขนส่ง')) {
                             SubmithtmlPage_delivery += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage_delivery += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            SubmithtmlPage_delivery += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                             if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage_delivery += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                SubmithtmlPage_delivery += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                             } else {
                                 SubmithtmlPage_delivery += '<td></td>';
                             }
-                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage_delivery += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
-                            SubmithtmlPage_delivery += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
+                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                            SubmithtmlPage_delivery += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
                             SubmithtmlPage_delivery += '</tr>';
                             alert_delivery++;
                         }
@@ -1066,7 +1075,7 @@
                         //ssss
                         for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                             if (data.Getdata[i].ORD_DocN != "") {
                                 SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
                             } else {
@@ -1163,16 +1172,16 @@
                     if (data.Getdata.length > 0) {
                         for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                             if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                             } else {
                                 SubmithtmlPage += '<td></td>';
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
                             SubmithtmlPage += '</tr>';
                         }
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
@@ -1214,16 +1223,16 @@
                      if (data.Getdata.length > 0) {
                          for (var i = 0; i < data.Getdata.length; i++) {
                              SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                             SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
+                             SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                              if (data.Getdata[i].ORD_DocN != "") {
-                                 SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
+                                 SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                              } else {
                                  SubmithtmlPage += '<td></td>';
                              }
-                             SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                             SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                             SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
-                             SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
+                             SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
+                             SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                             SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                             SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
                              SubmithtmlPage += '</tr>';
                              alert_arrive++;
                          }
@@ -1268,9 +1277,9 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 dateOrder = data.Getdata[i].VORDDAT;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td align="left">' + data.Getdata[i].VSTKCOD + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;">' + data.Getdata[i].VSTKDES + '</td>';
-                                SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].AmtQty) + '</td>';
+                                SubmithtmlPage += '<td align="left"><span>' + data.Getdata[i].VSTKCOD + '</span></td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;"><span>' + data.Getdata[i].VSTKDES + '</span></td>';
+                                SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].AmtQty) + '</span></td>';
                                 SubmithtmlPage += '</tr>';
                             }
                             $('#orddate').text(dateOrder.replace(/\//g,"-"));
@@ -1303,6 +1312,10 @@
         //ปุ่มโปรโมชัน
         $(document).on("click", "#navbarpromotion", function () {
             window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
         });
         //ปุ่มเปลี่ยนรหัสผ่าน
         $(document).on("click", "#navbarchangepassword", function () {

@@ -555,18 +555,17 @@
                         </div>
                         <div id="appadjall"></div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 p-0">
                         <div class="card">
                             <div class="col-12 p-0 m-0">
                                 <div class="col-12 p-0 m-0">
                                     <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
-                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-credit">
-                                            เครดิต
-                                            <hr class="m-0" />
-                                        </button>
-
                                         <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
                                             ยอดซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount-pre">
+                                            ประวัตอซื้อ
                                             <hr class="m-0" />
                                         </button>
                                     </div>
@@ -575,164 +574,6 @@
                             <div class="card-body p-0 m-0 bg-info">
                                 <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
                                     <div id="dfch">
-                                        <div class="row">
-                                            <div class="col-12 credit-div m-0 p-0">
-                                                <div class="card m-0 rounded-bottom border-0">
-                                                    <div class="card-header bg-secondary border-0">
-                                                        <div class="col-sm-12 d-flex align-items-center mb-2 text-left m-0 p-0">
-                                                            @*<h4 class="m-0">เครดิต</h4>*@
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <p class="m-0 font-me"> เครดิต : <span id="credit-duedate"></span> วัน</p>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <p class="m-0 font-me">วันที่สรุป : <span id="cr-date"></span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body p-0 ">
-                                                        <div class="m-0 table-responsive">
-                                                            <table class="table table-sm table-bordered m-0" id="credit-table">
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <th class="text-center">AAC</th>
-                                                                    <th class="text-center">TAC</th>
-                                                                    <th class="text-center">OMP</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>วงเงินที่ได้รับ</th>
-                                                                    <td><span id="aac-crline">0</span></td>
-                                                                    <td><span id="tac-crline">0</span></td>
-                                                                    <td><span id="omp-crline">0</span></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>วงเงินที่ใช้ไป</th>
-                                                                    <td><span id="aac-bal">0</span></td>
-                                                                    <td><span id="tac-bal">0</span></td>
-                                                                    <td><span id="omp-bal">0</span></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>วงเงินคงเหลือ</th>
-                                                                    <td><span id="aac-res">0</span></td>
-                                                                    <td><span id="tac-res">0</span></td>
-                                                                    <td><span id="omp-res">0</span></td>
-                                                                </tr>
-                                                                <tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="toggleRowCredit(this); ">
-                                                                    <th class="block_container">
-                                                                        <div class="col-12 d-flex align-items-center p-0">
-                                                                            <div class="col-1"><h4 style="display: inline;"><span id="show-billing-icon">+</span></h4></div>
-                                                                            <div class="col-12"><span>ยอดถึงกำหนดชำระ <br />วันที่กำหนดชำระ</span></div>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td><span id="aac-baldue">0</span><br /><span id="aac-bildue-date"></span></td>
-                                                                    <td><span id="tac-baldue">0</span><br /><span id="tac-bildue-date"></span></td>
-                                                                    <td><span id="omp-baldue">0</span><br /><span id="omp-bildue-date"></span></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="p-0"></td>
-                                                                    <td colspan="3" class="hiddenRow">
-                                                                        <div class="accordian-body collapse table-responsive m-0" id="baldue-show">
-                                                                            @*<h4>
-                                                                                    รายการรอชำระ
-                                                                                </h4>*@
-                                                                            <table class="table table-borderless" id="bildue-table-">
-                                                                                <thead class="thead-default">
-                                                                                    <tr>
-
-                                                                                        <th>
-                                                                                            รายการรอชำระที่บริษัท
-                                                                                        </th>
-                                                                                        <th></th>
-
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-aac-show" class="accordion-toggle " onclick="getBillingDue('AAC'); toggleRowBill('aac'); ">
-                                                                                        <th class="block_container border-0">
-                                                                                            <div class="col-12 d-flex align-items-center p-0">
-                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-aac-icon">+</span></h4></div>
-                                                                                                <div class="col-11"><span>AAC</span></div>
-                                                                                            </div>
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="2" class="hiddeRow p-0">
-                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-aac-show">
-                                                                                                <table class="table table-borderless table-striped" id="bill-aac-detail">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>หมายเลขสั่งซื้อ</th>
-                                                                                                            <th>วันกำหนดชำระ</th>
-                                                                                                            <th>จำนวนเงิน</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody></tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-tac-show" class="accordion-toggle " onclick="getBillingDue('TAC');  toggleRowBill('tac');">
-                                                                                        <th class="block_container border-0">
-                                                                                            <div class="col-12 d-flex align-items-center p-0">
-                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-tac-icon">+</span></h4></div>
-                                                                                                <div class="col-12"><span>TAC</span></div>
-                                                                                            </div>
-                                                                                        </th>
-                                                                                        @* <th><span id="bill-tac-amt">0</span></th>*@
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="2" class="hiddeRow p-0">
-                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-tac-show">
-                                                                                                <table class="table table-borderless table-striped" id="bill-tac-detail">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>หมายเลขสั่งซื้อ</th>
-                                                                                                            <th>วันกำหนดชำระ</th>
-                                                                                                            <th>จำนวนเงิน</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody></tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr data-bs-toggle="collapse" data-bs-target="#bill-omp-show" class="accordion-toggle " onclick="getBillingDue('OMP'); toggleRowBill('omp');">
-                                                                                        <th class="block_container border-0">
-                                                                                            <div class="col-12 d-flex align-items-center p-0">
-                                                                                                <div class="col-1"><h4 style="display: inline;"><span id="show-billing-omp-icon">+</span></h4></div>
-                                                                                                <div class="col-12"><span>OMP</span></div>
-                                                                                            </div>
-                                                                                        </th>
-                                                                                        @*<th><span id="bill-omp-amt">0</span></th>*@
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="2" class="hiddeRow p-0">
-                                                                                            <div class="accordian-body collapse table-responsive m-0" id="bill-omp-show">
-                                                                                                <table class="table table-borderless table-striped" id="bill-omp-detail">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>หมายเลขสั่งซื้อ</th>
-                                                                                                            <th>วันกำหนดชำระ</th>
-                                                                                                            <th>จำนวนเงิน</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody></tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div id="appadj"></div>
                                 </div>
@@ -944,15 +785,13 @@
             $('#loader').show();
             getSelectMonth();
             getCusName();
+            $('#btn-show-amount').css("background", "#DEAF5B");
             setTimeout(function () {
                 $('#loader').hide();
                 $('#content').removeClass('d-none').addClass('d-flex');
                 $('.footer').removeAttr('hidden');
             }, 2000);
-            $('.amount-div').hide();
-            $('#btn-show-credit').css("background", "#DEAF5B");
             $('#line-tab-credit').hide();
-
         });
 
         if (cuscod != "") {
@@ -999,30 +838,22 @@
                 }
             });
         }
-
-        $('#btn-show-credit').click(function () {
-            //$('.credit-div').show("slow");
-            //$('.amount-div').hide("slow");
-            $('.amount-div').slideUp("slow");
-            $('.credit-div').slideDown("slow");
-            $('#line-tab-amt').show("slide", { direction: "right" }, 500);
-            $('#line-tab-credit').hide("slide", { direction: "left" }, 500);
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-amount').removeAttr('style');
-
-
-        });
         $('#btn-show-amount').click(function () {
             //$('.amount-div').show("slow");
             //$('.credit-div').hide("slow");
             $('.amount-div').slideDown("slow");
             $('.credit-div').slideUp("slow");
-            $('#line-tab-credit').show("slide", { direction: "left" }, 500);
-            $('#line-tab-amt').hide("slide", { direction: "right" }, 500)
             $(this).css("background", "#DEAF5B");
-            $('#btn-show-credit').removeAttr('style');
+            $('#btn-show-amount-pre').removeAttr('style');
         });
-
+        $('#btn-show-amount-pre').click(function () {
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideUp("slow");
+            $('.credit-div').slideDown("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount').removeAttr('style');
+        });
 
         function getSelectMonth() {
             const dropdown = $('#select-month-year');
@@ -1391,30 +1222,6 @@
             $(targetElement).collapse('toggle');
         }
 
-        function toggleRowCredit(row) {
-            var text = $('#show-billing-icon' );
-            if (text.text() === '+') {
-                text.text("-");
-            } else {
-                text.text("+");
-            }
-            var targetId = row.getAttribute('data-bs-target');
-            var targetElement = document.getElementById(targetId.substring(1));
-            $(targetElement).collapse('toggle');
-        }
-
-        function toggleRowBill(comp) {
-            var text = $('#show-billing-'+comp+'-icon');
-            if (text.text() === '+') {
-                text.text("-");
-            } else {
-                text.text("+");
-            }
-            var targetId = $('#bill-' + comp + '-show').attr('id');
-            var targetElement = document.getElementById(targetId);
-            $(targetElement).collapse('toggle');
-        }
-
 
         //รายละเอียดเลข invoice
         function getDetailCusinv(DocNum) {
@@ -1542,172 +1349,7 @@
             var date = new Date(year, month, day);
             return isNaN(date.getTime()) ? null : date;
         }
-        function getBillingDue(comp) {
-            var aacdue = $('#aac-bildue-date').text();
-            var tacdue = $('#tac-bildue-date').text();
-            var ompdue = $('#omp-bildue-date').text();
-            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
-            if (dates.length > 0) {
-                var minDate = new Date(Math.min.apply(null, dates));
-                var maxDate = new Date(Math.max.apply(null, dates));
-                $.ajax({
-                    url: '@Url.Action("GetBilling", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: cuscod,//cuscod
-                        Company: comp,
-                        DueDatMin: minDate.toISOString().split('T')[0],
-                        DueDatMax: maxDate.toISOString().split('T')[0]
-                    },
-                    type: 'POST',
-                    dataType: 'JSON',
-                    beforeSend: function () {
-                        var aac = $('#bill-aac-detail tbody');
-                        var tac = $('#bill-tac-detail tbody');
-                        var omp = $('#bill-omp-detail tbody');
-                        if (comp === 'AAC') {
-                            aac.html("");
-                        }
-                        if (comp === 'TAC') {
-                            tac.html("");
-                        }
-                        if (comp === 'OMP') {
-                            omp.html("");
-                        }
-                        var SubmithtmlPage = '';
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="2">Loading....</td>';
-                        SubmithtmlPage += '</tr>';
-                        if (comp === 'AAC') {
-                            aac.append(SubmithtmlPage);
-                        }
-                        if (comp === 'TAC') {
-                            tac.append(SubmithtmlPage);
-                        }
-                        if (comp === 'OMP') {
-                            omp.append(SubmithtmlPage);
-                        }
-                    },
-                    success: function (data) {
-                        if (data.message === 'Y') {
-                            var aac = $('#bill-aac-detail tbody');
-                            var tac = $('#bill-tac-detail tbody');
-                            var omp = $('#bill-omp-detail tbody');
-                            if (comp === 'AAC') {
-                                aac.html("");
-                            }
-                            if (comp === 'TAC') {
-                                tac.html("");
-                            }
-                            if (comp === 'OMP') {
-                                omp.html("");
-                            }
-                            var SubmithtmlPage = '';
-                            if (data.Getdata.length != 0) {
-                                for (var i = 0; i < data.Getdata.length; i++) {
-                                        SubmithtmlPage += '<tr>';
-                                        //SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                        SubmithtmlPage += '<td>' + data.Getdata[i].Invnum + '</td>';
-                                        SubmithtmlPage += '<td>' + data.Getdata[i].BillDue + '</td>';
-                                        SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amt) + '</td>';
-                                        SubmithtmlPage += '</tr>';
-                                }
-                                if (comp === 'AAC') {
-                                    aac.append(SubmithtmlPage);
-                                }
-                                if (comp === 'TAC') {
-                                    tac.append(SubmithtmlPage);
-                                }
-                                if (comp === 'OMP') {
-                                    omp.append(SubmithtmlPage);
-                                }
-                            }
-                            else {
-                                var aac = $('#bill-aac-detail tbody');
-                                var tac = $('#bill-tac-detail tbody');
-                                var omp = $('#bill-omp-detail tbody');
 
-                                if (comp === 'AAC') {
-                                    aac.html("");
-                                }
-                                if (comp === 'TAC') {
-                                    tac.html("");
-                                }
-                                if (comp === 'OMP') {
-                                    omp.html("");
-                                }
-                                var SubmithtmlPage = '';
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="3">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                //$('#bildue-table tbody').append(SubmithtmlPage);
-                                if (comp === 'AAC') {
-                                    aac.append(SubmithtmlPage);
-                                }
-                                if (comp === 'TAC') {
-                                    tac.append(SubmithtmlPage);
-                                }
-                                if (comp === 'OMP') {
-                                    omp.append(SubmithtmlPage);
-                                }
-                            }
-                        }
-                        else {
-                            console.log(data.message);
-                        }
-                    }
-
-                });
-            }
-            else {
-                console.log('Error!!!');
-            }
-        }
-
-        function getAllBillAmout() {
-            var aacdue = $('#aac-bildue-date').text();
-            var tacdue = $('#tac-bildue-date').text();
-            var ompdue = $('#omp-bildue-date').text();
-
-            var dates = [parseDate(aacdue), parseDate(tacdue), parseDate(ompdue)].filter(date => date !== null);
-            if (dates.length > 0) {
-                var minDate = new Date(Math.min.apply(null, dates));
-                var maxDate = new Date(Math.max.apply(null, dates));
-                $.ajax({
-                    url: '@Url.Action("GetBilling", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: cuscod,//cuscod
-                        Company: 'ALL',
-                        DueDatMin: minDate.toISOString().split('T')[0],
-                        DueDatMax: maxDate.toISOString().split('T')[0]
-                    },
-                    type: 'POST',
-                    dataType: 'JSON',
-                    success: function (data) {
-                        var bill_aac = 0;
-                        var bill_tac = 0;
-                        var bill_omp = 0;
-                        if (data.Getdata.length != 0) {
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                if (data.Getdata[i].Company == 'AAC') {
-                                    bill_aac++;
-                                }
-                                if (data.Getdata[i].Company == 'TAC') {
-                                    bill_tac++;
-                                }
-                                if (data.Getdata[i].Company == 'OMP') {
-                                    bill_omp ++;
-                                }
-                            }
-                            console.log(bill_omp);
-                            //$('#aac-amt').text(commaSeparateNumber(bill_aac));
-                            //$('#tac-amt').text(commaSeparateNumber(bill_tac));
-                            //$('#omp-amt').text(commaSeparateNumber(bill_omp));
-                        }
-                    }
-
-                 });
-            }
-        }
 
         function myFunction() {
             var x = document.getElementById("blcslm");
@@ -1739,6 +1381,10 @@
         //ปุ่มโปรโมชัน
         $(document).on("click", "#navbarpromotion", function () {
             window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
         });
         //ปุ่มเปลี่ยนรหัสผ่าน
         $(document).on("click", "#navbarchangepassword", function () {
