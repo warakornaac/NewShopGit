@@ -525,13 +525,35 @@
                 border-color: white;
             }
 
-        .icon-creit {
+        .icon-credit {
             color: red;
             font-size: 35px;
             -webkit-text-stroke: 1px black;
         }
 
+        .btn-circle {
+            height: 17px;
+            width: 17px;
+            background-color: white;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            font-size: 10px; /* Adjust font size to fit within the button */
+            line-height: 1;
+            border-radius: 50%; /* Make the button circular */
+            border: 2px solid #4CAF50;
+            color: #4CAF50; /* Set text color to match the border */
+        }
 
+        .btn-inside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #4CAF50;
+        }
 
         .acc-bill {
             background-color: rgba(60, 179, 113, .4);
@@ -644,36 +666,41 @@
                                                                             <div class="col-12 p-0 m-0 text-center"><span>ยอดชำระ<br />(กำหนดชำระ)</span></div>
                                                                         </div>
                                                                     </th>
-                                                                    <td class="text-right pl-0 pr-0 acc-bill" onclick="toggleRowBill('aac');">
+                                                                    <td class="text-right pl-0 pr-0 " onclick="toggleRowBill('aac');">
                                                                         <div class="col-12 p-0 m-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
                                                                                 <span id="aac-baldue">0</span><br />
                                                                                 <span id="aac-bildue-date"></span>
                                                                             </div>
                                                                             <div class="col-1 p-0 m-0">
-                                                                                <span class="icon-creit" id="show-billing-aac-icon">+</span>
+                                                                                @*<span class="icon-credit" id="show-billing-aac-icon">+</span>*@
+                                                                                <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-aac-icon">+</p></button>
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-right pl-0 pr-0 tac-bill" onclick="toggleRowBill('tac');">
+                                                                    <td class="text-right pl-0 pr-0 " onclick="toggleRowBill('tac');">
                                                                         <div class="col-12 p-0 m-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
                                                                                 <span id="tac-baldue">0</span><br />
                                                                                 <span id="tac-bildue-date"></span>
                                                                             </div>
                                                                             <div class="col-1 p-0 m-0">
-                                                                                <span class="icon-creit" id="show-billing-tac-icon">+</span>
+                                                                                @*<span class="icon-credit" id="show-billing-tac-icon">+</span>*@
+                                                                                <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-tac-icon">+</p></button>
+
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-right pl-0 pr-0 omp-bill" onclick="toggleRowBill('omp');">
+                                                                    <td class="text-right pl-0 pr-0" onclick="toggleRowBill('omp');">
                                                                         <div class="col-12 p-0 m-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
-                                                                                <span id="omp-baldue">0</span><br />
+                                                                                <span id="omp-baldue"></span><br />
                                                                                 <span id="omp-bildue-date"></span>
                                                                             </div>
                                                                             <div class="col-1 p-0 m-0">
-                                                                                <span class="icon-creit" id="show-billing-omp-icon">+</span>
+                                                                                <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-omp-icon">+</p></button>
+
+                                                                                @*<span class="icon-credit" id="show-billing-omp-icon">+</span>*@
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -781,7 +808,7 @@
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท AAC</h6>
                                                                             <table class="table table-sm table-borderless table-striped" id="bill-aac-detail">
                                                                                 <thead>
-                                                                                    <tr class="table-success">
+                                                                                    <tr>
                                                                                         <th class="pl-0 pr-0"></th>
                                                                                         <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
                                                                                         <th class="pl-0 pr-0"><span>วันที่</span></th>
@@ -800,7 +827,7 @@
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท TAC</h6>
                                                                             <table class="table table-borderless table-striped" id="bill-tac-detail">
                                                                                 <thead>
-                                                                                    <tr class="table-warning">
+                                                                                    <tr>
                                                                                         <th class="pl-0 pr-0"></th>
                                                                                         <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
                                                                                         <th class="pl-0 pr-0"><span>วันที่</span></th>
@@ -819,7 +846,7 @@
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท OMP</h6>
                                                                             <table class="table table-borderless table-striped" id="bill-omp-detail">
                                                                                 <thead>
-                                                                                    <tr class="table-danger">
+                                                                                    <tr>
                                                                                         <th class="pl-0 pr-0"></th>
                                                                                         <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
                                                                                         <th class="pl-0 pr-0"><span>วันที่</span></th>
@@ -1188,11 +1215,30 @@
                         $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
                         $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
 
-                        $('#aac-bildue-date').text(aacbildue);
-                        $('#tac-bildue-date').text(tacbildue);
-                        $('#omp-bildue-date').text(ompbildue);
+                        if (aacbildue != "") {
+                            $('#aac-bildue-date').text(aacbildue);
+                        }
+                        else {
+                            $('#aac-bildue-date').text("--/--/--");
 
+                        }
 
+                        if (tacbildue != "") {
+                            $('#tac-bildue-date').text(tacbildue);
+                        }
+                        else {
+                            $('#tac-bildue-date').text("--/--/--");
+                        }
+
+                        if (ompbildue != "") {
+                            $('#omp-bildue-date').text(ompbildue);
+
+                        }
+                        else {
+                            $('#omp-bildue-date').text("--/--/--");
+                        }
+
+                        console.log("OMP Date is" + ompbildue);
 
                     }
                     else {
@@ -1278,7 +1324,7 @@
                                         //SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
                                     SubmithtmlPage += '<td class="pl-0 pr-0"><span><i class="fa fa-search" aria-hidden="true"></i></span></td>';
                                     SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].Invnum + '</span></td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].BillDat + '</span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].DocDat + '</span></td>';
                                     SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].BillDue + '</span></td>';
                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-right"><span>' + commaSeparateNumber(data.Getdata[i].Amt) + '</span></td>';
                                         SubmithtmlPage += '</tr>';
@@ -1309,7 +1355,7 @@
                                 }
                                 var SubmithtmlPage = '';
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="4">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
                                 SubmithtmlPage += '</tr>';
                                 //$('#bildue-table tbody').append(SubmithtmlPage);
                                 if (comp === 'AAC') {

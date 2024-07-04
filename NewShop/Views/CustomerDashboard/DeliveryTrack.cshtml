@@ -650,7 +650,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="col-12">
-                                    <h5 class="modal-title float-left" id="DetailModalLongTitle">หมายเลขคำสั่งซื้อ : <span id="orderno"></span></h5>
+                                    <h5 class="modal-title float-left" id="DetailModalLongTitle"><span>หมายเลขคำสั่งซื้อ :</span> <span id="orderno"></span></h5>
                                     <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');">&times;</button>
                                 </div>
 
@@ -685,7 +685,8 @@
                                                 <tr>
                                                     <th>เบอร์สินค้า</th>
                                                     <th>ชื่อสินค้า</th>
-                                                    <th>จำนวนสั่งซื้อ</th>
+                                                    <th>จำนวน</th>
+                                                    <th>สินค้าค้างส่ง</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -1267,19 +1268,36 @@
                 },
                 type: "POST",
                 dataType: "JSON",
+                beforeSend: function () {
+                    var SubmithtmlPage = '';
+                    $('#tblOrderDetail tbody:last-child').html("");
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td class="text-center" colspan="4"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
+                },
                 success: function (data) {
                     $('#tblOrderDetail tbody:last-child').html("");
+                    var SubmithtmlPage = '';
+                    var dateOrder = '';
                     if (data.message == "Y") {
                         if (data.Getdata.length != 0) {
-                            var SubmithtmlPage = '';
-                            var dateOrder = '';
+
                             $('#orderno').text(ORD_DocNo);
                             for (var i = 0; i < data.Getdata.length; i++) {
-                                dateOrder = data.Getdata[i].VORDDAT;
+                                dateOrder = data.Getdata[i].ORD_Date;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td align="left"><span>' + data.Getdata[i].VSTKCOD + '</span></td>';
-                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;"><span>' + data.Getdata[i].VSTKDES + '</span></td>';
-                                SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].AmtQty) + '</span></td>';
+                                SubmithtmlPage += '<td align="left"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;"><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_Qty) + '</span></td>';
+                                if (data.Getdata[i].BCK_Qty != "0") {
+                                    SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
+
+                                }
+                                else {
+                                    SubmithtmlPage += '<td align="center"><span>-</span></td>';
+
+                                }
                                 SubmithtmlPage += '</tr>';
                             }
                             $('#orddate').text(dateOrder.replace(/\//g,"-"));

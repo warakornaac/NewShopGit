@@ -370,7 +370,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
-                max-width: 135px;
+                max-width: 100px;
             }
         }
 
@@ -379,7 +379,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
-                max-width: 185px;
+                max-width: 130px;
             }
         }
 
@@ -524,6 +524,78 @@
             hr#line-tab-credit {
                 border-color: white;
             }
+
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+                font-family: Kanit,sans-serif;
+            }
+        }
+
+        @@media only screen and (min-width: 432px) {
+            span {
+                font-family: Kanit,sans-serif;
+            }
+        }
+
+        .icon-amt {
+            color: red;
+            font-size: 20px;
+            -webkit-text-stroke: 1px black;
+        }
+
+        .custom-button {
+            display: inline-flex; /* Change from inline-block to inline-flex */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: white; /* Green */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+            border: 1px solid #4CAF50;
+            transition: background-color 0.3s, transform 0.3s;
+            vertical-align: middle;
+            height: 17px;
+            width: 17px;
+            color: black;
+        }
+
+        .btn-circle {
+            height: 17px;
+            width: 17px;
+            background-color: white;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            font-size: 10px; /* Adjust font size to fit within the button */
+            line-height: 1;
+            border-radius: 50%; /* Make the button circular */
+            border: 1px solid #4CAF50;
+            color: #4CAF50; /* Set text color to match the border */
+        }
+
+        .btn-inside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4CAF50;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* @@media only screen and (min-width: 432px) {
+            .text-truncate {
+                display: flex;
+                align-items: center;
+                max-width: 120px;
+            }
+        }*/
     </style>
 </head>
 
@@ -598,36 +670,36 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <h4>ยอดซื้อที่บริษัท</h4>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="table-responsive m-0 p-0">
-                                                                        <table class="table table-bordered bg-white">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th></th>
-                                                                                    <th class="text-center">AAC</th>
-                                                                                    <th class="text-center">TAC</th>
-                                                                                    <th class="text-center">OMP</th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <h5> ยอดซื้อ</h5>
-                                                                                    </td>
-                                                                                    <td><span id="aac-amt"></span></td>
-                                                                                    <td><span id="tac-amt"></span></td>
-                                                                                    <td><span id="omp-amt"></span></td>
-                                                                                </tr>
+                                                        @*<div class="col-12" hidden>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h4>ยอดซื้อที่บริษัท</h4>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive m-0 p-0">
+                                                                            <table class="table table-bordered bg-white">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th class="text-center"><span>AAC</span></th>
+                                                                                        <th class="text-center"><span>TAC</span></th>
+                                                                                        <th class="text-center"><span>OMP</span></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <h5> ยอดซื้อ</h5>
+                                                                                        </td>
+                                                                                        <td><span id="aac-amt"></span></td>
+                                                                                        <td><span id="tac-amt"></span></td>
+                                                                                        <td><span id="omp-amt"></span></td>
+                                                                                    </tr>
 
-                                                                            </thead>
-                                                                        </table>
+                                                                                </thead>
+                                                                            </table>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            </div>*@
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-0  ">
@@ -635,13 +707,16 @@
                                                         <table class="table table-sm table-light m-0 " id="amt-table" style="width:100%">
                                                             <thead class="thead-default">
                                                                 <tr>
-                                                                    <th></th>
-                                                                    <th>ชื่อร้านค้า</th>
-                                                                    <th class="text-right">จำนวนเงิน</th>
+                                                                    @*<th class="pl-0 pr-0"></th>*@
+                                                                    <th class="pl-0 pr-0"><span>ชื่อร้านค้า</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>AAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>TAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>OMP</span></th>
+                                                                    @*<th class="text-right">จำนวนเงิน</th>*@
                                                                 </tr>
                                                             </thead>
                                                             <tbody></tbody>
-                                                            <tfoot class="bg-warning ">
+                                                            <tfoot class="bg-warning " hidden>
                                                                 <tr>
                                                                     <td></td>
                                                                     <td><strong id="total-text"></strong> <strong class="float-right" id="loading-text-table"></strong> </td>
@@ -696,9 +771,12 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header ">
-                                <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
-                                @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
-                                <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>
+                                <div class="col-12">
+                                    <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                    @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
+                                    <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');">&times;</button>
+
+                                </div>
                             </div>
                             <div class="modal-body d-flex justify-content-center row">
                                 <div class="col-12">
@@ -706,7 +784,7 @@
                                         <div class="card-body row">
                                             <div class="col p-0">
                                                 <strong>ผู้ซื้อ : </strong>
-                                                <span id="namecus-item"></span>
+                                                <p class="m-0" id="namecus-item" style="font-family: Kanit,sans-serif;"></p>
                                             </div>
                                         </div>
                                     </article>
@@ -807,6 +885,7 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        //var cuscod = '111B0005';
         //console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
@@ -1013,50 +1092,99 @@
                                 var aac_count = 0;
                                 var tac_count = 0;
                                 var omp_count = 0;
-                                var amt_aac = 0;
+
                                 var amt_tac = 0;
                                 var amt_omp = 0;
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     $('#sec-table-' + i + ' tbody').html("");
-                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
-                                    SubmithtmlPage += '<td><h4><span id="row-show-'+ i +'">+</span></h4></td>';
-                                    SubmithtmlPage += '<td class="ellipsis"><p class="text-truncate m-0 p-0">' + data.Getdata[i].CUSNAM + '</p></td>'; //class="ellipsis"
-                                    SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<tr>';
+                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
+                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        var amt_aac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span>  <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        var amt_tac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        var amt_omp = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button>/p></td>'; //class="ellipsis"
+                                    }
+                                   // SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                     SubmithtmlPage += '</tr>';
 
                                     ////TR
-                                    SubmithtmlPage += '<tr>';///
-                                    SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
-                                    SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
-                                    SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
-                                    SubmithtmlPage += '<thead class="thead-default">';
-                                    SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<th>บริษัท</th> ';
-                                    SubmithtmlPage += '</tr>';
-                                    SubmithtmlPage += '</thead>';
-                                    SubmithtmlPage += '<tbody>';
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
+                                    //SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
+                                    //SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
+                                    //SubmithtmlPage += '<thead class="thead-default">';
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<th>บริษัท</th> ';
+                                    //SubmithtmlPage += '</tr>';
+                                    //SubmithtmlPage += '</thead>';
+                                    //SubmithtmlPage += '<tbody>';
 
-                                    ///AAC
-                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
-                                    SubmithtmlPage += '   <th class="block_container border-0">';
-                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
-                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
-                                    SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
-                                    SubmithtmlPage += '        </div>';
-                                    SubmithtmlPage += '     </th>';
-                                    //SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
-                                    SubmithtmlPage += '</tr>';
+                                    /////AAC
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
+                                    //SubmithtmlPage += '   <th class="block_container border-0">';
+                                    //SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    //SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
+                                    //SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '     </th>';
+                                    //SubmithtmlPage += '</tr>';
+
+                                    ///// tr aac
+
                                     SubmithtmlPage += '        <tr>';///tr tr
-                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท AAC</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
-                                    SubmithtmlPage += '                            <th></th>';
-                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
-                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1066,13 +1194,12 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'AAC') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                                   // SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
-                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
-                                                    SubmithtmlPage += '</tr>'
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
                                                     amt_aac += Number(result.Getdata[j].Amount);
                                                     aac_count++;
                                                 }
@@ -1094,6 +1221,10 @@
                                         SubmithtmlPage += '                    </tbody>';
                                         SubmithtmlPage += '        </tr>';
                                     }
+
+                                    //tr aac
+
+
                                     SubmithtmlPage += '                     </tbody>';
                                     SubmithtmlPage += '                </table>';
                                     SubmithtmlPage += '            </div>';
@@ -1102,26 +1233,28 @@
                                     //AAC
 
                                     //TAC
-                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
-                                    SubmithtmlPage += '   <th class="block_container border-0">';
-                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
-                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
-                                    SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
-                                    SubmithtmlPage += '        </div>';
-                                    SubmithtmlPage += '     </th>';
-                                   // SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
-                                    SubmithtmlPage += '</tr>';
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr tac
                                     SubmithtmlPage += '        <tr>';
-                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท TAC</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
-                                    SubmithtmlPage += '                            <th></th>';
-                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
-                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1131,13 +1264,12 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'TAC') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                                    //SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
-                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
-                                                    SubmithtmlPage += '</tr>'
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
                                                     amt_tac += Number(result.Getdata[j].Amount);
                                                     tac_count++;
                                                 }
@@ -1148,6 +1280,7 @@
                                             SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
                                             SubmithtmlPage += '</tr>';
                                         }
+
                                     }
                                     else {
                                         tac_count = 0;
@@ -1155,6 +1288,9 @@
                                         SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
                                         SubmithtmlPage += '</tr>';
                                     }
+
+                                    //tr tac
+
                                     SubmithtmlPage += '                     </tbody>';
                                     SubmithtmlPage += '                </table>';
                                     SubmithtmlPage += '            </div>';
@@ -1163,26 +1299,29 @@
                                     //TAC
 
                                     //OMP
-                                    SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
-                                    SubmithtmlPage += '   <th class="block_container border-0">';
-                                    SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
-                                    SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
-                                    SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
-                                    SubmithtmlPage += '        </div>';
-                                    SubmithtmlPage += '     </th>';
-                                   // SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
-                                    SubmithtmlPage += '</tr>';
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr omp
+
                                     SubmithtmlPage += '        <tr>';
-                                    SubmithtmlPage += '        <td colspan="2" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท OMP</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
-                                    SubmithtmlPage += '                            <th></th>';
-                                    SubmithtmlPage += '                           <th>วันที่สั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>หมายเลขการสั่งซื้อ</th>';
-                                    SubmithtmlPage += '                           <th>จำนวนเงิน</th>';
-                                    SubmithtmlPage += '                           <th>สถานะ</th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1192,13 +1331,12 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'OMP') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td> <i class="fa fa-bars" aria-hidden="true"></i> </td>';
-                                                    //SubmithtmlPage += '<td>' + result.Getdata[j].Company + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].PSTDAT + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].DOCNUM + '</td>';
-                                                    SubmithtmlPage += '<td>' + commaSeparateNumber(result.Getdata[j].Amount) + '</td>';
-                                                    SubmithtmlPage += '<td>' + result.Getdata[j].Status + '</td>';
-                                                    SubmithtmlPage += '</tr>'
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
                                                     amt_omp += Number(result.Getdata[j].Amount);
                                                     omp_count++;
                                                 }
@@ -1215,17 +1353,21 @@
                                         SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
                                         SubmithtmlPage += '</tr>';
                                     }
+
+                                    //tr omp
                                     SubmithtmlPage += '                     </tbody>';
                                     SubmithtmlPage += '                </table>';
                                     SubmithtmlPage += '            </div>';
                                     SubmithtmlPage += '        </td>';
                                     SubmithtmlPage += '        </tr >';
                                     //OMP
-                                    SubmithtmlPage += '</tbody>';
-                                    SubmithtmlPage += '</table>';
-                                    SubmithtmlPage += '        </div>';
-                                    SubmithtmlPage += '        </td>';
-                                    SubmithtmlPage += '        </tr>';
+
+
+                                    //SubmithtmlPage += '</tbody>';
+                                    //SubmithtmlPage += '</table>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '        </td>';
+                                    //SubmithtmlPage += '        </tr>';
                                     ////TR
                                     var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
                                     if (!isNaN(amount)) {
@@ -1233,7 +1375,7 @@
                                     }
                                 }
                                 $('#total-text').text("Total");
-                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)))
+                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)));
                                 $("#loading-text-table").text("");
                                 $("#amt-table tbody").append(SubmithtmlPage);
                                 $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
@@ -1245,7 +1387,7 @@
                     else {
                         var SubmithtmlPage = "";
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="4" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#amt-table tbody").append(SubmithtmlPage);
                     }

@@ -1026,6 +1026,24 @@ namespace NewShop.Models
         public string ORD_TotalQty { get; set; }
         public string ORD_TotalAmt { get; set; }
     }
+    public class DeliveryTrackNotify_Detail
+    {
+        public string RowNo { get; set; }
+        public string ORD_DocNo { get; set; }
+        public string DType { get; set; }
+        public string Item_Type { get; set; }
+        public string ORD_STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string ORD_STKGRP { get; set; }
+        public string ORD_Price { get; set; }
+        public string ORD_SalePrice { get; set; }
+        public string ORD_Date { get; set; }
+        public string ORD_Discount { get; set; }
+        public string ORD_Qty { get; set; }
+        public string ORD_Amt { get; set; }
+        public string BCK_Qty { get; set; }
+        public string BackOrder { get; set; }
+    }
     public class CusAmtMonth
     {
         public string Peiord { get; set; }

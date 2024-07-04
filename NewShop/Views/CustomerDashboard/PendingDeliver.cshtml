@@ -605,11 +605,11 @@
                                         </div>
                                         <div class="w3-bar pt-3 tab-buttons bg-info overflow-auto">
                                             <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-typeS">
-                                                Order นัดส่ง <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-aac"></span>
+                                                Order นัดส่ง <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-typeS"></span>
                                                 <hr class="m-0" id="line-tab-aac" />
                                             </button>
                                             <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-backorder">
-                                                BackOrder <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-tac"></span>
+                                                BackOrder <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-backorder"></span>
                                                 <hr class="m-0" id="line-tab-tac" />
                                             </button>
                                         </div>
@@ -745,6 +745,7 @@
         //console.log(cuscod);
         if (cuscod != "") {
             getbackordTypeS();
+            getNotiOrder();
             $("#cushid").val(cuscod)
             $('#cussend').val(cuscod);
         }
@@ -845,6 +846,44 @@
                     }
                 }
             });
+        }
+
+        function getNotiOrder() {
+            $.ajax({
+                url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var count = 0;
+                    if (data.message == "Y") {
+                        if (data.backorder.length > 0) {
+                            count = data.backorder.length;
+                            $('#status-typeS').text(commaSeparateNumber(count));
+                        }
+
+                    }
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var count = 0;
+                    if (data.message == "Y") {
+                        if (data.backorder.length > 0) {
+                            count = data.backorder.length;
+                            $('#status-backorder').text(commaSeparateNumber(count));
+                        }
+                    }
+                }
+            })
         }
 
         function getbackordTypeS() {

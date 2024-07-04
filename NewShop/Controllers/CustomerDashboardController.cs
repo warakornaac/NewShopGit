@@ -358,7 +358,7 @@ namespace NewShop.Controllers
         public JsonResult GetDeliveryDetail(string ORD_DocNo)
         {
             string message = "";
-            List<SaleOrderDetail> Getdata = new List<SaleOrderDetail>();
+            List<DeliveryTrackNotify_Detail> Getdata = new List<DeliveryTrackNotify_Detail>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -370,19 +370,21 @@ namespace NewShop.Controllers
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Getdata.Add(new SaleOrderDetail()
+                    Getdata.Add(new DeliveryTrackNotify_Detail()
                     {
                         RowNo = reader["RowNo"].ToString(),
-                        VSTKCOD = reader["ORD_STKCOD"].ToString(),
-                        VSTKDES = reader["STKDES"].ToString(),
-                        VSTKGRP = reader["ORD_STKGRP"].ToString(),
-                        VPrice = reader["ORD_Price"].ToString(),
-                        VSalePrice = reader["ORD_SalePrice"].ToString(),
-                        VORDDAT = reader["ORD_Date"].ToString(),
+                        ORD_STKCOD = reader["ORD_STKCOD"].ToString(),
+                        STKDES = reader["STKDES"].ToString(),
+                        ORD_STKGRP = reader["ORD_STKGRP"].ToString(),
+                        ORD_Price = reader["ORD_Price"].ToString(),
+                        ORD_SalePrice = reader["ORD_SalePrice"].ToString(),
+                        ORD_Date = reader["ORD_Date"].ToString(),
                         Item_Type = reader["Item_Type"].ToString(),
-                        VDiscount = reader["ORD_Discount"].ToString(),
-                        AmtQty = reader["ORD_Qty"].ToString(),
-                        TotalAmt = reader["ORD_Amt"].ToString()
+                        ORD_Discount = reader["ORD_Discount"].ToString(),
+                        ORD_Qty = reader["ORD_Qty"].ToString(),
+                        ORD_Amt = reader["ORD_Amt"].ToString(),
+                        BCK_Qty = reader["BCK_Qty"].ToString(),
+                        BackOrder = reader["BackOrder"].ToString()
                     });
                 }
                 reader.Close();
