@@ -564,8 +564,8 @@
                                             ยอดซื้อ
                                             <hr class="m-0" />
                                         </button>
-                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount-pre">
-                                            ประวัตอซื้อ
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-order-history">
+                                            ประวัติซื้อ
                                             <hr class="m-0" />
                                         </button>
                                     </div>
@@ -577,6 +577,7 @@
                                     </div>
                                     <div id="appadj"></div>
                                 </div>
+                                @*ยอดซื้อ*@
                                 <div class="col-12 amount-div m-0 p-0" style="font-family: Kanit,sans-serif;">
                                     <div class="row">
                                         <div class="col-12">
@@ -649,6 +650,37 @@
                                                             </tfoot>
                                                         </table>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*ประวัติ*@
+                                <div class="col-12 order-history-div m-0 p-0" style="font-family: Kanit,sans-serif;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-body p-0">
+                                                    <div id="id-select-brand" class="row p-2 div-select-brand">
+                                                        <div class="col-12">
+                                                            <div class="col-sm-6 col-6 text-left">
+                                                            </div>
+                                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                                    <span>แบรนด์ : </span>
+                                                                </div>
+                                                                <div class="col-md-6 m-0 p-0">
+                                                                    @*<select class="form-select form-control" id="select-brand"></select>*@
+                                                                    <select class="form-control" id="select-brand" name="select-brand" style="width: 100%;">
+                                                                        <option value="" selected>ALL</option>
+                                                                        <option value="TRW">TRW</option>
+                                                                        <option value="STP">STP</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="show-order-history"> </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -842,17 +874,44 @@
             //$('.amount-div').show("slow");
             //$('.credit-div').hide("slow");
             $('.amount-div').slideDown("slow");
-            $('.credit-div').slideUp("slow");
+            $('#show-order-history').slideUp("slow");
             $(this).css("background", "#DEAF5B");
-            $('#btn-show-amount-pre').removeAttr('style');
+            $('#btn-show-order-history').removeAttr('style');
         });
-        $('#btn-show-amount-pre').click(function () {
-            //$('.amount-div').show("slow");
-            //$('.credit-div').hide("slow");
+        $('#btn-show-order-history').click(function () {
+            $('#show-order-history').slideDown("slow");
             $('.amount-div').slideUp("slow");
-            $('.credit-div').slideDown("slow");
             $(this).css("background", "#DEAF5B");
             $('#btn-show-amount').removeAttr('style');
+            //get fn push data
+            getDataOrderHistoryByBrand(cuscod, '', 'show-order-history');
+        });
+        //call stored get data
+        function getDataOrderHistoryByBrand(cuscode, brand, divHtml) {
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("OrderHistoryByBrand", "CustomerDashboard")',
+                data: {
+                    cuscod: cuscode,//cuscod,
+                    brand: brand
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#table-history tbody').empty();
+                    $('#table-history tbody').html('<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>')
+                },
+                success: function (res) {
+                    $('#' + divHtml).empty();
+                    $('#' + divHtml).html(res);
+                }
+            });
+        }
+        //select brand
+        $('#select-brand').on('change', function () {
+            var valBrand = $(this).val();
+            getDataOrderHistoryByBrand(cuscod, valBrand, 'show-order-history');
         });
 
         function getSelectMonth() {

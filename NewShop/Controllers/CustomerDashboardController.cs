@@ -747,5 +747,52 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult OrderHistoryByBrand(string cuscod, string brand)
+        {
+            string message = string.Empty;
+
+            List<OrderHistoryByBrand> Getdata = new List<OrderHistoryByBrand>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("p_Search_XCusItm", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCuscod", cuscod);
+                command.Parameters.AddWithValue("@InBrand", brand);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new OrderHistoryByBrand()
+                    {
+                        Company = reader["Company"].ToString(),
+                        Stkcod = reader["STKCOD"].ToString(),
+                        Stkdes = reader["STKDES"].ToString(),
+                        Year = reader["Year"].ToString(),
+                        Qty = reader["Qty"].ToString(),
+                        Amt = reader["Amt"].ToString(),
+                        Avg_Prc = reader["Avg_Prc"].ToString(),
+                        Brand = reader["Brand"].ToString(),
+                        Prclist = reader["Prclist"].ToString()
+                    });
+                }
+                @ViewBag.Getdata = Getdata;
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return PartialView("_OrderHistoryByBrand", new
+            {
+                @ViewBag.Getdata,
+               // @ViewBag.Docno
+            });
+        }
     }
 }

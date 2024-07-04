@@ -1116,4 +1116,17 @@ namespace NewShop.Models
         public string CMPCHK { get; set; }
         public string CMPLDAT { get; set; }
     }
+    public class OrderHistoryByBrand
+    {
+        public string Company { get; set; }
+        public string Stkcod { get; set; }
+        public string Stkdes { get; set; }
+        public string Year { get; set; }
+        public string Qty { get; set; }
+        public string Amt { get; set; }
+        public string Avg_Prc { get; set; }
+        public string Brand { get; set; }
+        public string Prclist { get; set; }
+    }
+
 }

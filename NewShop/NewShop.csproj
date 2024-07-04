@@ -7856,6 +7856,7 @@
     <Content Include="Views\Account\ChangePasswordPortal.cshtml" />
     <Content Include="Views\CustomerDashboard\Credit.cshtml" />
     <Content Include="Views\CustomerDashboard\_DeliveryDetailByDocno.cshtml" />
+    <Content Include="Views\CustomerDashboard\_OrderHistoryByBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
