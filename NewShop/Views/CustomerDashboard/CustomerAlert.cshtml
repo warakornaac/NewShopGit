@@ -1,50 +1,1483 @@
-﻿@{
-    ViewBag.Title = "CustomerAlert";
+﻿@using System.Globalization;
+<!DOCTYPE html>
+@{
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 }
-<header>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</header>
-<body>
-    <div class="d-flex align-items-center" style="width:100%; height:100%;">
-        <div class="container">
-            <div class="container d-flex justify-content-center ">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="container">
-                            <div class="text-center">
-                                <h3>เข้าสู่ระบบครั้งแรกสำเร็จ</h3>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยอดซื้อ</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+
+
+    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Import jQuery 2.1.1 -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <style>
+        html body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .font-me {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .selected {
+            background: #910000;
+            color: #FFFFFF;
+        }
+
+        .removeselected {
+            color: #fff !important;
+            background-color: #000 !important;
+        }
+
+        .puick-contact-area {
+            background: #f6f6f6 none repeat scroll 0 0;
+            padding: 40px 0;
+            text-align: center;
+            width: 370px;
+        }
+
+        .contact-btn .fv-btn:hover {
+            border: 1px solid #ff4136;
+            color: #fff;
+            background: #ff4136;
+        }
+
+        .contact-btn .fv-btn {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid #d5d5d5;
+            color: #4b4b4b;
+            font-size: 14px;
+            height: 45px;
+            letter-spacing: 2px;
+            line-height: 45px;
+            padding: 0 70px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+        }
+
+        .section-title-2 {
+            color: #555555;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 14px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .ppp {
+            font-family: 'Poppins', sans-serif;
+            color: #303030;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
+            margin-bottom: 8px;
+        }
+
+        .statusamt {
+            display: none;
+        }
+
+        .statusamtchild {
+            display: none;
+        }
+
+        .statuspromotion {
+            display: none;
+        }
+
+        .statuscliamoffon {
+            display: none;
+        }
+
+        .statusbackord {
+            display: none;
+        }
+
+        .statusTop20 {
+            display: none;
+        }
+    </style>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            /*width: 60px;
+            height: 34px;*/
+            width: 54px;
+            height: 25px;
+            float: right;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 32px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                /*height: 26px;
+                width: 26px;*/
+                width: 20px;
+                height: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 30px;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style>
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 0;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        }
+
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card-img-top {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+        }
+
+        .card-text {
+            clear: both;
+            margin-top: .5em;
+            display: flexbox;
+            color: rgba(0, 0, 0, .68);
+        }
+
+        .card-footer {
+            font-size: 1em;
+            position: static;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            padding: .75em 1em;
+            color: rgba(0, 0, 0, .4);
+            border-top: 1px solid rgba(0, 0, 0, .05) !important;
+            background: #fff;
+        }
+
+        .card-inverse .btn {
+            border: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .profile {
+            position: absolute;
+            top: -12px;
+            display: inline-block;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .profile-avatar {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-inline {
+            position: relative;
+            top: 0;
+            display: inline-block;
+        }
+
+            .profile-inline ~ .card-title {
+                display: inline-block;
+                margin-left: 4px;
+                vertical-align: top;
+            }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+            .meta a {
+                text-decoration: none;
+                color: rgba(0, 0, 0, .4);
+            }
+
+                .meta a:hover {
+                    color: rgba(0, 0, 0, .87);
+                }
+        /* Dropdown Button */
+        .dropbtn {
+            /* background-color: #04AA6D; */
+            color: #075896;
+            padding: 7px;
+            font-size: 16px;
+            border: none;
+        }
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #b1bfce;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            z-index: 999;
+            position: relative;
+        }
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .select-year {
+            width: 105px;
+            text-align: center;
+            font-family: Kanit,sans-serif;
+        }
+
+        .form-select option {
+            text-align: center;
+        }
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #bee0ed;
+        }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightsteelblue;
+        }
+
+        .td-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 0;
+        }
+
+        @@media only screen and (min-width: 319px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 135px;
+            }
+        }
+
+        @@media only screen and (min-width: 374px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 185px;
+            }
+        }
+
+        @@media only screen and (min-width: 389px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 200px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+    </style>
+    <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            background-color: rgba(0,0,0,0); /* สีพื้นหลังของ loader */
+            padding: 20px;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .block_container {
+            display: flex;
+            align-items: center;
+        }
+
+            .block_container div {
+                margin-right: 10px; /* ระยะห่างระหว่างไอคอนและข้อความ */
+            }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+    </style>
+    <style>
+
+        .tab-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+        }
+
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
+        }
+
+            .tab-content.active {
+                display: block;
+            }
+
+        hr {
+            border-color: white;
+        }
+
+            hr#line-tab-credit {
+                border-color: white;
+            }
+
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+                font-family: Kanit,sans-serif;
+            }
+        }
+
+        @@media only screen and (min-width: 432px) {
+            span {
+                font-family: Kanit,sans-serif;
+            }
+        }
+
+        .icon-amt {
+            color: red;
+            font-size: 35px;
+            -webkit-text-stroke: 1px black;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f2f7ff; margin-bottom:5px; ">
+    <div id="app">
+        <div id="main" style=" padding-right:20px; padding-left:20px;">
+            <div>
+                <input type="hidden" id="cushid" />
+                <input type="hidden" id="slmhid" />
+                <input type="hidden" id="nocusses" />
+                <input class="note-desc" id="cussend" type="hidden">
+            </div>
+            <div class="page-heading">
+                <h4 class="pt-2" id="head-cusname"></h4>
+            </div>
+            <div class="page-content">
+                <div class="container" id="loader">
+                    <div class="d-flex justify-content-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Loading...</h3>
+                    </div>
+                </div>
+                <section class="row justify-content-center d-none" id="content">
+                    <div class="col-12 col-lg-3" id="cushead" hidden>
+                        <div class="row">
+                            <p id="demo"></p>
+                        </div>
+                        <div id="appadjall"></div>
+                    </div>
+                    <div class="col-12 p-0">
+                        <div class="card">
+                            <div class="col-12 p-0 m-0">
+                                <div class="col-12 p-0 m-0">
+                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
+                                            ยอดซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount-pre">
+                                            ประวัตอซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0 m-0 bg-info">
+                                <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
+                                    <div id="dfch">
+                                    </div>
+                                    <div id="appadj"></div>
+                                </div>
+                                <div class="col-12 amount-div m-0 p-0" style="font-family: Kanit,sans-serif;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-header bg-secondary">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
+
+
+                                                            </div>
+                                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                                    <span>ปี-เดือน : </span>
+                                                                </div>
+                                                                <div class="col-md-6 m-0 p-0">
+                                                                    <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="col-12" hidden>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h4>ยอดซื้อที่บริษัท</h4>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive m-0 p-0">
+                                                                            <table class="table table-bordered bg-white">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th class="text-center"><span>AAC</span></th>
+                                                                                        <th class="text-center"><span>TAC</span></th>
+                                                                                        <th class="text-center"><span>OMP</span></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <h5> ยอดซื้อ</h5>
+                                                                                        </td>
+                                                                                        <td><span id="aac-amt"></span></td>
+                                                                                        <td><span id="tac-amt"></span></td>
+                                                                                        <td><span id="omp-amt"></span></td>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+                                                    </div>
+                                                </div>
+                                                <div class="card-body p-0  ">
+                                                    <div class="m-0 table-responsive">
+                                                        <table class="table table-sm table-light m-0 " id="amt-table" style="width:100%">
+                                                            <thead class="thead-default">
+                                                                <tr>
+                                                                    @*<th class="pl-0 pr-0"></th>*@
+                                                                    <th class="pl-0 pr-0"><span>ชื่อร้านค้า</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>AAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>TAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>OMP</span></th>
+                                                                    @*<th class="text-right">จำนวนเงิน</th>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                            <tfoot class="bg-warning " hidden>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><strong id="total-text"></strong> <strong class="float-right" id="loading-text-table"></strong> </td>
+                                                                    <td colspan="5" style="text-align:right"><strong id="amt-total"></strong></td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
 
-                    <div class="card-body">
-                        <div>
-                            <h4>โปรดปิดแอพพลิเคชันและเข้าใหม่</h4>
+                <!-- Modal -->
+                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header ">
+                                <div class="col-12">
+                                    <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                    @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
+                                    <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');">&times;</button>
 
-                            @{
-                                for (var i = 0; i < 6; i++)
-                                {
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>head</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Details</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                }
-                            }
+                                </div>
+                            </div>
+                            <div class="modal-body d-flex justify-content-center row">
+                                <div class="col-12">
+                                    <article class="card">
+                                        <div class="card-body row">
+                                            <div class="col p-0">
+                                                <strong>ผู้ซื้อ : </strong>
+                                                <p class="m-0" id="namecus-item" style="font-family: Kanit,sans-serif;"></p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <hr />
+                                <div class="col-12">
+                                    <div class="table-responsive m-0" style="height:500px">
+                                        <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
+                                            <thead class="thead-default" style="font-size: small;">
+                                                <tr>
+                                                    <th>บริษัท</th>
+                                                    <th>เบอร์สินค้า</th>
+                                                    <th>ชื่อสินค้า</th>
+                                                    <th>จำนวน</th>
+                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th>ส่วนลด</th>
+                                                    <th>ราคารวม</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- ModalWarning -->
+        <div class="modal" id="myModalWarning">
+            <div class="modal-dialog">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong>
+                    <div class="modal-body">
+                        <div id="textAlertWarning">Some text in the modal.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
+                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModalselcus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ใส่ชื่อร้านหรือรหัสร้านค้า
+                        <div id="blcslm" style="display:block">
+                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
+        //var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        var cuscod = '111B0005';
+        //console.log("Cuscod : " + cuscod);
+        var myChartM;
+        var myChartY;
+        var chartProfileVisit;
+        var chartdefault = $("#cushid").val();
+
+        $(document).ready(function () {
+            $('#loader').show();
+            getSelectMonth();
+            getCusName();
+            $('#btn-show-amount').css("background", "#DEAF5B");
+            setTimeout(function () {
+                $('#loader').hide();
+                $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+            }, 2000);
+            $('#line-tab-credit').hide();
+        });
+
+        if (cuscod != "") {
+            $("#cushid").val(cuscod)
+            // getcuschamt(cuscod);
+            var currentDate = new Date();
+            var currentDay = (currentDate.getDate()).toString().padStart(2, "0")
+            var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+            var currentYear = currentDate.getFullYear();
+            var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
+            getCreditCus(cuscod);
+            getCusMonth(cuscod, currentYear, currentMonth);
+        }
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+
+        function getLastSixMonths() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 6; i++) {
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const formattedMonth = month; //< 10 ? `0${month}` : `${month}`; #01549b
+                result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
+                date.setMonth(date.getMonth() - 1);
+            }
+            return result;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        $('#head-cusname').text(data[0].CUSNAM);
+                    }
+                }
+            });
+        }
+        $('#btn-show-amount').click(function () {
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideDown("slow");
+            $('.credit-div').slideUp("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount-pre').removeAttr('style');
+        });
+        $('#btn-show-amount-pre').click(function () {
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideUp("slow");
+            $('.credit-div').slideDown("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount').removeAttr('style');
+        });
+
+        function getSelectMonth() {
+            const dropdown = $('#select-month-year');
+            const lastSixMonths = getLastSixMonths();
+            lastSixMonths.forEach(monthYear => {
+                const option = $('<option></option>')
+                    .text(monthYear.display)
+                    .val(monthYear.value);
+                dropdown.append(option);
+            });
+        }
+
+        function jssor_1_slider_init() {
+            var jssor_1_options = {
+                $AutoPlay: 0,
+                $AutoPlaySteps: 5,
+                $SlideDuration: 260,
+                $SlideWidth: 200,
+                $SlideSpacing: 3,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 1
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 16,
+                    $SpacingY: 16
+                }
+            };
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            var MAX_WIDTH = 758;
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+                if (containerWidth) {
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        };
+
+        $(document).ready(function () {
+            $('#select-month-year').on('change', function () {
+                const selectMonthYear = $(this).val();
+                const [year, month] = selectMonthYear.split(',');
+                getCusMonth(cuscod, year.trim(), month.trim());
+            });
+        });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+
+
+
+        //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
+        function getCusMonth(cus,year,month) {
+            $.ajax({
+                url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus,
+                    Month: month,
+                    Year: year
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.Getdata.length > 0) {
+                        var resTotal = 0.00;
+                        var SubmithtmlPage = "";
+                        $('#amt-table tbody').html("");
+                        $.ajax({
+                            url: '@Url.Action("GetCusInvMonth", "CustomerDashboard")',
+                            data: {
+                                CUSCOD: cus,
+                                Month: month,
+                                Year: year
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            beforeSend: function () {
+                                $('#total-text').text("");
+                                $("#amt-total").text("");
+                                $("#loading-text-table").text("Loading...");
+                            },
+                            success: function (result) {
+                                var aac_count = 0;
+                                var tac_count = 0;
+                                var omp_count = 0;
+
+                                var amt_tac = 0;
+                                var amt_omp = 0;
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                    $('#sec-table-' + i + ' tbody').html("");
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<tr>';
+                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
+                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        var amt_aac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span> <span class="icon-amt p-0" id="show-sales-aac-icon-' + i + '">+</span></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <span class="icon-amt" id="show-sales-aac-icon-' + i + '">+</span></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        var amt_tac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <span class="icon-amt" id="show-sales-tac-icon-' + i + '">+</span></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <span class="icon-amt" id="show-sales-tac-icon-' + i + '">+</span></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        var amt_omp = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <span class="icon-amt" id="show-sales-omp-icon-' + i + '">+</span></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <span class="icon-amt" id="show-sales-omp-icon-' + i + '">+</span> /p></td>'; //class="ellipsis"
+                                    }
+                                   // SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                    SubmithtmlPage += '</tr>';
+
+                                    ////TR
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
+                                    //SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
+                                    //SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
+                                    //SubmithtmlPage += '<thead class="thead-default">';
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<th>บริษัท</th> ';
+                                    //SubmithtmlPage += '</tr>';
+                                    //SubmithtmlPage += '</thead>';
+                                    //SubmithtmlPage += '<tbody>';
+
+                                    /////AAC
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
+                                    //SubmithtmlPage += '   <th class="block_container border-0">';
+                                    //SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    //SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
+                                    //SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '     </th>';
+                                    //SubmithtmlPage += '</tr>';
+
+                                    ///// tr aac
+
+                                    SubmithtmlPage += '        <tr>';///tr tr
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                    aac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (aac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+
+                                        }
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+
+                                    //tr aac
+
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //AAC
+
+                                    //TAC
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr tac
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                    tac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (tac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+
+                                    }
+                                    else {
+                                        tac_count = 0;
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr tac
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr>';
+                                    //TAC
+
+                                    //OMP
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr omp
+
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                    omp_count++;
+                                                }
+                                            }
+                                        }
+                                        if (omp_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr omp
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //OMP
+
+
+                                    //SubmithtmlPage += '</tbody>';
+                                    //SubmithtmlPage += '</table>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '        </td>';
+                                    //SubmithtmlPage += '        </tr>';
+                                    ////TR
+                                    var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
+                                    if (!isNaN(amount)) {
+                                        resTotal += amount;
+                                    }
+                                }
+                                $('#total-text').text("Total");
+                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)));
+                                $("#loading-text-table").text("");
+                                $("#amt-table tbody").append(SubmithtmlPage);
+                                $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
+                                $('#tac-amt').text(commaSeparateNumber(amt_tac.toFixed(2)));
+                                $('#omp-amt').text(commaSeparateNumber(amt_omp.toFixed(2)));
+                            }
+                        });
+                    }
+                    else {
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#amt-table tbody").append(SubmithtmlPage);
+                    }
+                    console.log(data.message);
+                }
+            });
+        }
+
+        function toggleRowAndButton(row, index) {
+            var text = $('#row-show-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function toggleRowColDetail(row,index,comp) {
+            var text = $('#show-sales-'+comp+'-icon-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+
+
+        //รายละเอียดเลข invoice
+        function getDetailCusinv(DocNum) {
+            $('#cusMonthItemModal').modal('show');
+            $('#docno-item').text(DocNum);
+            $.ajax({
+                url: '@Url.Action("GetCusinvDetail", "CustomerDashboard")',
+                data: {
+                    Docno: DocNum
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#namecus-item').text("");
+                    $('#cusMonthItemDetail tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#cusMonthItemDetail tbody').html("");
+                    if (data.message == "Y") {
+                        var SubmithtmlPage = "";
+                        if (data.Getdata.length != 0) {
+                            var cusName = "";
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                cusName = data.Getdata[i].CUSNAM;
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '</tr>';
+
+                            }
+                            $('#namecus-item').text(cusName);
+                            $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                        }
+                    }
+                    else {
+                        console.log("Error : "+data.message);
+                    }
+                }
+            });
+        }
+        //ดึงข้อมูล credit
+        function getCreditCus(cus) {
+            $.ajax({
+                url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
+                data: {
+                    cuscod: cus
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        var lastInvoiceDate = data.credits[0].LASIVC;
+
+                        $('#cr-date').text(lastInvoiceDate);
+                        var aaccrbal = data.credits[0].AACCRLINE;
+                        var taccrbal = data.credits[0].TACCRLINE;
+                        var ompcrbal = data.credits[0].OMPCRLINE;
+
+                        var aacbal = data.credits[0].AACBAL;
+                        var tacbal = data.credits[0].TACBAL;
+                        var ompbal = data.credits[0].OMPBAL;
+
+                        var resaacbal = Number(aaccrbal) - Number(aacbal);
+                        var restacbal = Number(taccrbal) - Number(tacbal);
+                        var resompbal = Number(ompcrbal) - Number(ompbal);
+
+                        var aacbaldue = data.credits[0].AACBALDue;
+                        var tacbaldue = data.credits[0].TACBALDue;
+                        var ompbaldue = data.credits[0].OMPBALDue;
+
+                        var creditdue = data.credits[0].AACPAYTR;
+                        var aacbildue = data.credits[0].AACBilDue;
+                        var tacbildue = data.credits[0].TACBilDue;
+                        var ompbildue = data.credits[0].OMPBilDue;
+
+                        $('#credit-duedate').text(creditdue);
+
+                        $('#aac-crline').text(commaSeparateNumber(aaccrbal));
+                        $('#tac-crline').text(commaSeparateNumber(taccrbal));
+                        $('#omp-crline').text(commaSeparateNumber(ompcrbal));
+
+                        $('#aac-bal').text(commaSeparateNumber(aacbal));
+                        $('#tac-bal').text(commaSeparateNumber(tacbal));
+                        $('#omp-bal').text(commaSeparateNumber(ompbal));
+
+                        $('#aac-res').text(commaSeparateNumber(resaacbal.toString()));
+                        $('#tac-res').text(commaSeparateNumber(restacbal.toString()));
+                        $('#omp-res').text(commaSeparateNumber(resompbal.toString()));
+
+                        $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
+                        $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
+                        $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+
+                        $('#aac-bildue-date').text(aacbildue);
+                        $('#tac-bildue-date').text(tacbildue);
+                        $('#omp-bildue-date').text(ompbildue);
+
+
+
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+            });
+        }
+
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            // var parts = dateStr.split('/');
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+            var day = parseInt(parts[0], 10) + 1;
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+            var date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
+
+
+        function myFunction() {
+            var x = document.getElementById("blcslm");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#selslm").val("ALL");
+            } else {
+                x.style.display = "none";
+                $("#selcus").prop("disabled", false);
+            }
+        }
+
+        //ปุ่มยอดซื้อ
+        $(document).on("click", "#navbaramount", function () {
+            window.location.replace("../CustomerDashboard/index");
+        });
+        //ปุ่มสินค้าค้างส่ง
+        $(document).on("click", "#navbarpending", function () {
+            window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        });
+        //ปุ่มรายการเคลม
+        $(document).on("click", "#navbarwarranty", function () {
+            window.location.replace("../CustomerDashboard/Warranty");
+        });
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
+        });
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=amount");
+        });
+
+    </script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>
+</html>
