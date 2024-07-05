@@ -772,15 +772,24 @@ namespace NewShop.Controllers
                         Company = reader["Company"].ToString(),
                         Stkcod = reader["STKCOD"].ToString(),
                         Stkdes = reader["STKDES"].ToString(),
-                        Year = reader["Year"].ToString(),
-                        Qty = reader["Qty"].ToString(),
-                        Amt = reader["Amt"].ToString(),
-                        Avg_Prc = reader["Avg_Prc"].ToString(),
+                        year_1_qty = reader["year_1_qty"].ToString(),
+                        year_1_amt = reader["year_1_amt"].ToString(),
+                        year_1_avg = reader["year_1_avg"].ToString(),
+                        year_2_qty = reader["year_2_qty"].ToString(),
+                        year_2_amt = reader["year_2_amt"].ToString(),
+                        year_2_avg = reader["year_2_avg"].ToString(),
+                        year_3_qty = reader["year_3_qty"].ToString(),
+                        year_3_amt = reader["year_3_amt"].ToString(),
+                        year_3_avg = reader["year_3_avg"].ToString(),
+                        year_4_qty = reader["year_4_qty"].ToString(),
+                        year_4_amt = reader["year_4_amt"].ToString(),
+                        year_4_avg = reader["year_4_avg"].ToString(),
                         Brand = reader["Brand"].ToString(),
                         Prclist = reader["Prclist"].ToString()
                     });
                 }
                 @ViewBag.Getdata = Getdata;
+                @ViewBag.YearCurrent = DateTime.Now.Year.ToString();
                 reader.Close();
                 command.Dispose();
                 Connection.Close();
@@ -793,7 +802,7 @@ namespace NewShop.Controllers
             return PartialView("_OrderHistoryByBrand", new
             {
                 @ViewBag.Getdata,
-               // @ViewBag.Docno
+                @ViewBag.YearCurrent
             });
         }
     }
