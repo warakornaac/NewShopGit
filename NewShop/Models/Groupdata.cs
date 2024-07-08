@@ -1146,5 +1146,30 @@ namespace NewShop.Models
         public string Brand { get; set; }
         public string Prclist { get; set; }
     }
+    public class Notify_Detail
+    {
+        public string ORD_DocNo { get; set; }
+        public string NotifyID { get; set; }
+        public string Notify { get; set; }
+        public string StatusDate { get; set; }
+        public string PIDate { get; set; }
+        public string ExpToArrive { get; set; }
+        public string StartDelivery { get; set; }
+        public string EndDelivery { get; set; }
+        public string OrderDate { get; set; }
+        public string ORD_TotalItem { get; set; }
+        public string ORD_TotalQty { get; set; }
+        public string ORD_TotalAmt { get; set; }
+        public string Round { get; set; }
+        public string WH { get; set; }
+        public string Item_Type { get; set; }
+        public string ORD_STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string ORD_SalePrice { get; set; }
+        public string ORD_Qty { get; set; }
+        public string ORD_Amt { get; set; }
+        public string BCK_Qty { get; set; }
+        public string BackOrder { get; set; }
+    }
 
 }

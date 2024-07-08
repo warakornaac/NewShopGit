@@ -571,12 +571,14 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-accept" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th></th>
-                                                            <th>เลขคำสั่งซื้อ</th>
-                                                            <th>วันที่สั่ง</th>
-                                                            <th>วันที่รับออเดอร์</th>
-                                                            <th>จำนวน</th>
-                                                            <th>สถานะ</th>
+                                                            <th><span>เบอร์สินค้า</span></th>
+                                                            <th><span>ชื่อสินค้า</span></th>
+                                                            <th><span>เลขที่</span></th>
+                                                            <th><span>วันที่สั่ง</span></th>
+                                                            <th><span>เวลาสั่ง</span></th>
+                                                            <th><span>จำนวน</span></th>
+                                                            <th><span>รอบส่ง</span></th>
+                                                            <th><span>สถานะ</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -586,12 +588,16 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th></th>
-                                                            <th>เลขคำสั่งซื้อ</th>
-                                                            <th>วันที่สั่ง</th>
-                                                            <th>วันที่จัดเตรียมสินค้า</th>
-                                                            <th>จำนวน</th>
-                                                            <th>สถานะ</th>
+
+                                                            <th><span>เบอร์สินค้า</span></th>
+                                                            <th><span>ชื่อสินค้า</span></th>
+                                                            <th><span>เลขที่</span></th>
+                                                            <th><span>วันที่สั่ง</span></th>
+                                                            <th><span>จำนวน</span></th>
+                                                            <th><span>รอบส่ง</span></th>
+                                                            <th><span>คลัง</span></th>
+                                                            <th><span>วัน/เวลาเริ่มจัดสินค้า</span></th>
+                                                            <th><span>สถานะ</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -601,12 +607,15 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th></th>
-                                                            <th>เลขคำสั่งซื้อ</th>
-                                                            <th>วันที่สั่ง</th>
-                                                            <th>วันที่ออกส่งสินค้า</th>
-                                                            <th>จำนวน</th>
-                                                            <th>สถานะ</th>
+
+                                                            <th><span>เบอร์สินค้า</span></th>
+                                                            <th><span>ชื่อสินค้า</span></th>
+                                                            <th><span>เลขที่</span></th>
+                                                            <th><span>วันที่สั่ง</span></th>
+                                                            <th><span>จำนวน</span></th>
+                                                            <th><span>วัน/เวลาออกส่งสินค้า</span></th>
+                                                            <th><span>วัน/เวลาคาดว่าจะถึง</span></th>
+                                                            <th><span>สถานะ</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -624,12 +633,14 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-arrive" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th></th>
-                                                            <th>เลขคำสั่งซื้อ</th>
-                                                            <th>วันที่สั่ง</th>
-                                                            <th>วันที่รับสินค้า</th>
-                                                            <th>จำนวน</th>
-                                                            <th>สถานะ</th>
+
+                                                            <th><span>เบอร์สินค้า</span></th>
+                                                            <th><span>ชื่อสินค้า</span></th>
+                                                            <th><span>เลขคำสั่งซื้อ</span></th>
+                                                            <th><span>จำนวน</span></th>
+                                                            <th><span>วันที่สั่ง</span></th>
+                                                            <th><span>วันที่รับสินค้า</span></th>
+                                                            <th><span>สถานะ</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -730,8 +741,8 @@
         //console.log("COSCOD : " + cuscod);
 
         if (cuscod != "") {
-            getDeliveryTrack();
-            getDeliveryDefault();
+            getDeliveryTrack_alert();
+            getDeliveryTrackSuccess_alert();
         }
         $(document).ready(function () {
             $('#loader').show();
@@ -835,7 +846,7 @@
             $('#btn-show-packing').removeAttr('style');
             $('#btn-show-delivering').removeAttr('style');
             $('#btn-show-arrive').removeAttr('style');
-            getDeliveryTrack_test(1);
+            getDelivery_Order();
         });
         $('#btn-show-packing').click(function () {
             $('.table-packing').show('slow');
@@ -846,7 +857,7 @@
             $('#btn-show-accept').removeAttr('style');
             $('#btn-show-delivering').removeAttr('style');
             $('#btn-show-arrive').removeAttr('style');
-            getDeliveryTrack_test(2);
+            getDelivery_Packing();
         });
         $('#btn-show-delivering').click(function () {
             $('.table-delivery').show('slow');
@@ -857,7 +868,7 @@
             $('#btn-show-accept').removeAttr('style');
             $('#btn-show-packing').removeAttr('style');
             $('#btn-show-arrive').removeAttr('style');
-            getDeliveryTrack_test(3);
+            getDelivery_delivery();
         });
         $('#btn-show-arrive').click(function () {
             var date = new Date();
@@ -892,257 +903,355 @@
             $('#select-month-year').val(currentMonth);
         }
 
-        function getDeliveryTrack() {
-            var _CUSCOD = cuscod;
+        function getDeliveryTrack_alert() {
             $.ajax({
-            url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
+            url: '@Url.Action("GetDeliverytracking_Alert", "CustomerDashboard")',
             data: {
-                CUSCOD: _CUSCOD
+                CUSCOD: cuscod
             },
             type: "POST",
             dataType: "JSON",
+            beforeSend: function () {
+                $('#deliverytrack-accept tbody').html("");
+                var SubmithtmlPage = "";
+                SubmithtmlPage += '<tr>';
+                SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                SubmithtmlPage += '</tr>';
+                $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+
+            },
             success: function (data) {
                 $('#deliverytrack-accept tbody').html("");
-                $('#deliverytrack-packing tbody').html("");
-                $('#deliverytrack-delivery tbody').html("");
-                $('#deliverytrack-arrive tbody').html("");
                 var SubmithtmlPage = "";
-                var SubmithtmlPage_packing = "";
-                var SubmithtmlPage_delivery = "";
-                var SubmithtmlPage_arrive = "";
+                var date = "";
                 var alert_accept = 0;
                 var alert_packing = 0;
                 var alert_delivery = 0;
-                var alert_arrive = 0;
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        // table Order
-                        if (data.Getdata[i].Notify.includes('รับ Order')) {
-                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                            if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                            } else {
-                                SubmithtmlPage += '<td></td>';
+                if (data.message == "Y") {
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            // table Order
+                            if (data.Getdata[i].Notify.includes('รับ Order')) {
+                                SubmithtmlPage += '<tr>';
+                                date = data.Getdata[i].StatusDate;
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].OrderDate + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                                SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                SubmithtmlPage += '</tr>';
+                                alert_accept++;
                             }
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+
+                            //Table Packing
+                            if (data.Getdata[i].Notify.includes('เตรียมจัดส่ง')) {
+                                alert_packing++;
+                            }
+
+                            //Table Delivery
+                            if (data.Getdata[i].Notify.includes('ระหว่างขนส่ง')) {
+                                alert_delivery++;
+                            }
+                        }
+                        if (alert_accept > 0) {
+                            if (alert_accept > 99) {
+                                $('#status-accept').text('99');
+                            }
+                            else {
+                                $('#status-accept').text(alert_accept);
+                            }
+                        }
+                        else {
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                             SubmithtmlPage += '</tr>';
-                            alert_accept ++;
                         }
 
-                        //Table Packing
-                        if (data.Getdata[i].Notify.includes('เตรียมจัดส่ง')) {
-                            SubmithtmlPage_packing += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage_packing += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                            if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage_packing += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                            } else {
-                                SubmithtmlPage_packing += '<td></td>';
+                        if (alert_packing > 0) {
+                            if (alert_packing > 99) {
+                                $('#status-packing').text('99');
                             }
-                            SubmithtmlPage_packing += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
-                            SubmithtmlPage_packing += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                            SubmithtmlPage_packing += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                            SubmithtmlPage_packing += '<td>' + data.Getdata[i].Notify + '</td>';
-                            SubmithtmlPage_packing += '</tr>';
-                            alert_packing++;
-                        }
-
-                        //Table Delivery
-                        if (data.Getdata[i].Notify.includes('ระหว่างขนส่ง')) {
-                            SubmithtmlPage_delivery += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage_delivery += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                            if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage_delivery += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                            } else {
-                                SubmithtmlPage_delivery += '<td></td>';
+                            else {
+                                $('#status-packing').text(alert_packing);
                             }
-                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
-                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                            SubmithtmlPage_delivery += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                            SubmithtmlPage_delivery += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
-                            SubmithtmlPage_delivery += '</tr>';
-                            alert_delivery++;
                         }
-                    }
-                    if (SubmithtmlPage != "") {
-                        if (alert_accept > 99) {
-                            $('#status-accept').text('99+');
-                        }
-                        else {
-                            $('#status-accept').text(alert_accept);
-                        }
-                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
 
-                    }
-                    else {
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                        SubmithtmlPage += '</tr>';
-                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
-                        $('#status-accept').attr('hidden',true);
-                    }
+                        if (alert_delivery > 0) {
+                            if (alert_delivery > 99) {
+                                $('#status-delivery').text('99');
+                            }
+                            else {
+                                $('#status-delivery').text(alert_delivery);
+                            }
+                        }
 
-                    if (SubmithtmlPage_packing != "") {
-                        if (alert_packing > 99) {
-                            $('#status-packing').text('99+');
-                        }
-                        else {
-                            $('#status-packing').text(alert_packing);
-
-                        }
-                        $('#deliverytrack-packing tbody').append(SubmithtmlPage_packing);
+                        $('#deliverytrack-accept tbody').append(SubmithtmlPage);
                     }
-                    else {
-                        SubmithtmlPage_packing += '<tr>';
-                        SubmithtmlPage_packing += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                        SubmithtmlPage_packing += '</tr>';
-                        $("#deliverytrack-packing tbody").append(SubmithtmlPage_packing);
-                        $('#status-packing').attr('hidden', true);
-                    }
-
-                    if (SubmithtmlPage_delivery != "") {
-                        if (alert_delivery > 99) {
-                            $('#status-delivery').text('99+');
-                        }
-                        else {
-                            $('#status-delivery').text(alert_delivery);
-                        }
-                        $('#deliverytrack-delivery tbody').append(SubmithtmlPage_delivery);
-                    }
-                    else {
-                        SubmithtmlPage_delivery += '<tr>';
-                        SubmithtmlPage_delivery += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                        SubmithtmlPage_delivery += '</tr>';
-                        $("#deliverytrack-delivery tbody").append(SubmithtmlPage_delivery);
-                        $('#status-delivery').attr('hidden', true);
-                    }
+                }
+                else {
+                    console.log(data.message);
                 }
             }
         });
         }
 
-        function getDeliveryTrack_test(NotiID) {
-            var _CUSCOD = cuscod;
+        function getDeliveryTrackSuccess_alert() {
+            var month = new Date().getMonth() + 1;
             $.ajax({
-                url: '@Url.Action("GetDeliveryTrackTab", "CustomerDashboard")',
-                data: {
-                    CUSCOD: _CUSCOD,
-                    NotifID: NotiID
+                url: '@Url.Action("GetDeliveryTrackingSuccess", "CustomerDashboard")',
+                data:{
+                    CUSCOD: cuscod,
+                    MONTH: month
                 },
                 type: 'POST',
                 dataType: 'JSON',
-                beforeSend: function () {
-                    var SubmithtmlPage = '';
-                    if (NotiID == '1' ) {
-                        $('#deliverytrack-accept tbody').html("");
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                        SubmithtmlPage += '</tr>';
-                        $("#deliverytrack-accept tbody").append(SubmithtmlPage);
-                    }
-                    if (NotiID == '2') {
-                        $('#deliverytrack-packing tbody').html("");
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                        SubmithtmlPage += '</tr>';
-                        $("#deliverytrack-packing tbody").append(SubmithtmlPage);
-                    }
-                    if (NotiID == '3') {
-                        $('#deliverytrack-delivery tbody').html("");
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                        SubmithtmlPage += '</tr>';
-                        $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
-                    }
-                    if (NotiID == '4') {
-                        $('#deliverytrack-arrive tbody').html("");
-                        SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                        SubmithtmlPage += '</tr>';
-                        $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
-                    }
-
-                },
                 success: function (data) {
-                    var SubmithtmlPage = '';
-                    $('#deliverytrack-accept tbody').html("");
-                    $('#deliverytrack-packing tbody').html("");
-                    $('#deliverytrack-delivery tbody').html("");
-                    $('#deliverytrack-arrive tbody').html("");
-                    if (data.Getdata.length > 0) {
-                        //ssss
-                        for (var i = 0; i < data.Getdata.length; i++) {
-                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                            if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage += '<td >' + data.Getdata[i].ORD_DocNo + '</td>';
-                            } else {
-                                SubmithtmlPage += '<td></td>';
+                    if (data.message == "Y") {
+                        if (data.Getdata.length > 0) {
+                            if (data.Getdata.length > 99) {
+                                $('#status-arrive').text('99');
                             }
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Order_Date + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].StatusDate + '</td>';
-                            SubmithtmlPage += '<td style="text-align:center">' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</td>';
-                            SubmithtmlPage += '<td>' + data.Getdata[i].Notify + '</td>';
-                            SubmithtmlPage += '</tr>';
-                        }
-
-                        if (NotiID == '1') {
-                            if (SubmithtmlPage != "") {
-                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
-                                //$('#status-accept').text(alert_accept);
-                            }
-                        }
-                        if (NotiID == '2') {
-                            if (SubmithtmlPage != "") {
-                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
-                                //$('#status-packing').text(alert_accept);
-                            }
-                        }
-                        if (NotiID == '3') {
-                            if (SubmithtmlPage != "") {
-                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
-                            }
-                        }
-                        if (NotiID == '4') {
-                            if (SubmithtmlPage != "") {
-                                $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                            else {
+                                $('#status-arrive').text(data.Getdata.length);
                             }
                         }
                     }
                     else {
-                        if (NotiID == '1') {
+                        console.log("Error is " + data.message);
+                    }
+                }
+            });
+        }
+
+        function getDelivery_Order() {
+                $.ajax({
+                    url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: cuscod,
+                        NotifyID: "1"
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $('#deliverytrack-accept tbody').html("");
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '</tr>';
+                        $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+
+                    },
+                    success: function (data) {
+                        $('#deliverytrack-accept tbody').html("");
+                        var SubmithtmlPage = "";
+                        var date = "";
+                        var alert_accept = 0;
+                        var alert_packing = 0;
+                        var alert_delivery = 0;
+                        if (data.message == "Y") {
+                            if (data.Getdata.length > 0) {
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                    // table Order
+                                    if (data.Getdata[i].Notify.includes('รับ Order')) {
+                                        SubmithtmlPage += '<tr>';
+                                        date = data.Getdata[i].StatusDate;
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+
+                                        var dateORD = data.Getdata[i].OrderDate;
+                                        var parts = dateORD.split(" ");
+                                        var datePart = parts[0];
+                                        var timePart = parts[1];
+
+                                        var dateParts = datePart.split("-");
+                                        var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+                                        SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                        SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
+                                       // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                                        SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        alert_accept++;
+                                    }
+                                }
+                                console.log("Date is " + date);
+                                $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+                            }
+                            else {
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                                SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                                 SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-accept tbody").append(SubmithtmlPage);
-                                $('#status-accept').attr('hidden', true);
+                                $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+                            }
                         }
-                        if (NotiID == '2') {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-packing tbody").append(SubmithtmlPage);
-                                $('#status-packing').attr('hidden', true);
+                        else {
+                            console.log(data.message);
                         }
-                        if (NotiID == '3') {
-                            console.log("SubmithtmlPage:", SubmithtmlPage);
-                                console.log("is EMT");
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-delivery tbody").append(SubmithtmlPage);
-                                $('#status-delivery').attr('hidden', true);
+                    }
+                });
+        }
+
+
+        function getDelivery_Packing() {
+             $.ajax({
+                 url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
+                 data: {
+                     CUSCOD: cuscod,
+                     NotifyID: "2"
+                 },
+                 type: "POST",
+                 dataType: "JSON",
+                 beforeSend: function () {
+                     $('#deliverytrack-packing tbody').html("");
+                     var SubmithtmlPage = "";
+                     SubmithtmlPage += '<tr>';
+                     SubmithtmlPage += '<td class="text-center" colspan="9"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                     SubmithtmlPage += '</tr>';
+                     $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+
+                 },
+                 success: function (data) {
+                     $('#deliverytrack-packing tbody').html("");
+                     var SubmithtmlPage = "";
+                     if (data.message == "Y") {
+                         if (data.Getdata.length > 0) {
+                             for (var i = 0; i < data.Getdata.length; i++) {
+                                     SubmithtmlPage += '<tr>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+
+                                     var dateORD = data.Getdata[i].OrderDate;
+                                     var parts = dateORD.split(" ");
+                                     var datePart = parts[0];
+                                     var timePart = parts[1];
+
+                                     var dateParts = datePart.split("-");
+                                     var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+                                     SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                     SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].WH + '</span></td>';
+                                     if (data.Getdata[i].PIDate != "") {
+                                         var datePI = data.Getdata[i].PIDate;
+                                         var partsPI = datePI.split(" ");
+                                         var datePartPI = partsPI[0];
+                                         var timePartPI = partsPI[1];
+
+                                         var datePartsPI = datePartPI.split("-");
+                                         var formattedDatePI = datePartsPI[2] + "-" + datePartsPI[1] + "-" + datePartsPI[0];
+                                         SubmithtmlPage += '<td><span>' + formattedDatePI + ' ' + timePartPI + '</span></td>';
+                                     }
+                                     else {
+                                         SubmithtmlPage += '<td><span></span></td>';
+
+                                     }
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                     SubmithtmlPage += '</tr>';
+
+                             }
+                             $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+                         }
+                         else {
+                             SubmithtmlPage += '<tr>';
+                             SubmithtmlPage += '<td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td>';
+                             SubmithtmlPage += '</tr>';
+                             $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+                         }
+                     }
+                     else {
+                         console.log(data.message);
+                     }
+                 }
+             });
+        }
+
+        function getDelivery_delivery() {
+            $.ajax({
+                url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod,
+                    NotifyID: "3"
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#deliverytrack-delivery tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td class="text-center" colspan="9"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
+
+                },
+                success: function (data) {
+                    $('#deliverytrack-delivery tbody').html("");
+                    var SubmithtmlPage = "";
+                    if (data.message == "Y") {
+                        if (data.Getdata.length > 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                    SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+
+                                    var dateORD = data.Getdata[i].OrderDate;
+                                    var parts = dateORD.split(" ");
+                                    var datePart = parts[0];
+                                    var timePart = parts[1];
+                                    var dateParts = datePart.split("-");
+                                    var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+                                    SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                        SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                    if (data.Getdata[i].StartDelivery != "") {
+                                        var dateST = data.Getdata[i].StartDelivery;
+                                        var partsST = dateST.split(" ");
+                                        var datePartST = partsST[0];
+                                        var timePartST = partsST[1];
+
+                                        var datePartsST = datePartST.split("-");
+                                        var formattedDateST = datePartsST[2] + "-" + datePartsST[1] + "-" + datePartsST[0];
+                                        SubmithtmlPage += '<td><span>' + formattedDateST + ' ' + timePartST + '</span></td>';
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td><span></span></td>';
+
+                                    }
+                                if (data.Getdata[i].EndDelivery != "") {
+                                    var dateEN = data.Getdata[i].EndDelivery;
+                                    var partsEN = dateEN.split(" ");
+                                    var datePartEN = partsEN[0];
+                                    var timePartEN = partsEN[1];
+
+                                    var datePartsEN = datePartEN.split("-");
+                                    var formattedDateEN = datePartsEN[2] + "-" + datePartsEN[1] + "-" + datePartsEN[0];
+                                    SubmithtmlPage += '<td><span>' + formattedDateEN + ' ' + timePartEN + '</span></td>';
+                                }
+                                else {
+                                    SubmithtmlPage += '<td><span></span></td>';
+
+                                }
+                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                    SubmithtmlPage += '</tr>';
+
+                            }
+                            $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
                         }
-                        if (NotiID == '4') {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                                SubmithtmlPage += '</tr>';
-                                $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
-                                $('#status-arrive').attr('hidden', true);
+                        else {
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td>';
+                            SubmithtmlPage += '</tr>';
+                            $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
                         }
+                    }
+                    else {
+                        console.log(data.message);
                     }
                 }
             });
@@ -1151,10 +1260,9 @@
         function getDeliverySuccess(month) {
             var _CUSCOD = cuscod;
             $.ajax({
-                url: '@Url.Action("GetSuccessfulDeliveryByMonth", "CustomerDashboard")',
+                url: '@Url.Action("GetDeliveryTrackingSuccess", "CustomerDashboard")',
                 data: {
                     CUSCOD: _CUSCOD,
-
                     MONTH: month
                 },
                 type: 'POST',
@@ -1163,7 +1271,7 @@
                     var SubmithtmlPage = "";
                     $('#deliverytrack-arrive tbody').html("");
                     SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                     SubmithtmlPage += '</tr>';
                     $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
                 },
@@ -1172,24 +1280,42 @@
                     $('#deliverytrack-arrive tbody').html("");
                     if (data.Getdata.length > 0) {
                         for (var i = 0; i < data.Getdata.length; i++) {
-                            SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                            SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                            if (data.Getdata[i].ORD_DocN != "") {
-                                SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                            } else {
-                                SubmithtmlPage += '<td></td>';
-                            }
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+
+                            var dateORD = data.Getdata[i].OrderDate;
+                            var parts = dateORD.split(" ");
+                            var datePart = parts[0];
+                            var timePart = parts[1];
+                            var dateParts = datePart.split("-");
+                            var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
                             SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
+                            SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                            if (data.Getdata[i].StatusDate != "") {
+                                var dateST = data.Getdata[i].StatusDate;
+                                var partsST = dateST.split(" ");
+                                var datePartST = partsST[0];
+                                var timePartST = partsST[1];
+
+                                var datePartsST = datePartST.split("-");
+                                var formattedDateST = datePartsST[2] + "-" + datePartsST[1] + "-" + datePartsST[0];
+                                SubmithtmlPage += '<td><span>' + formattedDateST + '</span></td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td><span></span></td>';
+
+                            }
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
                             SubmithtmlPage += '</tr>';
                         }
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
                     }
@@ -1197,120 +1323,9 @@
                 }
             });
         }
-        function getDeliveryDefault() {
-            var _CUSCOD = cuscod;
-            var date = new Date();
-            var month = date.getMonth() + 1;
-             $.ajax({
-                 url: '@Url.Action("GetSuccessfulDeliveryByMonth", "CustomerDashboard")',
-                 data: {
-                     CUSCOD: _CUSCOD,
-                     MONTH: month
-                 },
-                 type: 'POST',
-                 dataType: 'JSON',
-                 beforeSend: function () {
-                     var SubmithtmlPage = "";
-                     $('#deliverytrack-arrive tbody').html("");
-                     SubmithtmlPage += '<tr>';
-                     SubmithtmlPage += '<td class="text-center" colspan="6"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                     SubmithtmlPage += '</tr>';
-                     $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
-                 },
-                 success: function (data) {
-                     var SubmithtmlPage = '';
-                     var alert_arrive = 0;
-                     $('#deliverytrack-arrive tbody').html("");
-                     if (data.Getdata.length > 0) {
-                         for (var i = 0; i < data.Getdata.length; i++) {
-                             SubmithtmlPage += '<tr onclick="GetOrderDetail(\'' + data.Getdata[i].ORD_DocNo + '\'' + ',' + '\'' + data.Getdata[i].Notify + '\');">';
-                             SubmithtmlPage += '<td> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                             if (data.Getdata[i].ORD_DocN != "") {
-                                 SubmithtmlPage += '<td ><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                             } else {
-                                 SubmithtmlPage += '<td></td>';
-                             }
-                             SubmithtmlPage += '<td><span>' + data.Getdata[i].Order_Date + '</span></td>';
-                             SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                             SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                             SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</span></td>';
-                             SubmithtmlPage += '</tr>';
-                             alert_arrive++;
-                         }
-                         if (alert_arrive > 99) {
-                             $('#status-arrive').text('99+');
-                         }
-                         else {
-                             $('#status-arrive').text(alert_arrive);
-                         }
-                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
 
-                     }
-                     else {
-                         SubmithtmlPage += '<tr>';
-                         SubmithtmlPage += '<td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td>';
-                         SubmithtmlPage += '</tr>';
-                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
-                     }
 
-                 }
-             });
-        }
-        function GetOrderDetail(ORD_DocNo,Status) {
-            $('#DetailModalCenter').modal('show');
-            $('#orderno').text(ORD_DocNo);
-            $('#statusord').text(Status)
-            var CUSCOD = cuscod;
-            $.ajax({
-                url: '@Url.Action("GetDeliveryDetail", "CustomerDashboard")',
-                data: {
-                    ORD_DocNo: ORD_DocNo
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    var SubmithtmlPage = '';
-                    $('#tblOrderDetail tbody:last-child').html("");
-                    SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td class="text-center" colspan="4"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                    SubmithtmlPage += '</tr>';
-                    $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
-                },
-                success: function (data) {
-                    $('#tblOrderDetail tbody:last-child').html("");
-                    var SubmithtmlPage = '';
-                    var dateOrder = '';
-                    if (data.message == "Y") {
-                        if (data.Getdata.length != 0) {
 
-                            $('#orderno').text(ORD_DocNo);
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                dateOrder = data.Getdata[i].ORD_Date;
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td align="left"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 100px;"><span>' + data.Getdata[i].STKDES + '</span></td>';
-                                SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_Qty) + '</span></td>';
-                                if (data.Getdata[i].BCK_Qty != "0") {
-                                    SubmithtmlPage += '<td align="center"><span>' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
-
-                                }
-                                else {
-                                    SubmithtmlPage += '<td align="center"><span>-</span></td>';
-
-                                }
-                                SubmithtmlPage += '</tr>';
-                            }
-                            $('#orddate').text(dateOrder.replace(/\//g,"-"));
-                            $('#tblOrderDetail tbody:last-child').append(SubmithtmlPage);
-                        }
-                    }
-                    else {
-                        console.log(data.message);
-                    }
-                }
-
-            });
-        }
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
             window.location.replace("../CustomerDashboard/index");

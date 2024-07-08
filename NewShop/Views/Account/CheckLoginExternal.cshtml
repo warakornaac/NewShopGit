@@ -156,6 +156,9 @@
                                         else if (page == "warranty") {
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Warranty");
                                         }
+                                        else if (page == "credit") {
+                                            window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Credit");
+                                        }
                                         else {
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerMenu");
                                         }
@@ -181,9 +184,13 @@
                                         else if (page == "warranty") {//หน้าค้างส่ง
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=warranty");
                                         }
+                                        else if (page == "credit") {
+                                            window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=credit");
+                                        }
                                         else if (page == "menu") {//หน้ายอดซื้อ
                                             window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
                                         }
+
                                     }
                                     else {
                                         window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
@@ -221,6 +228,9 @@
                             }
                             else if (page == "warranty") {//หน้าค้างส่ง
                                 window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=warranty");
+                            }
+                            else if (page == "credit") {
+                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=credit");
                             }
                             else if (page == "menu") {//หน้ายอดซื้อ
                                 window.location.assign("@domainName" + "/MobileCatalog_Test/Account/LoginCus?page=menu");
