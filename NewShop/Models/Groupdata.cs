@@ -484,6 +484,8 @@ namespace NewShop.Models
         public string VPromotion { get; set; }
         public string CUSCOD { get; set; }
         public string AmtQty { get; set; }
+        public string BckQty { get; set; }
+        public string FlagBackOrder { get; set; }
         public string AmtSalePrices { get; set; }
         public string TotalAmt { get; set; }
         public string Credit { get; set; }
@@ -1139,10 +1141,18 @@ namespace NewShop.Models
         public string Company { get; set; }
         public string Stkcod { get; set; }
         public string Stkdes { get; set; }
-        public string Year { get; set; }
-        public string Qty { get; set; }
-        public string Amt { get; set; }
-        public string Avg_Prc { get; set; }
+        public string year_1_qty { get; set; }
+        public string year_1_amt { get; set; }
+        public string year_1_avg { get; set; }
+        public string year_2_qty { get; set; }
+        public string year_2_amt { get; set; }
+        public string year_2_avg { get; set; }
+        public string year_3_qty { get; set; }
+        public string year_3_amt { get; set; }
+        public string year_3_avg { get; set; }
+        public string year_4_qty { get; set; }
+        public string year_4_amt { get; set; }
+        public string year_4_avg { get; set; }
         public string Brand { get; set; }
         public string Prclist { get; set; }
     }

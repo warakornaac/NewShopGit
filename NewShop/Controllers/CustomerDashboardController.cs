@@ -22,11 +22,35 @@ namespace NewShop.Controllers
 
         public ActionResult Index()
         {
+            string message = string.Empty;
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
                 return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
             }
+            List<SelectListItem> BrandList = new List<SelectListItem>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                //list brand
+                var command = new SqlCommand("p_Search_Brand_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCompany", "");
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
+                }
+            command.Dispose();
+            Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewBag.BrandList = BrandList;
             return View();
         }
         public ActionResult CustomerMenu()
@@ -465,7 +489,7 @@ namespace NewShop.Controllers
             }
             @ViewBag.Docno = setDocno;
 
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("stc24125667");
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("STC24030886");
             encodeDocno = System.Convert.ToBase64String(plainTextBytes);
 
             string message = "";
@@ -493,6 +517,8 @@ namespace NewShop.Controllers
                         Item_Type = reader["Item_Type"].ToString(),
                         VDiscount = reader["ORD_Discount"].ToString(),
                         AmtQty = reader["ORD_Qty"].ToString(),
+                        BckQty = reader["BCK_Qty"].ToString(),
+                        FlagBackOrder = reader["BackOrder"].ToString(),
                         TotalAmt = reader["ORD_Amt"].ToString()
                     });
                 }
@@ -800,6 +826,7 @@ namespace NewShop.Controllers
             string message = string.Empty;
 
             List<OrderHistoryByBrand> Getdata = new List<OrderHistoryByBrand>();
+            List<SelectListItem> BrandList = new List<SelectListItem>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -817,15 +844,36 @@ namespace NewShop.Controllers
                         Company = reader["Company"].ToString(),
                         Stkcod = reader["STKCOD"].ToString(),
                         Stkdes = reader["STKDES"].ToString(),
-                        Year = reader["Year"].ToString(),
-                        Qty = reader["Qty"].ToString(),
-                        Amt = reader["Amt"].ToString(),
-                        Avg_Prc = reader["Avg_Prc"].ToString(),
+                        year_1_qty = reader["year_1_qty"].ToString(),
+                        year_1_amt = reader["year_1_amt"].ToString(),
+                        year_1_avg = reader["year_1_avg"].ToString(),
+                        year_2_qty = reader["year_2_qty"].ToString(),
+                        year_2_amt = reader["year_2_amt"].ToString(),
+                        year_2_avg = reader["year_2_avg"].ToString(),
+                        year_3_qty = reader["year_3_qty"].ToString(),
+                        year_3_amt = reader["year_3_amt"].ToString(),
+                        year_3_avg = reader["year_3_avg"].ToString(),
+                        year_4_qty = reader["year_4_qty"].ToString(),
+                        year_4_amt = reader["year_4_amt"].ToString(),
+                        year_4_avg = reader["year_4_avg"].ToString(),
                         Brand = reader["Brand"].ToString(),
                         Prclist = reader["Prclist"].ToString()
                     });
                 }
-                @ViewBag.Getdata = Getdata;
+
+                //list brand
+                command = new SqlCommand("p_Search_Brand_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCompany", "");
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
+
+                }
+                ViewBag.BrandList = BrandList;
+                ViewBag.Getdata = Getdata;
+                ViewBag.YearCurrent = DateTime.Now.Year.ToString();
                 reader.Close();
                 command.Dispose();
                 Connection.Close();
@@ -837,8 +885,14 @@ namespace NewShop.Controllers
             }
             return PartialView("_OrderHistoryByBrand", new
             {
+<<<<<<< HEAD
                 @ViewBag.Getdata,
                 // @ViewBag.Docno
+=======
+                ViewBag.Getdata,
+                ViewBag.YearCurrent,
+                ViewBag.BrandList
+>>>>>>> 31406936b24e7d6dbb6c3bcae9a4f7369a487222
             });
         }
     }

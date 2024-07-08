@@ -1,23 +1,44 @@
-﻿<style>
-    .textCus {
-        /*display: inline-block;*/
+﻿@{
+    var startYear = DateTime.Now.Year - 3;
+    var endYear = DateTime.Now.Year;
+}
+<style>
+    .textCut {
         width: 200px;
         white-space: nowrap;
         overflow: hidden !important;
         text-overflow: ellipsis;
     }
+
+    .vcenter {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .vright {
+        text-align: right;
+        vertical-align: middle !important;
+    }
 </style>
 <div class="m-0 table-style table-responsive" style="height: 500px; overflow-y: auto;">
     <table class="table table-striped table-bordered table-hover mb-0 " id="table-history" style="padding: 7px;font-size: small;">
-        <thead style="font-size: small;">
+        <thead class="thead-default" style="font-size: small;">
             <tr>
-                <th style="text-align:center;"><span>บริษัท</span></th>
-                <th><span>เบอร์สินค้า</span></th>
-                <th><span>ชื่อสินค้า</span></th>
-                <th><span>ปี</span></th>
-                <th><span>จำนวน</span></th>
-                <th><span>ราคารวม</span></th>
-                <th><span>แบรนด์</span></th>
+                <th rowspan="2" class="vcenter"><span>บริษัท</span></th>
+                <th rowspan="2" class="vcenter"><span>เบอร์สินค้า</span></th>
+                <th rowspan="2" class="vcenter"><span>ชื่อสินค้า</span></th>
+                @for (int i = endYear; i >= startYear; i--)
+                {
+                    <th colspan="2" class="vcenter"> @i </th>
+                }
+                <th rowspan="2" class="vcenter"> แบรนด์ </th>
+            </tr>
+            <tr>
+                @for (int i = 1; i <= 4; i++)
+                {
+                    <th class="vcenter"> จำนวน </th>
+                    <th class="vcenter"> ราคารวม </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -25,7 +46,7 @@
                 if (ViewBag.Getdata.Count == 0)
                 {
                     <tr>
-                        <td colspan="7" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>
+                        <td colspan="12" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>
                     </tr>
                 }
                 else
@@ -34,13 +55,42 @@
                     foreach (var rowData in ViewBag.Getdata)
                     {
                         <tr>
-                            <td style="text-align:center;"><span>@rowData.Company</span></td>
-                            <td><span>@rowData.Stkcod</span></td>
-                            <td class="textCus"><span>@rowData.Stkdes</span></td>
-                            <td><span>@rowData.Year</span></td>
-                            <td style="text-align:center;"><span>@rowData.Qty</span></td>
-                            <td style="text-align:right;"><span>@rowData.Amt</span></td>
-                            <td><span>@rowData.Brand</span></td>
+                            <td style="text-align:center;">@rowData.Company</td>
+                            <td>@rowData.Stkcod</td>
+                            <td class="textCut">@rowData.Stkdes</td>
+
+                            @for (int i = 1; i <= 4; i++)
+                            {
+                                string valQty = "";
+                                string valAmt = "";
+
+                                switch (i)
+                                {
+                                    case 1:
+                                        valQty = rowData.year_1_qty;
+                                        valAmt = rowData.year_1_amt;
+                                        break;
+                                    case 2:
+                                        valQty = rowData.year_2_qty;
+                                        valAmt = rowData.year_2_amt;
+                                        break;
+                                    case 3:
+                                        valQty = rowData.year_3_qty;
+                                        valAmt = rowData.year_3_amt;
+                                        break;
+                                    case 4:
+                                        valQty = rowData.year_4_qty;
+                                        valAmt = rowData.year_4_amt;
+                                        break;
+                                    default:
+                                        valQty = "";
+                                        valAmt = "";
+                                        break;
+                                }
+                                <td class="vright"> @valQty </td>
+                                <td class="vright"> @valAmt </td>
+                            }
+                            <td class="vcenter"> @rowData.Brand </td>
                         </tr>
                         rowShop++;
                     }
