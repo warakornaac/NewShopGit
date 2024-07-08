@@ -43,8 +43,8 @@ namespace NewShop.Controllers
                 {
                     BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
                 }
-            command.Dispose();
-            Connection.Close();
+                command.Dispose();
+                Connection.Close();
             }
             catch (Exception ex)
             {
@@ -885,14 +885,9 @@ namespace NewShop.Controllers
             }
             return PartialView("_OrderHistoryByBrand", new
             {
-<<<<<<< HEAD
-                @ViewBag.Getdata,
-                // @ViewBag.Docno
-=======
                 ViewBag.Getdata,
                 ViewBag.YearCurrent,
                 ViewBag.BrandList
->>>>>>> 31406936b24e7d6dbb6c3bcae9a4f7369a487222
             });
         }
     }
