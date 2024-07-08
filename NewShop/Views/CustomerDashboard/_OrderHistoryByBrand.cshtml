@@ -67,20 +67,20 @@
                                 switch (i)
                                 {
                                     case 1:
-                                        valQty = rowData.year_1_qty;
-                                        valAmt = rowData.year_1_amt;
+                                        valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_1_qty));
+                                        valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_1_amt));
                                         break;
                                     case 2:
-                                        valQty = rowData.year_2_qty;
-                                        valAmt = rowData.year_2_amt;
+                                        valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_2_qty));
+                                        valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_2_amt));
                                         break;
                                     case 3:
-                                        valQty = rowData.year_3_qty;
-                                        valAmt = rowData.year_3_amt;
+                                        valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_3_qty));
+                                        valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_3_amt));
                                         break;
                                     case 4:
-                                        valQty = rowData.year_4_qty;
-                                        valAmt = rowData.year_4_amt;
+                                        valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_4_qty));
+                                        valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_4_amt));
                                         break;
                                     default:
                                         valQty = "";
