@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutMobile.cshtml";
     string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
     var yearCurrent = DateTime.Now.Year;
+    List<SelectListItem> BrandList = ViewBag.BrandList;
 }
 <html lang="en">
 <head>
@@ -749,8 +750,10 @@
                                                                     @*<select class="form-select form-control" id="select-brand"></select>*@
                                                                     <select class="form-control" id="select-brand" name="select-brand" style="width: 100%;">
                                                                         <option value="" selected>ALL</option>
-                                                                        <option value="TRW">TRW</option>
-                                                                        <option value="STP">STP</option>
+                                                                        @for (var i = 0; i < BrandList.Count; i++)
+                                                                        {
+                                                                           <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                        }
                                                                     </select>
                                                                 </div>
                                                             </div>

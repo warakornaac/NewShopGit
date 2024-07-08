@@ -22,11 +22,35 @@ namespace NewShop.Controllers
 
         public ActionResult Index()
         {
+            string message = string.Empty;
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
                 return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
             }
+            List<SelectListItem> BrandList = new List<SelectListItem>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                //list brand
+                var command = new SqlCommand("p_Search_Brand_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCompany", "");
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
+                }
+            command.Dispose();
+            Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewBag.BrandList = BrandList;
             return View();
         }
         public ActionResult CustomerMenu()
@@ -420,7 +444,7 @@ namespace NewShop.Controllers
             }
             @ViewBag.Docno = setDocno;
 
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("stc24125667");
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("STC24030886");
             encodeDocno = System.Convert.ToBase64String(plainTextBytes);
 
             string message = "";
@@ -448,6 +472,8 @@ namespace NewShop.Controllers
                         Item_Type = reader["Item_Type"].ToString(),
                         VDiscount = reader["ORD_Discount"].ToString(),
                         AmtQty = reader["ORD_Qty"].ToString(),
+                        BckQty = reader["BCK_Qty"].ToString(),
+                        FlagBackOrder = reader["BackOrder"].ToString(),
                         TotalAmt = reader["ORD_Amt"].ToString()
                     });
                 }
@@ -755,6 +781,7 @@ namespace NewShop.Controllers
             string message = string.Empty;
 
             List<OrderHistoryByBrand> Getdata = new List<OrderHistoryByBrand>();
+            List<SelectListItem> BrandList = new List<SelectListItem>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -788,8 +815,20 @@ namespace NewShop.Controllers
                         Prclist = reader["Prclist"].ToString()
                     });
                 }
-                @ViewBag.Getdata = Getdata;
-                @ViewBag.YearCurrent = DateTime.Now.Year.ToString();
+
+                //list brand
+                command = new SqlCommand("p_Search_Brand_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCompany", "");
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
+
+                }
+                ViewBag.BrandList = BrandList;
+                ViewBag.Getdata = Getdata;
+                ViewBag.YearCurrent = DateTime.Now.Year.ToString();
                 reader.Close();
                 command.Dispose();
                 Connection.Close();
@@ -801,8 +840,9 @@ namespace NewShop.Controllers
             }
             return PartialView("_OrderHistoryByBrand", new
             {
-                @ViewBag.Getdata,
-                @ViewBag.YearCurrent
+                ViewBag.Getdata,
+                ViewBag.YearCurrent,
+                ViewBag.BrandList
             });
         }
     }

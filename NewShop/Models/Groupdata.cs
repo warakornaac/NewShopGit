@@ -484,6 +484,8 @@ namespace NewShop.Models
         public string VPromotion { get; set; }
         public string CUSCOD { get; set; }
         public string AmtQty { get; set; }
+        public string BckQty { get; set; }
+        public string FlagBackOrder { get; set; }
         public string AmtSalePrices { get; set; }
         public string TotalAmt { get; set; }
         public string Credit { get; set; }

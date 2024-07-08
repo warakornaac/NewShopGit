@@ -22,21 +22,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
         @@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
-
         html body {
             font-family: 'Kanit', sans-serif;
         }
-
         html body {
             font-size: calc(0.50em + 1vmin);
         }
-
-        span {
+        .textCut {
             display: inline-block;
-            width: 240px;
+            width: 230px;
             white-space: nowrap;
             overflow: hidden !important;
             text-overflow: ellipsis;
+        }
+        .vcenter {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        .vright {
+            text-align: right;
+            vertical-align: middle !important;
+        }
+        .badgeCustom {
+            min-width: 25px;
+            /*padding: 5px 2px;*/
         }
     </style>
 </head>
@@ -59,10 +68,11 @@
                                 <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
                                     <thead class="thead-default" style="font-size: small;">
                                         <tr>
-                                            <th style="text-align:center; width: 4%;">#</th>
-                                            <th style="text-align:center; width: 10%;">เบอร์สินค้า</th>
-                                            <th style="text-align:center; width: 50%;">ชื่อสินค้า</th>
-                                            <th style="text-align:center; width: 5%;">จำนวน</th>
+                                            <th class="vcenter" style="width: 4%;">#</th>
+                                            <th class="vcenter" style="width: 10%;">เบอร์สินค้า</th>
+                                            <th class="vcenter" style="width: 50%;">ชื่อสินค้า</th>
+                                            <th class="vcenter" style="width: 5%;">ส่งได้ / รอส่ง</th>
+                                            <th class="vcenter" style="width: 5%;">รวม</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -70,11 +80,31 @@
                                             int rowShop = 1;
                                             foreach (var rowData in ViewBag.Getdata)
                                             {
+                                                int readyOrder = 0; 
+                                                if (Convert.ToInt32(rowData.BckQty) > 0)
+                                                {
+                                                    if (Convert.ToInt32(rowData.BckQty) < Convert.ToInt32(rowData.AmtQty))
+                                                    {
+                                                        readyOrder = Convert.ToInt32(rowData.BckQty) - Convert.ToInt32(rowData.AmtQty);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    readyOrder = Convert.ToInt32(rowData.AmtQty);
+                                                }
+
                                                 <tr>
-                                                    <td style="text-align:center;">@rowShop</td>
+                                                    <td class="vcenter">@rowShop</td>
                                                     <td>@rowData.VSTKCOD </td>
-                                                    <td><span>@rowData.VSTKDES</span></td>
-                                                    <td style="text-align:center;">@rowData.AmtQty</td>
+                                                    <td><div class="textCut">@rowData.VSTKDES</div></td>
+                                                    <td class="vcenter">
+                                                        <div class="badge bg-success badgeCustom"> @readyOrder </div>
+                                                        <span style="font-weight: 600;">/</span>
+                                                        <div class="badge bg-info badgeCustom"> @rowData.BckQty </div>
+                                                    </td>
+                                                    <td class="vcenter">
+                                                        <div class="badge bg-primary badgeCustom"> @rowData.AmtQty </div>
+                                                    </td>
                                                 </tr>
                                                 rowShop++;
                                             }
