@@ -313,6 +313,7 @@ namespace NewShop.Controllers
             {
                 var command = new SqlCommand("p_Order_Notify_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
+                command.CommandTimeout = 120;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
                 command.Parameters.AddWithValue("@NotifyID", "0");
                 SqlDataReader reader = command.ExecuteReader();

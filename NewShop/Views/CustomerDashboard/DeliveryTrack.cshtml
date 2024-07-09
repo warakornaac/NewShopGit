@@ -937,9 +937,20 @@
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].OrderDate + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+
+                                var dateORD = data.Getdata[i].OrderDate;
+                                var parts = dateORD.split(" ");
+                                var datePart = parts[0];
+                                var timePart = parts[1];
+
+                                var dateParts = datePart.split("-");
+                                var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
+
+                                SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
+                                // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
                                 SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
                                 SubmithtmlPage += '</tr>';
                                 alert_accept++;
@@ -1047,9 +1058,6 @@
                         $('#deliverytrack-accept tbody').html("");
                         var SubmithtmlPage = "";
                         var date = "";
-                        var alert_accept = 0;
-                        var alert_packing = 0;
-                        var alert_delivery = 0;
                         if (data.message == "Y") {
                             if (data.Getdata.length > 0) {
                                 for (var i = 0; i < data.Getdata.length; i++) {
@@ -1073,9 +1081,9 @@
                                         SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
                                        // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
                                         SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
                                         SubmithtmlPage += '</tr>';
-                                        alert_accept++;
                                     }
                                 }
                                 console.log("Date is " + date);
