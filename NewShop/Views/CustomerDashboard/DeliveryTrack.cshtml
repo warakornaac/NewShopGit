@@ -588,7 +588,6 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>เลขที่</span></th>
@@ -596,7 +595,7 @@
                                                             <th><span>จำนวน</span></th>
                                                             <th><span>รอบส่ง</span></th>
                                                             <th><span>คลัง</span></th>
-                                                            <th><span>วัน/เวลาเริ่มจัดสินค้า</span></th>
+                                                            <th><span>วัน/เวลาเริ่มเตรียมสินค้า</span></th>
                                                             <th><span>สถานะ</span></th>
                                                         </tr>
                                                     </thead>
@@ -607,7 +606,6 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>เลขที่</span></th>
@@ -633,7 +631,6 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-arrive" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>เลขคำสั่งซื้อ</span></th>
@@ -931,7 +928,7 @@
                     if (data.Getdata.length > 0) {
                         for (var i = 0; i < data.Getdata.length; i++) {
                             // table Order
-                            if (data.Getdata[i].Notify.includes('รับ Order')) {
+                            if (data.Getdata[i].NotifyID == "1") {
                                 SubmithtmlPage += '<tr>';
                                 date = data.Getdata[i].StatusDate;
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
@@ -957,12 +954,12 @@
                             }
 
                             //Table Packing
-                            if (data.Getdata[i].Notify.includes('เตรียมจัดส่ง')) {
+                            if (data.Getdata[i].NotifyID == "2") {
                                 alert_packing++;
                             }
 
                             //Table Delivery
-                            if (data.Getdata[i].Notify.includes('ระหว่างขนส่ง')) {
+                            if (data.Getdata[i].NotifyID == "3") {
                                 alert_delivery++;
                             }
                         }
