@@ -869,5 +869,9 @@ namespace NewShop.Controllers
                 ViewBag.BrandList
             });
         }
+        public ActionResult MenuTest()
+        {
+            return View("MenuTest");
+        }
     }
 }
