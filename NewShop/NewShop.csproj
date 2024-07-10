@@ -1016,12 +1016,16 @@
     <Content Include="Content\Normalize.css" />
     <Content Include="Content\profile-index.js" />
     <Content Include="Content\w3css.css" />
+    <Content Include="CSS\argon-dashboard.css" />
+    <Content Include="CSS\argon-dashboard.min.css" />
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\bootstrap4.min.css" />
     <Content Include="CSS\divcont.css" />
     <Content Include="CSS\jQueryv3.1.1.js" />
     <Content Include="CSS\jssidebar.js" />
     <Content Include="CSS\navbar.css" />
+    <Content Include="CSS\nucleo-icons.css" />
+    <Content Include="CSS\nucleo-svg.css" />
     <Content Include="CSS\Pring.css" />
     <Content Include="CSS\script.js" />
     <Content Include="CSS\sidebar.css" />
@@ -7124,6 +7128,7 @@
     <Content Include="MobileOrderDataSet.xsc">
       <DependentUpon>MobileOrderDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="CSS\argon-dashboard.css.map" />
     <None Include="MobileOrderDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MobileOrderDataSet.Designer.cs</LastGenOutput>
@@ -7857,6 +7862,7 @@
     <Content Include="Views\CustomerDashboard\Credit.cshtml" />
     <Content Include="Views\CustomerDashboard\_DeliveryDetailByDocno.cshtml" />
     <Content Include="Views\CustomerDashboard\_OrderHistoryByBrand.cshtml" />
+    <Content Include="Views\CustomerDashboard\MenuTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
