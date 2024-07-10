@@ -333,7 +333,7 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-
+        //Tracking
         public JsonResult GetDeliveryTracking(string CUSCOD, string NotifyID)
         {
             string message = "";
