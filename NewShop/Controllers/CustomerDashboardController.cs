@@ -301,54 +301,31 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult GetDeliverytracking_Alert(string CUSCOD)
+        public JsonResult GetAlertDeliveryTracking(string CUSCOD)
         {
             string message = "";
-            List<Notify_Detail> Getdata = new List<Notify_Detail>();
+            var Getdata = new List<object>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_Detail", Connection);
+                var command = new SqlCommand("p_Order_Notify_Detail_Count", Connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandTimeout = 120;
-                command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
-                command.Parameters.AddWithValue("@NotifyID", "0");
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                command.Parameters.AddWithValue("@CUSCOD", CUSCOD);
+                SqlDataReader Reader = command.ExecuteReader();
+                while (Reader.Read())
                 {
-                    Getdata.Add(new Notify_Detail()
+                    Getdata.Add(new
                     {
-                        ORD_DocNo = reader["ORD_DocNo"].ToString(),
-                        NotifyID = reader["NotifyID"].ToString(),
-                        Notify = reader["Notify"].ToString(),
-                        StatusDate = reader["StatusDate"] != DBNull.Value ? reader["StatusDate"].ToString() : "",
-                        PIDate = reader["PIDate"] != DBNull.Value ? reader["PIDate"].ToString() : "",
-                        ExpToArrive = reader["ExpToArrive"] != DBNull.Value ? reader["ExpToArrive"].ToString() : "",
-                        StartDelivery = reader["StartDelivery"] != DBNull.Value ? reader["StartDelivery"].ToString() : "",
-                        EndDelivery = reader["EndDelivery"] != DBNull.Value ? reader["EndDelivery"].ToString() : "",
-                        OrderDate = reader["Order Date"] != DBNull.Value ? reader["Order Date"].ToString() : "",
-                        ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
-                        ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
-                        ORD_TotalAmt = reader["ORD_TotalAmt"].ToString(),
-                        Round = reader["Round"].ToString(),
-                        WH = reader["WH"].ToString(),
-                        Item_Type = reader["Item_Type"].ToString(),
-                        ORD_STKCOD = reader["ORD_STKCOD"].ToString(),
-                        STKDES = reader["STKDES"].ToString(),
-                        ORD_SalePrice = reader["ORD_SalePrice"].ToString(),
-                        ORD_Qty = reader["ORD_Qty"].ToString(),
-                        ORD_Amt = reader["ORD_Amt"].ToString(),
-                        BCK_Qty = reader["BCK_Qty"].ToString(),
-                        BackOrder = reader["BackOrder"].ToString()
+                        Order = Reader["รับOrder"],
+                        Pack = Reader["เตรียมจัดส่ง"],
+                        Deliver = Reader["ระหว่างขนส่ง"],
+                        Arrive = Reader["จัดส่งสำเร็จ"]
                     });
                 }
-                reader.Close();
-                command.Dispose();
-                Connection.Close();
                 message = "Y";
+
             }
             catch (Exception ex)
             {

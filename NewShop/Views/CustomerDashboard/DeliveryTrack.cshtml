@@ -739,7 +739,7 @@
 
         if (cuscod != "") {
             getDeliveryTrack_alert();
-            getDeliveryTrackSuccess_alert();
+            getDelivery_Order();
         }
         $(document).ready(function () {
             $('#loader').show();
@@ -760,6 +760,9 @@
                 var cardBody = $(this).next(".card-body");
                 cardBody.slideToggle(200);
             });
+
+            setInterval(getDeliveryTrack_alert, 60000);
+            //setInterval(getDeliveryTrack_alert, 10000);
         });
 
         $(document).ready(function () {
@@ -899,140 +902,69 @@
             });
             $('#select-month-year').val(currentMonth);
         }
-
         function getDeliveryTrack_alert() {
             $.ajax({
-            url: '@Url.Action("GetDeliverytracking_Alert", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $('#deliverytrack-accept tbody').html("");
-                var SubmithtmlPage = "";
-                SubmithtmlPage += '<tr>';
-                SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                SubmithtmlPage += '</tr>';
-                $('#deliverytrack-accept tbody').append(SubmithtmlPage);
-
-            },
-            success: function (data) {
-                $('#deliverytrack-accept tbody').html("");
-                var SubmithtmlPage = "";
-                var date = "";
-                var alert_accept = 0;
-                var alert_packing = 0;
-                var alert_delivery = 0;
-                if (data.message == "Y") {
-                    if (data.Getdata.length > 0) {
-                        for (var i = 0; i < data.Getdata.length; i++) {
-                            // table Order
-                            if (data.Getdata[i].NotifyID == "1") {
-                                SubmithtmlPage += '<tr>';
-                                date = data.Getdata[i].StatusDate;
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-
-                                var dateORD = data.Getdata[i].OrderDate;
-                                var parts = dateORD.split(" ");
-                                var datePart = parts[0];
-                                var timePart = parts[1];
-
-                                var dateParts = datePart.split("-");
-                                var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-
-                                SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
-                                // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                                SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
-                                SubmithtmlPage += '</tr>';
-                                alert_accept++;
-                            }
-
-                            //Table Packing
-                            if (data.Getdata[i].NotifyID == "2") {
-                                alert_packing++;
-                            }
-
-                            //Table Delivery
-                            if (data.Getdata[i].NotifyID == "3") {
-                                alert_delivery++;
-                            }
-                        }
-                        if (alert_accept > 0) {
-                            if (alert_accept > 99) {
-                                $('#status-accept').text('99');
-                            }
-                            else {
-                                $('#status-accept').text(alert_accept);
-                            }
-                        }
-                        else {
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
-                            SubmithtmlPage += '</tr>';
-                        }
-
-                        if (alert_packing > 0) {
-                            if (alert_packing > 99) {
-                                $('#status-packing').text('99');
-                            }
-                            else {
-                                $('#status-packing').text(alert_packing);
-                            }
-                        }
-
-                        if (alert_delivery > 0) {
-                            if (alert_delivery > 99) {
-                                $('#status-delivery').text('99');
-                            }
-                            else {
-                                $('#status-delivery').text(alert_delivery);
-                            }
-                        }
-
-                        $('#deliverytrack-accept tbody').append(SubmithtmlPage);
-                    }
-                }
-                else {
-                    console.log(data.message);
-                }
-            }
-        });
-        }
-
-        function getDeliveryTrackSuccess_alert() {
-            var month = new Date().getMonth() + 1;
-            $.ajax({
-                url: '@Url.Action("GetDeliveryTrackingSuccess", "CustomerDashboard")',
-                data:{
-                    CUSCOD: cuscod,
-                    MONTH: month
+                url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod
                 },
-                type: 'POST',
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.message == "Y") {
-                        if (data.Getdata.length > 0) {
-                            if (data.Getdata.length > 99) {
-                                $('#status-arrive').text('99');
+                type: "POST",
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.message == "Y") {
+                        var alert_accept = 0;
+                        var alert_packing = 0;
+                        var alert_delivery = 0;
+                        var alert_arrive = 0;
+                        if (res.Getdata.length > 0) {
+                            alert_accept = res.Getdata[0].Order;
+                            alert_packing = res.Getdata[0].Pack;
+                            alert_delivery = res.Getdata[0].Deliver;
+                            alert_arrive = res.Getdata[0].Arrive;
+
+                            if (alert_accept > 0) {
+                                if (alert_accept > 99) {
+                                    $('#status-accept').text('99');
+                                }
+                                else {
+                                    $('#status-accept').text(alert_accept);
+                                }
                             }
-                            else {
-                                $('#status-arrive').text(data.Getdata.length);
+
+                            if (alert_packing > 0) {
+                                if (alert_packing > 99) {
+                                    $('#status-packing').text('99');
+                                }
+                                else {
+                                    $('#status-packing').text(alert_packing);
+                                }
+                            }
+
+                            if (alert_delivery > 0) {
+                                if (alert_delivery > 99) {
+                                    $('#status-delivery').text('99');
+                                }
+                                else {
+                                    $('#status-delivery').text(alert_delivery);
+                                }
+                            }
+
+                            if (alert_arrive > 0) {
+                                if (alert_arrive > 99) {
+                                    $('#status-arrive').text('99');
+                                }
+                                else {
+                                    $('#status-arrive').text(alert_arrive);
+                                }
                             }
                         }
                     }
                     else {
-                        console.log("Error is " + data.message);
+                        console.log(res.message)
                     }
                 }
             });
         }
-
         function getDelivery_Order() {
                 $.ajax({
                     url: '@Url.Action("GetDeliveryTracking", "CustomerDashboard")',
