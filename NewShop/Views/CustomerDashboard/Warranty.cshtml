@@ -545,10 +545,10 @@
                                     รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
                                     <hr class="m-0" id="line-tab-delivering" />
                                 </button>
-                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
-                                    จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive"></span>
-                                    <hr class="m-0" id="line-tab-success" />
-                                </button>
+                                @*<button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
+                                        จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive"></span>
+                                        <hr class="m-0" id="line-tab-success" />
+                                    </button>*@
                             </div>
                             <div class="card-body p-0">
                                 <div class="card-body p-0">
@@ -603,23 +603,23 @@
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                    <div class="m-0 table-arrive table-style table-responsive">
-                                        <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-arrive-table" style="padding: 7px;font-size: small;">
-                                            <thead style="font-size: small;">
-                                                <tr>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>อาการ</th>
-                                                    <th>วันที่แจ้งเคลม</th>
-                                                    <th>วันที่รับเคลม</th>
-                                                    <th>ดำเนินการ</th>
-                                                    <th>สถานะการเคลม</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
+                                    @*<div class="m-0 table-arrive table-style table-responsive">
+                                            <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-arrive-table" style="padding: 7px;font-size: small;">
+                                                <thead style="font-size: small;">
+                                                    <tr>
+                                                        <th>เบอร์สินค้า</th>
+                                                        <th>ชื่อสินค้า</th>
+                                                        <th>จำนวน</th>
+                                                        <th>อาการ</th>
+                                                        <th>วันที่แจ้งเคลม</th>
+                                                        <th>วันที่รับเคลม</th>
+                                                        <th>ดำเนินการ</th>
+                                                        <th>สถานะการเคลม</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -927,7 +927,7 @@
             $('.table-waiting').show('slow');
             $('.table-inspecting').hide('slow');
             $('.table-delivering').hide('slow');
-            $('.table-arrive').hide('slow');
+           // $('.table-arrive').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-inspect').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
@@ -937,7 +937,7 @@
             $('.table-waiting').hide('slow');
             $('.table-inspecting').show('slow');
             $('.table-delivering').hide('slow');
-            $('.table-arrive').hide('slow');
+            //$('.table-arrive').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-delivery').removeAttr('style');
@@ -946,12 +946,12 @@
         $('#btn-show-delivery').click(function () {
             $('.table-waiting').hide('slow');
             $('.table-inspecting').hide('slow');
-            $('.table-arrive').hide('slow');
+            //$('.table-arrive').hide('slow');
             $('.table-delivering').show('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
-            $('#btn-show-arrive').removeAttr('style');
+           // $('#btn-show-arrive').removeAttr('style');
             getWarrantyPending();
         });
         $('#btn-show-arrive').click(function () {
