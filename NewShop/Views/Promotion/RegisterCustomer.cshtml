@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "RegisterCustomer";
+    Layout = "~/Views/Shared/_Layoutyouknow_center.cshtml";
+    List<SelectListItem> getSlmCodeList = ViewBag.slmCodeList;
+    List<SelectListItem> getPmCodeList = ViewBag.pmCodeList;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RegisterCustomer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <script src="~/Scripts/jquery-2.2.4.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="~/Scripts/jquery-ui-1.13.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>*@
+
+    @*select*@
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.bundle.min.4.5.0.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.1.13.17.js"></script>
+</head>
+<body>
+    <div class="container-fluid mt--100">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-12 mt-4">
+                    <form action="" id="forecastPmForm" method="post" onsubmit="">
+                        <div class="card-header bg-primary text-white font-weight-bold" onclick="hideHeader();" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i class="fa fa-table"></i> Customer register promotion
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="headerSearch">
+                            <div class="row p-2">
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="form-group">
+                                        <span> <i class="fa fa-user"></i><b> SLMCODE :</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker" id="slmCode" name="slmCode" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT SLMCODE">
+                                                @for (var i = 0; i < getSlmCodeList.Count; i++)
+                                                {
+                                                <option value="@getSlmCodeList[i].Value">@getSlmCodeList[i].Text</option>
+                                                }
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="form-group">
+                                        <span> <i class="fa fa-calendar"></i><b> YEAR:</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker" id="year" name="year" style="width: 100%;">
+                                                <option value="2024" selected>2024</option>
+                                                <option value="2023">2023</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span> <i class="fa fa-user"></i><b> PROD MGR:</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-none-selected-text="SELECT PROD MGR">
+                                                @for (var i = 0; i < getPmCodeList.Count; i++)
+                                                {
+                                                    <option value="@getPmCodeList[i].Value">@getPmCodeList[i].Text</option>
+                                                }
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-sm-3 col-md-3">
+                                   
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="form-group">
+                                        <span> <i class="fa fa-calendar"></i><b> YEAR:</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker" id="year" name="year" style="width: 100%;">
+                                                <option value="2024" selected>2024</option>
+                                                <option value="2023">2023</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span> <i class="fa fa-shopping-cart"></i><b> SEC:</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker stkSec" id="stkSec" name="stkSec" style="width: 100%; padding-top: 5px;" title="SELECT SEC" data-live-search="true" multiple>
+                                                <option value="ALL">SEC ALL</option>
+
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" id="headerSearchFooter">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-success btn-md" onclick="saveForecastPm();" style="font-size: medium; float: left; position: relative; " onclick="saveBudgetPm();"><i class="fa fa-save"></i> Save</button>
+                                    <button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;
+                                    <button type="button" class="btn btn-primary btn-md" onclick="searchForecast();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @*did you know*@
+    </div>
+</body>
+</html>
