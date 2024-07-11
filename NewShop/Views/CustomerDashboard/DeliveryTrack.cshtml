@@ -702,10 +702,10 @@
                                                         <tr>
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>เลขคำสั่งซื้อ</span></th>
                                                             <th><span>จำนวน</span></th>
                                                             <th><span>วันที่รับสินค้า</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
+                                                            <th><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -1226,15 +1226,15 @@
                                         SubmithtmlPage += '<td><span></span></td>';
 
                                     }
-                                if (data.Getdata[i].EndDelivery != "") {
-                                    var dateEN = data.Getdata[i].EndDelivery;
-                                    var partsEN = dateEN.split(" ");
-                                    var datePartEN = partsEN[0];
-                                    var timePartEN = partsEN[1];
+                                if (data.Getdata[i].ExpToArrive != "") {
+                                    var dateEx = data.Getdata[i].ExpToArrive;
+                                    var partsEx = dateEx.split(" ");
+                                    var datePartEx = partsEx[0];
+                                    var timePartEx = partsEx[1];
 
-                                    var datePartsEN = datePartEN.split("-");
-                                    var formattedDateEN = datePartsEN[2] + "-" + datePartsEN[1] + "-" + datePartsEN[0];
-                                    SubmithtmlPage += '<td><span>' + formattedDateEN + ' ' + timePartEN + '</span></td>';
+                                    var datePartsEx = datePartEx.split("-");
+                                    var formattedDateEx = datePartsEx[2] + "-" + datePartsEx[1] + "-" + datePartsEx[0];
+                                    SubmithtmlPage += '<td><span>' + formattedDateEx + ' ' + timePartEx+ '</span></td>';
                                 }
                                 else {
                                     SubmithtmlPage += '<td><span></span></td>';
@@ -1296,15 +1296,15 @@
 
                             SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
                             SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
-                            if (data.Getdata[i].StatusDate != "") {
-                                var dateST = data.Getdata[i].StatusDate;
-                                var partsST = dateST.split(" ");
-                                var datePartST = partsST[0];
-                                var timePartST = partsST[1];
+                            if (data.Getdata[i].EndDelivery != "") {
+                                var dateEN = data.Getdata[i].EndDelivery;
+                                var partsEN = dateEN.split(" ");
+                                var datePartEN = partsEN[0];
+                                var timePartEN = partsEN[1];
 
-                                var datePartsST = datePartST.split("-");
-                                var formattedDateST = datePartsST[2] + "-" + datePartsST[1] + "-" + datePartsST[0];
-                                SubmithtmlPage += '<td><span>' + formattedDateST + '</span></td>';
+                                var datePartsEN = datePartEN.split("-");
+                                var formattedDateEN = datePartsEN[2] + "-" + datePartsEN[1] + "-" + datePartsEN[0];
+                                SubmithtmlPage += '<td><span>' + formattedDateEN + '</span></td>';
                             }
                             else {
                                 SubmithtmlPage += '<td><span></span></td>';
