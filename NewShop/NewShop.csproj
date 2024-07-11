@@ -150,6 +150,7 @@
     <Compile Include="Controllers\PrintStatementController.cs" />
     <Compile Include="Controllers\ProductdetailsController.cs" />
     <Compile Include="Controllers\ProductimageController.cs" />
+    <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\SCStockScoController.cs" />
     <Compile Include="Controllers\SelectPrintStatementController.cs" />
     <Compile Include="Controllers\SeleScrCustomerController.cs" />
@@ -7863,6 +7864,7 @@
     <Content Include="Views\CustomerDashboard\_DeliveryDetailByDocno.cshtml" />
     <Content Include="Views\CustomerDashboard\_OrderHistoryByBrand.cshtml" />
     <Content Include="Views\CustomerDashboard\MenuTest.cshtml" />
+    <Content Include="Views\Promotion\RegisterCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
