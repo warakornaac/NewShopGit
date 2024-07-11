@@ -513,6 +513,78 @@
                 font-size: 12px;
             }
         }
+
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 400px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (max-width: 586px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 200px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 400px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 819px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 500px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1000px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1100px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1279px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1439px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 300px !important;
+                white-space: nowrap;
+            }
+        }
     </style>
 </head>
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
@@ -573,12 +645,11 @@
                                                         <tr>
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>เลขที่</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
                                                             <th><span>เวลาสั่ง</span></th>
                                                             <th><span>จำนวน</span></th>
                                                             <th><span>รอบส่ง</span></th>
-                                                            <th><span>สถานะ</span></th>
+                                                            <th><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -590,13 +661,12 @@
                                                         <tr>
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>เลขที่</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
                                                             <th><span>จำนวน</span></th>
                                                             <th><span>รอบส่ง</span></th>
                                                             <th><span>คลัง</span></th>
                                                             <th><span>วัน/เวลาเริ่มเตรียมสินค้า</span></th>
-                                                            <th><span>สถานะ</span></th>
+                                                            <th><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -608,12 +678,11 @@
                                                         <tr>
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>เลขที่</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
                                                             <th><span>จำนวน</span></th>
                                                             <th><span>วัน/เวลาออกส่งสินค้า</span></th>
                                                             <th><span>วัน/เวลาคาดว่าจะถึง</span></th>
-                                                            <th><span>สถานะ</span></th>
+                                                            <th><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -635,9 +704,8 @@
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>เลขคำสั่งซื้อ</span></th>
                                                             <th><span>จำนวน</span></th>
-                                                            <th><span>วันที่สั่ง</span></th>
                                                             <th><span>วันที่รับสินค้า</span></th>
-                                                            <th><span>สถานะ</span></th>
+                                                            <th><span>วันที่สั่ง</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -995,8 +1063,7 @@
                                         SubmithtmlPage += '<tr>';
                                         date = data.Getdata[i].StatusDate;
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                        SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                         var dateORD = data.Getdata[i].OrderDate;
                                         var parts = dateORD.split(" ");
@@ -1011,7 +1078,8 @@
                                        // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
                                         SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+
                                         SubmithtmlPage += '</tr>';
                                     }
                                 }
@@ -1059,8 +1127,7 @@
                              for (var i = 0; i < data.Getdata.length; i++) {
                                      SubmithtmlPage += '<tr>';
                                      SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                     SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                      var dateORD = data.Getdata[i].OrderDate;
                                      var parts = dateORD.split(" ");
@@ -1088,7 +1155,7 @@
                                          SubmithtmlPage += '<td><span></span></td>';
 
                                      }
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                      SubmithtmlPage += '</tr>';
 
                              }
@@ -1134,8 +1201,7 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                     SubmithtmlPage += '<tr>';
                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
-                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                    SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                     var dateORD = data.Getdata[i].OrderDate;
                                     var parts = dateORD.split(" ");
@@ -1174,7 +1240,7 @@
                                     SubmithtmlPage += '<td><span></span></td>';
 
                                 }
-                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                     SubmithtmlPage += '</tr>';
 
                             }
@@ -1219,8 +1285,7 @@
                         for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                            SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                             var dateORD = data.Getdata[i].OrderDate;
                             var parts = dateORD.split(" ");
@@ -1245,7 +1310,7 @@
                                 SubmithtmlPage += '<td><span></span></td>';
 
                             }
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].Notify + '</td>';
+                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                             SubmithtmlPage += '</tr>';
                         }
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
