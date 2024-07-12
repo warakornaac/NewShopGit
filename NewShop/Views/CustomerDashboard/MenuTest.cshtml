@@ -104,27 +104,27 @@
 <body style="font-family: Kanit, sans-serif;">
 
     @*<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
-        <div class="container">
-            <a class="font-weight-bolder ms-lg-0 ms-3 text-white text-left" href="#" style="font-size: 22px;">
-                Customer Portal
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon mt-2">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                </span>
-            </button>
-            <div class="navbar-collapse" id="navigation">
-                <ul class="navbar-nav mx-auto"> </ul>
-                <ul class="navbar-nav d-lg-block d-none">
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-light">Contanct Tel. xxxx</a>
-                    </li>
-                </ul>
+            <div class="container">
+                <a class="font-weight-bolder ms-lg-0 ms-3 text-white text-left" href="#" style="font-size: 22px;">
+                    Customer Portal
+                </a>
+                <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon mt-2">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </span>
+                </button>
+                <div class="navbar-collapse" id="navigation">
+                    <ul class="navbar-nav mx-auto"> </ul>
+                    <ul class="navbar-nav d-lg-block d-none">
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-light">Contanct Tel. xxxx</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>*@
+        </nav>*@
     <!-- End Navbar -->
     <main class="main-content">
         <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
@@ -165,10 +165,10 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h2 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h2>
-                                        <h6 class="font-weight-bolder"> 2,300 รายการ </h6>
-                                        <p class="mb-0">
+                                        <h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>
+                                        <h4 class="mb-0">
                                             <span class="text-success text-sm font-weight-bolder">ดูสถานะสินค้า</span>  <span class="text-danger text-sm font-weight-bolder">คลิกเลย</span>
-                                        </p>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -187,12 +187,12 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h2 class="mb-0 text-uppercase font-weight-bold text-dark">สินค้าค้างส่ง</h2>
-                                        <h6 class="font-weight-bolder">
-                                            100
-                                        </h6>
-                                        <p class="mb-0">
+                                        <h3 class="font-weight-bolder">
+                                            <span id="backorder-amt">0</span> รายการ
+                                        </h3>
+                                        <h4 class="mb-0">
                                             <span class="text-success text-sm font-weight-bolder">ดูสถานะสินค้า</span>  <span class="text-danger text-sm font-weight-bolder">คลิกเลย</span>
-                                        </p>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -211,12 +211,12 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h2 class="mb-0 text-uppercase font-weight-bold text-dark">การเคลมสินค้า</h2>
-                                        <h6 class="font-weight-bolder">
-                                            +3,462
-                                        </h6>
-                                        <p class="mb-0">
+                                        <h3 class="font-weight-bolder">
+                                            <span id="warranty-amt">จ</span> รายการ
+                                        </h3>
+                                        <h4 class="mb-0">
                                             <span class="text-success text-sm font-weight-bolder">ดูสถานะสินค้า</span>  <span class="text-danger text-sm font-weight-bolder">คลิกเลย</span>
-                                        </p>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -235,12 +235,12 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h2 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h2>
-                                        <h6 class="font-weight-bolder">
+                                        <h3 class="font-weight-bolder">
                                             $103,430
-                                        </h6>
-                                        <p class="mb-0">
+                                        </h3>
+                                        <h4 class="mb-0">
                                             <span class="text-success text-sm font-weight-bolder">ดูสถานะสินค้า</span>  <span class="text-danger text-sm font-weight-bolder">คลิกเลย</span>
-                                        </p>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -269,10 +269,12 @@
         $(document).ready(function () {
             getCusName();
             clearChartsamt();
-
         });
         if (cuscod != null) {
             getChartsamt();
+            getDeliveryTrackAmt();
+            getBackorderAmt();
+            getWarrantyAmt();
         }
         function getCusName() {
             $.ajax({
@@ -356,70 +358,178 @@
 
                     if (data.length > 0) {
 
-                        var optionsProfileVisit = {
-                            annotations: {
-                                position: 'back'
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            chart: {
-                                type: 'bar',
-                                height: 500,
+                        //var optionsProfileVisit = {
+                        //    annotations: {
+                        //        position: 'back'
+                        //    },
+                        //    dataLabels: {
+                        //        enabled: false
+                        //    },
+                        //    chart: {
+                        //        type: 'bar',
+                        //        height: 500,
 
 
+                        //    },
+                        //    xaxis: {
+                        //        labels: {
+                        //            formatter: function (value) {
+                        //                return commaSeparateNumber(value);
+                        //            }
+                        //        },
+
+                        //    },
+                        //    yaxis: {
+                        //        labels: {
+                        //            formatter: function (value) {
+                        //                return commaSeparateNumber(value);
+                        //            }
+                        //        },
+                        //    },
+                        //    fill: {
+                        //        opacity: 1
+                        //    },
+                        //    plotOptions: {
+                        //    },
+
+                        //    series: [
+                        //{
+                        //    name: 'AAC',
+                        //    type: 'column',
+                        //    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
+                        //},
+                        //{
+                        //    name: 'TAC',
+                        //    type: 'column',
+                        //    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+                        //},
+                        //{
+                        //    name: 'ALL',
+                        //    type: 'column',
+                        //    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
+                        //}],
+                        //    //series: [{
+                        //    //    name: 'sales',
+                        //    //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
+                        //    //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+
+                        //    //}],
+                        //    //colors: '#435ebe',
+                        //    colors: ['#3591e0', '#e17572', '#7dc67d'],
+                        //    xaxis: {
+                        //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        //    },
+                        //}
+                        //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                        //chartProfileVisit.render();
+
+                        var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+                        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+                        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+                        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+                        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+                        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+                        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
+
+                        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+                        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+                        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
+
+                        new Chart(ctx1, {
+                            type: "bar",
+                            data: {
+                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                datasets: [
+                                    {
+                                        label: "AAC",
+                                        backgroundColor: gradientStroke1,
+                                        borderColor: "#5e72e4",
+                                        borderWidth: 3,
+                                        data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    },
+                                    {
+                                        label: "TAC",
+                                        backgroundColor: gradientStroke2,
+                                        borderColor: "#4848b0",
+                                        borderWidth: 3,
+                                        data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    },
+                                    {
+                                        label: "All",
+                                        backgroundColor: gradientStroke3,
+                                        borderColor: "#1d8cf8",
+                                        borderWidth: 3,
+                                        data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    }
+                                ],
                             },
-                            xaxis: {
-                                labels: {
-                                    formatter: function (value) {
-                                        return commaSeparateNumber(value);
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: true,
                                     }
                                 },
-
-                            },
-                            yaxis: {
-                                labels: {
-                                    formatter: function (value) {
-                                        return commaSeparateNumber(value);
-                                    }
+                                interaction: {
+                                    intersect: false,
+                                    mode: 'index',
+                                },
+                                scales: {
+                                    y: {
+                                        grid: {
+                                            drawBorder: false,
+                                            display: true,
+                                            drawOnChartArea: true,
+                                            drawTicks: false,
+                                            borderDash: [5, 5]
+                                        },
+                                        ticks: {
+                                            display: true,
+                                            padding: 10,
+                                            color: '#fbfbfb',
+                                            font: {
+                                                size: 11,
+                                                family: "Open Sans",
+                                                style: 'normal',
+                                                lineHeight: 2
+                                            },
+                                        }
+                                    },
+                                    x: {
+                                        grid: {
+                                            drawBorder: false,
+                                            display: false,
+                                            drawOnChartArea: false,
+                                            drawTicks: false,
+                                            borderDash: [5, 5]
+                                        },
+                                        ticks: {
+                                            display: true,
+                                            color: '#ccc',
+                                            padding: 20,
+                                            font: {
+                                                size: 11,
+                                                family: "Open Sans",
+                                                style: 'normal',
+                                                lineHeight: 2
+                                            },
+                                        }
+                                    },
                                 },
                             },
-                            fill: {
-                                opacity: 1
-                            },
-                            plotOptions: {
-                            },
-
-                            series: [
-                        {
-                            name: 'AAC',
-                            type: 'column',
-                            data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                        },
-                        {
-                            name: 'TAC',
-                            type: 'column',
-                            data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                        },
-                        {
-                            name: 'ALL',
-                            type: 'column',
-                            data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                        }],
-                            //series: [{
-                            //    name: 'sales',
-                            //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
-                            //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-
-                            //}],
-                            //colors: '#435ebe',
-                            colors: ['#3591e0', '#e17572', '#7dc67d'],
-                            xaxis: {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                            },
-                        }
-                        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                        chartProfileVisit.render();
+                        });
 
                         window.dispatchEvent(new Event('resize'));
                         $('#amtytd_aac').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
@@ -429,40 +539,148 @@
                         $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
                         $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
                     } else {
-                        var optionsProfileVisit = {
-                            annotations: {
-                                position: 'back'
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            chart: {
-                                type: 'bar',
-                                height: 500,
+                        //var optionsProfileVisit = {
+                        //    annotations: {
+                        //        position: 'back'
+                        //    },
+                        //    dataLabels: {
+                        //        enabled: false
+                        //    },
+                        //    chart: {
+                        //        type: 'bar',
+                        //        height: 500,
 
-                            },
+                        //    },
 
-                            fill: {
-                                opacity: 1
-                            },
-                            plotOptions: {
-                            },
-
-
-                            series: [{
-                                name: 'sales',
-                                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        //    fill: {
+                        //        opacity: 1
+                        //    },
+                        //    plotOptions: {
+                        //    },
 
 
-                            }],
-                            //colors: '#435ebe',
-                            colors: ['#3591e0', '#e17572', '#7dc67d'],
-                            xaxis: {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        //    series: [{
+                        //        name: 'sales',
+                        //        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
+                        //    }],
+                        //    //colors: '#435ebe',
+                        //    colors: ['#3591e0', '#e17572', '#7dc67d'],
+                        //    xaxis: {
+                        //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        //    },
+                        //}
+                        //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                        //chartProfileVisit.render();
+
+                        var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+                        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+                        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+                        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+                        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+                        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+                        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
+
+                        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+                        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+                        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+                        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
+
+                        new Chart(ctx1, {
+                            type: "bar",
+                            data: {
+                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                datasets: [
+                                    {
+                                        label: "AAC",
+                                        backgroundColor: gradientStroke1,
+                                        borderColor: "#5e72e4",
+                                        borderWidth: 3,
+                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    },
+                                    {
+                                        label: "TAC",
+                                        backgroundColor: gradientStroke2,
+                                        borderColor: "#4848b0",
+                                        borderWidth: 3,
+                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    },
+                                    {
+                                        label: "All",
+                                        backgroundColor: gradientStroke3,
+                                        borderColor: "#1d8cf8",
+                                        borderWidth: 3,
+                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        maxBarThickness: 10,
+                                        barThickness: 6
+                                    }
+                                ],
                             },
-                        }
-                        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                        chartProfileVisit.render();
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                    }
+                                },
+                                interaction: {
+                                    intersect: false,
+                                    mode: 'index',
+                                },
+                                scales: {
+                                    y: {
+                                        grid: {
+                                            drawBorder: false,
+                                            display: true,
+                                            drawOnChartArea: true,
+                                            drawTicks: false,
+                                            borderDash: [5, 5]
+                                        },
+                                        ticks: {
+                                            display: true,
+                                            padding: 10,
+                                            color: '#fbfbfb',
+                                            font: {
+                                                size: 11,
+                                                family: "Open Sans",
+                                                style: 'normal',
+                                                lineHeight: 2
+                                            },
+                                        }
+                                    },
+                                    x: {
+                                        grid: {
+                                            drawBorder: false,
+                                            display: false,
+                                            drawOnChartArea: false,
+                                            drawTicks: false,
+                                            borderDash: [5, 5]
+                                        },
+                                        ticks: {
+                                            display: true,
+                                            color: '#ccc',
+                                            padding: 20,
+                                            font: {
+                                                size: 11,
+                                                family: "Open Sans",
+                                                style: 'normal',
+                                                lineHeight: 2
+                                            },
+                                        }
+                                    },
+                                },
+                            },
+                        });
 
                         window.dispatchEvent(new Event('resize'));
 
@@ -473,6 +691,104 @@
                         $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
                         $('#amtmtd_tac').html('Amt MTD TAC: 0');
                         $('#amtmtd_all').html('Amt MTD ALL: 0');
+                    }
+                }
+            });
+        }
+
+        function getDeliveryTrackAmt() {
+            $.ajax({
+                 url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
+                 data: {
+                     CUSCOD: cuscod
+                 },
+                 type: "POST",
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.message == "Y") {
+                        var alert_accept = 0;
+                        var alert_packing = 0;
+                        var alert_delivery = 0;
+                        var alert_arrive = 0;
+                        var total_delivery = 0;
+                        if (res.Getdata.length > 0) {
+                            alert_accept = res.Getdata[0].Order;
+                            alert_packing = res.Getdata[0].Pack;
+                            alert_delivery = res.Getdata[0].Deliver;
+                            alert_arrive = res.Getdata[0].Arrive;
+                            total_delivery = alert_accept + alert_packing + alert_delivery + alert_arrive;
+                            $('#total_deliverytrack').text(commaSeparateNumber(total_delivery));
+
+                        }
+                    }
+                    else {
+                        console.log(res.message);
+                    }
+                }
+            });
+        }
+        function getBackorderAmt() {
+            var typeS = 0;
+            var backorder = 0;
+            var total = 0;
+            $.ajax({
+                 url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
+                 data: {
+                     CUSCOD: cuscod
+                 },
+                 type: "POST",
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.message == "Y") {
+                        if (res.backorder.length > 0) {
+                            typeS = res.backorder.length;
+                        }
+                    }
+                    else {
+                        console.log("Error S : " + res.message);
+                    }
+                }
+            });
+            $.ajax({
+                 url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
+                 data: {
+                     CUSCOD: cuscod
+                 },
+                 type: "POST",
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.message == "Y") {
+                        if (res.backorder.length > 0) {
+                            backorder = res.backorder.length;
+                            total = typeS + backorder;
+                            console.log("TypeS is :" + typeS);
+                            console.log("BO is " + backorder);
+                            $('#backorder-amt').text(commaSeparateNumber(total));
+                        }
+                    }
+                    else {
+                        console.log("Error S : " + res.message);
+                    }
+                }
+            });
+        }
+        function getWarrantyAmt() {
+            var total = 0;
+            $.ajax({
+                 url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
+                 data: {
+                     strcustome: cuscod
+                 },
+                 type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.length > 0) {
+
+                        var waiting = data[0].A != "" ? Number(data[0].A) :0;
+                        var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
+                        var pending = data[0].C != "" ? Number(data[0].C) : 0;
+                        total = waiting + inprogress + pending;
+                        $('#warranty-amt').text(commaSeparateNumber(total));
                     }
                 }
             });
@@ -503,89 +819,198 @@
             window.location.replace("../CustomerDashboard/Credit");
         });
     </script>
+    @*<script>
+            var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+            var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+            var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+            gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+            gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+            gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
+
+            var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+            gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+            gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+            gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
+
+            new Chart(ctx1, {
+                type: "bar",
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [
+                        {
+                            label: "Mobile apps",
+                            backgroundColor: gradientStroke1,
+                            borderColor: "#5e72e4",
+                            borderWidth: 3,
+                            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                            maxBarThickness: 10,
+                            barThickness: 6
+                        },
+                        {
+                            label: "LabTop",
+                            backgroundColor: gradientStroke2,
+                            borderColor: "#4848b0",
+                            borderWidth: 3,
+                            data: [30, 70, 200, 300, 400, 200, 300, 200, 400],
+                            maxBarThickness: 10,
+                            barThickness: 6
+                        },
+                        {
+                            label: "Computer",
+                            backgroundColor: gradientStroke3,
+                            borderColor: "#1d8cf8",
+                            borderWidth: 3,
+                            data: [20, 50, 100, 400, 300, 100, 200, 300, 450],
+                            maxBarThickness: 10,
+                            barThickness: 6
+                        }
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                drawBorder: false,
+                                display: true,
+                                drawOnChartArea: true,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                padding: 10,
+                                color: '#fbfbfb',
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                        x: {
+                            grid: {
+                                drawBorder: false,
+                                display: false,
+                                drawOnChartArea: false,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                color: '#ccc',
+                                padding: 20,
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                    },
+                },
+            });
+        </script>*@
     @*script dashboard*@
-    <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
+    @*<script>
+            var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+            var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#5e72e4",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
+            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+            new Chart(ctx1, {
+                type: "line",
+                data: {
+                    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: "Mobile apps",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        pointRadius: 0,
+                        borderColor: "#5e72e4",
+                        backgroundColor: gradientStroke1,
+                        borderWidth: 3,
+                        fill: true,
+                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                        maxBarThickness: 6
 
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
+                    }],
                 },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
                             display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
                         }
                     },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                drawBorder: false,
+                                display: true,
+                                drawOnChartArea: true,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                padding: 10,
+                                color: '#fbfbfb',
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                        x: {
+                            grid: {
+                                drawBorder: false,
+                                display: false,
+                                drawOnChartArea: false,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                color: '#ccc',
+                                padding: 20,
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                    },
                 },
-            },
-        });
-    </script>
+            });
+        </script>*@
 </body>
 </html>

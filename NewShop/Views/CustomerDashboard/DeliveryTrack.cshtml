@@ -647,7 +647,7 @@
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
                                                             <th><span>เวลาสั่ง</span></th>
-                                                            <th><span>จำนวน</span></th>
+                                                            <th style="text-align:center"><span>จำนวน<br />(ส่งได้ / รอส่ง)</span></th>
                                                             <th><span>รอบส่ง</span></th>
                                                             <th><span>เลขที่</span></th>
                                                         </tr>
@@ -662,7 +662,7 @@
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
-                                                            <th><span>จำนวน</span></th>
+                                                            <th style="text-align:center"><span>จำนวน<br />( ส่งได้ / รอส่ง )</span></th>
                                                             <th><span>รอบส่ง</span></th>
                                                             <th><span>คลัง</span></th>
                                                             <th><span>วัน/เวลาเริ่มเตรียมสินค้า</span></th>
@@ -679,7 +679,7 @@
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
-                                                            <th><span>จำนวน</span></th>
+                                                            <th style="text-align:center"><span>จำนวน<br />( ส่งได้ / รอส่ง )</span></th>
                                                             <th><span>วัน/เวลาออกส่งสินค้า</span></th>
                                                             <th><span>วัน/เวลาคาดว่าจะถึง</span></th>
                                                             <th><span>เลขที่</span></th>
@@ -702,7 +702,7 @@
                                                         <tr>
                                                             <th><span>เบอร์สินค้า</span></th>
                                                             <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>จำนวน</span></th>
+                                                            <th style="text-align:center"><span>จำนวน<br />( ส่งแล้ว / รอส่ง )</span></th>
                                                             <th><span>วันที่รับสินค้า</span></th>
                                                             <th><span>วันที่สั่ง</span></th>
                                                             <th><span>เลขที่</span></th>
@@ -1060,7 +1060,13 @@
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     // table Order
                                     if (data.Getdata[i].Notify.includes('รับ Order')) {
+                                        var amt_order = 0;
+                                            amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
+
+
+
                                         SubmithtmlPage += '<tr>';
+
                                         date = data.Getdata[i].StatusDate;
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                         SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
@@ -1075,12 +1081,15 @@
 
                                         SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
                                         SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
-                                       // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
-                                        SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                        // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
+
+
+                                        SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) +' / '+ commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
                                         SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
 
-                                        SubmithtmlPage += '</tr>';
+                                            SubmithtmlPage += '</tr>';
+
                                     }
                                 }
                                 console.log("Date is " + date);
@@ -1125,6 +1134,10 @@
                      if (data.message == "Y") {
                          if (data.Getdata.length > 0) {
                              for (var i = 0; i < data.Getdata.length; i++) {
+                                 var amt_order = 0;
+                                     amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
+
+
                                      SubmithtmlPage += '<tr>';
                                      SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                      SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
@@ -1138,7 +1151,7 @@
                                      var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
                                      SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
-                                     SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                     SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                      SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
                                      SubmithtmlPage += '<td><span>' + data.Getdata[i].WH + '</span></td>';
                                      if (data.Getdata[i].PIDate != "") {
@@ -1157,6 +1170,7 @@
                                      }
                                      SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                      SubmithtmlPage += '</tr>';
+
 
                              }
                              $('#deliverytrack-packing tbody').append(SubmithtmlPage);
@@ -1199,6 +1213,11 @@
                     if (data.message == "Y") {
                         if (data.Getdata.length > 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
+                                    var amt_order = 0;
+                                amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
+                                if (amt_order > 0) {
+
+
                                     SubmithtmlPage += '<tr>';
                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                     SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
@@ -1211,7 +1230,7 @@
                                     var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
                                     SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
-                                        SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                                    SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                     if (data.Getdata[i].StartDelivery != "") {
                                         var dateST = data.Getdata[i].StartDelivery;
                                         var partsST = dateST.split(" ");
@@ -1242,6 +1261,7 @@
                                 }
                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                     SubmithtmlPage += '</tr>';
+                                }
 
                             }
                             $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
@@ -1283,6 +1303,12 @@
                     $('#deliverytrack-arrive tbody').html("");
                     if (data.Getdata.length > 0) {
                         for (var i = 0; i < data.Getdata.length; i++) {
+                            var amt_order = 0;
+                                amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
+
+                            if (amt_order >0) {
+
+
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                             SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
@@ -1294,7 +1320,7 @@
                             var dateParts = datePart.split("-");
                             var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(data.Getdata[i].ORD_TotalQty) + '</span></td>';
+                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                             SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
                             if (data.Getdata[i].EndDelivery != "") {
                                 var dateEN = data.Getdata[i].EndDelivery;
@@ -1311,7 +1337,8 @@
 
                             }
                             SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
-                            SubmithtmlPage += '</tr>';
+                                SubmithtmlPage += '</tr>';
+                            }
                         }
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
                     }
