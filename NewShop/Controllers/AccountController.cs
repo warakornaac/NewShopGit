@@ -1036,7 +1036,7 @@ namespace NewShop.Controllers
             return Json(new { message = message, phone = phone }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ChangeNewPasswordPortal(string USER, string password, string confirmpassword)
+        public JsonResult ChangeNewPasswordPortal(string USER, string password, string newpassword, string confirmpassword)
         {
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -1048,7 +1048,8 @@ namespace NewShop.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inUser", USER);
                 cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@newPassword", confirmpassword);
+                cmd.Parameters.AddWithValue("@newPassword", newpassword);
+                cmd.Parameters.AddWithValue("@confirmPassword", confirmpassword);
                 SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                 p.Direction = ParameterDirection.Output;
                 cmd.Parameters.Add(p);
