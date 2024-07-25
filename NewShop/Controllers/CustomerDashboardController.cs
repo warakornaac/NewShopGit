@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 using NewShop.Models;
 using System.DirectoryServices.Protocols;
 using System.Web.Services.Description;
+using UAParser;
 
 namespace NewShop.Controllers
 {
@@ -115,9 +116,31 @@ namespace NewShop.Controllers
         }
         public ActionResult CustomerAlert()
         {
+            var uaString = Request.Headers["User-Agent"].ToString();
+            var uaParser = Parser.GetDefault();
+            string macAddress = Request.UserHostAddress.ToString();
+            string ipAddress = GetIp();
+            ClientInfo clientInfo = uaParser.Parse(uaString);
+
+            var os = clientInfo.OS.ToString();
+            var browser = clientInfo.UserAgent.ToString();
+
+            ViewBag.OS = os;
+            ViewBag.Browser = browser;
+            ViewBag.Mac = macAddress;
+            ViewBag.IP = ipAddress;
             return View();
         }
-
+        public string GetIp()
+        {
+            string ip =
+            System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            return ip;
+        }
         public JsonResult Credit_Cus(string cuscod)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
