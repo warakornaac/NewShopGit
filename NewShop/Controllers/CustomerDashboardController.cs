@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Net.NetworkInformation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -118,7 +119,7 @@ namespace NewShop.Controllers
         {
             var uaString = Request.Headers["User-Agent"].ToString();
             var uaParser = Parser.GetDefault();
-            string macAddress = Request.UserHostAddress.ToString();
+            string macAddress = GetMacAddress();
             string ipAddress = GetIp();
             ClientInfo clientInfo = uaParser.Parse(uaString);
 
@@ -141,6 +142,16 @@ namespace NewShop.Controllers
             }
             return ip;
         }
+        private string GetMacAddress()
+        {
+            string macAddress = NetworkInterface
+                                .GetAllNetworkInterfaces()
+                                .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                                .Select(nic => nic.GetPhysicalAddress().ToString())
+                                .FirstOrDefault();
+            return macAddress;
+        }
+
         public JsonResult Credit_Cus(string cuscod)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
