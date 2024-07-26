@@ -119,7 +119,7 @@ namespace NewShop.Controllers
         {
             var uaString = Request.Headers["User-Agent"].ToString();
             var uaParser = Parser.GetDefault();
-            string macAddress = GetMacAddress();
+            string macAddress = GetMACAddress();
             string ipAddress = GetIp();
             ClientInfo clientInfo = uaParser.Parse(uaString);
 
@@ -142,14 +142,19 @@ namespace NewShop.Controllers
             }
             return ip;
         }
-        private string GetMacAddress()
+        public string GetMACAddress()
         {
-            string macAddress = NetworkInterface
-                                .GetAllNetworkInterfaces()
-                                .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                                .Select(nic => nic.GetPhysicalAddress().ToString())
-                                .FirstOrDefault();
-            return macAddress;
+            string macAddresses = "";
+
+            foreach (System.Net.NetworkInformation.NetworkInterface nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+            return macAddresses;
         }
 
         public JsonResult Credit_Cus(string cuscod)
