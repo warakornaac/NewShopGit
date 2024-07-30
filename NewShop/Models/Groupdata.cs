@@ -42,6 +42,16 @@ namespace NewShop.Models
         [StringLength(150, MinimumLength = 2)]
         [Display(Name = "Password: ")]
         public string Password { get; set; }
+
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+    }
+    public class LoginuserInfo
+    {
+        public string OS { get; set; }
+        public string Browser { get; set; }
+        public string Ip_Addresss { get; set; }
+
     }
     public class CatProductGroup
     {

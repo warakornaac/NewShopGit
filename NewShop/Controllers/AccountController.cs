@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Services.Description;
 using System.Web.UI.WebControls;
+using UAParser;
 
 namespace NewShop.Controllers
 {
@@ -344,11 +345,36 @@ namespace NewShop.Controllers
                         UserType = Session["UserType"].ToString();
                         if (UserType == "5")
                         {
+                            var infoUser = GetUserInfo();
+                            var command = new SqlCommand("P_LoginMobile_log", Connection);
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@UsrID", User.Usre);
+                            command.Parameters.AddWithValue("@UsrType", UserType);
+                            command.Parameters.AddWithValue("@OS", infoUser.OS);
+                            command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+                            command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+                            command.Parameters.AddWithValue("@Latitude", User.Latitude);
+                            command.Parameters.AddWithValue("@Longitude", User.Longitude);
+                            command.ExecuteNonQuery();
+                            command.Dispose();
+
                             // return RedirectToAction("Index", "Home");
                             return RedirectToAction("Index", "PriceApproval");
                         }
                         else
                         {
+                            var infoUser = GetUserInfo();
+                            var command = new SqlCommand("P_LoginMobile_log", Connection);
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@UsrID", User.Usre);
+                            command.Parameters.AddWithValue("@UsrType", UserType);
+                            command.Parameters.AddWithValue("@OS", infoUser.OS);
+                            command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+                            command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+                            command.Parameters.AddWithValue("@Latitude", User.Latitude);
+                            command.Parameters.AddWithValue("@Longitude", User.Longitude);
+                            command.ExecuteNonQuery();
+                            command.Dispose();
                             return RedirectToAction("dashboard", "SeleScrCustomer");
                         }
                     }
@@ -388,14 +414,50 @@ namespace NewShop.Controllers
                 }
                 else if (UserType == "2")//sales
                 {
+                    var infoUser = GetUserInfo();
+                    var command = new SqlCommand("P_LoginMobile_log", Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UsrID", User.Usre);
+                    command.Parameters.AddWithValue("@UsrType", UserType);
+                    command.Parameters.AddWithValue("@OS", infoUser.OS);
+                    command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+                    command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+                    command.Parameters.AddWithValue("@Latitude", User.Latitude);
+                    command.Parameters.AddWithValue("@Longitude", User.Longitude);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
                     return RedirectToAction("dashboard", "SeleScrCustomer");
                 }
                 else if (UserType == "1")//salesco
                 {
+                    var infoUser = GetUserInfo();
+                    var command = new SqlCommand("P_LoginMobile_log", Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UsrID", User.Usre);
+                    command.Parameters.AddWithValue("@UsrType", UserType);
+                    command.Parameters.AddWithValue("@OS", infoUser.OS);
+                    command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+                    command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+                    command.Parameters.AddWithValue("@Latitude", User.Latitude);
+                    command.Parameters.AddWithValue("@Longitude", User.Longitude);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
                     return RedirectToAction("dashboard", "SeleScrCustomer");
                 }
                 else if (UserType == "5")//pm
                 {
+                    var infoUser = GetUserInfo();
+                    var command = new SqlCommand("P_LoginMobile_log", Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UsrID", User.Usre);
+                    command.Parameters.AddWithValue("@UsrType", UserType);
+                    command.Parameters.AddWithValue("@OS", infoUser.OS);
+                    command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+                    command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+                    command.Parameters.AddWithValue("@Latitude", User.Latitude);
+                    command.Parameters.AddWithValue("@Longitude", User.Longitude);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
                     return RedirectToAction("Index", "PriceApproval");
                 }
 
@@ -414,6 +476,35 @@ namespace NewShop.Controllers
             // return View(User);
             //  return User.Usre;
         }
+
+        public LoginuserInfo GetUserInfo()
+        {
+            var uaString = Request.Headers["User-Agent"].ToString();
+            var uaParser = Parser.GetDefault();
+            string ipAddress = GetIp();
+            ClientInfo clientInfo = uaParser.Parse(uaString);
+
+            var os = clientInfo.OS.ToString();
+            var browser = clientInfo.UserAgent.ToString();
+
+            return new LoginuserInfo
+            {
+                OS = os,
+                Browser = browser,
+                Ip_Addresss = ipAddress,
+            };
+        }
+        public string GetIp()
+        {
+            string ip =
+            System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            return ip;
+        }
+
         //public ActionResult LogIn(LoginUserViewModel User)
         //{
         //    string Userlog = string.Empty;

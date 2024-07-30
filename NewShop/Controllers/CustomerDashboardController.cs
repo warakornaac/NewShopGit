@@ -14,6 +14,7 @@ using NewShop.Models;
 using System.DirectoryServices.Protocols;
 using System.Web.Services.Description;
 using UAParser;
+using System.Net;
 
 namespace NewShop.Controllers
 {
@@ -119,8 +120,8 @@ namespace NewShop.Controllers
         {
             var uaString = Request.Headers["User-Agent"].ToString();
             var uaParser = Parser.GetDefault();
-            string macAddress = GetMACAddress();
             string ipAddress = GetIp();
+            string macAddress = GetMACAddress();
             ClientInfo clientInfo = uaParser.Parse(uaString);
 
             var os = clientInfo.OS.ToString();
@@ -155,6 +156,15 @@ namespace NewShop.Controllers
                 }
             }
             return macAddresses;
+        }
+        private string GetMacAddress()
+        {
+            string macAddress = NetworkInterface
+                                .GetAllNetworkInterfaces()
+                                .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                                .Select(nic => nic.GetPhysicalAddress().ToString())
+                                .FirstOrDefault();
+            return macAddress;
         }
 
         public JsonResult Credit_Cus(string cuscod)
