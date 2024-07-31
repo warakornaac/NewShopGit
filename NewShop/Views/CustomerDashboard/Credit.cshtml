@@ -1167,7 +1167,7 @@
             $.ajax({
                 url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
                 data: {
-                    cuscod: '111B0005'
+                    cuscod: cuscod
                 },
                 type: "POST",
                 dataType: "JSON",
@@ -1377,7 +1377,33 @@
                 });
             }
             else {
-                console.log('Error!!!');
+                //console.log('Error!!!');
+                var SubmithtmlPage = '';
+
+                var aac = $('#bill-aac-detail tbody');
+                var tac = $('#bill-tac-detail tbody');
+                var omp = $('#bill-omp-detail tbody');
+                if (comp === 'AAC') {
+                    aac.html("");
+                }
+                if (comp === 'TAC') {
+                    tac.html("");
+                }
+                if (comp === 'OMP') {
+                    omp.html("");
+                }
+                SubmithtmlPage += '<tr>';
+                SubmithtmlPage += '<td class="text-center" colspan="5">-- ไม่พบข้อมูล --</td>';
+                SubmithtmlPage += '</tr>';
+                if (comp === 'AAC') {
+                    aac.append(SubmithtmlPage);
+                }
+                if (comp === 'TAC') {
+                    tac.append(SubmithtmlPage);
+                }
+                if (comp === 'OMP') {
+                    omp.append(SubmithtmlPage);
+                }
             }
         }
 

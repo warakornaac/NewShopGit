@@ -35,8 +35,31 @@
                 <p>Browser: @ViewBag.Browser</p>
                 <p>IP Address: @ViewBag.IP</p>
                 <p>MAC Address: @ViewBag.Mac</p>
+                <p><span id="location_text"></span></p>
+
             </div>
         </div>
     </main>
+    <script>
+        var x = document.getElementById("location_text");
+
+        $(document).ready(function () {
+            getLocation();
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+            var text = '';
+            text = 'Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude;
+            x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+            console.log(text);
+        }
+    </script>
 </body>
 </html>

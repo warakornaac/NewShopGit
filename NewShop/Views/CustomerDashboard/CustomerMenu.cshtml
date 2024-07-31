@@ -99,6 +99,18 @@
             background-image: linear-gradient(39deg, #a4d0f1 0%, #afe9ff 100%);
             border: 2px solid #a6c1ff;
         }
+
+        .bg_hov:hover {
+            background-color: #ffcc00;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+        .bg_hov:active {
+            background-color: #997a00;
+            border-radius: 10px;
+        }
     </style>
     <style>
         #scroll-container {
@@ -111,9 +123,9 @@
             -moz-transform: translateX(100%);
             -webkit-transform: translateX(100%);
             transform: translateX(100%);
-            -moz-animation: my-animation 15s linear infinite;
-            -webkit-animation: my-animation 15s linear infinite;
-            animation: my-animation 15s linear infinite;
+            -moz-animation: my-animation 30s linear infinite;
+            -webkit-animation: my-animation 30s linear infinite;
+            animation: my-animation 30s linear infinite;
         }
 
         /* for Firefox */
@@ -161,6 +173,14 @@
         .stroke-text {
             -webkit-text-stroke-width: 0.5px;
             -webkit-text-stroke-color: black;
+        }
+
+        .text-indigo {
+            color: #6f42c1;
+        }
+
+        .text-tac {
+            color: #0d6efd;
         }
     </style>
 </head>
@@ -215,30 +235,30 @@
                                 <div class="col-12 text-sm mb-0 text-nowrap scroll-text">
                                     <div class="row">
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-primary " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_aac">Amt MTD AAC :</span>
+                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_aac">Amt MTD AAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_tac">Amt MTD TAC :</span>
+                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_tac">Amt MTD TAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_omp">Amt MTD OMP :</span>
+                                            <span class="font-weight-bold  text-indigo" style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_omp">Amt MTD OMP :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-info " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_all">Amt MTD ALL :</span>
+                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_all">Amt MTD ALL :</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-primary " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_aac">Amt YTD AAC :</span>
+                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_aac">Amt YTD AAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_tac">Amt YTD TAC :</span>
+                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px; " id="amtytd_tac">Amt YTD TAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_omp">Amt YTD OMP :</span>
+                                            <span class="font-weight-bold text-indigo " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_omp">Amt YTD OMP :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-info " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_all">Amt YTD ALL :</span>
+                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_all">Amt YTD ALL :</span>
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +267,7 @@
                         </div>
                         <div class="card-body p-3">
                             <div class="chart">
-                                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                                <canvas id="chart-line" class="chart-canvas" height="500"></canvas>
                             </div>
                         </div>
                     </div>
@@ -256,8 +276,8 @@
             @*menu list*@
             <div class="row mt-3">
                 <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_deliverytracking">
-                        <div class="card-body p-3">
+                    <div class="card bg_card " id="menu_deliverytracking">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -280,7 +300,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6  col-sm-6">
                     <div class="card bg_card" id="menu_backorder">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -304,7 +324,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_warranty">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -328,7 +348,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_promotion">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -352,7 +372,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_credit">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -376,7 +396,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_amt">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -490,8 +510,8 @@
                     datasets: [
                         {
                             label: "AAC",
-                            backgroundColor: "#5e72e4",
-                            borderColor: "#5e72e4",
+                            backgroundColor: "#dc3545",
+                            borderColor: "#dc3545",
                             borderWidth: 0,
                             data: [0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
@@ -499,8 +519,8 @@
                         },
                         {
                             label: "TAC",
-                            backgroundColor: "#4848b0",
-                            borderColor: "#4848b0",
+                            backgroundColor: "#0d6efd",
+                            borderColor: "#0d6efd",
                             borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
@@ -508,8 +528,8 @@
                         },
                         {
                             label: "OMP",
-                            backgroundColor: "#3131F5",
-                            borderColor: "#3131F5",
+                            backgroundColor: "#6f42c1",
+                            borderColor: "#6f42c1",
                             borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
@@ -517,8 +537,8 @@
                         },
                         {
                             label: "All",
-                            backgroundColor: "#1d8cf8",
-                            borderColor: "#1d8cf8",
+                            backgroundColor: "#20c997",
+                            borderColor: "#20c997",
                             borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
@@ -718,39 +738,39 @@
                                 datasets: [
                                     {
                                         label: "AAC",
-                                        backgroundColor: "#5e72e4",
-                                        borderColor: "#5e72e4",
+                                        backgroundColor: "#dc3545",
+                                        borderColor: "#dc3545",
                                         borderWidth: 0,
                                         data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "TAC",
-                                        backgroundColor: "#4848b0",
-                                        borderColor: "#4848b0",
+                                        backgroundColor: "#0d6efd",
+                                        borderColor: "#0d6efd",
                                         borderWidth: 0,
                                         data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "OMP",
-                                        backgroundColor: "#3131F5",
-                                        borderColor: "#3131F5",
+                                        backgroundColor: "#6f42c1",
+                                        borderColor: "#6f42c1",
                                         borderWidth: 0,
                                         data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "All",
-                                        backgroundColor: "#1d8cf8",
-                                        borderColor: "#1d8cf8",
+                                        backgroundColor: "#20c997",
+                                        borderColor: "#20c997",
                                         borderWidth: 0,
                                         data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     }
                                 ],
                             },
@@ -903,36 +923,36 @@
                                 datasets: [
                                     {
                                         label: "AAC",
-                                        backgroundColor: gradientStroke1,
-                                        borderColor: "#5e72e4",
-                                        borderWidth: 3,
+                                        backgroundColor: "#dc3545",
+                                        borderColor: "#dc3545",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "TAC",
-                                        backgroundColor: gradientStroke2,
-                                        borderColor: "#4848b0",
-                                        borderWidth: 3,
+                                        backgroundColor: "#0d6efd",
+                                        borderColor: "#0d6efd",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "OMP",
-                                        backgroundColor: gradientStroke3,
-                                        borderColor: "#3131F5",
-                                        borderWidth: 3,
+                                        backgroundColor: "#6f42c1",
+                                        borderColor: "#6f42c1",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "All",
-                                        backgroundColor: gradientStroke3,
-                                        borderColor: "#1d8cf8",
-                                        borderWidth: 3,
+                                        backgroundColor: "#20c997",
+                                        borderColor: "#20c997",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6

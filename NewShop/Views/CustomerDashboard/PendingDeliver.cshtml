@@ -911,14 +911,24 @@
                         if (data.message == "Y") {
                             if (data.backorder.length > 0) {
                                 for (var i = 0; i < data.backorder.length; i++) {
-                                        SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<tr>';
+                                    if (data.backorder[i].SaleOrderDate.includes("/")) {
+                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
+                                    }
+                                    else {
                                         SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                    }
                                     SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
                                     SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                     SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
-                                    SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                    if (data.backorder[i].DeliveryDate.includes("/")) {
+                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                    }
                                         SubmithtmlPage += '</tr >';
 
                                 }
@@ -1015,22 +1025,29 @@
                      var aac = $('#backor-backorder tbody');
 
                      var SubmithtmlPage = "";
-
                          aac.html("");
-
                      if (data.message == "Y") {
                          if (data.backorder.length > 0) {
                              for (var i = 0; i < data.backorder.length; i++) {
-                                     SubmithtmlPage += '<tr>';
-                                 SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                 SubmithtmlPage += '<tr>';
+                                 if (data.backorder[i].SaleOrderDate.includes("/")) {
+                                     SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
+                                 }
+                                 else {
+                                     SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                 }
                                  SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
                                  SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
-                                 SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
-                                     SubmithtmlPage += '</tr >';
-
+                                 if (data.backorder[i].DeliveryDate.includes("/")) {
+                                     SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
+                                 }
+                                 else {
+                                    SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                 }
+                                 SubmithtmlPage += '</tr >';
                              }
                              //AAC
                              if (SubmithtmlPage != "") {
@@ -1048,7 +1065,6 @@
                              tac.append(SubmithtmlPage_T);
                              omp.append(SubmithtmlPage_O);
                          }
-
                      }
                      else {
                          console.log(data.message);
