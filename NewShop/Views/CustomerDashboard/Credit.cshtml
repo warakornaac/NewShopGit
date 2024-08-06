@@ -631,7 +631,7 @@
                                                     </div>
                                                     <div class="card-body p-0 ">
                                                         <div class="m-0 table-responsive">
-                                                            <table class="table table-sm table-borderless m-0" id="credit-table">
+                                                            <table class="table table-sm table-bordered m-0" id="credit-table">
                                                                 <tr>
                                                                     <th class=" text-center pl-0 pr-0 "><span>วงเงิน</span></th>
                                                                     <th class="text-center pl-0 pr-0 "><span>AAC</span></th>
@@ -640,21 +640,21 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="text-center pl-0 pr-0"><span>วงเงิน</span></th>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-crline">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-crline">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-crline">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="aac-crline">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="tac-crline">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="omp-crline">0</span></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="text-center pl-0 pr-0"><span>ใช้ไป</span></th>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-bal">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-bal">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-bal">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="aac-bal">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="tac-bal">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="omp-bal">0</span></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="text-center pl-0 pr-0"><span>คงเหลือ</span></th>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="aac-res">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="tac-res">0</span></td>
-                                                                    <td class="pl-0 pr-0 text-right"><span id="omp-res">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="aac-res">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="tac-res">0</span></td>
+                                                                    <td class="pl-0 pr-1 text-right"><span id="omp-res">0</span></td>
                                                                 </tr>
                                                                 <tr>
                                                                     @*<tr data-bs-toggle="collapse" data-bs-target="#baldue-show" class="accordion-toggle " onclick="toggleRowCredit(this); ">*@
@@ -663,11 +663,11 @@
                                                                             @*<div class="col-1"><h4 style="display: inline;" hidden><span id="show-billing-icon">+</span></h4></div>*@
 
 
-                                                                            <div class="col-12 p-0 m-0 text-center"><span>ยอดชำระ<br />(กำหนดชำระ)</span></div>
+                                                                            <div class="col-12 p-0 m-0 text-center"><span>ยอดที่ต้องชำระ<br />(กำหนดชำระ)</span></div>
                                                                         </div>
                                                                     </th>
-                                                                    <td class="text-right pl-0 pr-0 " onclick="toggleRowBill('aac');">
-                                                                        <div class="col-12 p-0 m-0 d-flex align-items-center">
+                                                                    <td class="text-right pl-0 pr-1 " onclick="toggleRowBill('aac');">
+                                                                        <div class="col-12 pl-0 pr-0 m-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
                                                                                 <span id="aac-baldue">0</span><br />
                                                                                 <span id="aac-bildue-date"></span>
@@ -676,10 +676,13 @@
                                                                                 @*<span class="icon-credit" id="show-billing-aac-icon">+</span>*@
                                                                                 <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-aac-icon">+</p></button>
                                                                             </div>
+                                                                            <div class="col-1 p-0 m-0">
+                                                                                &nbsp;
+                                                                            </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-right pl-0 pr-0 " onclick="toggleRowBill('tac');">
-                                                                        <div class="col-12 p-0 m-0 d-flex align-items-center">
+                                                                    <td class="text-right pl-0 pr-1 " onclick="toggleRowBill('tac');">
+                                                                        <div class="col-12 pl-0 pr-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
                                                                                 <span id="tac-baldue">0</span><br />
                                                                                 <span id="tac-bildue-date"></span>
@@ -687,20 +690,24 @@
                                                                             <div class="col-1 p-0 m-0">
                                                                                 @*<span class="icon-credit" id="show-billing-tac-icon">+</span>*@
                                                                                 <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-tac-icon">+</p></button>
-
+                                                                            </div>
+                                                                            <div class="col-1 p-0 m-0">
+                                                                                &nbsp;
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-right pl-0 pr-0" onclick="toggleRowBill('omp');">
-                                                                        <div class="col-12 p-0 m-0 d-flex align-items-center">
+                                                                    <td class="text-right pl-0 pr-1" onclick="toggleRowBill('omp');">
+                                                                        <div class="col-12 pl-0 pr-0 d-flex align-items-center">
                                                                             <div class="col-10 p-0 m-0">
                                                                                 <span id="omp-baldue"></span><br />
                                                                                 <span id="omp-bildue-date"></span>
                                                                             </div>
                                                                             <div class="col-1 p-0 m-0">
                                                                                 <button type="button" class="btn btn-circle"><p class="btn-inside m-0" id="show-billing-omp-icon">+</p></button>
-
                                                                                 @*<span class="icon-credit" id="show-billing-omp-icon">+</span>*@
+                                                                            </div>
+                                                                            <div class="col-1 p-0 m-0">
+                                                                                &nbsp;
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -806,14 +813,14 @@
                                                                     <td colspan="4" class="hiddenRow">
                                                                         <div class="table-responsive p-0 m-0 " id="billing-aac">
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท AAC</h6>
-                                                                            <table class="table table-sm table-borderless table-striped" id="bill-aac-detail">
+                                                                            <table class="table table-sm table-bordered table-striped" id="bill-aac-detail">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th class="pl-0 pr-0"></th>
-                                                                                        <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>วันที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>กำหนดชำระ</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>กำหนดชำระ</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody></tbody>
@@ -825,14 +832,14 @@
                                                                     <td colspan="4" class="hiddenRow">
                                                                         <div class="table-responsive p-0 m-0" id="billing-tac">
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท TAC</h6>
-                                                                            <table class="table table-borderless table-striped" id="bill-tac-detail">
+                                                                            <table class="table table-bordered table-striped" id="bill-tac-detail">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th class="pl-0 pr-0"></th>
-                                                                                        <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>วันที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>กำหนดชำระ</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>กำหนดชำระ</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody></tbody>
@@ -844,14 +851,14 @@
                                                                     <td colspan="4" class="hiddenRow">
                                                                         <div class="table-responsive p-0 m-0" id="billing-omp">
                                                                             <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท OMP</h6>
-                                                                            <table class="table table-borderless table-striped" id="bill-omp-detail">
+                                                                            <table class="table table-bordered table-striped" id="bill-omp-detail">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th class="pl-0 pr-0"></th>
-                                                                                        <th class="pl-0 pr-0"><span>บิลเลขที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>วันที่</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>กำหนดชำระ</span></th>
-                                                                                        <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>กำหนดชำระ</span></th>
+                                                                                        <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody></tbody>
@@ -1322,11 +1329,11 @@
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + data.Getdata[i].Invnum + '\');">';
                                         //SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span><i class="fa fa-search" aria-hidden="true"></i></span></td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].Invnum + '</span></td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].DocDat + '</span></td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + data.Getdata[i].BillDue + '</span></td>';
-                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-right"><span>' + commaSeparateNumber(data.Getdata[i].Amt) + '</span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span><i class="fa fa-search" aria-hidden="true"></i></span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + data.Getdata[i].Invnum + '</span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + data.Getdata[i].DocDat + '</span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + data.Getdata[i].BillDue + '</span></td>';
+                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(data.Getdata[i].Amt) + '</span></td>';
                                         SubmithtmlPage += '</tr>';
                                 }
                                 if (comp === 'AAC') {

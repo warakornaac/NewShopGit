@@ -1460,10 +1460,6 @@ namespace NewShop.Models
                         Checking = dr["Checking"].ToString(),
                         ApproveDate = dr["Approve Date"].ToString(),
                         Status = dr["Status"].ToString(),
-
-
-
-
                     });
 
                 }

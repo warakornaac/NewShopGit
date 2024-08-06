@@ -190,19 +190,19 @@ namespace NewShop.Controllers
                         ADDR_02 = reader["ADDR_02"].ToString(),
                         PRO = reader["PRO"].ToString(),
                         CUSTYP = reader["CUSTYP"].ToString(),
-                        LASIVC = reader["LASIVC"] != DBNull.Value ? Convert.ToDateTime(reader["LASIVC"]).ToString("dd/MM/yyyy") : "",
+                        LASIVC = reader["LASIVC"] != DBNull.Value ? Convert.ToDateTime(reader["LASIVC"]).ToString("dd/MM/yy") : "",
                         AACCRLINE = reader["AACCRLINE"].ToString(),
                         AACBAL = reader["AACBAL"].ToString(),
                         AACBALDue = reader["AACBALDue"].ToString(),
-                        AACBilDue = reader["AACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["AACBilDue"]).ToString("dd/MM/yyyy") : "",
+                        AACBilDue = reader["AACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["AACBilDue"]).ToString("dd/MM/yy") : "",
                         TACCRLINE = reader["TACCRLINE"].ToString(),
                         TACBAL = reader["TACBAL"].ToString(),
                         TACBALDue = reader["TACBALDue"].ToString(),
-                        TACBilDue = reader["TACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["TACBilDue"]).ToString("dd/MM/yyyy") : "",
+                        TACBilDue = reader["TACBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["TACBilDue"]).ToString("dd/MM/yy") : "",
                         OMPCRLINE = reader["OMPCRLINE"].ToString(),
                         OMPBAL = reader["OMPBAL"].ToString(),
                         OMPBALDue = reader["OMPBALDue"].ToString(),
-                        OMPBilDue = reader["OMPBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["OMPBilDue"]).ToString("dd/MM/yyyy") : "",
+                        OMPBilDue = reader["OMPBilDue"] != DBNull.Value ? Convert.ToDateTime(reader["OMPBilDue"]).ToString("dd/MM/yy") : "",
                         SLMCOD = reader["SLMCOD"].ToString(),
                         INACTIVE = reader["INACTIVE"].ToString(),
                         BLOCKED = reader["BLOCKED"].ToString(),
@@ -248,8 +248,8 @@ namespace NewShop.Controllers
                         Qty = reader["Qty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
-                        SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yyyy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : ""
+                        SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : ""
                     });
                 }
                 reader.Close();
@@ -290,8 +290,10 @@ namespace NewShop.Controllers
                         Qty = reader["Qty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
-                        SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yyyy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : ""
+                        SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : "",
+                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
+
                     });
                 }
                 reader.Close();
@@ -405,17 +407,18 @@ namespace NewShop.Controllers
                         ORD_DocNo = reader["ORD_DocNo"].ToString(),
                         NotifyID = reader["NotifyID"].ToString(),
                         Notify = reader["Notify"].ToString(),
-                        StatusDate = reader["StatusDate"] != DBNull.Value ? DateTime.Parse(reader["StatusDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        PIDate = reader["PIDate"] != DBNull.Value ? DateTime.Parse(reader["PIDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        ExpToArrive = reader["ExpToArrive"] != DBNull.Value ? DateTime.Parse(reader["ExpToArrive"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        StartDelivery = reader["StartDelivery"] != DBNull.Value ? DateTime.Parse(reader["StartDelivery"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        EndDelivery = reader["EndDelivery"] != DBNull.Value ? DateTime.Parse(reader["EndDelivery"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        OrderDate = reader["Order Date"] != DBNull.Value ? DateTime.Parse(reader["Order Date"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
+                        StatusDate = reader["StatusDate"] != DBNull.Value ? DateTime.Parse(reader["StatusDate"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        PIDate = reader["PIDate"] != DBNull.Value ? DateTime.Parse(reader["PIDate"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        ExpToArrive = reader["ExpToArrive"] != DBNull.Value ? DateTime.Parse(reader["ExpToArrive"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        StartDelivery = reader["StartDelivery"] != DBNull.Value ? DateTime.Parse(reader["StartDelivery"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        EndDelivery = reader["EndDelivery"] != DBNull.Value ? DateTime.Parse(reader["EndDelivery"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        OrderDate = reader["Order Date"] != DBNull.Value ? DateTime.Parse(reader["Order Date"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
                         ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
                         ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
                         ORD_TotalAmt = reader["ORD_TotalAmt"].ToString(),
                         Round = reader["Round"].ToString(),
                         WH = reader["WH"].ToString(),
+                        ShipTo = reader["ShipTo"].ToString(),
                         Item_Type = reader["Item_Type"].ToString(),
                         ORD_STKCOD = reader["ORD_STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
@@ -440,7 +443,7 @@ namespace NewShop.Controllers
 
         }
 
-        public JsonResult GetDeliveryTrackingSuccess(string CUSCOD, string MONTH)
+        public JsonResult GetDeliveryTrackingSuccess(string CUSCOD, string DATE)
         {
             string message = "";
             List<Notify_Detail> Getdata = new List<Notify_Detail>();
@@ -454,7 +457,7 @@ namespace NewShop.Controllers
                 command.CommandTimeout = 120;
                 command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
                 command.Parameters.AddWithValue("@NotifyID", "4");
-                command.Parameters.AddWithValue("@Month", MONTH);
+                command.Parameters.AddWithValue("@OrdDat", DATE);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -463,17 +466,18 @@ namespace NewShop.Controllers
                         ORD_DocNo = reader["ORD_DocNo"].ToString(),
                         NotifyID = reader["NotifyID"].ToString(),
                         Notify = reader["Notify"].ToString(),
-                        StatusDate = reader["StatusDate"] != DBNull.Value ? DateTime.Parse(reader["StatusDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        PIDate = reader["PIDate"] != DBNull.Value ? DateTime.Parse(reader["PIDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        ExpToArrive = reader["ExpToArrive"] != DBNull.Value ? DateTime.Parse(reader["ExpToArrive"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        StartDelivery = reader["StartDelivery"] != DBNull.Value ? DateTime.Parse(reader["StartDelivery"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        EndDelivery = reader["EndDelivery"] != DBNull.Value ? DateTime.Parse(reader["EndDelivery"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
-                        OrderDate = reader["Order Date"] != DBNull.Value ? DateTime.Parse(reader["Order Date"].ToString()).ToString("yyyy-MM-dd HH:mm:ss") : string.Empty,
+                        StatusDate = reader["StatusDate"] != DBNull.Value ? DateTime.Parse(reader["StatusDate"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        PIDate = reader["PIDate"] != DBNull.Value ? DateTime.Parse(reader["PIDate"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        ExpToArrive = reader["ExpToArrive"] != DBNull.Value ? DateTime.Parse(reader["ExpToArrive"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        StartDelivery = reader["StartDelivery"] != DBNull.Value ? DateTime.Parse(reader["StartDelivery"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        EndDelivery = reader["EndDelivery"] != DBNull.Value ? DateTime.Parse(reader["EndDelivery"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
+                        OrderDate = reader["Order Date"] != DBNull.Value ? DateTime.Parse(reader["Order Date"].ToString()).ToString("yy-MM-dd HH:mm") : string.Empty,
                         ORD_TotalItem = reader["ORD_TotalItem"].ToString(),
                         ORD_TotalQty = reader["ORD_TotalQty"].ToString(),
                         ORD_TotalAmt = reader["ORD_TotalAmt"].ToString(),
                         Round = reader["Round"].ToString(),
                         WH = reader["WH"].ToString(),
+                        ShipTo = reader["ShipTo"].ToString(),
                         Item_Type = reader["Item_Type"].ToString(),
                         ORD_STKCOD = reader["ORD_STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
@@ -621,8 +625,8 @@ namespace NewShop.Controllers
                     Getdata.Add(new Cusinv_Month()
                     {
                         Company = reader["Company"].ToString(),
-                        PSTDAT = Convert.ToDateTime(reader["PSTDAT"]).ToString("dd/MM/yyyy"),
-                        DUEDAT = Convert.ToDateTime(reader["DUEDAT"]).ToString("dd/MM/yyyy"),
+                        PSTDAT = Convert.ToDateTime(reader["PSTDAT"]).ToString("dd/MM/yy"),
+                        DUEDAT = Convert.ToDateTime(reader["DUEDAT"]).ToString("dd/MM/yy"),
                         EXTDOC = reader["EXTDOC"].ToString(),
                         CUSNAM = reader["CUSNAM"].ToString(),
                         DOCNUM = reader["DOCNUM"].ToString(),
@@ -698,14 +702,14 @@ namespace NewShop.Controllers
                     Getdata.Add(new BillingDue
                     {
                         Company = reader["Company"].ToString(),
-                        DocDat = Convert.ToDateTime(reader["DocDat"]).ToString("dd/MM/yyyy"),
-                        PstDat = Convert.ToDateTime(reader["PstDat"]).ToString("dd/MM/yyyy"),
-                        InvDue = Convert.ToDateTime(reader["InvDue"]).ToString("dd/MM/yyyy"),
+                        DocDat = Convert.ToDateTime(reader["DocDat"]).ToString("dd/MM/yy"),
+                        PstDat = Convert.ToDateTime(reader["PstDat"]).ToString("dd/MM/yy"),
+                        InvDue = Convert.ToDateTime(reader["InvDue"]).ToString("dd/MM/yy"),
                         Invnum = reader["Invnum"].ToString(),
                         Amt = reader["Amt"].ToString(),
                         BillNo = reader["BillNo"].ToString(),
-                        BillDat = Convert.ToDateTime(reader["BillDat"]).ToString("dd/MM/yyyy"),
-                        BillDue = Convert.ToDateTime(reader["BillingDue"]).ToString("dd/MM/yyyy")
+                        BillDat = Convert.ToDateTime(reader["BillDat"]).ToString("dd/MM/yy"),
+                        BillDue = Convert.ToDateTime(reader["BillingDue"]).ToString("dd/MM/yy")
                     });
                 }
                 message = "Y";
@@ -738,6 +742,7 @@ namespace NewShop.Controllers
                     {
                         Year = reader["Year"].ToString(),
                         Reward_Amount = reader["Reward Amount"].ToString(),
+                        Ticket = reader["Ticket"].ToString(),
                         Paid_Amount = reader["Paid Amount"].ToString(),
                         Waiting_Amount = reader["Waiting Amount"].ToString(),
                         WHT = reader["WHT"].ToString()
@@ -786,7 +791,7 @@ namespace NewShop.Controllers
                         Reward_Amt = reader["Reward_Amt"].ToString(),
                         Received_By = reader["Received_By"].ToString(),
                         Received_Date = reader["Received_date"] != DBNull.Value ?
-                                        Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yyyy") : "",
+                                        Convert.ToDateTime(reader["Received_date"]).ToString("dd/MM/yy") : "",
                         WHT = reader["WHT"].ToString(),
                         Status = reader["Status"].ToString()
                     });
@@ -826,7 +831,7 @@ namespace NewShop.Controllers
                         EndDate = reader["EndDate"].ToString(),
                         Company = reader["Company"].ToString(),
                         DOCNUM = reader["DOCNUM"].ToString(),
-                        DOCDAT = Convert.ToDateTime(reader["DOCDAT"]).ToString("dd/MM/yyyy"),
+                        DOCDAT = Convert.ToDateTime(reader["DOCDAT"]).ToString("dd/MM/yy"),
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         PEOPLE = reader["PEOPLE"].ToString(),
@@ -835,7 +840,7 @@ namespace NewShop.Controllers
                         NET_LCY = reader["NET_LCY"].ToString(),
                         CMPCHK = reader["CMPCHK"].ToString(),
                         CMPLDAT = reader["CMPLDAT"] != DBNull.Value ?
-                                        Convert.ToDateTime(reader["CMPLDAT"]).ToString("dd/MM/yyyy") : "",
+                                        Convert.ToDateTime(reader["CMPLDAT"]).ToString("dd/MM/yy") : "",
                     });
                 }
                 message = "Y";

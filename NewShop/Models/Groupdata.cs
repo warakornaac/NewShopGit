@@ -995,6 +995,7 @@ namespace NewShop.Models
         public string Amount { get; set; }
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
+        public string Note { get; set; }
     }
     public class ListSendDelivery
     {
@@ -1106,6 +1107,7 @@ namespace NewShop.Models
     {
         public string Year { get; set; }
         public string Reward_Amount { get; set; }
+        public string Ticket { get; set; }
         public string Paid_Amount { get; set; }
         public string Waiting_Amount { get; set; }
         public string WHT { get; set; }
@@ -1182,6 +1184,7 @@ namespace NewShop.Models
         public string ORD_TotalAmt { get; set; }
         public string Round { get; set; }
         public string WH { get; set; }
+        public string ShipTo { get; set; }
         public string Item_Type { get; set; }
         public string ORD_STKCOD { get; set; }
         public string STKDES { get; set; }

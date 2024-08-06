@@ -555,12 +555,63 @@
             overflow-y: auto;
         }
 
-            .table-style thead th {
+        /*.table-style thead th {
                 position: sticky;
                 top: 0;
                 background-color: white;
                 z-index: 3 !important;
+            }*/
+
+        .sticky-head {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
+
+        .sticky-head-first {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: 5 !important;
+        }
+
+            .sticky-head-first:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
             }
+
+        .sticky-col {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            left: 0;
+            background-color: inherit; /* Background color for sticky elements */
+            z-index: 4 !important; /* Ensure it is above other cells */
+        }
+
+            .sticky-col:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
+            }
+
+        .table-striped > tbody > tr:nth-of-type(odd) .sticky-col {
+            background-color: #f9f9f9; /* Adjust based on your stripe color */
+        }
+
+        .table-striped > tbody > tr:nth-of-type(even) .sticky-col {
+            background-color: #fff; /* Adjust based on your stripe color */
+        }
 
         @@media only screen and (max-width: 431px) {
             span {
@@ -619,13 +670,13 @@
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="backor-typeS" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th><span>วันที่สั่ง</span></th>
-                                                                <th><span>เบอร์สินค้า</span></th>
-                                                                <th><span>ชื่อสินค้า</span></th>
-                                                                <th><span>จำนวน</span></th>
-                                                                <th><span>ราคาต่อชิ้น</span></th>
-                                                                <th><span>ราคารวม</span></th>
-                                                                <th><span>วันกำหนดส่ง</span></th>
+                                                                <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
+                                                                <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
+                                                                <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
+                                                                <th class="sticky-head text-center"><span>ราคารวม</span></th>
+                                                                <th class="sticky-head text-center"><span>วันกำหนดส่ง</span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -633,15 +684,15 @@
                                                 </div>
                                                 <div class="m-0 table-backorder table-style table-responsive">
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="backor-backorder" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small; position: sticky;">
+                                                        <thead style="font-size: small;">
                                                             <tr>
-                                                                <th><span>วันที่สั่ง</span></th>
-                                                                <th><span>เบอร์สินค้า</span></th>
-                                                                <th><span>ชื่อสินค้า</span></th>
-                                                                <th><span>จำนวน</span></th>
-                                                                <th><span>ราคาต่อชิ้น</span></th>
-                                                                <th><span>ราคารวม</span></th>
-                                                                <th><span>วันกำหนดส่ง</span></th>
+                                                                <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
+                                                                <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
+                                                                <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
+                                                                <th class="sticky-head text-center"><span>ราคารวม</span></th>
+                                                                <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -912,22 +963,22 @@
                             if (data.backorder.length > 0) {
                                 for (var i = 0; i < data.backorder.length; i++) {
                                     SubmithtmlPage += '<tr>';
+                                    SubmithtmlPage += '<td class="sticky-col text-center"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                    SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                     if (data.backorder[i].SaleOrderDate.includes("/")) {
-                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
+                                        SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
                                     }
                                     else {
-                                        SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                        SubmithtmlPage += '<td class="text-truncate text-center"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
                                     }
-                                    SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
-                                    SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                     SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
                                     if (data.backorder[i].DeliveryDate.includes("/")) {
-                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
+                                        SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
                                     }
                                     else {
-                                        SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
+                                        SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
                                     }
                                         SubmithtmlPage += '</tr >';
 
@@ -982,7 +1033,7 @@
                                 if (data.backorder[i].Document_No == orderId) {
                                     SubmithtmlPage += '<tr>';
                                    // SubmithtmlPage += '<td><p class="m-0 p-0">' + data.backorder[i].Company + '</p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                    SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                     var SalePrice = data.backorder[i].SalePrice;
@@ -1030,23 +1081,18 @@
                          if (data.backorder.length > 0) {
                              for (var i = 0; i < data.backorder.length; i++) {
                                  SubmithtmlPage += '<tr>';
+                                 SubmithtmlPage += '<td class="sticky-col text-center"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                 SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                  if (data.backorder[i].SaleOrderDate.includes("/")) {
-                                     SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
+                                     SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
                                  }
                                  else {
-                                     SubmithtmlPage += '<td class="text-truncate"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
+                                     SubmithtmlPage += '<td class="text-truncate text-center"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
                                  }
-                                 SubmithtmlPage += '<td class="text-truncate"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
-                                 SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
-                                 if (data.backorder[i].DeliveryDate.includes("/")) {
-                                     SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
-                                 }
-                                 else {
-                                    SubmithtmlPage += '<td class="text-truncate"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
-                                 }
+                                 SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
                                  SubmithtmlPage += '</tr >';
                              }
                              //AAC
