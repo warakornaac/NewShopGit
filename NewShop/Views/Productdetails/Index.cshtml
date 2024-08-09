@@ -1035,7 +1035,7 @@
             return dat_all;
         }
         var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
-        //alert(usertype);
+        //alert("stkcod = " + stkcod);
         $.ajax({
             url: '@Url.Action("Getdataitemdetail", "productdetails")',
             data: {
@@ -1112,7 +1112,7 @@
                         SubmithtmlPage += '  <div class="product__big__images">';
                         SubmithtmlPage += '  <div class="portfolio-full-image tab-content">';
                         SubmithtmlPage += ' <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">';
-                        SubmithtmlPage += ' <div><img src=' + data[i].val.PATH + ' id="myImg"/></div>';
+                        SubmithtmlPage += ' <div><img src="' + data[i].val.PATH + '" id="myImg"/></div>';
                         SubmithtmlPage += '  <div class="product-video">';
                         SubmithtmlPage += ' </div>';
                         SubmithtmlPage += ' </div>';

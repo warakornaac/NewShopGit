@@ -1840,10 +1840,12 @@
                     select.children().remove();
                     select.append($("<option>").val("0").text("เลือก ขนส่ง"));
                     $(data).each(function (index, item) {
-
-                        select.append($("<option>").val(item.Code).text(item.Code + "/" + item.Name));
+                        //if (item.Code.trim() == "S999") {
+                        //    select.append($("<option>").val("").text("ขนส่งบริษัท"));
+                        //} else {
+                            select.append($("<option>").val(item.Code).text(item.Code + "/" + item.Name));
+                        //}
                     });
-
                 }
             });
             function commaSeparateNumber(val) {
