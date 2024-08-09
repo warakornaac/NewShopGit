@@ -1223,7 +1223,7 @@
                         $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
 
                         if (aacbildue != "") {
-                            $('#aac-bildue-date').text(aacbildue);
+                            $('#aac-bildue-date').text(aacbildue.);
                         }
                         else {
                             $('#aac-bildue-date').text("--/--/--");
@@ -1255,9 +1255,21 @@
             });
         }
 
-        function parseDate(dateStr) {
-            if (!dateStr) return null;
+        function formatYear(dateStr) {
+
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+            var day = parts[0];
+            var month = parts[1];
+            var year = '20' + parts[2];
+            return day + '-' + month + '-' + year;
+        }
+
+        function parseDate(dateIn) {
+            if (!dateIn) return null;
             // var parts = dateStr.split('/');
+            console.log('Before ' + dateIn);
+            var dateStr = formatYear(dateIn);
+            console.log(dateStr);
             var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
             var day = parseInt(parts[0], 10) + 1;
             var month = parseInt(parts[1], 10) - 1;
