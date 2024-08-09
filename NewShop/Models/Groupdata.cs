@@ -506,6 +506,11 @@ namespace NewShop.Models
         public string SLMID { get; set; }
         public string PromotionDesc { get; set; }
         public string Item_Type { get; set; }
+        public string WH { get; set; }
+        public string Round { get; set; }
+        public string PIDate { get; set; }
+        public string StartDelivery { get; set; }
+        public string ExptoArrive { get; set; }
     }
     public class ItemListshop
     {
@@ -1194,5 +1199,36 @@ namespace NewShop.Models
         public string BCK_Qty { get; set; }
         public string BackOrder { get; set; }
     }
-
+    public class listPromotionCode
+    { 
+        public string PromotionCode { get; set; }
+        public string PromotionDes { get; set; }
+    }   
+    public class listPromotionDetail
+    { 
+        public string Promotion_Code { get; set; }
+        public string Seq { get; set; }
+        public string Type { get; set; }
+        public string DesType { get; set; }
+        public string Description { get; set; }
+        public string Condition { get; set; }
+        public string Reward { get; set; }
+        public string Reward_Percent { get; set; }
+    } 
+    public class listCustomerRegister
+    { 
+        public string Cuscode { get; set; }
+        public string Cusname { get; set; }
+        public string Slmcode { get; set; }
+        public string FlagReg { get; set; }
+        public string FlagApprove { get; set; }
+    }
+    public class listCustomerRegisterSave
+    {
+        public string User { get; set; }
+        public string SlmCode { get; set; }
+        public string Cuscode { get; set; }
+        public string PromotionCode { get; set; }
+        public string PromotionSeq { get; set; }
+    }
 }

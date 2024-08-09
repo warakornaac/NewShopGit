@@ -30,7 +30,7 @@
         }
         .textCut {
             display: inline-block;
-            width: 220px;
+            width: 185px;
             white-space: nowrap;
             overflow: hidden !important;
             text-overflow: ellipsis;
@@ -44,7 +44,7 @@
             vertical-align: middle !important;
         }
         .badgeCustom {
-            min-width: 25px;
+            min-width: 22px;
             /*padding: 5px 2px;*/
         }
     </style>
@@ -66,13 +66,13 @@
                         <div class="panel-body" style="padding: 0px;">
                             <div class="table-responsive" style="margin-bottom: 0;">
                                 <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
-                                    <thead class="thead-default" style="font-size: small;">
+                                    <thead class="thead-default" style="font-size: 10px;">
                                         <tr>
                                             <th class="vcenter" style="width: 4%;">#</th>
-                                            <th class="vcenter" style="width: 10%;">เบอร์สินค้า</th>
-                                            <th class="vcenter" style="width: 50%;">ชื่อสินค้า</th>
-                                            <th class="vcenter" style="width: 5%;">ส่งได้ / รอส่ง</th>
-                                            <th class="vcenter" style="width: 5%;">รวม</th>
+                                            <th class="vcenter" style="width: 5%;">เบอร์สินค้า</th>
+                                            <th class="vcenter" style="width: 40%;">ชื่อสินค้า</th>
+                                            <th class="vcenter" style="width: 3%; white-space: nowrap;">ส่งได้ / ค้างส่ง</th>
+                                            <th class="vcenter" style="width: 3%;">รวม</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,7 +92,6 @@
                                                 {
                                                     readyOrder = Convert.ToInt32(rowData.AmtQty);
                                                 }
-
                                                 <tr>
                                                     <td class="vcenter">@rowShop</td>
                                                     <td>@rowData.VSTKCOD </td>

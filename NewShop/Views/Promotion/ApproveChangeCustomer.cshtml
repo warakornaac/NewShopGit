@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "RegisterCustomer";
+  ViewBag.Title = "ApproveChangeCustomer";
     Layout = "~/Views/Shared/_Layoutyouknow_center.cshtml";
     List<SelectListItem> getSlmCodeList = ViewBag.slmCodeList;
     List<SelectListItem> getPmCodeList = ViewBag.pmCodeList;
@@ -29,7 +29,7 @@
                         <div class="card-header bg-primary text-white font-weight-bold" onclick="hideHeader();" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <i class="fa fa-table"></i> Customer register promotion
+                                    <i class="fa fa-table"></i> Approve Change Promotion
                                 </div>
                             </div>
                         </div>
@@ -52,8 +52,7 @@
                                     <div class="form-group">
                                         <span> <i class="fa fa-university"></i><b> COMPANY:</b></span>
                                         <span>
-                                            <select class="form-control selectpicker" id="company" name="company" style="width: 100%;">
-                                                <option value="ALL" selected>ALL</option>
+                                            <select class="form-control selectpicker" id="company" name="company" style="width: 100%;" data-none-selected-text="SELECT COMPANY">
                                                 <option value="TAC">TAC</option>
                                                 <option value="AAC">AAC</option>
                                                 <option value="OMP">OMP</option>
@@ -76,7 +75,7 @@
                                     <div class="form-group">
                                         <span> <i class="fa fa-user"></i><b> PROD MGR:</b></span>
                                         <span>
-                                            <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PROD MGR">
+                                            <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-none-selected-text="SELECT PROD MGR">
                                                 @for (var i = 0; i < getPmCodeList.Count; i++)
                                                 {
                                                     <option value="@getPmCodeList[i].Value">@getPmCodeList[i].Text</option>
@@ -152,6 +151,9 @@
         }
         if (year == null || year == '') {
             year = 0;
+        }
+        if (company == null || company == '') {
+            company = "ALL";
         }
         console.log("prodMgr = " + prodMgr + " year = " + year.slice(-2) + " company = " + company);
         $.ajax({
@@ -274,12 +276,16 @@
             //LoadingShow();
         }
         if (document.readyState === "complete") {
-            //$('#slmCode').selectpicker('val', '');
-            $('#prodMgr').selectpicker('val', '');
-
+            $('#slmCode').selectpicker('val', '');
+            $('#company').selectpicker('val', '');
             if (userType == 3) {
                 $("#slmCode").prop('disabled', true);
             }
+            //show code promotion all first
+            var prodMgr = $("#prodMgr option:selected").val();
+            var year = $("#year option:selected").val();
+            var company = $("#company option:selected").val();
+            GetPromotion(prodMgr, year, company);
         }
     }
 

@@ -1,5 +1,5 @@
 ﻿@{
-    var startYear = DateTime.Now.Year - 3;
+    var startYear = DateTime.Now.Year - 2;
     var endYear = DateTime.Now.Year;
 }
 <style>
@@ -27,6 +27,7 @@
         background-color: white;
         z-index: 3 !important;
     }
+
     .table-scroll thead tr:nth-child(2) th {
         top: 30px;
     }
@@ -45,7 +46,7 @@
                 <th rowspan="2" class="vcenter"> แบรนด์ </th>
             </tr>
             <tr>
-                @for (int i = 1; i <= 4; i++)
+                @for (int i = 1; i <= 3; i++)
                 {
                     <th class="vcenter"> จำนวน </th>
                     <th class="vcenter"> ราคารวม </th>
@@ -57,7 +58,7 @@
                 if (ViewBag.Getdata.Count == 0)
                 {
                     <tr>
-                        <td colspan="12" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>
+                        <td colspan="10" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>
                     </tr>
                 }
                 else
@@ -70,10 +71,10 @@
                             <td>@rowData.Stkcod</td>
                             <td> <span class="textCut"> @rowData.Stkdes </span> </td>
 
-                            @for (int i = 1; i <= 4; i++)
+                            @for (int i = 1; i <= 3; i++)
                             {
-                                string valQty = "";
-                                string valAmt = "";
+                                string valQty = "-";
+                                string valAmt = "-";
 
                                 switch (i)
                                 {
@@ -89,17 +90,23 @@
                                         valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_3_qty));
                                         valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_3_amt));
                                         break;
-                                    case 4:
-                                        valQty = string.Format("{0:n0}", Convert.ToDouble(rowData.year_4_qty));
-                                        valAmt = string.Format("{0:n0}", Convert.ToDouble(rowData.year_4_amt));
-                                        break;
                                     default:
                                         valQty = "";
                                         valAmt = "";
                                         break;
                                 }
-                                <td class="vright"> @valQty </td>
-                                <td class="vright"> @valAmt </td>
+                                <td class="vright">
+                                    @if (@valQty != "0")
+                                    {
+                                        @valQty
+                                    }
+                                </td>
+                                <td class="vright">
+                                    @if (valAmt != "0")
+                                    {
+                                        @valAmt
+                                    }
+                                </td>
                             }
                             <td class="vcenter"> @rowData.Brand </td>
                         </tr>
