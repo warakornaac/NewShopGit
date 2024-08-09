@@ -1040,7 +1040,7 @@
 
         function getCusName() {
             $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
                 data: {
                     cusel: cuscod
                 },
@@ -1048,7 +1048,15 @@
                 dataType: 'JSON',
                 success: function (data) {
                     if (data.length != 0) {
-                        $('#head-cusname').text(data[0].CUSNAM);
+                        var head = $('#head-cusname');
+                        var name = data[0].CUSNAM;
+                        var club = data[0].CLUB;
+                        if (club != "") {
+                            head.text(name + '(' + club + ')');
+                        }
+                        else {
+                            head.text(name);
+                        }
                     }
                 }
             });

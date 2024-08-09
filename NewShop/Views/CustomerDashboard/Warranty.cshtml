@@ -686,7 +686,7 @@
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
-                                                    <th class="sticky-head text-center">INV/CN</th>
+                                                    <th class="sticky-head text-center">เลขที่ทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -704,7 +704,7 @@
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
-                                                    <th class="sticky-head text-center">INV/CN</th>
+                                                    <th class="sticky-head text-center">เลขที่ทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -722,7 +722,7 @@
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
-                                                    <th class="sticky-head text-center">INV/CN</th>
+                                                    <th class="sticky-head text-center">เลขที่ทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -740,7 +740,7 @@
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
-                                                    <th class="sticky-head text-center">INV/CN</th>
+                                                    <th class="sticky-head text-center">เลขที่ทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -758,7 +758,7 @@
                                                         <th>วันที่รับเคลม</th>
                                                         <th>ดำเนินการ</th>
                                                         <th>สถานะการเคลม</th>
-                                        <th class="sticky-head">INV/CN</th>
+                                        <th class="sticky-head">เลขที่ทดแทน</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -800,8 +800,8 @@
         $(document).ready(function () {
             getCusName();
             $('.table-inspecting').hide();
-            $('.table-delivering').hide();
-            $('.table-arrive').hide();
+            $('.table-approve').hide();
+            $('.table-refuse').hide();
         });
         if (cuscod.trim() != '') {
             getWarranty_Count(cuscod);
@@ -809,7 +809,7 @@
 
         function getCusName() {
             $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
                 data: {
                     cusel: cuscod
                 },
@@ -817,7 +817,15 @@
                 dataType: 'JSON',
                 success: function (data) {
                     if (data.length != 0) {
-                        $('#head-cusname').text(data[0].CUSNAM);
+                        var head = $('#head-cusname');
+                        var name = data[0].CUSNAM;
+                        var club = data[0].CLUB;
+                        if (club != "") {
+                            head.text(name + '(' + club + ')');
+                        }
+                        else {
+                            head.text(name);
+                        }
                     }
                 }
             });
@@ -922,7 +930,7 @@
                                 }
                             }
                             getWarrantyWaiting();
-                            total = Number(waiting) + Number(inprogress) + Number(pending);
+                           // total = Number(waiting) + Number(inprogress) + Number(pending);
                         }
 
                     }
