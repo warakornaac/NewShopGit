@@ -320,7 +320,7 @@
                                 <th>Promo<br />Price</th>
                                 <th>Promo<br />MOQ</th>
                                 @*<th style="display:none;" class="last_col">วันที่คาดว่า<br />ของเข้าคลัง</th>
-                                <th style="display:none;">...</th>*@
+                                    <th style="display:none;">...</th>*@
                                 <th>วันที่คาดว่า<br />ของเข้าคลัง</th>
                             </tr>
                         </thead>
@@ -465,7 +465,7 @@
                     //  console.log(data);
                     $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ")");
                     $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02) + "  เบอร์ติดต่อ: " + data[0].TELNUM);
-                   
+
                     $("#crlicusaac").text(commaSeparateNumber(data[0].AACCrlimit));
                     $("#crlicustac").text(commaSeparateNumber(data[0].TACCrlimit));
                     $("#crbarcusaac").text(commaSeparateNumber(data[0].AACBalance));
@@ -680,7 +680,7 @@
                                 } else {
                                     subdataexp = "";
                                 }
-                                
+
                                 var std = data[i].val.STKDES;
                                 Price = parseFloat(data[i].val.Price);
                                 sale = parseFloat(data[i].val.SalePrice);
@@ -711,7 +711,7 @@
                                 } else {
 
                                 }
-                               
+
                                 if (pro != "") {
                                     if (procodsub != "FLASH") {
                                         SubmithtmlPage += '<td style="background-color: #99FF66;font-size: large;font-family: fantasy;text-align: center;color: blue;"><div class="pricehot">' + commaSeparateNumber(Price) + '</div><div  style="font-size: initial; color: rgb(181, 71, 27);text-align: center;">' + img + '</div></td>';
@@ -962,8 +962,8 @@
                     for (var i = 0; i < MyRows.length; i++) {
 
                         var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
-                        var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').html();
-                      
+                        var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').text();
+
 
                         if (MyIndexValueSTKCOD !== "") {
                             res = MyIndexValueSTKCOD.split("|");
@@ -1060,15 +1060,15 @@
             var Seqval = $(this).val();
             var id = $(this).parents("tr:eq(0)").find(".tlinenote").attr('id');
             var idBo = $(this).parents("tr:eq(0)").find(".tbo").attr('id');
-            var Seqvalst = $(this).parents("tr").find(".TOTBAL").html();
-            var pricehot = $(this).parents("tr").find(".pricehot").html();
+            var Seqvalst = $(this).parents("tr").find(".TOTBAL").text();
+            var pricehot = $(this).parents("tr").find(".pricehot").text();
             var idqty = $(this).parents("tr:eq(0)").find(".tQty").attr('id');
             var tExpectid = $(this).parents("tr:eq(0)").find(".Expect").attr('id');
-            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").text();
             var Nameuom = $(this).parents("tr").find(".UOM").html()
             var valExpect = $("#" + tExpectid + "").val();
-            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").html();
-            var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").html();
+            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").text();
+            var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").text();
             var _NoAr = _StkNo.split("|");
             if (_Pro != '') {
                 if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst.replace(',', '').replace(' ', ''))) {
@@ -1129,8 +1129,10 @@
 
                 $("#" + idBo + "").val("");
             }
-            var Seqvalmoq = $(this).parents("tr").find(".minord").html();
+            var Seqvalmoq = $(this).parents("tr").find(".minord").text();
             var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
+
+            //alert("(parseFloat(QtPas) = " + parseFloat(QtPas) + " parseFloat(Spackuom) = " + parseFloat(Spackuom));
 
             if (parseFloat(QtPas) >= parseFloat(Spackuom)) {
                 var _val = parseFloat(QtPas) / parseFloat(Spackuom);
@@ -1191,10 +1193,10 @@
             var pricehot = $(this).parents("tr").find(".pricehot").html();
             var idqty = $(this).parents("tr:eq(0)").find(".tQty").attr('id');
             var tExpectid = $(this).parents("tr:eq(0)").find(".Expect").attr('id');
-            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").text();
             var Nameuom = $(this).parents("tr").find(".UOM").html()
             var valExpect = $("#" + tExpectid + "").val();
-            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").html();
+            var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").text();
             var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").html();
             var _NoAr = _StkNo.split("|");
             if (_Pro != '') {
@@ -1311,7 +1313,7 @@
         });
         $("#example1").on('change', "input[name='S_Qtyfoc']", function () {
             var Seqval = $(this).val();
-            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").text();
             var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
             var QtSpackuom = parseFloat(Spackuom.replace(',', '').replace(' ', ''));
             var _StkNo = $(this).parents("tr:eq(0)").find(".stockPro").val();
@@ -1357,7 +1359,7 @@
         });
         $("#example1").on('blur', "input[name='S_Qtyfoc']", function () {
             var Seqval = $(this).val();
-            var Spackuom = $(this).parents("tr").find(".SPackUOM").html();
+            var Spackuom = $(this).parents("tr").find(".SPackUOM").text();
             var QtPas = parseFloat(Seqval.replace(',', '').replace(' ', ''));
             var QtSpackuom = parseFloat(Spackuom.replace(',', '').replace(' ', ''));
             var _StkNo = $(this).parents("tr:eq(0)").find(".stockPro").val();
@@ -1421,17 +1423,17 @@
 
                 }
 
-                var MyIndexValuePRCLST_NO = $(MyRows[i]).find('td .PRCLST_NO').html();
+                var MyIndexValuePRCLST_NO = $(MyRows[i]).find('td .PRCLST_NO').text();
                 var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').text();
                // alert(MyIndexValueSTKCOD);
-               
+
                 if (MyIndexValueSTKCOD !== "") {
                     res = MyIndexValueSTKCOD.split("|");
 
                 } else { res[1] = ""; }
                 var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val().replace(',', '').replace(' ', '');
                 // var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
-                var MyIndexValueMOQ = $(MyRows[i]).find('td .minord').html();
+                var MyIndexValueMOQ = $(MyRows[i]).find('td .minord').text();
 
                 var MyIndexValueQtybo = "";
                 MyIndexValueQtybo = $(MyRows[i]).find('td .tbo').val().replace(',', '').replace(' ', '');
@@ -1472,9 +1474,9 @@
                 var MyIndexValueSTKGRP = $(MyRows[i]).find('td .STKGRP_PRC').html();
                 var MyIndexValueSalePrice = $(MyRows[i]).find('td .pricehot').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
                 var MyIndexValueCSalePrice = $(MyRows[i]).find('td .SalePrice').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
-                var MyIndexValueUOM = $(MyRows[i]).find('td .UOM').html();
-                var MyIndexValuecompany = $(MyRows[i]).find('td .company').html();
-                var MyIndexValueMoq = $(MyRows[i]).find('td .minord').html();
+                var MyIndexValueUOM = $(MyRows[i]).find('td .UOM').text();
+                var MyIndexValuecompany = $(MyRows[i]).find('td .company').text();
+                var MyIndexValueMoq = $(MyRows[i]).find('td .minord').text();
                 var MyIndexValueSpecial_Price = $(MyRows[i]).find('td .Special_Price').html().replace(',', '').replace(' ', '');
                 var MyIndexValueSpc_moq = $(MyRows[i]).find('td .spc_moq').html();
                 var MyIndexValueLastInvPrice = $(MyRows[i]).find('td .LastInvPrice').html().replace(',', '').replace(' ', '');
@@ -1526,7 +1528,7 @@
                     Sop: chksop // new add
 
                 };
-               
+
                 if (parseFloat(ItemList.Qty) <0) {
                     alert(parseFloat(ItemList.Qty))
                     $("#btnsubmitinsert").attr("disabled", false);
@@ -1583,6 +1585,8 @@
                     }
                 }
             }
+
+
             var DataSend = JSON.stringify(data);
             //console.log(DataSend)
             // return false;
@@ -1731,7 +1735,7 @@
         //btnnext
         $(document).on('click', '#btncheck', function () {
             window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
-            
+
         });
         $(document).on('click', '#navbarcart', function () {
             var n_d = "3";

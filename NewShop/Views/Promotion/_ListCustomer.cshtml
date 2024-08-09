@@ -1,0 +1,244 @@
+﻿@{
+    ViewBag.Title = "_CustomerRegister";
+}
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    input[type=checkbox] {
+        transform: scale(2.0);
+    }
+
+    .list-group {
+        max-height: 520px;
+        margin-bottom: 10px;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        font-size: 14px;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .textCut {
+            /*display: inline-block;*/
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .list-group-item:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+<div class="card-footer" id="headerSearchFooter">
+    <div class="row" style="margin-top: -10px;">
+        <div class="col-12">
+            <div class="card mb-12 mt-4">
+                <div class="card-header text-black font-weight-bold" style="background-color: #f9dfbf;">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-10 col-md-10 text-left">
+                            <sapn> @ViewBag.textHeader </sapn>  <span class="label label-warning"> <span id="countCustomer"> @ViewBag.countCustomer </span>/ <span id="countCustomerReg"> @ViewBag.countCustomerReg </span> </span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+                            <button class="btn btn-md btn-success" onclick="saveCustomerRegister();" style="margin: -5px; border: solid 2px #1b9f1b;"> <i class="fa fa-save"> </i> Save </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush w-100 align-items-stretch">
+                        @{
+                            int rowList = 1;
+                            foreach (var rowData in ViewBag.customerRegisterList)
+                            {
+                                var checkboxChecked = "";
+                                var checkboxDisable = "";
+                                if (!string.IsNullOrEmpty(@rowData.FlagReg))
+                                {
+                                    checkboxChecked = "checked";
+                                }
+                                if (!string.IsNullOrEmpty(@rowData.FlagApprove))
+                                {
+                                    checkboxDisable = "disabled";
+                                }
+                                <li class="dashboard-block list-group-item cursor-pointer d-flex justify-content-between align-items-center py-1">
+                                    <span class="align-middle textCut" style="padding: 7px;">
+                                        <input type="checkbox" name="selectPromotion" id="selectPromotion" class="cursor-pointer" value="@rowData.Cuscode" data-cuscode="@rowData.Cuscode" @checkboxChecked @checkboxDisable />
+                                        &nbsp;
+                                        @rowData.Cuscode (@rowData.Cusname)
+                                        @if (@rowData.FlagApprove == "Y")
+                                        {
+                                            <span class='label label-danger' style="font-size: 12px;"> รอ Approve </span>
+                                        }
+                                    </span>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer>
+    //$(".list-group li").click(function () {
+    //    //e.stopPropagation();
+    //    var countCustomerReg = 0;
+    //    var $this = $(this).find("[name=selectPromotion]");
+    //    var cuscode = $(this).find("input[name=selectPromotion]").data('cuscode');
+    //    console.log(cuscode);
+
+    //    //console.log('checkbox = ' + $this.is(":checked"));
+    //    //if (!$this.is(":checked")) {
+    //    //    $this.prop("checked", true);
+    //    //} else {
+    //    //    $this.prop("checked", true);
+    //    //}
+    //    //if ($this.is(":checked")) {
+    //    //    $this.prop("checked", false);
+    //    //}
+    //    //else
+    //    //{
+    //    //    $this.prop("checked", true);
+    //    //}
+
+    //    //if ($this.hasClass("all")) {
+    //    //    $this.trigger('click');
+    //    //}
+    //    var ischecked = $(this).is(':checked');
+    //    setTimeout(function () {
+    //        console.log(ischecked);
+    //        if (!ischecked) {
+    //            //$("input:checkbox[data-cuscode='" + cuscode + "']").attr("checked", true);
+    //            console.log(0);
+    //            $("input[value='" + cuscode + "'][type='checkbox']").prop("checked", true);
+    //        } else {
+    //            console.log(1);
+    //            $("input[value='" + cuscode + "'][type='checkbox']").prop("checked", false);
+    //        }
+    //    }, 2000);
+
+    //    $("input[name='selectPromotion']:checked").each(function () {
+    //        ++countCustomerReg;
+    //    });
+    //    $("#countCustomerReg").text(countCustomerReg);
+    //});
+    $("input[name='selectPromotion']").click(function () {
+        var countCustomerReg = 0;
+        $("input[name='selectPromotion']:checked").each(function () {
+            var cuscode = $(this).data("cuscode");
+            if (cuscode != null) {
+                countCustomerReg++;
+            }
+        });
+        $("#countCustomerReg").text(countCustomerReg);
+    });
+    //btn save
+    saveCustomerRegister = async () => {
+        var request = [];
+        var slmCode = $("#slmCode option:selected").val();
+        var promotionCode = $("input[name=selectPromotion]:checked").data('code');
+        var promotionSeq = $("input[name=selectPromotion]:checked").data('seq');
+        var countCustomer = $("#countCustomer").text();
+        var countSelect = 0;
+        $("input[name='selectPromotion']:checked").each(function () {
+            var cuscode = $(this).data("cuscode");
+            if (cuscode != null) {
+                ++countSelect;
+                request.push(cuscode);
+               // console.log("request = " + request);
+            }
+        });
+        //console.log(request)
+        //return false;
+        //if (countSelect == 0) {
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'กรุณาเลือกร้านค้ารอย่างน้อย 1 รายการ',
+        //        //html: msg,
+        //        confirmButtonColor: '#d33',
+        //        confirmButtonText: 'ปิด',
+        //        allowOutsideClick: false,
+        //        focusConfirm: false,
+        //    });
+        //    return false;
+        //} else {
+            Swal.fire({
+                title: 'ต้องการบันทึกใช่หรือไม่',
+                html: 'เลือกร้านค้าจำนวน [ ' + countCustomer + " / " + countSelect  +' ] ร้านค้า',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#00a65a',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="fa fa-check"></i> ใช่',
+                cancelButtonText: '<i class="fa fa-times"></i> ไม่',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        url: '@Url.Action("SaveCustomerRegister", "Promotion")',
+                        data: JSON.stringify({
+                            user: '@Session["UserID"]',
+                            slmCode: slmCode,
+                            promotionCode: promotionCode,
+                            promotionSeq: promotionSeq,
+                            cusCode: request
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        enctype: 'multipart/form-data',
+                        beforeSend: function () {
+                            LoadingShow();
+                        },
+                        success: function (result) {
+                            if (result.status = "Y") {
+                                Swal.fire({
+                                    title: 'บันทึกเรียบร้อย',
+                                    //html: 'บันทึกเรียบร้อย',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                    timer: 6000,
+                                    timerProgressBar: true,
+                                    onClose: () => {
+                                        $(window).unbind('beforeunload');
+                                        LoadingHide();
+                                        $('form[id="forecastPmForm"]').submit();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error not saved',
+                                    html: result.message,
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                });
+                            }
+                        },
+                        complete: function (res) {
+                            LoadingHide();
+                        }
+                    }).fail(function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error not saved',
+                            html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>SaveCustomerRegister<br><br>',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'ปิด',
+                            allowOutsideClick: false,
+                            focusConfirm: false,
+                        });
+                    });
+                }
+            });
+        //}
+    }
+</script>
