@@ -498,9 +498,20 @@ namespace NewShop.Controllers
                         AmtQty = reader["ORD_Qty"].ToString(),
                         BckQty = reader["BCK_Qty"].ToString(),
                         FlagBackOrder = reader["BackOrder"].ToString(),
-                        TotalAmt = reader["ORD_Amt"].ToString()
+                        TotalAmt = reader["ORD_Amt"].ToString(),
+                        Round = reader["Round"].ToString(),
+                        PIDate = reader["PIDate"].ToString(),
+                        StartDelivery = reader["StartDelivery"].ToString(),
+                        ExptoArrive = reader["ExptoArrive"].ToString()
                     });
                 }
+                //if (Getdata.Any())
+                //{
+                //    //get data WH, Round, PIDate, StartDelivery, ExptoArrive
+                //    foreach (var rowData in Getdata)
+                //    {
+                //    }
+                //}
                 @ViewBag.Getdata = Getdata;
                 reader.Close();
                 command.Dispose();
@@ -832,9 +843,6 @@ namespace NewShop.Controllers
                         year_3_qty = reader["year_3_qty"].ToString(),
                         year_3_amt = reader["year_3_amt"].ToString(),
                         year_3_avg = reader["year_3_avg"].ToString(),
-                        year_4_qty = reader["year_4_qty"].ToString(),
-                        year_4_amt = reader["year_4_amt"].ToString(),
-                        year_4_avg = reader["year_4_avg"].ToString(),
                         Brand = reader["Brand"].ToString(),
                         Prclist = reader["Prclist"].ToString()
                     });
