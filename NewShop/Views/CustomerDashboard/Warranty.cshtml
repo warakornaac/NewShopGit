@@ -584,21 +584,21 @@
                             </div>
                             <div class="w3-bar tab-buttons bg-info ">
                                 <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-wait">
-                                    รอดำเนินการ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait"></span>
+                                    รอดำเนินการ/กำลังตรวจสอบ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait"></span>
                                     <hr class="m-0" id="line-tab-wait" />
                                 </button>
                                 <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
-                                    กำลังตรวจสอบ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect"></span>
+                                    รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect"></span>
                                     <hr class="m-0" id="line-tab-inspect" />
                                 </button>
-                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-delivery">
-                                    รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
-                                    <hr class="m-0" id="line-tab-delivering" />
+                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-approve">
+                                    อนุมัติ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-approve"></span>
+                                    <hr class="m-0" id="line-tab-approve" />
                                 </button>
-                                @*<button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-arrive">
-                                        จัดส่งสำเร็จ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-arrive"></span>
-                                        <hr class="m-0" id="line-tab-success" />
-                                    </button>*@
+                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-refuse">
+                                    ปฏิเสธ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-refuse"></span>
+                                    <hr class="m-0" id="line-tab-refuse" />
+                                </button>
                             </div>
                             <div class="card-body p-0">
                                 <div class="card-body p-0">
@@ -614,6 +614,7 @@
                                                     <th class="sticky-head">วันที่รับเคลม</th>
                                                     <th class="sticky-head">คำขอชดเชย</th>
                                                     <th class="sticky-head">สถานะการเคลม</th>
+                                                    <th class="sticky-head">INV/CN</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -631,13 +632,14 @@
                                                     <th class="sticky-head">วันที่รับเคลม</th>
                                                     <th class="sticky-head">คำขอชดเชย</th>
                                                     <th class="sticky-head">สถานะการเคลม</th>
+                                                    <th class="sticky-head">INV/CN</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                    <div class="m-0 table-delivering table-style table-responsive">
-                                        <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-delivering-table" style="padding: 7px;font-size: small;">
+                                    <div class="m-0 table-approve table-style table-responsive">
+                                        <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-approve-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
                                                     <th class="sticky-head-first">เบอร์สินค้า</th>
@@ -648,6 +650,25 @@
                                                     <th class="sticky-head">วันที่รับเคลม</th>
                                                     <th class="sticky-head">คำขอชดเชย</th>
                                                     <th class="sticky-head">สถานะการเคลม</th>
+                                                    <th class="sticky-head">INV/CN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="m-0 table-refuse table-style table-responsive">
+                                        <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-refuse-table" style="padding: 7px;font-size: small;">
+                                            <thead style="font-size: small;">
+                                                <tr>
+                                                    <th class="sticky-head-first">เบอร์สินค้า</th>
+                                                    <th class="sticky-head">ชื่อสินค้า</th>
+                                                    <th class="sticky-head">จำนวน</th>
+                                                    <th class="sticky-head">อาการ</th>
+                                                    <th class="sticky-head">วันที่แจ้งเคลม</th>
+                                                    <th class="sticky-head">วันที่รับเคลม</th>
+                                                    <th class="sticky-head">คำขอชดเชย</th>
+                                                    <th class="sticky-head">สถานะการเคลม</th>
+                                                    <th class="sticky-head">INV/CN</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -665,6 +686,7 @@
                                                         <th>วันที่รับเคลม</th>
                                                         <th>ดำเนินการ</th>
                                                         <th>สถานะการเคลม</th>
+                                        <th class="sticky-head">INV/CN</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -757,9 +779,9 @@
 
         function getWarranty_Count(cus) {
             $.ajax({
-                url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
+                url: '@Url.Action("GetWarrantyCount", "CustomerDashboard")',
                 data: {
-                    strcustome: cus
+                    CUSCOD: cus
                 },
                 type: "POST",
                 dataType: "JSON",
@@ -770,27 +792,62 @@
                             console.log("has data :" + data[i].C);
                             var waiting = data[i].A != "" ? data[i].A : "0";
                             var inprogress = data[i].B != "" ? data[i].B : "0";
-                            var pending = data[i].C != "" ? data[i].C : "0";
-                            var arrive = data[i].D != "" ? data[i].D : "0";
-                            $('#status-wait').text(waiting);
-                            $('#status-inspect').text(inprogress);
-                            $('#status-delivery').text(pending);
-                            $('#status-arrive').text(arrive);
+                            var approve = data[i].C != "" ? data[i].C : "0";
+                            var refuse = data[i].D != "" ? data[i].D : "0";
+                            //$('#status-wait').text(waiting);
+                            //$('#status-inspect').text(inprogress);
+                            //$('#status-approve').text(approve);
+                            //$('#status-refuse').text(refuse);
 
                             console.log(waiting);
                             console.log(inprogress);
-                            console.log(pending);
+                            console.log(approve);
                             if (waiting == 0) {
                                 $('#status-wait').hide();
                             }
+                            else {
+                                if (Number(waiting) > 99) {
+                                    $('#status-wait').text('99+')
+                                }
+                                else {
+                                    $('#status-wait').text(commaSeparateNumber(waiting))
+                                }
+                            }
+
                             if (inprogress == 0) {
                                 $('#status-inspect').hide();
                             }
-                            if (pending == 0) {
-                                $('#status-delivery').hide();
+                            else {
+                                if (Number(inprogress) > 99) {
+                                    $('#status-inspect').text('99+')
+                                }
+                                else {
+                                    $('#status-inspect').text(commaSeparateNumber(inprogress))
+                                }
                             }
-                            if (arrive == 0) {
-                                $('#status-arrive').hide();
+
+                            if (approve == 0) {
+                                $('#status-approve').hide();
+                            }
+                            else {
+                                if (Number(approve) > 99) {
+                                    $('#status-approve').text('99+')
+                                }
+                                else {
+                                    $('#status-approve').text(commaSeparateNumber(approve))
+                                }
+                            }
+
+                            if (refuse == 0) {
+                                $('#status-refuse').hide();
+                            }
+                            else {
+                                if (Number(refuse) > 99) {
+                                    $('#status-refuse').text('99+')
+                                }
+                                else {
+                                    $('#status-refuse').text(commaSeparateNumber(refuse))
+                                }
                             }
                             getWarrantyWaiting();
                             total = Number(waiting) + Number(inprogress) + Number(pending);
@@ -803,9 +860,9 @@
 
         function getWarrantyWaiting() {
              $.ajax({
-                 url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
+                 url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                  data: {
-                     strcustome: cuscod,
+                     CUSCOD: cuscod,
                      tap: 'a'
                  },
                  type: "POST",
@@ -832,6 +889,7 @@
                              SubmithtmlPage += '<td>' + formatDate(data[i].ReceiveDate) + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Status + '</td>';
+                             SubmithtmlPage += '<td>'+ data[i].CS_No +'</td>';
                              SubmithtmlPage += '</tr>';
                          }
                          $("#warranty-waiting-table tbody").append(SubmithtmlPage);
@@ -848,9 +906,9 @@
 
         function getWarrantyInprogress() {
             $.ajax({
-                url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
+                url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                 data: {
-                    strcustome: cuscod,
+                    CUSCOD: cuscod,
                     tap: 'b'
                 },
                 type: "POST",
@@ -893,9 +951,9 @@
 
         function getWarrantyPending() {
             $.ajax({
-                url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
+                url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                 data: {
-                    strcustome: cuscod,
+                    CUSCOD: cuscod,
                     tap: 'c'
                 },
                 type: "POST",
@@ -938,9 +996,9 @@
 
         function getWarrantyArrive() {
             $.ajax({
-                url: '@Url.Action("GetdataWarrantyClaim_Cus", "DataCenter")',
+                url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                 data: {
-                    strcustome: cuscod,
+                    CUSCOD: cuscod,
                     tap: 'd'
                 },
                 type: "POST",
@@ -984,43 +1042,45 @@
         $('#btn-show-wait').click(function () {
             $('.table-waiting').show('slow');
             $('.table-inspecting').hide('slow');
-            $('.table-delivering').hide('slow');
-           // $('.table-arrive').hide('slow');
+            $('.table-approve').hide('slow');
+            $('.table-refuse').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-inspect').removeAttr('style');
-            $('#btn-show-delivery').removeAttr('style');
+            $('#btn-show-approve').removeAttr('style');
+            $('#btn-show-refuse').removeAttr('style');
             getWarrantyWaiting();
         });
         $('#btn-show-inspect').click(function () {
             $('.table-waiting').hide('slow');
             $('.table-inspecting').show('slow');
-            $('.table-delivering').hide('slow');
-            //$('.table-arrive').hide('slow');
+            $('.table-approve').hide('slow');
+            $('.table-refuse').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
-            $('#btn-show-delivery').removeAttr('style');
+            $('#btn-show-approve').removeAttr('style');
+            $('#btn-show-refuse').removeAttr('style');
             getWarrantyInprogress();
         });
-        $('#btn-show-delivery').click(function () {
+        $('#btn-show-approve').click(function () {
             $('.table-waiting').hide('slow');
             $('.table-inspecting').hide('slow');
-            //$('.table-arrive').hide('slow');
-            $('.table-delivering').show('slow');
+            $('.table-refuse').hide('slow');
+            $('.table-approve').show('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
-           // $('#btn-show-arrive').removeAttr('style');
+            $('#btn-show-refuse').removeAttr('style');
             getWarrantyPending();
         });
-        $('#btn-show-arrive').click(function () {
-            $('.table-arrive').show('slow');
+        $('#btn-show-refuse').click(function () {
+            $('.table-refuse').show('slow');
             $('.table-waiting').hide('slow');
+            $('.table-approve').hide('slow');
             $('.table-inspecting').hide('slow');
-            $('.table-delivering').hide('slow');
             $(this).css("background", "#DEAF5B");
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-inspect').removeAttr('style');
-            $('#btn-show-delivery').removeAttr('style');
+            $('#btn-show-approve').removeAttr('style');
             getWarrantyArrive();
         });
 

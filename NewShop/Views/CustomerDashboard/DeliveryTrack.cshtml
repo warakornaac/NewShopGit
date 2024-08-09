@@ -698,7 +698,7 @@
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
                                                             <th class="text-center sticky-head"><span>เวลาสั่ง</span></th>
-                                                            <th class="sticky-head" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
+                                                            <th class="sticky-head  pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center"><span>เลขที่</span></th>
                                                         </tr>
@@ -713,9 +713,9 @@
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head "><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head "><span>วันที่สั่ง</span></th>
-                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ส่งได้ / ค้างส่ง )</span></th>
+                                                            <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
-                                                            <th class="text-center sticky-head "><span>คลัง</span></th>
+                                                            <th class="text-center sticky-head pl-1 pr-1"><span>คลัง</span></th>
                                                             <th class="text-center sticky-head "><span>เวลาเริ่มเตรียมสินค้า</span></th>
                                                             <th class="text-center sticky-head "><span>เลขที่</span></th>
                                                         </tr>
@@ -730,7 +730,7 @@
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
-                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ออกส่ง / ค้างส่ง )</span></th>
+                                                            <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center sticky-head "><span>ขนส่ง</span></th>
                                                             <th class="text-center sticky-head text-truncate"><span>เวลาออกส่งสินค้า</span></th>
@@ -745,7 +745,7 @@
                                                 <div class=" col-12 float-end m-0 p-0 pb-1 pt-1 d-flex align-items-start">
                                                     <div class="row col-12 m-0 pr-0">
                                                         <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">
-                                                            <label for="select-month-year">ประวัติการจัดส่งสำเร็จย้อนหลัง 7 วัน </label>
+                                                            <span class="text-secondary">ประวัติการจัดส่งสำเร็จย้อนหลัง 7 วัน </span>
                                                             <select class="form-select form-control select-year" id="select-month-year" hidden></select>
                                                         </div>
                                                     </div>
@@ -755,7 +755,7 @@
                                                         <tr>
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
-                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ส่งแล้ว / ค้างส่ง )</span></th>
+                                                            <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่รับสินค้า</span></th>
@@ -1154,7 +1154,7 @@
                                         SubmithtmlPage += '<tr>';
 
                                         date = data.Getdata[i].StatusDate;
-                                        SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                        SubmithtmlPage += '<td class="sticky-col text-center pl-1 pr-1"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                         SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                         var dateORD = data.Getdata[i].OrderDate;
@@ -1226,7 +1226,7 @@
 
 
                                      SubmithtmlPage += '<tr>';
-                                     SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                     SubmithtmlPage += '<td class="sticky-col text-center pl-1 pr-1"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                      SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                      var dateORD = data.Getdata[i].OrderDate;
@@ -1241,7 +1241,7 @@
                                      SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                  //SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
                                      SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
-                                     SubmithtmlPage += '<td  class="text-center"><span>' + data.Getdata[i].WH + '</span></td>';
+                                     SubmithtmlPage += '<td  class="text-center pl-1 pr-1"><span>' + data.Getdata[i].WH + '</span></td>';
                                      if (data.Getdata[i].PIDate != "") {
                                          var datePI = data.Getdata[i].PIDate;
                                          var partsPI = datePI.split(" ");
@@ -1307,7 +1307,7 @@
 
 
                                     SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                    SubmithtmlPage += '<td class="sticky-col text-center pl-1 pr-1"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                     SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                     var dateORD = data.Getdata[i].OrderDate;
@@ -1400,7 +1400,7 @@
 
 
                             SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                SubmithtmlPage += '<td class="sticky-col text-center pl-1 pr-1"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                             SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                             var dateORD = data.Getdata[i].OrderDate;

@@ -946,8 +946,8 @@
         function getMonthYear() {
             const result = [];
             const date = new Date();
-            for (let i = 12; i > 0; i--) {
-                var month = i;
+            for (let i = 0; i < 12; i++) {
+                var month = i+1;
                 var year = y;
                 var formattedMonth = month.toString().padStart(2, '0'); //< 10 ? `0${month}` : `${month}`; #01549b
                 result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
@@ -1240,7 +1240,7 @@
                                     SubmithtmlPage += '        <tr>';///tr tr
                                     SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
-                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท AAC</h6>';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท AAC</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
@@ -1310,7 +1310,7 @@
                                     SubmithtmlPage += '        <tr>';
                                     SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
-                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท TAC</h6>';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท TAC</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
@@ -1377,7 +1377,7 @@
                                     SubmithtmlPage += '        <tr>';
                                     SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
                                     SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
-                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">รายการรอชำระที่บริษัท OMP</h6>';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท OMP</h6>';
                                     SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
