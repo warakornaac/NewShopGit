@@ -501,12 +501,63 @@
             overflow-y: auto;
         }
 
-            .table-style thead th {
+        /*.table-style thead th {
                 position: sticky;
                 top: 0;
                 background-color: white;
                 z-index: 3 !important;
+            }*/
+
+        .sticky-head {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
+
+        .sticky-head-first {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: 5 !important;
+        }
+
+            .sticky-head-first:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
             }
+
+        .sticky-col {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            left: 0;
+            background-color: inherit; /* Background color for sticky elements */
+            z-index: 4 !important; /* Ensure it is above other cells */
+        }
+
+            .sticky-col:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
+            }
+
+        .table-striped > tbody > tr:nth-of-type(odd) .sticky-col {
+            background-color: #f9f9f9; /* Adjust based on your stripe color */
+        }
+
+        .table-striped > tbody > tr:nth-of-type(even) .sticky-col {
+            background-color: #fff; /* Adjust based on your stripe color */
+        }
 
         @@media only screen and (max-width: 431px) {
             span {
@@ -518,7 +569,7 @@
             .cut-text {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                max-width: 400px !important;
+                max-width: 200px !important;
                 white-space: nowrap;
             }
         }
@@ -536,7 +587,7 @@
             .cut-text {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                max-width: 400px !important;
+                max-width: 200px !important;
                 white-space: nowrap;
             }
         }
@@ -545,7 +596,7 @@
             .cut-text {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                max-width: 500px !important;
+                max-width: 200px !important;
                 white-space: nowrap;
             }
         }
@@ -643,13 +694,13 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-accept" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th><span>เบอร์สินค้า</span></th>
-                                                            <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>วันที่สั่ง</span></th>
-                                                            <th><span>เวลาสั่ง</span></th>
-                                                            <th style="text-align:center"><span>จำนวน<br />(ส่งได้ / รอส่ง)</span></th>
-                                                            <th><span>รอบส่ง</span></th>
-                                                            <th><span>เลขที่</span></th>
+                                                            <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
+                                                            <th class="text-center sticky-head"><span>เวลาสั่ง</span></th>
+                                                            <th class="sticky-head" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
+                                                            <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
+                                                            <th class="text-center"><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -659,14 +710,14 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-packing" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th><span>เบอร์สินค้า</span></th>
-                                                            <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>วันที่สั่ง</span></th>
-                                                            <th style="text-align:center"><span>จำนวน<br />( ส่งได้ / รอส่ง )</span></th>
-                                                            <th><span>รอบส่ง</span></th>
-                                                            <th><span>คลัง</span></th>
-                                                            <th><span>วัน/เวลาเริ่มเตรียมสินค้า</span></th>
-                                                            <th><span>เลขที่</span></th>
+                                                            <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
+                                                            <th class="text-center sticky-head "><span>ชื่อสินค้า</span></th>
+                                                            <th class="text-center sticky-head "><span>วันที่สั่ง</span></th>
+                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ส่งได้ / ค้างส่ง )</span></th>
+                                                            <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
+                                                            <th class="text-center sticky-head "><span>คลัง</span></th>
+                                                            <th class="text-center sticky-head "><span>เวลาเริ่มเตรียมสินค้า</span></th>
+                                                            <th class="text-center sticky-head "><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -676,13 +727,15 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th><span>เบอร์สินค้า</span></th>
-                                                            <th><span>ชื่อสินค้า</span></th>
-                                                            <th><span>วันที่สั่ง</span></th>
-                                                            <th style="text-align:center"><span>จำนวน<br />( ออกส่ง / รอส่ง )</span></th>
-                                                            <th><span>วัน/เวลาออกส่งสินค้า</span></th>
-                                                            <th><span>วัน/เวลาคาดว่าจะถึง</span></th>
-                                                            <th><span>เลขที่</span></th>
+                                                            <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
+                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ออกส่ง / ค้างส่ง )</span></th>
+                                                            <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
+                                                            <th class="text-center sticky-head "><span>ขนส่ง</span></th>
+                                                            <th class="text-center sticky-head text-truncate"><span>เวลาออกส่งสินค้า</span></th>
+                                                            <th class="text-center sticky-head text-truncate"><span>เวลาคาดว่าจะถึง</span></th>
+                                                            <th class="text-center sticky-head"><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -692,20 +745,21 @@
                                                 <div class=" col-12 float-end m-0 p-0 pb-1 pt-1 d-flex align-items-start">
                                                     <div class="row col-12 m-0 pr-0">
                                                         <div class="col-12 m-0 p-0 label-select-container d-flex justify-content-end">
-                                                            <label for="select-month-year">เดือน : </label>
-                                                            <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                            <label for="select-month-year">ประวัติการจัดส่งสำเร็จย้อนหลัง 7 วัน </label>
+                                                            <select class="form-select form-control select-year" id="select-month-year" hidden></select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-arrive" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th><span>เบอร์สินค้า</span></th>
-                                                            <th><span>ชื่อสินค้า</span></th>
-                                                            <th style="text-align:center"><span>จำนวน<br />( ส่งแล้ว / รอส่ง )</span></th>
-                                                            <th><span>วันที่รับสินค้า</span></th>
-                                                            <th><span>วันที่สั่ง</span></th>
-                                                            <th><span>เลขที่</span></th>
+                                                            <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                            <th class="sticky-head text-truncate" style="text-align:center"><span>จำนวน<br />( ส่งแล้ว / ค้างส่ง )</span></th>
+                                                            <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
+                                                            <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
+                                                            <th class="text-center sticky-head"><span>วันที่รับสินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -829,7 +883,7 @@
                 cardBody.slideToggle(200);
             });
 
-            setInterval(getDeliveryTrack_alert, 60000);
+            //setInterval(getDeliveryTrack_alert, 60000);
             //setInterval(getDeliveryTrack_alert, 10000);
         });
 
@@ -889,6 +943,23 @@
             return val;
         }
 
+        function getDatePreDate() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 7; i++) {
+                const pastDate = new Date(date);
+                pastDate.setDate(date.getDate() - i);
+
+                var day = String(pastDate.getDate()).padStart(2, '0');
+                var month = String(pastDate.getMonth() + 1).padStart(2, '0');
+                var year = pastDate.getFullYear();
+                var formattedDateDisplay = `${day}-${month}-${year}`;
+                var formattedDateVal = `${year}/${month}/${day}`;
+                result.push({ display: formattedDateDisplay, value: formattedDateVal })
+            }
+            return result;
+        }
+
         function getCusName() {
             $.ajax({
                 url: '@Url.Action("GetdatabyCus", "DataCenter")',
@@ -940,7 +1011,12 @@
         });
         $('#btn-show-arrive').click(function () {
             var date = new Date();
+            var day = date.getDate();
             var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            const dateNow = `${year}-${month}-${day}`;
+            console.log('DateSSS : ' + dateNow);
             $('.table-arrive').show('slow');
             $('.table-delivery').hide('slow');
             $('.table-packing').hide('slow');
@@ -949,8 +1025,9 @@
             $('#btn-show-accept').removeAttr('style');
             $('#btn-show-packing').removeAttr('style');
             $('#btn-show-delivering').removeAttr('style');
-            getSelectMonth();
-            getDeliverySuccess(month);
+            //getSelectMonth();
+            getSelectSevenDate();
+            getDeliverySuccess(dateNow);
         });
         $('#select-month-year').on('change', function () {
             getDeliverySuccess(this.value);
@@ -970,6 +1047,18 @@
             });
             $('#select-month-year').val(currentMonth);
         }
+
+        function getSelectSevenDate() {
+            const dropdown = $('#select-month-year');
+            const date = getDatePreDate();
+            date.forEach(data => {
+                const option = $('<option></option>')
+                    .text(data.display)
+                    .val(data.value);
+                dropdown.append(option);
+            })
+        }
+
         function getDeliveryTrack_alert() {
             $.ajax({
                 url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
@@ -992,7 +1081,7 @@
 
                             if (alert_accept > 0) {
                                 if (alert_accept > 99) {
-                                    $('#status-accept').text('99');
+                                    $('#status-accept').text('99+');
                                 }
                                 else {
                                     $('#status-accept').text(alert_accept);
@@ -1001,7 +1090,7 @@
 
                             if (alert_packing > 0) {
                                 if (alert_packing > 99) {
-                                    $('#status-packing').text('99');
+                                    $('#status-packing').text('99+');
                                 }
                                 else {
                                     $('#status-packing').text(alert_packing);
@@ -1010,7 +1099,7 @@
 
                             if (alert_delivery > 0) {
                                 if (alert_delivery > 99) {
-                                    $('#status-delivery').text('99');
+                                    $('#status-delivery').text('99+');
                                 }
                                 else {
                                     $('#status-delivery').text(alert_delivery);
@@ -1019,7 +1108,7 @@
 
                             if (alert_arrive > 0) {
                                 if (alert_arrive > 99) {
-                                    $('#status-arrive').text('99');
+                                    $('#status-arrive').text('99+');
                                 }
                                 else {
                                     $('#status-arrive').text(alert_arrive);
@@ -1062,13 +1151,10 @@
                                     if (data.Getdata[i].Notify.includes('รับ Order')) {
                                         var amt_order = 0;
                                             amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
-
-
-
                                         SubmithtmlPage += '<tr>';
 
                                         date = data.Getdata[i].StatusDate;
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                        SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                         SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                         var dateORD = data.Getdata[i].OrderDate;
@@ -1079,14 +1165,15 @@
                                         var dateParts = datePart.split("-");
                                         var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-                                        SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
-                                        SubmithtmlPage += '<td><span>' + timePart + '</span></td>';
+                                        SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
+                                        SubmithtmlPage += '<td class="text-center"><span>' + timePart + '</span></td>';
                                         // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
 
 
                                         SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) +' / '+ commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
-                                        SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                        //SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
+                                        SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
+                                        SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
 
                                             SubmithtmlPage += '</tr>';
 
@@ -1139,7 +1226,7 @@
 
 
                                      SubmithtmlPage += '<tr>';
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                     SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                      SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                      var dateORD = data.Getdata[i].OrderDate;
@@ -1150,10 +1237,11 @@
                                      var dateParts = datePart.split("-");
                                      var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-                                     SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                     SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
                                      SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].WH + '</span></td>';
+                                 //SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
+                                     SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
+                                     SubmithtmlPage += '<td  class="text-center"><span>' + data.Getdata[i].WH + '</span></td>';
                                      if (data.Getdata[i].PIDate != "") {
                                          var datePI = data.Getdata[i].PIDate;
                                          var partsPI = datePI.split(" ");
@@ -1162,13 +1250,13 @@
 
                                          var datePartsPI = datePartPI.split("-");
                                          var formattedDatePI = datePartsPI[2] + "-" + datePartsPI[1] + "-" + datePartsPI[0];
-                                         SubmithtmlPage += '<td><span>' + formattedDatePI + ' ' + timePartPI + '</span></td>';
+                                         SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDatePI + ' ' + timePartPI + '</span></td>';
                                      }
                                      else {
                                          SubmithtmlPage += '<td><span></span></td>';
 
                                      }
-                                     SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                     SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                      SubmithtmlPage += '</tr>';
 
 
@@ -1219,7 +1307,7 @@
 
 
                                     SubmithtmlPage += '<tr>';
-                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                    SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                                     SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                                     var dateORD = data.Getdata[i].OrderDate;
@@ -1229,8 +1317,10 @@
                                     var dateParts = datePart.split("-");
                                     var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-                                    SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                    SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
                                     SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
+                                    SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
+                                    SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Round + '</span></td>';
                                     if (data.Getdata[i].StartDelivery != "") {
                                         var dateST = data.Getdata[i].StartDelivery;
                                         var partsST = dateST.split(" ");
@@ -1239,7 +1329,7 @@
 
                                         var datePartsST = datePartST.split("-");
                                         var formattedDateST = datePartsST[2] + "-" + datePartsST[1] + "-" + datePartsST[0];
-                                        SubmithtmlPage += '<td><span>' + formattedDateST + ' ' + timePartST + '</span></td>';
+                                        SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDateST + ' ' + timePartST + '</span></td>';
                                     }
                                     else {
                                         SubmithtmlPage += '<td><span></span></td>';
@@ -1253,13 +1343,13 @@
 
                                     var datePartsEx = datePartEx.split("-");
                                     var formattedDateEx = datePartsEx[2] + "-" + datePartsEx[1] + "-" + datePartsEx[0];
-                                    SubmithtmlPage += '<td><span>' + formattedDateEx + ' ' + timePartEx+ '</span></td>';
+                                    SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDateEx + ' ' + timePartEx+ '</span></td>';
                                 }
                                 else {
                                     SubmithtmlPage += '<td><span></span></td>';
 
                                 }
-                                    SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                    SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                     SubmithtmlPage += '</tr>';
                                 }
 
@@ -1280,13 +1370,13 @@
             });
         }
 
-        function getDeliverySuccess(month) {
+        function getDeliverySuccess(date) {
             var _CUSCOD = cuscod;
             $.ajax({
                 url: '@Url.Action("GetDeliveryTrackingSuccess", "CustomerDashboard")',
                 data: {
                     CUSCOD: _CUSCOD,
-                    MONTH: month
+                    DATE: date
                 },
                 type: 'POST',
                 dataType: 'JSON',
@@ -1310,7 +1400,7 @@
 
 
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
+                                SubmithtmlPage += '<td class="sticky-col text-center"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                             SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
 
                             var dateORD = data.Getdata[i].OrderDate;
@@ -1321,7 +1411,8 @@
                             var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
                             SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
-                            SubmithtmlPage += '<td><span>' + formattedDate + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + ' ' + timePart + '</span></td>';
                             if (data.Getdata[i].EndDelivery != "") {
                                 var dateEN = data.Getdata[i].EndDelivery;
                                 var partsEN = dateEN.split(" ");
@@ -1330,13 +1421,12 @@
 
                                 var datePartsEN = datePartEN.split("-");
                                 var formattedDateEN = datePartsEN[2] + "-" + datePartsEN[1] + "-" + datePartsEN[0];
-                                SubmithtmlPage += '<td><span>' + formattedDateEN + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDateEN + ' ' + timePartEN + '</span></td>';
                             }
                             else {
                                 SubmithtmlPage += '<td><span></span></td>';
-
                             }
-                            SubmithtmlPage += '<td><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ORD_DocNo + '</span></td>';
                                 SubmithtmlPage += '</tr>';
                             }
                         }

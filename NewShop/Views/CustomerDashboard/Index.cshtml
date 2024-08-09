@@ -596,6 +596,15 @@
             color: #4CAF50;
         }
 
+        @@media only screen and (max-width: 321px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 150px !important;
+                white-space: nowrap;
+            }
+        }
+
         /* @@media only screen and (min-width: 432px) {
             .text-truncate {
                 display: flex;
@@ -711,11 +720,11 @@
                                                 </div>
                                                 <div class="card-body p-0  ">
                                                     <div class="m-0 table-responsive">
-                                                        <table class="table table-sm table-light m-0 " id="amt-table" style="width:100%">
+                                                        <table class="table table-sm table-light m-0 table-bordered" id="amt-table" style="width:100%">
                                                             <thead class="thead-default">
                                                                 <tr>
                                                                     @*<th class="pl-0 pr-0"></th>*@
-                                                                    <th class="pl-0 pr-0"><span>ชื่อร้านค้า</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>ชื่อร้านค้า</span></th>
                                                                     <th class="pl-0 pr-0 text-center"><span>AAC</span></th>
                                                                     <th class="pl-0 pr-0 text-center"><span>TAC</span></th>
                                                                     <th class="pl-0 pr-0 text-center"><span>OMP</span></th>
@@ -757,7 +766,7 @@
                                                                         <option value="" selected>ALL</option>
                                                                         @for (var i = 0; i < BrandList.Count; i++)
                                                                         {
-                                                                           <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                            <option value="@BrandList[i].Value">@BrandList[i].Text</option>
                                                                         }
                                                                     </select>
                                                                 </div>
@@ -903,9 +912,14 @@
         var chartProfileVisit;
         var chartdefault = $("#cushid").val();
 
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
         $(document).ready(function () {
             $('#loader').show();
             getSelectMonth();
+            $('#select-month-year option[value=""]').prop('selected', true);
             getCusName();
             $('#btn-show-amount').css("background", "#DEAF5B");
             setTimeout(function () {
@@ -927,20 +941,16 @@
             getCreditCus(cuscod);
             getCusMonth(cuscod, currentYear, currentMonth);
         }
-        n = new Date();
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        d = n.getDate();
 
-        function getLastSixMonths() {
+
+        function getMonthYear() {
             const result = [];
             const date = new Date();
-            for (let i = 0; i < 6; i++) {
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const formattedMonth = month; //< 10 ? `0${month}` : `${month}`; #01549b
+            for (let i = 12; i > 0; i--) {
+                var month = i;
+                var year = y;
+                var formattedMonth = month.toString().padStart(2, '0'); //< 10 ? `0${month}` : `${month}`; #01549b
                 result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
-                date.setMonth(date.getMonth() - 1);
             }
             return result;
         }
@@ -1038,13 +1048,20 @@
 
         function getSelectMonth() {
             const dropdown = $('#select-month-year');
-            const lastSixMonths = getLastSixMonths();
+            const lastSixMonths = getMonthYear();
             lastSixMonths.forEach(monthYear => {
                 const option = $('<option></option>')
                     .text(monthYear.display)
                     .val(monthYear.value);
                 dropdown.append(option);
             });
+
+            const currentDate = new Date();
+            const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const currentYear = currentDate.getFullYear();
+            const currentMonthYear = `${currentYear}, ${currentMonth}`;
+
+            dropdown.val(currentMonthYear);
         }
 
         function jssor_1_slider_init() {
@@ -1098,9 +1115,6 @@
             return val;
         }
 
-
-
-
         //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
         function getCusMonth(cus,year,month) {
             $.ajax({
@@ -1116,7 +1130,7 @@
                     if (data.Getdata.length > 0) {
                         var resTotal = 0.00;
                         var SubmithtmlPage = "";
-                        $('#amt-table tbody').html("");
+
                         $.ajax({
                             url: '@Url.Action("GetCusInvMonth", "CustomerDashboard")',
                             data: {
@@ -1129,9 +1143,16 @@
                             beforeSend: function () {
                                 $('#total-text').text("");
                                 $("#amt-total").text("");
+                                $('#amt-table tbody').html("");
+                                var SubmithtmlPag = '';
+                                SubmithtmlPag += '<tr>';
+                                SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                                SubmithtmlPag += '</tr>';
+                                $('#amt-table tbody').append(SubmithtmlPag);
                                 $("#loading-text-table").text("Loading...");
                             },
                             success: function (result) {
+                                $('#amt-table tbody').html("");
                                 var aac_count = 0;
                                 var tac_count = 0;
                                 var omp_count = 0;
@@ -1143,7 +1164,7 @@
                                     //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
                                     SubmithtmlPage += '<tr>';
                                    // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
-                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
+                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="cut-text text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
                                     if (result.Getdata.length > 0) {
                                         aac_count = 0;
                                         var amt_aac = 0;
@@ -1154,10 +1175,10 @@
                                                 }
                                             }
                                         }
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span>  <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span>  <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                     else {
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                     if (result.Getdata.length > 0) {
                                         tac_count = 0;
@@ -1169,10 +1190,10 @@
                                                 }
                                             }
                                         }
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                     else {
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                     if (result.Getdata.length > 0) {
                                         omp_count = 0;
@@ -1184,10 +1205,10 @@
                                                 }
                                             }
                                         }
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                     else {
-                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle ellipsis pl-0 pr-0" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button>/p></td>'; //class="ellipsis"
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
                                     }
                                    // SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                     SubmithtmlPage += '</tr>';
@@ -1224,10 +1245,10 @@
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1237,11 +1258,11 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'AAC') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_aac += Number(result.Getdata[j].Amount);
                                                     aac_count++;
@@ -1294,10 +1315,10 @@
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                   // SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1307,11 +1328,11 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'TAC') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_tac += Number(result.Getdata[j].Amount);
                                                     tac_count++;
@@ -1361,10 +1382,10 @@
                                     SubmithtmlPage += '                    <thead>';
                                     SubmithtmlPage += '                        <tr>';
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>วันที่สั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>หมายเลขการสั่งซื้อ</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>จำนวนเงิน</span></th>';
-                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1374,11 +1395,11 @@
                                             if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
                                                 if (result.Getdata[j].Company == 'OMP') {
                                                     SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    //SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_omp += Number(result.Getdata[j].Amount);
                                                     omp_count++;

@@ -501,12 +501,62 @@
             overflow-y: auto;
         }
 
-            .table-style thead th {
+        /* .table-style thead th {
                 position: sticky;
                 top: 0;
                 background-color: white;
                 z-index: 4;
+            }*/
+        .sticky-head {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
+
+        .sticky-head-first {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: 5 !important;
+        }
+
+            .sticky-head-first:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
             }
+
+        .sticky-col {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            left: 0;
+            background-color: inherit; /* Background color for sticky elements */
+            z-index: 4 !important; /* Ensure it is above other cells */
+        }
+
+            .sticky-col:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
+            }
+
+        .table-striped > tbody > tr:nth-of-type(odd) .sticky-col {
+            background-color: #f9f9f9; /* Adjust based on your stripe color */
+        }
+
+        .table-striped > tbody > tr:nth-of-type(even) .sticky-col {
+            background-color: #fff; /* Adjust based on your stripe color */
+        }
     </style>
 </head>
 <body style="background-color: #f2f7ff; margin-bottom:5px; ">
@@ -556,14 +606,14 @@
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-waiting-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>อาการ</th>
-                                                    <th>วันที่แจ้งเคลม</th>
-                                                    <th>วันที่รับเคลม</th>
-                                                    <th>ดำเนินการ</th>
-                                                    <th>สถานะการเคลม</th>
+                                                    <th class="sticky-head-first">เบอร์สินค้า</th>
+                                                    <th class="sticky-head">ชื่อสินค้า</th>
+                                                    <th class="sticky-head">จำนวน</th>
+                                                    <th class="sticky-head">อาการ</th>
+                                                    <th class="sticky-head">วันที่แจ้งเคลม</th>
+                                                    <th class="sticky-head">วันที่รับเคลม</th>
+                                                    <th class="sticky-head">คำขอชดเชย</th>
+                                                    <th class="sticky-head">สถานะการเคลม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -573,14 +623,14 @@
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-inspecting-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>อาการ</th>
-                                                    <th>วันที่แจ้งเคลม</th>
-                                                    <th>วันที่รับเคลม</th>
-                                                    <th>ดำเนินการ</th>
-                                                    <th>สถานะการเคลม</th>
+                                                    <th class="sticky-head-first">เบอร์สินค้า</th>
+                                                    <th class="sticky-head">ชื่อสินค้า</th>
+                                                    <th class="sticky-head">จำนวน</th>
+                                                    <th class="sticky-head">อาการ</th>
+                                                    <th class="sticky-head">วันที่แจ้งเคลม</th>
+                                                    <th class="sticky-head">วันที่รับเคลม</th>
+                                                    <th class="sticky-head">คำขอชดเชย</th>
+                                                    <th class="sticky-head">สถานะการเคลม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -590,14 +640,14 @@
                                         <table class="table table-striped table-bordered table-hover mb-0 " id="warranty-delivering-table" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>อาการ</th>
-                                                    <th>วันที่แจ้งเคลม</th>
-                                                    <th>วันที่รับเคลม</th>
-                                                    <th>ดำเนินการ</th>
-                                                    <th>สถานะการเคลม</th>
+                                                    <th class="sticky-head-first">เบอร์สินค้า</th>
+                                                    <th class="sticky-head">ชื่อสินค้า</th>
+                                                    <th class="sticky-head">จำนวน</th>
+                                                    <th class="sticky-head">อาการ</th>
+                                                    <th class="sticky-head">วันที่แจ้งเคลม</th>
+                                                    <th class="sticky-head">วันที่รับเคลม</th>
+                                                    <th class="sticky-head">คำขอชดเชย</th>
+                                                    <th class="sticky-head">สถานะการเคลม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -685,6 +735,14 @@
             return val;
         }
 
+        function formatDate(dateString) {
+            let dateParts = dateString.split('/');
+            let day = dateParts[0];
+            let month = dateParts[1];
+            let year = dateParts[2].slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+
         function toggleRowWaranty(row,col) {
             var text = $('#show-'+col+'-icon');
             if (text.text() === '+') {
@@ -766,12 +824,12 @@
                      if (data.length > 0) {
                          for (var i = 0; i < data.length; i++) {
                              SubmithtmlPage += '<tr>';
-                             SubmithtmlPage += '<td>' + data[i].STKCOD +'</td>';
+                             SubmithtmlPage += '<td class="sticky-col">' + data[i].STKCOD +'</td>';
                              SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                              SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                             SubmithtmlPage += '<td>' + data[i].Symptom +'</td>';
-                             SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
-                             SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
+                             SubmithtmlPage += '<td>' + data[i].Symptom.split('//')[0].trim() + '</td>';
+                             SubmithtmlPage += '<td>' + formatDate(data[i].REQ_DATE) + '</td>';
+                             SubmithtmlPage += '<td>' + formatDate(data[i].ReceiveDate) + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                              SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                              SubmithtmlPage += '</tr>';
@@ -811,12 +869,12 @@
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td>' + data[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col">' + data[i].STKCOD + '</td>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Symptom.split('//')[0].trim() + '</td>';
+                            SubmithtmlPage += '<td>' + formatDate(data[i].REQ_DATE) + '</td>';
+                            SubmithtmlPage += '<td>' + formatDate(data[i].ReceiveDate) + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -856,12 +914,12 @@
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td>' + data[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col">' + data[i].STKCOD + '</td>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
+                            SubmithtmlPage += '<td>' + data[i].Symptom.split('//')[0].trim() + '</td>';
+                            SubmithtmlPage += '<td>' + formatDate(data[i].REQ_DATE) + '</td>';
+                            SubmithtmlPage += '<td>' + formatDate(data[i].ReceiveDate) + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Request.replace(/\/.*/, ''); + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Status + '</td>';
                             SubmithtmlPage += '</tr>';
@@ -901,7 +959,7 @@
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td>' + data[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col">' + data[i].STKCOD + '</td>';
                             SubmithtmlPage += '<td>' + data[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
                             SubmithtmlPage += '<td>' + data[i].Symptom + '</td>';

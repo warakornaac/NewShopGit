@@ -126,6 +126,15 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
+            if (username == null || username == "")
+            {
+                SqlCommand command = new SqlCommand("select Username from UsrTbl_Portal where Tel = '" + phone + "'", Connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    username = reader["Username"].ToString();
+                }
+            }
             try
             {
                 var cmd = new SqlCommand("P_CustomerPortal_ForgetPassword", Connection);
