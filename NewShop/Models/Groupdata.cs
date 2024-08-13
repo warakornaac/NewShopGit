@@ -1200,12 +1200,12 @@ namespace NewShop.Models
         public string BackOrder { get; set; }
     }
     public class listPromotionCode
-    { 
+    {
         public string PromotionCode { get; set; }
         public string PromotionDes { get; set; }
-    }   
+    }
     public class listPromotionDetail
-    { 
+    {
         public string Promotion_Code { get; set; }
         public string Seq { get; set; }
         public string Type { get; set; }
@@ -1214,9 +1214,9 @@ namespace NewShop.Models
         public string Condition { get; set; }
         public string Reward { get; set; }
         public string Reward_Percent { get; set; }
-    } 
+    }
     public class listCustomerRegister
-    { 
+    {
         public string Cuscode { get; set; }
         public string Cusname { get; set; }
         public string Slmcode { get; set; }
@@ -1230,5 +1230,24 @@ namespace NewShop.Models
         public string Cuscode { get; set; }
         public string PromotionCode { get; set; }
         public string PromotionSeq { get; set; }
+    }
+    public class dashboardModel
+    {
+        public string Topic { get; set; }
+        public string amt_qty1 { get; set; }
+        public string amt_qty2 { get; set; }
+        public string amt_qty3 { get; set; }
+        public string amt_qty4 { get; set; }
+        public string amt_qty5 { get; set; }
+        public string amt_qty6 { get; set; }
+        public string amt_qty7 { get; set; }
+        public string amt_qty8 { get; set; }
+        public string amt_qty9 { get; set; }
+        public string amt_qty10 { get; set; }
+        public string amt_qty11 { get; set; }
+        public string amt_qty12 { get; set; }
+        public string amt_qty13 { get; set; }
+        public string amt_qty14 { get; set; }
+        public string amt_qty15 { get; set; }
     }
 }

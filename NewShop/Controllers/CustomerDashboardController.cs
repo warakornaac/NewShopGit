@@ -15,6 +15,7 @@ using System.DirectoryServices.Protocols;
 using System.Web.Services.Description;
 using UAParser;
 using System.Net;
+using System.Collections;
 
 namespace NewShop.Controllers
 {
@@ -221,6 +222,116 @@ namespace NewShop.Controllers
                         Amt_Qty = reader["Amt_Qty"].ToString()
                     });
                 }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDashBoardPromotion(string CUSCOD, string TOPIC)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<dashboardModel> Getdata = new List<dashboardModel>();
+            string message = "";
+            try
+            {
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Dev", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
+                cmd.Parameters.AddWithValue("@inTopic", TOPIC);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new dashboardModel()
+                    {
+                        Topic = reader["Topic"] != DBNull.Value ? reader["Topic"].ToString() : string.Empty,
+                        amt_qty1 = reader["amt_qty1"] != DBNull.Value ? reader["amt_qty1"].ToString() : string.Empty,
+                        amt_qty2 = reader["amt_qty2"] != DBNull.Value ? reader["amt_qty2"].ToString() : string.Empty,
+                        amt_qty3 = reader["amt_qty3"] != DBNull.Value ? reader["amt_qty3"].ToString() : string.Empty,
+                        amt_qty4 = reader["amt_qty4"] != DBNull.Value ? reader["amt_qty4"].ToString() : string.Empty,
+                        amt_qty5 = reader["amt_qty5"] != DBNull.Value ? reader["amt_qty5"].ToString() : string.Empty,
+                        amt_qty6 = reader["amt_qty6"] != DBNull.Value ? reader["amt_qty6"].ToString() : string.Empty,
+                        amt_qty7 = reader["amt_qty7"] != DBNull.Value ? reader["amt_qty7"].ToString() : string.Empty,
+                        amt_qty8 = reader["amt_qty8"] != DBNull.Value ? reader["amt_qty8"].ToString() : string.Empty,
+                        amt_qty9 = reader["amt_qty9"] != DBNull.Value ? reader["amt_qty9"].ToString() : string.Empty,
+                        amt_qty10 = reader["amt_qty10"] != DBNull.Value ? reader["amt_qty10"].ToString() : string.Empty,
+                        amt_qty11 = reader["amt_qty11"] != DBNull.Value ? reader["amt_qty11"].ToString() : string.Empty,
+                        amt_qty12 = reader["amt_qty12"] != DBNull.Value ? reader["amt_qty12"].ToString() : string.Empty,
+                        amt_qty13 = reader["amt_qty13"] != DBNull.Value ? reader["amt_qty13"].ToString() : string.Empty,
+                        amt_qty14 = reader["amt_qty14"] != DBNull.Value ? reader["amt_qty14"].ToString() : string.Empty,
+                        amt_qty15 = reader["amt_qty15"] != DBNull.Value ? reader["amt_qty15"].ToString() : string.Empty
+                    });
+                }
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDashBoardServiceLevelAndAmt(string CUSCOD, string TOPIC)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<dashboardModel> Getdata = new List<dashboardModel>();
+            string message = "";
+            try
+            {
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Dev", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
+                cmd.Parameters.AddWithValue("@inTopic", TOPIC);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new dashboardModel()
+                    {
+                        Topic = reader["Topic"] != DBNull.Value ? reader["Topic"].ToString() : string.Empty,
+                        amt_qty1 = reader["amt_qty1"] != DBNull.Value ? reader["amt_qty1"].ToString() : string.Empty,
+                        amt_qty2 = reader["amt_qty2"] != DBNull.Value ? reader["amt_qty2"].ToString() : string.Empty
+                    });
+                }
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDashBoardBackOrder(string CUSCOD, string TOPIC)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<dashboardModel> Getdata = new List<dashboardModel>();
+            string message = "";
+            try
+            {
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Dev", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
+                cmd.Parameters.AddWithValue("@inTopic", TOPIC);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new dashboardModel()
+                    {
+                        Topic = reader["Topic"] != DBNull.Value ? reader["Topic"].ToString() : string.Empty,
+                        amt_qty1 = reader["amt_qty1"] != DBNull.Value ? reader["amt_qty1"].ToString() : string.Empty,
+                        amt_qty2 = reader["amt_qty2"] != DBNull.Value ? reader["amt_qty2"].ToString() : string.Empty,
+                        amt_qty3 = reader["amt_qty3"] != DBNull.Value ? reader["amt_qty3"].ToString() : string.Empty
+
+                    });
+                }
+                message = "Y";
             }
             catch (Exception ex)
             {

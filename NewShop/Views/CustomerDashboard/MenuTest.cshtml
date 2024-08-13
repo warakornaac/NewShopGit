@@ -313,11 +313,11 @@
                                     </div>
                                     <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนสั่งซื้อ :</span> 
+                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนสั่งซื้อ :</span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">ส่งทันตามกำหนด : </span> 
+                                            <span class="col-6 text-md font-weight-bold">ส่งทันตามกำหนด : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
                                         </div>
 
@@ -330,11 +330,11 @@
                                     </div>
                                     <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">ยอดซื้อทั้งหมด : </span> 
+                                            <span class="col-6 mt-1 text-md font-weight-bold">ยอดซื้อทั้งหมด : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">ส่วนลดเงินสด : </span> 
+                                            <span class="col-6 text-md font-weight-bold">ส่วนลดเงินสด : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
                                         </div>
                                     </div>
@@ -346,15 +346,15 @@
                                     </div>
                                     <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนเบอร์สินค้า : </span> 
+                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนเบอร์สินค้า : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">เงิน : </span> 
+                                            <span class="col-6 text-md font-weight-bold">เงิน : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">จำนวน : </span> 
+                                            <span class="col-6 text-md font-weight-bold">จำนวน : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
                                         </div>
                                     </div>
@@ -563,9 +563,12 @@
     });
     if (cuscod != null) {
         //getChartsamt();
-        getDashboardNotable();
+        getBackorder();
+        getAmt();
+        getServiceLevel();
         getTop5();
-        //getPromotion();
+        getPromotion();
+        //getDashboardNotable();
         getDeliveryTrackAmt();
         getBackorderAmt();
         getWarrantyAmt();
@@ -1197,9 +1200,9 @@
 
     function getPromotion() {
         $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+            url: '@Url.Action("GetDashBoardPromotion", "CustomerDashboard")',
             data: {
-                CUSCOD: cuscod
+                CUSCOD: '110L0003'
             },
             type: "POST",
             dataType: "JSON",
@@ -1207,70 +1210,111 @@
 
             },
             success: function (data) {
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i]; // เข้าถึงข้อมูลแต่ละรายการ
-
-                        if (item.Topic == "Promotion") {
-                            if (item.SubTopic1 == "Progress") {
-                                if (item.SubTopic2 == "Yearly") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-yearly-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-yearly-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-yearly-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-yearly-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                                if (item.SubTopic2 == "Quater") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-quater-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-quater-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-quater-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-quater-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                                if (item.SubTopic2 == "Other") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-other-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-other-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-other-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-other-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                            }
-                            //if (item.SubTopic1 == "Success") {
-                            //    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
-                            //}
-                        }
-                    }
+                if (data.message == "Y") {
+                    console.log("Value");
+                    var item = data.Getdata[0];
+                    $('#txtPromotion_1').text(commaSeparateNumber(data.Getdata[0].amt_qty1));
+                    $('#txtPromotion_2').text(commaSeparateNumber(data.Getdata[0].amt_qty2));
+                    $('#txtPromotion_3').text(commaSeparateNumber(data.Getdata[0].amt_qty3));
+                    $('#txtPromotion_4').text(commaSeparateNumber(data.Getdata[0].amt_qty4));
+                    $('#txtPromotion_5').text(commaSeparateNumber(data.Getdata[0].amt_qty5));
+                    $('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
+                    $('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
+                    $('#txtPromotion_8').text(commaSeparateNumber(data.Getdata[0].amt_qty8));
+                    $('#txtPromotion_9').text(commaSeparateNumber(data.Getdata[0].amt_qty9));
+                    $('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
+                    $('#txtPromotion_11').text(commaSeparateNumber(data.Getdata[0].amt_qty11));
+                    $('#txtPromotion_12').text(commaSeparateNumber(data.Getdata[0].amt_qty12));
+                    $('#txtPromotion_13').text(commaSeparateNumber(data.Getdata[0].amt_qty13));
+                    $('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
+                    $('#txtPromotion_15').text(commaSeparateNumber(data.Getdata[0].amt_qty15));
                 }
-
-                $('#table-yeary tbody tr').append(SubmithtmlPageYear);
-                $('#table-quater tbody tr').append(SubmithtmlPageQuater);
-                $('#table-other tbody tr').append(SubmithtmlPageOther);
-                $('#table-success tbody tr').append(SubmithtmlPageSuccess);
-
             }
         });
     }
+
+        function getServiceLevel() {
+            $.ajax({
+                url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
+                data: {
+                    CUSCOD: '110L0003',
+                    TOPIC: 'Service Level'
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+
+                    $('#service-level-delivery').html("");
+
+                    var SubmitPage = 'Loading...';
+
+                    $('#service-level-delivery').text(SubmitPage);
+
+                },
+                success: function (data) {
+                    if (data.message == "Y") {
+                        var item = data.Getdata[0];
+                        var dlivery = item.amt_qty2 * 100;
+                        $('#service-level-amt').text(commaSeparateNumber(item.amt_qty1));
+                        $('#service-level-delivery').text(dlivery + '%');
+
+                    }
+                }
+            });
+        }
+        function getAmt() {
+                $.ajax({
+                    url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: '110L0003',
+                        TOPIC: 'Purchase'
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $('#amt-discount').html("");
+                        var SubmitPage = 'Loading...';
+                        $('#amt-discount').text(SubmitPage);
+
+                    },
+                    success: function (data) {
+                        if (data.message == "Y") {
+                            var item = data.Getdata[0];
+                            $('#amt-all').text(commaSeparateNumber(item.amt_qty1));
+                            $('#amt-discount').text(commaSeparateNumber(item.amt_qty2));
+
+                        }
+                    }
+                });
+        }
+            function getBackorder() {
+                $.ajax({
+                    url: '@Url.Action("GetDashBoardBackOrder", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: '110L0003',
+                        TOPIC: 'Back Order'
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $('#backorder-money').html("");
+                        var SubmitPage = 'Loading...';
+                        $('#backorder-money').text(SubmitPage);
+
+                    },
+                    success: function (data) {
+                        if (data.message == "Y") {
+                            var item = data.Getdata[0];
+                            $('#backorder-product').text(commaSeparateNumber(item.amt_qty1));
+                            $('#backorder-money').text(commaSeparateNumber(item.amt_qty2));
+                            $('#backorder-total').text(commaSeparateNumber(item.amt_qty3));
+
+
+                        }
+                    }
+                });
+            }
+
 
     function getDashboardNotable() {
         $.ajax({
@@ -1293,73 +1337,24 @@
                 if (data.Getdata.length > 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
-                        if (item.Topic == "Promotion") {
-                            if (item.SubTopic1 == "Progress") {
-                                if (item.SubTopic2 == "Yearly") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-yearly-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-yearly-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-yearly-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-yearly-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                                if (item.SubTopic2 == "Quater") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-quater-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-quater-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-quater-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-quater-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                                if (item.SubTopic2 == "Other") {
-                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
-                                        $('#pro-other-regis').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ตั๋ว") {
-                                        $('#pro-other-ticket').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยอดซื้อสะสม") {
-                                        $('#pro-other-amt').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                    if (item.Name == "ยังขาด") {
-                                        $('#pro-other-miss').text(commaSeparateNumber(item.Amt_Qty));
-                                    }
-                                }
-                            }
-                            //if (item.SubTopic1 == "Success") {
-                            //    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
-                            //}
-                        }
-                        if (item.Topic == "Service Level") {
-                            if (item.Name == "จำนวนสั่งซื้อ") {
-                                $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "ส่งทันตามกำหนด") {
-                                var dlivery = item.Amt_Qty * 100;
-                                $('#service-level-delivery').text(dlivery+'%');
-                            }
-                        }
-                        if (item.Topic =="Purchase") {
-                            if (item.Name == "ยอดซื้อทั้งหมด") {
-                                $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "ส่วนลดเงินสด") {
+                        //if (item.Topic == "Service Level") {
+                        //    if (item.Name == "จำนวนสั่งซื้อ") {
+                        //        $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
+                        //    }
+                        //    if (item.Name == "ส่งทันตามกำหนด") {
+                        //        var dlivery = item.Amt_Qty * 100;
+                        //        $('#service-level-delivery').text(dlivery+'%');
+                        //    }
+                        //}
+                        //if (item.Topic =="Purchase") {
+                        //    if (item.Name == "ยอดซื้อทั้งหมด") {
+                        //        $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
+                        //    }
+                        //    if (item.Name == "ส่วนลดเงินสด") {
 
-                                $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                        }
+                        //        $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
+                        //    }
+                        //}
                         if (item.Topic == "Back Order") {
                             if (item.Name == "จำนวนเบอร์สินค้า") {
                                 $('#backorder-product').text(commaSeparateNumber(item.Amt_Qty));
@@ -1396,20 +1391,14 @@
             success: function (data) {
                 $('#table-top5').html("");
                 var Submithtml = "";
-                var countTop = 0;
                 if (data.Getdata.length > 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
+
                         if (item.Topic == "Top 5") {
-                            var styleColor = "";
-                            ++countTop;
-                            if (countTop == 1) {
-                                styleColor = "text-success";
-                            }
                             Submithtml += '<tr>';
-                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor +' ">' + countTop + '</td>';
-                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor +'">' + item.Name + '</td>';
-                            Submithtml += '<td class="text-right text-md font-weight-bold ' + styleColor +'">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                            Submithtml += '<td>' + item.Name + '</td>';
+                            Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
                             Submithtml += '</tr>';
                         }
                     }
@@ -1506,7 +1495,6 @@
             dataType: "JSON",
             success: function (data) {
                 if (data.length > 0) {
-
                     var waiting = data[0].A != "" ? Number(data[0].A) :0;
                     var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
                     var pending = data[0].C != "" ? Number(data[0].C) : 0;
