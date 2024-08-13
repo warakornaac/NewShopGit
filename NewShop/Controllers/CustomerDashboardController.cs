@@ -197,6 +197,38 @@ namespace NewShop.Controllers
             return macAddress;
         }
 
+        public JsonResult GetDashBoard(string CUSCOD)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            var Getdata = new List<object>();
+            string message = "";
+            try
+            {
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new
+                    {
+                        Topic = reader["Topic"].ToString(),
+                        SubTopic1 = reader["SubTopic1"].ToString(),
+                        SubTopic2 = reader["SubTopic2"].ToString(),
+                        Name = reader["Name"].ToString(),
+                        Amt_Qty = reader["Amt_Qty"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Credit_Cus(string cuscod)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;

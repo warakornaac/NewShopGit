@@ -659,10 +659,10 @@
                                     รอดำเนินการ/กำลังตรวจสอบ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-wait"></span>
                                     <hr class="m-0" id="line-tab-wait" />
                                 </button>
-                                <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
-                                    รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect"></span>
-                                    <hr class="m-0" id="line-tab-inspect" />
-                                </button>
+                                @*<button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-inspect">
+                                        รอส่งสินค้าทดแทน <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-inspect"></span>
+                                        <hr class="m-0" id="line-tab-inspect" />
+                                    </button>*@
                                 <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-approve">
                                     อนุมัติ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-approve"></span>
                                     <hr class="m-0" id="line-tab-approve" />
@@ -1035,7 +1035,7 @@
                 url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                 data: {
                     CUSCOD: cuscod,
-                    Tab: 'c'
+                    Tab: 'b'
                 },
                 type: "POST",
                 dataType: "JSON",
@@ -1081,7 +1081,7 @@
                 url: '@Url.Action("GetWarranty", "CustomerDashboard")',
                 data: {
                     CUSCOD: cuscod,
-                    Tab: 'd'
+                    Tab: 'c'
                 },
                 type: "POST",
                 dataType: "JSON",

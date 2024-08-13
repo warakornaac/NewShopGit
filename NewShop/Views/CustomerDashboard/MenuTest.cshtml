@@ -99,6 +99,26 @@
             background-image: linear-gradient(39deg, #a4d0f1 0%, #afe9ff 100%);
             border: 2px solid #a6c1ff;
         }
+
+        .bg_hov:hover {
+            background-color: #ffcc00;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+        .bg_hov:active {
+            background-color: #997a00;
+            border-radius: 10px;
+        }
+
+        .bg-yellow {
+            background-color: #e2e600;
+        }
+
+        .bg-backorder {
+            background-color: #9FE2BF;
+        }
     </style>
     <style>
         #scroll-container {
@@ -111,9 +131,9 @@
             -moz-transform: translateX(100%);
             -webkit-transform: translateX(100%);
             transform: translateX(100%);
-            -moz-animation: my-animation 15s linear infinite;
-            -webkit-animation: my-animation 15s linear infinite;
-            animation: my-animation 15s linear infinite;
+            -moz-animation: my-animation 30s linear infinite;
+            -webkit-animation: my-animation 30s linear infinite;
+            animation: my-animation 30s linear infinite;
         }
 
         /* for Firefox */
@@ -161,6 +181,14 @@
         .stroke-text {
             -webkit-text-stroke-width: 0.5px;
             -webkit-text-stroke-color: black;
+        }
+
+        .text-indigo {
+            color: #6f42c1;
+        }
+
+        .text-tac {
+            color: #0d6efd;
         }
     </style>
 </head>
@@ -215,40 +243,246 @@
                                 <div class="col-12 text-sm mb-0 text-nowrap scroll-text">
                                     <div class="row">
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-primary " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_aac">Amt MTD AAC :</span>
+                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_aac">Amt MTD AAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_tac">Amt MTD TAC :</span>
+                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_tac">Amt MTD TAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_omp">Amt MTD OMP :</span>
+                                            <span class="font-weight-bold  text-indigo" style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_omp">Amt MTD OMP :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-info " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtmtd_all">Amt MTD ALL :</span>
+                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_all">Amt MTD ALL :</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-primary " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_aac">Amt YTD AAC :</span>
+                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_aac">Amt YTD AAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_tac">Amt YTD TAC :</span>
+                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px; " id="amtytd_tac">Amt YTD TAC :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_omp">Amt YTD OMP :</span>
+                                            <span class="font-weight-bold text-indigo " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_omp">Amt YTD OMP :</span>
                                         </div>
                                         <div class="col-3">
-                                            <span class="font-weight-bold text-info " style="font-family: Kanit; font-weight: bold; font-size: 16px;" id="amtytd_all">Amt YTD ALL :</span>
+                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_all">Amt YTD ALL :</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="card-body p-3">
-                            <div class="chart">
-                                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header bg-success p-0">
+                                            <h3 class="card-title text-white p-2">Promotion</h3>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 class="card-title p-2">Success</h3>
+                                            <table class="table table-bordered" id="table-success">
+                                                <thead class="thead-default">
+                                                    <tr>
+                                                        <th colspan="4">Yearly</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            มูลค่าของรางวัลที่รอจ่าย
+                                                        </th>
+                                                        <th>ตั๋ว</th>
+                                                        <th>
+                                                            มูลค่าของรางวัลที่รับแล้ว
+                                                        </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr></tr>
+                                                </tbody>
+                                            </table>
+                                            <h3 class="card-title p-2">Process</h3>
+                                            <div class="w3-bar tab-buttons">
+                                                <button type="button" class="btn  btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-yearly">
+                                                    Yearly <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-accept"></span>
+                                                    <hr class="m-0" id="line-tab-accept" />
+                                                </button>
+                                                <button type="button" class="btn  w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-quater">
+                                                    Quater <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-packing"></span>
+                                                    <hr class="m-0" id="line-tab-packing" />
+                                                </button>
+                                                <button type="button" class="btn  w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-other">
+                                                    Other <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
+                                                    <hr class="m-0" id="line-tab-delivering" />
+                                                </button>
+                                            </div>
+                                            <div id="promotion-table-yeary">
+                                                <table class="table table-bordered" id="table-yeary">
+                                                    <thead class="thead-default">
+                                                        <tr>
+                                                            <th colspan="4">Yearly</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                มูลค่าของรางวัลที่ลงทะเบียน
+                                                            </th>
+                                                            <th>ตั๋ว</th>
+                                                            <th>
+                                                                ยอดซื้อสะสม
+                                                            </th>
+                                                            <th>
+                                                                ยังขาด
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="promotion-table-quater">
+                                                <table class="table table-bordered" id="table-quater">
+                                                    <thead class="thead-default">
+                                                        <tr>
+                                                            <th colspan="4">Quather</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                มูลค่าของรางวัลที่ลงทะเบียน
+                                                            </th>
+                                                            <th>ตั๋ว</th>
+                                                            <th>
+                                                                ยอดซื้อสะสม
+                                                            </th>
+                                                            <th>
+                                                                ยังขาด
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="promotion-table-other">
+                                                <table class="table table-bordered" id="table-other">
+                                                    <thead class="thead-default">
+                                                        <tr>
+                                                            <th colspan="4">Other</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                มูลค่าของรางวัลที่ลงทะเบียน
+                                                            </th>
+                                                            <th>ตั๋ว</th>
+                                                            <th>
+                                                                ยอดซื้อสะสม
+                                                            </th>
+                                                            <th>
+                                                                ยังขาด
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
+                            <div class="row">
+
+                                <div class="col-4">
+                                    <div class="card">
+                                        <div class="card-header bg-warning p-2">
+                                            <h3 class="card-title">Service Level</h3>
+                                        </div>
+                                        <div class="card-body pl-2 pr-2">
+                                            <div class="row">
+                                                <span class="col-6">จำนวนสั่งซื้อ :</span> <span class="col-6" id="service-level-amt"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-6">ส่งทันตามกำหนด : </span> <span class="col-6" id="service-level-delivery"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card">
+                                        <div class="card-header bg-yellow p-2">
+                                            <h3 class="card-title">ยอดซื้อ</h3>
+                                        </div>
+                                        <div class="card-body  pl-2 pr-2">
+                                            <div class="row">
+                                                <span class="col-6">ยอดซื้อทั้งหมด : </span> <span class="col-6" id="amt-all"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-6">ส่วนลดเงินสด : </span> <span class="col-6" id="amt-discount"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card">
+                                        <div class="card-header bg-backorder p-2">
+                                            <h3 class="card-title">สินค้าค้างส่ง</h3>
+                                        </div>
+                                        <div class="card-body pl-2 pr-2">
+                                            <div class="row">
+                                                <span class="col-6">จำนวนเบอร์สินค้า : </span> <span class="col-6" id="backorder-product"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-amt"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-6">จำนวน : </span> <span class="col-6" id="backorder-total"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-3">
+                                        <div class="card">
+                                            <div class="card-header bg-info p-2">
+                                                <h3 class="card-title">ยอดซื้อ TOP 5</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                Body
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-header bg-info p-2">
+                                            <h3 class="card-title">ยอดซื้อ TOP 5</h3>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table" id="table-top5">
+                                                <thead class="thead-default">
+                                                    <tr>
+                                                        <th>สินค้า</th>
+                                                        <th>ราคา</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                            @*<div class="chart">
+                                    <canvas id="chart-line" class="chart-canvas" height="500"></canvas>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -256,22 +490,22 @@
             @*menu list*@
             <div class="row mt-3">
                 <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_deliverytracking">
-                        <div class="card-body p-3">
+                    <div class="card bg_card " id="menu_deliverytracking">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h3 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h3>
                                         <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
                                         @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูสถานะการสั่งซื้อ</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h6 class="mb-0">
+                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการสั่งซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
                                     <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="ni ni-basket text-lg opacity-10" aria-hidden="true"></i>
+                                        <i class="fa fa-shopping-bag text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +514,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6  col-sm-6">
                     <div class="card bg_card" id="menu_backorder">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -288,14 +522,14 @@
                                         <h4>
                                             <span id="backorder-amt">0</span> รายการ
                                         </h4>
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูสถานะสินค้าค้างส่ง</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h6 class="mb-0">
+                                            <span class="text-secondary  font-weight-bolder ">ดูสถานะสินค้าค้างส่ง</span>  <span class="text-danger  font-weight-bolder">"คลิกเลย"</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
                                     <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                        <i class="ni ni-delivery-fast text-lg opacity-10" aria-hidden="true"></i>
+                                        <i class="fa fa-truck text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +538,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_warranty">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -312,14 +546,14 @@
                                         <h4>
                                             <span id="warranty-amt">0</span> รายการ
                                         </h4>
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูสถานะการเคลมสินค้า</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h6 class="mb-0">
+                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการเคลมสินค้า</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
                                     <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                        <i class="ni ni-box-2 text-lg opacity-10" aria-hidden="true"></i>
+                                        <i class="fa fa-file-text text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +562,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_promotion">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -336,9 +570,9 @@
                                         <h4>
                                             &nbsp;
                                         </h4>
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูโปรโมชั่น</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h6 class="mb-0">
+                                            <span class="text-secondary font-weight-bolder ">ดูโปรโมชั่น</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -352,7 +586,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_credit">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -360,9 +594,9 @@
                                         <h4>
                                             &nbsp;
                                         </h4>
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูเครดิต</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h class="mb-0">
+                                            <span class="text-secondary font-weight-bolder ">ดูเครดิต</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
+                                        </h>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -376,7 +610,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card" id="menu_amt">
-                        <div class="card-body p-3">
+                        <div class="card-body bg_hov p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
@@ -384,9 +618,9 @@
                                         <h4>
                                             &nbsp;
                                         </h4>
-                                        <h4 class="mb-0">
-                                            <span class="text-secondary text-sm font-weight-bolder ">ดูประวัติซื้อ</span>  <span class="text-danger text-sm font-weight-bolder">"คลิกเลย"</span>
-                                        </h4>
+                                        <h6 class="mb-0">
+                                            <span class="text-secondary font-weight-bolder ">ดูประวัติซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
@@ -411,12 +645,12 @@
 
 
     <script type="text/javascript">
-        //var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
-        var cuscod = '110T0189';
+        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
+        //var cuscod = '110T0189';
         var chartInstance;
         var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         var currentDate = new Date();
-        var currentMonth = currentDate.getMonth()+1;
+        var currentMonth = currentDate.getMonth() + 1;
         $(document).ready(function () {
             getCusName();
             const $scrolltext = $('#scroll-container');
@@ -426,17 +660,20 @@
             $scrolltext.on('mouseup touchend', function () {
                 $('.scroll-text').removeClass('pause-animation');
             });
+            $('#btn-show-yearly').css("background", "#DEAF5B");
+            $('#promotion-table-quater').hide();
+            $('#promotion-table-other').hide();
         });
         if (cuscod != null) {
-            getChartsamt();
-            //clearChartsamt();
+            //getChartsamt();
+            getPromotion();
             getDeliveryTrackAmt();
             getBackorderAmt();
             getWarrantyAmt();
         }
         function getCusName() {
             $.ajax({
-                url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
                 data: {
                     cusel: cuscod
                 },
@@ -444,7 +681,15 @@
                 dataType: 'JSON',
                 success: function (data) {
                     if (data.length != 0) {
-                        $('#head-cusname').text(data[0].CUSNAM);
+                        var head = $('#head-cusname');
+                        var name = data[0].CUSNAM;
+                        var club = data[0].CLUB;
+                        if (club != "") {
+                            head.text(name + '(' + club + ')');
+                        }
+                        else {
+                            head.text(name);
+                        }
                     }
                 }
             });
@@ -455,6 +700,33 @@
             }
             return val;
         }
+        $('#btn-show-yearly').click(function () {
+            $('#promotion-table-yeary').show('slow');
+            $('#promotion-table-quater').hide('slow');
+            $('#promotion-table-other').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+        });
+        $('#btn-show-quater').click(function () {
+            $('#promotion-table-yeary').hide('slow');
+            $('#promotion-table-quater').show('slow');
+            $('#promotion-table-other').hide('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+        });
+        $('#btn-show-other').click(function () {
+            $('#promotion-table-yeary').hide('slow');
+            $('#promotion-table-quater').hide('slow');
+            $('#promotion-table-other').show('slow');
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-quater').removeAttr('style');
+        });
+
+
+
         function clearChartsamt() {
             var ctx1 = document.getElementById("chart-line").getContext("2d");
             if (chartInstance) {
@@ -464,7 +736,6 @@
             for (var i = 0; i < currentMonth; i++) {
                 getmonth.push(monthLabel[i]);
             }
-            console.log(getmonth);
             var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
             gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
             gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
@@ -492,98 +763,113 @@
                     datasets: [
                         {
                             label: "AAC",
-                            backgroundColor: gradientStroke1,
-                            borderColor: "#5e72e4",
-                            borderWidth: 3,
+                            backgroundColor: "#dc3545",
+                            borderColor: "#dc3545",
+                            borderWidth: 0,
                             data: [0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
                             barThickness: 6
                         },
                         {
                             label: "TAC",
-                            backgroundColor: gradientStroke2,
-                            borderColor: "#4848b0",
-                            borderWidth: 3,
+                            backgroundColor: "#0d6efd",
+                            borderColor: "#0d6efd",
+                            borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
                             barThickness: 6
                         },
                         {
                             label: "OMP",
-                            backgroundColor: gradientStroke3,
-                            borderColor: "#3131F5",
-                            borderWidth: 3,
+                            backgroundColor: "#6f42c1",
+                            borderColor: "#6f42c1",
+                            borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
                             barThickness: 6
                         },
                         {
                             label: "All",
-                            backgroundColor: gradientStroke4,
-                            borderColor: "#1d8cf8",
-                            borderWidth: 3,
+                            backgroundColor: "#20c997",
+                            borderColor: "#20c997",
+                            borderWidth: 0,
                             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             maxBarThickness: 10,
                             barThickness: 6
                         }
                     ],
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'index',
-                    },
-                    scales: {
-                        y: {
-                            grid: {
-                                drawBorder: false,
-                                display: true,
-                                drawOnChartArea: true,
-                                drawTicks: false,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                padding: 10,
-                                color: '#fbfbfb',
-                                font: {
-                                    size: 12,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                        x: {
-                            grid: {
-                                drawBorder: false,
-                                display: false,
-                                drawOnChartArea: false,
-                                drawTicks: false,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                color: '#ccc',
-                                padding: 20,
-                                font: {
-                                    size: 12,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                    },
-                },
-            });
+               options: {
+                   responsive: true,
+                   maintainAspectRatio: false,
+                   plugins: {
+                       legend: {
+                           display: true,
+                           label: {
+                               font: {
+                                   size: 14,
+                                   family: "Kanit"
+                               }
+                           }
+                       },
+                       tooltip: {
+                           bodyFont: {
+                               size: 14,
+                               family: "Kanit"
+                           },
+                           titleFont: {
+                               size: 16
+                           }
+                       }
+                   },
+                   interaction: {
+                       intersect: false,
+                       mode: 'index',
+                   },
+                   scales: {
+                       y: {
+                           grid: {
+                               drawBorder: false,
+                               display: true,
+                               drawOnChartArea: true,
+                               drawTicks: false,
+                               borderDash: [5, 5]
+                           },
+                           ticks: {
+                               display: true,
+                               padding: 10,
+                               color: '#fbfbfb',
+                               font: {
+                                   size: 14,
+                                   family: "Open Sans",
+                                   style: 'normal',
+                                   lineHeight: 2
+                               },
+                           }
+                       },
+                       x: {
+                           grid: {
+                               drawBorder: false,
+                               display: false,
+                               drawOnChartArea: false,
+                               drawTicks: false,
+                               borderDash: [5, 5]
+                           },
+                           ticks: {
+                               display: true,
+                               color: '#ccc',
+                               padding: 20,
+                               font: {
+                                   size: 14,
+                                   family: "Open Sans",
+                                   style: 'normal',
+                                   lineHeight: 2
+                               },
+                           }
+                       },
+                   },
+               },
+           });
 
             window.dispatchEvent(new Event('resize'));
         }
@@ -669,7 +955,6 @@
                         //}
                         //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
                         //chartProfileVisit.render();
-                        var getMonth;
 
                         var ctx1 = document.getElementById("chart-line").getContext("2d");
                         if (chartInstance) {
@@ -706,39 +991,39 @@
                                 datasets: [
                                     {
                                         label: "AAC",
-                                        backgroundColor: "#5e72e4",
-                                        borderColor: "#5e72e4",
+                                        backgroundColor: "#dc3545",
+                                        borderColor: "#dc3545",
                                         borderWidth: 0,
                                         data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "TAC",
-                                        backgroundColor: "#4848b0",
-                                        borderColor: "#4848b0",
+                                        backgroundColor: "#0d6efd",
+                                        borderColor: "#0d6efd",
                                         borderWidth: 0,
                                         data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "OMP",
-                                        backgroundColor: "#3131F5",
-                                        borderColor: "#3131F5",
+                                        backgroundColor: "#6f42c1",
+                                        borderColor: "#6f42c1",
                                         borderWidth: 0,
                                         data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 6
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     },
                                     {
                                         label: "All",
-                                        backgroundColor: "#1d8cf8",
-                                        borderColor: "#1d8cf8",
+                                        backgroundColor: "#20c997",
+                                        borderColor: "#20c997",
                                         borderWidth: 0,
                                         data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
-                                        maxBarThickness: 10,
-                                        barThickness: 10
+                                        maxBarThickness: 20,
+                                        barThickness: 13
                                     }
                                 ],
                             },
@@ -751,7 +1036,7 @@
                                         label: {
                                             font: {
                                                 size: 14,
-                                                family:"Kanit"
+                                                family: "Kanit"
                                             }
                                         }
                                     },
@@ -761,7 +1046,7 @@
                                             family: "Kanit"
                                         },
                                         titleFont: {
-                                            size:16
+                                            size: 16
                                         }
                                     }
                                 },
@@ -863,10 +1148,7 @@
                         if (chartInstance) {
                             chartInstance.destroy();
                         }
-                        var getmonth = new Array();
-                        for (var i = 0; i < currentMonth; i++) {
-                            getmonth.push(monthLabel[i]);
-                        }
+
                         var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
                         gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
                         gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
@@ -890,40 +1172,40 @@
                         chartInstance = new Chart(ctx1, {
                             type: "bar",
                             data: {
-                                labels: getmonth,
+                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                                 datasets: [
                                     {
                                         label: "AAC",
-                                        backgroundColor: gradientStroke1,
-                                        borderColor: "#5e72e4",
-                                        borderWidth: 3,
+                                        backgroundColor: "#dc3545",
+                                        borderColor: "#dc3545",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "TAC",
-                                        backgroundColor: gradientStroke2,
-                                        borderColor: "#4848b0",
-                                        borderWidth: 3,
+                                        backgroundColor: "#0d6efd",
+                                        borderColor: "#0d6efd",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "OMP",
-                                        backgroundColor: gradientStroke3,
-                                        borderColor: "#3131F5",
-                                        borderWidth: 3,
+                                        backgroundColor: "#6f42c1",
+                                        borderColor: "#6f42c1",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
                                     },
                                     {
                                         label: "All",
-                                        backgroundColor: gradientStroke3,
-                                        borderColor: "#1d8cf8",
-                                        borderWidth: 3,
+                                        backgroundColor: "#20c997",
+                                        borderColor: "#20c997",
+                                        borderWidth: 0,
                                         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                         maxBarThickness: 10,
                                         barThickness: 6
@@ -936,6 +1218,21 @@
                                 plugins: {
                                     legend: {
                                         display: true,
+                                        label: {
+                                            font: {
+                                                size: 14,
+                                                family: "Kanit"
+                                            }
+                                        }
+                                    },
+                                    tooltip: {
+                                        bodyFont: {
+                                            size: 14,
+                                            family: "Kanit"
+                                        },
+                                        titleFont: {
+                                            size: 16
+                                        }
                                     }
                                 },
                                 interaction: {
@@ -956,7 +1253,7 @@
                                             padding: 10,
                                             color: '#fbfbfb',
                                             font: {
-                                                size: 11,
+                                                size: 14,
                                                 family: "Open Sans",
                                                 style: 'normal',
                                                 lineHeight: 2
@@ -976,7 +1273,7 @@
                                             color: '#ccc',
                                             padding: 20,
                                             font: {
-                                                size: 11,
+                                                size: 14,
                                                 family: "Open Sans",
                                                 style: 'normal',
                                                 lineHeight: 2
@@ -998,6 +1295,72 @@
                 }
             });
         }
+
+        function getPromotion() {
+            $.ajax({
+                url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#table-yeary tbody tr').html("");
+                    $('#table-quater tbody tr').html("");
+                    $('#table-other tbody tr').html("");
+                    $('#table-success tbody tr').html("");
+
+                    var SubmithtmlPage = '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</td>';
+
+                    $('#table-yeary tbody tr').append(SubmithtmlPage);
+                    $('#table-quater tbody tr').append(SubmithtmlPage);
+                    $('#table-other tbody tr').append(SubmithtmlPage);
+                    $('#table-success tbody tr').append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#table-yeary tbody tr').html("");
+                    $('#table-quater tbody tr').html("");
+                    $('#table-other tbody tr').html("");
+                    $('#table-success tbody tr').html("");
+
+                    var SubmithtmlPageYear = "";
+                    var SubmithtmlPageQuater = "";
+                    var SubmithtmlPageOther = "";
+                    var SubmithtmlPageSuccess = "";
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            var item = data.Getdata[i]; // เข้าถึงข้อมูลแต่ละรายการ
+
+                            if (item.Topic == "Promotion") {
+                                if (item.SubTopic1 == "Progress") {
+                                    if (item.SubTopic2 == "Yearly") {
+                                        SubmithtmlPageYear += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                    }
+                                    if (item.SubTopic2 == "Quater") {
+                                        SubmithtmlPageQuater += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                    }
+                                    if (item.SubTopic2 == "Other") {
+                                        SubmithtmlPageOther += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                    }
+                                }
+                                if (item.SubTopic1 == "Success") {
+                                    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                }
+                            }
+                        }
+                    }
+
+                    $('#table-yeary tbody tr').append(SubmithtmlPageYear);
+                    $('#table-quater tbody tr').append(SubmithtmlPageQuater);
+                    $('#table-other tbody tr').append(SubmithtmlPageOther);
+                    $('#table-success tbody tr').append(SubmithtmlPageSuccess);
+
+                }
+            });
+        }
+
+        function get
+
 
         function getDeliveryTrackAmt() {
             $.ajax({
