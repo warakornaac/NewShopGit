@@ -231,259 +231,145 @@
         <div class="container container-fluid">
             <div class="row mt-lg-n20 mt-md-n11 mt-n10 justify-content-center">
                 <div class="col-lg-12 mb-lg-0 mb-2">
-                    <div class="card z-index-2 h-100">
-                        <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h4 class="text-capitalize">ยอดซื้อรวม</h4>
-                            <div class="row" id="scroll-container">
-                                @*<p class="text-sm mb-0 col-12 ">
-                                        <i class="fa fa-arrow-up text-success"></i>
-                                        <span class="font-weight-bold">4% more</span> in 2021
-                                    </p>*@
-                                @*<div class="col-12 text-sm mb-0 scroll-text">*@
-                                <div class="col-12 text-sm mb-0 text-nowrap scroll-text">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_aac">Amt MTD AAC :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_tac">Amt MTD TAC :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold  text-indigo" style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_omp">Amt MTD OMP :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtmtd_all">Amt MTD ALL :</span>
-                                        </div>
+                    <div class="z-index-2 h-100">
+                        @*Tab Promotion WKP*@
+                        <div class="row" style="padding: 5px;">
+                            <div class="col-md-7 mt-4">
+                                <div class="card">
+                                    <div class="card-header bg-success pb-0 p-2">
+                                        <h3 class="card-title">Promotion</h3>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-danger " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_aac">Amt YTD AAC :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-tac " style="font-family: Kanit; font-weight: bold; font-size: 14px; " id="amtytd_tac">Amt YTD TAC :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-indigo " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_omp">Amt YTD OMP :</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="font-weight-bold text-success " style="font-family: Kanit; font-weight: bold; font-size: 14px;" id="amtytd_all">Amt YTD ALL :</span>
-                                        </div>
+                                    <div class="card-body pt-4 p-3">
+                                        <ul class="list-group" style="margin-top: -15px">
+                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-shopping-cart fa-3x" style="font-size: 24px;"></i></div>
+                                                    <div class="d-flex flex-column">
+                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่รอจ่าย : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_1"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_2"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่รับแล้ว : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_3"></span></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
+                                                    <span class="badge badge-success">Success</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-group">
+                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon icon-shape icon-sm me-3 bg-info shadow text-center ml-2"><i class="fa fa-calendar-check-o" style="font-size: 22px;"></i></div>
+                                                    <div class="d-flex flex-column">
+                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_4"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_5"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_6"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
+                                                    <span class="badge badge-info">Yearly</span>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon icon-shape icon-sm me-3 bg-warning shadow text-center ml-2"><i class="fa fa-calendar" style="font-size: 22px;"></i></div>
+                                                    <div class="d-flex flex-column">
+                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_8"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_9"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_10"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
+                                                    <span class="badge badge-warning">Quater</span>
+                                                </div>
+                                            </li>   
+                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
+                                                    <div class="d-flex flex-column">
+                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_12"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_13"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_14"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
+                                                    <span class="badge badge-primary">Other</span>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-5 mt-4">
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-warning pb-0 p-2">
+                                        <h3 class="card-title">Service Level</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2">
+                                        <div class="row">
+                                            <span class="col-6">จำนวนสั่งซื้อ :</span> <span class="col-6" id="service-level-amt"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6">ส่งทันตามกำหนด : </span> <span class="col-6" id="service-level-delivery"></span>
+                                        </div>
 
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-yellow pb-0 p-2">
+                                        <h3 class="card-title">ยอดซื้อ</h3>
+                                    </div>
+                                    <div class="card-body  pl-2 pr-2">
+                                        <div class="row">
+                                            <span class="col-6">ยอดซื้อทั้งหมด : </span> <span class="col-6" id="amt-all"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6">ส่วนลดเงินสด : </span> <span class="col-6" id="amt-discount"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-backorder pb-0 p-2">
+                                        <h3 class="card-title">สินค้าค้างส่ง</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2">
+                                        <div class="row">
+                                            <span class="col-6">จำนวนเบอร์สินค้า : </span> <span class="col-6" id="backorder-product"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-amt"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6">จำนวน : </span> <span class="col-6" id="backorder-total"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-info pb-0 p-2">
+                                        <h3 class="card-title">ยอดซื้อ TOP 5</h3>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <table class="table" id="table-top5">
+                                            <thead class="thead-default">
+                                                <tr>
+                                                    <th>สินค้า</th>
+                                                    <th>ราคา</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header bg-success p-0">
-                                            <h3 class="card-title text-white p-2">Promotion</h3>
-
-                                        </div>
-                                        <div class="card-body">
-                                            <h3 class="card-title p-2">Success</h3>
-                                            <table class="table table-bordered" id="table-success">
-                                                <thead class="thead-default">
-                                                    <tr>
-                                                        <th colspan="4">Yearly</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            มูลค่าของรางวัลที่รอจ่าย
-                                                        </th>
-                                                        <th>ตั๋ว</th>
-                                                        <th>
-                                                            มูลค่าของรางวัลที่รับแล้ว
-                                                        </th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr></tr>
-                                                </tbody>
-                                            </table>
-                                            <h3 class="card-title p-2">Process</h3>
-                                            <div class="w3-bar tab-buttons">
-                                                <button type="button" class="btn  btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-yearly">
-                                                    Yearly <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-accept"></span>
-                                                    <hr class="m-0" id="line-tab-accept" />
-                                                </button>
-                                                <button type="button" class="btn  w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-quater">
-                                                    Quater <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-packing"></span>
-                                                    <hr class="m-0" id="line-tab-packing" />
-                                                </button>
-                                                <button type="button" class="btn  w3-hover-khaki  w3-bar-item btn-font rounded-top mb-0" id="btn-show-other">
-                                                    Other <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-delivery"></span>
-                                                    <hr class="m-0" id="line-tab-delivering" />
-                                                </button>
-                                            </div>
-                                            <div id="promotion-table-yeary">
-                                                <table class="table table-bordered" id="table-yeary">
-                                                    <thead class="thead-default">
-                                                        <tr>
-                                                            <th colspan="4">Yearly</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>
-                                                                มูลค่าของรางวัลที่ลงทะเบียน
-                                                            </th>
-                                                            <th>ตั๋ว</th>
-                                                            <th>
-                                                                ยอดซื้อสะสม
-                                                            </th>
-                                                            <th>
-                                                                ยังขาด
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr></tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div id="promotion-table-quater">
-                                                <table class="table table-bordered" id="table-quater">
-                                                    <thead class="thead-default">
-                                                        <tr>
-                                                            <th colspan="4">Quather</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>
-                                                                มูลค่าของรางวัลที่ลงทะเบียน
-                                                            </th>
-                                                            <th>ตั๋ว</th>
-                                                            <th>
-                                                                ยอดซื้อสะสม
-                                                            </th>
-                                                            <th>
-                                                                ยังขาด
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr></tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div id="promotion-table-other">
-                                                <table class="table table-bordered" id="table-other">
-                                                    <thead class="thead-default">
-                                                        <tr>
-                                                            <th colspan="4">Other</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>
-                                                                มูลค่าของรางวัลที่ลงทะเบียน
-                                                            </th>
-                                                            <th>ตั๋ว</th>
-                                                            <th>
-                                                                ยอดซื้อสะสม
-                                                            </th>
-                                                            <th>
-                                                                ยังขาด
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr></tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-4">
-                                    <div class="card">
-                                        <div class="card-header bg-warning p-2">
-                                            <h3 class="card-title">Service Level</h3>
-                                        </div>
-                                        <div class="card-body pl-2 pr-2">
-                                            <div class="row">
-                                                <span class="col-6">จำนวนสั่งซื้อ :</span> <span class="col-6" id="service-level-amt"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-6">ส่งทันตามกำหนด : </span> <span class="col-6" id="service-level-delivery"></span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <div class="card-header bg-yellow p-2">
-                                            <h3 class="card-title">ยอดซื้อ</h3>
-                                        </div>
-                                        <div class="card-body  pl-2 pr-2">
-                                            <div class="row">
-                                                <span class="col-6">ยอดซื้อทั้งหมด : </span> <span class="col-6" id="amt-all"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-6">ส่วนลดเงินสด : </span> <span class="col-6" id="amt-discount"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <div class="card-header bg-backorder p-2">
-                                            <h3 class="card-title">สินค้าค้างส่ง</h3>
-                                        </div>
-                                        <div class="card-body pl-2 pr-2">
-                                            <div class="row">
-                                                <span class="col-6">จำนวนเบอร์สินค้า : </span> <span class="col-6" id="backorder-product"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-amt"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-6">จำนวน : </span> <span class="col-6" id="backorder-total"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @*<div class="col-3">
-                                        <div class="card">
-                                            <div class="card-header bg-info p-2">
-                                                <h3 class="card-title">ยอดซื้อ TOP 5</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                Body
-                                            </div>
-                                        </div>
-                                    </div>*@
-                            </div>
-                            <div class="row">
-                                <div class="col-3"></div>
-                                <div class="col-6">
-                                    <div class="card">
-                                        <div class="card-header bg-info p-2">
-                                            <h3 class="card-title">ยอดซื้อ TOP 5</h3>
-                                        </div>
-                                        <div class="card-body">
-
-                                            <table class="table" id="table-top5">
-                                                <thead class="thead-default">
-                                                    <tr>
-                                                        <th>สินค้า</th>
-                                                        <th>ราคา</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            @*<div class="chart">
-                                    <canvas id="chart-line" class="chart-canvas" height="500"></canvas>
-                                </div>*@
-                        </div>
+                        @*End Promotion*@
                     </div>
                 </div>
             </div>
