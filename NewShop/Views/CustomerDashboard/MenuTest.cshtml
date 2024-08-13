@@ -283,7 +283,7 @@
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
                                                     <span class="badge badge-warning">Quater</span>
                                                 </div>
-                                            </li>   
+                                            </li>
                                             <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
                                                 <div class="d-flex align-items-center">
                                                     <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
@@ -341,7 +341,7 @@
                                             <span class="col-6">จำนวนเบอร์สินค้า : </span> <span class="col-6" id="backorder-product"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-amt"></span>
+                                            <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-money"></span>
                                         </div>
                                         <div class="row">
                                             <span class="col-6">จำนวน : </span> <span class="col-6" id="backorder-total"></span>
@@ -529,847 +529,1000 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
-
     <script type="text/javascript">
-        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
-        //var cuscod = '110T0189';
-        var chartInstance;
-        var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        var currentDate = new Date();
-        var currentMonth = currentDate.getMonth() + 1;
-        $(document).ready(function () {
-            getCusName();
-            const $scrolltext = $('#scroll-container');
-            $scrolltext.on('mousedown touchstart', function () {
-                $('.scroll-text').addClass('pause-animation');
-            });
-            $scrolltext.on('mouseup touchend', function () {
-                $('.scroll-text').removeClass('pause-animation');
-            });
-            $('#btn-show-yearly').css("background", "#DEAF5B");
-            $('#promotion-table-quater').hide();
-            $('#promotion-table-other').hide();
+    var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
+    //var cuscod = '110T0189';
+    var chartInstance;
+    var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var currentDate = new Date();
+    var currentMonth = currentDate.getMonth() + 1;
+    $(document).ready(function () {
+        getCusName();
+        const $scrolltext = $('#scroll-container');
+        $scrolltext.on('mousedown touchstart', function () {
+            $('.scroll-text').addClass('pause-animation');
         });
-        if (cuscod != null) {
-            //getChartsamt();
-            getPromotion();
-            getDeliveryTrackAmt();
-            getBackorderAmt();
-            getWarrantyAmt();
-        }
-        function getCusName() {
-            $.ajax({
-                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
-                data: {
-                    cusel: cuscod
-                },
-                type: 'POST',
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.length != 0) {
-                        var head = $('#head-cusname');
-                        var name = data[0].CUSNAM;
-                        var club = data[0].CLUB;
-                        if (club != "") {
-                            head.text(name + '(' + club + ')');
-                        }
-                        else {
-                            head.text(name);
-                        }
+        $scrolltext.on('mouseup touchend', function () {
+            $('.scroll-text').removeClass('pause-animation');
+        });
+        $('#btn-show-yearly').css("background", "#DEAF5B");
+        $('#promotion-table-quater').hide();
+        $('#promotion-table-other').hide();
+    });
+    if (cuscod != null) {
+        //getChartsamt();
+        getDashboardNotable();
+        getTop5();
+        //getPromotion();
+        getDeliveryTrackAmt();
+        getBackorderAmt();
+        getWarrantyAmt();
+    }
+    function getCusName() {
+        $.ajax({
+            url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
+            data: {
+                cusel: cuscod
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.length != 0) {
+                    var head = $('#head-cusname');
+                    var name = data[0].CUSNAM;
+                    var club = data[0].CLUB;
+                    if (club != "") {
+                        head.text(name + '(' + club + ')');
+                    }
+                    else {
+                        head.text(name);
                     }
                 }
-            });
+            }
+        });
+    }
+    function commaSeparateNumber(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
         }
-        function commaSeparateNumber(val) {
-            while (/(\d+)(\d{3})/.test(val.toString())) {
-                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-            }
-            return val;
+        return val;
+    }
+    $('#btn-show-yearly').click(function () {
+        $('#promotion-table-yeary').show('slow');
+        $('#promotion-table-quater').hide('slow');
+        $('#promotion-table-other').hide('slow');
+        $(this).css("background", "#DEAF5B");
+        $('#btn-show-quater').removeAttr('style');
+        $('#btn-show-other').removeAttr('style');
+    });
+    $('#btn-show-quater').click(function () {
+        $('#promotion-table-yeary').hide('slow');
+        $('#promotion-table-quater').show('slow');
+        $('#promotion-table-other').hide('slow');
+        $(this).css("background", "#DEAF5B");
+        $('#btn-show-yearly').removeAttr('style');
+        $('#btn-show-other').removeAttr('style');
+    });
+    $('#btn-show-other').click(function () {
+        $('#promotion-table-yeary').hide('slow');
+        $('#promotion-table-quater').hide('slow');
+        $('#promotion-table-other').show('slow');
+        $(this).css("background", "#DEAF5B");
+        $('#btn-show-yearly').removeAttr('style');
+        $('#btn-show-quater').removeAttr('style');
+    });
+
+
+
+    function clearChartsamt() {
+        var ctx1 = document.getElementById("chart-line").getContext("2d");
+        if (chartInstance) {
+            chartInstance.destroy();
         }
-        $('#btn-show-yearly').click(function () {
-            $('#promotion-table-yeary').show('slow');
-            $('#promotion-table-quater').hide('slow');
-            $('#promotion-table-other').hide('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-quater').removeAttr('style');
-            $('#btn-show-other').removeAttr('style');
-        });
-        $('#btn-show-quater').click(function () {
-            $('#promotion-table-yeary').hide('slow');
-            $('#promotion-table-quater').show('slow');
-            $('#promotion-table-other').hide('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-other').removeAttr('style');
-        });
-        $('#btn-show-other').click(function () {
-            $('#promotion-table-yeary').hide('slow');
-            $('#promotion-table-quater').hide('slow');
-            $('#promotion-table-other').show('slow');
-            $(this).css("background", "#DEAF5B");
-            $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-quater').removeAttr('style');
-        });
+        var getmonth = new Array();
+        for (var i = 0; i < currentMonth; i++) {
+            getmonth.push(monthLabel[i]);
+        }
+        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
 
+        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
 
+        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
 
-        function clearChartsamt() {
-            var ctx1 = document.getElementById("chart-line").getContext("2d");
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
-            var getmonth = new Array();
-            for (var i = 0; i < currentMonth; i++) {
-                getmonth.push(monthLabel[i]);
-            }
-            var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+        var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
+        gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
+        gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
+        gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
 
-            var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-            gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-            gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-            gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
-
-            var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-            gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-            gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-            gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
-
-            var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-            gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-            gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-            gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
-
-           chartInstance = new Chart(ctx1, {
-                type: "bar",
-                data: {
-                    labels: getmonth,
-                    datasets: [
-                        {
-                            label: "AAC",
-                            backgroundColor: "#dc3545",
-                            borderColor: "#dc3545",
-                            borderWidth: 0,
-                            data: [0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0],
-                            maxBarThickness: 10,
-                            barThickness: 6
-                        },
-                        {
-                            label: "TAC",
-                            backgroundColor: "#0d6efd",
-                            borderColor: "#0d6efd",
-                            borderWidth: 0,
-                            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            maxBarThickness: 10,
-                            barThickness: 6
-                        },
-                        {
-                            label: "OMP",
-                            backgroundColor: "#6f42c1",
-                            borderColor: "#6f42c1",
-                            borderWidth: 0,
-                            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            maxBarThickness: 10,
-                            barThickness: 6
-                        },
-                        {
-                            label: "All",
-                            backgroundColor: "#20c997",
-                            borderColor: "#20c997",
-                            borderWidth: 0,
-                            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            maxBarThickness: 10,
-                            barThickness: 6
-                        }
-                    ],
-                },
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: false,
-                   plugins: {
-                       legend: {
-                           display: true,
-                           label: {
-                               font: {
-                                   size: 14,
-                                   family: "Kanit"
-                               }
-                           }
-                       },
-                       tooltip: {
-                           bodyFont: {
+       chartInstance = new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: getmonth,
+                datasets: [
+                    {
+                        label: "AAC",
+                        backgroundColor: "#dc3545",
+                        borderColor: "#dc3545",
+                        borderWidth: 0,
+                        data: [0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0],
+                        maxBarThickness: 10,
+                        barThickness: 6
+                    },
+                    {
+                        label: "TAC",
+                        backgroundColor: "#0d6efd",
+                        borderColor: "#0d6efd",
+                        borderWidth: 0,
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        maxBarThickness: 10,
+                        barThickness: 6
+                    },
+                    {
+                        label: "OMP",
+                        backgroundColor: "#6f42c1",
+                        borderColor: "#6f42c1",
+                        borderWidth: 0,
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        maxBarThickness: 10,
+                        barThickness: 6
+                    },
+                    {
+                        label: "All",
+                        backgroundColor: "#20c997",
+                        borderColor: "#20c997",
+                        borderWidth: 0,
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        maxBarThickness: 10,
+                        barThickness: 6
+                    }
+                ],
+            },
+           options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               plugins: {
+                   legend: {
+                       display: true,
+                       label: {
+                           font: {
                                size: 14,
                                family: "Kanit"
-                           },
-                           titleFont: {
-                               size: 16
                            }
                        }
                    },
-                   interaction: {
-                       intersect: false,
-                       mode: 'index',
+                   tooltip: {
+                       bodyFont: {
+                           size: 14,
+                           family: "Kanit"
+                       },
+                       titleFont: {
+                           size: 16
+                       }
+                   }
+               },
+               interaction: {
+                   intersect: false,
+                   mode: 'index',
+               },
+               scales: {
+                   y: {
+                       grid: {
+                           drawBorder: false,
+                           display: true,
+                           drawOnChartArea: true,
+                           drawTicks: false,
+                           borderDash: [5, 5]
+                       },
+                       ticks: {
+                           display: true,
+                           padding: 10,
+                           color: '#fbfbfb',
+                           font: {
+                               size: 14,
+                               family: "Open Sans",
+                               style: 'normal',
+                               lineHeight: 2
+                           },
+                       }
                    },
-                   scales: {
-                       y: {
-                           grid: {
-                               drawBorder: false,
-                               display: true,
-                               drawOnChartArea: true,
-                               drawTicks: false,
-                               borderDash: [5, 5]
-                           },
-                           ticks: {
-                               display: true,
-                               padding: 10,
-                               color: '#fbfbfb',
-                               font: {
-                                   size: 14,
-                                   family: "Open Sans",
-                                   style: 'normal',
-                                   lineHeight: 2
-                               },
-                           }
+                   x: {
+                       grid: {
+                           drawBorder: false,
+                           display: false,
+                           drawOnChartArea: false,
+                           drawTicks: false,
+                           borderDash: [5, 5]
                        },
-                       x: {
-                           grid: {
-                               drawBorder: false,
-                               display: false,
-                               drawOnChartArea: false,
-                               drawTicks: false,
-                               borderDash: [5, 5]
+                       ticks: {
+                           display: true,
+                           color: '#ccc',
+                           padding: 20,
+                           font: {
+                               size: 14,
+                               family: "Open Sans",
+                               style: 'normal',
+                               lineHeight: 2
                            },
-                           ticks: {
-                               display: true,
-                               color: '#ccc',
-                               padding: 20,
-                               font: {
-                                   size: 14,
-                                   family: "Open Sans",
-                                   style: 'normal',
-                                   lineHeight: 2
-                               },
-                           }
-                       },
+                       }
                    },
                },
-           });
+           },
+       });
 
-            window.dispatchEvent(new Event('resize'));
-        }
+        window.dispatchEvent(new Event('resize'));
+    }
 
-        function getChartsamt() {
-            $.ajax({
-                url: '@Url.Action("GetdataCusAmt", "DataCenter")',
-                data: {
-                    strcustome: cuscod
+    function getChartsamt() {
+        $.ajax({
+            url: '@Url.Action("GetdataCusAmt", "DataCenter")',
+            data: {
+                strcustome: cuscod
 
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    clearChartsamt();
-                },
-                success: function (data) {
-                    // console.log(data)
+            },
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function () {
+                clearChartsamt();
+            },
+            success: function (data) {
+                // console.log(data)
 
-                    if (data.length > 0) {
+                if (data.length > 0) {
 
-                        //var optionsProfileVisit = {
-                        //    annotations: {
-                        //        position: 'back'
-                        //    },
-                        //    dataLabels: {
-                        //        enabled: false
-                        //    },
-                        //    chart: {
-                        //        type: 'bar',
-                        //        height: 500,
+                    //var optionsProfileVisit = {
+                    //    annotations: {
+                    //        position: 'back'
+                    //    },
+                    //    dataLabels: {
+                    //        enabled: false
+                    //    },
+                    //    chart: {
+                    //        type: 'bar',
+                    //        height: 500,
 
 
-                        //    },
-                        //    xaxis: {
-                        //        labels: {
-                        //            formatter: function (value) {
-                        //                return commaSeparateNumber(value);
-                        //            }
-                        //        },
+                    //    },
+                    //    xaxis: {
+                    //        labels: {
+                    //            formatter: function (value) {
+                    //                return commaSeparateNumber(value);
+                    //            }
+                    //        },
 
-                        //    },
-                        //    yaxis: {
-                        //        labels: {
-                        //            formatter: function (value) {
-                        //                return commaSeparateNumber(value);
-                        //            }
-                        //        },
-                        //    },
-                        //    fill: {
-                        //        opacity: 1
-                        //    },
-                        //    plotOptions: {
-                        //    },
+                    //    },
+                    //    yaxis: {
+                    //        labels: {
+                    //            formatter: function (value) {
+                    //                return commaSeparateNumber(value);
+                    //            }
+                    //        },
+                    //    },
+                    //    fill: {
+                    //        opacity: 1
+                    //    },
+                    //    plotOptions: {
+                    //    },
 
-                        //    series: [
-                        //{
-                        //    name: 'AAC',
-                        //    type: 'column',
-                        //    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                        //},
-                        //{
-                        //    name: 'TAC',
-                        //    type: 'column',
-                        //    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                        //},
-                        //{
-                        //    name: 'ALL',
-                        //    type: 'column',
-                        //    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                        //}],
-                        //    //series: [{
-                        //    //    name: 'sales',
-                        //    //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
-                        //    //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+                    //    series: [
+                    //{
+                    //    name: 'AAC',
+                    //    type: 'column',
+                    //    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
+                    //},
+                    //{
+                    //    name: 'TAC',
+                    //    type: 'column',
+                    //    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
+                    //},
+                    //{
+                    //    name: 'ALL',
+                    //    type: 'column',
+                    //    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
+                    //}],
+                    //    //series: [{
+                    //    //    name: 'sales',
+                    //    //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
+                    //    //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
 
-                        //    //}],
-                        //    //colors: '#435ebe',
-                        //    colors: ['#3591e0', '#e17572', '#7dc67d'],
-                        //    xaxis: {
-                        //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                        //    },
-                        //}
-                        //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                        //chartProfileVisit.render();
+                    //    //}],
+                    //    //colors: '#435ebe',
+                    //    colors: ['#3591e0', '#e17572', '#7dc67d'],
+                    //    xaxis: {
+                    //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    //    },
+                    //}
+                    //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                    //chartProfileVisit.render();
 
-                        var ctx1 = document.getElementById("chart-line").getContext("2d");
-                        if (chartInstance) {
-                            chartInstance.destroy();
-                        }
-                        var getmonth = new Array();
-                        for (var i = 0; i < currentMonth; i++) {
-                            getmonth.push(monthLabel[i]);
-                        }
-                        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-                        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-                        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+                    var ctx1 = document.getElementById("chart-line").getContext("2d");
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+                    var getmonth = new Array();
+                    for (var i = 0; i < currentMonth; i++) {
+                        getmonth.push(monthLabel[i]);
+                    }
+                    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+                    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+                    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
 
-                        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-                        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-                        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
+                    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+                    gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+                    gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
 
-                        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-                        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-                        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
+                    var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+                    gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+                    gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
 
-                        var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-                        gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-                        gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
+                    var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
+                    gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
+                    gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
 
-                        chartInstance = new Chart(ctx1, {
-                            type: "bar",
-                            data: {
-                                labels: getmonth,
-                                datasets: [
-                                    {
-                                        label: "AAC",
-                                        backgroundColor: "#dc3545",
-                                        borderColor: "#dc3545",
-                                        borderWidth: 0,
-                                        data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
-                                        maxBarThickness: 20,
-                                        barThickness: 13
-                                    },
-                                    {
-                                        label: "TAC",
-                                        backgroundColor: "#0d6efd",
-                                        borderColor: "#0d6efd",
-                                        borderWidth: 0,
-                                        data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
-                                        maxBarThickness: 20,
-                                        barThickness: 13
-                                    },
-                                    {
-                                        label: "OMP",
-                                        backgroundColor: "#6f42c1",
-                                        borderColor: "#6f42c1",
-                                        borderWidth: 0,
-                                        data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec],
-                                        maxBarThickness: 20,
-                                        barThickness: 13
-                                    },
-                                    {
-                                        label: "All",
-                                        backgroundColor: "#20c997",
-                                        borderColor: "#20c997",
-                                        borderWidth: 0,
-                                        data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
-                                        maxBarThickness: 20,
-                                        barThickness: 13
-                                    }
-                                ],
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        display: true,
-                                        label: {
-                                            font: {
-                                                size: 14,
-                                                family: "Kanit"
-                                            }
-                                        }
-                                    },
-                                    tooltip: {
-                                        bodyFont: {
+                    chartInstance = new Chart(ctx1, {
+                        type: "bar",
+                        data: {
+                            labels: getmonth,
+                            datasets: [
+                                {
+                                    label: "AAC",
+                                    backgroundColor: "#dc3545",
+                                    borderColor: "#dc3545",
+                                    borderWidth: 0,
+                                    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
+                                    maxBarThickness: 20,
+                                    barThickness: 13
+                                },
+                                {
+                                    label: "TAC",
+                                    backgroundColor: "#0d6efd",
+                                    borderColor: "#0d6efd",
+                                    borderWidth: 0,
+                                    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
+                                    maxBarThickness: 20,
+                                    barThickness: 13
+                                },
+                                {
+                                    label: "OMP",
+                                    backgroundColor: "#6f42c1",
+                                    borderColor: "#6f42c1",
+                                    borderWidth: 0,
+                                    data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec],
+                                    maxBarThickness: 20,
+                                    barThickness: 13
+                                },
+                                {
+                                    label: "All",
+                                    backgroundColor: "#20c997",
+                                    borderColor: "#20c997",
+                                    borderWidth: 0,
+                                    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
+                                    maxBarThickness: 20,
+                                    barThickness: 13
+                                }
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    label: {
+                                        font: {
                                             size: 14,
                                             family: "Kanit"
-                                        },
-                                        titleFont: {
-                                            size: 16
                                         }
                                     }
                                 },
-                                interaction: {
-                                    intersect: false,
-                                    mode: 'index',
-                                },
-                                scales: {
-                                    y: {
-                                        grid: {
-                                            drawBorder: false,
-                                            display: true,
-                                            drawOnChartArea: true,
-                                            drawTicks: false,
-                                            borderDash: [5, 5]
-                                        },
-                                        ticks: {
-                                            display: true,
-                                            padding: 10,
-                                            color: '#fbfbfb',
-                                            font: {
-                                                size: 14,
-                                                family: "Open Sans",
-                                                style: 'normal',
-                                                lineHeight: 2
-                                            },
-                                        }
+                                tooltip: {
+                                    bodyFont: {
+                                        size: 14,
+                                        family: "Kanit"
                                     },
-                                    x: {
-                                        grid: {
-                                            drawBorder: false,
-                                            display: false,
-                                            drawOnChartArea: false,
-                                            drawTicks: false,
-                                            borderDash: [5, 5]
-                                        },
-                                        ticks: {
-                                            display: true,
-                                            color: '#ccc',
-                                            padding: 20,
-                                            font: {
-                                                size: 14,
-                                                family: "Open Sans",
-                                                style: 'normal',
-                                                lineHeight: 2
-                                            },
-                                        }
-                                    },
-                                },
-                            },
-                        });
-
-                        window.dispatchEvent(new Event('resize'));
-                        $('#amtytd_aac').html('Amt YTD AAC : ' + commaSeparateNumber(data[0].AmtYTD));
-                        $('#amtytd_tac').html('Amt YTD TAC : ' + commaSeparateNumber(data[1].AmtYTD));
-                        $('#amtytd_omp').html('Amt YTD OMP : ' + commaSeparateNumber(data[1].AmtYTD));
-                        $('#amtytd_all').html('Amt YTD ALL : ' + commaSeparateNumber(data[2].AmtYTD));
-                        $('#amtmtd_aac').html('Amt MTD AAC : ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
-                        $('#amtmtd_tac').html('Amt MTD TAC : ' + commaSeparateNumber(data[1].AmtMTD));
-                        $('#amtmtd_omp').html('Amt MTD OMP : ' + commaSeparateNumber(data[3].AmtMTD));
-                        $('#amtmtd_all').html('Amt MTD ALL : ' + commaSeparateNumber(data[2].AmtMTD));
-                    } else {
-                        //var optionsProfileVisit = {
-                        //    annotations: {
-                        //        position: 'back'
-                        //    },
-                        //    dataLabels: {
-                        //        enabled: false
-                        //    },
-                        //    chart: {
-                        //        type: 'bar',
-                        //        height: 500,
-
-                        //    },
-
-                        //    fill: {
-                        //        opacity: 1
-                        //    },
-                        //    plotOptions: {
-                        //    },
-
-
-                        //    series: [{
-                        //        name: 'sales',
-                        //        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                        //    }],
-                        //    //colors: '#435ebe',
-                        //    colors: ['#3591e0', '#e17572', '#7dc67d'],
-                        //    xaxis: {
-                        //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                        //    },
-                        //}
-                        //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                        //chartProfileVisit.render();
-
-                        var ctx1 = document.getElementById("chart-line").getContext("2d");
-                        if (chartInstance) {
-                            chartInstance.destroy();
-                        }
-
-                        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-                        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-                        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-                        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-                        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-                        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
-
-                        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-                        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-                        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
-
-                        var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-                        gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-                        gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-                        gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
-
-                        chartInstance = new Chart(ctx1, {
-                            type: "bar",
-                            data: {
-                                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                datasets: [
-                                    {
-                                        label: "AAC",
-                                        backgroundColor: "#dc3545",
-                                        borderColor: "#dc3545",
-                                        borderWidth: 0,
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                        maxBarThickness: 10,
-                                        barThickness: 6
-                                    },
-                                    {
-                                        label: "TAC",
-                                        backgroundColor: "#0d6efd",
-                                        borderColor: "#0d6efd",
-                                        borderWidth: 0,
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                        maxBarThickness: 10,
-                                        barThickness: 6
-                                    },
-                                    {
-                                        label: "OMP",
-                                        backgroundColor: "#6f42c1",
-                                        borderColor: "#6f42c1",
-                                        borderWidth: 0,
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                        maxBarThickness: 10,
-                                        barThickness: 6
-                                    },
-                                    {
-                                        label: "All",
-                                        backgroundColor: "#20c997",
-                                        borderColor: "#20c997",
-                                        borderWidth: 0,
-                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                        maxBarThickness: 10,
-                                        barThickness: 6
+                                    titleFont: {
+                                        size: 16
                                     }
-                                ],
+                                }
                             },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
+                            interaction: {
+                                intersect: false,
+                                mode: 'index',
+                            },
+                            scales: {
+                                y: {
+                                    grid: {
+                                        drawBorder: false,
                                         display: true,
-                                        label: {
-                                            font: {
-                                                size: 14,
-                                                family: "Kanit"
-                                            }
-                                        }
+                                        drawOnChartArea: true,
+                                        drawTicks: false,
+                                        borderDash: [5, 5]
                                     },
-                                    tooltip: {
-                                        bodyFont: {
+                                    ticks: {
+                                        display: true,
+                                        padding: 10,
+                                        color: '#fbfbfb',
+                                        font: {
+                                            size: 14,
+                                            family: "Open Sans",
+                                            style: 'normal',
+                                            lineHeight: 2
+                                        },
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        drawBorder: false,
+                                        display: false,
+                                        drawOnChartArea: false,
+                                        drawTicks: false,
+                                        borderDash: [5, 5]
+                                    },
+                                    ticks: {
+                                        display: true,
+                                        color: '#ccc',
+                                        padding: 20,
+                                        font: {
+                                            size: 14,
+                                            family: "Open Sans",
+                                            style: 'normal',
+                                            lineHeight: 2
+                                        },
+                                    }
+                                },
+                            },
+                        },
+                    });
+
+                    window.dispatchEvent(new Event('resize'));
+                    $('#amtytd_aac').html('Amt YTD AAC : ' + commaSeparateNumber(data[0].AmtYTD));
+                    $('#amtytd_tac').html('Amt YTD TAC : ' + commaSeparateNumber(data[1].AmtYTD));
+                    $('#amtytd_omp').html('Amt YTD OMP : ' + commaSeparateNumber(data[1].AmtYTD));
+                    $('#amtytd_all').html('Amt YTD ALL : ' + commaSeparateNumber(data[2].AmtYTD));
+                    $('#amtmtd_aac').html('Amt MTD AAC : ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
+                    $('#amtmtd_tac').html('Amt MTD TAC : ' + commaSeparateNumber(data[1].AmtMTD));
+                    $('#amtmtd_omp').html('Amt MTD OMP : ' + commaSeparateNumber(data[3].AmtMTD));
+                    $('#amtmtd_all').html('Amt MTD ALL : ' + commaSeparateNumber(data[2].AmtMTD));
+                } else {
+                    //var optionsProfileVisit = {
+                    //    annotations: {
+                    //        position: 'back'
+                    //    },
+                    //    dataLabels: {
+                    //        enabled: false
+                    //    },
+                    //    chart: {
+                    //        type: 'bar',
+                    //        height: 500,
+
+                    //    },
+
+                    //    fill: {
+                    //        opacity: 1
+                    //    },
+                    //    plotOptions: {
+                    //    },
+
+
+                    //    series: [{
+                    //        name: 'sales',
+                    //        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
+                    //    }],
+                    //    //colors: '#435ebe',
+                    //    colors: ['#3591e0', '#e17572', '#7dc67d'],
+                    //    xaxis: {
+                    //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    //    },
+                    //}
+                    //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+                    //chartProfileVisit.render();
+
+                    var ctx1 = document.getElementById("chart-line").getContext("2d");
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+
+                    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+                    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+                    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+                    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
+                    gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
+                    gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
+
+                    var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
+                    gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
+                    gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
+
+                    var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
+                    gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
+                    gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
+                    gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
+
+                    chartInstance = new Chart(ctx1, {
+                        type: "bar",
+                        data: {
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                            datasets: [
+                                {
+                                    label: "AAC",
+                                    backgroundColor: "#dc3545",
+                                    borderColor: "#dc3545",
+                                    borderWidth: 0,
+                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    maxBarThickness: 10,
+                                    barThickness: 6
+                                },
+                                {
+                                    label: "TAC",
+                                    backgroundColor: "#0d6efd",
+                                    borderColor: "#0d6efd",
+                                    borderWidth: 0,
+                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    maxBarThickness: 10,
+                                    barThickness: 6
+                                },
+                                {
+                                    label: "OMP",
+                                    backgroundColor: "#6f42c1",
+                                    borderColor: "#6f42c1",
+                                    borderWidth: 0,
+                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    maxBarThickness: 10,
+                                    barThickness: 6
+                                },
+                                {
+                                    label: "All",
+                                    backgroundColor: "#20c997",
+                                    borderColor: "#20c997",
+                                    borderWidth: 0,
+                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    maxBarThickness: 10,
+                                    barThickness: 6
+                                }
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    label: {
+                                        font: {
                                             size: 14,
                                             family: "Kanit"
-                                        },
-                                        titleFont: {
-                                            size: 16
                                         }
                                     }
                                 },
-                                interaction: {
-                                    intersect: false,
-                                    mode: 'index',
+                                tooltip: {
+                                    bodyFont: {
+                                        size: 14,
+                                        family: "Kanit"
+                                    },
+                                    titleFont: {
+                                        size: 16
+                                    }
+                                }
+                            },
+                            interaction: {
+                                intersect: false,
+                                mode: 'index',
+                            },
+                            scales: {
+                                y: {
+                                    grid: {
+                                        drawBorder: false,
+                                        display: true,
+                                        drawOnChartArea: true,
+                                        drawTicks: false,
+                                        borderDash: [5, 5]
+                                    },
+                                    ticks: {
+                                        display: true,
+                                        padding: 10,
+                                        color: '#fbfbfb',
+                                        font: {
+                                            size: 14,
+                                            family: "Open Sans",
+                                            style: 'normal',
+                                            lineHeight: 2
+                                        },
+                                    }
                                 },
-                                scales: {
-                                    y: {
-                                        grid: {
-                                            drawBorder: false,
-                                            display: true,
-                                            drawOnChartArea: true,
-                                            drawTicks: false,
-                                            borderDash: [5, 5]
-                                        },
-                                        ticks: {
-                                            display: true,
-                                            padding: 10,
-                                            color: '#fbfbfb',
-                                            font: {
-                                                size: 14,
-                                                family: "Open Sans",
-                                                style: 'normal',
-                                                lineHeight: 2
-                                            },
-                                        }
+                                x: {
+                                    grid: {
+                                        drawBorder: false,
+                                        display: false,
+                                        drawOnChartArea: false,
+                                        drawTicks: false,
+                                        borderDash: [5, 5]
                                     },
-                                    x: {
-                                        grid: {
-                                            drawBorder: false,
-                                            display: false,
-                                            drawOnChartArea: false,
-                                            drawTicks: false,
-                                            borderDash: [5, 5]
+                                    ticks: {
+                                        display: true,
+                                        color: '#ccc',
+                                        padding: 20,
+                                        font: {
+                                            size: 14,
+                                            family: "Open Sans",
+                                            style: 'normal',
+                                            lineHeight: 2
                                         },
-                                        ticks: {
-                                            display: true,
-                                            color: '#ccc',
-                                            padding: 20,
-                                            font: {
-                                                size: 14,
-                                                family: "Open Sans",
-                                                style: 'normal',
-                                                lineHeight: 2
-                                            },
-                                        }
-                                    },
+                                    }
                                 },
                             },
-                        });
+                        },
+                    });
 
-                        window.dispatchEvent(new Event('resize'));
-                        $('#amtytd_aac').html('Amt YTD AAC : 0');
-                        $('#amtytd_tac').html('Amt YTD TAC : 0');
-                        $('#amtytd_all').html('Amt YTD ALL : 0');
-                        $('#amtmtd_aac').html('Amt MTD AAC : 0');//amtmtd_aac
-                        $('#amtmtd_tac').html('Amt MTD TAC : 0');
-                        $('#amtmtd_all').html('Amt MTD ALL : 0');
+                    window.dispatchEvent(new Event('resize'));
+                    $('#amtytd_aac').html('Amt YTD AAC : 0');
+                    $('#amtytd_tac').html('Amt YTD TAC : 0');
+                    $('#amtytd_all').html('Amt YTD ALL : 0');
+                    $('#amtmtd_aac').html('Amt MTD AAC : 0');//amtmtd_aac
+                    $('#amtmtd_tac').html('Amt MTD TAC : 0');
+                    $('#amtmtd_all').html('Amt MTD ALL : 0');
+                }
+            }
+        });
+    }
+
+    function getPromotion() {
+        $.ajax({
+            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+            data: {
+                CUSCOD: cuscod
+            },
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function () {
+
+            },
+            success: function (data) {
+                if (data.Getdata.length > 0) {
+                    for (var i = 0; i < data.Getdata.length; i++) {
+                        var item = data.Getdata[i]; // เข้าถึงข้อมูลแต่ละรายการ
+
+                        if (item.Topic == "Promotion") {
+                            if (item.SubTopic1 == "Progress") {
+                                if (item.SubTopic2 == "Yearly") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-yearly-regis').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-yearly-ticket').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-yearly-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-yearly-miss').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                }
+                                if (item.SubTopic2 == "Quater") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-quater-regis').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-quater-ticket').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-quater-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-quater-miss').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                }
+                                if (item.SubTopic2 == "Other") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-other-regis').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-other-ticket').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-other-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-other-miss').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                }
+                            }
+                            //if (item.SubTopic1 == "Success") {
+                            //    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                            //}
+                        }
                     }
                 }
-            });
-        }
 
-        function getPromotion() {
-            $.ajax({
-                url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $('#table-yeary tbody tr').html("");
-                    $('#table-quater tbody tr').html("");
-                    $('#table-other tbody tr').html("");
-                    $('#table-success tbody tr').html("");
+                $('#table-yeary tbody tr').append(SubmithtmlPageYear);
+                $('#table-quater tbody tr').append(SubmithtmlPageQuater);
+                $('#table-other tbody tr').append(SubmithtmlPageOther);
+                $('#table-success tbody tr').append(SubmithtmlPageSuccess);
 
-                    var SubmithtmlPage = '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</td>';
+            }
+        });
+    }
 
-                    $('#table-yeary tbody tr').append(SubmithtmlPage);
-                    $('#table-quater tbody tr').append(SubmithtmlPage);
-                    $('#table-other tbody tr').append(SubmithtmlPage);
-                    $('#table-success tbody tr').append(SubmithtmlPage);
-                },
-                success: function (data) {
-                    $('#table-yeary tbody tr').html("");
-                    $('#table-quater tbody tr').html("");
-                    $('#table-other tbody tr').html("");
-                    $('#table-success tbody tr').html("");
-
-                    var SubmithtmlPageYear = "";
-                    var SubmithtmlPageQuater = "";
-                    var SubmithtmlPageOther = "";
-                    var SubmithtmlPageSuccess = "";
-                    if (data.Getdata.length > 0) {
-                        for (var i = 0; i < data.Getdata.length; i++) {
-                            var item = data.Getdata[i]; // เข้าถึงข้อมูลแต่ละรายการ
-
-                            if (item.Topic == "Promotion") {
-                                if (item.SubTopic1 == "Progress") {
-                                    if (item.SubTopic2 == "Yearly") {
-                                        SubmithtmlPageYear += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+    function getDashboardNotable() {
+        $.ajax({
+            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+            data: {
+                CUSCOD: cuscod
+            },
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function () {
+                $('#amt-discount').html("");
+                $('#service-level-delivery').html("");
+                $('#backorder-money').html("");
+                var SubmitPage = 'Loading...';
+                $('#amt-discount').text(SubmitPage);
+                $('#service-level-delivery').text(SubmitPage);
+                $('#backorder-money').text(SubmitPage);
+            },
+            success: function (data) {
+                if (data.Getdata.length > 0) {
+                    for (var i = 0; i < data.Getdata.length; i++) {
+                        var item = data.Getdata[i];
+                        if (item.Topic == "Promotion") {
+                            if (item.SubTopic1 == "Progress") {
+                                if (item.SubTopic2 == "Yearly") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-yearly-regis').text(commaSeparateNumber(item.Amt_Qty));
                                     }
-                                    if (item.SubTopic2 == "Quater") {
-                                        SubmithtmlPageQuater += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-yearly-ticket').text(commaSeparateNumber(item.Amt_Qty));
                                     }
-                                    if (item.SubTopic2 == "Other") {
-                                        SubmithtmlPageOther += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-yearly-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-yearly-miss').text(commaSeparateNumber(item.Amt_Qty));
                                     }
                                 }
-                                if (item.SubTopic1 == "Success") {
-                                    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                                if (item.SubTopic2 == "Quater") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-quater-regis').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-quater-ticket').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-quater-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-quater-miss').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
                                 }
+                                if (item.SubTopic2 == "Other") {
+                                    if (item.Name == "มูลค่าของรางวัลที่ลงทะเบียน") {
+                                        $('#pro-other-regis').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ตั๋ว") {
+                                        $('#pro-other-ticket').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยอดซื้อสะสม") {
+                                        $('#pro-other-amt').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                    if (item.Name == "ยังขาด") {
+                                        $('#pro-other-miss').text(commaSeparateNumber(item.Amt_Qty));
+                                    }
+                                }
+                            }
+                            //if (item.SubTopic1 == "Success") {
+                            //    SubmithtmlPageSuccess += '<td class="text-center">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                            //}
+                        }
+                        if (item.Topic == "Service Level") {
+                            if (item.Name == "จำนวนสั่งซื้อ") {
+                                $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
+                            }
+                            if (item.Name == "ส่งทันตามกำหนด") {
+                                var dlivery = item.Amt_Qty * 100;
+                                $('#service-level-delivery').text(dlivery+'%');
+                            }
+                        }
+                        if (item.Topic =="Purchase") {
+                            if (item.Name == "ยอดซื้อทั้งหมด") {
+                                $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
+                            }
+                            if (item.Name == "ส่วนลดเงินสด") {
+
+                                $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
+                            }
+                        }
+                        if (item.Topic == "Back Order") {
+                            if (item.Name == "จำนวนเบอร์สินค้า") {
+                                $('#backorder-product').text(commaSeparateNumber(item.Amt_Qty));
+                            }
+                            if (item.Name == "เงิน") {
+                                $('#backorder-money').text(commaSeparateNumber(item.Amt_Qty));
+                            }
+                            if (item.Name == "จำนวน") {
+                                $('#backorder-total').text(commaSeparateNumber(item.Amt_Qty));
                             }
                         }
                     }
-
-                    $('#table-yeary tbody tr').append(SubmithtmlPageYear);
-                    $('#table-quater tbody tr').append(SubmithtmlPageQuater);
-                    $('#table-other tbody tr').append(SubmithtmlPageOther);
-                    $('#table-success tbody tr').append(SubmithtmlPageSuccess);
-
                 }
-            });
-        }
+            }
+        });
+    }
 
-        function get
+    function getTop5() {
+        $.ajax({
+            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+            data: {
+                CUSCOD: cuscod
+            },
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function () {
+                $('#table-top5').html("");
+                var Submithtml = "";
+                Submithtml += '<tr>';
+                Submithtml += '<td colspan="9" align="center"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading...</td>';
+                Submithtml += '</tr>';
+                $('#table-top5').append(Submithtml);
+            },
+            success: function (data) {
+                $('#table-top5').html("");
+                var Submithtml = "";
+                if (data.Getdata.length > 0) {
+                    for (var i = 0; i < data.Getdata.length; i++) {
+                        var item = data.Getdata[i];
 
-
-        function getDeliveryTrackAmt() {
-            $.ajax({
-                 url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
-                 data: {
-                     CUSCOD: cuscod
-                 },
-                 type: "POST",
-                dataType: "JSON",
-                success: function (res) {
-                    if (res.message == "Y") {
-                        var alert_accept = 0;
-                        var alert_packing = 0;
-                        var alert_delivery = 0;
-                        var alert_arrive = 0;
-                        var total_delivery = 0;
-                        if (res.Getdata.length > 0) {
-                            alert_accept = res.Getdata[0].Order;
-                            alert_packing = res.Getdata[0].Pack;
-                            alert_delivery = res.Getdata[0].Deliver;
-                            alert_arrive = res.Getdata[0].Arrive;
-                            total_delivery = alert_accept + alert_packing + alert_delivery + alert_arrive;
-                            $('#total_deliverytrack').text(commaSeparateNumber(total_delivery));
-
+                        if (item.Topic == "Top 5") {
+                            Submithtml += '<tr>';
+                            Submithtml += '<td>' + item.Name + '</td>';
+                            Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                            Submithtml += '</tr>';
                         }
                     }
-                    else {
-                        console.log(res.message);
-                    }
+                    $('#table-top5').append(Submithtml);
                 }
-            });
-        }
-        function getBackorderAmt() {
-            var typeS = 0;
-            var backorder = 0;
-            var total = 0;
-            $.ajax({
-                 url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
-                 data: {
-                     CUSCOD: cuscod
-                 },
-                 type: "POST",
-                dataType: "JSON",
-                success: function (res) {
-                    if (res.message == "Y") {
-                        if (res.backorder.length > 0) {
-                            typeS = res.backorder.length;
-                        }
-                    }
-                    else {
-                        console.log("Error S : " + res.message);
-                    }
-                }
-            });
-            $.ajax({
-                 url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
-                 data: {
-                     CUSCOD: cuscod
-                 },
-                 type: "POST",
-                dataType: "JSON",
-                success: function (res) {
-                    if (res.message == "Y") {
-                        if (res.backorder.length > 0) {
-                            backorder = res.backorder.length;
-                            total = typeS + backorder;
-                            console.log("TypeS is :" + typeS);
-                            console.log("BO is " + backorder);
-                            $('#backorder-amt').text(commaSeparateNumber(total));
-                        }
-                    }
-                    else {
-                        console.log("Error S : " + res.message);
-                    }
-                }
-            });
-        }
-        function getWarrantyAmt() {
-            var total = 0;
-            $.ajax({
-                 url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
-                 data: {
-                     strcustome: cuscod
-                 },
-                 type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    if (data.length > 0) {
+            }
+        });
+    }
 
-                        var waiting = data[0].A != "" ? Number(data[0].A) :0;
-                        var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
-                        var pending = data[0].C != "" ? Number(data[0].C) : 0;
-                        total = waiting + inprogress + pending;
-                        $('#warranty-amt').text(commaSeparateNumber(total));
+    function getDeliveryTrackAmt() {
+        $.ajax({
+             url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
+             data: {
+                 CUSCOD: cuscod
+             },
+             type: "POST",
+            dataType: "JSON",
+            success: function (res) {
+                if (res.message == "Y") {
+                    var alert_accept = 0;
+                    var alert_packing = 0;
+                    var alert_delivery = 0;
+                    var alert_arrive = 0;
+                    var total_delivery = 0;
+                    if (res.Getdata.length > 0) {
+                        alert_accept = res.Getdata[0].Order;
+                        alert_packing = res.Getdata[0].Pack;
+                        alert_delivery = res.Getdata[0].Deliver;
+                        alert_arrive = res.Getdata[0].Arrive;
+                        total_delivery = alert_accept + alert_packing + alert_delivery + alert_arrive;
+                        $('#total_deliverytrack').text(commaSeparateNumber(total_delivery));
+
                     }
                 }
-            });
-        }
+                else {
+                    console.log(res.message);
+                }
+            }
+        });
+    }
+    function getBackorderAmt() {
+        var typeS = 0;
+        var backorder = 0;
+        var total = 0;
+        $.ajax({
+             url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
+             data: {
+                 CUSCOD: cuscod
+             },
+             type: "POST",
+            dataType: "JSON",
+            success: function (res) {
+                if (res.message == "Y") {
+                    if (res.backorder.length > 0) {
+                        typeS = res.backorder.length;
+                    }
+                }
+                else {
+                    console.log("Error S : " + res.message);
+                }
+            }
+        });
+        $.ajax({
+             url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
+             data: {
+                 CUSCOD: cuscod
+             },
+             type: "POST",
+            dataType: "JSON",
+            success: function (res) {
+                if (res.message == "Y") {
+                    if (res.backorder.length > 0) {
+                        backorder = res.backorder.length;
+                        total = typeS + backorder;
+                        console.log("TypeS is :" + typeS);
+                        console.log("BO is " + backorder);
+                        $('#backorder-amt').text(commaSeparateNumber(total));
+                    }
+                }
+                else {
+                    console.log("Error S : " + res.message);
+                }
+            }
+        });
+    }
+    function getWarrantyAmt() {
+        var total = 0;
+        $.ajax({
+             url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
+             data: {
+                 strcustome: cuscod
+             },
+             type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                if (data.length > 0) {
 
-        //ปุ่มยอดซื้อ
-        $(document).on("click", "#menu_amt", function () {
-            window.location.replace("../CustomerDashboard/index");
+                    var waiting = data[0].A != "" ? Number(data[0].A) :0;
+                    var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
+                    var pending = data[0].C != "" ? Number(data[0].C) : 0;
+                    total = waiting + inprogress + pending;
+                    $('#warranty-amt').text(commaSeparateNumber(total));
+                }
+            }
         });
-        //ปุ่มสินค้าค้างส่ง
-        $(document).on("click", "#menu_backorder", function () {
-            window.location.replace("../CustomerDashboard/PendingDeliver");
-        });
-        //ปุ่มสถานะการสั่งซื้อ
-        $(document).on("click", "#menu_deliverytracking", function () {
-            window.location.replace("../CustomerDashboard/DeliveryTrack");
-        });
-        //ปุ่มรายการเคลม
-        $(document).on("click", "#menu_warranty", function () {
-            window.location.replace("../CustomerDashboard/Warranty");
-        });
-        //ปุ่มโปรโมชัน
-        $(document).on("click", "#menu_promotion", function () {
-            window.location.replace("../CustomerDashboard/Promotion");
-        });
-        //ปุ่มเครดิต
-        $(document).on("click", "#menu_credit", function () {
-            window.location.replace("../CustomerDashboard/Credit");
-        });
+    }
+
+    //ปุ่มยอดซื้อ
+    $(document).on("click", "#menu_amt", function () {
+        window.location.replace("../CustomerDashboard/index");
+    });
+    //ปุ่มสินค้าค้างส่ง
+    $(document).on("click", "#menu_backorder", function () {
+        window.location.replace("../CustomerDashboard/PendingDeliver");
+    });
+    //ปุ่มสถานะการสั่งซื้อ
+    $(document).on("click", "#menu_deliverytracking", function () {
+        window.location.replace("../CustomerDashboard/DeliveryTrack");
+    });
+    //ปุ่มรายการเคลม
+    $(document).on("click", "#menu_warranty", function () {
+        window.location.replace("../CustomerDashboard/Warranty");
+    });
+    //ปุ่มโปรโมชัน
+    $(document).on("click", "#menu_promotion", function () {
+        window.location.replace("../CustomerDashboard/Promotion");
+    });
+    //ปุ่มเครดิต
+    $(document).on("click", "#menu_credit", function () {
+        window.location.replace("../CustomerDashboard/Credit");
+    });
     </script>
 </body>
 </html>
