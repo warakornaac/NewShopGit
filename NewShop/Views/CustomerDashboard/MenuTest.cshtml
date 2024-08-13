@@ -190,6 +190,10 @@
         .text-tac {
             color: #0d6efd;
         }
+
+        #table-top5 tr {
+            line-height: 14px;
+        }
     </style>
 </head>
 <body style="font-family: Kanit, sans-serif;">
@@ -233,13 +237,13 @@
                 <div class="col-lg-12 mb-lg-0 mb-2">
                     <div class="z-index-2 h-100">
                         @*Tab Promotion WKP*@
-                        <div class="row" style="padding: 5px;">
-                            <div class="col-md-7 mt-4">
+                        <div class="row">
+                            <div class="col-md-7 mt-4" style="margin-bottom: -30px;">
                                 <div class="card">
                                     <div class="card-header bg-success pb-0 p-2">
                                         <h3 class="card-title">Promotion</h3>
                                     </div>
-                                    <div class="card-body pt-4 p-3">
+                                    <div class="card-body p-3" style="margin-bottom: -8px;">
                                         <ul class="list-group" style="margin-top: -15px">
                                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
                                                 <div class="d-flex align-items-center">
@@ -307,27 +311,31 @@
                                     <div class="card-header bg-warning pb-0 p-2">
                                         <h3 class="card-title">Service Level</h3>
                                     </div>
-                                    <div class="card-body pl-2 pr-2">
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6">จำนวนสั่งซื้อ :</span> <span class="col-6" id="service-level-amt"></span>
+                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนสั่งซื้อ :</span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6">ส่งทันตามกำหนด : </span> <span class="col-6" id="service-level-delivery"></span>
+                                            <span class="col-6 text-md font-weight-bold">ส่งทันตามกำหนด : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
                                         </div>
 
                                     </div>
                                 </div>
 
                                 <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-yellow pb-0 p-2">
+                                    <div class="card-header bg-primary pb-0 p-2">
                                         <h3 class="card-title">ยอดซื้อ</h3>
                                     </div>
-                                    <div class="card-body  pl-2 pr-2">
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6">ยอดซื้อทั้งหมด : </span> <span class="col-6" id="amt-all"></span>
+                                            <span class="col-6 mt-1 text-md font-weight-bold">ยอดซื้อทั้งหมด : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6">ส่วนลดเงินสด : </span> <span class="col-6" id="amt-discount"></span>
+                                            <span class="col-6 text-md font-weight-bold">ส่วนลดเงินสด : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -336,15 +344,18 @@
                                     <div class="card-header bg-backorder pb-0 p-2">
                                         <h3 class="card-title">สินค้าค้างส่ง</h3>
                                     </div>
-                                    <div class="card-body pl-2 pr-2">
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
-                                            <span class="col-6">จำนวนเบอร์สินค้า : </span> <span class="col-6" id="backorder-product"></span>
+                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนเบอร์สินค้า : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6">เงิน : </span> <span class="col-6" id="backorder-money"></span>
+                                            <span class="col-6 text-md font-weight-bold">เงิน : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6">จำนวน : </span> <span class="col-6" id="backorder-total"></span>
+                                            <span class="col-6 text-md font-weight-bold">จำนวน : </span> 
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -353,11 +364,12 @@
                                     <div class="card-header bg-info pb-0 p-2">
                                         <h3 class="card-title">ยอดซื้อ TOP 5</h3>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" style="margin-bottom: -10px; padding: 0px;">
 
-                                        <table class="table" id="table-top5">
+                                        <table class="table align-items-center" id="table-top5">
                                             <thead class="thead-default">
                                                 <tr>
+                                                    <th></th>
                                                     <th>สินค้า</th>
                                                     <th>ราคา</th>
                                                 </tr>
@@ -374,7 +386,7 @@
                 </div>
             </div>
             @*menu list*@
-            <div class="row mt-3">
+            <div class="row mt-2">
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card " id="menu_deliverytracking">
                         <div class="card-body bg_hov p-3">
@@ -1384,14 +1396,20 @@
             success: function (data) {
                 $('#table-top5').html("");
                 var Submithtml = "";
+                var countTop = 0;
                 if (data.Getdata.length > 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
-
                         if (item.Topic == "Top 5") {
+                            var styleColor = "";
+                            ++countTop;
+                            if (countTop == 1) {
+                                styleColor = "text-success";
+                            }
                             Submithtml += '<tr>';
-                            Submithtml += '<td>' + item.Name + '</td>';
-                            Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor +' ">' + countTop + '</td>';
+                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor +'">' + item.Name + '</td>';
+                            Submithtml += '<td class="text-right text-md font-weight-bold ' + styleColor +'">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
                             Submithtml += '</tr>';
                         }
                     }
