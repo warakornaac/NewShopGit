@@ -116,6 +116,36 @@ namespace NewShop.Controllers
             }
             return View();
         }
+
+        public JsonResult GetdatabyCus(string cusel)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            var CUSList = new List<object>();
+            SqlCommand cmd = new SqlCommand("select * from [MobileOrder].[dbo].[v_CUSPROV] where CUSCOD =N'" + cusel + "' order by SLMCOD", Connection);
+
+            string cusstr = string.Empty;
+            SqlDataReader rev_CUSPROV = cmd.ExecuteReader();
+            while (rev_CUSPROV.Read())
+            {
+                CUSList.Add(new
+                {
+                    CUSCOD = rev_CUSPROV["CUSCOD"].ToString(),
+                    CUSNAM = rev_CUSPROV["CUSNAM"].ToString(),
+                    CLUB = rev_CUSPROV["Club"].ToString()
+                });
+            }
+            //this.Session["CUSCOD"] = CUSList[0].CUSCOD;
+            //rev_CUSPROV.Dispose();
+            //S20161016
+            rev_CUSPROV.Close();
+            rev_CUSPROV.Dispose();
+            cmd.Dispose();
+            //E20161016
+            Connection.Close();
+            return Json(CUSList, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult CustomerAlert()
         {
             var uaString = Request.Headers["User-Agent"].ToString();
@@ -165,6 +195,38 @@ namespace NewShop.Controllers
                                 .Select(nic => nic.GetPhysicalAddress().ToString())
                                 .FirstOrDefault();
             return macAddress;
+        }
+
+        public JsonResult GetDashBoard(string CUSCOD)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            var Getdata = new List<object>();
+            string message = "";
+            try
+            {
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Getdata.Add(new
+                    {
+                        Topic = reader["Topic"].ToString(),
+                        SubTopic1 = reader["SubTopic1"].ToString(),
+                        SubTopic2 = reader["SubTopic2"].ToString(),
+                        Name = reader["Name"].ToString(),
+                        Amt_Qty = reader["Amt_Qty"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Credit_Cus(string cuscod)
