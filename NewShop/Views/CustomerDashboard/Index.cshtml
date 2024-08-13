@@ -758,7 +758,7 @@
                                                             </div>
                                                             <div class="col-sm-7 col-9 float-end m-0 p-0 d-flex align-items-center">
                                                                 <div class="col-4 text-right m-0 p-0 pr-1">
-                                                                    <span>เบอร์สินค้า/แบรนด์ : </span>
+                                                                    <span>ชื่อสินค้า/แบรนด์ : </span>
                                                                 </div>
                                                                 <div class="col-8 m-0 p-0">
                                                                     <div class="input-group">
@@ -1039,7 +1039,7 @@
         }
         //select brand
         function searchByBrand() {
-            var valBrand = $("#txt-other").val();
+            var valBrand = $("#txt-other").val().trim();
             getDataOrderHistoryByBrand(cuscod, valBrand, 'show-order-history', '');
         }
         function getSelectMonth() {
