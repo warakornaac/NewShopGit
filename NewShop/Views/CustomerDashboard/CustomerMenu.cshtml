@@ -1392,14 +1392,17 @@
                 $('#table-top5').html("");
                 var Submithtml = "";
                 if (data.Getdata.length > 0) {
+                    var j = 1;
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
 
                         if (item.Topic == "Top 5") {
                             Submithtml += '<tr>';
+                            Submithtml += '<td>' + j + '</td>';
                             Submithtml += '<td>' + item.Name + '</td>';
                             Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
                             Submithtml += '</tr>';
+                            j++;
                         }
                     }
                     $('#table-top5').append(Submithtml);

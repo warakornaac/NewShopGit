@@ -419,10 +419,12 @@ namespace NewShop.Controllers
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         Qty = reader["Qty"].ToString(),
+                        OrgQty = reader["OrgQty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : ""
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : "",
+                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
                     });
                 }
                 reader.Close();
@@ -461,6 +463,7 @@ namespace NewShop.Controllers
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         Qty = reader["Qty"].ToString(),
+                        OrgQty = reader["OrgQty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
