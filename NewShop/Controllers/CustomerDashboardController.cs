@@ -573,8 +573,8 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_Order_Notify_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandTimeout = 120;
-                command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
-                command.Parameters.AddWithValue("@NotifyID", NotifyID);
+                command.Parameters.AddWithValue("@xCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@xNotifyID", NotifyID);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -631,9 +631,9 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_Order_Notify_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandTimeout = 120;
-                command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
-                command.Parameters.AddWithValue("@NotifyID", "4");
-                command.Parameters.AddWithValue("@OrdDat", DATE);
+                command.Parameters.AddWithValue("@xCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@xNotifyID", "4");
+                command.Parameters.AddWithValue("@xOrdDat", DATE);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
