@@ -1391,16 +1391,27 @@
             success: function (data) {
                 $('#table-top5').html("");
                 var Submithtml = "";
+                var countTop = 0;
                 if (data.Getdata.length > 0) {
                     var j = 1;
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
-
                         if (item.Topic == "Top 5") {
+                            var styleColor = "";
+                            ++countTop;
+                            if (countTop == 1) {
+                                styleColor = "text-success";
+                            }
                             Submithtml += '<tr>';
+<<<<<<< HEAD
                             Submithtml += '<td>' + j + '</td>';
                             Submithtml += '<td>' + item.Name + '</td>';
                             Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+=======
+                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor + ' ">' + countTop + '</td>';
+                            Submithtml += '<td class="text-md font-weight-bold ' + styleColor + '">' + item.Name + '</td>';
+                            Submithtml += '<td class="text-right text-md font-weight-bold ' + styleColor + '">' + commaSeparateNumber(item.Amt_Qty) + '</td>';
+>>>>>>> 8cd19440919d253200d1b7a069f6047157a39687
                             Submithtml += '</tr>';
                             j++;
                         }
