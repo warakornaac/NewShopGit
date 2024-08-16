@@ -207,7 +207,7 @@ namespace NewShop.Controllers
             string message = "";
             try
             {
-                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Arm", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -215,6 +215,8 @@ namespace NewShop.Controllers
                 {
                     Getdata.Add(new
                     {
+                        TopicID = reader["Topic ID"].ToString(),
+                        Seq = reader["Seq"].ToString(),
                         Topic = reader["Topic"].ToString(),
                         SubTopic1 = reader["SubTopic1"].ToString(),
                         SubTopic2 = reader["SubTopic2"].ToString(),
