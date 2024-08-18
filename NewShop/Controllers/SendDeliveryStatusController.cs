@@ -135,7 +135,6 @@ namespace NewShop.Controllers
                     }
                 }
             }
-
             return Json(ListSendDelivery, JsonRequestBehavior.AllowGet);
         }
         //notify count
@@ -173,8 +172,8 @@ namespace NewShop.Controllers
         }
         public async Task<JsonResult> ApiPushMessage(string Uid, string Docno, string Docdate, string Cusname, string Delivery, string DeliveryId, string Urldetail, string User)
         {
-            //var url = "https://mst.aac.co.th/APIService/Post/PushMessage";
-            var url = "https://localhost:44361/Post/PushMessage";
+            var url = "https://mst.aac.co.th/APIService/Post/PushMessage";
+            //var url = "https://localhost:44361/Post/PushMessage";
             string status = string.Empty;
             string message = string.Empty;
             string encodeDocno = string.Empty;
