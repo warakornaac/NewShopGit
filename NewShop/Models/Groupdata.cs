@@ -480,6 +480,7 @@ namespace NewShop.Models
     public class SaleOrderDetail
     {
         public string RowNo { get; set; }
+        public string ORD_DocNo { get; set; }
         public string chk { get; set; }
         public string VQty { get; set; }
         public string VSTKCOD { get; set; }
@@ -1009,8 +1010,11 @@ namespace NewShop.Models
         public string Docdate { get; set; }
         public string Cusname { get; set; }
         public string Delivery { get; set; }
-        public string Urldetail { get; set; }
+        public string DeliveryId { get; set; }
+        public string UrlDocno { get; set; }
+        public string UrlCuskey { get; set; }
         public string User { get; set; }
+        public string Urldetail { get; set; }
     }
     public class ListSendDeliveryCount
     {
