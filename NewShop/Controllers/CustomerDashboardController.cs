@@ -207,7 +207,7 @@ namespace NewShop.Controllers
             string message = "";
             try
             {
-                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Arm", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -215,6 +215,8 @@ namespace NewShop.Controllers
                 {
                     Getdata.Add(new
                     {
+                        TopicID = reader["Topic ID"].ToString(),
+                        Seq = reader["Seq"].ToString(),
                         Topic = reader["Topic"].ToString(),
                         SubTopic1 = reader["SubTopic1"].ToString(),
                         SubTopic2 = reader["SubTopic2"].ToString(),
@@ -419,10 +421,12 @@ namespace NewShop.Controllers
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         Qty = reader["Qty"].ToString(),
+                        OrgQty = reader["OrgQty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : ""
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : "",
+                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
                     });
                 }
                 reader.Close();
@@ -461,6 +465,7 @@ namespace NewShop.Controllers
                         STKCOD = reader["STKCOD"].ToString(),
                         STKDES = reader["STKDES"].ToString(),
                         Qty = reader["Qty"].ToString(),
+                        OrgQty = reader["OrgQty"].ToString(),
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
@@ -570,8 +575,8 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_Order_Notify_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandTimeout = 120;
-                command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
-                command.Parameters.AddWithValue("@NotifyID", NotifyID);
+                command.Parameters.AddWithValue("@xCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@xNotifyID", NotifyID);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -628,9 +633,9 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("p_Order_Notify_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandTimeout = 120;
-                command.Parameters.AddWithValue("@CUSCOD", CUSCOD.Trim());
-                command.Parameters.AddWithValue("@NotifyID", "4");
-                command.Parameters.AddWithValue("@OrdDat", DATE);
+                command.Parameters.AddWithValue("@xCUSCOD", CUSCOD.Trim());
+                command.Parameters.AddWithValue("@xNotifyID", "4");
+                command.Parameters.AddWithValue("@xOrdDat", DATE);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

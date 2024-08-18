@@ -997,6 +997,7 @@ namespace NewShop.Models
         public string STKCOD { get; set; }
         public string STKDES { get; set; }
         public string Qty { get; set; }
+        public string OrgQty { get; set; }
         public string SalePrice { get; set; }
         public string Amount { get; set; }
         public string SaleOrderDate { get; set; }

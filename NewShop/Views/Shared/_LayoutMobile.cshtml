@@ -147,6 +147,19 @@
                 height: auto;
             }
         }
+
+        .btn-nav {
+            font-size: larger !important;
+            color: white !important;
+        }
+
+        .custom-toggler {
+            border-color: white !important;
+        }
+
+            .custom-toggler .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27 viewBox%3D%270 0 30 30%27%3E%3Cpath stroke%3D%27rgba%28255%2C 255%2C 255%2C 1%29%27 stroke-width%3D%272%27 stroke-linecap%3D%27round%27 stroke-miterlimit%3D%2710%27 d%3D%27M4 7h22M4 15h22M4 23h22%27%2F%3E%3C%2Fsvg%3E") !important;
+            }
     </style>
 </head>
 
@@ -156,10 +169,13 @@
     <!--=================== Header =======================-->
     <header class="header fixheader bg-primary">
         <nav class="navbar navbar-toggleable navbar-light ">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <a class="p-0" href="#"><img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUL4xmD5Dk_p1W7_8LFhfUBZi51UQf5UUCYKL8PWrbg&s?sz=120" /></a>
+
+            <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon btn-nav"></span>
+
+                @*<span class="navbar-toggler-icon text-white btn-nav"></span>*@
+            </button>
 
             <div class="collapse navbar-collapse flex-row-reverse " id="navbarNavDropdown">
                 <ul class="navbar-nav">

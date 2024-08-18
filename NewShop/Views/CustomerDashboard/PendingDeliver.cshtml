@@ -674,9 +674,11 @@
                                                                 <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                 <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                 <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคารวม</span></th>
                                                                 <th class="sticky-head text-center"><span>วันกำหนดส่ง</span></th>
+                                                                <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -690,6 +692,7 @@
                                                                 <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                 <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                 <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคารวม</span></th>
                                                                 <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
@@ -958,7 +961,7 @@
                         $('#backor-typeS tbody').html("");
                         var SubmithtmlPage = "";
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                        SubmithtmlPage += '<td class="text-center" colspan="9"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                         SubmithtmlPage += '</tr>';
                         $('#backor-typeS tbody').append(SubmithtmlPage);
                     },
@@ -979,7 +982,8 @@
                                     else {
                                         SubmithtmlPage += '<td class="text-truncate text-center"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
                                     }
-                                    SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].OrgQty) + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                     SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
                                     if (data.backorder[i].DeliveryDate.includes("/")) {
@@ -988,13 +992,14 @@
                                     else {
                                         SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
                                     }
+                                    SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
                                         SubmithtmlPage += '</tr >';
 
                                 }
                                 aac.append(SubmithtmlPage);
 
                             } else {
-                                SubmithtmlPage += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                                SubmithtmlPage += '<tr><td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td></tr>';
                                 aac.append(SubmithtmlPage);
                             }
 
@@ -1074,7 +1079,7 @@
                      $('#backor-backorder tbody').html("");
                      var SubmithtmlPage = "";
                      SubmithtmlPage += '<tr>';
-                     SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                     SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                      SubmithtmlPage += '</tr>';
                      $('#backor-backorder tbody').append(SubmithtmlPage);
                  },
@@ -1097,7 +1102,8 @@
                                  else {
                                      SubmithtmlPage += '<td class="text-truncate text-center"><p class="  m-0 p-0"><span>' + data.backorder[i].SaleOrderDate + '</span></p></td>';
                                  }
-                                 SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + data.backorder[i].Qty + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].OrgQty) + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
                                  SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
@@ -1109,12 +1115,12 @@
                              }
                              else {
                                  SubmithtmlPage += '<tr>';
-                                 SubmithtmlPage += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
+                                 SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                                  SubmithtmlPage += '</tr>';
                                  aac.append(SubmithtmlPage);
                              }
                          } else if (data.length <= 0) {
-                             SubmithtmlPage += '<tr><td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td></tr>';
+                             SubmithtmlPage += '<tr><td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td></tr>';
                              aac.append(SubmithtmlPage);
                              tac.append(SubmithtmlPage_T);
                              omp.append(SubmithtmlPage_O);
