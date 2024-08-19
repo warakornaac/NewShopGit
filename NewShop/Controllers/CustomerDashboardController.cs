@@ -687,22 +687,38 @@ namespace NewShop.Controllers
         [HttpGet]
         public ActionResult GetDeliveryDetailByDocno()
         {
-            //string getDocno = string.Empty;
             string setDocno = string.Empty;
             string encodeDocno = string.Empty;
             string getDocno = string.Empty;
 
+            string setCuskey = string.Empty;
+            string encodeCuskey = string.Empty;
+            string getCuskey = string.Empty;
+            //setDocno
             getDocno = Request.Params["getDocno"];
             if (getDocno != null)
             {
                 byte[] data = System.Convert.FromBase64String(getDocno);
                 setDocno = System.Text.ASCIIEncoding.ASCII.GetString(data);
             }
+            //setCuscode
+            getCuskey = Request.Params["getCuskey"];
+            if (getCuskey != null)
+            {
+                byte[] data2 = System.Convert.FromBase64String(getCuskey);
+                setCuskey = System.Text.ASCIIEncoding.ASCII.GetString(data2);
+            }
             @ViewBag.Docno = setDocno;
+            @ViewBag.Cuskey = setCuskey;
 
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("STC24030886");
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes("STC24168699");
             encodeDocno = System.Convert.ToBase64String(plainTextBytes);
 
+            var plainTextBytes2 = System.Text.Encoding.UTF8.GetBytes("110T0189");
+            encodeCuskey = System.Convert.ToBase64String(plainTextBytes2);
+
+
+            //TRC24019855, 110T0189
             string message = "";
             List<SaleOrderDetail> Getdata = new List<SaleOrderDetail>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -710,15 +726,17 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
-                var command = new SqlCommand("p_Order_Notify_List_Detail", Connection);
+                var command = new SqlCommand("p_Order_Notify_By_Loadno", Connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@inORD_DocNo", setDocno);
+                command.Parameters.AddWithValue("@inCuskey", setCuskey);
+                command.Parameters.AddWithValue("@inLoadno", setDocno);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     Getdata.Add(new SaleOrderDetail()
                     {
                         RowNo = reader["RowNo"].ToString(),
+                        ORD_DocNo = reader["ORD_DocNo"].ToString(),
                         VSTKCOD = reader["ORD_STKCOD"].ToString(),
                         VSTKDES = reader["STKDES"].ToString(),
                         VSTKGRP = reader["ORD_STKGRP"].ToString(),
@@ -752,6 +770,7 @@ namespace NewShop.Controllers
             }
             catch (Exception ex)
             {
+                @ViewBag.Getdata = 0;
                 message = ex.Message;
             }
             return PartialView("_DeliveryDetailByDocno", new
