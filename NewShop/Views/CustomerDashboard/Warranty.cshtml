@@ -686,7 +686,6 @@
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
-                                                    <th class="sticky-head text-center">เลขที่ทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -723,6 +722,7 @@
                                                     <th class="sticky-head text-center">คำขอชดเชย</th>
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
                                                     <th class="sticky-head text-center">เลขที่ทดแทน</th>
+                                                    <th class="sticky-head text-center">วันออกเลขทดแทน</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -738,7 +738,7 @@
                                                     <th class="sticky-head text-center">อาการ</th>
                                                     <th class="sticky-head text-center">วันที่แจ้งเคลม</th>
                                                     <th class="sticky-head text-center">วันที่รับเคลม</th>
-                                                    <th class="sticky-head text-center">คำขอชดเชย</th>
+                                                    @*<th class="sticky-head text-center">คำขอชดเชย</th>*@
                                                     <th class="sticky-head text-center">สถานะการเคลม</th>
                                                     <th class="sticky-head text-center">หมายเหตุ</th>
                                                 </tr>
@@ -838,10 +838,19 @@
         }
 
         function formatDate(dateString) {
-            let dateParts = dateString.split('/');
+            let sym = dateString.includes('/') ? '/' : '-';
+            let dateParts = dateString.split(sym);
             let day = dateParts[0];
             let month = dateParts[1];
             let year = dateParts[2].slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+        function formatDateReverse(dateString) {
+            let sym = dateString.includes('/') ? '/' : '-';
+            let dateParts = dateString.split(sym);
+            let day = dateParts[2];
+            let month = dateParts[1];
+            let year = dateParts[0].slice(-2);
             return `${day}-${month}-${year}`;
         }
 
@@ -958,27 +967,32 @@
                  success: function (data) {
                      $('#warranty-waiting-table tbody').html("");
                      var SubmithtmlPage = "";
-                     if (data.length > 0) {
-                         for (var i = 0; i < data.length; i++) {
-                             SubmithtmlPage += '<tr>';
-                             SubmithtmlPage += '<td class="sticky-col text-center">' + data[i].STKCOD +'</td>';
-                             SubmithtmlPage += '<td class="cut-text">' + data[i].STKDES + '</td>';
-                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                             SubmithtmlPage += '<td>' + data[i].Symptom.split('//')[0].trim() + '</td>';
-                             SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data[i].REQ_DATE) + '</td>';
-                             SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data[i].ReceiveDate) + '</td>';
-                             SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Request.replace(/\/.*/, ''); + '</td>';
-                             SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Status + '</td>';
-                             SubmithtmlPage += '<td class="text-center">'+ data[i].CS_No +'</td>';
-                             SubmithtmlPage += '</tr>';
+                     if (data.message == "Y") {
+                         if (data.Getdata.length != 0) {
+                             for (var i = 0; i < data.Getdata.length; i++) {
+                                 SubmithtmlPage += '<tr>';
+                                 SubmithtmlPage += '<td class="sticky-col text-center">' + data.Getdata[i].STKCOD + '</td>';
+                                 SubmithtmlPage += '<td class="cut-text">' + data.Getdata[i].STKDES + '</td>';
+                                 SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                                 SubmithtmlPage += '<td>' + data.Getdata[i].Symptom.split('//')[0].trim() + '</td>';
+                                 SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
+                                 SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+                                 SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Request.replace(/\/.*/, ''); + '</td>';
+                                 SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Status + '</td>';
+                                 //SubmithtmlPage += '<td class="text-center">'+ data[i].CS_No +'</td>';
+                                 SubmithtmlPage += '</tr>';
+                             }
+                             $("#warranty-waiting-table tbody").append(SubmithtmlPage);
                          }
-                         $("#warranty-waiting-table tbody").append(SubmithtmlPage);
+                         else {
+                             SubmithtmlPage += '<tr>';
+                             SubmithtmlPage += '<td colspan="9" align="center">-- ไม่พบข้อมูล --</td>';
+                             SubmithtmlPage += '</tr>';
+                             $("#warranty-waiting-table tbody").append(SubmithtmlPage);
+                         }
                      }
                      else {
-                         SubmithtmlPage += '<tr>';
-                         SubmithtmlPage += '<td colspan="9" align="center">-- ไม่พบข้อมูล --</td>';
-                         SubmithtmlPage += '</tr>';
-                         $("#warranty-waiting-table tbody").append(SubmithtmlPage);
+                         console.log(data.message);
                      }
                  }
              });
@@ -1004,18 +1018,18 @@
                 success: function (data) {
                     $('#warranty-inspecting-table tbody').html("");
                     var SubmithtmlPage = "";
-                    if (data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="sticky-col text-center">' + data[i].STKCOD + '</td>';
-                            SubmithtmlPage += '<td class="cut-text">' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                            SubmithtmlPage += '<td >' + data[i].Symptom.split('//')[0].trim() + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data[i].REQ_DATE) + '</td>';
-                            SubmithtmlPage += '<td class="text-cente text-truncater">' + formatDate(data[i].ReceiveDate) + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Request.replace(/\/.*/, ''); + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Status + '</td>';
-                            SubmithtmlPage += '<td class="text-center">' + data[i].CS_No + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col text-center">' + data.Getdata[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="cut-text">' + data.Getdata[i].STKDES + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                            SubmithtmlPage += '<td >' + data.Getdata[i].Symptom.split('//')[0].trim() + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
+                            SubmithtmlPage += '<td class="text-cente text-truncater">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Request.replace(/\/.*/, ''); + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Status + '</td>';
+                            SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].CS_No + '</td>';
                             SubmithtmlPage += '</tr>';
                         }
                         $("#warranty-inspecting-table tbody").append(SubmithtmlPage);
@@ -1043,32 +1057,34 @@
                     $('#warranty-approve-table tbody').html("");
                     var SubmithtmlPage = "";
                     SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td colspan="9" align="center"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading...</td>';
+                    SubmithtmlPage += '<td colspan="10" align="center"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading...</td>';
                     SubmithtmlPage += '</tr>';
                     $("#warranty-approve-table tbody").append(SubmithtmlPage);
                 },
                 success: function (data) {
                     $('#warranty-approve-table tbody').html("");
                     var SubmithtmlPage = "";
-                    if (data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="sticky-col text-center">' + data[i].STKCOD + '</td>';
-                            SubmithtmlPage += '<td class="cut-text">' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                            SubmithtmlPage += '<td class=" ">' + data[i].Symptom.split('//')[0].trim() + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data[i].REQ_DATE) + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data[i].ReceiveDate) + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Request.replace(/\/.*/, ''); + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Status + '</td>';
-                            SubmithtmlPage += '<td class="text-center">' + data[i].CS_No + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col text-center">' + data.Getdata[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="cut-text">' + data.Getdata[i].STKDES + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                            SubmithtmlPage += '<td class=" ">' + data.Getdata[i].Symptom.split('//')[0].trim() + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Request.replace(/\/.*/, ''); + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Status + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].CS_Date) + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].CS_No + '</td>';
+
                             SubmithtmlPage += '</tr>';
                         }
                         $("#warranty-approve-table tbody").append(SubmithtmlPage);
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan="9" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '<td colspan="10" align="center">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#warranty-approve-table tbody").append(SubmithtmlPage);
                     }
@@ -1096,18 +1112,18 @@
                 success: function (data) {
                     $('#warranty-refuse-table tbody').html("");
                     var SubmithtmlPage = "";
-                    if (data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
+                    if (data.Getdata.length > 0) {
+                        for (var i = 0; i < data.Getdata.length; i++) {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="sticky-col class="text-center"">' + data[i].STKCOD + '</td>';
-                            SubmithtmlPage += '<td class="cut-text">' + data[i].STKDES + '</td>';
-                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data[i].Qty) + '</td>';
-                            SubmithtmlPage += '<td >' + data[i].Symptom.split('//')[0].trim() + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].REQ_DATE.replace(/\//g, '-') + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].ReceiveDate.replace(/\//g, '-') + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Request.replace(/\/.*/, ''); + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Status + '</td>';
-                            SubmithtmlPage += '<td class="text-center">' + data[i].CS_No + '</td>';
+                            SubmithtmlPage += '<td class="sticky-col class="text-center"">' + data.Getdata[i].STKCOD + '</td>';
+                            SubmithtmlPage += '<td class="cut-text">' + data.Getdata[i].STKDES + '</td>';
+                            SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                            SubmithtmlPage += '<td >' + data.Getdata[i].Symptom.split('//')[0].trim() + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+                            //SubmithtmlPage += '<td class="text-center text-truncate">' + data[i].Request.replace(/\/.*/, ''); + '</td>';
+                            SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Status + '</td>';
+                            SubmithtmlPage += '<td class="text-center cut-text">' + data.Getdata[i].Checking + '</td>';
                             SubmithtmlPage += '</tr>';
                         }
                         $("#warranty-refuse-table tbody").append(SubmithtmlPage);
@@ -1142,7 +1158,7 @@
             $('#btn-show-wait').removeAttr('style');
             $('#btn-show-approve').removeAttr('style');
             $('#btn-show-refuse').removeAttr('style');
-            getWarrantyInprogress();
+            //getWarrantyInprogress();
         });
         $('#btn-show-approve').click(function () {
             $('.table-waiting').hide('slow');
