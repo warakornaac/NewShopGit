@@ -897,11 +897,8 @@ namespace NewShop.Controllers
             Connection.Open();
             string message = "false";
             var Getdata = new List<object>();
-
             try
             {
-
-
                 var command = new SqlCommand("P_Search_WarrantyClaim_Portal", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
