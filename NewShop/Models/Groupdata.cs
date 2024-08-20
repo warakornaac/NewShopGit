@@ -1258,6 +1258,19 @@ namespace NewShop.Models
         public string Cuscode { get; set; }
         public string PromotionCode { get; set; }
         public string PromotionSeq { get; set; }
+    } 
+    public class listCustomerApprove
+    {
+        public string Slmcode { get; set; }
+        public string Cuscode { get; set; }
+        public string Cusname { get; set; }
+        public string Promotion_Code { get; set; }
+        public string Description_old { get; set; }
+        public string Reward_old { get; set; }
+        public string Cost_old { get; set; }
+        public string Description_new { get; set; }
+        public string Reward_new { get; set; }
+        public string Cost_New { get; set; }
     }
     public class dashboardModel
     {
