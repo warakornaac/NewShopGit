@@ -217,7 +217,7 @@
                                 <div class="col-md-9">
                                     @*<input type="password" class="form-control input-form" id="r_pass" name="r_pass" title="Enter password" required />*@
                                     <div class="input-group" id="show_hide_password">
-                                        <input type="password" class="form-control input-form" id="r_pass" name="r_pass" title="Enter password" placeholder="Password" required readonly>
+                                        <input type="password" class="form-control input-form" id="r_pass" name="r_pass" title="Enter password" placeholder="Password" required>
                                         <a href="" class="btn border d-flex align-items-center justify-content-center input-form rounded-end" title="Show Password"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
@@ -292,7 +292,7 @@
             $('#r_user').blur(function () {
                 var genPass = generateRandomPassword(8);
                 if ($(this).val() != "") {
-                    $('#r_pass').val(genPass);
+                    //$('#r_pass').val(genPass);
                 }
 
             });

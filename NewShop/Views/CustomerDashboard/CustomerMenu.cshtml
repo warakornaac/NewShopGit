@@ -258,6 +258,9 @@
                                             <span class="col-6 mt-1 text-md font-weight-bold" id="amt-text-first">ยอดซื้อทั้งหมด : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
                                         </div>
+                                        <div class="row" id="company-amt">
+                                            <span class="col-12 mt-1 text-md font-weight-bold" id="amt-text-company" hidden>ยอดซื้อที่บริษัท : </span>
+                                        </div>
                                         <div class="row">
                                             <span class="col-6 text-md font-weight-bold" id="amt-text-sec"></span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
@@ -284,7 +287,7 @@
 
                                 <div class="card mb-2 pb-0">
                                     <div class="card-header bg-backorder pb-0 p-2">
-                                        <h3 class="card-title">สินค้าค้างส่ง</h3>
+                                        <h3 class="card-title">สินค้าค้างส่ง(Back Order)</h3>
                                     </div>
                                     <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
                                         <div class="row">
@@ -331,7 +334,7 @@
                                         <ul class="list-group" style="margin-top: -15px">
                                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-shopping-cart fa-3x" style="font-size: 24px;"></i></div>
+                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-money fa-3x" style="font-size: 24px;"></i></div>
                                                     <div class="d-flex flex-column">
                                                         <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-1">ของรางวัลที่รอจ่าย <span class="text-success font-weight-bold ms-sm-2"></span></span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden><span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
@@ -354,8 +357,8 @@
                                                         <span class="mb-1 text-md font-weight-bold">
                                                             <span id="text-promotion-2-x">เป้าปีที่ลงทะเบียน</span> <span class="text-info font-weight-bold ms-sm-2"></span>
                                                         </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1"><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2"><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1" hidden><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2" hidden><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold" id="head-2-5" hidden><span id="text-promotion-2-5">รางวัลที่ได้รับ :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> : <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>*@
@@ -375,8 +378,8 @@
                                                     <div class="icon icon-shape icon-sm me-3 bg-warning shadow text-center ml-2"><i class="fa fa-calendar" style="font-size: 22px;"></i></div>
                                                     <div class="d-flex flex-column">
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-x">เป้าไตรมาสที่ลงทะเบียน</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1"><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2"><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1" hidden><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2" hidden><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold " id="head-3-5" hidden><span id="text-promotion-3-5">รางวัลที่ได้รับ :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-5">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> : <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-3"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>*@
@@ -396,8 +399,8 @@
                                                     <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
                                                     <div class="d-flex flex-column">
                                                         <span class="mb-1 text-md font-weight-bold" id="text-promotion-4-x">เป้าอื่นๆที่ลงทะเบียน  <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1"><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2"><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1" hidden><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2" hidden><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
                                                         <span class="mb-1 text-md font-weight-bold " id="head-4-5" hidden><span id="text-promotion-4-5">รางวัลที่ได้รับ :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-5">0</span></span></span>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> : <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-3"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>*@
@@ -429,7 +432,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h4>
                                         <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
                                         @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
                                         <h6 class="mb-0">
@@ -452,7 +455,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">สินค้าค้างส่ง</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะสินค้าค้างส่ง</h4>
                                         <h4>
                                             <span id="backorder-amt">0</span> รายการ
                                         </h4>
@@ -476,7 +479,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">การเคลมสินค้า</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการเคลมสินค้า</h4>
                                         <h4>
                                             <span id="warranty-amt">0</span> รายการ
                                         </h4>
@@ -500,7 +503,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -524,7 +527,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -548,7 +551,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -689,6 +692,7 @@
                 $('#service-text-first').text(stringLoad);
             },
             success: function (data) {
+                var HtmlStringAmt = '';
                 if (data.Getdata.length != 0) {
                     for (var i = 0; i < data.Getdata.length; i++) {
                         var item = data.Getdata[i];
@@ -701,6 +705,11 @@
                             if (item.Seq == "2") {
                                 $('#amt-text-sec').text(item.Name + ' :');
                                 $('#amt-discount').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
+                            }
+                            if (item.Seq.startsWith("3")) {
+                                $('#amt-text-company').removeAttr("hidden");
+                                HtmlStringAmt += '<span class="col-6 text-md font-weight-bold pl-4">' + item.Name + '</span> ';
+                                HtmlStringAmt += '<span class="col-6 text-right text-md font-weight-bold" >' + commaSeparateNumber(Math.floor(item.Amt_Qty)) + '</span >';
                             }
                         }
                         if (item.TopicID == "3") {
@@ -725,10 +734,16 @@
                             if (item.Seq == "2") {
                                 $('#service-text-sec').text(item.Name + ' :');
                                 var servicePercent = item.Amt_Qty * 100;
-                                $('#service-level-delivery').text(servicePercent.toFixed(2)+'%');
+                                $('#service-level-delivery').text(servicePercent.toFixed(2) + '%');
                             }
                         }
                     }
+                    $('#company-amt').append(HtmlStringAmt);
+                }
+                else {
+                    $('#amt-text-first').text("ไม่พบข้อมูล");
+                    $('#back-text-first').text("ไม่พบข้อมูล");
+                    $('#service-text-first').text("ไม่พบข้อมูล");
                 }
             }
             ,
@@ -768,9 +783,11 @@
                         var sumYear = 0;
                         var sumQuater = 0;
                         var sumOther = 0;
+                        var seqCheck = [];
                         for (var i = 0; i < data.Getdata.length; i++) {
                             var item = data.Getdata[i];
                             if (item.TopicID == '5') {
+                                seqCheck.push(item.Seq);
                                 if (item.Seq.startsWith("1")) {
                                     if (item.Seq.endsWith(sub1.toString())) {
                                         while (parseInt(item.Seq.slice(-1)) > sub1) {
@@ -819,6 +836,7 @@
                                             var lastPart = nameParts[nameParts.length - 1];
                                             $('#text-promotion-2-' + sub2.toString()).text(lastPart);
                                             $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-2-' + sub2.toString()).removeAttr("Hidden");
                                             sub2++;
                                             continue;
                                         }
@@ -842,7 +860,7 @@
                                 if (item.Seq.startsWith("3")) {
                                     while (parseInt(item.Seq.slice(-1)) > sub3) {
                                         console.log("Missing Sequence for SUB3: " + sub3);
-                                        $('#text-promotion-3-' + sub3.toString()).attr("hidden",true);
+                                        $('#text-promotion-3-' + sub3.toString()).attr("hidden", true);
                                         $('#val-promotion-3-' + sub3.toString()).attr("hidden", true);
                                         $('#head-3-' + sub3.toString()).attr("hidden", true);
 
@@ -855,6 +873,7 @@
                                             var lastPart = nameParts[nameParts.length - 1];
                                             $('#text-promotion-3-' + sub3.toString()).text(lastPart + ' :');
                                             $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-3-' + sub3.toString()).removeAttr("Hidden");
                                             sub3++;
                                             continue;
                                         }
@@ -880,6 +899,7 @@
 
 
 
+
                                 if (item.Seq.startsWith("4")) {
                                     while (parseInt(item.Seq.slice(-1)) > sub4) {
                                         console.log("Missing Sequence for SUB4: " + sub4);
@@ -893,8 +913,9 @@
                                         if (item.Name.includes("ลงทะเบียน")) {
                                             var nameParts = item.Name.split(' ');
                                             var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-4-' + sub4.toString()).text(lastPart+' :');
+                                            $('#text-promotion-4-' + sub4.toString()).text(lastPart + ' :');
                                             $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-4-' + sub4.toString()).removeAttr("Hidden");
                                             sub4++;
                                             continue;
                                         }
@@ -906,7 +927,7 @@
                                             continue;
                                         }
                                         if (item.Seq.endsWith("4")) {
-                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name );
+                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
                                             console.log("SUB4 = " + sub4);
                                             missOther = item.Amt_Qty;
                                             sub4++;
@@ -917,9 +938,35 @@
                                         $('#head-4-' + sub4.toString()).removeAttr("Hidden");
                                         sub4++;
                                     }
+
                                 }
 
+
                             }
+                        }
+                        console.log('boolean :' + seqCheck.filter(num => num.toString().startsWith("3")));
+                        var Check2 = seqCheck.filter(num => num.toString().startsWith("2"));
+                        var Check3 = seqCheck.filter(num => num.toString().startsWith("3"));
+                        var Check4 = seqCheck.filter(num => num.toString().startsWith("4"));
+                        if (Check2.length == 0) {
+                            $('#text-promotion-2-1').removeAttr('hidden');
+                            $('#val-promotion-2-1').attr('hidden', true);
+                            $('#head-2-1').removeAttr("Hidden");
+                            $('#text-promotion-2-1').text("ไม่พบการลงทะเบียน");
+                        }
+                        if (Check3.length == 0) {
+
+                            $('#text-promotion-3-1').removeAttr('hidden');
+                            $('#val-promotion-3-1').attr('hidden', true);
+                            $('#head-3-1').removeAttr("Hidden");
+                            $('#text-promotion-3-1').text("ไม่พบการลงทะเบียน");
+                        }
+                        if (Check4.length == 0) {
+                            console.log("No 4 Check!!!");
+                            $('#text-promotion-4-1').removeAttr('hidden');
+                            $('#val-promotion-4-1').attr('hidden', true);
+                            $('#head-4-1').removeAttr("Hidden");
+                            $('#text-promotion-4-1').text("ไม่พบการลงทะเบียน");
                         }
                         console.log(amtQuater + '/' + missQuater);
                         sumYear = Number(amtYear) + Number(missYear);
@@ -1217,6 +1264,7 @@
                     //        }
                     //    }
                     //});
+
                     var ctx = document.getElementById('top5-chart').getContext('2d');
                     top5chart = new Chart(ctx, {
                         type: 'pie',
@@ -1253,11 +1301,11 @@
                                     color: '#000e50',
                                     formatter: (value, context) => {
                                         let label = context.chart.data.labels[context.dataIndex];
-                                        return shortenLabel(label,17) + ': ' + commaSeparateNumber(value);
+                                        return shortenLabel(label,21) + ': ' + commaSeparateNumber(value)+'% ';
                                     },
                                     anchor: 'end',
-                                    align: 'middle',
-                                    offset: 0,
+                                    align: 'start',
+                                    offset: -10,
                                     font: {
                                         weight: 'bolder',
                                         size: 11
@@ -1266,7 +1314,7 @@
                                     borderColor: 'gray',
                                     borderRadius: 3,
                                     padding: 0,
-                                     //lineHeight: 1.2 // ปรับการเว้นบรรทัดระหว่างข้อความ (ถ้าจำเป็น)
+                                     lineHeight: 1.2 // ปรับการเว้นบรรทัดระหว่างข้อความ (ถ้าจำเป็น)
                                 }
                             }
                         },
@@ -1360,18 +1408,19 @@
     function getWarrantyAmt() {
         var total = 0;
         $.ajax({
-             url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
+             url: '@Url.Action("GetWarrantyCount", "CustomerDashboard")',
              data: {
-                 strcustome: cuscod
+                 CUSCOD: cuscod
              },
              type: "POST",
             dataType: "JSON",
             success: function (data) {
                 if (data.length > 0) {
-                    var waiting = data[0].A != "" ? Number(data[0].A) :0;
-                    var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
-                    var pending = data[0].C != "" ? Number(data[0].C) : 0;
-                    total = waiting + inprogress + pending;
+                    var waiting = data[0].A != "" ? data[0].A : "0";
+                    var inprogress = data[0].B != "" ? data[0].B : "0";
+                    var approve = data[0].C != "" ? data[0].C : "0";
+                    var refuse = data[0].D != "" ? data[0].D : "0";
+                    total = Number(waiting) + Number(approve) + Number(refuse);
                     $('#warranty-amt').text(commaSeparateNumber(total));
                 }
             }
