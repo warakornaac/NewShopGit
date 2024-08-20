@@ -897,11 +897,8 @@ namespace NewShop.Controllers
             Connection.Open();
             string message = "false";
             var Getdata = new List<object>();
-
             try
             {
-
-
                 var command = new SqlCommand("P_Search_WarrantyClaim_Portal", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
@@ -929,10 +926,12 @@ namespace NewShop.Controllers
                         Checking = dr["Checking"].ToString(),
                         ApproveDate = dr["Approve Date"].ToString(),
                         Status = dr["Status"].ToString(),
-                        CS_No = dr["CS_No"].ToString()
+                        CS_No = dr["CS_No"].ToString(),
+                        CS_Date = dr["CS_Date"] != DBNull.Value ? DateTime.Parse(dr["CS_Date"].ToString()).ToString("dd-MM-yy") : string.Empty,
                     });
 
                 }
+                message = "Y";
                 dr.Close();
                 dr.Dispose();
                 command.Dispose();
@@ -943,7 +942,7 @@ namespace NewShop.Controllers
                 message = ex.Message;
             }
 
-            return Json(Getdata, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetWarrantyCount(string CUSCOD)

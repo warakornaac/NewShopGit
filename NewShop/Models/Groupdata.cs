@@ -1220,6 +1220,29 @@ namespace NewShop.Models
         public string Reward { get; set; }
         public string Reward_Percent { get; set; }
     }
+    public class Warranty_Claim
+    {
+        public string REQ_NO { get; set; }
+        public string CLM_NO_SUB { get; set; }
+        public string REQ_DATE { get; set; }
+        public string ReceiveDate { get; set; }
+        public string CLM_COMPANY { get; set; }
+        public string CUSCOD { get; set; }
+        public string STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string Qty { get; set; }
+        public string InvoiceNo { get; set; }
+        public string InvoiceDate { get; set; }
+        public string Symptom { get; set; }
+        public string Request { get; set; }
+        public string DueDate { get; set; }
+        public string Checking { get; set; }
+        public string ApproveDate { get; set; }
+        public string Status { get; set; }
+        public string CS_No { get; set; }
+        public string CS_Date { get; set; }
+
+    }
     public class listCustomerRegister
     {
         public string Cuscode { get; set; }
