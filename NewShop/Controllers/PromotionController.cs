@@ -204,7 +204,8 @@ namespace NewShop.Controllers
                 while (reader.Read())
                 {
                     ++countCustomer;
-                    if (!string.IsNullOrEmpty(reader["FLAG_REG"].ToString())) {
+                    if (!string.IsNullOrEmpty(reader["FLAG_REG"].ToString()))
+                    {
                         ++countCustomerReg;
                     }
                     customerRegisterList.Add(new listCustomerRegister()
@@ -245,7 +246,8 @@ namespace NewShop.Controllers
             int numError = 0;
             string message = "Y";
             string cusCodArr = "";
-            if (cusCode != null) { 
+            if (cusCode != null)
+            {
                 cusCodArr = String.Join(",", cusCode.Select(s => "" + s + ""));
             }
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
@@ -255,27 +257,27 @@ namespace NewShop.Controllers
                 Connection.Open();
                 //foreach (var listData in (List<listCustomerRegisterSave>)request)
                 //{
-                    var command = new SqlCommand("P_Save_Customer_Register", Connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@inUser", user);
-                    command.Parameters.AddWithValue("@inSlmCode", slmCode);
-                    command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
-                    command.Parameters.AddWithValue("@inPromotionSeq", Convert.ToInt32(promotionSeq));
-                    command.Parameters.AddWithValue("@inCustomerCode", cusCodArr);
-                    SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
-                    returnValue.Direction = System.Data.ParameterDirection.Output;
-                    command.Parameters.Add(returnValue);
-                    command.ExecuteNonQuery();
-                    message = returnValue.Value.ToString();
-                    //if (message == "Y")
-                    //{
-                    //    ++numSuccess;
-                    //}
-                    //else
-                    //{
-                    //    ++numError;
-                    //}
-                    command.Dispose();
+                var command = new SqlCommand("P_Save_Customer_Register", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUser", user);
+                command.Parameters.AddWithValue("@inSlmCode", slmCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", Convert.ToInt32(promotionSeq));
+                command.Parameters.AddWithValue("@inCustomerCode", cusCodArr);
+                SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                returnValue.Direction = System.Data.ParameterDirection.Output;
+                command.Parameters.Add(returnValue);
+                command.ExecuteNonQuery();
+                message = returnValue.Value.ToString();
+                //if (message == "Y")
+                //{
+                //    ++numSuccess;
+                //}
+                //else
+                //{
+                //    ++numError;
+                //}
+                command.Dispose();
                 //}
             }
             catch (Exception ex)
@@ -319,6 +321,61 @@ namespace NewShop.Controllers
             ViewBag.flagSup = flagSup;
 
             return View();
+        }
+        public ActionResult GetPromotionApprove(string slmCode, string company, string year, string prodMgr, string promotionCode)
+        {
+            string message = "Y";
+
+            List<listCustomerApprove> promotionList = new List<listCustomerApprove>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Customer_Approve", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inSlmCode", slmCode);
+                command.Parameters.AddWithValue("@inCompany", company);
+                command.Parameters.AddWithValue("@inProd", prodMgr);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inUser", year);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    promotionList.Add(new listCustomerApprove()
+                    {
+                        Slmcode = dr["SLMCOD"].ToString(),
+                        Cuscode = dr["ProCusSelCod"].ToString(),
+                        Cusname = dr["CUSNAM"].ToString(),
+                        Promotion_Code = dr["Promotion_Code"].ToString(),
+                        Description_old = dr["Description_old"].ToString(),
+                        Reward_old = dr["Reward_old"].ToString(),
+                        Cost_old = dr["Cost_old"].ToString(),
+
+                        Description_new = dr["Description_new"].ToString(),
+                        Reward_new = dr["Reward_new"].ToString(),
+                        Cost_New = dr["Cost_New"].ToString()
+                    });
+                }
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            @ViewBag.messageError = message;
+            @ViewBag.promotionList = promotionList;
+            //@ViewBag.countCustomerReg = countCustomerReg;
+            //@ViewBag.textHeader = textHeader;
+            return PartialView("_DetailChangeCustomer", new
+            {
+                @ViewBag.promotionList,
+                @ViewBag.messageError
+            });
         }
     }
 }
