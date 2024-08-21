@@ -695,7 +695,7 @@
                                                                 <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
                                                                 <th class="sticky-head text-center"><span>ราคารวม</span></th>
-                                                                <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
+                                                                @*<th class="sticky-head text-center"><span>หมายเหตุ</span></th>*@
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -1106,7 +1106,7 @@
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                  SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
-                                 SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
+                                 //SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
                                  SubmithtmlPage += '</tr >';
                              }
                              //AAC
