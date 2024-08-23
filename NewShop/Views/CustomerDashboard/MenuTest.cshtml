@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Menu</title>
+    <title>Customer Portal v.1</title>
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
@@ -40,6 +40,7 @@
     <script src="~/dashboard/assets/js/perfect-scrollbar.min.js"></script>
     <script src="~/dashboard/assets/js/smooth-scrollbar.min.js"></script>
     <script src="~/dashboard/assets/js/chartjs.min.js"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <style>
         @@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
 
@@ -113,11 +114,15 @@
         }
 
         .bg-yellow {
-            background-color: #e2e600;
+            background-color: #f4f757;
         }
 
         .bg-backorder {
             background-color: #9FE2BF;
+        }
+
+        .bg-page {
+            background-color: #f7f7f7;
         }
     </style>
     <style>
@@ -194,9 +199,13 @@
         #table-top5 tr {
             line-height: 14px;
         }
+
+        .bg-progress {
+            background-color: #b4b8bd;
+        }
     </style>
 </head>
-<body style="font-family: Kanit, sans-serif;">
+<body class="bg-page" style="font-family: Kanit, sans-serif;">
 
     @*<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
             <div class="container">
@@ -222,12 +231,13 @@
         </nav>*@
     <!-- End Navbar -->
     <main class="main-content">
-        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
-            <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-color: white;">
+            @*<div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">*@
+            <span class="mask bg-page opacity-6"></span>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 text-center mx-auto" style="white-space: nowrap;">
-                        <h2 class="text-white mb-2 mt-4" id="head-cusname"></h2>
+                        <h2 class="text-dark mb-2 mt-4" id="head-cusname"></h2>
                     </div>
                 </div>
             </div>
@@ -238,6 +248,84 @@
                     <div class="z-index-2 h-100">
                         @*Tab Promotion WKP*@
                         <div class="row">
+                            <div class="col-md-5 mt-4">
+                                @*Left Side Start*@
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-yellow pb-0 p-2">
+                                        <h3 class="card-title">ยอดซื้อ</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
+                                        <div class="row">
+                                            <span class="col-6 mt-1 text-md font-weight-bold" id="amt-text-first">ยอดซื้อทั้งหมด : </span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
+                                        </div>
+                                        <div class="row" id="company-amt">
+                                            <span class="col-12 mt-1 text-md font-weight-bold" id="amt-text-company" hidden>ยอดซื้อที่บริษัท : </span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6 text-md font-weight-bold" id="amt-text-sec"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-info pb-0 p-2">
+                                        <h3 class="card-title">ยอดซื้อ TOP 5</h3>
+                                    </div>
+                                    <div class="card-body" style="margin-bottom: 0; padding: 0px;">
+                                        <div>
+                                            <div id="top5-chart" height="250" style=" display: block" hidden><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+                                        </div>
+                                        <table class="table " id="table-top5">
+                                            <thead class="thead-default">
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-backorder pb-0 p-2">
+                                        <h3 class="card-title">สินค้าค้างส่ง(Back Order)</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
+                                        <div class="row">
+                                            <span class="col-6 text-md font-weight-bold" id="back-text-first">จำนวนชิ้น : </span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6 mt-1 text-md font-weight-bold" id="back-text-sec"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6 text-md font-weight-bold" id="back-text-third"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-warning pb-0 p-2">
+                                        <h3 class="card-title">Service Level</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
+                                        <div class="row">
+                                            <span class="col-6 mt-1 text-md font-weight-bold" id="service-text-first"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-6 text-md font-weight-bold" id="service-text-sec"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @*LEFT SIDE END*@
+                            </div>
                             <div class="col-md-7 mt-4" style="margin-bottom: -30px;">
                                 <div class="card">
                                     <div class="card-header bg-success pb-0 p-2">
@@ -247,15 +335,18 @@
                                         <ul class="list-group" style="margin-top: -15px">
                                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-shopping-cart fa-3x" style="font-size: 24px;"></i></div>
+                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-money fa-3x" style="font-size: 24px;"></i></div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่รอจ่าย : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_1"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_2"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่รับแล้ว : <span class="text-success font-weight-bold ms-sm-2"><span id="txtPromotion_3"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-1">ของรางวัลที่รอจ่าย <span class="text-success font-weight-bold ms-sm-2"></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden><span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-2" hidden><span id="text-promotion-1-2">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-2">0</span> </span> ใบ</span>
+                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-2" hidden><span>ของรางวัลที่จ่ายแล้ว </span> <span class="text-success font-weight-bold ms-sm-2"></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-3" hidden><span id="text-promotion-1-3">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-3">0</span> </span> บาท</span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-4" hidden><span id="text-promotion-1-4">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-4">0</span> </span> ใบ</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-success">Success</span>
+                                                    <span class="badge badge-success" id="right-text-success">Success</span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -264,121 +355,70 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="icon icon-shape icon-sm me-3 bg-info shadow text-center ml-2"><i class="fa fa-calendar-check-o" style="font-size: 22px;"></i></div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_4"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_5"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_6"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold">
+                                                            <span id="text-promotion-2-x">เป้าปีที่ลงทะเบียน</span> <span class="text-info font-weight-bold ms-sm-2"></span>
+                                                        </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1" hidden><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2" hidden><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold" id="head-2-5" hidden><span id="text-promotion-2-5">รางวัลที่ได้รับ :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5">0</span></span> </span>
+                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>*@
+                                                        <div class="progress bg-progress" style="height:30px; width:210px">
+                                                            <div class="progress-bar bg-info" id="progress-year-amt">
+                                                                <span class="text-white font-weight-bold" id="amt-year"></span>
+                                                            </div>
+                                                        </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> : <span class="text-info font-weight-bold ms-sm-2"></span></span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-info">Yearly</span>
+                                                    <span class="badge badge-info">เป้าปี</span>
                                                 </div>
                                             </li>
                                             <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
                                                 <div class="d-flex align-items-center">
                                                     <div class="icon icon-shape icon-sm me-3 bg-warning shadow text-center ml-2"><i class="fa fa-calendar" style="font-size: 22px;"></i></div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_8"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_9"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_10"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-x">เป้าไตรมาสที่ลงทะเบียน</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1" hidden><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2" hidden><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
+                                                        <span class="mb-1 text-md font-weight-bold " id="head-3-5" hidden><span id="text-promotion-3-5">รางวัลที่ได้รับ :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-5">0</span></span> </span>
+                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>*@
+                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
+                                                            <div class="progress-bar bg-warning" id="progress-quater-amt">
+                                                                <span class="text-white font-weight-bold" id="amt-quater"></span>
+                                                            </div>
+                                                        </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> : <span class="text-warning font-weight-bold ms-sm-2"></span></span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-warning">Quater</span>
+                                                    <span class="badge badge-warning">เป้าไตรมาส</span>
                                                 </div>
                                             </li>
                                             <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
                                                 <div class="d-flex align-items-center">
                                                     <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">มูลค่าของรางวัลที่ลงทะเบียน : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_12"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ตั๋ว : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_13"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยอดซื้อสะสม : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_14"></span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-4-x">เป้าอื่นๆที่ลงทะเบียน  <span class="text-primary font-weight-bold ms-sm-2"></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1" hidden><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2" hidden><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
+                                                        <span class="mb-1 text-md font-weight-bold " id="head-4-5" hidden><span id="text-promotion-4-5">รางวัลที่ได้รับ :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-5">0</span></span></span>
+                                                        @*<span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>*@
+                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
+                                                            <div class="progress-bar bg-primary" id="progress-other-amt">
+                                                                <span class="text-white font-weight-bold" id="amt-other"></span>
+                                                            </div>
+                                                        </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> : <span class="text-primary font-weight-bold ms-sm-2"></span></span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-primary">Other</span>
+                                                    <span class="badge badge-primary">เป้าอื่นๆ</span>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-5 mt-4">
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-warning pb-0 p-2">
-                                        <h3 class="card-title">Service Level</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนสั่งซื้อ :</span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">ส่งทันตามกำหนด : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-primary pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">ยอดซื้อทั้งหมด : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">ส่วนลดเงินสด : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-backorder pb-0 p-2">
-                                        <h3 class="card-title">สินค้าค้างส่ง</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold">จำนวนเบอร์สินค้า : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">เงิน : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold">จำนวน : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-info pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ TOP 5</h3>
-                                    </div>
-                                    <div class="card-body" style="margin-bottom: -10px; padding: 0px;">
-
-                                        <table class="table align-items-center" id="table-top5">
-                                            <thead class="thead-default">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>สินค้า</th>
-                                                    <th>ราคา</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                         @*End Promotion*@
@@ -393,7 +433,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h4>
                                         <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
                                         @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
                                         <h6 class="mb-0">
@@ -416,7 +456,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">สินค้าค้างส่ง</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะสินค้าค้างส่ง</h4>
                                         <h4>
                                             <span id="backorder-amt">0</span> รายการ
                                         </h4>
@@ -440,7 +480,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">การเคลมสินค้า</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการเคลมสินค้า</h4>
                                         <h4>
                                             <span id="warranty-amt">0</span> รายการ
                                         </h4>
@@ -464,7 +504,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -488,7 +528,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -512,7 +552,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h3 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h3>
+                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h4>
                                         <h4>
                                             &nbsp;
                                         </h4>
@@ -540,14 +580,18 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <script type="text/javascript">
     var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
     //var cuscod = '110T0189';
-    var chartInstance;
+        var chartInstance;
+        var top5chart;
     var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var currentDate = new Date();
     var currentMonth = currentDate.getMonth() + 1;
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+
     $(document).ready(function () {
         getCusName();
         const $scrolltext = $('#scroll-container');
@@ -560,14 +604,16 @@
         $('#btn-show-yearly').css("background", "#DEAF5B");
         $('#promotion-table-quater').hide();
         $('#promotion-table-other').hide();
+
     });
     if (cuscod != null) {
         //getChartsamt();
-        getBackorder();
-        getAmt();
-        getServiceLevel();
+        //getBackorder();
+        //getAmt();
+        //getServiceLevel();
         getTop5();
-        getPromotion();
+        getPmotionNew();
+        getDashBoard();
         //getDashboardNotable();
         getDeliveryTrackAmt();
         getBackorderAmt();
@@ -629,580 +675,333 @@
 
 
 
-    function clearChartsamt() {
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
-        var getmonth = new Array();
-        for (var i = 0; i < currentMonth; i++) {
-            getmonth.push(monthLabel[i]);
-        }
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-        var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-        gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-        gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-        gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
-
-        var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-        gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-        gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-        gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
-
-        var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-        gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-        gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-        gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
-
-       chartInstance = new Chart(ctx1, {
-            type: "bar",
-            data: {
-                labels: getmonth,
-                datasets: [
-                    {
-                        label: "AAC",
-                        backgroundColor: "#dc3545",
-                        borderColor: "#dc3545",
-                        borderWidth: 0,
-                        data: [0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0],
-                        maxBarThickness: 10,
-                        barThickness: 6
-                    },
-                    {
-                        label: "TAC",
-                        backgroundColor: "#0d6efd",
-                        borderColor: "#0d6efd",
-                        borderWidth: 0,
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        maxBarThickness: 10,
-                        barThickness: 6
-                    },
-                    {
-                        label: "OMP",
-                        backgroundColor: "#6f42c1",
-                        borderColor: "#6f42c1",
-                        borderWidth: 0,
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        maxBarThickness: 10,
-                        barThickness: 6
-                    },
-                    {
-                        label: "All",
-                        backgroundColor: "#20c997",
-                        borderColor: "#20c997",
-                        borderWidth: 0,
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        maxBarThickness: 10,
-                        barThickness: 6
-                    }
-                ],
-            },
-           options: {
-               responsive: true,
-               maintainAspectRatio: false,
-               plugins: {
-                   legend: {
-                       display: true,
-                       label: {
-                           font: {
-                               size: 14,
-                               family: "Kanit"
-                           }
-                       }
-                   },
-                   tooltip: {
-                       bodyFont: {
-                           size: 14,
-                           family: "Kanit"
-                       },
-                       titleFont: {
-                           size: 16
-                       }
-                   }
-               },
-               interaction: {
-                   intersect: false,
-                   mode: 'index',
-               },
-               scales: {
-                   y: {
-                       grid: {
-                           drawBorder: false,
-                           display: true,
-                           drawOnChartArea: true,
-                           drawTicks: false,
-                           borderDash: [5, 5]
-                       },
-                       ticks: {
-                           display: true,
-                           padding: 10,
-                           color: '#fbfbfb',
-                           font: {
-                               size: 14,
-                               family: "Open Sans",
-                               style: 'normal',
-                               lineHeight: 2
-                           },
-                       }
-                   },
-                   x: {
-                       grid: {
-                           drawBorder: false,
-                           display: false,
-                           drawOnChartArea: false,
-                           drawTicks: false,
-                           borderDash: [5, 5]
-                       },
-                       ticks: {
-                           display: true,
-                           color: '#ccc',
-                           padding: 20,
-                           font: {
-                               size: 14,
-                               family: "Open Sans",
-                               style: 'normal',
-                               lineHeight: 2
-                           },
-                       }
-                   },
-               },
-           },
-       });
-
-        window.dispatchEvent(new Event('resize'));
+        function getPercentAmt(num, all) {
+            var resault = Number(num) / Number(all) * 100;
+        return resault+'%';
     }
 
-    function getChartsamt() {
+    function getDashBoard() {
         $.ajax({
-            url: '@Url.Action("GetdataCusAmt", "DataCenter")',
+            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
             data: {
-                strcustome: cuscod
-
+                CUSCOD: cuscod
             },
             type: "POST",
             dataType: "JSON",
             beforeSend: function () {
-                clearChartsamt();
+                var stringLoad = "Loading...";
+                $('#amt-text-first').text(stringLoad);
+                $('#back-text-first').text(stringLoad);
+                $('#service-text-first').text(stringLoad);
             },
             success: function (data) {
-                // console.log(data)
-
-                if (data.length > 0) {
-
-                    //var optionsProfileVisit = {
-                    //    annotations: {
-                    //        position: 'back'
-                    //    },
-                    //    dataLabels: {
-                    //        enabled: false
-                    //    },
-                    //    chart: {
-                    //        type: 'bar',
-                    //        height: 500,
-
-
-                    //    },
-                    //    xaxis: {
-                    //        labels: {
-                    //            formatter: function (value) {
-                    //                return commaSeparateNumber(value);
-                    //            }
-                    //        },
-
-                    //    },
-                    //    yaxis: {
-                    //        labels: {
-                    //            formatter: function (value) {
-                    //                return commaSeparateNumber(value);
-                    //            }
-                    //        },
-                    //    },
-                    //    fill: {
-                    //        opacity: 1
-                    //    },
-                    //    plotOptions: {
-                    //    },
-
-                    //    series: [
-                    //{
-                    //    name: 'AAC',
-                    //    type: 'column',
-                    //    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec]
-                    //},
-                    //{
-                    //    name: 'TAC',
-                    //    type: 'column',
-                    //    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-                    //},
-                    //{
-                    //    name: 'ALL',
-                    //    type: 'column',
-                    //    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
-                    //}],
-                    //    //series: [{
-                    //    //    name: 'sales',
-                    //    //    //data: [27, 9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 50]
-                    //    //    data: [data[1].AmtYTD, data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
-
-                    //    //}],
-                    //    //colors: '#435ebe',
-                    //    colors: ['#3591e0', '#e17572', '#7dc67d'],
-                    //    xaxis: {
-                    //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    //    },
-                    //}
-                    //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                    //chartProfileVisit.render();
-
-                    var ctx1 = document.getElementById("chart-line").getContext("2d");
-                    if (chartInstance) {
-                        chartInstance.destroy();
+                var HtmlStringAmt = '';
+                if (data.Getdata.length != 0) {
+                    for (var i = 0; i < data.Getdata.length; i++) {
+                        var item = data.Getdata[i];
+                        console.log("TOPIC" + item.TopicID);
+                        if (item.TopicID == "1") {
+                            if (item.Seq == "1") {
+                                $('#amt-text-first').text(item.Name + ' :');
+                                $('#amt-all').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
+                            }
+                            if (item.Seq == "2") {
+                                $('#amt-text-sec').text(item.Name + ' :');
+                                $('#amt-discount').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
+                            }
+                            if (item.Seq.startsWith("3")) {
+                                $('#amt-text-company').removeAttr("hidden");
+                                HtmlStringAmt += '<span class="col-6 text-md font-weight-bold pl-4">' + item.Name + '</span> ';
+                                HtmlStringAmt += '<span class="col-6 text-right text-md font-weight-bold" >' + commaSeparateNumber(Math.floor(item.Amt_Qty)) + '</span >';
+                            }
+                        }
+                        if (item.TopicID == "3") {
+                            if (item.Seq == "1") {
+                                $('#back-text-first').text(item.Name + ' :');
+                                $('#backorder-total').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
+                            }
+                            if (item.Seq == "2") {
+                                $('#back-text-sec').text(item.Name + ' :');
+                                $('#backorder-product').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
+                            }
+                            if (item.Seq == "3") {
+                                $('#back-text-third').text(item.Name + ' :');
+                                $('#backorder-money').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
+                            }
+                        }
+                        if (item.TopicID == "4") {
+                            if (item.Seq == "1") {
+                                $('#service-text-first').text(item.Name + ' :');
+                                $('#service-level-amt').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
+                            }
+                            if (item.Seq == "2") {
+                                $('#service-text-sec').text(item.Name + ' :');
+                                var servicePercent = item.Amt_Qty * 100;
+                                $('#service-level-delivery').text(servicePercent.toFixed(2) + '%');
+                            }
+                        }
                     }
-                    var getmonth = new Array();
-                    for (var i = 0; i < currentMonth; i++) {
-                        getmonth.push(monthLabel[i]);
-                    }
-                    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-                    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-                    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-                    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-                    gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-                    gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
-
-                    var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-                    gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-                    gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
-
-                    var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-                    gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-                    gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
-
-                    chartInstance = new Chart(ctx1, {
-                        type: "bar",
-                        data: {
-                            labels: getmonth,
-                            datasets: [
-                                {
-                                    label: "AAC",
-                                    backgroundColor: "#dc3545",
-                                    borderColor: "#dc3545",
-                                    borderWidth: 0,
-                                    data: [data[0].Jan, data[0].Feb, data[0].Mar, data[0].Apr, data[0].May, data[0].Jun, data[0].Jul, data[0].Aug, data[0].Sep, data[0].Oct, data[0].Nov, data[0].Dec],
-                                    maxBarThickness: 20,
-                                    barThickness: 13
-                                },
-                                {
-                                    label: "TAC",
-                                    backgroundColor: "#0d6efd",
-                                    borderColor: "#0d6efd",
-                                    borderWidth: 0,
-                                    data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec],
-                                    maxBarThickness: 20,
-                                    barThickness: 13
-                                },
-                                {
-                                    label: "OMP",
-                                    backgroundColor: "#6f42c1",
-                                    borderColor: "#6f42c1",
-                                    borderWidth: 0,
-                                    data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec],
-                                    maxBarThickness: 20,
-                                    barThickness: 13
-                                },
-                                {
-                                    label: "All",
-                                    backgroundColor: "#20c997",
-                                    borderColor: "#20c997",
-                                    borderWidth: 0,
-                                    data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec],
-                                    maxBarThickness: 20,
-                                    barThickness: 13
-                                }
-                            ],
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    label: {
-                                        font: {
-                                            size: 14,
-                                            family: "Kanit"
-                                        }
-                                    }
-                                },
-                                tooltip: {
-                                    bodyFont: {
-                                        size: 14,
-                                        family: "Kanit"
-                                    },
-                                    titleFont: {
-                                        size: 16
-                                    }
-                                }
-                            },
-                            interaction: {
-                                intersect: false,
-                                mode: 'index',
-                            },
-                            scales: {
-                                y: {
-                                    grid: {
-                                        drawBorder: false,
-                                        display: true,
-                                        drawOnChartArea: true,
-                                        drawTicks: false,
-                                        borderDash: [5, 5]
-                                    },
-                                    ticks: {
-                                        display: true,
-                                        padding: 10,
-                                        color: '#fbfbfb',
-                                        font: {
-                                            size: 14,
-                                            family: "Open Sans",
-                                            style: 'normal',
-                                            lineHeight: 2
-                                        },
-                                    }
-                                },
-                                x: {
-                                    grid: {
-                                        drawBorder: false,
-                                        display: false,
-                                        drawOnChartArea: false,
-                                        drawTicks: false,
-                                        borderDash: [5, 5]
-                                    },
-                                    ticks: {
-                                        display: true,
-                                        color: '#ccc',
-                                        padding: 20,
-                                        font: {
-                                            size: 14,
-                                            family: "Open Sans",
-                                            style: 'normal',
-                                            lineHeight: 2
-                                        },
-                                    }
-                                },
-                            },
-                        },
-                    });
-
-                    window.dispatchEvent(new Event('resize'));
-                    $('#amtytd_aac').html('Amt YTD AAC : ' + commaSeparateNumber(data[0].AmtYTD));
-                    $('#amtytd_tac').html('Amt YTD TAC : ' + commaSeparateNumber(data[1].AmtYTD));
-                    $('#amtytd_omp').html('Amt YTD OMP : ' + commaSeparateNumber(data[1].AmtYTD));
-                    $('#amtytd_all').html('Amt YTD ALL : ' + commaSeparateNumber(data[2].AmtYTD));
-                    $('#amtmtd_aac').html('Amt MTD AAC : ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
-                    $('#amtmtd_tac').html('Amt MTD TAC : ' + commaSeparateNumber(data[1].AmtMTD));
-                    $('#amtmtd_omp').html('Amt MTD OMP : ' + commaSeparateNumber(data[3].AmtMTD));
-                    $('#amtmtd_all').html('Amt MTD ALL : ' + commaSeparateNumber(data[2].AmtMTD));
-                } else {
-                    //var optionsProfileVisit = {
-                    //    annotations: {
-                    //        position: 'back'
-                    //    },
-                    //    dataLabels: {
-                    //        enabled: false
-                    //    },
-                    //    chart: {
-                    //        type: 'bar',
-                    //        height: 500,
-
-                    //    },
-
-                    //    fill: {
-                    //        opacity: 1
-                    //    },
-                    //    plotOptions: {
-                    //    },
-
-
-                    //    series: [{
-                    //        name: 'sales',
-                    //        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-                    //    }],
-                    //    //colors: '#435ebe',
-                    //    colors: ['#3591e0', '#e17572', '#7dc67d'],
-                    //    xaxis: {
-                    //        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    //    },
-                    //}
-                    //var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-                    //chartProfileVisit.render();
-
-                    var ctx1 = document.getElementById("chart-line").getContext("2d");
-                    if (chartInstance) {
-                        chartInstance.destroy();
-                    }
-
-                    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-                    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-                    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-                    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke2.addColorStop(1, 'rgba(72, 72, 176, 0.2)');
-                    gradientStroke2.addColorStop(0.2, 'rgba(72, 72, 176, 0.0)');
-                    gradientStroke2.addColorStop(0, 'rgba(72, 72, 176, 0)');
-
-                    var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke3.addColorStop(1, 'rgba(29, 140, 248, 0.2)');
-                    gradientStroke3.addColorStop(0.2, 'rgba(29, 140, 248, 0.0)');
-                    gradientStroke3.addColorStop(0, 'rgba(29, 140, 248, 0)');
-
-                    var gradientStroke4 = ctx1.createLinearGradient(0, 230, 0, 50);
-                    gradientStroke4.addColorStop(1, 'rgba(28, 243, 249, 0.2)');
-                    gradientStroke4.addColorStop(0.2, 'rgba(28, 243, 249, 0.0)');
-                    gradientStroke4.addColorStop(0, 'rgba(28, 243, 249, 0)');
-
-                    chartInstance = new Chart(ctx1, {
-                        type: "bar",
-                        data: {
-                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                            datasets: [
-                                {
-                                    label: "AAC",
-                                    backgroundColor: "#dc3545",
-                                    borderColor: "#dc3545",
-                                    borderWidth: 0,
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                    maxBarThickness: 10,
-                                    barThickness: 6
-                                },
-                                {
-                                    label: "TAC",
-                                    backgroundColor: "#0d6efd",
-                                    borderColor: "#0d6efd",
-                                    borderWidth: 0,
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                    maxBarThickness: 10,
-                                    barThickness: 6
-                                },
-                                {
-                                    label: "OMP",
-                                    backgroundColor: "#6f42c1",
-                                    borderColor: "#6f42c1",
-                                    borderWidth: 0,
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                    maxBarThickness: 10,
-                                    barThickness: 6
-                                },
-                                {
-                                    label: "All",
-                                    backgroundColor: "#20c997",
-                                    borderColor: "#20c997",
-                                    borderWidth: 0,
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                    maxBarThickness: 10,
-                                    barThickness: 6
-                                }
-                            ],
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    label: {
-                                        font: {
-                                            size: 14,
-                                            family: "Kanit"
-                                        }
-                                    }
-                                },
-                                tooltip: {
-                                    bodyFont: {
-                                        size: 14,
-                                        family: "Kanit"
-                                    },
-                                    titleFont: {
-                                        size: 16
-                                    }
-                                }
-                            },
-                            interaction: {
-                                intersect: false,
-                                mode: 'index',
-                            },
-                            scales: {
-                                y: {
-                                    grid: {
-                                        drawBorder: false,
-                                        display: true,
-                                        drawOnChartArea: true,
-                                        drawTicks: false,
-                                        borderDash: [5, 5]
-                                    },
-                                    ticks: {
-                                        display: true,
-                                        padding: 10,
-                                        color: '#fbfbfb',
-                                        font: {
-                                            size: 14,
-                                            family: "Open Sans",
-                                            style: 'normal',
-                                            lineHeight: 2
-                                        },
-                                    }
-                                },
-                                x: {
-                                    grid: {
-                                        drawBorder: false,
-                                        display: false,
-                                        drawOnChartArea: false,
-                                        drawTicks: false,
-                                        borderDash: [5, 5]
-                                    },
-                                    ticks: {
-                                        display: true,
-                                        color: '#ccc',
-                                        padding: 20,
-                                        font: {
-                                            size: 14,
-                                            family: "Open Sans",
-                                            style: 'normal',
-                                            lineHeight: 2
-                                        },
-                                    }
-                                },
-                            },
-                        },
-                    });
-
-                    window.dispatchEvent(new Event('resize'));
-                    $('#amtytd_aac').html('Amt YTD AAC : 0');
-                    $('#amtytd_tac').html('Amt YTD TAC : 0');
-                    $('#amtytd_all').html('Amt YTD ALL : 0');
-                    $('#amtmtd_aac').html('Amt MTD AAC : 0');//amtmtd_aac
-                    $('#amtmtd_tac').html('Amt MTD TAC : 0');
-                    $('#amtmtd_all').html('Amt MTD ALL : 0');
+                    $('#company-amt').append(HtmlStringAmt);
                 }
+                else {
+                    $('#amt-text-first').text("ไม่พบข้อมูล");
+                    $('#back-text-first').text("ไม่พบข้อมูล");
+                    $('#service-text-first').text("ไม่พบข้อมูล");
+                }
+            }
+            ,
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " - " + errorThrown);
+                alert("มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง.");
             }
         });
     }
 
+        function getPmotionNew() {
+            $.ajax({
+                url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    if (data.Getdata.length != 0) {
+                        var sub1 = 1;
+                        var sub2 = 1;
+                        var sub3 = 1;
+                        var sub4 = 1;
+                        var textProgressYear = "";
+                        var textProgressQua = "";
+                        var textProgressOth = "";
+                        var amtYear = "";
+                        var amtQuater = "";
+                        var amtOther = "";
+                        var missYear = "";
+                        var missQuater = "";
+                        var missOther = "";
+                        var sumYear = 0;
+                        var sumQuater = 0;
+                        var sumOther = 0;
+                        var seqCheck = [];
+                        for (var i = 0; i < data.Getdata.length; i++) {
+                            var item = data.Getdata[i];
+                            if (item.TopicID == '5') {
+                                seqCheck.push(item.Seq);
+                                if (item.Seq.startsWith("1")) {
+                                    if (item.Seq.endsWith(sub1.toString())) {
+                                        while (parseInt(item.Seq.slice(-1)) > sub1) {
+                                            console.log("Missing Sequence for SUB2: " + sub1);
+                                            $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
+                                            $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
+                                            $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
+                                            sub1++;
+                                            continue;
+                                        }
+                                        if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
+                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
+                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                            sub1++;
+                                            continue;
+                                        }
+
+                                        if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
+                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
+                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                            sub1++;
+                                            continue;
+                                        }
+
+                                    }
+                                }
+
+                                if (item.Seq.startsWith("2")) {
+                                    while (parseInt(item.Seq.slice(-1)) > sub2) {
+                                        console.log("Missing Sequence for SUB2: " + sub2);
+                                        $('#text-promotion-2-' + sub2.toString()).attr("hidden", true);
+                                        $('#val-promotion-2-' + sub2.toString()).attr("hidden", true);
+                                        $('#head-2-' + sub2.toString()).attr("hidden", true);
+                                        console.log("Head 2 : " + sub2);
+                                        sub2++;
+                                    }
+                                    if (item.Seq.endsWith(sub2.toString())) {
+                                        if (item.Name.includes("ลงทะเบียน")) {
+                                            var nameParts = item.Name.split(' ');
+                                            var lastPart = nameParts[nameParts.length - 1];
+                                            $('#text-promotion-2-' + sub2.toString()).text(lastPart);
+                                            $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-2-' + sub2.toString()).removeAttr("Hidden");
+                                            sub2++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("3")) {
+                                            amtYear = item.Amt_Qty;
+                                            sub2++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("4")) {
+                                            missYear = item.Amt_Qty;
+                                            sub2++;
+                                            continue;
+                                        }
+                                        $('#text-promotion-2-' + sub2.toString()).text(item.Name);
+                                        $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                        $('#head-2-' + sub3.toString()).removeAttr("Hidden");
+                                        sub2++;
+                                    }
+                                }
+
+                                if (item.Seq.startsWith("3")) {
+                                    while (parseInt(item.Seq.slice(-1)) > sub3) {
+                                        console.log("Missing Sequence for SUB3: " + sub3);
+                                        $('#text-promotion-3-' + sub3.toString()).attr("hidden", true);
+                                        $('#val-promotion-3-' + sub3.toString()).attr("hidden", true);
+                                        $('#head-3-' + sub3.toString()).attr("hidden", true);
+
+                                        sub3++;
+                                    }
+                                    if (item.Seq.endsWith(sub3.toString())) {
+                                        console.log("Processing Seq: " + item.Seq);
+                                        if (item.Name.includes("ลงทะเบียน")) {
+                                            var nameParts = item.Name.split(' ');
+                                            var lastPart = nameParts[nameParts.length - 1];
+                                            $('#text-promotion-3-' + sub3.toString()).text(lastPart + ' :');
+                                            $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-3-' + sub3.toString()).removeAttr("Hidden");
+                                            sub3++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("3")) {
+                                            amtQuater = item.Amt_Qty;
+                                            console.log("AMT Q (Seq ends with 3): " + amtQuater);
+                                            sub3++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("4")) {
+                                            missQuater = item.Amt_Qty;
+                                            console.log("MISS Q (Seq ends with 4): " + missQuater);
+                                            sub3++;
+                                            continue;
+                                        }
+                                        $('#text-promotion-3-' + sub3.toString()).text(item.Name + ' :');
+                                        $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                        $('#head-3-' + sub3.toString()).removeAttr("Hidden");
+                                        sub3++;
+                                    }
+                                }
+
+
+
+
+
+                                if (item.Seq.startsWith("4")) {
+                                    while (parseInt(item.Seq.slice(-1)) > sub4) {
+                                        console.log("Missing Sequence for SUB4: " + sub4);
+                                        $('#text-promotion-4-' + sub4.toString()).attr("hidden", true);
+                                        $('#val-promotion-4-' + sub4.toString()).attr("hidden", true);
+                                        $('#head-4-' + sub4.toString()).attr("hidden", true);
+                                        sub4++;
+                                    }
+
+                                    if (item.Seq.endsWith(sub4.toString())) {
+                                        if (item.Name.includes("ลงทะเบียน")) {
+                                            var nameParts = item.Name.split(' ');
+                                            var lastPart = nameParts[nameParts.length - 1];
+                                            $('#text-promotion-4-' + sub4.toString()).text(lastPart + ' :');
+                                            $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                            $('#head-4-' + sub4.toString()).removeAttr("Hidden");
+                                            sub4++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("3")) {
+                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
+                                            amtOther = item.Amt_Qty;
+                                            console.log("SUB4 = " + sub4);
+                                            sub4++;
+                                            continue;
+                                        }
+                                        if (item.Seq.endsWith("4")) {
+                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
+                                            console.log("SUB4 = " + sub4);
+                                            missOther = item.Amt_Qty;
+                                            sub4++;
+                                            continue;
+                                        }
+                                        $('#text-promotion-4-' + sub4.toString()).text(item.Name + ' :');
+                                        $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                        $('#head-4-' + sub4.toString()).removeAttr("Hidden");
+                                        sub4++;
+                                    }
+
+                                }
+
+
+                            }
+                        }
+                        console.log('boolean :' + seqCheck.filter(num => num.toString().startsWith("3")));
+                        var Check2 = seqCheck.filter(num => num.toString().startsWith("2"));
+                        var Check3 = seqCheck.filter(num => num.toString().startsWith("3"));
+                        var Check4 = seqCheck.filter(num => num.toString().startsWith("4"));
+                        if (Check2.length == 0) {
+                            $('#text-promotion-2-1').removeAttr('hidden');
+                            $('#val-promotion-2-1').attr('hidden', true);
+                            $('#head-2-1').removeAttr("Hidden");
+                            $('#text-promotion-2-1').text("ไม่พบการลงทะเบียน");
+                        }
+                        if (Check3.length == 0) {
+
+                            $('#text-promotion-3-1').removeAttr('hidden');
+                            $('#val-promotion-3-1').attr('hidden', true);
+                            $('#head-3-1').removeAttr("Hidden");
+                            $('#text-promotion-3-1').text("ไม่พบการลงทะเบียน");
+                        }
+                        if (Check4.length == 0) {
+                            console.log("No 4 Check!!!");
+                            $('#text-promotion-4-1').removeAttr('hidden');
+                            $('#val-promotion-4-1').attr('hidden', true);
+                            $('#head-4-1').removeAttr("Hidden");
+                            $('#text-promotion-4-1').text("ไม่พบการลงทะเบียน");
+                        }
+                        console.log(amtQuater + '/' + missQuater);
+                        sumYear = Number(amtYear) + Number(missYear);
+                        sumQuater = Number(amtQuater) + Number(missQuater);
+                        sumOther = Number(amtOther) + Number(missOther);
+                        $('#progress-year-amt').css('width', getPercentAmt(amtYear, sumYear));
+                        $('#progress-quater-amt').css('width', getPercentAmt(amtQuater, sumQuater));
+                        $('#progress-other-amt').css('width', getPercentAmt(amtOther, sumOther));
+
+                        if (amtYear != "" && missYear != "") {
+                            $('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
+                        }
+                        if (amtQuater != "" && missQuater != "") {
+                            $('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
+
+                        }
+                        if (amtOther != "" && missOther != "") {
+                            $('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                        }
+                        //$('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
+                        //$('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
+                        //$('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                    }
+                }
+            });
+        }
+
     function getPromotion() {
         $.ajax({
-            url: '@Url.Action("GetDashBoardPromotion", "CustomerDashboard")',
+            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
             data: {
-                CUSCOD: '110L0003'
+                CUSCOD: cuscod
             },
             type: "POST",
             dataType: "JSON",
@@ -1213,25 +1012,47 @@
                 if (data.message == "Y") {
                     console.log("Value");
                     var item = data.Getdata[0];
+                    var sumYear = Number(data.Getdata[0].amt_qty6) + Number(data.Getdata[0].amt_qty7);
+                    var sumQuater = Number(data.Getdata[0].amt_qty10) + Number(data.Getdata[0].amt_qty11);
+                    var sumOther = Number(data.Getdata[0].amt_qty14) + Number(data.Getdata[0].amt_qty15);
                     $('#txtPromotion_1').text(commaSeparateNumber(data.Getdata[0].amt_qty1));
                     $('#txtPromotion_2').text(commaSeparateNumber(data.Getdata[0].amt_qty2));
                     $('#txtPromotion_3').text(commaSeparateNumber(data.Getdata[0].amt_qty3));
                     $('#txtPromotion_4').text(commaSeparateNumber(data.Getdata[0].amt_qty4));
                     $('#txtPromotion_5').text(commaSeparateNumber(data.Getdata[0].amt_qty5));
-                    $('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
-                    $('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
+                    //$('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
+                    //$('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
                     $('#txtPromotion_8').text(commaSeparateNumber(data.Getdata[0].amt_qty8));
                     $('#txtPromotion_9').text(commaSeparateNumber(data.Getdata[0].amt_qty9));
-                    $('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
+                    //$('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
                     $('#txtPromotion_11').text(commaSeparateNumber(data.Getdata[0].amt_qty11));
                     $('#txtPromotion_12').text(commaSeparateNumber(data.Getdata[0].amt_qty12));
                     $('#txtPromotion_13').text(commaSeparateNumber(data.Getdata[0].amt_qty13));
-                    $('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
+                    //$('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
                     $('#txtPromotion_15').text(commaSeparateNumber(data.Getdata[0].amt_qty15));
+
+                    $('#progress-year-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
+                    $('#amt-year').text(commaSeparateNumber(data.Getdata[0].amt_qty6) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty7));
+
+                    $('#progress-quater-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty10, sumQuater));
+                    $('#amt-quater').text(commaSeparateNumber(data.Getdata[0].amt_qty10) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty11));
+
+                    $('#progress-other-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty14, sumOther));
+                    $('#amt-other').text(commaSeparateNumber(data.Getdata[0].amt_qty14) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty15));
+                    console.log('Sum :' + sumYear);
+                    console.log('Percent ' + getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
+                    for (var i = 0; i < data.Getdata.length; i++) {
+                        var item = data.Getdata[i];
+                        if (item.TopicID == "5") {
+
+                        }
+                    }
                 }
             }
         });
     }
+
+
 
         function getServiceLevel() {
             $.ajax({
@@ -1370,43 +1191,145 @@
                 }
             }
         });
-    }
+        }
+        function shortenLabel(label, maxLength) {
+            if (label.length > maxLength) {
+                return label.substring(0, maxLength - 3) + "...";
+            }
+            return label;
+        }
 
     function getTop5() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $('#table-top5').html("");
-                var Submithtml = "";
-                Submithtml += '<tr>';
-                Submithtml += '<td colspan="9" align="center"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading...</td>';
-                Submithtml += '</tr>';
-                $('#table-top5').append(Submithtml);
-            },
-            success: function (data) {
-                $('#table-top5').html("");
-                var Submithtml = "";
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
+                $.ajax({
+                    url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
+                    data: {
+                        CUSCOD: cuscod
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $('#table-top5').html("");
+                        var Submithtml = "";
+                        Submithtml += '<tr>';
+                        Submithtml += '<td colspan="9" align="left"><span class="font-weight-bold">Loading...<span></td>';
+                        Submithtml += '</tr>';
+                        $('#table-top5').append(Submithtml);
+                    },
+                    success: function (data) {
+                        $('#table-top5').html("");
+                        var Submithtml = "";
+                        var countTop = 0;
+                        var labels = [];
+                        var dataValues = [];
+                        var colors = [];
+                        var seriesData = [];
+                        if (data.Getdata.length > 0) {
+                            $('#top5-chart').removeAttr("hidden");
+                            if (top5chart) {
+                                top5chart.destroy();
+                            }
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                var item = data.Getdata[i];
+                                if (item.Topic == "Top 5") {
+                                    ++countTop;
+                                    labels.push(countTop + '.' + item.Name);
+                                    dataValues.push(Math.floor(item.Amt_Qty));
 
-                        if (item.Topic == "Top 5") {
-                            Submithtml += '<tr>';
-                            Submithtml += '<td>' + item.Name + '</td>';
-                            Submithtml += '<td>' + commaSeparateNumber(item.Amt_Qty) + '</td>';
-                            Submithtml += '</tr>';
+                                    // Add data to series
+                                    seriesData.push({
+                                        values: [Math.floor(item.Amt_Qty)],
+                                        text: countTop + '.' + item.Name,
+                                        backgroundColor: colors[countTop - 1] || 'rgb(201, 203, 207)' // use existing color or default color
+                                    });
+
+                                    switch (countTop) {
+                                        case 1:
+                                            colors.push('rgb(75, 192, 192)');
+                                            break;
+                                        case 2:
+                                            colors.push('rgb(54, 162, 235)');
+                                            break;
+                                        case 3:
+                                            colors.push('rgb(255, 99, 132)');
+                                            break;
+                                        case 4:
+                                            colors.push('rgb(255, 205, 86)');
+                                            break;
+                                        case 5:
+                                            colors.push('rgb(153, 102, 255)');
+                                            break;
+                                        default:
+                                            colors.push('rgb(201, 203, 207)');
+                                    }
+                                }
+                            }
+
+                            var myConfig = {
+                                type: "pie",
+                                plot: {
+                                    borderColor: "#2B313B",
+                                    borderWidth: 5,
+                                    valueBox: {
+                                        placement: 'out',
+                                        text: '%t\n%npv%',
+                                        fontFamily: "Open Sans"
+                                    },
+                                    tooltip: {
+                                        fontSize: '18',
+                                        fontFamily: "Open Sans",
+                                        padding: "5 10",
+                                        text: "%npv%"
+                                    },
+                                    animation: {
+                                        effect: 2,
+                                        method: 5,
+                                        speed: 900,
+                                        sequence: 1,
+                                        delay: 3000
+                                    }
+                                },
+                                source: {
+                                    text: 'gs.statcounter.com',
+                                    fontColor: "#8e99a9",
+                                    fontFamily: "Open Sans"
+                                },
+                                title: {
+                                    fontColor: "#8e99a9",
+                                    text: 'Top 5 Data',
+                                    align: "left",
+                                    offsetX: 10,
+                                    fontFamily: "Open Sans",
+                                    fontSize: 25
+                                },
+                                subtitle: {
+                                    offsetX: 10,
+                                    offsetY: 10,
+                                    fontColor: "#8e99a9",
+                                    fontFamily: "Open Sans",
+                                    fontSize: "16",
+                                    text: 'Dynamic Data',
+                                    align: "left"
+                                },
+                                plotarea: {
+                                    margin: "20 0 0 0"
+                                },
+                                series: seriesData // Use the dynamically created series data
+                            };
+
+                            zingchart.render({
+                                id: 'top5-chart',
+                                data: myConfig,
+                                height: '100%',
+                                width: '100%'
+                            });
+                            console.log("Graph Creation");
+
                         }
                     }
-                    $('#table-top5').append(Submithtml);
-                }
+                });
             }
-        });
-    }
+
+
 
     function getDeliveryTrackAmt() {
         $.ajax({
@@ -1487,18 +1410,19 @@
     function getWarrantyAmt() {
         var total = 0;
         $.ajax({
-             url: '@Url.Action("GetdataWarrantyClaim_Cus_count", "DataCenter")',
+             url: '@Url.Action("GetWarrantyCount", "CustomerDashboard")',
              data: {
-                 strcustome: cuscod
+                 CUSCOD: cuscod
              },
              type: "POST",
             dataType: "JSON",
             success: function (data) {
                 if (data.length > 0) {
-                    var waiting = data[0].A != "" ? Number(data[0].A) :0;
-                    var inprogress = data[0].B != "" ? Number(data[0].B) : 0;
-                    var pending = data[0].C != "" ? Number(data[0].C) : 0;
-                    total = waiting + inprogress + pending;
+                    var waiting = data[0].A != "" ? data[0].A : "0";
+                    var inprogress = data[0].B != "" ? data[0].B : "0";
+                    var approve = data[0].C != "" ? data[0].C : "0";
+                    var refuse = data[0].D != "" ? data[0].D : "0";
+                    total = Number(waiting) + Number(approve) + Number(refuse);
                     $('#warranty-amt').text(commaSeparateNumber(total));
                 }
             }
@@ -1507,27 +1431,27 @@
 
     //ปุ่มยอดซื้อ
     $(document).on("click", "#menu_amt", function () {
-        window.location.replace("../CustomerDashboard/index");
+        window.location.href ="../CustomerDashboard/index";
     });
     //ปุ่มสินค้าค้างส่ง
     $(document).on("click", "#menu_backorder", function () {
-        window.location.replace("../CustomerDashboard/PendingDeliver");
+        window.location.href = "../CustomerDashboard/PendingDeliver";
     });
     //ปุ่มสถานะการสั่งซื้อ
     $(document).on("click", "#menu_deliverytracking", function () {
-        window.location.replace("../CustomerDashboard/DeliveryTrack");
+        window.location.href = "../CustomerDashboard/DeliveryTrack";
     });
     //ปุ่มรายการเคลม
     $(document).on("click", "#menu_warranty", function () {
-        window.location.replace("../CustomerDashboard/Warranty");
+        window.location.href = "../CustomerDashboard/Warranty";
     });
     //ปุ่มโปรโมชัน
     $(document).on("click", "#menu_promotion", function () {
-        window.location.replace("../CustomerDashboard/Promotion");
+        window.location.href = "../CustomerDashboard/Promotion";
     });
     //ปุ่มเครดิต
     $(document).on("click", "#menu_credit", function () {
-        window.location.replace("../CustomerDashboard/Credit");
+        window.location.href = "../CustomerDashboard/Credit";
     });
     </script>
 </body>

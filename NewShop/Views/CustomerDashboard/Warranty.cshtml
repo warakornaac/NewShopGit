@@ -1071,12 +1071,30 @@
                             SubmithtmlPage += '<td class="cut-text">' + data.Getdata[i].STKDES + '</td>';
                             SubmithtmlPage += '<td align="center">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
                             SubmithtmlPage += '<td class=" ">' + data.Getdata[i].Symptom.split('//')[0].trim() + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+                            if (data.Getdata[i].REQ_DATE != '') {
+                                SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].REQ_DATE) + '</td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td class="text-center text-truncate"></td>';
+                            }
+                            if (data.Getdata[i].ReceiveDate != "") {
+                                SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].ReceiveDate) + '</td>';
+
+                            }
+                            else {
+                                SubmithtmlPage += '<td class="text-center text-truncate"></td>';
+                            }
+
                             SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Request.replace(/\/.*/, ''); + '</td>';
                             SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].Status + '</td>';
                             SubmithtmlPage += '<td class="text-center text-truncate">' + data.Getdata[i].CS_No + '</td>';
-                            SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].CS_Date) + '</td>';
+                            if (data.Getdata[i].CS_Date !="") {
+                                SubmithtmlPage += '<td class="text-center text-truncate">' + formatDate(data.Getdata[i].CS_Date) + '</td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td class="text-center text-truncate"></td>';
+                            }
+
 
                             SubmithtmlPage += '</tr>';
                         }

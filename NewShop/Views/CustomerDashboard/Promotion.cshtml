@@ -668,9 +668,9 @@
                                                 โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-yearly" hidden>0</span>
                                                 <hr class="m-0" id="line-tab-yearly" />
                                             </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-quater">
-                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-quater" hidden>0</span>
-                                                <hr class="m-0" id="line-tab-quater" />
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-quarter">
+                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-quarter" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-quarter" />
                                             </button>
                                             <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-other">
                                                 โปรโมชั่นอื่นๆ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-other" hidden>0</span>
@@ -704,8 +704,8 @@
                                                         <tbody></tbody>
                                                     </table>
                                                 </div>
-                                                <div class="m-0 table-quater table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quater-table" style="padding: 7px;font-size: small;">
+                                                <div class="m-0 table-quarter table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quarter-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
                                                                 <th>&nbsp;</th>
@@ -787,7 +787,7 @@
                                         </div>
                                         <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quater', this.id)" id="btn_quater">รายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quarter', this.id)" id="btn_quater">รายไตรมาส</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
                                             <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('all', this.id)" id="btn_all">ALL</button>
                                         </div>
@@ -813,7 +813,7 @@
                                                 </div>
                                             </div>
 
-                                            <div id="quater" class="city" style="display:none">
+                                            <div id="quarter" class="city" style="display:none">
                                                 <div class="table-responsive m-0" style="height:500px">
                                                     <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px; font-size: small; overflow: auto;">
                                                         <thead class="thead-default" style="font-size: small;">
@@ -883,7 +883,7 @@
                                 </div>
                                 <hr />
                                 <div class="col-12">
-                                    <div class="table-responsive m-0" style="height:500px">
+                                    <div class="table-responsive m-0 overflow-auto" style="height:500px">
                                         <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small; overflow:auto;">
                                             <thead style="font-size: small;">
                                                 <tr>
@@ -933,6 +933,15 @@
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
 
+        const queryString = decodeURIComponent(window.location.search);
+        const params = new URLSearchParams(queryString);
+        const page = params.get('priod');
+        var date = new Date();
+        var CurrentY = date.getFullYear();
+
+        var arrayPriod = ["yearly", "quarter", "other"];
+        console.log("Page Param: " + page);
+
         $(document).ready(function () {
             $('#loader').show();
             getCusName();
@@ -945,13 +954,33 @@
         $('#btn_yearly').css("background", "#DEAF5B");
         if (cuscod != "") {
             $("#cushid").val(cuscod)
+
         }
         $(document).ready(function () {
             getYearpromotion();
-            $('.table-quater').hide();
+            $('.table-quarter').hide();
             $('.table-other').hide();
             $('.table-all').hide();
             $('#detail-pro').hide();
+
+            if (page == 'yearly') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('yearly');
+                yearPromotion(CurrentY);
+                $('#btn-show-year').click();
+            }
+            else if (page == 'quarter') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('quarter');
+                yearPromotion(CurrentY);
+                $('#btn-show-quarter').click();
+            }
+            else if (page == 'other') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('other');
+                yearPromotion(CurrentY);
+                $('#btn-show-other').click();
+            }
         });
 
         $(document).ready(function () {
@@ -1168,7 +1197,7 @@
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
-                            } else if (period == 'quater') {
+                            } else if (period == 'quarter') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').css("background", "#DEAF5B");
@@ -1189,7 +1218,7 @@
                                 $('#btn_quater').removeAttr('style');
                                 $('#btn_other').removeAttr('style');
 
-                            } else if (period == 'quater') {
+                            } else if (period == 'quarter') {
                                 $("#promotiontbquater").append(SubmithtmlPage);
                                 $('#btn_yearly').removeAttr('style');
                                 $('#btn_quater').css("background", "#DEAF5B");
@@ -1242,7 +1271,7 @@
                         $('#table-promotion-year tbody').html("");
                         if (data.Getdata.length != 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
-                                SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year +'" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')">';
+                                SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year + '" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" ' + (arrayPriod.includes(page) ? (CurrentY == data.Getdata[i].Year ? ' style="background-color:#DEAF5B;"' : '') : '') + '>';
                                 SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>';
                                 SubmithtmlPag += '<td>' + data.Getdata[i].Year + '</td>';
                                 SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
@@ -1269,7 +1298,7 @@
             console.log("Peroid is " + lastperoid);
             if (lastperoid != "") {
                 $('#btn-show-yearly').removeAttr('style');
-                $('#btn-show-quater').removeAttr('style');
+                $('#btn-show-quarter').removeAttr('style');
                 $('#btn-show-other').removeAttr('style');
                 $('#btn-show-all').removeAttr('style');
                 $('#yearpro').val(year);
@@ -1278,24 +1307,24 @@
                     case 'yearly':
                         $('#btn-show-yearly').css("background", "#DEAF5B");
                         $('.table-yearly').show('slow');
-                        $('.table-quater').hide('slow');
+                        $('.table-quarter').hide('slow');
                         $('.table-other').hide('slow');
                         $('.table-all').hide('slow');
                         getPromotion('yearly');
                         break;
-                    case 'quater':
-                        $('#btn-show-quater').css("background", "#DEAF5B");
-                        $('.table-quater').show('slow');
+                    case 'quarter':
+                        $('#btn-show-quarter').css("background", "#DEAF5B");
+                        $('.table-quarter').show('slow');
                         $('.table-yearly').hide('slow');
                         $('.table-other').hide('slow');
                         $('.table-all').hide('slow');
-                        getPromotion('quater');
+                        getPromotion('quarter');
                         break;
                     case 'other':
                         $('#btn-show-other').css("background", "#DEAF5B");
                         $('.table-other').show('slow');
                         $('.table-yearly').hide('slow');
-                        $('.table-quater').hide('slow');
+                        $('.table-quarter').hide('slow');
                         $('.table-all').hide('slow');
                         getPromotion('other');
                         break;
@@ -1303,7 +1332,7 @@
                         $('#btn-show-all').css("background", "#DEAF5B");
                         $('.table-all').show('slow');
                         $('.table-yearly').hide('slow');
-                        $('.table-quater').hide('slow');
+                        $('.table-quarter').hide('slow');
                         $('.table-other').hide('slow');
                         getPromotion('all');
                         break;
@@ -1313,11 +1342,11 @@
             }
             else {
                 $('#btn-show-yearly').css("background", "#DEAF5B");
-                $('#btn-show-quater').removeAttr('style');
+                $('#btn-show-quarter').removeAttr('style');
                 $('#btn-show-other').removeAttr('style');
                 $('#btn-show-all').removeAttr('style');
                 $('.table-yearly').show('slow');
-                $('.table-quater').hide('slow');
+                $('.table-quarter').hide('slow');
                 $('.table-other').hide('slow');
                 $('.table-all').hide('slow');
                 $('#yearpro').val(year);
@@ -1342,7 +1371,7 @@
                 beforeSend: function () {
                     var SubmithtmlPag = '';
                     var yearly = $('#promotion-yearly-table tbody');
-                    var quater = $('#promotion-quater-table tbody');
+                    var quarter = $('#promotion-quarter-table tbody');
                     var other = $('#promotion-other-table tbody');
                     var all = $('#promotion-all-table tbody');
                     SubmithtmlPag += '<tr>';
@@ -1350,7 +1379,7 @@
                     SubmithtmlPag += '</tr>';
 
                     yearly.append(SubmithtmlPag);
-                    quater.append(SubmithtmlPag);
+                    quarter.append(SubmithtmlPag);
                     other.append(SubmithtmlPag);
                     all.append(SubmithtmlPag);
                 },
@@ -1359,13 +1388,13 @@
                     var reward_color = "";
                     if (data.message == 'Y') {
                         var yearly = $('#promotion-yearly-table tbody');
-                        var quater = $('#promotion-quater-table tbody');
+                        var quarter = $('#promotion-quarter-table tbody');
                         var other = $('#promotion-other-table tbody');
                         var all = $('#promotion-all-table tbody');
 
                         var _count = 0;
                         yearly.html("");
-                        quater.html("");
+                        quarter.html("");
                         other.html("");
                         all.html("");
                         if (data.Getdata.length != 0) {
@@ -1409,8 +1438,8 @@
                             if (period === 'yearly') {
                                 console.log("test year");
                                 yearly.append(SubmithtmlPag);
-                            } else if (period === 'quater') {
-                                quater.append(SubmithtmlPag);
+                            } else if (period === 'quarter') {
+                                quarter.append(SubmithtmlPag);
                             } else if (period === 'other') {
                                 other.append(SubmithtmlPag);
                             } else if (period === 'all') {
@@ -1426,8 +1455,8 @@
                             if (period === 'yearly') {
                                 yearly.append(SubmithtmlPag);
 
-                            } else if (period === 'quater') {
-                                quater.append(SubmithtmlPag);
+                            } else if (period === 'quarter') {
+                                quarter.append(SubmithtmlPag);
                             } else if (period === 'other') {
                                 other.append(SubmithtmlPag);
                             } else if (period === 'all') {
@@ -1507,36 +1536,36 @@
         $('#btn-show-yearly').click(function () {
             $(this).css("background", "#DEAF5B");
             $('#periodpro').val('yearly');
-            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-quarter').removeAttr('style');
             $('#btn-show-other').removeAttr('style');
             $('#btn-show-all').removeAttr('style');
             $('.table-yearly').show('slow');
-            $('.table-quater').hide('slow');
+            $('.table-quarter').hide('slow');
             $('.table-other').hide('slow');
             $('.table-all').hide('slow');
             getPromotion('yearly');
         });
-        $('#btn-show-quater').click(function () {
+        $('#btn-show-quarter').click(function () {
             $(this).css("background", "#DEAF5B");
-            $('#periodpro').val('quater');
+            $('#periodpro').val('quarter');
             $('#btn-show-yearly').removeAttr('style');
             $('#btn-show-other').removeAttr('style');
             $('#btn-show-all').removeAttr('style');
-            $('.table-quater').show('slow');
+            $('.table-quarter').show('slow');
             $('.table-yearly').hide('slow');
             $('.table-other').hide('slow');
             $('.table-all').hide('slow');
-            getPromotion('quater');
+            getPromotion('quarter');
         });
         $('#btn-show-other').click(function () {
             $(this).css("background", "#DEAF5B");
             $('#periodpro').val('other');
             $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-quarter').removeAttr('style');
             $('#btn-show-all').removeAttr('style');
             $('.table-other').show('slow');
             $('.table-yearly').hide('slow');
-            $('.table-quater').hide('slow');
+            $('.table-quarter').hide('slow');
             $('.table-all').hide('slow');
             getPromotion('other');
 
@@ -1545,11 +1574,11 @@
             $(this).css("background", "#DEAF5B");
             $('#periodpro').val('all');
             $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-quater').removeAttr('style');
+            $('#btn-show-quarter').removeAttr('style');
             $('#btn-show-other').removeAttr('style');
             $('.table-all').show('slow');
             $('.table-yearly').hide('slow');
-            $('.table-quater').hide('slow');
+            $('.table-quarter').hide('slow');
             $('.table-other').hide('slow');
             getPromotion('all');
 
@@ -1558,6 +1587,10 @@
         $('.selectpicker').selectpicker({
             noneResultsText: 'Not found'
         });
+
+
+
+
 
 
         //ปุ่มยอดซื้อ

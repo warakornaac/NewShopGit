@@ -1,11 +1,12 @@
 ﻿@{
     ViewBag.Title = "MenuTest";
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Portal v.1</title>
+    <title>Customer Portal v.1.0</title>
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
@@ -202,6 +203,12 @@
         .bg-progress {
             background-color: #b4b8bd;
         }
+
+        .link-more {
+            color: #0275d8;
+            text-decoration: underline;
+            text-decoration-color: #0275d8;
+        }
     </style>
 </head>
 <body class="bg-page" style="font-family: Kanit, sans-serif;">
@@ -249,7 +256,7 @@
                         <div class="row">
                             <div class="col-md-5 mt-4">
                                 @*Left Side Start*@
-                                <div class="card mb-2 pb-0">
+                                <div class="card mb-4 pb-0">
                                     <div class="card-header bg-yellow pb-0 p-2">
                                         <h3 class="card-title">ยอดซื้อ</h3>
                                     </div>
@@ -262,18 +269,18 @@
                                             <span class="col-12 mt-1 text-md font-weight-bold" id="amt-text-company" hidden>ยอดซื้อที่บริษัท : </span>
                                         </div>
                                         <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="amt-text-sec"></span>
+                                            <span class="col-6 text-md font-weight-bold pr-0" id="amt-text-sec"></span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card mb-2 pb-0">
+                                <div class="card mb-4 pb-0">
                                     <div class="card-header bg-info pb-0 p-2">
                                         <h3 class="card-title">ยอดซื้อ TOP 5</h3>
                                     </div>
-                                    <div class="card-body" style="margin-bottom: -10px; padding: 0px;">
-                                        <div>
+                                    <div class="card-body" style="margin-bottom: -9px; padding: 0px;">
+                                        <div class="mt-4">
                                             <canvas id="top5-chart" height="300" hidden></canvas>
                                         </div>
                                         <table class="table " id="table-top5">
@@ -305,28 +312,10 @@
 
                                     </div>
                                 </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-warning pb-0 p-2">
-                                        <h3 class="card-title">Service Level</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="service-text-first"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="service-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
                                 @*LEFT SIDE END*@
                             </div>
-                            <div class="col-md-7 mt-4" style="margin-bottom: -30px;">
-                                <div class="card">
+                            <div class="col-md-7 mt-4" style="margin-bottom: 5px;">
+                                <div class="card mb-2">
                                     <div class="card-header bg-success pb-0 p-2">
                                         <h3 class="card-title">Promotion</h3>
                                     </div>
@@ -360,13 +349,14 @@
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1" hidden><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2" hidden><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold" id="head-2-5" hidden><span id="text-promotion-2-5">รางวัลที่ได้รับ :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> : <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>*@
                                                         <div class="progress bg-progress" style="height:30px; width:210px">
                                                             <div class="progress-bar bg-info" id="progress-year-amt">
                                                                 <span class="text-white font-weight-bold" id="amt-year"></span>
                                                             </div>
                                                         </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> <span class="text-info font-weight-bold ms-sm-2"></span></span>
+                                                        <a href="#" class="mb-1 text-md font-weight-bold link-more" id="promotion-year-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -381,13 +371,14 @@
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1" hidden><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2" hidden><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
                                                         <span class="mb-1 text-md font-weight-bold " id="head-3-5" hidden><span id="text-promotion-3-5">รางวัลที่ได้รับ :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-5">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> : <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-3"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>*@
                                                         <div class="progress bg-progress" style="height: 30px; width: 210px">
                                                             <div class="progress-bar bg-warning" id="progress-quater-amt">
                                                                 <span class="text-white font-weight-bold" id="amt-quater"></span>
                                                             </div>
                                                         </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
+                                                        <a href="#" class="mb-1 text-md font-weight-bold link-more" id="promotion-quater-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -402,13 +393,14 @@
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1" hidden><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2" hidden><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
                                                         <span class="mb-1 text-md font-weight-bold " id="head-4-5" hidden><span id="text-promotion-4-5">รางวัลที่ได้รับ :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-5">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> : <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-3"></span></span></span>
                                                         @*<span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>*@
                                                         <div class="progress bg-progress" style="height: 30px; width: 210px">
                                                             <div class="progress-bar bg-primary" id="progress-other-amt">
                                                                 <span class="text-white font-weight-bold" id="amt-other"></span>
                                                             </div>
                                                         </div>
+                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> <span class="text-primary font-weight-bold ms-sm-2"></span></span>
+                                                        <a href="#" class="mb-1 text-md font-weight-bold  link-more" id="promotion-other-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -416,6 +408,22 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="card mb-2 pb-0">
+                                    <div class="card-header bg-warning pb-0 p-2">
+                                        <h3 class="card-title">Service Level</h3>
+                                    </div>
+                                    <div class="card-body pl-2 pr-2 pb-0 mb-2">
+                                        <div class="row">
+                                            <span class="col-6 mt-1 text-md font-weight-bold" id="service-text-first"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
+                                        </div>
+                                        <div class="row" id="row-last-level">
+                                            <span class="col-6 text-md font-weight-bold " id="service-text-sec"></span>
+                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
+                                        </div>
+                                        @*<span class="text-md font-weight-bold pl-3">&nbsp;</span>*@
                                     </div>
                                 </div>
                             </div>
@@ -976,9 +984,20 @@
                         $('#progress-quater-amt').css('width', getPercentAmt(amtQuater, sumQuater));
                         $('#progress-other-amt').css('width', getPercentAmt(amtOther, sumOther));
 
-                        $('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
-                        $('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
-                        $('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                        if (amtYear != "" && missYear != "") {
+                            $('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
+                        }
+                        if (amtQuater != "" && missQuater != "") {
+                            $('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
+
+                        }
+                        if (amtOther != "" && missOther != "") {
+                            $('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                            $('#promotion-other-more').removeAttr('hidden');
+                        }
+                        //$('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
+                        //$('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
+                        //$('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
                     }
                 }
             });
@@ -1038,153 +1057,12 @@
             }
         });
     }
-
-
-
-        function getServiceLevel() {
-            $.ajax({
-                url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
-                data: {
-                    CUSCOD: '110L0003',
-                    TOPIC: 'Service Level'
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-
-                    $('#service-level-delivery').html("");
-
-                    var SubmitPage = 'Loading...';
-
-                    $('#service-level-delivery').text(SubmitPage);
-
-                },
-                success: function (data) {
-                    if (data.message == "Y") {
-                        var item = data.Getdata[0];
-                        var dlivery = item.amt_qty2 * 100;
-                        $('#service-level-amt').text(commaSeparateNumber(item.amt_qty1));
-                        $('#service-level-delivery').text(dlivery + '%');
-
-                    }
-                }
-            });
+    function shortenLabel(label, maxLength) {
+        if (label.length > maxLength) {
+            return label.substring(0, maxLength - 3) + "...";
         }
-        function getAmt() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Purchase'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#amt-discount').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#amt-discount').text(SubmitPage);
-
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#amt-all').text(commaSeparateNumber(item.amt_qty1));
-                            $('#amt-discount').text(commaSeparateNumber(item.amt_qty2));
-
-                        }
-                    }
-                });
-        }
-            function getBackorder() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardBackOrder", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Back Order'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#backorder-money').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#backorder-money').text(SubmitPage);
-
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#backorder-product').text(commaSeparateNumber(item.amt_qty1));
-                            $('#backorder-money').text(commaSeparateNumber(item.amt_qty2));
-                            $('#backorder-total').text(commaSeparateNumber(item.amt_qty3));
-
-
-                        }
-                    }
-                });
-            }
-
-
-    function getDashboardNotable() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $('#amt-discount').html("");
-                $('#service-level-delivery').html("");
-                $('#backorder-money').html("");
-                var SubmitPage = 'Loading...';
-                $('#amt-discount').text(SubmitPage);
-                $('#service-level-delivery').text(SubmitPage);
-                $('#backorder-money').text(SubmitPage);
-            },
-            success: function (data) {
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        //if (item.Topic == "Service Level") {
-                        //    if (item.Name == "จำนวนสั่งซื้อ") {
-                        //        $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่งทันตามกำหนด") {
-                        //        var dlivery = item.Amt_Qty * 100;
-                        //        $('#service-level-delivery').text(dlivery+'%');
-                        //    }
-                        //}
-                        //if (item.Topic =="Purchase") {
-                        //    if (item.Name == "ยอดซื้อทั้งหมด") {
-                        //        $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่วนลดเงินสด") {
-
-                        //        $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //}
-                        if (item.Topic == "Back Order") {
-                            if (item.Name == "จำนวนเบอร์สินค้า") {
-                                $('#backorder-product').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "เงิน") {
-                                $('#backorder-money').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "จำนวน") {
-                                $('#backorder-total').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        }
-        function shortenLabel(label, maxLength) {
-            if (label.length > maxLength) {
-                return label.substring(0, maxLength - 3) + "...";
-            }
-            return label;
-        }
+        return label;
+    }
     function getTop5() {
         $.ajax({
             url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
@@ -1281,40 +1159,42 @@
                             layout: {
                                 padding: {
                                     top: 0,
-                                    left: 35,
-                                    right: 35,
+                                    left: 10,
+                                    right: 10,
                                     bottom:0
                                 }
                             },
                             plugins: {
                                 legend: {
                                     position: 'bottom',
-                                    padding: {
-                                        top:30
-                                    },
-                                    display: false
+
+                                    display: true
                                 },
                                 legendDistance: {
-                                    padding: 50
+                                    padding: 0
                                 },
                                 datalabels: {
-                                    color: '#000e50',
+                                    color: '#fff',
                                     formatter: (value, context) => {
                                         let label = context.chart.data.labels[context.dataIndex];
-                                        return shortenLabel(label,21) + ': ' + commaSeparateNumber(value)+'% ';
+                                        return commaSeparateNumber(value)+'% ';
                                     },
-                                    anchor: 'end',
+                                    anchor: 'middle',
                                     align: 'start',
-                                    offset: -10,
+                                    offset: -40,
                                     font: {
                                         weight: 'bolder',
-                                        size: 11
+                                        size: 14
                                     },
                                     borderWidth: 0,
                                     borderColor: 'gray',
                                     borderRadius: 3,
                                     padding: 0,
-                                     lineHeight: 1.2 // ปรับการเว้นบรรทัดระหว่างข้อความ (ถ้าจำเป็น)
+                                    connectLines: {
+                                        color: 'gray',
+                                        angle: 90
+                                    }
+                                     //lineHeight: 1.2 // ปรับการเว้นบรรทัดระหว่างข้อความ (ถ้าจำเป็น)
                                 }
                             }
                         },
@@ -1425,7 +1305,22 @@
                 }
             }
         });
-    }
+        }
+
+
+        //More Quarter Click
+        $(document).on("click", "#promotion-year-more", function () {
+            window.location.href = "../CustomerDashboard/Promotion?priod=yearly";
+        });
+        //More Quarter Click
+        $(document).on("click", "#promotion-quater-more", function () {
+            window.location.href = "../CustomerDashboard/Promotion?priod=quarter";
+        });
+        //More Other Click
+        $(document).on("click", "#promotion-other-more", function () {
+            window.location.href = "../CustomerDashboard/Promotion?priod=other";
+        });
+
 
     //ปุ่มยอดซื้อ
     $(document).on("click", "#menu_amt", function () {
