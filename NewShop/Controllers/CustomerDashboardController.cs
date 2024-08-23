@@ -425,7 +425,7 @@ namespace NewShop.Controllers
                         SalePrice = Convert.ToDecimal(reader["SalePrice"]).ToString("F2"),
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
-                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy") : "",
+                        DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["DeliveryDate"]).ToString("dd/MM/yy") : "",
                         Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
                     });
                 }
@@ -1249,7 +1249,7 @@ namespace NewShop.Controllers
             reader.Dispose();
             command.Dispose();
 
-                Connection.Close();
+            Connection.Close();
             return Json(Code, JsonRequestBehavior.AllowGet);
         }
         public ActionResult MenuTest()

@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
     <title>โปรโมชั่น</title>
     @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -859,42 +859,38 @@
                         <div id="appadj"></div>
                     </div>
                 </section>
-                <!-- Modal -->
-                <div class="modal fade in" id="DetailModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" data-backdrop="static" data-keyboard="false">
+                <div class="modal fade in" id="DetailModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-bs-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="col-12">
-
-
                                     <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');">&times;</button>
                                 </div>
                             </div>
-                            <div class="modal-body d-flex justify-content-center row">
+                            <div class="modal-body">
                                 <div class="col-12">
-                                    <article class="card">
+                                    <div class="card">
                                         <div class="card-body row overflow-auto">
                                             <div class="col">
                                                 <h5 class="modal-title float-left" id="DetailModalLongTitle">โปรโมชั่น : <span id="prodes"></span></h5>
                                             </div>
-
                                         </div>
-                                    </article>
+                                    </div>
                                 </div>
                                 <hr />
                                 <div class="col-12">
-                                    <div class="table-responsive m-0 overflow-auto" style="height:500px">
-                                        <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small; overflow:auto;">
+                                    <div class="table-responsive m-0 table-style overflow-auto">
+                                        <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
-                                                    <th><span>บริษัท</span></th>
-                                                    <th><span>เบอร์สินค้า</span></th>
+                                                    <th class="text-center"><span>บริษัท</span></th>
+                                                    <th class="text-center"><span>เบอร์สินค้า</span></th>
                                                     <th><span>ชื่อสินค้า</span></th>
-                                                    <th><span>วันสั่งซื้อ</span></th>
-                                                    <th><span>เลขสั่งซื้อ</span></th>
+                                                    <th class="text-center"><span>วันสั่งซื้อ</span></th>
+                                                    <th class="text-center"><span>เลขสั่งซื้อ</span></th>
                                                     <th><span>ราคาสินค้า</span></th>
-                                                    <th><span>จำนวน</span></th>
-                                                    <th><span>ยอดซื้อ</span></th>
+                                                    <th class="text-center"><span>จำนวน</span></th>
+                                                    <th class="text-center"><span>ยอดซื้อ</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -907,11 +903,12 @@
                 </div>
             </div>
         </div>
-        <footer class="footer" hidden>
-            <div class="container">
-                <p>2024 &copy; TAC&AAC</p>
-            </div>
-        </footer>
+    </div>
+    <footer class="footer" hidden>
+        <div class="container">
+            <p>2024 &copy; TAC&AAC</p>
+        </div>
+    </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
@@ -1473,7 +1470,7 @@
         }
 
         function getDetailPromotion(proCode) {
-            $('.modal').modal('show');
+            $('#DetailModalCenter').modal('show');
             $.ajax({
                 url: '@Url.Action("GetDetailPromotion", "CustomerDashboard")',
                 data: {
@@ -1503,11 +1500,11 @@
                         if (data.Getdata.length > 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].Company + '</span></td>';
-                                SubmithtmlPage += '<td><p class="m-0"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Company + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><p class="m-0 text-truncate"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
                                 SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
                                 SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT + '</span></p></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].DOCNUM + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].DOCNUM + '</span></td>';
                                 SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].SP_LCY) + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + commaSeparateNumber(data.Getdata[i].QTY) + '</span></td>';
                                 SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].NET_LCY) + '</span></td>';
