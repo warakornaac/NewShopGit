@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "_DetailPromotionRegister";
+}
+<style>
+    .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        /*background: #f2d900;*/
+        text-align: center;
+        border-radius: 5px;
+        color: #000;
+        padding: 2px 2px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .vcenter {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .vright {
+        text-align: right;
+        vertical-align: middle !important;
+    }
+
+    .sticky-col {
+        position: -webkit-sticky;
+        position: sticky;
+        /*background-color: #ededed;*/
+    }
+
+    .first-col {
+        left: 0px;
+    }
+
+    input[type=radio] {
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-12 mt-4">
+            <div class="card-image">
+                <span class="card-notify-badge bg-warning">Promotion Code</span>
+            </div>
+            <div class="card-header bg-info text-black font-weight-bold">
+                <div class="row">
+                    <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                        @*<i class="fa fa-list"></i>*@
+                        <span id="txtHeadPromotionDetail"></span>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                        @*@ViewBag.promotionDetailList.Count().ToString("N0") รายการ*@
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="margin-bottom: 0;">
+                    <table id="tablePromotionDetail" class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
+                        @{
+                            int rowList = 1;
+                            foreach (var rowData in ViewBag.promotionDetailList)
+                            {
+                                <tr>
+                                    <td class="vcenter sticky-col first-col" style="cursor: pointer;">
+                                        <input type="radio" name="selectPromotion" id="selectPromotion" data-code="@rowData.Promotion_Code" data-seq="@rowData.Seq" data-destype="@rowData.DesType" data-description="@rowData.Description" data-condition="@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))" data-reward="@rowData.Reward" />
+                                    </td>
+                                    <td class="vcenter">@rowData.DesType</td>
+                                    <td class="vcenter">@rowData.Description</td>
+                                    <td class="vright">@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))</td>
+                                    <td class="vcenter">@rowData.Reward</td>
+                                    <td class="vright">@rowData.Reward_Percent%</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+            <div id="showDetailPromotionCustomer"></div>
+        </div>
+    </div>
+</div>
+<script defer>
+    $('#tablePromotionDetail tr').click(function () {
+        $('input[type=radio]', this).trigger('change');
+    });
+
+    $(document).ready(function () {
+        //เลือก Promotion code reset result
+        $("#promotionCode").change(function () {
+            $('#showDetailPromotionRegister').empty();
+        });
+        //radio เลือก promotion detail
+        $('input:radio').click(function () {
+            var msg = '';
+            var error = 0;
+            var textHeaderDetailPromotion = "";
+            var slmCode = $("#slmCode option:selected").val();
+            var promotionCode = $("input[name=selectPromotion]:checked").data('code');
+            var promotionSeq = $("input[name=selectPromotion]:checked").data('seq');
+            var promotionDestype = $("input[name=selectPromotion]:checked").data('destype');
+            var promotionDescription = $("input[name=selectPromotion]:checked").data('description');
+            var promotionCondition = $("input[name=selectPromotion]:checked").data('condition');
+            var promotionReward = $("input[name=selectPromotion]:checked").data('reward');
+
+            if (promotionCode != null) {
+                textHeaderDetailPromotion += promotionCode + " / ";
+            }
+            if (promotionDescription != null) {
+                textHeaderDetailPromotion += promotionDescription;
+            }
+            if (promotionCondition != null) {
+                textHeaderDetailPromotion += " " + promotionCondition;
+            }
+            if (promotionReward != null) {
+                textHeaderDetailPromotion += " (" + promotionReward +")";
+            }
+
+            console.log("textHeaderDetailPromotion = " + textHeaderDetailPromotion);
+
+            //console.log("slmCode = " + slmCode + " code = " + promotionCode + " seq = " + promotionSeq);
+            //set color tr
+            $(this).closest('tr').siblings().css('background-color', '').end().css('background-color', 'bisque');
+
+            if (slmCode == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก พนักงานขาย';
+            }
+            if (promotionCode == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก Promotion Code';
+            }
+            if (promotionSeq == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือกรายการย่อย Promotion Code';
+            }
+            if (error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                    html: msg,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Close',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+                return false;
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("GetCustomerByPromotion", "Promotion")',
+                    data: {
+                        slmCode: slmCode,
+                        promotionCode: promotionCode,
+                        promotionSeq: promotionSeq,
+                        textHeader: textHeaderDetailPromotion
+                    },
+                    dataType: 'html',
+                    cache: false,
+                    Async: true,
+                    beforeSend: function () {
+                        $('#showDetailPromotionCustomer').empty();
+                        $('#showDetailPromotionCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                       // LoadingShow();
+                    },
+                    success: function (res) {
+                       // LoadingHide();
+                        $('#showDetailPromotionCustomer').html(res);
+                    },
+                    error: function (er) {
+                        alert(er.error);
+                    }
+                }).fail(function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: error.status,
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>getCustomerByPromotion<br><br>',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'ปิด',
+                        allowOutsideClick: false,
+                        focusConfirm: false,
+                    });
+                });
+            }
+        });
+    });
+
+
+</script>   

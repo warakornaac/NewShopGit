@@ -1162,7 +1162,7 @@ namespace NewShop.Controllers
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult OrderHistoryByBrand(string cuscod, string brand)
+        public ActionResult OrderHistoryByBrand(string cuscod, string brand, string txtSearch)
         {
             string message = string.Empty;
 
@@ -1177,6 +1177,7 @@ namespace NewShop.Controllers
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@InCuscod", cuscod);
                 command.Parameters.AddWithValue("@InBrand", brand);
+                command.Parameters.AddWithValue("@InTxtSearch", txtSearch);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -1227,6 +1228,29 @@ namespace NewShop.Controllers
                 ViewBag.YearCurrent,
                 ViewBag.BrandList
             });
+        }
+        public JsonResult SearchOrderHistoryByTxt(string cuscode, string brand, string txtOther)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<string> Code = new List<string>();
+            var command = new SqlCommand("p_Search_Item_History_By_Text", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inCuscode", cuscode);
+            command.Parameters.AddWithValue("@inBrand", brand);
+            command.Parameters.AddWithValue("@inTxtSearch", txtOther);
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Code.Add(reader.GetString(1));
+            }
+            reader.Close();
+            reader.Dispose();
+            command.Dispose();
+
+                Connection.Close();
+            return Json(Code, JsonRequestBehavior.AllowGet);
         }
         public ActionResult MenuTest()
         {
