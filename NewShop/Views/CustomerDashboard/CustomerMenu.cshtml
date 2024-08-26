@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card mb-4 pb-0">
+                                <div class="card mb-4 pb-0" style="margin-top: -5px;">
                                     <div class="card-header bg-info pb-0 p-2">
                                         <h3 class="card-title">ยอดซื้อ TOP 5</h3>
                                     </div>
@@ -292,11 +292,11 @@
                                     </div>
                                 </div>
 
-                                <div class="card mb-2 pb-0">
+                                <div class="card mb-2 pb-0" style="margin-top: -5px;">
                                     <div class="card-header bg-backorder pb-0 p-2">
-                                        <h3 class="card-title">สินค้าค้างส่ง(Back Order)</h3>
+                                        <h3 class="card-title">สินค้าค้างส่ง (Back Order)</h3>
                                     </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
+                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -9px;">
                                         <div class="row">
                                             <span class="col-6 text-md font-weight-bold" id="back-text-first">จำนวนชิ้น : </span>
                                             <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
@@ -356,7 +356,7 @@
                                                             </div>
                                                         </div>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> <span class="text-info font-weight-bold ms-sm-2"></span></span>
-                                                        <a href="#" class="mb-1 text-md font-weight-bold link-more" id="promotion-year-more">>>ข้อมูลเพิ่มเติม<<</a>
+                                                        <a href="#" class="mb-1 text-sm font-weight-bold link-more" id="promotion-year-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -378,7 +378,7 @@
                                                             </div>
                                                         </div>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                        <a href="#" class="mb-1 text-md font-weight-bold link-more" id="promotion-quater-more">>>ข้อมูลเพิ่มเติม<<</a>
+                                                        <a href="#" class="mb-1 text-sm font-weight-bold link-more" id="promotion-quater-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -400,7 +400,7 @@
                                                             </div>
                                                         </div>
                                                         <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                        <a href="#" class="mb-1 text-md font-weight-bold  link-more" id="promotion-other-more">>>ข้อมูลเพิ่มเติม<<</a>
+                                                        <a href="#" class="mb-1 text-sm font-weight-bold  link-more" id="promotion-other-more">>>ข้อมูลเพิ่มเติม<<</a>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
@@ -433,6 +433,11 @@
                 </div>
             </div>
             @*menu list*@
+            <div class="row">
+                <div class="col-12" style="margin: -10px 0px -10px 0;">
+                    <hr style="border-top: 2px solid #b7c9df; height: 0; ">
+                </div>
+            </div>
             <div class="row mt-2">
                 <div class="col-xl-6 col-md-6 col-sm-6">
                     <div class="card bg_card " id="menu_deliverytracking">
@@ -441,7 +446,10 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h4>
-                                        <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
+                                        <h4>
+                                            &nbsp;
+                                        </h4>
+                                        @*<h4> <span id="total_deliverytrack">0</span> รายการ </h4>*@
                                         @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
                                         <h6 class="mb-0">
                                             <span class="text-secondary font-weight-bolder ">ดูสถานะการสั่งซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
@@ -465,8 +473,11 @@
                                     <div class="numbers">
                                         <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะสินค้าค้างส่ง</h4>
                                         <h4>
-                                            <span id="backorder-amt">0</span> รายการ
+                                            &nbsp;
                                         </h4>
+                                        @*<h4>
+                                                <span id="backorder-amt">0</span> รายการ
+                                            </h4>*@
                                         <h6 class="mb-0">
                                             <span class="text-secondary  font-weight-bolder ">ดูสถานะสินค้าค้างส่ง</span>  <span class="text-danger  font-weight-bolder">"คลิกเลย"</span>
                                         </h6>
@@ -489,8 +500,11 @@
                                     <div class="numbers">
                                         <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการเคลมสินค้า</h4>
                                         <h4>
-                                            <span id="warranty-amt">0</span> รายการ
+                                            &nbsp;
                                         </h4>
+                                        @*<h4>
+                                                <span id="warranty-amt">0</span> รายการ
+                                            </h4>*@
                                         <h6 class="mb-0">
                                             <span class="text-secondary font-weight-bolder ">ดูสถานะการเคลมสินค้า</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
                                         </h6>
@@ -620,9 +634,9 @@
         getPmotionNew();
         getDashBoard();
         //getDashboardNotable();
-        getDeliveryTrackAmt();
-        getBackorderAmt();
-        getWarrantyAmt();
+        //getDeliveryTrackAmt();
+        //getBackorderAmt();
+        //getWarrantyAmt();
     }
     function getCusName() {
         $.ajax({
