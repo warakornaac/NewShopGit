@@ -573,10 +573,17 @@
             }
         }
 
-        .table-style-scroll {
+        .table-style {
             height: 450px;
             overflow-y: auto;
         }
+
+            .table-style thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
     </style>
 </head>
 
@@ -907,7 +914,7 @@
                                 </div>
                                 <hr />
                                 <div class="col-12">
-                                    <div class="table-responsive table-style-scroll m-0 overflow-auto">
+                                    <div class="table-responsive table-style m-0 overflow-auto">
                                         <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
