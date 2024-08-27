@@ -801,7 +801,7 @@
                                                                 </div>
                                                                 <div class="col-md-9 text-right">
                                                                     <select class="form-control" id="select-brand" name="select-brand" style="width: 110%;">
-                                                                        <option value="" selected>ALL</option>
+                                                                        @*<option value="" selected>ALL</option>*@
                                                                         @for (var i = 0; i < BrandList.Count; i++)
                                                                         {
                                                                             <option value="@BrandList[i].Value">@BrandList[i].Text</option>
@@ -979,7 +979,7 @@
             getCreditCus(cuscod);
             getCusMonth(cuscod, currentYear, currentMonth);
             setTimeout(function () {
-                getDataOrderHistoryByBrand(cuscod, '', '', 'show-order-history', 'Y');
+                getDataOrderHistoryByBrand(cuscod, 'TRW', '', 'show-order-history', 'Y');
             }, 1000);
         }
 

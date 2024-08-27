@@ -99,7 +99,11 @@
             }
 
         .navbar {
-            margin-bottom: 10px !important;
+            /*margin-bottom: 10px !important;*/
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
         }
 
         .navbar-collapse {
@@ -110,16 +114,8 @@
             border-color: red;
         }
         /* The container <div> - needed to position the dropdown content */
-
-
-
-
-
-
-
-
-        /* Show the dropdown menu on hover */
-        .dropdownb:hover .dropdownb-content {
+            /* Show the dropdown menu on hover */
+            .dropdownb:hover .dropdownb-content {
             display: block;
         }
 
@@ -276,7 +272,7 @@
     </header>
 
 
-    <div>
+    <div style="margin-top: -10px;">
         @RenderBody()
     </div>
     @*<div class="body__overlay"></div>*@
