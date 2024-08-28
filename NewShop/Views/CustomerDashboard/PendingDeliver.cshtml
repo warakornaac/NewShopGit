@@ -996,8 +996,8 @@
                                     }
                                     SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].OrgQty) + '</span></p></td>';
                                     SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
-                                    SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
+                                    SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
                                     if (data.backorder[i].DeliveryDate.includes("/")) {
                                         SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate.replace(/\//g, '-') + '</span></p></td>';
                                     }
@@ -1116,8 +1116,8 @@
                                  }
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].OrgQty) + '</span></p></td>';
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
-                                 SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
-                                 SubmithtmlPage += '<td><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
+                                 SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';
                                  //SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
                                  SubmithtmlPage += '</tr >';
                              }
