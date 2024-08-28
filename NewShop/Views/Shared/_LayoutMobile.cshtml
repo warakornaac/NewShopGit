@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet"/>
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
 
     <style>
         .header {
@@ -114,8 +114,8 @@
             border-color: red;
         }
         /* The container <div> - needed to position the dropdown content */
-            /* Show the dropdown menu on hover */
-            .dropdownb:hover .dropdownb-content {
+        /* Show the dropdown menu on hover */
+        .dropdownb:hover .dropdownb-content {
             display: block;
         }
 
@@ -167,7 +167,7 @@
     <!--=================== Header =======================-->
     <header class="header fixheader bg-primary">
         <nav class="navbar navbar-toggleable navbar-light ">
-            <a class="p-0" href="#"><img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUL4xmD5Dk_p1W7_8LFhfUBZi51UQf5UUCYKL8PWrbg&s?sz=120" /></a>
+            <a class="p-0" href="#" id="menuDashboard"><img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUL4xmD5Dk_p1W7_8LFhfUBZi51UQf5UUCYKL8PWrbg&s?sz=120" /></a>
 
             <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon btn-nav"></span>
@@ -496,7 +496,9 @@
                         });
                     }
                 }
-
+        $(document).on("click", "#menuDashboard", function () {
+            window.location.href = "../CustomerDashboard/CustomerMenu";
+        });
     </script>
 </body>
 

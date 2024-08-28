@@ -923,7 +923,12 @@
                     if (data.message == "Y") {
                         if (data.backorder.length > 0) {
                             count = data.backorder.length;
-                            $('#status-typeS').text(commaSeparateNumber(count));
+                            if (count > 99) {
+                                $('#status-typeS').text("99+");
+                            }
+                            else {
+                                $('#status-typeS').text(commaSeparateNumber(count));
+                            }
                         }
 
                     }
@@ -941,7 +946,14 @@
                     if (data.message == "Y") {
                         if (data.backorder.length > 0) {
                             count = data.backorder.length;
-                            $('#status-backorder').text(commaSeparateNumber(count));
+                            if (count > 99) {
+                                $('#status-backorder').text("99+");
+
+                            }
+                            else {
+
+                                $('#status-backorder').text(commaSeparateNumber(count));
+                            }
                         }
                     }
                 }

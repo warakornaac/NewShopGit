@@ -852,13 +852,13 @@
                                         <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
-                                                    <th>บริษัท</th>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
-                                                    <th>ส่วนลด</th>
-                                                    <th>ราคารวม</th>
+                                                    <th class="text-center">บริษัท</th>
+                                                    <th class="text-center">เบอร์สินค้า</th>
+                                                    <th class="text-center">ชื่อสินค้า</th>
+                                                    <th class="text-center">จำนวน</th>
+                                                    <th class="text-center text-truncate">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center">ส่วนลด</th>
+                                                    <th class="text-center">ราคารวม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -1628,13 +1628,13 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 cusName = data.Getdata[i].CUSNAM;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate text-center">' + data.Getdata[i].STKCOD + '</td>';
                                 SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
                                 SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                 SubmithtmlPage += '</tr>';
 
                             }
