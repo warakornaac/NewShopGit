@@ -1372,7 +1372,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                    // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_aac += Number(result.Getdata[j].Amount);
@@ -1442,7 +1442,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                    // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_tac += Number(result.Getdata[j].Amount);
@@ -1509,7 +1509,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                     //SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_omp += Number(result.Getdata[j].Amount);

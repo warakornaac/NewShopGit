@@ -326,15 +326,15 @@
                                                     <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-money fa-3x" style="font-size: 24px;"></i></div>
                                                     <div class="d-flex flex-column">
                                                         <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-1">ของรางวัลที่รอจ่าย <span class="text-success font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden><span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-2" hidden><span id="text-promotion-1-2">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-2">0</span> </span> ใบ</span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden> <span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
+                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-2" hidden> <span id="text-promotion-1-2">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-2">0</span> </span> ใบ</span>
                                                         <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-2" hidden><span>ของรางวัลที่จ่ายแล้ว </span> <span class="text-success font-weight-bold ms-sm-2"></span></span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-3" hidden><span id="text-promotion-1-3">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-3">0</span> </span> บาท</span>
                                                         <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-4" hidden><span id="text-promotion-1-4">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-4">0</span> </span> ใบ</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-success" id="right-text-success">Success</span>
+                                                    <span class="badge badge-success" id="right-text-success">สำเร็จ</span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -630,7 +630,7 @@
         //getBackorder();
         //getAmt();
         //getServiceLevel();
-        getTop5();
+        //getTop5();
         getPmotionNew();
         getDashBoard();
         //getDashboardNotable();
@@ -723,6 +723,7 @@
                             if (item.Seq == "1") {
                                 $('#amt-text-first').text(item.Name + ' :');
                                 $('#amt-all').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
+                                getTop5(Math.floor(item.Amt_Qty));
                             }
                             if (item.Seq == "2") {
                                 $('#amt-text-sec').text(item.Name + ' :');
@@ -811,14 +812,14 @@
                             if (item.TopicID == '5') {
                                 seqCheck.push(item.Seq);
                                 if (item.Seq.startsWith("1")) {
-                                    if (item.Seq.endsWith(sub1.toString())) {
+
                                         while (parseInt(item.Seq.slice(-1)) > sub1) {
-                                            console.log("Missing Sequence for SUB2: " + sub1);
+                                            console.log("Missing Sequence for SUB1: " + sub1);
                                             $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
                                             $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
                                             $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
                                             sub1++;
-                                            continue;
+
                                         }
                                         if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
                                             $('#text-promotion-1-' + sub1.toString()).text(item.Name);
@@ -826,21 +827,24 @@
                                             $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
                                             $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
                                             $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#text-promotion-head-1').removeAttr('hidden');
                                             sub1++;
                                             continue;
                                         }
 
                                         if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
+
                                             $('#text-promotion-1-' + sub1.toString()).text(item.Name);
                                             $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
                                             $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
                                             $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
                                             $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                            $('#text-promotion-head-2').removeAttr('hidden');
                                             sub1++;
                                             continue;
                                         }
 
-                                    }
+
                                 }
 
                                 if (item.Seq.startsWith("2")) {
@@ -1016,68 +1020,19 @@
                 }
             });
         }
-
-    function getPromotion() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-
-            },
-            success: function (data) {
-                if (data.message == "Y") {
-                    console.log("Value");
-                    var item = data.Getdata[0];
-                    var sumYear = Number(data.Getdata[0].amt_qty6) + Number(data.Getdata[0].amt_qty7);
-                    var sumQuater = Number(data.Getdata[0].amt_qty10) + Number(data.Getdata[0].amt_qty11);
-                    var sumOther = Number(data.Getdata[0].amt_qty14) + Number(data.Getdata[0].amt_qty15);
-                    $('#txtPromotion_1').text(commaSeparateNumber(data.Getdata[0].amt_qty1));
-                    $('#txtPromotion_2').text(commaSeparateNumber(data.Getdata[0].amt_qty2));
-                    $('#txtPromotion_3').text(commaSeparateNumber(data.Getdata[0].amt_qty3));
-                    $('#txtPromotion_4').text(commaSeparateNumber(data.Getdata[0].amt_qty4));
-                    $('#txtPromotion_5').text(commaSeparateNumber(data.Getdata[0].amt_qty5));
-                    //$('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
-                    //$('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
-                    $('#txtPromotion_8').text(commaSeparateNumber(data.Getdata[0].amt_qty8));
-                    $('#txtPromotion_9').text(commaSeparateNumber(data.Getdata[0].amt_qty9));
-                    //$('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
-                    $('#txtPromotion_11').text(commaSeparateNumber(data.Getdata[0].amt_qty11));
-                    $('#txtPromotion_12').text(commaSeparateNumber(data.Getdata[0].amt_qty12));
-                    $('#txtPromotion_13').text(commaSeparateNumber(data.Getdata[0].amt_qty13));
-                    //$('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
-                    $('#txtPromotion_15').text(commaSeparateNumber(data.Getdata[0].amt_qty15));
-
-                    $('#progress-year-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    $('#amt-year').text(commaSeparateNumber(data.Getdata[0].amt_qty6) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty7));
-
-                    $('#progress-quater-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty10, sumQuater));
-                    $('#amt-quater').text(commaSeparateNumber(data.Getdata[0].amt_qty10) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty11));
-
-                    $('#progress-other-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty14, sumOther));
-                    $('#amt-other').text(commaSeparateNumber(data.Getdata[0].amt_qty14) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty15));
-                    console.log('Sum :' + sumYear);
-                    console.log('Percent ' + getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        if (item.TopicID == "5") {
-
-                        }
-                    }
-                }
-            }
-        });
-    }
     function shortenLabel(label, maxLength) {
         if (label.length > maxLength) {
             return label.substring(0, maxLength - 3) + "...";
         }
         return label;
-    }
-    function getTop5() {
+        }
+
+        function percentTop5Label(val,amt) {
+            var percent = (val / amt) * 100;
+            return commaSeparateNumber(percent.toFixed(2)) + '%';
+        }
+
+    function getTop5(amtAll) {
         $.ajax({
             url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
             data: {
@@ -1136,26 +1091,9 @@
 
                         }
                     }
-                    //var ctx = document.getElementById('top5-chart').getContext('2d');
-                    //top5chart = new Chart(ctx, {
-                    //    type: 'pie',
-                    //    data: {
-                    //        labels: labels,
-                    //        datasets: [{
-                    //            data: dataValues,
-                    //            backgroundColor: colors
-                    //        }]
-                    //    },
-                    //    options: {
-                    //        responsive: true,
-                    //        maintainAspectRatio: false,
-                    //        plugins: {
-                    //            legend: {
-                    //                position: 'bottom'
-                    //            }
-                    //        }
-                    //    }
-                    //});
+                    var amtVals = dataValues.reduce((accumulator, currentValue) => {
+                        return accumulator + currentValue
+                    }, 0);
 
                     var ctx = document.getElementById('top5-chart').getContext('2d');
                     top5chart = new Chart(ctx, {
@@ -1191,7 +1129,7 @@
                                     color: '#fff',
                                     formatter: (value, context) => {
                                         let label = context.chart.data.labels[context.dataIndex];
-                                        return commaSeparateNumber(value)+'% ';
+                                        return percentTop5Label(value, amtAll);
                                     },
                                     anchor: 'middle',
                                     align: 'start',
