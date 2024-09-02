@@ -650,7 +650,7 @@
                                                             <th></th>
                                                             <th>ปี</th>
                                                             <th>มูลค่าของรางวัลที่ลงทะเบียน</th>
-                                                            <th>มูลค่าของรางวัลที่รับแล้ว</th>
+                                                            <th>มูลค่าของรางวัลที่จ่ายแล้ว</th>
                                                             <th>ตั๋วรางวัลสะสม (ใบ)</th>
                                                             <th>มูลค่าของรางวัลที่รอจ่าย</th>
                                                             <th>ภาษีที่ทำการหัก</th>
@@ -1517,12 +1517,17 @@
                                 SubmithtmlPage += '</tr>';
                                 descript = data.Getdata[i].Description;
                             }
+                            if (data.Getdata.length > 1000) {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="" colspan="8"><p class="m-0 text-primary" style="font-size:14px">รายการมีจำนวนมากเกินกว่าที่จะแสดง โปรดติดต่อพนักงานขายของท่าน</p></td>';
+                                SubmithtmlPage += '</tr>';
+                            }
                             desPro.text(descript);
                             table.append(SubmithtmlPage);
                         }
                         else {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                             SubmithtmlPage += '</tr>';
                             table.append(SubmithtmlPage);
                         }
