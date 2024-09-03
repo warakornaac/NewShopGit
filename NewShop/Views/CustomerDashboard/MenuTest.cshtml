@@ -1,1458 +1,1815 @@
-﻿@{
-    ViewBag.Title = "MenuTest";
+﻿<!DOCTYPE html>
+@{
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Customer Portal v.1</title>
+    <meta charset="UTF-8">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+    <title>โปรโมชั่น</title>
+    @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/CSS/jQueryv3.1.1.js"></script>
+
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 
 
-    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <!-- Import jQuery 2.1.1 -->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- Import jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    @* <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>*@
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="~/dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="~/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="~/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link id="pagestyle" href="~/dashboard/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
-    <!-- JS File -->
-    <script src="~/dashboard/assets/js/perfect-scrollbar.min.js"></script>
-    <script src="~/dashboard/assets/js/smooth-scrollbar.min.js"></script>
-    <script src="~/dashboard/assets/js/chartjs.min.js"></script>
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <style>
-        @@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
+        .selected {
+            background: #ACE2E1;
+            color: #FFFFFF;
+        }
 
-        html body {
-            font-family: 'Kanit', sans-serif !important;
+        .removeselected {
+            color: #fff !important;
+            background-color: #000 !important;
+        }
+
+        .puick-contact-area {
+            background: #f6f6f6 none repeat scroll 0 0;
+            padding: 40px 0;
+            text-align: center;
+            width: 370px;
+        }
+
+        .contact-btn .fv-btn:hover {
+            border: 1px solid #ff4136;
+            color: #fff;
+            background: #ff4136;
+        }
+
+        .contact-btn .fv-btn {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid #d5d5d5;
+            color: #4b4b4b;
+            font-size: 14px;
+            height: 45px;
+            letter-spacing: 2px;
+            line-height: 45px;
+            padding: 0 70px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+        }
+
+        .section-title-2 {
+            color: #555555;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 14px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .ppp {
+            font-family: 'Poppins', sans-serif;
+            color: #303030;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
+            margin-bottom: 8px;
+        }
+
+        .statusamt {
+            display: none;
+        }
+
+        .statusamtchild {
+            display: none;
+        }
+
+        .statuspromotion {
+            display: none;
+        }
+
+        .statuscliamoffon {
+            display: none;
+        }
+
+        .statusbackord {
+            display: none;
+        }
+
+        .statusTop20 {
+            display: none;
+        }
+        /*.w3-black, .w3-hover-black:hover {
+            color: #1c1818 !important;
+            background-color: #b7b7bc !important;
+        }*/
+    </style>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            /*width: 60px;
+            height: 34px;*/
+            width: 54px;
+            height: 25px;
+            float: right;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 32px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                /*height: 26px;
+                width: 26px;*/
+                width: 20px;
+                height: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 30px;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style>
+
+
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 0;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        }
+
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card-img-top {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+        }
+
+        .card-text {
+            clear: both;
+            margin-top: .5em;
+            display: flexbox;
+            color: rgba(0, 0, 0, .68);
+        }
+
+        .card-footer {
+            font-size: 1em;
+            position: static;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            padding: .75em 1em;
+            color: rgba(0, 0, 0, .4);
+            border-top: 1px solid rgba(0, 0, 0, .05) !important;
+            background: #fff;
+        }
+
+        .card-inverse .btn {
+            border: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .profile {
+            position: absolute;
+            top: -12px;
+            display: inline-block;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .profile-avatar {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-inline {
+            position: relative;
+            top: 0;
+            display: inline-block;
+        }
+
+            .profile-inline ~ .card-title {
+                display: inline-block;
+                margin-left: 4px;
+                vertical-align: top;
+            }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+            .meta a {
+                text-decoration: none;
+                color: rgba(0, 0, 0, .4);
+            }
+
+                .meta a:hover {
+                    color: rgba(0, 0, 0, .87);
+                }
+        /* Dropdown Button */
+
+        .dropbtn {
+            /* background-color: #04AA6D; */
+            color: #075896;
+            padding: 7px;
+            font-size: 16px;
+            border: none;
+        }
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        /*.dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #3570b6;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 999;
+            position: relative;
+        }*/
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #b1bfce;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            z-index: 999;
+            position: relative;
+        }
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #bee0ed;
         }
 
         .font-kanit {
-            font-family: Kanit;
-        }
-
-        .bg-teal {
-            background-color: #1ED31E;
-        }
-
-        body {
-            height: 100vh;
-        }
-
-        .header {
-            background: #0dcaf0;
-            color: white;
-            text-align: center;
-            padding: 10% 0;
-            position: relative;
-            clip-path: ellipse(75% 100% at 50% 0%);
-        }
-
-        h1 {
-            font-size: 5em;
-        }
-
-        .title-text {
-            font-size: 3em;
-        }
-
-        @@media only screen and (min-width: 767px) {
-            .title-text {
-                font-size: 2em;
-            }
-        }
-
-        @@media (min-width: 768px) {
-            .container, .container-sm, .container-md {
-                max-width: 920px;
-            }
-        }
-        /*        .container-fluid {
-            min-width: 720px;
-        }*/
-        .card .card-body {
-            font-family: Kanit;
-        }
-
-        .bg_card {
-            /*background-color: #ceeaff;*/
-            background-image: linear-gradient(39deg, #a4d0f1 0%, #afe9ff 100%);
-            border: 2px solid #a6c1ff;
-        }
-
-        .bg_hov:hover {
-            background-color: #ffcc00;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        }
-
-        .bg_hov:active {
-            background-color: #997a00;
-            border-radius: 10px;
-        }
-
-        .bg-yellow {
-            background-color: #f4f757;
-        }
-
-        .bg-backorder {
-            background-color: #9FE2BF;
-        }
-
-        .bg-page {
-            background-color: #f7f7f7;
+            font-family: Kanit, sans-serif;
         }
     </style>
     <style>
-        #scroll-container {
-            overflow: hidden;
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
         }
 
-        .scroll-text {
-            display: inline-block;
-            /* animation properties */
-            -moz-transform: translateX(100%);
-            -webkit-transform: translateX(100%);
-            transform: translateX(100%);
-            -moz-animation: my-animation 30s linear infinite;
-            -webkit-animation: my-animation 30s linear infinite;
-            animation: my-animation 30s linear infinite;
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            background-color: rgba(0,0,0,0); /* สีพื้นหลังของ loader */
+            padding: 20px;
         }
 
-        /* for Firefox */
-        @@-moz-keyframes my-animation {
-            from {
-                -moz-transform: translateX(100%);
-            }
-
-            to {
-                -moz-transform: translateX(-120%);
-            }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
         }
 
-        /* for Chrome */
-        @@-webkit-keyframes my-animation {
-            from {
-                -webkit-transform: translateX(100%);
-            }
-
-            to {
-                -webkit-transform: translateX(-120%);
-            }
-        }
-
-        @@keyframes my-animation {
-            from {
-                -moz-transform: translateX(100%);
-                -webkit-transform: translateX(100%);
-                transform: translateX(100%);
-            }
-
-            to {
-                -moz-transform: translateX(-120%);
-                -webkit-transform: translateX(-120%);
-                transform: translateX(-120%);
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 400px !important;
+                white-space: nowrap;
             }
         }
 
-        .pause-animation {
-            -moz-animation-play-state: paused;
-            -webkit-animation-play-state: paused;
-            animation-play-state: paused;
+        @@media only screen and (max-width: 586px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 200px !important;
+                white-space: nowrap;
+            }
         }
 
-        .stroke-text {
-            -webkit-text-stroke-width: 0.5px;
-            -webkit-text-stroke-color: black;
+        @@media only screen and (min-width: 587px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 400px !important;
+                white-space: nowrap;
+            }
         }
 
-        .text-indigo {
-            color: #6f42c1;
+        @@media only screen and (min-width: 819px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 500px !important;
+                white-space: nowrap;
+            }
         }
 
-        .text-tac {
-            color: #0d6efd;
+        @@media only screen and (min-width: 1000px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
         }
 
-        #table-top5 tr {
-            line-height: 14px;
+        @@media only screen and (min-width: 1100px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
         }
 
-        .bg-progress {
-            background-color: #b4b8bd;
+        @@media only screen and (min-width: 1279px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 300px !important;
+                white-space: nowrap;
+            }
+        }
+
+        @@media only screen and (min-width: 1439px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 450px !important;
+                white-space: nowrap;
+            }
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <style>
+        hr {
+            border-color: white;
+        }
+
+        .btn-relative {
+            position: relative;
+        }
+
+        .badge-position {
+            position: absolute;
+            top: 0;
+            right: -10%;
+            transform: translate(50%, -50%);
+        }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+
+        .label-select-container {
+            display: flex;
+            align-items: center;
+        }
+
+            .label-select-container label {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+
+            .label-select-container select {
+                max-width: 150px;
+            }
+
+        .tab-buttons {
+            display: flex;
+            overflow-x: auto;
+        }
+
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+    </style>
+
+    @*table*@
+    <style>
+        .table-style {
+            height: 450px;
+            overflow-y: auto;
+        }
+
+        .table-style-scroll {
+            height: 450px;
+            overflow-y: auto;
+        }
+
+
+        .table-style thead th {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
+
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
-<body class="bg-page" style="font-family: Kanit, sans-serif;">
 
-    @*<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
-            <div class="container">
-                <a class="font-weight-bolder ms-lg-0 ms-3 text-white text-left" href="#" style="font-size: 22px;">
-                    Customer Portal
-                </a>
-                <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon mt-2">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
-                    </span>
-                </button>
-                <div class="navbar-collapse" id="navigation">
-                    <ul class="navbar-nav mx-auto"> </ul>
-                    <ul class="navbar-nav d-lg-block d-none">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-light">Contanct Tel. xxxx</a>
-                        </li>
-                    </ul>
+<body style="background-color: #f2f7ff; ">
+    <div id="app">
+        <div id="main" style=" padding-right: 20px; padding-left: 20px; font-family: Kanit, sans-serif;">
+            <div class="page-heading">
+                <div>
+                    <input type="hidden" id="cushid" />
+                    <input type="hidden" id="slmhid" />
+                    <input type="hidden" id="yearpro" />
+                    <input type="hidden" id="periodpro" />
+                    <input type="hidden" id="nocusses" />
+                    <input class="note-desc" id="cussend" type="hidden">
                 </div>
+                <h4 class="pt-2" id="head-cusname"></h4>
+
             </div>
-        </nav>*@
-    <!-- End Navbar -->
-    <main class="main-content">
-        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-color: white;">
-            @*<div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">*@
-            <span class="mask bg-page opacity-6"></span>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 text-center mx-auto" style="white-space: nowrap;">
-                        <h2 class="text-dark mb-2 mt-4" id="head-cusname"></h2>
+
+            <div class="page-content">
+                <div class="container" id="loader">
+                    <div class="d-flex justify-content-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Loading...</h3>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="container container-fluid">
-            <div class="row mt-lg-n20 mt-md-n11 mt-n10 justify-content-center">
-                <div class="col-lg-12 mb-lg-0 mb-2">
-                    <div class="z-index-2 h-100">
-                        @*Tab Promotion WKP*@
+                <section class="row justify-content-center d-none" id="content" hidden>
+                    <div class="col-12 col-lg-12" id="cushead" hidden>
                         <div class="row">
-                            <div class="col-md-5 mt-4">
-                                @*Left Side Start*@
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-yellow pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="amt-text-first">ยอดซื้อทั้งหมด : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
-                                        </div>
-                                        <div class="row" id="company-amt">
-                                            <span class="col-12 mt-1 text-md font-weight-bold" id="amt-text-company" hidden>ยอดซื้อที่บริษัท : </span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="amt-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-info pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ TOP 5</h3>
-                                    </div>
-                                    <div class="card-body" style="margin-bottom: 0; padding: 0px;">
-                                        <div>
-                                            <div id="top5-chart" height="250" style=" display: block" hidden><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
-                                        </div>
-                                        <table class="table " id="table-top5">
-                                            <thead class="thead-default">
-                                                <tr>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-backorder pb-0 p-2">
-                                        <h3 class="card-title">สินค้าค้างส่ง(Back Order)</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="back-text-first">จำนวนชิ้น : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="back-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="back-text-third"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-warning pb-0 p-2">
-                                        <h3 class="card-title">Service Level</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="service-text-first"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="service-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*LEFT SIDE END*@
-                            </div>
-                            <div class="col-md-7 mt-4" style="margin-bottom: -30px;">
+                            <p id="demo"></p>
+                            <div class="col-12 caption" hidden>
                                 <div class="card">
-                                    <div class="card-header bg-success pb-0 p-2">
-                                        <h3 class="card-title">Promotion</h3>
+                                    <div class="card-header">
+                                        <h4 id="h2title">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
                                     </div>
-                                    <div class="card-body p-3" style="margin-bottom: -8px;">
-                                        <ul class="list-group" style="margin-top: -15px">
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-money fa-3x" style="font-size: 24px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-1">ของรางวัลที่รอจ่าย <span class="text-success font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden><span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-2" hidden><span id="text-promotion-1-2">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-2">0</span> </span> ใบ</span>
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-2" hidden><span>ของรางวัลที่จ่ายแล้ว </span> <span class="text-success font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-3" hidden><span id="text-promotion-1-3">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-3">0</span> </span> บาท</span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-4" hidden><span id="text-promotion-1-4">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-4">0</span> </span> ใบ</span>
-                                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="input-group ">
+                                                <select class="form-control custom-select" id="selslm">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span style="font-family: Kanit, sans-serif; color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
+                                        <br />
+                                        <div id="prvs">
+                                            <h8>ร้านค้า</h8>
+                                            <div>
+                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกร้านค้า" data-hide-disabled="true" id="selcus"></select>
+                                            </div>
+
+                                            <div class="single-checkout-box select-option mt--10">
+                                                <button type="button" class="btn-gray font-kanit" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
+                                            </div>
+                                            <div class="single-checkout-box checkbox">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="appendbtnshopbysales"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="appadjall"></div>
+                    </div>
+
+                    <div class="col-12 col-lg-12">
+                        <div id="dfch">
+                            @*Promotion*@
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card m-0">
+                                        <div class="card-header bg-info">
+                                            <h4>
+                                                โปรโมชั่น
+                                            </h4>
+                                        </div>
+                                        <div class="card-body m-0 p-0">
+                                            <div class="table-responsive m-0">
+                                                <table class="table table-hover" id="table-promotion-year">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th class="text-center">ปี</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่ลงทะเบียน</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่จ่ายแล้ว</th>
+                                                            <th class="text-center">ตั๋วรางวัลสะสม (ใบ)</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่รอจ่าย</th>
+                                                            <th class="text-center">ภาษีที่ทำการหัก</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12" id="detail-pro">
+                                    <div class="card">
+                                        <div class="card-header bg-info ">
+                                            <h4>
+                                            </h4>
+                                        </div>
+                                        <div class="w3-bar tab-buttons bg-info ">
+
+                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-yearly">
+                                                โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-yearly" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-yearly" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-quarter">
+                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-quarter" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-quarter" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-other">
+                                                โปรโมชั่นอื่นๆ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-other" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-other" />
+                                            </button>
+                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-all">
+                                                รวมทุกโปรโมชั่น <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-all" hidden>0</span>
+                                                <hr class="m-0" id="line-tab-all" />
+                                            </button>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="card-body p-0">
+                                                <div class="m-0 table-yearly table-style table-responsive ">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-yearly-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>&nbsp;</th>
+                                                                <th class="text-center p-0">โปรโมชั่น</th>
+                                                                <th class="text-center p-0">วันเริ่ม</th>
+                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center p-0">เงื่อนไข</th>
+                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center p-0">ของรางวัล</th>
+                                                                <th class="text-center p-0">สถานะ</th>
+                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center p-0">ผู้รับ</th>
+                                                                <th class="text-center p-0">หักภาษี</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-success" id="right-text-success">Success</span>
+                                                <div class="m-0 table-quarter table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quarter-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>&nbsp;</th>
+                                                                <th class="text-center p-0">โปรโมชั่น</th>
+                                                                <th class="text-center p-0">วันเริ่ม</th>
+                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center p-0">เงื่อนไข</th>
+                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center p-0">ของรางวัล</th>
+                                                                <th class="text-center p-0">สถานะ</th>
+                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center p-0">ผู้รับ</th>
+                                                                <th class="text-center p-0">หักภาษี</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-info shadow text-center ml-2"><i class="fa fa-calendar-check-o" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">
-                                                            <span id="text-promotion-2-x">เป้าปีที่ลงทะเบียน</span> <span class="text-info font-weight-bold ms-sm-2"></span>
-                                                        </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1" hidden><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2" hidden><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold" id="head-2-5" hidden><span id="text-promotion-2-5">รางวัลที่ได้รับ :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5">0</span></span> </span>
-                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height:30px; width:210px">
-                                                            <div class="progress-bar bg-info" id="progress-year-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-year"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> : <span class="text-info font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
+                                                <div class="m-0 table-other table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-other-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>&nbsp;</th>
+                                                                <th class="text-center p-0">โปรโมชั่น</th>
+                                                                <th class="text-center p-0">วันเริ่ม</th>
+                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center p-0">เงื่อนไข</th>
+                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center p-0">ของรางวัล</th>
+                                                                <th class="text-center p-0">สถานะ</th>
+                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center p-0">ผู้รับ</th>
+                                                                <th class="text-center p-0">หักภาษี</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-info">เป้าปี</span>
+                                                <div class="m-0 table-all table-style table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-all-table" style="padding: 7px;font-size: small;">
+                                                        <thead style="font-size: small;">
+                                                            <tr>
+                                                                <th>&nbsp;</th>
+                                                                <th class="text-center">โปรโมชั่น</th>
+                                                                <th class="text-center">วันเริ่ม</th>
+                                                                <th class="text-center text-truncate">วันสื้นสุด</th>
+                                                                <th class="text-center">เงื่อนไข</th>
+                                                                <th class="text-center">ยอดซื้อสะสม</th>
+                                                                <th class="text-center text-truncate">ยังขาดอีก</th>
+                                                                <th class="text-center">ของรางวัล</th>
+                                                                <th class="text-center">สถานะ</th>
+                                                                <th class="text-center text-truncate">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center">ผู้รับ</th>
+                                                                <th class="text-center">หักภาษี</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-warning shadow text-center ml-2"><i class="fa fa-calendar" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-x">เป้าไตรมาสที่ลงทะเบียน</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1" hidden><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2" hidden><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold " id="head-3-5" hidden><span id="text-promotion-3-5">รางวัลที่ได้รับ :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-5">0</span></span> </span>
-                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
-                                                            <div class="progress-bar bg-warning" id="progress-quater-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-quater"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> : <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12" hidden>
+                                    <!-- Rounded switch -->
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                            <div class="col-sm-6 text-left pl-1">
+                                                <h4>โปรโมชั่น</h4>
+                                            </div>
+                                            <div class="col-sm-6 text-right" hidden>
+                                                <label class="switch">
+                                                    <input type="checkbox">
+                                                    <span class="slider" id="promooffon"></span>
+                                                </label><div class='statuspromotion'>Untoggled</div>
+                                            </div>
+                                        </div>
+                                        <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quarter', this.id)" id="btn_quater">รายไตรมาส</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
+                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('all', this.id)" id="btn_all">ALL</button>
+                                        </div>
+                                        <div class="card m-0">
+                                            <div id="yearly" class="city">
+                                                <div class="table-responsive m-0" style="height:500px">
+                                                    <table class="table table-striped mb-0" id="promotiontbyearly" style="padding: 7px; font-size: small; overflow: auto;">
+                                                        <thead class="thead-default" style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>เงื่อนไข</th>
+                                                                @*<th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-warning">เป้าไตรมาส</span>
+                                            </div>
+
+                                            <div id="quarter" class="city" style="display:none">
+                                                <div class="table-responsive m-0" style="height:500px">
+                                                    <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px; font-size: small; overflow: auto;">
+                                                        <thead class="thead-default" style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>เงื่อนไข</th>
+                                                                @* <th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
+                                                    </table>
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-4-x">เป้าอื่นๆที่ลงทะเบียน  <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1" hidden><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2" hidden><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold " id="head-4-5" hidden><span id="text-promotion-4-5">รางวัลที่ได้รับ :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-5">0</span></span></span>
-                                                        @*<span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
-                                                            <div class="progress-bar bg-primary" id="progress-other-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-other"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> : <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
+                                            </div>
+
+                                            <div id="other" class="city" style="display:none">
+                                                <div class="table-responsive m-0" style="height:500px">
+                                                    <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small; overflow:auto;">
+                                                        <thead class="thead-default" style="font-size: small;">
+                                                            <tr>
+                                                                <th>โปรโมชั่น</th>
+                                                                <th>เงื่อนไข</th>
+                                                                @*<th>จาก</th>*@
+                                                                <th>สิ้นสุด</th>
+                                                                <th>ยอดซื้อ</th>
+                                                                <th>ยังขาดอีก</th>
+                                                                <th>ของรางวัล</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-primary">เป้าอื่นๆ</span>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                        @*End Promotion*@
+                        <div id="appadj"></div>
                     </div>
-                </div>
-            </div>
-            @*menu list*@
-            <div class="row mt-2">
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card " id="menu_deliverytracking">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h4>
-                                        <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
-                                        @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการสั่งซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="fa fa-shopping-bag text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
+                </section>
+                <div class="modal fade in" id="DetailModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="col-12">
+                                    <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');">&times;</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6  col-sm-6">
-                    <div class="card bg_card" id="menu_backorder">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะสินค้าค้างส่ง</h4>
-                                        <h4>
-                                            <span id="backorder-amt">0</span> รายการ
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary  font-weight-bolder ">ดูสถานะสินค้าค้างส่ง</span>  <span class="text-danger  font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
+                            <div class="modal-body">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body row overflow-auto">
+                                            <div class="col">
+                                                <h5 class="modal-title float-left" id="DetailModalLongTitle">โปรโมชั่น : <span id="prodes"></span></h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                        <i class="fa fa-truck text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_warranty">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการเคลมสินค้า</h4>
-                                        <h4>
-                                            <span id="warranty-amt">0</span> รายการ
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการเคลมสินค้า</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                        <i class="fa fa-file-text text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_promotion">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูโปรโมชั่น</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                        <i class="fa fa fa-product-hunt text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_credit">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูเครดิต</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-info shadow-warning text-center rounded-circle">
-                                        <i class="ni ni-credit-card text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_amt">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูประวัติซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-secondary shadow-warning text-center rounded-circle">
-                                        <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
+                                <hr />
+                                @*<div class="col-12">
+                                        <div class="table-responsive m-0 table-style overflow-auto">
+                                            <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small;">
+                                                <thead style="font-size: small;">
+                                                    <tr>
+                                                        <th class="text-center"><span>บริษัท</span></th>
+                                                        <th class="text-center"><span>เบอร์สินค้า</span></th>
+                                                        <th class="text-center"><span>ชื่อสินค้า</span></th>
+                                                        <th class="text-center"><span>วันสั่งซื้อ</span></th>
+                                                        <th class="text-center"><span>เลขสั่งซื้อ</span></th>
+                                                        <th class="text-center text-truncate"><span>ราคาสินค้า</span></th>
+                                                        <th class="text-center"><span>จำนวน</span></th>
+                                                        <th class="text-center"><span>ยอดซื้อ</span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>*@
+                                <div id="gridContainer"></div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+    <footer class="footer" hidden>
+        <div class="container">
+            <p>2024 &copy; TAC&AAC</p>
+        </div>
+    </footer>
+    </div>
+    <!-- CSS ของ Grid.js -->
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
 
+    <!-- JavaScript ของ Grid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
+    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
+    <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
     <script type="text/javascript">
-    var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
-    //var cuscod = '110T0189';
-        var chartInstance;
-        var top5chart;
-    var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var currentDate = new Date();
-    var currentMonth = currentDate.getMonth() + 1;
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
 
-    $(document).ready(function () {
-        getCusName();
-        const $scrolltext = $('#scroll-container');
-        $scrolltext.on('mousedown touchstart', function () {
-            $('.scroll-text').addClass('pause-animation');
-        });
-        $scrolltext.on('mouseup touchend', function () {
-            $('.scroll-text').removeClass('pause-animation');
-        });
-        $('#btn-show-yearly').css("background", "#DEAF5B");
-        $('#promotion-table-quater').hide();
-        $('#promotion-table-other').hide();
+        var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
 
-    });
-    if (cuscod != null) {
-        //getChartsamt();
-        //getBackorder();
-        //getAmt();
-        //getServiceLevel();
-        getTop5();
-        getPmotionNew();
-        getDashBoard();
-        //getDashboardNotable();
-        getDeliveryTrackAmt();
-        getBackorderAmt();
-        getWarrantyAmt();
-    }
-    function getCusName() {
-        $.ajax({
-            url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
-            data: {
-                cusel: cuscod
-            },
-            type: 'POST',
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.length != 0) {
-                    var head = $('#head-cusname');
-                    var name = data[0].CUSNAM;
-                    var club = data[0].CLUB;
-                    if (club != "") {
-                        head.text(name + '(' + club + ')');
+        const queryString = decodeURIComponent(window.location.search);
+        const params = new URLSearchParams(queryString);
+        const page = params.get('priod');
+        var date = new Date();
+        var CurrentY = date.getFullYear();
+        var grid;
+        var arrayPriod = ["yearly", "quarter", "other"];
+        console.log("Page Param: " + page);
+
+        $(document).ready(function () {
+            $('#loader').show();
+            getCusName();
+            setTimeout(function() {
+                $('#loader').hide();
+                $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+            }, 2000);
+        });
+        $('#btn_yearly').css("background", "#DEAF5B");
+        if (cuscod != "") {
+            $("#cushid").val(cuscod)
+
+        }
+        $(document).ready(function () {
+            getYearpromotion();
+            $('.table-quarter').hide();
+            $('.table-other').hide();
+            $('.table-all').hide();
+            $('#detail-pro').hide();
+
+            if (page == 'yearly') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('yearly');
+                yearPromotion(CurrentY);
+                $('#btn-show-year').click();
+            }
+            else if (page == 'quarter') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('quarter');
+                yearPromotion(CurrentY);
+                $('#btn-show-quarter').click();
+            }
+            else if (page == 'other') {
+                $('#yearpro').val(CurrentY);
+                $('#periodpro').val('other');
+                yearPromotion(CurrentY);
+                $('#btn-show-other').click();
+            }
+        });
+
+        $(document).ready(function () {
+            $(document).on('click', 'tr[id^="pro-year"]', function () {
+                console.log("LOG CLICK");
+                $('tr[id^="pro-year"]').css("background", "");
+                $(this).css("background", "#DEAF5B");
+            });
+        });
+
+
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        function jssor_1_slider_init() {
+
+            var jssor_1_options = {
+                $AutoPlay: 0,
+                $AutoPlaySteps: 5,
+                $SlideDuration: 260,
+                $SlideWidth: 200,
+                $SlideSpacing: 3,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 1
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 16,
+                    $SpacingY: 16
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 758;
+
+            function ScaleSlider() {
+
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+
+
+        };
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+        function formatDate(dateString) {
+            var sym = '';
+            if (dateString.includes('/')) {
+                sym = '-';
+            }
+            else {
+                sym = '-';
+            }
+            let dateParts = dateString.split(sym);
+            let day = dateParts[0];
+            let month = dateParts[1];
+            let year = dateParts[2].slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+
+        function toDateformat(day) {
+            var parts = day.split('-');
+            var dayPart = parseInt(parts[0], 10);
+            var monthPart = parseInt(parts[1], 10) - 1;
+            var yearPart = parseInt(parts[2], 10);
+            yearPart +=2000 ;
+            var dateObject = new Date(yearPart, monthPart, dayPart);
+            return dateObject;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        var head = $('#head-cusname');
+                        var name = data[0].CUSNAM;
+                        var club = data[0].CLUB;
+                        if (club != "") {
+                            head.text(name + '(' + club + ')');
+                        }
+                        else {
+                            head.text(name);
+                        }
+                    }
+                }
+            });
+        }
+
+        function openPeriod(PeriodName, id) {
+            var i;
+            var x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(PeriodName).style.display = "block";
+            var cusnc = cuscod;
+            var period = PeriodName;
+            //alert(period)
+            getPromotion_Cus(cusnc, period);
+        }
+
+        //TOP20
+        function getListTop20(cuscod) {
+            var current_status = $('.statusTop20').text();
+            var txtWarning = "";
+            if (current_status != "Untoggled") {
+                $.ajax({
+                    url: '@Url.Action("GetdataCusAmtTop20", "DataCenter")',
+                    data: {
+                        cuscod: cuscod,
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        $('#tableListTop20 tbody:last-child').html("");
+                        var SubmithtmlPages = "";
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                SubmithtmlPages += '<tr>';
+                                SubmithtmlPages += '<td>' + data[i].Rowid + '</td>';
+                                SubmithtmlPages += '<td align="center">' + data[i].Company + '</td>';
+                                // SubmithtmlPages += '<td>' + data[i].Cuscod + '</td>';
+                                SubmithtmlPages += '<td>' + data[i].Stkcod + '</td>';
+                                SubmithtmlPages += '<td>' + data[i].Stkdes + '</td>';
+                                SubmithtmlPages += '<td align="center">' + parseInt(data[i].Qty) + '</td>';
+                                SubmithtmlPages += '<td>' + commaSeparateNumber(data[i].Amt) + '</td>';
+                                SubmithtmlPages += '</tr>';
+                            }
+                        } else {
+                            if (cuscod == "") {
+                                txtWarning = "กรุณาเลือกร้านค้า";
+                            } else {
+                                txtWarning = "-ไม่พบข้อมูล-";
+                            }
+                            SubmithtmlPages += '<tr>';
+                            SubmithtmlPages += '<td colspan="6" align="center">' + txtWarning + '</td>';
+                            SubmithtmlPages += '</tr>';
+                        }
+                        $("#tableListTop20").append(SubmithtmlPages);
+                    }
+                });
+            }
+        }
+        function getPromotion_Cus(cusnc, period) { //โปรโมชั่น ฟังก์ชั่น
+            var current_status = $('.statuspromotion').text();
+            var reward_color = "";
+            console.log("Promotion Cus : " + cusnc);
+                $.ajax({
+                    url: '@Url.Action("GetdataPromotion_Cus", "DataCenter")',
+                    data: {
+                        strcustome: cusnc,
+                        period: period
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        //console.log(data)
+                        $('#promotiontbyearly tbody:last-child').html("");
+                        $('#promotiontbquater tbody:last-child').html("");
+                        $('#promotiontbother tbody:last-child').html("");
+                        var SubmithtmlPage = "";
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td><span>' + data[i].Promotion_Name + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].Condition) + '</span></td>';
+                                //SubmithtmlPage += '<td>' + data[i].StartDate + '</td>';
+                                SubmithtmlPage += '<td><span>' + data[i].EndDate + '</td>';
+                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].INVAMT) + '</span></td>';
+                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].RemainAmt) + '</span></td>';
+                                if (data[i].Reward.toString().toLowerCase().includes("ticket")) {
+                                    reward_color = "bg-warning bg-opacity-75";
+                                }
+                                else if (data[i].Reward.toString().includes("ตั๋ว")) {
+                                    reward_color = "bg-warning bg-opacity-75 ";
+                                }
+                                else if (data[i].Reward.toString().includes("เช็ค")) {
+                                    reward_color = "bg-success bg-opacity-75";
+                                }
+                                else {
+                                    reward_color = "bg-info bg-opacity-75 ";
+                                }
+
+                                SubmithtmlPage += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            if (period == 'yearly') {
+                                $("#promotiontbyearly").append(SubmithtmlPage);
+                                $('#btn_yearly').css("background", "#DEAF5B");
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').removeAttr('style');
+
+                            } else if (period == 'quarter') {
+                                $("#promotiontbquater").append(SubmithtmlPage);
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').css("background", "#DEAF5B");
+                                $('#btn_other').removeAttr('style');
+                            } else if (period == 'other') {
+                                $("#promotiontbother").append(SubmithtmlPage);
+
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').css("background", "#DEAF5B");
+                            }
+                        }
+                        else if (data.length <= 0) {
+                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
+                            if (period == 'yearly') {
+                                $("#promotiontbyearly").append(SubmithtmlPage);
+                                $('#btn_yearly').css("background", "#DEAF5B");
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').removeAttr('style');
+
+                            } else if (period == 'quarter') {
+                                $("#promotiontbquater").append(SubmithtmlPage);
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').css("background", "#DEAF5B");
+                                $('#btn_other').removeAttr('style');
+                            } else if (period == 'other') {
+                                $("#promotiontbother").append(SubmithtmlPage);
+
+                                $('#btn_yearly').removeAttr('style');
+                                $('#btn_quater').removeAttr('style');
+                                $('#btn_other').css("background", "#DEAF5B");
+                            }
+                        }
+                    }
+                });
+        }
+        function myFunction() {
+            var x = document.getElementById("blcslm");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#selslm").val("ALL");
+
+            } else {
+                x.style.display = "none";
+                $("#selcus").prop("disabled", false);
+            }
+        }
+
+        //GetYearOfPromotion
+        function getYearpromotion() {
+            var cus = cuscod;
+            $.ajax({
+                url: '@Url.Action("GetYearPromotion", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus
+                },
+                dataType: 'JSON',
+                type: 'POST',
+                beforeSend: function () {
+                    $('#table-promotion-year tbody').html("");
+                    var SubmithtmlPag = '';
+                    SubmithtmlPag += '<tr>';
+                    SubmithtmlPag += '<td align="center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPag += '</tr>';
+                    $('#table-promotion-year tbody').append(SubmithtmlPag);
+                },
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        var SubmithtmlPag = '';
+
+                        $('#table-promotion-year tbody').html("");
+                        if (data.Getdata.length != 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year + '" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" ' + (arrayPriod.includes(page) ? (CurrentY == data.Getdata[i].Year ? ' style="background-color:#DEAF5B;"' : '') : '') + '>';
+                                SubmithtmlPag += '<td class="text-center"><i class="fa fa-search" aria-hidden="true"></i></td>';
+                                SubmithtmlPag += '<td class="text-center">' + data.Getdata[i].Year + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Paid_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Ticket) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Waiting_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                SubmithtmlPag += '</tr>';
+                            }
+                            $('#table-promotion-year tbody').append(SubmithtmlPag);
+                        }
                     }
                     else {
-                        head.text(name);
-                    }
-                }
-            }
-        });
-    }
-    function commaSeparateNumber(val) {
-        while (/(\d+)(\d{3})/.test(val.toString())) {
-            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-        }
-        return val;
-    }
-    $('#btn-show-yearly').click(function () {
-        $('#promotion-table-yeary').show('slow');
-        $('#promotion-table-quater').hide('slow');
-        $('#promotion-table-other').hide('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-quater').removeAttr('style');
-        $('#btn-show-other').removeAttr('style');
-    });
-    $('#btn-show-quater').click(function () {
-        $('#promotion-table-yeary').hide('slow');
-        $('#promotion-table-quater').show('slow');
-        $('#promotion-table-other').hide('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-yearly').removeAttr('style');
-        $('#btn-show-other').removeAttr('style');
-    });
-    $('#btn-show-other').click(function () {
-        $('#promotion-table-yeary').hide('slow');
-        $('#promotion-table-quater').hide('slow');
-        $('#promotion-table-other').show('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-yearly').removeAttr('style');
-        $('#btn-show-quater').removeAttr('style');
-    });
-
-
-
-        function getPercentAmt(num, all) {
-            var resault = Number(num) / Number(all) * 100;
-        return resault+'%';
-    }
-
-    function getDashBoard() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                var stringLoad = "Loading...";
-                $('#amt-text-first').text(stringLoad);
-                $('#back-text-first').text(stringLoad);
-                $('#service-text-first').text(stringLoad);
-            },
-            success: function (data) {
-                var HtmlStringAmt = '';
-                if (data.Getdata.length != 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        console.log("TOPIC" + item.TopicID);
-                        if (item.TopicID == "1") {
-                            if (item.Seq == "1") {
-                                $('#amt-text-first').text(item.Name + ' :');
-                                $('#amt-all').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq == "2") {
-                                $('#amt-text-sec').text(item.Name + ' :');
-                                $('#amt-discount').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq.startsWith("3")) {
-                                $('#amt-text-company').removeAttr("hidden");
-                                HtmlStringAmt += '<span class="col-6 text-md font-weight-bold pl-4">' + item.Name + '</span> ';
-                                HtmlStringAmt += '<span class="col-6 text-right text-md font-weight-bold" >' + commaSeparateNumber(Math.floor(item.Amt_Qty)) + '</span >';
-                            }
-                        }
-                        if (item.TopicID == "3") {
-                            if (item.Seq == "1") {
-                                $('#back-text-first').text(item.Name + ' :');
-                                $('#backorder-total').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                            if (item.Seq == "2") {
-                                $('#back-text-sec').text(item.Name + ' :');
-                                $('#backorder-product').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                            if (item.Seq == "3") {
-                                $('#back-text-third').text(item.Name + ' :');
-                                $('#backorder-money').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                        }
-                        if (item.TopicID == "4") {
-                            if (item.Seq == "1") {
-                                $('#service-text-first').text(item.Name + ' :');
-                                $('#service-level-amt').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq == "2") {
-                                $('#service-text-sec').text(item.Name + ' :');
-                                var servicePercent = item.Amt_Qty * 100;
-                                $('#service-level-delivery').text(servicePercent.toFixed(2) + '%');
-                            }
-                        }
-                    }
-                    $('#company-amt').append(HtmlStringAmt);
-                }
-                else {
-                    $('#amt-text-first').text("ไม่พบข้อมูล");
-                    $('#back-text-first').text("ไม่พบข้อมูล");
-                    $('#service-text-first').text("ไม่พบข้อมูล");
-                }
-            }
-            ,
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error: " + textStatus + " - " + errorThrown);
-                alert("มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง.");
-            }
-        });
-    }
-
-        function getPmotionNew() {
-            $.ajax({
-                url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-
-                },
-                success: function (data) {
-                    if (data.Getdata.length != 0) {
-                        var sub1 = 1;
-                        var sub2 = 1;
-                        var sub3 = 1;
-                        var sub4 = 1;
-                        var textProgressYear = "";
-                        var textProgressQua = "";
-                        var textProgressOth = "";
-                        var amtYear = "";
-                        var amtQuater = "";
-                        var amtOther = "";
-                        var missYear = "";
-                        var missQuater = "";
-                        var missOther = "";
-                        var sumYear = 0;
-                        var sumQuater = 0;
-                        var sumOther = 0;
-                        var seqCheck = [];
-                        for (var i = 0; i < data.Getdata.length; i++) {
-                            var item = data.Getdata[i];
-                            if (item.TopicID == '5') {
-                                seqCheck.push(item.Seq);
-                                if (item.Seq.startsWith("1")) {
-                                    if (item.Seq.endsWith(sub1.toString())) {
-                                        while (parseInt(item.Seq.slice(-1)) > sub1) {
-                                            console.log("Missing Sequence for SUB2: " + sub1);
-                                            $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
-                                            sub1++;
-                                            continue;
-                                        }
-                                        if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            sub1++;
-                                            continue;
-                                        }
-
-                                        if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            sub1++;
-                                            continue;
-                                        }
-
-                                    }
-                                }
-
-                                if (item.Seq.startsWith("2")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub2) {
-                                        console.log("Missing Sequence for SUB2: " + sub2);
-                                        $('#text-promotion-2-' + sub2.toString()).attr("hidden", true);
-                                        $('#val-promotion-2-' + sub2.toString()).attr("hidden", true);
-                                        $('#head-2-' + sub2.toString()).attr("hidden", true);
-                                        console.log("Head 2 : " + sub2);
-                                        sub2++;
-                                    }
-                                    if (item.Seq.endsWith(sub2.toString())) {
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-2-' + sub2.toString()).text(lastPart);
-                                            $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-2-' + sub2.toString()).removeAttr("Hidden");
-                                            sub2++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            amtYear = item.Amt_Qty;
-                                            sub2++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            missYear = item.Amt_Qty;
-                                            sub2++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-2-' + sub2.toString()).text(item.Name);
-                                        $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-2-' + sub3.toString()).removeAttr("Hidden");
-                                        sub2++;
-                                    }
-                                }
-
-                                if (item.Seq.startsWith("3")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub3) {
-                                        console.log("Missing Sequence for SUB3: " + sub3);
-                                        $('#text-promotion-3-' + sub3.toString()).attr("hidden", true);
-                                        $('#val-promotion-3-' + sub3.toString()).attr("hidden", true);
-                                        $('#head-3-' + sub3.toString()).attr("hidden", true);
-
-                                        sub3++;
-                                    }
-                                    if (item.Seq.endsWith(sub3.toString())) {
-                                        console.log("Processing Seq: " + item.Seq);
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-3-' + sub3.toString()).text(lastPart + ' :');
-                                            $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-3-' + sub3.toString()).removeAttr("Hidden");
-                                            sub3++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            amtQuater = item.Amt_Qty;
-                                            console.log("AMT Q (Seq ends with 3): " + amtQuater);
-                                            sub3++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            missQuater = item.Amt_Qty;
-                                            console.log("MISS Q (Seq ends with 4): " + missQuater);
-                                            sub3++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-3-' + sub3.toString()).text(item.Name + ' :');
-                                        $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-3-' + sub3.toString()).removeAttr("Hidden");
-                                        sub3++;
-                                    }
-                                }
-
-
-
-
-
-                                if (item.Seq.startsWith("4")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub4) {
-                                        console.log("Missing Sequence for SUB4: " + sub4);
-                                        $('#text-promotion-4-' + sub4.toString()).attr("hidden", true);
-                                        $('#val-promotion-4-' + sub4.toString()).attr("hidden", true);
-                                        $('#head-4-' + sub4.toString()).attr("hidden", true);
-                                        sub4++;
-                                    }
-
-                                    if (item.Seq.endsWith(sub4.toString())) {
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-4-' + sub4.toString()).text(lastPart + ' :');
-                                            $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-4-' + sub4.toString()).removeAttr("Hidden");
-                                            sub4++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
-                                            amtOther = item.Amt_Qty;
-                                            console.log("SUB4 = " + sub4);
-                                            sub4++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
-                                            console.log("SUB4 = " + sub4);
-                                            missOther = item.Amt_Qty;
-                                            sub4++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-4-' + sub4.toString()).text(item.Name + ' :');
-                                        $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-4-' + sub4.toString()).removeAttr("Hidden");
-                                        sub4++;
-                                    }
-
-                                }
-
-
-                            }
-                        }
-                        console.log('boolean :' + seqCheck.filter(num => num.toString().startsWith("3")));
-                        var Check2 = seqCheck.filter(num => num.toString().startsWith("2"));
-                        var Check3 = seqCheck.filter(num => num.toString().startsWith("3"));
-                        var Check4 = seqCheck.filter(num => num.toString().startsWith("4"));
-                        if (Check2.length == 0) {
-                            $('#text-promotion-2-1').removeAttr('hidden');
-                            $('#val-promotion-2-1').attr('hidden', true);
-                            $('#head-2-1').removeAttr("Hidden");
-                            $('#text-promotion-2-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        if (Check3.length == 0) {
-
-                            $('#text-promotion-3-1').removeAttr('hidden');
-                            $('#val-promotion-3-1').attr('hidden', true);
-                            $('#head-3-1').removeAttr("Hidden");
-                            $('#text-promotion-3-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        if (Check4.length == 0) {
-                            console.log("No 4 Check!!!");
-                            $('#text-promotion-4-1').removeAttr('hidden');
-                            $('#val-promotion-4-1').attr('hidden', true);
-                            $('#head-4-1').removeAttr("Hidden");
-                            $('#text-promotion-4-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        console.log(amtQuater + '/' + missQuater);
-                        sumYear = Number(amtYear) + Number(missYear);
-                        sumQuater = Number(amtQuater) + Number(missQuater);
-                        sumOther = Number(amtOther) + Number(missOther);
-                        $('#progress-year-amt').css('width', getPercentAmt(amtYear, sumYear));
-                        $('#progress-quater-amt').css('width', getPercentAmt(amtQuater, sumQuater));
-                        $('#progress-other-amt').css('width', getPercentAmt(amtOther, sumOther));
-
-                        if (amtYear != "" && missYear != "") {
-                            $('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
-                        }
-                        if (amtQuater != "" && missQuater != "") {
-                            $('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
-
-                        }
-                        if (amtOther != "" && missOther != "") {
-                            $('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
-                        }
-                        //$('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
-                        //$('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
-                        //$('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                        console.log(data.message);
                     }
                 }
             });
         }
 
-    function getPromotion() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
+        function yearPromotion(year) {
 
-            },
-            success: function (data) {
-                if (data.message == "Y") {
-                    console.log("Value");
-                    var item = data.Getdata[0];
-                    var sumYear = Number(data.Getdata[0].amt_qty6) + Number(data.Getdata[0].amt_qty7);
-                    var sumQuater = Number(data.Getdata[0].amt_qty10) + Number(data.Getdata[0].amt_qty11);
-                    var sumOther = Number(data.Getdata[0].amt_qty14) + Number(data.Getdata[0].amt_qty15);
-                    $('#txtPromotion_1').text(commaSeparateNumber(data.Getdata[0].amt_qty1));
-                    $('#txtPromotion_2').text(commaSeparateNumber(data.Getdata[0].amt_qty2));
-                    $('#txtPromotion_3').text(commaSeparateNumber(data.Getdata[0].amt_qty3));
-                    $('#txtPromotion_4').text(commaSeparateNumber(data.Getdata[0].amt_qty4));
-                    $('#txtPromotion_5').text(commaSeparateNumber(data.Getdata[0].amt_qty5));
-                    //$('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
-                    //$('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
-                    $('#txtPromotion_8').text(commaSeparateNumber(data.Getdata[0].amt_qty8));
-                    $('#txtPromotion_9').text(commaSeparateNumber(data.Getdata[0].amt_qty9));
-                    //$('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
-                    $('#txtPromotion_11').text(commaSeparateNumber(data.Getdata[0].amt_qty11));
-                    $('#txtPromotion_12').text(commaSeparateNumber(data.Getdata[0].amt_qty12));
-                    $('#txtPromotion_13').text(commaSeparateNumber(data.Getdata[0].amt_qty13));
-                    //$('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
-                    $('#txtPromotion_15').text(commaSeparateNumber(data.Getdata[0].amt_qty15));
-
-                    $('#progress-year-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    $('#amt-year').text(commaSeparateNumber(data.Getdata[0].amt_qty6) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty7));
-
-                    $('#progress-quater-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty10, sumQuater));
-                    $('#amt-quater').text(commaSeparateNumber(data.Getdata[0].amt_qty10) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty11));
-
-                    $('#progress-other-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty14, sumOther));
-                    $('#amt-other').text(commaSeparateNumber(data.Getdata[0].amt_qty14) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty15));
-                    console.log('Sum :' + sumYear);
-                    console.log('Percent ' + getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        if (item.TopicID == "5") {
-
-                        }
-                    }
+            // $('#' + year + '').css("background", "#DEAF5B");
+            var lastperoid = $('#periodpro').val();
+            console.log("Peroid is " + lastperoid);
+            if (lastperoid != "") {
+                $('#btn-show-yearly').removeAttr('style');
+                $('#btn-show-quarter').removeAttr('style');
+                $('#btn-show-other').removeAttr('style');
+                $('#btn-show-all').removeAttr('style');
+                $('#yearpro').val(year);
+                $('#detail-pro').show("slow");
+                switch (lastperoid) {
+                    case 'yearly':
+                        $('#btn-show-yearly').css("background", "#DEAF5B");
+                        $('.table-yearly').show('slow');
+                        $('.table-quarter').hide('slow');
+                        $('.table-other').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('yearly');
+                        break;
+                    case 'quarter':
+                        $('#btn-show-quarter').css("background", "#DEAF5B");
+                        $('.table-quarter').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-other').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('quarter');
+                        break;
+                    case 'other':
+                        $('#btn-show-other').css("background", "#DEAF5B");
+                        $('.table-other').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-quarter').hide('slow');
+                        $('.table-all').hide('slow');
+                        getPromotion('other');
+                        break;
+                    case 'all':
+                        $('#btn-show-all').css("background", "#DEAF5B");
+                        $('.table-all').show('slow');
+                        $('.table-yearly').hide('slow');
+                        $('.table-quarter').hide('slow');
+                        $('.table-other').hide('slow');
+                        getPromotion('all');
+                        break;
+                    default:
+                        break;
                 }
             }
-        });
-    }
+            else {
+                $('#btn-show-yearly').css("background", "#DEAF5B");
+                $('#btn-show-quarter').removeAttr('style');
+                $('#btn-show-other').removeAttr('style');
+                $('#btn-show-all').removeAttr('style');
+                $('.table-yearly').show('slow');
+                $('.table-quarter').hide('slow');
+                $('.table-other').hide('slow');
+                $('.table-all').hide('slow');
+                $('#yearpro').val(year);
+                $('#detail-pro').show("slow");
+                getPromotion('yearly');
+            }
 
+        }
 
-
-        function getServiceLevel() {
+        function getPromotion(period) {
+            var cus = cuscod;
+            var year = $('#yearpro').val();
             $.ajax({
-                url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
+                url: '@Url.Action("GetPromotionDetail", "CustomerDashboard")',
                 data: {
-                    CUSCOD: '110L0003',
-                    TOPIC: 'Service Level'
+                    CUSCOD: cus,
+                    Period: period,
+                    YEAR:year
                 },
-                type: "POST",
-                dataType: "JSON",
+                type: 'POST',
+                dataType: 'JSON',
                 beforeSend: function () {
+                    var SubmithtmlPag = '';
+                    var yearly = $('#promotion-yearly-table tbody');
+                    var quarter = $('#promotion-quarter-table tbody');
+                    var other = $('#promotion-other-table tbody');
+                    var all = $('#promotion-all-table tbody');
+                    SubmithtmlPag += '<tr>';
+                    SubmithtmlPag += '<td class="text-center" colspan="12"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPag += '</tr>';
 
-                    $('#service-level-delivery').html("");
-
-                    var SubmitPage = 'Loading...';
-
-                    $('#service-level-delivery').text(SubmitPage);
-
+                    yearly.append(SubmithtmlPag);
+                    quarter.append(SubmithtmlPag);
+                    other.append(SubmithtmlPag);
+                    all.append(SubmithtmlPag);
                 },
                 success: function (data) {
-                    if (data.message == "Y") {
-                        var item = data.Getdata[0];
-                        var dlivery = item.amt_qty2 * 100;
-                        $('#service-level-amt').text(commaSeparateNumber(item.amt_qty1));
-                        $('#service-level-delivery').text(dlivery + '%');
+                    var SubmithtmlPag = '';
+                    var reward_color = "";
+                    if (data.message == 'Y') {
+                        var yearly = $('#promotion-yearly-table tbody');
+                        var quarter = $('#promotion-quarter-table tbody');
+                        var other = $('#promotion-other-table tbody');
+                        var all = $('#promotion-all-table tbody');
 
-                    }
-                }
-            });
-        }
-        function getAmt() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Purchase'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#amt-discount').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#amt-discount').text(SubmitPage);
-
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#amt-all').text(commaSeparateNumber(item.amt_qty1));
-                            $('#amt-discount').text(commaSeparateNumber(item.amt_qty2));
-
-                        }
-                    }
-                });
-        }
-            function getBackorder() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardBackOrder", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Back Order'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#backorder-money').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#backorder-money').text(SubmitPage);
-
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#backorder-product').text(commaSeparateNumber(item.amt_qty1));
-                            $('#backorder-money').text(commaSeparateNumber(item.amt_qty2));
-                            $('#backorder-total').text(commaSeparateNumber(item.amt_qty3));
-
-
-                        }
-                    }
-                });
-            }
-
-
-    function getDashboardNotable() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $('#amt-discount').html("");
-                $('#service-level-delivery').html("");
-                $('#backorder-money').html("");
-                var SubmitPage = 'Loading...';
-                $('#amt-discount').text(SubmitPage);
-                $('#service-level-delivery').text(SubmitPage);
-                $('#backorder-money').text(SubmitPage);
-            },
-            success: function (data) {
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        //if (item.Topic == "Service Level") {
-                        //    if (item.Name == "จำนวนสั่งซื้อ") {
-                        //        $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่งทันตามกำหนด") {
-                        //        var dlivery = item.Amt_Qty * 100;
-                        //        $('#service-level-delivery').text(dlivery+'%');
-                        //    }
-                        //}
-                        //if (item.Topic =="Purchase") {
-                        //    if (item.Name == "ยอดซื้อทั้งหมด") {
-                        //        $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่วนลดเงินสด") {
-
-                        //        $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //}
-                        if (item.Topic == "Back Order") {
-                            if (item.Name == "จำนวนเบอร์สินค้า") {
-                                $('#backorder-product').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "เงิน") {
-                                $('#backorder-money').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "จำนวน") {
-                                $('#backorder-total').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        }
-        function shortenLabel(label, maxLength) {
-            if (label.length > maxLength) {
-                return label.substring(0, maxLength - 3) + "...";
-            }
-            return label;
-        }
-
-    function getTop5() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: cuscod
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#table-top5').html("");
-                        var Submithtml = "";
-                        Submithtml += '<tr>';
-                        Submithtml += '<td colspan="9" align="left"><span class="font-weight-bold">Loading...<span></td>';
-                        Submithtml += '</tr>';
-                        $('#table-top5').append(Submithtml);
-                    },
-                    success: function (data) {
-                        $('#table-top5').html("");
-                        var Submithtml = "";
-                        var countTop = 0;
-                        var labels = [];
-                        var dataValues = [];
-                        var colors = [];
-                        var seriesData = [];
-                        if (data.Getdata.length > 0) {
-                            $('#top5-chart').removeAttr("hidden");
-                            if (top5chart) {
-                                top5chart.destroy();
-                            }
+                        var _count = 0;
+                        yearly.html("");
+                        quarter.html("");
+                        other.html("");
+                        all.html("");
+                        if (data.Getdata.length != 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
-                                var item = data.Getdata[i];
-                                if (item.Topic == "Top 5") {
-                                    ++countTop;
-                                    labels.push(countTop + '.' + item.Name);
-                                    dataValues.push(Math.floor(item.Amt_Qty));
-
-                                    // Add data to series
-                                    seriesData.push({
-                                        values: [Math.floor(item.Amt_Qty)],
-                                        text: countTop + '.' + item.Name,
-                                        backgroundColor: colors[countTop - 1] || 'rgb(201, 203, 207)' // use existing color or default color
-                                    });
-
-                                    switch (countTop) {
-                                        case 1:
-                                            colors.push('rgb(75, 192, 192)');
-                                            break;
-                                        case 2:
-                                            colors.push('rgb(54, 162, 235)');
-                                            break;
-                                        case 3:
-                                            colors.push('rgb(255, 99, 132)');
-                                            break;
-                                        case 4:
-                                            colors.push('rgb(255, 205, 86)');
-                                            break;
-                                        case 5:
-                                            colors.push('rgb(153, 102, 255)');
-                                            break;
-                                        default:
-                                            colors.push('rgb(201, 203, 207)');
-                                    }
+                                SubmithtmlPag += '<tr onclick="getDetailPromotion(' + '\'' + data.Getdata[i].Promotion_Code + '\'' + ')">';
+                                SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>';
+                                SubmithtmlPag += '<td class="text-truncate"> <p class="cut-text m-0 p-0"><span>' + data.Getdata[i].Promotion_Name + '</span></p></td>';
+                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + formatDate(data.Getdata[i].StartDate)  + '</span></td>';
+                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + formatDate(data.Getdata[i].EndDate)  + '</span></td>';
+                                SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].Condition) + '</span></td>';
+                                SubmithtmlPag += '<td  align="right"><span>' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</span></td>';
+                                SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].Remaining_Amount) + '</span></td>';
+                                //SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
+                                if (data.Getdata[i].Reward.toString().toLowerCase().includes("ticket")) {
+                                    reward_color = "bg-warning bg-opacity-75";
                                 }
+                                else if (data.Getdata[i].Reward.toString().includes("ตั๋ว")) {
+                                    reward_color = "bg-warning bg-opacity-75 ";
+                                }
+                                else if (data.Getdata[i].Reward.toString().includes("เช็ค")) {
+                                    reward_color = "bg-success bg-opacity-75";
+                                }
+                                else {
+                                    reward_color = "bg-info bg-opacity-75 ";
+                                }
+                                SubmithtmlPag += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data.Getdata[i].Reward + '</span> </td>';
+                                //SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(Math.floor(data.Getdata[i].Reward_Amt)) + '</span></td>';
+                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Status + '</span></td>';
+                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Received_Date.replace(/\//g, '-')  + '</span></td>';
+                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Received_By + '</span></td>';
+                                if (data.Getdata[i].WHT != 0) {
+                                    SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].WHT) + '</span></td>';
+                                }
+                                else {
+                                    SubmithtmlPag += '<td align="right"></td>';
+                                }
+
+                                SubmithtmlPag += '</tr>';
+                                _count++;
                             }
+                            if (period === 'yearly') {
+                                console.log("test year");
+                                yearly.append(SubmithtmlPag);
+                            } else if (period === 'quarter') {
+                                quarter.append(SubmithtmlPag);
+                            } else if (period === 'other') {
+                                other.append(SubmithtmlPag);
+                            } else if (period === 'all') {
+                                all.append(SubmithtmlPag);
+                            }
+                        }
+                        else {
+                            //// ถ้าไม่มีโปรโมชั่นเลย
 
-                            var myConfig = {
-                                type: "pie",
-                                plot: {
-                                    borderColor: "#2B313B",
-                                    borderWidth: 5,
-                                    valueBox: {
-                                        placement: 'out',
-                                        text: '%t\n%npv%',
-                                        fontFamily: "Open Sans"
-                                    },
-                                    tooltip: {
-                                        fontSize: '18',
-                                        fontFamily: "Open Sans",
-                                        padding: "5 10",
-                                        text: "%npv%"
-                                    },
-                                    animation: {
-                                        effect: 2,
-                                        method: 5,
-                                        speed: 900,
-                                        sequence: 1,
-                                        delay: 3000
-                                    }
-                                },
-                                source: {
-                                    text: 'gs.statcounter.com',
-                                    fontColor: "#8e99a9",
-                                    fontFamily: "Open Sans"
-                                },
-                                title: {
-                                    fontColor: "#8e99a9",
-                                    text: 'Top 5 Data',
-                                    align: "left",
-                                    offsetX: 10,
-                                    fontFamily: "Open Sans",
-                                    fontSize: 25
-                                },
-                                subtitle: {
-                                    offsetX: 10,
-                                    offsetY: 10,
-                                    fontColor: "#8e99a9",
-                                    fontFamily: "Open Sans",
-                                    fontSize: "16",
-                                    text: 'Dynamic Data',
-                                    align: "left"
-                                },
-                                plotarea: {
-                                    margin: "20 0 0 0"
-                                },
-                                series: seriesData // Use the dynamically created series data
-                            };
+                            SubmithtmlPag += '<tr>';
+                            SubmithtmlPag += '<td class="text-center" colspan="12">-- ไม่พบข้อมูล --</td>'
+                            SubmithtmlPag += '</tr>';
+                            if (period === 'yearly') {
+                                yearly.append(SubmithtmlPag);
 
-                            zingchart.render({
-                                id: 'top5-chart',
-                                data: myConfig,
-                                height: '100%',
-                                width: '100%'
-                            });
-                            console.log("Graph Creation");
-
+                            } else if (period === 'quarter') {
+                                quarter.append(SubmithtmlPag);
+                            } else if (period === 'other') {
+                                other.append(SubmithtmlPag);
+                            } else if (period === 'all') {
+                                all.append(SubmithtmlPag);
+                            }
                         }
                     }
-                });
-            }
-
-
-
-    function getDeliveryTrackAmt() {
-        $.ajax({
-             url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    var alert_accept = 0;
-                    var alert_packing = 0;
-                    var alert_delivery = 0;
-                    var alert_arrive = 0;
-                    var total_delivery = 0;
-                    if (res.Getdata.length > 0) {
-                        alert_accept = res.Getdata[0].Order;
-                        alert_packing = res.Getdata[0].Pack;
-                        alert_delivery = res.Getdata[0].Deliver;
-                        alert_arrive = res.Getdata[0].Arrive;
-                        total_delivery = alert_accept + alert_packing + alert_delivery + alert_arrive;
-                        $('#total_deliverytrack').text(commaSeparateNumber(total_delivery));
-
+                    else {
+                        console.log(data.message);
                     }
                 }
-                else {
-                    console.log(res.message);
-                }
-            }
-        });
-    }
-    function getBackorderAmt() {
-        var typeS = 0;
-        var backorder = 0;
-        var total = 0;
-        $.ajax({
-             url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    if (res.backorder.length > 0) {
-                        typeS = res.backorder.length;
-                    }
-                }
-                else {
-                    console.log("Error S : " + res.message);
-                }
-            }
-        });
-        $.ajax({
-             url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    if (res.backorder.length > 0) {
-                        backorder = res.backorder.length;
-                        total = typeS + backorder;
-                        console.log("TypeS is :" + typeS);
-                        console.log("BO is " + backorder);
-                        $('#backorder-amt').text(commaSeparateNumber(total));
-                    }
-                }
-                else {
-                    console.log("Error S : " + res.message);
-                }
-            }
-        });
-    }
-    function getWarrantyAmt() {
-        var total = 0;
-        $.ajax({
-             url: '@Url.Action("GetWarrantyCount", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (data) {
-                if (data.length > 0) {
-                    var waiting = data[0].A != "" ? data[0].A : "0";
-                    var inprogress = data[0].B != "" ? data[0].B : "0";
-                    var approve = data[0].C != "" ? data[0].C : "0";
-                    var refuse = data[0].D != "" ? data[0].D : "0";
-                    total = Number(waiting) + Number(approve) + Number(refuse);
-                    $('#warranty-amt').text(commaSeparateNumber(total));
-                }
-            }
-        });
-    }
 
-    //ปุ่มยอดซื้อ
-    $(document).on("click", "#menu_amt", function () {
-        window.location.href ="../CustomerDashboard/index";
-    });
-    //ปุ่มสินค้าค้างส่ง
-    $(document).on("click", "#menu_backorder", function () {
-        window.location.href = "../CustomerDashboard/PendingDeliver";
-    });
-    //ปุ่มสถานะการสั่งซื้อ
-    $(document).on("click", "#menu_deliverytracking", function () {
-        window.location.href = "../CustomerDashboard/DeliveryTrack";
-    });
-    //ปุ่มรายการเคลม
-    $(document).on("click", "#menu_warranty", function () {
-        window.location.href = "../CustomerDashboard/Warranty";
-    });
-    //ปุ่มโปรโมชัน
-    $(document).on("click", "#menu_promotion", function () {
-        window.location.href = "../CustomerDashboard/Promotion";
-    });
-    //ปุ่มเครดิต
-    $(document).on("click", "#menu_credit", function () {
-        window.location.href = "../CustomerDashboard/Credit";
-    });
+            });
+        }
+
+        @*function getDetailPromotion(proCode) {
+            $('#DetailModalCenter').modal('show');
+            $.ajax({
+                url: '@Url.Action("GetDetailPromotion", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cuscod,
+                    proCODE: proCode
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function () {
+                    var SubmithtmlPage = '';
+                    var descript = "";
+                    $('#prodes').text("");
+                    $('#tblpromotiondetail tbody').html("");
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#tblpromotiondetail tbody').append(SubmithtmlPage);
+
+                },
+                success: function (data) {
+                    var SubmithtmlPage = '';
+                    var descript = "";
+                    var desPro = $('#prodes');
+                    var table = $('#tblpromotiondetail tbody');
+                    if (data.message == "Y") {
+                        table.html("");
+                        if (data.Getdata.length > 0) {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Company + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><p class="m-0 text-truncate"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
+                                SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
+                                SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT + '</span></p></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].DOCNUM + '</span></td>';
+                                SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].SP_LCY) + '</span></td>';
+                                SubmithtmlPage += '<td class="text-center"><span>' + commaSeparateNumber(data.Getdata[i].QTY) + '</span></td>';
+                                SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].NET_LCY) + '</span></td>';
+                                SubmithtmlPage += '</tr>';
+                                descript = data.Getdata[i].Description;
+                            }
+                            if (data.Getdata.length > 1000) {
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="" colspan="8"><p class="m-0 text-primary" style="font-size:14px">รายการมีจำนวนมากเกินกว่าที่จะแสดง โปรดติดต่อพนักงานขายของท่าน</p></td>';
+                                SubmithtmlPage += '</tr>';
+                            }
+                            desPro.text(descript);
+                            table.append(SubmithtmlPage);
+                        }
+                        else {
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
+                            SubmithtmlPage += '</tr>';
+                            table.append(SubmithtmlPage);
+                        }
+                    }
+                    else {
+                        console.log("Error : " + data.message);
+                    }
+                }
+
+            })
+        }*@
+
+        function getDetailPromotion(proCode) {
+            $('#DetailModalCenter').modal('show');
+            $('#gridContainer').empty();
+          $.ajax({
+              url: '@Url.Action("GetDetailPromotion", "CustomerDashboard")',
+              data: {
+                  CUSCOD: cuscod,
+                  proCODE: proCode
+              },
+              type: 'POST',
+              dataType: 'JSON',
+              beforeSend: function () {
+                  $('#prodes').text("");
+                  $('#gridContainer').empty();
+                  $('#gridContainer').html('<div class="text-center"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</div>');
+              },
+              success: function (data) {
+                  if (data.message == "Y") {
+                      $('#gridContainer').empty();
+                      if (data.Getdata.length > 0) {
+                          function numericSorter(a, b) {
+                              return parseFloat(a.replace(/,/g, '')) - parseFloat(b.replace(/,/g, ''));
+                          }
+                          // Custom date sorter function
+                          function customDateSorter(a, b) {
+                              const dateA = parseDate(a);
+                              const dateB = parseDate(b);
+
+                              const yearComparison = dateA.getFullYear() - dateB.getFullYear();
+                              if (yearComparison !== 0) {
+                                  return yearComparison;
+                              }
+
+                              const monthComparison = dateA.getMonth() - dateB.getMonth();
+                              if (monthComparison !== 0) {
+                                  return monthComparison;
+                              }
+
+                              return dateA.getDate() - dateB.getDate();
+                          }
+
+                          function parseDate(dateStr) {
+                              const parts = dateStr.split(/[-\/]/);
+                              const day = parseInt(parts[0], 10);
+                              const month = parseInt(parts[1], 10) - 1;
+                              const year = parseInt(parts[2], 10) + 2000;
+
+                              return new Date(year, month, day);
+                          }
+                          function formatDate(dateStr) {
+                              const dateObj = parseDate(dateStr);
+                              const day = String(dateObj.getDate()).padStart(2, '0');
+                              const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                              const year = String(dateObj.getFullYear()).slice(-2);
+                              return `${day}-${month}-${year}`;
+                          }
+
+                          if (window.gridInstance) {
+                              window.gridInstance.destroy();
+                          }
+                          window.gridInstance = new gridjs.Grid({
+                              columns: [
+                                  { name: 'บริษัท', width: '100px' },
+                                  { name: 'เบอร์สินค้า', width: '100px' },
+                                  { name: 'ชื่อสินค้า', width: '200px' },
+                                  {
+                                      name: 'วันที่สั่งซื้อ',
+                                      width: '100px',
+                                      sort: {
+                                          compare: customDateSorter
+                                      },
+                                      formatter: (cell) => formatDate(cell)
+                                  },
+                                  { name: 'เลขสั่งซื้อ', width: '150px' },
+                                  {
+                                      name: 'ราคาสินค้า',
+                                      width: '100px',
+                                      sort: {
+                                          compare: numericSorter
+                                      }
+                                  },
+                                  {
+                                      name: 'จำนวน',
+                                      width: '100px',
+                                      sort: {
+                                          compare: numericSorter
+                                      }
+                                  },
+                                  {
+                                      name: 'ยอดซื้อ',
+                                      width: '100px',
+                                      sort: {
+                                          compare: numericSorter // Use custom sorter for numeric sorting
+                                      }
+                                  }
+                              ],
+                              data: data.Getdata.map(item => [
+                                  item.Company,
+                                  item.STKCOD,
+                                  item.STKDES,
+                                  item.DOCDAT,
+                                  item.DOCNUM,
+                                  //commaSeparateNumber(item.SP_LCY),
+                                  Number(item.SP_LCY).toLocaleString(),
+                                  Number(item.QTY).toLocaleString(),
+                                  Number(item.NET_LCY).toLocaleString()
+                                  //commaSeparateNumber(item.NET_LCY)
+                              ]),
+                              //pagination: {
+                              //    limit: 10
+                              //},
+                              pagination: true,
+                              fixedHeader: true,
+                              height: '400px',
+                              sort: true,
+                             // search: true,
+                              className: {
+                                  table: 'table table-striped table-bordered',
+                                  th: 'text-center',
+                                  td: 'text-center text-truncate'
+                              },
+                              style: {
+                                  table: {
+                                      'width': '100%'
+                                  },
+                                  td: {
+                                      'text-align': 'center'
+                                  }
+                              }
+                          });
+
+                          window.gridInstance.render(document.getElementById("gridContainer"));
+                          $('#prodes').text(data.Getdata[0].Description);
+                      } else {
+                          $('#gridContainer').empty();
+                          $('#gridContainer').html('<div class="text-center">-- ไม่พบข้อมูล --</div>');
+                      }
+                  } else {
+                      console.log("Error : " + data.message);
+                  }
+              }
+          });
+        }
+
+
+        //Tab Promotion
+        $('#btn-show-yearly').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('yearly');
+            $('#btn-show-quarter').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-yearly').show('slow');
+            $('.table-quarter').hide('slow');
+            $('.table-other').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('yearly');
+        });
+        $('#btn-show-quarter').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('quarter');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-quarter').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-other').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('quarter');
+        });
+        $('#btn-show-other').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('other');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-quarter').removeAttr('style');
+            $('#btn-show-all').removeAttr('style');
+            $('.table-other').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-quarter').hide('slow');
+            $('.table-all').hide('slow');
+            getPromotion('other');
+
+        });
+        $('#btn-show-all').click(function () {
+            $(this).css("background", "#DEAF5B");
+            $('#periodpro').val('all');
+            $('#btn-show-yearly').removeAttr('style');
+            $('#btn-show-quarter').removeAttr('style');
+            $('#btn-show-other').removeAttr('style');
+            $('.table-all').show('slow');
+            $('.table-yearly').hide('slow');
+            $('.table-quarter').hide('slow');
+            $('.table-other').hide('slow');
+            getPromotion('all');
+
+        });
+
+        $('.selectpicker').selectpicker({
+            noneResultsText: 'Not found'
+        });
+
+
+
+
+
+
+        //ปุ่มยอดซื้อ
+        $(document).on("click", "#navbaramount", function () {
+            window.location.replace("../CustomerDashboard/index");
+        });
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มสินค้าค้างส่ง
+        $(document).on("click", "#navbarpending", function () {
+            window.location.replace("../CustomerDashboard/PendingDeliver");
+        });
+        //ปุ่มรายการเคลม
+        $(document).on("click", "#navbarwarranty", function () {
+            window.location.replace("../CustomerDashboard/Warranty");
+        });
+        //ปุ่มสถานะการสั่งซื้อ warranty
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
+        });
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=promotion");
+        });
+
+        $('#btn_yearly').click(function () {
+            $('#btn_yearly').css("background", "#DEAF5B");
+             $('#btn_quater').removeAttr('style');
+             $('#btn_other').removeAttr('style');
+        });
+        $('#btn_quater').click(function () {
+            $('#btn_yearly').removeAttr( 'style' );
+            $('#btn_quater').css("background", "#DEAF5B");
+            $('#btn_other').removeAttr( 'style' );
+        });
+        $('#btn_other').click(function () {
+            $('#btn_yearly').removeAttr('style');
+            $('#btn_quater').removeAttr('style');
+            $('#btn_other').css("background", "#DEAF5B");
+        });
+
     </script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>
 </html>

@@ -942,6 +942,9 @@ namespace NewShop.Controllers
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
                 }
+
+
+
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
