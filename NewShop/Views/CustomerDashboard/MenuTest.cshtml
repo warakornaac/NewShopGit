@@ -1,40 +1,49 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization;
+<!DOCTYPE html>
 @{
     Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var yearCurrent = DateTime.Now.Year;
+    List<SelectListItem> BrandList = ViewBag.BrandList;
 }
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
-    <title>โปรโมชั่น</title>
-    @*<meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=no">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยอดซื้อ</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!--<link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.css">-->
-    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
 
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="~/dashboard/assets/images/favicon.svg" type="image/x-icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
-    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
-    <!-- <script src="~/contentfilter/js/main.js"></script> -->     <!-- Resource jQuery -->
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/CSS/jQueryv3.1.1.js"></script>
-
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 
 
+    <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Import jQuery 2.1.1 -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <style>
+        html body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .font-me {
+            font-family: 'Kanit', sans-serif;
+        }
+
         .selected {
-            background: #ACE2E1;
+            background: #910000;
             color: #FFFFFF;
         }
 
@@ -111,10 +120,6 @@
         .statusTop20 {
             display: none;
         }
-        /*.w3-black, .w3-hover-black:hover {
-            color: #1c1818 !important;
-            background-color: #b7b7bc !important;
-        }*/
     </style>
     <style>
         .switch {
@@ -186,8 +191,6 @@
     </style>
 
     <style>
-
-
         h5 {
             font-size: 1.28571429em;
             font-weight: 700;
@@ -299,7 +302,6 @@
                     color: rgba(0, 0, 0, .87);
                 }
         /* Dropdown Button */
-
         .dropbtn {
             /* background-color: #04AA6D; */
             color: #075896;
@@ -313,16 +315,6 @@
             display: inline-block;
         }
 
-        /* Dropdown Content (Hidden by Default) */
-        /*.dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #3570b6;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 999;
-            position: relative;
-        }*/
         .dropdown-content {
             display: none;
             position: absolute;
@@ -350,16 +342,86 @@
             display: block;
         }
 
+        .select-year {
+            width: 105px;
+            text-align: center;
+            font-family: Kanit,sans-serif;
+        }
+
+        .form-select option {
+            text-align: center;
+        }
         /* Change the background color of the dropdown button when the dropdown content is shown */
         .dropdown:hover .dropbtn {
             background-color: #bee0ed;
         }
 
-        .font-kanit {
-            font-family: Kanit, sans-serif;
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightsteelblue;
+        }
+
+        .td-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 0;
+        }
+
+        .vcenter {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        @@media only screen and (min-width: 319px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 100px;
+            }
+        }
+
+        @@media only screen and (min-width: 374px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 130px;
+            }
+        }
+
+        @@media only screen and (min-width: 389px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 200px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
         }
     </style>
     <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
         .footer {
             position: relative;
             left: 0;
@@ -389,78 +451,6 @@
             animation: spin 2s linear infinite;
             position: relative; /* or absolute */
         }
-
-        @@media only screen and (min-width: 587px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 400px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (max-width: 586px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 200px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 587px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 400px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 819px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 500px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 1000px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 300px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 1100px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 300px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 1279px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 300px !important;
-                white-space: nowrap;
-            }
-        }
-
-        @@media only screen and (min-width: 1439px) {
-            .cut-text {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 450px !important;
-                white-space: nowrap;
-            }
-        }
         /* Safari */
         @@-webkit-keyframes spin {
             0% {
@@ -481,44 +471,33 @@
                 transform: rotate(360deg);
             }
         }
-    </style>
-    <style>
-        hr {
-            border-color: white;
-        }
 
-        .btn-relative {
-            position: relative;
-        }
-
-        .badge-position {
-            position: absolute;
-            top: 0;
-            right: -10%;
-            transform: translate(50%, -50%);
-        }
-
-        .btn-font {
-            font-family: Kanit,sans-serif;
-        }
-
-        .label-select-container {
+        .block_container {
             display: flex;
             align-items: center;
         }
 
-            .label-select-container label {
-                margin-right: 10px;
-                margin-bottom: 0;
+            .block_container div {
+                margin-right: 10px; /* ระยะห่างระหว่างไอคอนและข้อความ */
             }
 
-            .label-select-container select {
-                max-width: 150px;
-            }
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+    </style>
+    <style>
+
+        .tab-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
         .tab-buttons {
             display: flex;
-            overflow-x: auto;
         }
 
             .tab-buttons button {
@@ -534,52 +513,146 @@
                 .tab-buttons button.active {
                     background-color: #008cba;
                 }
-    </style>
 
-    @*table*@
-    <style>
-        .table-style {
-            height: 450px;
-            overflow-y: auto;
-        }
-
-        .table-style-scroll {
-            height: 450px;
-            overflow-y: auto;
-        }
-
-
-        .table-style thead th {
-            position: sticky;
-            top: 0;
+        .tab-content {
+            display: none;
+            padding: 20px;
             background-color: white;
-            z-index: 3 !important;
         }
+
+            .tab-content.active {
+                display: block;
+            }
+
+        hr {
+            border-color: white;
+        }
+
+            hr#line-tab-credit {
+                border-color: white;
+            }
 
         @@media only screen and (max-width: 431px) {
             span {
                 font-size: 12px;
+                font-family: Kanit,sans-serif;
             }
         }
+
+        @@media only screen and (min-width: 432px) {
+            span {
+                font-family: Kanit,sans-serif;
+            }
+        }
+
+        .icon-amt {
+            color: red;
+            font-size: 20px;
+            -webkit-text-stroke: 1px black;
+        }
+
+        .custom-button {
+            display: inline-flex; /* Change from inline-block to inline-flex */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: white; /* Green */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+            border: 1px solid #4CAF50;
+            transition: background-color 0.3s, transform 0.3s;
+            vertical-align: middle;
+            height: 17px;
+            width: 17px;
+            color: black;
+        }
+
+        .btn-circle {
+            height: 17px;
+            width: 17px;
+            background-color: white;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            font-size: 10px; /* Adjust font size to fit within the button */
+            line-height: 1;
+            border-radius: 50%; /* Make the button circular */
+            border: 1px solid #4CAF50;
+            color: #4CAF50; /* Set text color to match the border */
+        }
+
+        .btn-inside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4CAF50;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        @@media only screen and (max-width: 321px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 150px !important;
+                white-space: nowrap;
+            }
+
+            .ui-autocomplete {
+                font-family: 'Kanit', sans-serif;
+                font-size: 12px;
+                height: 280px;
+                width: 50px !important;
+            }
+        }
+
+        .ui-autocomplete.ui-widget {
+            font-family: 'Kanit', sans-serif;
+            font-size: 12px;
+            height: 350px;
+            width: 230px;
+        }
+
+        .table-scroll {
+            height: 450px;
+            overflow-y: auto;
+        }
+
+            .table-scroll thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+
+        /* @@media only screen and (min-width: 432px) {
+            .text-truncate {
+                display: flex;
+                align-items: center;
+                max-width: 120px;
+            }
+        }*/
     </style>
 </head>
 
-<body style="background-color: #f2f7ff; ">
+<body style="background-color: #f2f7ff; margin-bottom:5px; ">
     <div id="app">
-        <div id="main" style=" padding-right: 20px; padding-left: 20px; font-family: Kanit, sans-serif;">
-            <div class="page-heading">
-                <div>
-                    <input type="hidden" id="cushid" />
-                    <input type="hidden" id="slmhid" />
-                    <input type="hidden" id="yearpro" />
-                    <input type="hidden" id="periodpro" />
-                    <input type="hidden" id="nocusses" />
-                    <input class="note-desc" id="cussend" type="hidden">
-                </div>
-                <h4 class="pt-2" id="head-cusname"></h4>
-
+        <div id="main" style=" padding-right:20px; padding-left:20px;">
+            <div>
+                <input type="hidden" id="cushid" />
+                <input type="hidden" id="slmhid" />
+                <input type="hidden" id="nocusses" />
+                <input class="note-desc" id="cussend" type="hidden">
             </div>
-
+            <div class="page-heading">
+                <h4 class="pt-2" id="head-cusname"></h4>
+            </div>
             <div class="page-content">
                 <div class="container" id="loader">
                     <div class="d-flex justify-content-center">
@@ -589,503 +662,338 @@
                         <h3>Loading...</h3>
                     </div>
                 </div>
-                <section class="row justify-content-center d-none" id="content" hidden>
-                    <div class="col-12 col-lg-12" id="cushead" hidden>
+                <section class="row justify-content-center d-none" id="content">
+                    <div class="col-12 col-lg-3" id="cushead" hidden>
                         <div class="row">
                             <p id="demo"></p>
-                            <div class="col-12 caption" hidden>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 id="h2title">กรุณาเลือก พนักงานขาย / ลูกค้า</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="input-group ">
-                                                <select class="form-control custom-select" id="selslm">
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <span style="font-family: Kanit, sans-serif; color: blue; cursor: pointer;" id="btnclear" class="fa fa-map-marked">เคลียร์ข้อมูลหน้าจอเป็นค่าเริ่มต้น</span>
-                                        <br />
-                                        <div id="prvs">
-                                            <h8>ร้านค้า</h8>
-                                            <div>
-                                                <select class="selectpicker form-control" data-container="body" data-live-search="true" title="เลือกร้านค้า" data-hide-disabled="true" id="selcus"></select>
-                                            </div>
-
-                                            <div class="single-checkout-box select-option mt--10">
-                                                <button type="button" class="btn-gray font-kanit" id="btnshsche">กดค้นหาลูกค้ากรณีไม่ทราบพนักงานขาย</button>
-                                            </div>
-                                            <div class="single-checkout-box checkbox">
-
-                                            </div>
-
-                                        </div>
-                                        <div class="appendbtnshopbysales"></div>
-                                    </div>
-
-                                </div>
-
-                            </div>
                         </div>
                         <div id="appadjall"></div>
                     </div>
-
-                    <div class="col-12 col-lg-12">
-                        <div id="dfch">
-                            @*Promotion*@
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card m-0">
-                                        <div class="card-header bg-info">
-                                            <h4>
-                                                โปรโมชั่น
-                                            </h4>
-                                        </div>
-                                        <div class="card-body m-0 p-0">
-                                            <div class="table-responsive m-0">
-                                                <table class="table table-hover" id="table-promotion-year">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th class="text-center">ปี</th>
-                                                            <th class="text-center">มูลค่าของรางวัลที่ลงทะเบียน</th>
-                                                            <th class="text-center">มูลค่าของรางวัลที่จ่ายแล้ว</th>
-                                                            <th class="text-center">ตั๋วรางวัลสะสม (ใบ)</th>
-                                                            <th class="text-center">มูลค่าของรางวัลที่รอจ่าย</th>
-                                                            <th class="text-center">ภาษีที่ทำการหัก</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                    <div class="col-12 p-0">
+                        <div class="card">
+                            <div class="col-12 p-0 m-0">
+                                <div class="col-12 p-0 m-0">
+                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
+                                            ยอดซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-order-history">
+                                            ประวัติซื้อ
+                                            <hr class="m-0" />
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="col-12" id="detail-pro">
-                                    <div class="card">
-                                        <div class="card-header bg-info ">
-                                            <h4>
-                                            </h4>
-                                        </div>
-                                        <div class="w3-bar tab-buttons bg-info ">
+                            </div>
+                            <div class="card-body p-0 m-0 bg-info">
+                                <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
+                                    <div id="dfch">
+                                    </div>
+                                    <div id="appadj"></div>
+                                </div>
+                                @*ยอดซื้อ*@
+                                <div class="col-12 amount-div m-0 p-0" style="font-family: Kanit,sans-serif;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-header bg-secondary">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
 
-                                            <button type="button" class="btn btn-info btn-cart w3-hover-khaki  w3-bar-item btn-font rounded-top " id="btn-show-yearly">
-                                                โปรโมชั่นรายปี <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-yearly" hidden>0</span>
-                                                <hr class="m-0" id="line-tab-yearly" />
-                                            </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-quarter">
-                                                โปรโมชั่นรายไตรมาส <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-quarter" hidden>0</span>
-                                                <hr class="m-0" id="line-tab-quarter" />
-                                            </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-other">
-                                                โปรโมชั่นอื่นๆ <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-other" hidden>0</span>
-                                                <hr class="m-0" id="line-tab-other" />
-                                            </button>
-                                            <button type="button" class="btn btn-info w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-all">
-                                                รวมทุกโปรโมชั่น <span class="badge badge-pill badge-danger bg-danger  text-white badge-position" id="status-all" hidden>0</span>
-                                                <hr class="m-0" id="line-tab-all" />
-                                            </button>
-                                        </div>
-                                        <div class="card-body p-0">
-                                            <div class="card-body p-0">
-                                                <div class="m-0 table-yearly table-style table-responsive ">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-yearly-table" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center p-0">โปรโมชั่น</th>
-                                                                <th class="text-center p-0">วันเริ่ม</th>
-                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
-                                                                <th class="text-center p-0">เงื่อนไข</th>
-                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
-                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
-                                                                <th class="text-center p-0">ของรางวัล</th>
-                                                                <th class="text-center p-0">สถานะ</th>
-                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
-                                                                <th class="text-center p-0">ผู้รับ</th>
-                                                                <th class="text-center p-0">หักภาษี</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
+
+                                                            </div>
+                                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                                    <span>ปี-เดือน : </span>
+                                                                </div>
+                                                                <div class="col-md-6 m-0 p-0">
+                                                                    <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="col-12" hidden>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h4>ยอดซื้อที่บริษัท</h4>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive m-0 p-0">
+                                                                            <table class="table table-bordered bg-white">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th class="text-center"><span>AAC</span></th>
+                                                                                        <th class="text-center"><span>TAC</span></th>
+                                                                                        <th class="text-center"><span>OMP</span></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <h5> ยอดซื้อ</h5>
+                                                                                        </td>
+                                                                                        <td><span id="aac-amt"></span></td>
+                                                                                        <td><span id="tac-amt"></span></td>
+                                                                                        <td><span id="omp-amt"></span></td>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+                                                    </div>
                                                 </div>
-                                                <div class="m-0 table-quarter table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quarter-table" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center p-0">โปรโมชั่น</th>
-                                                                <th class="text-center p-0">วันเริ่ม</th>
-                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
-                                                                <th class="text-center p-0">เงื่อนไข</th>
-                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
-                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
-                                                                <th class="text-center p-0">ของรางวัล</th>
-                                                                <th class="text-center p-0">สถานะ</th>
-                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
-                                                                <th class="text-center p-0">ผู้รับ</th>
-                                                                <th class="text-center p-0">หักภาษี</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="m-0 table-other table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-other-table" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center p-0">โปรโมชั่น</th>
-                                                                <th class="text-center p-0">วันเริ่ม</th>
-                                                                <th class="text-center text-truncate p-0">วันสื้นสุด</th>
-                                                                <th class="text-center p-0">เงื่อนไข</th>
-                                                                <th class="text-center p-0">ยอดซื้อสะสม</th>
-                                                                <th class="text-center text-truncate p-0">ยังขาดอีก</th>
-                                                                <th class="text-center p-0">ของรางวัล</th>
-                                                                <th class="text-center p-0">สถานะ</th>
-                                                                <th class="text-center text-truncate p-0">วันจ่ายของรางวัล</th>
-                                                                <th class="text-center p-0">ผู้รับ</th>
-                                                                <th class="text-center p-0">หักภาษี</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="m-0 table-all table-style table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-all-table" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center">โปรโมชั่น</th>
-                                                                <th class="text-center">วันเริ่ม</th>
-                                                                <th class="text-center text-truncate">วันสื้นสุด</th>
-                                                                <th class="text-center">เงื่อนไข</th>
-                                                                <th class="text-center">ยอดซื้อสะสม</th>
-                                                                <th class="text-center text-truncate">ยังขาดอีก</th>
-                                                                <th class="text-center">ของรางวัล</th>
-                                                                <th class="text-center">สถานะ</th>
-                                                                <th class="text-center text-truncate">วันจ่ายของรางวัล</th>
-                                                                <th class="text-center">ผู้รับ</th>
-                                                                <th class="text-center">หักภาษี</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
+                                                <div class="card-body p-0  ">
+                                                    <div class="m-0 table-responsive">
+                                                        <table class="table table-sm table-light m-0 table-bordered" id="amt-table" style="width:100%">
+                                                            <thead class="thead-default">
+                                                                <tr>
+                                                                    @*<th class="pl-0 pr-0"></th>*@
+                                                                    <th class="pl-0 pr-0 text-center"><span>ชื่อร้านค้า</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>AAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>TAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>OMP</span></th>
+                                                                    @*<th class="text-right">จำนวนเงิน</th>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                            <tfoot class="bg-warning " hidden>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><strong id="total-text"></strong> <strong class="float-right" id="loading-text-table"></strong> </td>
+                                                                    <td colspan="5" style="text-align:right"><strong id="amt-total"></strong></td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" hidden>
-                                    <!-- Rounded switch -->
-                                    <div class="card">
-                                        <div class="card-header bg-info">
-                                            <div class="col-sm-6 text-left pl-1">
-                                                <h4>โปรโมชั่น</h4>
-                                            </div>
-                                            <div class="col-sm-6 text-right" hidden>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider" id="promooffon"></span>
-                                                </label><div class='statuspromotion'>Untoggled</div>
-                                            </div>
-                                        </div>
-                                        <div class="w3-bar rounded-top opacity-75 pt-2 pl-1">
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('yearly',this.id)" id="btn_yearly">รายปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('quarter', this.id)" id="btn_quater">รายไตรมาส</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('other', this.id)" id="btn_other">รายครึ่งปี</button>
-                                            <button class="w3-bar-item w3-button w3-hover-khaki btnpromotion font-kanit rounded-top" onclick="openPeriod('all', this.id)" id="btn_all">ALL</button>
-                                        </div>
-                                        <div class="card m-0">
-                                            <div id="yearly" class="city">
-                                                <div class="table-responsive m-0" style="height:500px">
-                                                    <table class="table table-striped mb-0" id="promotiontbyearly" style="padding: 7px; font-size: small; overflow: auto;">
-                                                        <thead class="thead-default" style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                @*<th>จาก</th>*@
-                                                                <th>สิ้นสุด</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                @*ประวัติ*@
+                                <div class="col-12 order-history-div m-0 p-0" style="font-family: Kanit,sans-serif; display: none;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-body p-0">
+                                                    <div id="id-select-brand" class="row p-2 div-select-brand">
+                                                        <div class="col-12 p-0">
+                                                            <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-3 text-right m-0 pl-1 pr-1">
+                                                                    <span> ชื่อสินค้า </span>
+                                                                </div>
+                                                                <div class="col-8 m-0 p-0">
+                                                                    @*<div class="input-group">*@
+                                                                    <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="txt-other" name="txt-other" placeholder="" style="min-width: 190px;">
+                                                                    @*<span class="input-group-append">
+                                                                            <button class="btn btn-xs btn-success" type="button" onclick="searchByBrand();" style="margin-top: -1px; height: 35px; width: 35px;">
+                                                                                <i class="fa fa-search" style="margin-left: -5px;"></i>
+                                                                            </button>
+                                                                        </span>*@
+                                                                    @*</div>*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6 col-5 text-right d-flex align-items-center">
+                                                                <div class="col-2 text-right m-0 p-0 pr-1">
+                                                                    <span>แบรนด์ </span>
+                                                                </div>
+                                                                <div class="col-md-9 text-right">
+                                                                    <select class="form-control" id="select-brand" name="select-brand" style="width: 110%;">
+                                                                        @*<option value="" selected>ALL</option>*@
+                                                                        @for (var i = 0; i < BrandList.Count; i++)
+                                                                        {
+                                                                            <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                            <div id="quarter" class="city" style="display:none">
-                                                <div class="table-responsive m-0" style="height:500px">
-                                                    <table class="table table-striped mb-0" id="promotiontbquater" style="padding: 7px; font-size: small; overflow: auto;">
-                                                        <thead class="thead-default" style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                @* <th>จาก</th>*@
-                                                                <th>สิ้นสุด</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <div id="other" class="city" style="display:none">
-                                                <div class="table-responsive m-0" style="height:500px">
-                                                    <table class="table table-striped mb-0" id="promotiontbother" style="padding: 7px;font-size: small; overflow:auto;">
-                                                        <thead class="thead-default" style="font-size: small;">
-                                                            <tr>
-                                                                <th>โปรโมชั่น</th>
-                                                                <th>เงื่อนไข</th>
-                                                                @*<th>จาก</th>*@
-                                                                <th>สิ้นสุด</th>
-                                                                <th>ยอดซื้อ</th>
-                                                                <th>ยังขาดอีก</th>
-                                                                <th>ของรางวัล</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody><tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr></tbody>
-                                                    </table>
+                                                    </div>
+                                                    <div id="show-order-history"> </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div id="appadj"></div>
                     </div>
                 </section>
-                <div class="modal fade in" id="DetailModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-bs-keyboard="false">
+
+                <!-- Modal -->
+                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header ">
                                 <div class="col-12">
-                                    <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" onclick="$('#DetailModalCenter').modal('hide');">&times;</button>
+                                    <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                    @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
+                                    <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');">&times;</button>
+
                                 </div>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body d-flex justify-content-center row">
                                 <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body row overflow-auto">
-                                            <div class="col">
-                                                <h5 class="modal-title float-left" id="DetailModalLongTitle">โปรโมชั่น : <span id="prodes"></span></h5>
+                                    <article class="card">
+                                        <div class="card-body row">
+                                            <div class="col p-0">
+                                                <strong>ผู้ซื้อ : </strong>
+                                                <p class="m-0" id="namecus-item" style="font-family: Kanit,sans-serif;"></p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </article>
                                 </div>
                                 <hr />
-                                @*<div class="col-12">
-                                        <div class="table-responsive m-0 table-style overflow-auto">
-                                            <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small;">
-                                                <thead style="font-size: small;">
-                                                    <tr>
-                                                        <th class="text-center"><span>บริษัท</span></th>
-                                                        <th class="text-center"><span>เบอร์สินค้า</span></th>
-                                                        <th class="text-center"><span>ชื่อสินค้า</span></th>
-                                                        <th class="text-center"><span>วันสั่งซื้อ</span></th>
-                                                        <th class="text-center"><span>เลขสั่งซื้อ</span></th>
-                                                        <th class="text-center text-truncate"><span>ราคาสินค้า</span></th>
-                                                        <th class="text-center"><span>จำนวน</span></th>
-                                                        <th class="text-center"><span>ยอดซื้อ</span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                        </div>
-                                    </div>*@
-                                <div id="gridContainer"></div>
-
+                                <div class="col-12">
+                                    <div class="table-responsive table-scroll m-0 overflow-auto ">
+                                        <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
+                                            <thead class="thead-default" style="font-size: small;">
+                                                <tr>
+                                                    <th class="text-center">บริษัท</th>
+                                                    <th class="text-center">เบอร์สินค้า</th>
+                                                    <th class="text-center">ชื่อสินค้า</th>
+                                                    <th class="text-center">จำนวน</th>
+                                                    <th class="text-center text-truncate">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center">ส่วนลด</th>
+                                                    <th class="text-center">ราคารวม</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="footer" hidden>
-        <div class="container">
-            <p>2024 &copy; TAC&AAC</p>
+
+        <!-- ModalWarning -->
+        <div class="modal" id="myModalWarning">
+            <div class="modal-dialog">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong>
+                    <div class="modal-body">
+                        <div id="textAlertWarning">Some text in the modal.</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+        <div class="modal" id="smallModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
+                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModalselcus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ใส่ชื่อร้านหรือรหัสร้านค้า
+                        <div id="blcslm" style="display:block">
+                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
     </div>
-    <!-- CSS ของ Grid.js -->
-    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
 
-    <!-- JavaScript ของ Grid.js -->
-    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
-    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-    <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
-    <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
-    <script type="text/javascript">
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
         var id = '@Request.RequestContext.HttpContext.Session["ID"]';
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
-        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
-
-        const queryString = decodeURIComponent(window.location.search);
-        const params = new URLSearchParams(queryString);
-        const page = params.get('priod');
-        var date = new Date();
-        var CurrentY = date.getFullYear();
-        var grid;
-        var arrayPriod = ["yearly", "quarter", "other"];
-        console.log("Page Param: " + page);
-
-        $(document).ready(function () {
-            $('#loader').show();
-            getCusName();
-            setTimeout(function() {
-                $('#loader').hide();
-                $('#content').removeClass('d-none').addClass('d-flex');
-                $('.footer').removeAttr('hidden');
-            }, 2000);
-        });
-        $('#btn_yearly').css("background", "#DEAF5B");
-        if (cuscod != "") {
-            $("#cushid").val(cuscod)
-
-        }
-        $(document).ready(function () {
-            getYearpromotion();
-            $('.table-quarter').hide();
-            $('.table-other').hide();
-            $('.table-all').hide();
-            $('#detail-pro').hide();
-
-            if (page == 'yearly') {
-                $('#yearpro').val(CurrentY);
-                $('#periodpro').val('yearly');
-                yearPromotion(CurrentY);
-                $('#btn-show-year').click();
-            }
-            else if (page == 'quarter') {
-                $('#yearpro').val(CurrentY);
-                $('#periodpro').val('quarter');
-                yearPromotion(CurrentY);
-                $('#btn-show-quarter').click();
-            }
-            else if (page == 'other') {
-                $('#yearpro').val(CurrentY);
-                $('#periodpro').val('other');
-                yearPromotion(CurrentY);
-                $('#btn-show-other').click();
-            }
-        });
-
-        $(document).ready(function () {
-            $(document).on('click', 'tr[id^="pro-year"]', function () {
-                console.log("LOG CLICK");
-                $('tr[id^="pro-year"]').css("background", "");
-                $(this).css("background", "#DEAF5B");
-            });
-        });
-
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        var yearCurrent = @yearCurrent;
+        //var cuscod = '110L0003';
+        //console.log("Cuscod : " + cuscod);
+        var myChartM;
+        var myChartY;
+        var chartProfileVisit;
+        var chartdefault = $("#cushid").val();
 
         n = new Date();
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        function jssor_1_slider_init() {
+        $(document).ready(function () {
+            $('#loader').show();
+            getSelectMonth();
+            $('#select-month-year option[value=""]').prop('selected', true);
+            getCusName();
+            $('#btn-show-amount').css("background", "#DEAF5B");
+            setTimeout(function () {
+                $('#loader').hide();
+                $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+            }, 2000);
+            $('#line-tab-credit').hide();
+        });
 
-            var jssor_1_options = {
-                $AutoPlay: 0,
-                $AutoPlaySteps: 5,
-                $SlideDuration: 260,
-                $SlideWidth: 200,
-                $SlideSpacing: 3,
-                $ArrowNavigatorOptions: {
-                    $Class: $JssorArrowNavigator$,
-                    $Steps: 1
-                },
-                $BulletNavigatorOptions: {
-                    $Class: $JssorBulletNavigator$,
-                    $SpacingX: 16,
-                    $SpacingY: 16
-                }
-            };
-
-            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-
-            /*#region responsive code begin*/
-
-            var MAX_WIDTH = 758;
-
-            function ScaleSlider() {
-
-                var containerElement = jssor_1_slider.$Elmt.parentNode;
-                var containerWidth = containerElement.clientWidth;
-
-                if (containerWidth) {
-
-                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
-
-                    jssor_1_slider.$ScaleWidth(expectedWidth);
-                }
-                else {
-                    window.setTimeout(ScaleSlider, 30);
-                }
-            }
-
-            ScaleSlider();
-
-            $Jssor$.$AddEvent(window, "load", ScaleSlider);
-            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
-            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-
-
-        };
-        function commaSeparateNumber(val) {
-            while (/(\d+)(\d{3})/.test(val.toString())) {
-                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-            }
-            return val;
+        if (cuscod != "") {
+            $("#cushid").val(cuscod)
+            // getcuschamt(cuscod);
+            var currentDate = new Date();
+            var currentDay = (currentDate.getDate()).toString().padStart(2, "0")
+            var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+            var currentYear = currentDate.getFullYear();
+            var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
+            getCreditCus(cuscod);
+            getCusMonth(cuscod, currentYear, currentMonth);
+            setTimeout(function () {
+                getDataOrderHistoryByBrand(cuscod, 'TRW', '', 'show-order-history', 'Y');
+            }, 1000);
         }
 
-        function formatDate(dateString) {
-            var sym = '';
-            if (dateString.includes('/')) {
-                sym = '-';
-            }
-            else {
-                sym = '-';
-            }
-            let dateParts = dateString.split(sym);
-            let day = dateParts[0];
-            let month = dateParts[1];
-            let year = dateParts[2].slice(-2);
-            return `${day}-${month}-${year}`;
-        }
 
-        function toDateformat(day) {
-            var parts = day.split('-');
-            var dayPart = parseInt(parts[0], 10);
-            var monthPart = parseInt(parts[1], 10) - 1;
-            var yearPart = parseInt(parts[2], 10);
-            yearPart +=2000 ;
-            var dateObject = new Date(yearPart, monthPart, dayPart);
-            return dateObject;
+        function getMonthYear() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 12; i++) {
+                var month = i+1;
+                var year = y;
+                var formattedMonth = month.toString().padStart(2, '0'); //< 10 ? `0${month}` : `${month}`; #01549b
+                result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
+            }
+            return result;
         }
 
         function getCusName() {
@@ -1111,678 +1019,744 @@
                 }
             });
         }
-
-        function openPeriod(PeriodName, id) {
-            var i;
-            var x = document.getElementsByClassName("city");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
+        $('#btn-show-amount').click(function () {
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideDown("slow");
+            $('.order-history-div').slideUp("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-order-history').removeAttr('style');
+        });
+        $('#btn-show-order-history').click(function () {
+            $('.order-history-div').slideDown("slow");
+            $('.amount-div').slideUp("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount').removeAttr('style');
+            //get fn push data
+            //getDataOrderHistoryByBrand(cuscod, '', 'show-order-history', 'Y');
+        });
+        //search auto
+        var valBrand = $("#select-brand option:selected").val();
+        var valTxtSearch = $("#txt-other").val();
+        //ลบชื่อสินค้า
+        $("#txt-other").keyup(function () {
+            var valBrand = $("#select-brand option:selected").val();
+            var txtOther = $(this).val();
+            if (txtOther == "" && valBrand != "") {
+                getDataOrderHistoryByBrand(cuscod, valBrand, txtOther, 'show-order-history', '');
             }
-            document.getElementById(PeriodName).style.display = "block";
-            var cusnc = cuscod;
-            var period = PeriodName;
-            //alert(period)
-            getPromotion_Cus(cusnc, period);
-        }
-
-        //TOP20
-        function getListTop20(cuscod) {
-            var current_status = $('.statusTop20').text();
-            var txtWarning = "";
-            if (current_status != "Untoggled") {
+        });
+        //มีชื่อสินค้า
+        $("#txt-other").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = {
+                    cuscode: cuscod,
+                    brand: $("#select-brand option:selected").val(),
+                    txtOther: $("#txt-other").val()
+                };
                 $.ajax({
-                    url: '@Url.Action("GetdataCusAmtTop20", "DataCenter")',
-                    data: {
-                        cuscod: cuscod,
-                    },
+                    url: '@Url.Action("SearchOrderHistoryByTxt", "CustomerDashboard")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
                     type: "POST",
-                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
                     success: function (data) {
-                        console.log(data)
-                        $('#tableListTop20 tbody:last-child').html("");
-                        var SubmithtmlPages = "";
-                        if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                SubmithtmlPages += '<tr>';
-                                SubmithtmlPages += '<td>' + data[i].Rowid + '</td>';
-                                SubmithtmlPages += '<td align="center">' + data[i].Company + '</td>';
-                                // SubmithtmlPages += '<td>' + data[i].Cuscod + '</td>';
-                                SubmithtmlPages += '<td>' + data[i].Stkcod + '</td>';
-                                SubmithtmlPages += '<td>' + data[i].Stkdes + '</td>';
-                                SubmithtmlPages += '<td align="center">' + parseInt(data[i].Qty) + '</td>';
-                                SubmithtmlPages += '<td>' + commaSeparateNumber(data[i].Amt) + '</td>';
-                                SubmithtmlPages += '</tr>';
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
                             }
-                        } else {
-                            if (cuscod == "") {
-                                txtWarning = "กรุณาเลือกร้านค้า";
-                            } else {
-                                txtWarning = "-ไม่พบข้อมูล-";
-                            }
-                            SubmithtmlPages += '<tr>';
-                            SubmithtmlPages += '<td colspan="6" align="center">' + txtWarning + '</td>';
-                            SubmithtmlPages += '</tr>';
-                        }
-                        $("#tableListTop20").append(SubmithtmlPages);
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
                     }
                 });
-            }
-        }
-        function getPromotion_Cus(cusnc, period) { //โปรโมชั่น ฟังก์ชั่น
-            var current_status = $('.statuspromotion').text();
-            var reward_color = "";
-            console.log("Promotion Cus : " + cusnc);
+            },
+            select: function (event, ui) {
+                var _val = ui.item.value;
+                var _splito = "";
+                _splito = _val.split(' ');
+                var splitval = _splito;
+                _scus = _splito[0].trim();
+
+                console.log("sub(0) = " + _splito[0].trim() + " sub(1) = " + _splito[1].trim())
+
+                getDataOrderHistoryByBrand(cuscod, valBrand, _scus, 'show-order-history', '');
+            },
+            minLength: 2
+        });
+        //call stored get data
+        function getDataOrderHistoryByBrand(cuscode, brand, txtSearch, divHtml, flagFirst) {
+            var htmlTable ='<table class="table table-striped table-bordered table-hover mb-0 " id="table-history" style="padding: 7px;font-size: small;">'+
+                                 '<thead class="thead-default " style="font - size: small; ">' +
+                                    '<tr> '+
+                                        '<th rowspan="2" class="vcenter"><span>เบอร์สินค้า</span></th>' +
+                                        '<th rowspan="2" class="vcenter"><span>ชื่อสินค้า</span></th>' +
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent) + ' </th>' +
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent - 1) + ' </th>'+
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent - 2) + ' </th>' +
+                                        '<th rowspan="2" class="vcenter"> แบรนด์ </th>' +
+                                        ' <th rowspan="2" class="vcenter"><span>บริษัท</span></th>' +
+                                    '</tr >' +
+                                    '<tr>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                    '</tr>'+
+                                '</thead >'+
+                                '<tbody>'+
+                                    '<tr >' +
+                                        '<td colspan="10" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>' +
+                                    ' </tr >' +
+                                '</tbody >'+
+                     '</table >';
+                if (flagFirst == "Y") {
+                    $("#show-order-history").html(htmlTable);
+                }
                 $.ajax({
-                    url: '@Url.Action("GetdataPromotion_Cus", "DataCenter")',
-                    data: {
-                        strcustome: cusnc,
-                        period: period
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-                        $('#promotiontbyearly tbody:last-child').html("");
-                        $('#promotiontbquater tbody:last-child').html("");
-                        $('#promotiontbother tbody:last-child').html("");
+                type: 'post',
+                url: '@Url.Action("OrderHistoryByBrand", "CustomerDashboard")',
+                data: {
+                    cuscod: cuscode,//cuscod,
+                    brand: brand.trim(),
+                    txtSearch: txtSearch
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#table-history tbody').empty();
+                    $('#table-history tbody').html('<td class="text-center" colspan="12"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</td>')
+                },
+                success: function (res) {
+                    $('#' + divHtml).empty();
+                    $('#' + divHtml).html(res);
+                }
+            });
+        }
+        //select brand
+        $('#select-brand').on('change', function () {
+            var valBrand = $(this).val();
+            var valTxtSearch = $("#txt-other").val();
+            //ถ้าเลือกแบนรต้องลบชื่อสินค้า
+            if (valBrand != "") {
+                if (valTxtSearch != "") {
+                    $("#txt-other").val("");
+                    valTxtSearch = "";
+                }
+            } else { //ALL
+                $("#txt-other").val("");
+                valTxtSearch = "";
+            }
+            getDataOrderHistoryByBrand(cuscod, valBrand, valTxtSearch, 'show-order-history', '');
+        });
+
+        function getSelectMonth() {
+            const dropdown = $('#select-month-year');
+            const lastSixMonths = getMonthYear();
+            lastSixMonths.forEach(monthYear => {
+                const option = $('<option></option>')
+                    .text(monthYear.display)
+                    .val(monthYear.value);
+                dropdown.append(option);
+            });
+
+            const currentDate = new Date();
+            const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const currentYear = currentDate.getFullYear();
+            const currentMonthYear = `${currentYear}, ${currentMonth}`;
+
+            dropdown.val(currentMonthYear);
+        }
+
+        function jssor_1_slider_init() {
+            var jssor_1_options = {
+                $AutoPlay: 0,
+                $AutoPlaySteps: 5,
+                $SlideDuration: 260,
+                $SlideWidth: 200,
+                $SlideSpacing: 3,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 1
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 16,
+                    $SpacingY: 16
+                }
+            };
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            var MAX_WIDTH = 758;
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+                if (containerWidth) {
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        };
+
+        $(document).ready(function () {
+            $('#select-month-year').on('change', function () {
+                const selectMonthYear = $(this).val();
+                const [year, month] = selectMonthYear.split(',');
+                getCusMonth(cuscod, year.trim(), month.trim());
+            });
+        });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+        //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
+        function getCusMonth(cus,year,month) {
+            $.ajax({
+                url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus,
+                    Month: month,
+                    Year: year
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.Getdata.length > 0) {
+                        var resTotal = 0.00;
                         var SubmithtmlPage = "";
-                        if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
 
+                        $.ajax({
+                            url: '@Url.Action("GetCusInvMonth", "CustomerDashboard")',
+                            data: {
+                                CUSCOD: cus,
+                                Month: month,
+                                Year: year
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            beforeSend: function () {
+                                $('#total-text').text("");
+                                $("#amt-total").text("");
+                                $('#amt-table tbody').html("");
+                                var SubmithtmlPag = '';
+                                SubmithtmlPag += '<tr>';
+                                SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                                SubmithtmlPag += '</tr>';
+                                $('#amt-table tbody').append(SubmithtmlPag);
+                                $("#loading-text-table").text("Loading...");
+                            },
+                            success: function (result) {
+                                $('#amt-table tbody').html("");
+                                var aac_count = 0;
+                                var tac_count = 0;
+                                var omp_count = 0;
+
+                                var amt_tac = 0;
+                                var amt_omp = 0;
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                    $('#sec-table-' + i + ' tbody').html("");
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<tr>';
+                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
+                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="cut-text text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        var amt_aac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span>  <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        var amt_tac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        var amt_omp = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                   // SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                    SubmithtmlPage += '</tr>';
+
+                                    ////TR
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
+                                    //SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
+                                    //SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
+                                    //SubmithtmlPage += '<thead class="thead-default">';
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<th>บริษัท</th> ';
+                                    //SubmithtmlPage += '</tr>';
+                                    //SubmithtmlPage += '</thead>';
+                                    //SubmithtmlPage += '<tbody>';
+
+                                    /////AAC
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
+                                    //SubmithtmlPage += '   <th class="block_container border-0">';
+                                    //SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    //SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
+                                    //SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '     </th>';
+                                    //SubmithtmlPage += '</tr>';
+
+                                    ///// tr aac
+
+                                    SubmithtmlPage += '        <tr>';///tr tr
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท AAC</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                    aac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (aac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+
+                                        }
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+
+                                    //tr aac
+
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //AAC
+
+                                    //TAC
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr tac
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท TAC</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                   // SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                    tac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (tac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+
+                                    }
+                                    else {
+                                        tac_count = 0;
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr tac
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr>';
+                                    //TAC
+
+                                    //OMP
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr omp
+
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท OMP</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                    //SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                    omp_count++;
+                                                }
+                                            }
+                                        }
+                                        if (omp_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr omp
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //OMP
+
+
+                                    //SubmithtmlPage += '</tbody>';
+                                    //SubmithtmlPage += '</table>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '        </td>';
+                                    //SubmithtmlPage += '        </tr>';
+                                    ////TR
+                                    var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
+                                    if (!isNaN(amount)) {
+                                        resTotal += amount;
+                                    }
+                                }
+                                $('#total-text').text("Total");
+                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)));
+                                $("#loading-text-table").text("");
+                                $("#amt-table tbody").append(SubmithtmlPage);
+                                $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
+                                $('#tac-amt').text(commaSeparateNumber(amt_tac.toFixed(2)));
+                                $('#omp-amt').text(commaSeparateNumber(amt_omp.toFixed(2)));
+                            }
+                        });
+                    }
+                    else {
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#amt-table tbody").append(SubmithtmlPage);
+                    }
+                    console.log(data.message);
+                }
+            });
+        }
+
+        function toggleRowAndButton(row, index) {
+            var text = $('#row-show-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function toggleRowColDetail(row,index,comp) {
+            var text = $('#show-sales-'+comp+'-icon-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+
+
+        //รายละเอียดเลข invoice
+        function getDetailCusinv(DocNum) {
+            $('#cusMonthItemModal').modal('show');
+            $('#docno-item').text(DocNum);
+            $.ajax({
+                url: '@Url.Action("GetCusinvDetail", "CustomerDashboard")',
+                data: {
+                    Docno: DocNum
+                },
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $('#namecus-item').text("");
+                    $('#cusMonthItemDetail tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                },
+                success: function (data) {
+                    $('#cusMonthItemDetail tbody').html("");
+                    if (data.message == "Y") {
+                        var SubmithtmlPage = "";
+                        if (data.Getdata.length != 0) {
+                            var cusName = "";
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                cusName = data.Getdata[i].CUSNAM;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td><span>' + data[i].Promotion_Name + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].Condition) + '</span></td>';
-                                //SubmithtmlPage += '<td>' + data[i].StartDate + '</td>';
-                                SubmithtmlPage += '<td><span>' + data[i].EndDate + '</td>';
-                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].INVAMT) + '</span></td>';
-                                SubmithtmlPage += '<td><span>' + commaSeparateNumber(data[i].RemainAmt) + '</span></td>';
-                                if (data[i].Reward.toString().toLowerCase().includes("ticket")) {
-                                    reward_color = "bg-warning bg-opacity-75";
-                                }
-                                else if (data[i].Reward.toString().includes("ตั๋ว")) {
-                                    reward_color = "bg-warning bg-opacity-75 ";
-                                }
-                                else if (data[i].Reward.toString().includes("เช็ค")) {
-                                    reward_color = "bg-success bg-opacity-75";
-                                }
-                                else {
-                                    reward_color = "bg-info bg-opacity-75 ";
-                                }
-
-                                SubmithtmlPage += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data[i].Reward + '</span> </td>';
+                                SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate text-center">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                 SubmithtmlPage += '</tr>';
+
                             }
-                            if (period == 'yearly') {
-                                $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#DEAF5B");
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').removeAttr('style');
-
-                            } else if (period == 'quarter') {
-                                $("#promotiontbquater").append(SubmithtmlPage);
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#DEAF5B");
-                                $('#btn_other').removeAttr('style');
-                            } else if (period == 'other') {
-                                $("#promotiontbother").append(SubmithtmlPage);
-
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#DEAF5B");
-                            }
-                        }
-                        else if (data.length <= 0) {
-                            SubmithtmlPage += '<tr><td class="text-center" colspan="6">-- ไม่พบข้อมูล --</td></tr>'
-                            if (period == 'yearly') {
-                                $("#promotiontbyearly").append(SubmithtmlPage);
-                                $('#btn_yearly').css("background", "#DEAF5B");
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').removeAttr('style');
-
-                            } else if (period == 'quarter') {
-                                $("#promotiontbquater").append(SubmithtmlPage);
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').css("background", "#DEAF5B");
-                                $('#btn_other').removeAttr('style');
-                            } else if (period == 'other') {
-                                $("#promotiontbother").append(SubmithtmlPage);
-
-                                $('#btn_yearly').removeAttr('style');
-                                $('#btn_quater').removeAttr('style');
-                                $('#btn_other').css("background", "#DEAF5B");
-                            }
+                            $('#namecus-item').text(cusName);
+                            $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
                         }
                     }
-                });
+                    else {
+                        console.log("Error : "+data.message);
+                    }
+                }
+            });
         }
+        //ดึงข้อมูล credit
+        function getCreditCus(cus) {
+            $.ajax({
+                url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
+                data: {
+                    cuscod: cus
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        var lastInvoiceDate = data.credits[0].LASIVC;
+
+                        $('#cr-date').text(lastInvoiceDate);
+                        var aaccrbal = data.credits[0].AACCRLINE;
+                        var taccrbal = data.credits[0].TACCRLINE;
+                        var ompcrbal = data.credits[0].OMPCRLINE;
+
+                        var aacbal = data.credits[0].AACBAL;
+                        var tacbal = data.credits[0].TACBAL;
+                        var ompbal = data.credits[0].OMPBAL;
+
+                        var resaacbal = Number(aaccrbal) - Number(aacbal);
+                        var restacbal = Number(taccrbal) - Number(tacbal);
+                        var resompbal = Number(ompcrbal) - Number(ompbal);
+
+                        var aacbaldue = data.credits[0].AACBALDue;
+                        var tacbaldue = data.credits[0].TACBALDue;
+                        var ompbaldue = data.credits[0].OMPBALDue;
+
+                        var creditdue = data.credits[0].AACPAYTR;
+                        var aacbildue = data.credits[0].AACBilDue;
+                        var tacbildue = data.credits[0].TACBilDue;
+                        var ompbildue = data.credits[0].OMPBilDue;
+
+                        $('#credit-duedate').text(creditdue);
+
+                        $('#aac-crline').text(commaSeparateNumber(aaccrbal));
+                        $('#tac-crline').text(commaSeparateNumber(taccrbal));
+                        $('#omp-crline').text(commaSeparateNumber(ompcrbal));
+
+                        $('#aac-bal').text(commaSeparateNumber(aacbal));
+                        $('#tac-bal').text(commaSeparateNumber(tacbal));
+                        $('#omp-bal').text(commaSeparateNumber(ompbal));
+
+                        $('#aac-res').text(commaSeparateNumber(resaacbal.toString()));
+                        $('#tac-res').text(commaSeparateNumber(restacbal.toString()));
+                        $('#omp-res').text(commaSeparateNumber(resompbal.toString()));
+
+                        $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
+                        $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
+                        $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+
+                        $('#aac-bildue-date').text(aacbildue);
+                        $('#tac-bildue-date').text(tacbildue);
+                        $('#omp-bildue-date').text(ompbildue);
+
+
+
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+            });
+        }
+
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            // var parts = dateStr.split('/');
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+            var day = parseInt(parts[0], 10) + 1;
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+            var date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
+
+
         function myFunction() {
             var x = document.getElementById("blcslm");
             if (x.style.display === "none") {
                 x.style.display = "block";
                 $("#selslm").val("ALL");
-
             } else {
                 x.style.display = "none";
                 $("#selcus").prop("disabled", false);
             }
         }
 
-        //GetYearOfPromotion
-        function getYearpromotion() {
-            var cus = cuscod;
-            $.ajax({
-                url: '@Url.Action("GetYearPromotion", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cus
-                },
-                dataType: 'JSON',
-                type: 'POST',
-                beforeSend: function () {
-                    $('#table-promotion-year tbody').html("");
-                    var SubmithtmlPag = '';
-                    SubmithtmlPag += '<tr>';
-                    SubmithtmlPag += '<td align="center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                    SubmithtmlPag += '</tr>';
-                    $('#table-promotion-year tbody').append(SubmithtmlPag);
-                },
-                success: function (data) {
-                    if (data.message == 'Y') {
-                        var SubmithtmlPag = '';
-
-                        $('#table-promotion-year tbody').html("");
-                        if (data.Getdata.length != 0) {
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year + '" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" ' + (arrayPriod.includes(page) ? (CurrentY == data.Getdata[i].Year ? ' style="background-color:#DEAF5B;"' : '') : '') + '>';
-                                SubmithtmlPag += '<td class="text-center"><i class="fa fa-search" aria-hidden="true"></i></td>';
-                                SubmithtmlPag += '<td class="text-center">' + data.Getdata[i].Year + '</td>';
-                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
-                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Paid_Amount) + '</td>';
-                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Ticket) + '</td>';
-                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Waiting_Amount) + '</td>';
-                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
-                                SubmithtmlPag += '</tr>';
-                            }
-                            $('#table-promotion-year tbody').append(SubmithtmlPag);
-                        }
-                    }
-                    else {
-                        console.log(data.message);
-                    }
-                }
-            });
-        }
-
-        function yearPromotion(year) {
-
-            // $('#' + year + '').css("background", "#DEAF5B");
-            var lastperoid = $('#periodpro').val();
-            console.log("Peroid is " + lastperoid);
-            if (lastperoid != "") {
-                $('#btn-show-yearly').removeAttr('style');
-                $('#btn-show-quarter').removeAttr('style');
-                $('#btn-show-other').removeAttr('style');
-                $('#btn-show-all').removeAttr('style');
-                $('#yearpro').val(year);
-                $('#detail-pro').show("slow");
-                switch (lastperoid) {
-                    case 'yearly':
-                        $('#btn-show-yearly').css("background", "#DEAF5B");
-                        $('.table-yearly').show('slow');
-                        $('.table-quarter').hide('slow');
-                        $('.table-other').hide('slow');
-                        $('.table-all').hide('slow');
-                        getPromotion('yearly');
-                        break;
-                    case 'quarter':
-                        $('#btn-show-quarter').css("background", "#DEAF5B");
-                        $('.table-quarter').show('slow');
-                        $('.table-yearly').hide('slow');
-                        $('.table-other').hide('slow');
-                        $('.table-all').hide('slow');
-                        getPromotion('quarter');
-                        break;
-                    case 'other':
-                        $('#btn-show-other').css("background", "#DEAF5B");
-                        $('.table-other').show('slow');
-                        $('.table-yearly').hide('slow');
-                        $('.table-quarter').hide('slow');
-                        $('.table-all').hide('slow');
-                        getPromotion('other');
-                        break;
-                    case 'all':
-                        $('#btn-show-all').css("background", "#DEAF5B");
-                        $('.table-all').show('slow');
-                        $('.table-yearly').hide('slow');
-                        $('.table-quarter').hide('slow');
-                        $('.table-other').hide('slow');
-                        getPromotion('all');
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else {
-                $('#btn-show-yearly').css("background", "#DEAF5B");
-                $('#btn-show-quarter').removeAttr('style');
-                $('#btn-show-other').removeAttr('style');
-                $('#btn-show-all').removeAttr('style');
-                $('.table-yearly').show('slow');
-                $('.table-quarter').hide('slow');
-                $('.table-other').hide('slow');
-                $('.table-all').hide('slow');
-                $('#yearpro').val(year);
-                $('#detail-pro').show("slow");
-                getPromotion('yearly');
-            }
-
-        }
-
-        function getPromotion(period) {
-            var cus = cuscod;
-            var year = $('#yearpro').val();
-            $.ajax({
-                url: '@Url.Action("GetPromotionDetail", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cus,
-                    Period: period,
-                    YEAR:year
-                },
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function () {
-                    var SubmithtmlPag = '';
-                    var yearly = $('#promotion-yearly-table tbody');
-                    var quarter = $('#promotion-quarter-table tbody');
-                    var other = $('#promotion-other-table tbody');
-                    var all = $('#promotion-all-table tbody');
-                    SubmithtmlPag += '<tr>';
-                    SubmithtmlPag += '<td class="text-center" colspan="12"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                    SubmithtmlPag += '</tr>';
-
-                    yearly.append(SubmithtmlPag);
-                    quarter.append(SubmithtmlPag);
-                    other.append(SubmithtmlPag);
-                    all.append(SubmithtmlPag);
-                },
-                success: function (data) {
-                    var SubmithtmlPag = '';
-                    var reward_color = "";
-                    if (data.message == 'Y') {
-                        var yearly = $('#promotion-yearly-table tbody');
-                        var quarter = $('#promotion-quarter-table tbody');
-                        var other = $('#promotion-other-table tbody');
-                        var all = $('#promotion-all-table tbody');
-
-                        var _count = 0;
-                        yearly.html("");
-                        quarter.html("");
-                        other.html("");
-                        all.html("");
-                        if (data.Getdata.length != 0) {
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                SubmithtmlPag += '<tr onclick="getDetailPromotion(' + '\'' + data.Getdata[i].Promotion_Code + '\'' + ')">';
-                                SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>';
-                                SubmithtmlPag += '<td class="text-truncate"> <p class="cut-text m-0 p-0"><span>' + data.Getdata[i].Promotion_Name + '</span></p></td>';
-                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + formatDate(data.Getdata[i].StartDate)  + '</span></td>';
-                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + formatDate(data.Getdata[i].EndDate)  + '</span></td>';
-                                SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].Condition) + '</span></td>';
-                                SubmithtmlPag += '<td  align="right"><span>' + commaSeparateNumber(data.Getdata[i].Invoice_Amount) + '</span></td>';
-                                SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].Remaining_Amount) + '</span></td>';
-                                //SubmithtmlPag += '<td class="text-truncate">' + data.Getdata[i].Reward + '</td>';
-                                if (data.Getdata[i].Reward.toString().toLowerCase().includes("ticket")) {
-                                    reward_color = "bg-warning bg-opacity-75";
-                                }
-                                else if (data.Getdata[i].Reward.toString().includes("ตั๋ว")) {
-                                    reward_color = "bg-warning bg-opacity-75 ";
-                                }
-                                else if (data.Getdata[i].Reward.toString().includes("เช็ค")) {
-                                    reward_color = "bg-success bg-opacity-75";
-                                }
-                                else {
-                                    reward_color = "bg-info bg-opacity-75 ";
-                                }
-                                SubmithtmlPag += '<td style="text-align: center;"> <span class="badge ' + reward_color + '">' + data.Getdata[i].Reward + '</span> </td>';
-                                //SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(Math.floor(data.Getdata[i].Reward_Amt)) + '</span></td>';
-                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Status + '</span></td>';
-                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Received_Date.replace(/\//g, '-')  + '</span></td>';
-                                SubmithtmlPag += '<td class="text-truncate" align="center"><span>' + data.Getdata[i].Received_By + '</span></td>';
-                                if (data.Getdata[i].WHT != 0) {
-                                    SubmithtmlPag += '<td align="right"><span>' + commaSeparateNumber(data.Getdata[i].WHT) + '</span></td>';
-                                }
-                                else {
-                                    SubmithtmlPag += '<td align="right"></td>';
-                                }
-
-                                SubmithtmlPag += '</tr>';
-                                _count++;
-                            }
-                            if (period === 'yearly') {
-                                console.log("test year");
-                                yearly.append(SubmithtmlPag);
-                            } else if (period === 'quarter') {
-                                quarter.append(SubmithtmlPag);
-                            } else if (period === 'other') {
-                                other.append(SubmithtmlPag);
-                            } else if (period === 'all') {
-                                all.append(SubmithtmlPag);
-                            }
-                        }
-                        else {
-                            //// ถ้าไม่มีโปรโมชั่นเลย
-
-                            SubmithtmlPag += '<tr>';
-                            SubmithtmlPag += '<td class="text-center" colspan="12">-- ไม่พบข้อมูล --</td>'
-                            SubmithtmlPag += '</tr>';
-                            if (period === 'yearly') {
-                                yearly.append(SubmithtmlPag);
-
-                            } else if (period === 'quarter') {
-                                quarter.append(SubmithtmlPag);
-                            } else if (period === 'other') {
-                                other.append(SubmithtmlPag);
-                            } else if (period === 'all') {
-                                all.append(SubmithtmlPag);
-                            }
-                        }
-                    }
-                    else {
-                        console.log(data.message);
-                    }
-                }
-
-            });
-        }
-
-        @*function getDetailPromotion(proCode) {
-            $('#DetailModalCenter').modal('show');
-            $.ajax({
-                url: '@Url.Action("GetDetailPromotion", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cuscod,
-                    proCODE: proCode
-                },
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function () {
-                    var SubmithtmlPage = '';
-                    var descript = "";
-                    $('#prodes').text("");
-                    $('#tblpromotiondetail tbody').html("");
-                    SubmithtmlPage += '<tr>';
-                    SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
-                    SubmithtmlPage += '</tr>';
-                    $('#tblpromotiondetail tbody').append(SubmithtmlPage);
-
-                },
-                success: function (data) {
-                    var SubmithtmlPage = '';
-                    var descript = "";
-                    var desPro = $('#prodes');
-                    var table = $('#tblpromotiondetail tbody');
-                    if (data.message == "Y") {
-                        table.html("");
-                        if (data.Getdata.length > 0) {
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Company + '</span></td>';
-                                SubmithtmlPage += '<td class="text-center"><p class="m-0 text-truncate"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
-                                SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
-                                SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT + '</span></p></td>';
-                                SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].DOCNUM + '</span></td>';
-                                SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].SP_LCY) + '</span></td>';
-                                SubmithtmlPage += '<td class="text-center"><span>' + commaSeparateNumber(data.Getdata[i].QTY) + '</span></td>';
-                                SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].NET_LCY) + '</span></td>';
-                                SubmithtmlPage += '</tr>';
-                                descript = data.Getdata[i].Description;
-                            }
-                            if (data.Getdata.length > 1000) {
-                                SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td class="" colspan="8"><p class="m-0 text-primary" style="font-size:14px">รายการมีจำนวนมากเกินกว่าที่จะแสดง โปรดติดต่อพนักงานขายของท่าน</p></td>';
-                                SubmithtmlPage += '</tr>';
-                            }
-                            desPro.text(descript);
-                            table.append(SubmithtmlPage);
-                        }
-                        else {
-                            SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
-                            SubmithtmlPage += '</tr>';
-                            table.append(SubmithtmlPage);
-                        }
-                    }
-                    else {
-                        console.log("Error : " + data.message);
-                    }
-                }
-
-            })
-        }*@
-
-        function getDetailPromotion(proCode) {
-            $('#DetailModalCenter').modal('show');
-            $('#gridContainer').empty();
-          $.ajax({
-              url: '@Url.Action("GetDetailPromotion", "CustomerDashboard")',
-              data: {
-                  CUSCOD: cuscod,
-                  proCODE: proCode
-              },
-              type: 'POST',
-              dataType: 'JSON',
-              beforeSend: function () {
-                  $('#prodes').text("");
-                  $('#gridContainer').empty();
-                  $('#gridContainer').html('<div class="text-center"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</div>');
-              },
-              success: function (data) {
-                  if (data.message == "Y") {
-                      $('#gridContainer').empty();
-                      if (data.Getdata.length > 0) {
-                          function numericSorter(a, b) {
-                              return parseFloat(a.replace(/,/g, '')) - parseFloat(b.replace(/,/g, ''));
-                          }
-                          // Custom date sorter function
-                          function customDateSorter(a, b) {
-                              const dateA = parseDate(a);
-                              const dateB = parseDate(b);
-
-                              const yearComparison = dateA.getFullYear() - dateB.getFullYear();
-                              if (yearComparison !== 0) {
-                                  return yearComparison;
-                              }
-
-                              const monthComparison = dateA.getMonth() - dateB.getMonth();
-                              if (monthComparison !== 0) {
-                                  return monthComparison;
-                              }
-
-                              return dateA.getDate() - dateB.getDate();
-                          }
-
-                          function parseDate(dateStr) {
-                              const parts = dateStr.split(/[-\/]/);
-                              const day = parseInt(parts[0], 10);
-                              const month = parseInt(parts[1], 10) - 1;
-                              const year = parseInt(parts[2], 10) + 2000;
-
-                              return new Date(year, month, day);
-                          }
-                          function formatDate(dateStr) {
-                              const dateObj = parseDate(dateStr);
-                              const day = String(dateObj.getDate()).padStart(2, '0');
-                              const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                              const year = String(dateObj.getFullYear()).slice(-2);
-                              return `${day}-${month}-${year}`;
-                          }
-
-                          if (window.gridInstance) {
-                              window.gridInstance.destroy();
-                          }
-                          window.gridInstance = new gridjs.Grid({
-                              columns: [
-                                  { name: 'บริษัท', width: '100px' },
-                                  { name: 'เบอร์สินค้า', width: '100px' },
-                                  { name: 'ชื่อสินค้า', width: '200px' },
-                                  {
-                                      name: 'วันที่สั่งซื้อ',
-                                      width: '100px',
-                                      sort: {
-                                          compare: customDateSorter
-                                      },
-                                      formatter: (cell) => formatDate(cell)
-                                  },
-                                  { name: 'เลขสั่งซื้อ', width: '150px' },
-                                  {
-                                      name: 'ราคาสินค้า',
-                                      width: '100px',
-                                      sort: {
-                                          compare: numericSorter
-                                      }
-                                  },
-                                  {
-                                      name: 'จำนวน',
-                                      width: '100px',
-                                      sort: {
-                                          compare: numericSorter
-                                      }
-                                  },
-                                  {
-                                      name: 'ยอดซื้อ',
-                                      width: '100px',
-                                      sort: {
-                                          compare: numericSorter // Use custom sorter for numeric sorting
-                                      }
-                                  }
-                              ],
-                              data: data.Getdata.map(item => [
-                                  item.Company,
-                                  item.STKCOD,
-                                  item.STKDES,
-                                  item.DOCDAT,
-                                  item.DOCNUM,
-                                  //commaSeparateNumber(item.SP_LCY),
-                                  Number(item.SP_LCY).toLocaleString(),
-                                  Number(item.QTY).toLocaleString(),
-                                  Number(item.NET_LCY).toLocaleString()
-                                  //commaSeparateNumber(item.NET_LCY)
-                              ]),
-                              //pagination: {
-                              //    limit: 10
-                              //},
-                              pagination: true,
-                              fixedHeader: true,
-                              height: '400px',
-                              sort: true,
-                             // search: true,
-                              className: {
-                                  table: 'table table-striped table-bordered',
-                                  th: 'text-center',
-                                  td: 'text-center text-truncate'
-                              },
-                              style: {
-                                  table: {
-                                      'width': '100%'
-                                  },
-                                  td: {
-                                      'text-align': 'center'
-                                  }
-                              }
-                          });
-
-                          window.gridInstance.render(document.getElementById("gridContainer"));
-                          $('#prodes').text(data.Getdata[0].Description);
-                      } else {
-                          $('#gridContainer').empty();
-                          $('#gridContainer').html('<div class="text-center">-- ไม่พบข้อมูล --</div>');
-                      }
-                  } else {
-                      console.log("Error : " + data.message);
-                  }
-              }
-          });
-        }
-
-
-        //Tab Promotion
-        $('#btn-show-yearly').click(function () {
-            $(this).css("background", "#DEAF5B");
-            $('#periodpro').val('yearly');
-            $('#btn-show-quarter').removeAttr('style');
-            $('#btn-show-other').removeAttr('style');
-            $('#btn-show-all').removeAttr('style');
-            $('.table-yearly').show('slow');
-            $('.table-quarter').hide('slow');
-            $('.table-other').hide('slow');
-            $('.table-all').hide('slow');
-            getPromotion('yearly');
-        });
-        $('#btn-show-quarter').click(function () {
-            $(this).css("background", "#DEAF5B");
-            $('#periodpro').val('quarter');
-            $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-other').removeAttr('style');
-            $('#btn-show-all').removeAttr('style');
-            $('.table-quarter').show('slow');
-            $('.table-yearly').hide('slow');
-            $('.table-other').hide('slow');
-            $('.table-all').hide('slow');
-            getPromotion('quarter');
-        });
-        $('#btn-show-other').click(function () {
-            $(this).css("background", "#DEAF5B");
-            $('#periodpro').val('other');
-            $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-quarter').removeAttr('style');
-            $('#btn-show-all').removeAttr('style');
-            $('.table-other').show('slow');
-            $('.table-yearly').hide('slow');
-            $('.table-quarter').hide('slow');
-            $('.table-all').hide('slow');
-            getPromotion('other');
-
-        });
-        $('#btn-show-all').click(function () {
-            $(this).css("background", "#DEAF5B");
-            $('#periodpro').val('all');
-            $('#btn-show-yearly').removeAttr('style');
-            $('#btn-show-quarter').removeAttr('style');
-            $('#btn-show-other').removeAttr('style');
-            $('.table-all').show('slow');
-            $('.table-yearly').hide('slow');
-            $('.table-quarter').hide('slow');
-            $('.table-other').hide('slow');
-            getPromotion('all');
-
-        });
-
-        $('.selectpicker').selectpicker({
-            noneResultsText: 'Not found'
-        });
-
-
-
-
-
-
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
             window.location.replace("../CustomerDashboard/index");
-        });
-        //ปุ่มโปรโมชัน
-        $(document).on("click", "#navbarpromotion", function () {
-            window.location.replace("../CustomerDashboard/Promotion");
         });
         //ปุ่มสินค้าค้างส่ง
         $(document).on("click", "#navbarpending", function () {
             window.location.replace("../CustomerDashboard/PendingDeliver");
         });
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        });
         //ปุ่มรายการเคลม
         $(document).on("click", "#navbarwarranty", function () {
             window.location.replace("../CustomerDashboard/Warranty");
         });
-        //ปุ่มสถานะการสั่งซื้อ warranty
-        $(document).on("click", "#navbardeliverytrack", function () {
-            window.location.replace("../CustomerDashboard/DeliveryTrack");
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
         });
         //ปุ่มเครดิต
         $(document).on("click", "#navbarcredit", function () {
@@ -1790,23 +1764,7 @@
         });
         //ปุ่มเปลี่ยนรหัสผ่าน
         $(document).on("click", "#navbarchangepassword", function () {
-            window.location.replace("../Account/ChangePasswordPortal?page=promotion");
-        });
-
-        $('#btn_yearly').click(function () {
-            $('#btn_yearly').css("background", "#DEAF5B");
-             $('#btn_quater').removeAttr('style');
-             $('#btn_other').removeAttr('style');
-        });
-        $('#btn_quater').click(function () {
-            $('#btn_yearly').removeAttr( 'style' );
-            $('#btn_quater').css("background", "#DEAF5B");
-            $('#btn_other').removeAttr( 'style' );
-        });
-        $('#btn_other').click(function () {
-            $('#btn_yearly').removeAttr('style');
-            $('#btn_quater').removeAttr('style');
-            $('#btn_other').css("background", "#DEAF5B");
+            window.location.replace("../Account/ChangePasswordPortal?page=amount");
         });
 
     </script>

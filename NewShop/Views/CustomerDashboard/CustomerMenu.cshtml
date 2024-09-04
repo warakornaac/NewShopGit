@@ -813,36 +813,36 @@
                                 seqCheck.push(item.Seq);
                                 if (item.Seq.startsWith("1")) {
 
-                                        while (parseInt(item.Seq.slice(-1)) > sub1) {
-                                            console.log("Missing Sequence for SUB1: " + sub1);
-                                            $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
-                                            sub1++;
+                                    while (parseInt(item.Seq.slice(-1)) > sub1) {
+                                        console.log("Missing Sequence for SUB1: " + sub1);
+                                        $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
+                                        $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
+                                        $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
+                                        sub1++;
 
-                                        }
-                                        if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1').removeAttr('hidden');
-                                            sub1++;
-                                            continue;
-                                        }
+                                    }
+                                    if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
+                                        $('#text-promotion-1-' + sub1.toString()).text(item.Name);
+                                        $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                        $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#text-promotion-head-1').removeAttr('hidden');
+                                        sub1++;
+                                        continue;
+                                    }
 
-                                        if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
+                                    if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
 
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-2').removeAttr('hidden');
-                                            sub1++;
-                                            continue;
-                                        }
+                                        $('#text-promotion-1-' + sub1.toString()).text(item.Name);
+                                        $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
+                                        $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
+                                        $('#text-promotion-head-2').removeAttr('hidden');
+                                        sub1++;
+                                        continue;
+                                    }
 
 
                                 }
@@ -1016,6 +1016,25 @@
                         //$('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
                         //$('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
                         //$('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
+                    }
+                    else {
+                        $('#text-promotion-head-1').text('ไม่พบข้อมูล');
+
+                        $('#text-promotion-2-1').removeAttr('hidden');
+                        $('#val-promotion-2-1').attr('hidden', true);
+                        $('#head-2-1').removeAttr("Hidden");
+                        $('#text-promotion-2-1').text("ไม่พบการลงทะเบียน");
+
+                        $('#text-promotion-3-1').removeAttr('hidden');
+                        $('#val-promotion-3-1').attr('hidden', true);
+                        $('#head-3-1').removeAttr("Hidden");
+                        $('#text-promotion-3-1').text("ไม่พบการลงทะเบียน");
+
+                        console.log("No 4 Check!!!");
+                        $('#text-promotion-4-1').removeAttr('hidden');
+                        $('#val-promotion-4-1').attr('hidden', true);
+                        $('#head-4-1').removeAttr("Hidden");
+                        $('#text-promotion-4-1').text("ไม่พบการลงทะเบียน");
                     }
                 }
             });

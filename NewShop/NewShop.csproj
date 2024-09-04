@@ -4551,6 +4551,10 @@
     <Content Include="images\test\client\4.png" />
     <Content Include="images\test\client\5.png" />
     <Content Include="images\test\client\6.png" />
+    <Content Include="js\datatables.css" />
+    <Content Include="js\datatables.js" />
+    <Content Include="js\datatables.min.css" />
+    <Content Include="js\datatables.min.js" />
     <Content Include="js\lastlogin.js" />
     <Content Include="Loadingmodal\css\modal-loading-animate.css" />
     <Content Include="Loadingmodal\css\modal-loading.css" />
