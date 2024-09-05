@@ -1219,6 +1219,8 @@ namespace NewShop.Models
         public string Condition { get; set; }
         public string Reward { get; set; }
         public string Reward_Percent { get; set; }
+        public string Register_Expire_Date { get; set; }
+        public string Count_reg { get; set; }
     }
     public class Warranty_Claim
     {
@@ -1264,13 +1266,25 @@ namespace NewShop.Models
         public string Slmcode { get; set; }
         public string Cuscode { get; set; }
         public string Cusname { get; set; }
-        public string Promotion_Code { get; set; }
-        public string Description_old { get; set; }
-        public string Reward_old { get; set; }
-        public string Cost_old { get; set; }
-        public string Description_new { get; set; }
-        public string Reward_new { get; set; }
+        public string Date_change { get; set; }
+        public string Promotion_Code_Old { get; set; }
+        public string Promotion_Sub_Old { get; set; }
+        public string Description_Old { get; set; }
+        public string Reward_Old { get; set; }
+        public string Cost_Old { get; set; }
+        public string Promotion_Code_New { get; set; }
+        public string Promotion_Sub_New { get; set; }
+        public string Description_New { get; set; }
+        public string Reward_New { get; set; }
         public string Cost_New { get; set; }
+    } 
+    public class listSaveCustomerApprove
+    {
+        public string Cuscode { get; set; }
+        public string Codeold { get; set; }
+        public string Seqold { get; set; }
+        public string Codenew { get; set; }
+        public string Seqnew { get; set; }
     }
     public class dashboardModel
     {

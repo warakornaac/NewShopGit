@@ -57,6 +57,20 @@
         border-top: 1px solid #ddd;
         max-width: 100px !important;
     }
+
+
+    @@media only screen and (max-width: 576px) {
+        #table-history td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #f2f2f2;
+            min-width: 90px !important;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+            padding-left: 20px;
+        }
+    }
 </style>
 <div class="m-0 table-style table-responsive table-scroll" style="height: 500px; overflow-y: auto;">
     <table class="table table-striped table-bordered table-hover mb-0 " id="table-history" style="padding: 7px;font-size: small;">

@@ -100,9 +100,10 @@
                         </div>
                         <div class="card-footer" id="headerSearchFooter">
                             <div class="row">
-                                <div class="col-md-12 text-right">
-                                    <button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;
-                                    <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionReg();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>
+                                <div class="col-md-12 text-right" style="font-size:14px; color:red;">
+                                    @*<button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;
+                                    <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionReg();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>*@
+                                    ระบบจะแสดงรายละเอียดเมื่อเลือก Promotion code
                                 </div>
                             </div>
                         </div>
@@ -124,6 +125,14 @@
     var userType = @this.Session["UserType"].ToString();
     $(document).ready(function () {
         //เลือก Company
+        $('#slmCode').change(function () {
+            var promotionCode = $("#promotionCode option:selected").val();
+            var slmCode = $(this).val();
+            if (promotionCode != undefined && slmCode != "") {
+                searchPromotionReg(promotionCode);
+            }
+        });
+        //เลือก Company
         $('#company').change(function () {
             var prodMgr = $("#prodMgr option:selected").val();
             var year = $("#year option:selected").val();
@@ -143,6 +152,13 @@
             var year = $("#year option:selected").val();
             var company = $("#company option:selected").val();
             GetPromotion(prodMgr, year, company);
+        });
+        //เลือก Promotion code
+        $('#promotionCode').change(function () {
+            var promotionCode = $(this).val();
+            if (promotionCode != undefined) {
+                searchPromotionReg(promotionCode);
+            }
         });
     });
     //ดึง promotion code
@@ -164,7 +180,7 @@
             type: "POST",
             dataType: "JSON",
             beforeSend: function () {
-                LoadingShow();
+                //LoadingShow();
             },
             success: function (data) {
                 var select = $("#promotionCode");
@@ -175,23 +191,27 @@
                 });
                 $('#promotionCode').selectpicker('refresh');
                 $('#promotionCode').selectpicker('selectAll');
-                $('#promotionCode').trigger('change');
-                LoadingHide();
+                //$('#promotionCode').trigger('change');
+                setTimeout(() => {
+                    promotionCode = $("#promotionCode option:selected").val();
+                    if (promotionCode != undefined) {
+                        searchPromotionReg(promotionCode);
+                    }
+                }, "1000");
             }
         });
     }
     //search detail promotion
-    function searchPromotionReg() {
+    function searchPromotionReg(promotionCode) {
         //$("#slmCode").prop('disabled', false);
         var msg = '';
         var error = 0;
+        var slmCode = $("#slmCode option:selected").val();
         var prodMgr = $("#prodMgr option:selected").val();
         var year = $("#year option:selected").val();
         var company = $("#company option:selected").val();
-        var promotionCode = $("#promotionCode option:selected").val();
+        //var promotionCode = $("#promotionCode option:selected").val();
         var promotionText = $("#promotionCode option:selected").text();
-        //alert(promotionText);
-
         if (prodMgr == undefined) {
             ++error;
             msg += '<br>' + error + '. กรุณาเลือก Prod MGR';
@@ -204,16 +224,12 @@
             ++error;
             msg += '<br>' + error + '. กรุณาเลือก Company';
         }
-        if (promotionCode == undefined) {
+        if (promotionCode == undefined || promotionCode == "") {
             ++error;
             msg += '<br>' + error + '. กรุณาเลือก Promotion Code';
         } else {
             //$("#txtHeadPromotionDetail").text(promotionText);
         }
-        //console.log("stkGroup = " + stkGroup);
-        //if (stkGroup == undefined || stkGroup == '') {
-        //    stkGroup = "ALL";
-        //}
         //console.log("stksec = " + stksec);
         //return false;
         if (error) {
@@ -232,7 +248,8 @@
                 type: 'post',
                 url: '@Url.Action("GetPromotionDetail", "Promotion")',
                 data: {
-                    promotionCode: promotionCode
+                    promotionCode: promotionCode,
+                    slmCode: slmCode
                 },
                 dataType: 'html',
                 cache: false,
@@ -251,10 +268,11 @@
                     alert(er.error);
                 }
             }).fail(function (error) {
+                LoadingHide();
                 Swal.fire({
                     icon: 'error',
                     title: 'Error not search',
-                    html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>GetPromotionDetail<br><br>',
+                    html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>searchPromotionReg<br><br>',
                     confirmButtonColor: '#d33',
                     confirmButtonText: 'ปิด',
                     allowOutsideClick: false,
