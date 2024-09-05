@@ -563,14 +563,14 @@
             }*/
 
         .sticky-head {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             background-color: white;
             z-index: 3 !important;
         }
 
         .sticky-head-first {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             left: 0;
             background-color: white;
@@ -1037,14 +1037,14 @@
                                     $('#backor-typeS').DataTable().destroy();
                                 }
                                 $('#backor-typeS').DataTable({
-                                    "paging": true,
+                                    "paging": false,
                                     "lengthChange": false,
                                     "searching": false,
                                     "ordering": true,
                                     "info": false,
                                     "autoWidth": false,
                                     "responsive": false,
-                                    "fixedHeader": true,
+                                    "fixedHeader": false,
                                     "rowGroup": false
 
                                 });
@@ -1169,14 +1169,14 @@
                                      $('#backor-backorder').DataTable().destroy();
                                  }
                                  $('#backor-backorder').DataTable({
-                                     "paging": true,
+                                     "paging": false,
                                      "lengthChange": false,
                                      "searching": false,
                                      "ordering": true,
                                      "info": false,
                                      "autoWidth": false,
                                      "responsive": false,
-                                     "fixedHeader": true,
+                                     "fixedHeader": false,
                                      "rowGroup": false,
                                      "columnDefs": [
 

@@ -638,6 +638,13 @@
                 max-width: 120px;
             }
         }*/
+
+        .sticky-head {
+            position: sticky !important;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
     </style>
 </head>
 
@@ -852,13 +859,13 @@
                                         <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
-                                                    <th class="text-center">บริษัท</th>
-                                                    <th class="text-center">เบอร์สินค้า</th>
-                                                    <th class="text-center">ชื่อสินค้า</th>
-                                                    <th class="text-center">จำนวน</th>
-                                                    <th class="text-center text-truncate">ราคา <br /> (ต่อชิ้น)</th>
-                                                    <th class="text-center">ส่วนลด</th>
-                                                    <th class="text-center">ราคารวม</th>
+                                                    <th class="text-center sticky-head">บริษัท</th>
+                                                    <th class="text-center sticky-head">เบอร์สินค้า</th>
+                                                    <th class="text-center sticky-head">ชื่อสินค้า</th>
+                                                    <th class="text-center sticky-head">จำนวน</th>
+                                                    <th class="text-center sticky-head text-truncate">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center sticky-head">ส่วนลด</th>
+                                                    <th class="text-center sticky-head">ราคารวม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -1609,7 +1616,7 @@
                                             "info": false,
                                             "autoWidth": false,
                                             "responsive": false,
-                                            "fixedHeader": true,
+                                            "fixedHeader": false,
                                             "rowGroup": false,
                                             "columnDefs": [
                                                 { 'orderable': false, 'targets': [0] }
@@ -1630,7 +1637,7 @@
                                             "info": false,
                                             "autoWidth": false,
                                             "responsive": false,
-                                            "fixedHeader": true,
+                                            "fixedHeader": false,
                                             "rowGroup": false,
                                             "columnDefs": [
                                                 { 'orderable': false, 'targets': [0] }
@@ -1651,7 +1658,7 @@
                                             "info": false,
                                             "autoWidth": false,
                                             "responsive": false,
-                                            "fixedHeader": true,
+                                            "fixedHeader": false,
                                             "rowGroup": false,
                                             "columnDefs": [
                                                 { 'orderable': false, 'targets': [0] }
@@ -1747,6 +1754,24 @@
                             }
                             $('#namecus-item').text(cusName);
                             $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+
+                            if ($.fn.dataTable.isDataTable('#cusMonthItemDetail')) {
+                                $('#cusMonthItemDetail').DataTable().destroy();
+                            }
+                            $('#cusMonthItemDetail').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": false,
+                                "autoWidth": false,
+                                "responsive": false,
+                                "fixedHeader": false,
+                                "rowGroup": false,
+                                "columnDefs": [
+
+                                ]
+                            });
                         }
                     }
                     else {

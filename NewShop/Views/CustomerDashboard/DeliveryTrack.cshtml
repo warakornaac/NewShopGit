@@ -508,14 +508,14 @@
             }*/
 
         .sticky-head {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             background-color: white;
             z-index: 3 !important;
         }
 
         .sticky-head-first {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             left: 0;
             background-color: white;
@@ -732,16 +732,16 @@
                                                 <table class="table table-striped table-bordered table-hover mb-0 " id="deliverytrack-delivery" style="padding: 7px;font-size: small;">
                                                     <thead style="font-size: small;">
                                                         <tr>
-                                                            <th class="text-center "><span>เบอร์สินค้า</span></th>
-                                                            <th class="text-center "><span>ชื่อสินค้า</span></th>
-                                                            <th class="text-center "><span>วันที่สั่ง</span></th>
+                                                            <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                            <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
                                                             <th></th>
-                                                            <th class=" text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
-                                                            <th class="text-center "><span>ที่อยู่จัดส่ง</span></th>
-                                                            <th class="text-center  "><span>ขนส่ง</span></th>
-                                                            <th class="text-center  text-truncate"><span>เวลาออกส่งสินค้า</span></th>
-                                                            <th class="text-center  text-truncate"><span>เวลาคาดว่าจะถึง</span></th>
-                                                            <th class="text-center "><span>เลขที่</span></th>
+                                                            <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
+                                                            <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
+                                                            <th class="text-center  sticky-head"><span>ขนส่ง</span></th>
+                                                            <th class="text-center sticky-head text-truncate"><span>เวลาออกส่งสินค้า</span></th>
+                                                            <th class="text-center sticky-head text-truncate"><span>เวลาคาดว่าจะถึง</span></th>
+                                                            <th class="text-center sticky-head"><span>เลขที่</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -1215,14 +1215,14 @@
                                 }
 
                                 $('#deliverytrack-accept').DataTable({
-                                    "paging": true,
+                                    "paging": false,
                                     "lengthChange": false,
                                     "searching": false,
                                     "ordering": true,
                                     "info": false,
                                     "autoWidth": false,
                                     "responsive": false,
-                                    "fixedHeader": true,
+                                    "fixedHeader": false,
                                     "rowGroup": false,
                                     "columnDefs": [
                                         { 'searchable': false, 'visible': false, 'targets': [4] },
@@ -1327,14 +1327,14 @@
                              }
 
                              $('#deliverytrack-packing').DataTable({
-                                 "paging": true,
+                                 "paging": false,
                                  "lengthChange": false,
                                  "searching": false,
                                  "ordering": true,
                                  "info": false,
                                  "autoWidth": false,
                                  "responsive": false,
-                                 "fixedHeader": true,
+                                 "fixedHeader": false,
                                  "rowGroup": false,
                                  "columnDefs": [
                                      { 'searchable': false, 'visible': false, 'targets': [3] },
@@ -1444,14 +1444,14 @@
                                 $('#deliverytrack-delivery').DataTable().destroy();
                             }
                             $('#deliverytrack-delivery').DataTable({
-                                "paging": true,
+                                "paging": false,
                                 "lengthChange": false,
                                 "searching": false,
                                 "ordering": true,
                                 "info": false,
                                 "autoWidth": false,
                                 "responsive": false,
-                                "fixedHeader": true,
+                                "fixedHeader": false,
                                 "rowGroup": false,
                                 "columnDefs": [
                                     { 'searchable': false, 'visible': false, 'targets': [3] },
@@ -1544,14 +1544,14 @@
                         }
 
                         $('#deliverytrack-arrive').DataTable({
-                            "paging": true,
+                            "paging": false,
                             "lengthChange": false,
-                            "searching": true,
+                            "searching": false,
                             "ordering": true,
                             "info": false,
                             "autoWidth": false,
                             "responsive": false,
-                            "fixedHeader": true,
+                            "fixedHeader": false,
                             "rowGroup": false,
                             "columnDefs": [
                                 { 'searchable': false, 'visible': false, 'targets': [2] },

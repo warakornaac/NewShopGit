@@ -580,14 +580,14 @@
                 z-index: 4;
             }*/
         .sticky-head {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             background-color: white;
             z-index: 3 !important;
         }
 
         .sticky-head-first {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             left: 0;
             background-color: white;
@@ -1003,14 +1003,14 @@
                                  $('#warranty-waiting-table').DataTable().destroy();
                              }
                              $('#warranty-waiting-table').DataTable({
-                                 "paging": true,
+                                 "paging": false,
                                  "lengthChange": false,
                                  "searching": false,
                                  "ordering": true,
                                  "info": false,
                                  "autoWidth": false,
                                  "responsive": false,
-                                 "fixedHeader": true,
+                                 "fixedHeader": false,
                                  "rowGroup": false,
                                  "columnDefs": [
 
@@ -1071,14 +1071,14 @@
                             $('#warranty-inspecting-table').DataTable().destroy();
                         }
                         $('#warranty-inspecting-table').DataTable({
-                            "paging": true,
+                            "paging": false,
                             "lengthChange": false,
                             "searching": false,
                             "ordering": true,
                             "info": false,
                             "autoWidth": false,
                             "responsive": false,
-                            "fixedHeader": true,
+                            "fixedHeader": false,
                             "rowGroup": false,
                             "columnDefs": [
 
@@ -1155,14 +1155,14 @@
                             $('#warranty-approve-table').DataTable().destroy();
                         }
                         $('#warranty-approve-table').DataTable({
-                            "paging": true,
+                            "paging": false,
                             "lengthChange": false,
                             "searching": false,
                             "ordering": true,
                             "info": false,
                             "autoWidth": false,
                             "responsive": false,
-                            "fixedHeader": true,
+                            "fixedHeader": false,
                             "rowGroup": false,
                             "columnDefs": [
 
@@ -1219,14 +1219,14 @@
                             $('#warranty-refuse-table').DataTable().destroy();
                         }
                         $('#warranty-refuse-table').DataTable({
-                            "paging": true,
+                            "paging": false,
                             "lengthChange": false,
                             "searching": false,
                             "ordering": true,
                             "info": false,
                             "autoWidth": false,
                             "responsive": false,
-                            "fixedHeader": true,
+                            "fixedHeader": false,
                             "rowGroup": false,
                             "columnDefs": [
 
