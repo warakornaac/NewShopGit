@@ -40,7 +40,6 @@
     <script src="~/Scripts/webAddress.js"></script>
     <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 
-
     <!-- Import jQuery 2.1.1 and jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <!-- Import jQuery 2.1.1 -->
@@ -509,14 +508,14 @@
             }*/
 
         .sticky-head {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             background-color: white;
             z-index: 3 !important;
         }
 
         .sticky-head-first {
-            position: sticky;
+            position: sticky !important;
             top: 0;
             left: 0;
             background-color: white;
@@ -636,6 +635,10 @@
                 white-space: nowrap;
             }
         }
+
+        .dt-layout-row {
+            margin: 0 !important;
+        }
     </style>
 </head>
 <body style="background-color: #f2f7ff; font-family: Kanit, sans-serif; ">
@@ -698,6 +701,7 @@
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
                                                             <th class="text-center sticky-head"><span>เวลาสั่ง</span></th>
+                                                            <th></th>
                                                             <th class="sticky-head  pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center"><span>เลขที่</span></th>
@@ -713,6 +717,7 @@
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head "><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head "><span>วันที่สั่ง</span></th>
+                                                            <th></th>
                                                             <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center sticky-head pl-1 pr-1"><span>คลัง</span></th>
@@ -730,9 +735,10 @@
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
+                                                            <th></th>
                                                             <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
-                                                            <th class="text-center sticky-head "><span>ขนส่ง</span></th>
+                                                            <th class="text-center  sticky-head"><span>ขนส่ง</span></th>
                                                             <th class="text-center sticky-head text-truncate"><span>เวลาออกส่งสินค้า</span></th>
                                                             <th class="text-center sticky-head text-truncate"><span>เวลาคาดว่าจะถึง</span></th>
                                                             <th class="text-center sticky-head"><span>เลขที่</span></th>
@@ -755,6 +761,7 @@
                                                         <tr>
                                                             <th class="text-center sticky-head-first"><span>เบอร์สินค้า</span></th>
                                                             <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                            <th>ส่งได้</th>
                                                             <th class="sticky-head text-truncate pl-1 pr-1" style="text-align:center"><span>จำนวน<br />(ส่งได้ / ค้างส่ง)</span></th>
                                                             <th class="text-center sticky-head"><span>ที่อยู่จัดส่ง</span></th>
                                                             <th class="text-center sticky-head"><span>วันที่สั่ง</span></th>
@@ -849,6 +856,11 @@
         <link href="~/Scripts/carousel-slider/slides.css" rel="stylesheet" />
         <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>*@
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.25/sorting/datetime-moment.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -858,6 +870,7 @@
         var user = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         //console.log("COSCOD : " + cuscod);
+        //var cuscod = '110L0003';
 
         if (cuscod != "") {
             getDeliveryTrack_alert();
@@ -899,6 +912,8 @@
 
             today = dd + '/' + mm + '/' + '2023';
             twodayago = '01' + '/' + '05' + '/' + '2023';
+            $.fn.dataTable.moment('DD-MM-YY HH:mm');
+            $.fn.dataTable.moment('DD-MM-YY');
 
             $('#startdate').datepicker({
                 dateFormat: 'dd/mm/yy',
@@ -983,6 +998,7 @@
                 }
             });
         }
+
 
         $('#btn-show-accept').click(function () {
             $('.table-accept').show('slow');
@@ -1146,6 +1162,8 @@
                         SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                         SubmithtmlPage += '</tr>';
                         $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+                        $('#deliverytrack-accept thead th:nth-child(5)').attr('hidden', true);
+
 
                     },
                     success: function (data) {
@@ -1154,6 +1172,7 @@
                         var date = "";
                         if (data.message == "Y") {
                             if (data.Getdata.length > 0) {
+                                $('#deliverytrack-accept thead th:nth-child(5)').removeAttr('hidden');
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     // table Order
                                     if (data.Getdata[i].Notify.includes('รับ Order')) {
@@ -1177,6 +1196,7 @@
                                         SubmithtmlPage += '<td class="text-center"><span>' + timePart + '</span></td>';
                                         // SubmithtmlPage += '<td><span>' + data.Getdata[i].StatusDate + '</span></td>';
 
+                                        SubmithtmlPage += '<td style="text-align:center"><span>' + amt_order + '</span></td>';
 
                                         SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) +' / '+ commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                         //SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</td>';
@@ -1189,12 +1209,34 @@
                                 }
                                 console.log("Date is " + date);
                                 $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+
+                                if ($.fn.dataTable.isDataTable('#deliverytrack-accept')) {
+                                    $('#deliverytrack-accept').DataTable().destroy();
+                                }
+
+                                $('#deliverytrack-accept').DataTable({
+                                    "paging": false,
+                                    "lengthChange": false,
+                                    "searching": false,
+                                    "ordering": true,
+                                    "info": false,
+                                    "autoWidth": false,
+                                    "responsive": false,
+                                    "fixedHeader": false,
+                                    "rowGroup": false,
+                                    "columnDefs": [
+                                        { 'searchable': false, 'visible': false, 'targets': [4] },
+                                        { 'orderData': [4], 'targets': [5] }
+                                    ]
+                                });
                             }
                             else {
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                                 SubmithtmlPage += '</tr>';
                                 $('#deliverytrack-accept tbody').append(SubmithtmlPage);
+
+                                $('#deliverytrack-accept thead th:nth-child(5)').attr('hidden', true);
                             }
                         }
                         else {
@@ -1215,19 +1257,25 @@
                  type: "POST",
                  dataType: "JSON",
                  beforeSend: function () {
+
                      $('#deliverytrack-packing tbody').html("");
                      var SubmithtmlPage = "";
                      SubmithtmlPage += '<tr>';
                      SubmithtmlPage += '<td class="text-center" colspan="9"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                      SubmithtmlPage += '</tr>';
                      $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+                     $('#deliverytrack-packing thead th:nth-child(4)').attr('hidden', true);
+
 
                  },
                  success: function (data) {
                      $('#deliverytrack-packing tbody').html("");
+                     $('#deliverytrack-packing thead th:nth-child(4)').removeAttr('hidden');
                      var SubmithtmlPage = "";
                      if (data.message == "Y") {
                          if (data.Getdata.length > 0) {
+
+
                              for (var i = 0; i < data.Getdata.length; i++) {
                                  var amt_order = 0;
                                      amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
@@ -1245,7 +1293,9 @@
                                      var dateParts = datePart.split("-");
                                      var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-                                     SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
+                                 SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
+                                 SubmithtmlPage += '<td style="text-align:center"><span>' +amt_order + '</span></td>';
+
                                      SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                  //SubmithtmlPage += '<td><span>' + data.Getdata[i].Round + '</span></td>';
                                      SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
@@ -1270,12 +1320,34 @@
 
                              }
                              $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+
+
+                             if ($.fn.dataTable.isDataTable('#deliverytrack-packing')) {
+                                 $('#deliverytrack-packing').DataTable().destroy();
+                             }
+
+                             $('#deliverytrack-packing').DataTable({
+                                 "paging": false,
+                                 "lengthChange": false,
+                                 "searching": false,
+                                 "ordering": true,
+                                 "info": false,
+                                 "autoWidth": false,
+                                 "responsive": false,
+                                 "fixedHeader": false,
+                                 "rowGroup": false,
+                                 "columnDefs": [
+                                     { 'searchable': false, 'visible': false, 'targets': [3] },
+                                     { 'orderData': [3], 'targets': [4] }
+                                 ]
+                             });
                          }
                          else {
                              SubmithtmlPage += '<tr>';
                              SubmithtmlPage += '<td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td>';
                              SubmithtmlPage += '</tr>';
                              $('#deliverytrack-packing tbody').append(SubmithtmlPage);
+                             $('#deliverytrack-packing thead th:nth-child(4)').attr('hidden', true);
                          }
                      }
                      else {
@@ -1301,13 +1373,16 @@
                     SubmithtmlPage += '<td class="text-center" colspan="9"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                     SubmithtmlPage += '</tr>';
                     $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
+                    $('#deliverytrack-delivery thead th:nth-child(4)').attr('hidden', true);
 
                 },
                 success: function (data) {
                     $('#deliverytrack-delivery tbody').html("");
+                    $('#deliverytrack-delivery thead th:nth-child(4)').removeAttr('hidden');
                     var SubmithtmlPage = "";
                     if (data.message == "Y") {
                         if (data.Getdata.length > 0) {
+
                             for (var i = 0; i < data.Getdata.length; i++) {
                                     var amt_order = 0;
                                 amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
@@ -1326,6 +1401,8 @@
                                     var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
                                     SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + '</span></td>';
+                                    SubmithtmlPage += '<td style="text-align:center">' + amt_order  + '</td>';
+
                                     SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                     SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
                                     SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Round + '</span></td>';
@@ -1363,12 +1440,32 @@
 
                             }
                             $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
+                            if ($.fn.dataTable.isDataTable('#deliverytrack-delivery')) {
+                                $('#deliverytrack-delivery').DataTable().destroy();
+                            }
+                            $('#deliverytrack-delivery').DataTable({
+                                "paging": false,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": false,
+                                "autoWidth": false,
+                                "responsive": false,
+                                "fixedHeader": false,
+                                "rowGroup": false,
+                                "columnDefs": [
+                                    { 'searchable': false, 'visible': false, 'targets': [3] },
+                                    { 'orderData': [3], 'targets': [4] }
+                                ]
+                            });
                         }
                         else {
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td>';
                             SubmithtmlPage += '</tr>';
                             $('#deliverytrack-delivery tbody').append(SubmithtmlPage);
+                            $('#deliverytrack-delivery thead th:nth-child(4)').attr('hidden', true);
+
                         }
                     }
                     else {
@@ -1395,18 +1492,20 @@
                     SubmithtmlPage += '<td class="text-center" colspan="7"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                     SubmithtmlPage += '</tr>';
                     $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+
+                    $('#deliverytrack-arrive thead th:nth-child(3)').attr('hidden', true);
                 },
                 success: function (data) {
                     var SubmithtmlPage = '';
                     $('#deliverytrack-arrive tbody').html("");
+                    $('#deliverytrack-arrive thead th:nth-child(3)').removeAttr('hidden');
                     if (data.Getdata.length > 0) {
+
                         for (var i = 0; i < data.Getdata.length; i++) {
                             var amt_order = 0;
                                 amt_order = data.Getdata[i].ORD_Qty - data.Getdata[i].BCK_Qty;
 
                             if (amt_order >0) {
-
-
                             SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td class="sticky-col text-center pl-1 pr-1"><span>' + data.Getdata[i].ORD_STKCOD + '</span></td>';
                             SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
@@ -1417,8 +1516,8 @@
                             var timePart = parts[1];
                             var dateParts = datePart.split("-");
                             var formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-
-                            SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
+                                SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + '</span></td>';
+                                SubmithtmlPage += '<td style="text-align:center"><span>' + commaSeparateNumber(amt_order) + ' / ' + commaSeparateNumber(data.Getdata[i].BCK_Qty) + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].ShipTo + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center text-truncate"><span>' + formattedDate + ' ' + timePart + '</span></td>';
                             if (data.Getdata[i].EndDelivery != "") {
@@ -1439,12 +1538,40 @@
                             }
                         }
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+
+                        if ($.fn.dataTable.isDataTable('#deliverytrack-arrive')) {
+                            $('#deliverytrack-arrive').DataTable().destroy();
+                        }
+
+                        $('#deliverytrack-arrive').DataTable({
+                            "paging": false,
+                            "lengthChange": false,
+                            "searching": false,
+                            "ordering": true,
+                            "info": false,
+                            "autoWidth": false,
+                            "responsive": false,
+                            "fixedHeader": false,
+                            "rowGroup": false,
+                            "columnDefs": [
+                                { 'searchable': false, 'visible': false, 'targets': [2] },
+                                { 'orderData': [2], 'targets': [3] }
+                            ],
+                            "oLanguage": {
+                                "sSearch": "Quick Search:",
+                            },
+                            "language": {
+                                "zeroRecords": '--ไม่พบข้อมูล--'
+                            }
+                        });
                     }
                     else {
                         SubmithtmlPage += '<tr>';
                         SubmithtmlPage += '<td class="text-center" colspan="7">-- ไม่พบข้อมูล --</td>';
                         SubmithtmlPage += '</tr>';
                         $("#deliverytrack-arrive tbody").append(SubmithtmlPage);
+                        $('#deliverytrack-arrive thead th:nth-child(3)').attr('hidden', true);
+
                     }
 
                 }

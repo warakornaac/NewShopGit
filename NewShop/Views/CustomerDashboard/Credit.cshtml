@@ -573,10 +573,17 @@
             }
         }
 
-        .table-style-scroll {
+        .table-style {
             height: 450px;
             overflow-y: auto;
         }
+
+            .table-style thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
     </style>
 </head>
 
@@ -907,17 +914,17 @@
                                 </div>
                                 <hr />
                                 <div class="col-12">
-                                    <div class="table-responsive table-style-scroll m-0 overflow-auto">
+                                    <div class="table-responsive table-style m-0 overflow-auto">
                                         <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
-                                                    <th>บริษัท</th>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
-                                                    <th>ส่วนลด</th>
-                                                    <th>ราคารวม</th>
+                                                    <th class="text-center">บริษัท</th>
+                                                    <th class="text-center">เบอร์สินค้า</th>
+                                                    <th class="text-center">ชื่อสินค้า</th>
+                                                    <th class="text-center">จำนวน</th>
+                                                    <th class="text-center">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center">ส่วนลด</th>
+                                                    <th class="text-center">ราคารวม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -938,6 +945,12 @@
     </div>
 
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.25/sorting/datetime-moment.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.5/sorting/numeric-comma.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -951,6 +964,7 @@
         var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        //var cuscod = '111B0005';
         //console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
@@ -973,6 +987,10 @@
             $('#billing-aac').hide();
             $('#billing-tac').hide();
             $('#billing-omp').hide();
+            $.fn.dataTable.moment('DD-MM-YY');
+            $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
+                return parseFloat(data.replace(/,/g, ''));
+            };
         });
 
         if (cuscod != "") {
@@ -1162,13 +1180,13 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 cusName = data.Getdata[i].CUSNAM;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate text-center">' + data.Getdata[i].STKCOD + '</td>';
                                 SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
                                 SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                 SubmithtmlPage += '</tr>';
 
                             }
@@ -1363,12 +1381,63 @@
                                 }
                                 if (comp === 'AAC') {
                                     aac.append(SubmithtmlPage);
+                                    if ($.fn.dataTable.isDataTable('#bill-aac-detail')) {
+                                        $('#bill-aac-detail').DataTable().destroy();
+                                    }
+                                    $('#bill-aac-detail').DataTable({
+                                        "paging": false,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": false,
+                                        "autoWidth": false,
+                                        "responsive": false,
+                                        "fixedHeader": false,
+                                        "rowGroup": false,
+                                        "columnDefs": [
+                                            { 'orderable': false, 'targets': [0] }
+                                        ]
+                                    });
                                 }
                                 if (comp === 'TAC') {
                                     tac.append(SubmithtmlPage);
+                                    if ($.fn.dataTable.isDataTable('#bill-tac-detail')) {
+                                        $('#bill-tac-detail').DataTable().destroy();
+                                    }
+                                    $('#bill-tac-detail').DataTable({
+                                        "paging": false,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": false,
+                                        "autoWidth": false,
+                                        "responsive": false,
+                                        "fixedHeader": false,
+                                        "rowGroup": false,
+                                        "columnDefs": [
+                                            { 'orderable': false, 'targets': [0] }
+                                        ]
+                                    });
                                 }
                                 if (comp === 'OMP') {
                                     omp.append(SubmithtmlPage);
+                                    if ($.fn.dataTable.isDataTable('#bill-omp-detail')) {
+                                        $('#bill-omp-detail').DataTable().destroy();
+                                    }
+                                    $('#bill-omp-detail').DataTable({
+                                        "paging": false,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": false,
+                                        "autoWidth": false,
+                                        "responsive": false,
+                                        "fixedHeader": false,
+                                        "rowGroup": false,
+                                        "columnDefs": [
+                                            { 'orderable': false, 'targets': [0] }
+                                        ]
+                                    });
                                 }
                             }
                             else {

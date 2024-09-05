@@ -624,6 +624,13 @@
             overflow-y: auto;
         }
 
+            .table-scroll thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+
         /* @@media only screen and (min-width: 432px) {
             .text-truncate {
                 display: flex;
@@ -631,6 +638,13 @@
                 max-width: 120px;
             }
         }*/
+
+        .sticky-head {
+            position: sticky !important;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
     </style>
 </head>
 
@@ -845,13 +859,13 @@
                                         <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
                                             <thead class="thead-default" style="font-size: small;">
                                                 <tr>
-                                                    <th>บริษัท</th>
-                                                    <th>เบอร์สินค้า</th>
-                                                    <th>ชื่อสินค้า</th>
-                                                    <th>จำนวน</th>
-                                                    <th>ราคา <br /> (ต่อชิ้น)</th>
-                                                    <th>ส่วนลด</th>
-                                                    <th>ราคารวม</th>
+                                                    <th class="text-center sticky-head">บริษัท</th>
+                                                    <th class="text-center sticky-head">เบอร์สินค้า</th>
+                                                    <th class="text-center sticky-head">ชื่อสินค้า</th>
+                                                    <th class="text-center sticky-head">จำนวน</th>
+                                                    <th class="text-center sticky-head text-truncate">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center sticky-head">ส่วนลด</th>
+                                                    <th class="text-center sticky-head">ราคารวม</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -922,6 +936,12 @@
     </div>
 
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.25/sorting/datetime-moment.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.5/sorting/numeric-comma.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -936,7 +956,7 @@
         var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
         var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
         var yearCurrent = @yearCurrent;
-        //var cuscod = '111B0005';
+        //var cuscod = '110L0003';
         //console.log("Cuscod : " + cuscod);
         var myChartM;
         var myChartY;
@@ -959,6 +979,13 @@
                 $('.footer').removeAttr('hidden');
             }, 2000);
             $('#line-tab-credit').hide();
+        });
+
+        $(document).ready(function () {
+            $.fn.dataTable.moment('DD-MM-YY');
+            $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
+                return parseFloat(data.replace(/,/g, ''));
+            };
         });
 
         if (cuscod != "") {
@@ -1253,6 +1280,21 @@
                                 SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                                 SubmithtmlPag += '</tr>';
                                 $('#amt-table tbody').append(SubmithtmlPag);
+                                $('[id^="bill-aac-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
+                                $('[id^="bill-tac-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
+                                $('[id^="bill-omp-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
                                 $("#loading-text-table").text("Loading...");
                             },
                             success: function (result) {
@@ -1365,7 +1407,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                    // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_aac += Number(result.Getdata[j].Amount);
@@ -1435,7 +1477,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                    // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_tac += Number(result.Getdata[j].Amount);
@@ -1502,7 +1544,7 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
-                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(result.Getdata[j].Amount) + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
                                                     //SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_omp += Number(result.Getdata[j].Amount);
@@ -1546,6 +1588,85 @@
                                 $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)));
                                 $("#loading-text-table").text("");
                                 $("#amt-table tbody").append(SubmithtmlPage);
+
+                                $('[id^="bill-aac-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
+                                $('[id^="bill-tac-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
+                                $('[id^="bill-omp-detail-"]').each(function () {
+                                    if ($.fn.dataTable.isDataTable(this)) {
+                                        $(this).DataTable().destroy();
+                                    }
+                                });
+                                $('[id^="sales-aac-detail-"]').each(function () {
+                                    var firstRow = $(this).find('tbody tr:first td').text().trim();
+
+                                    if ($(this).find('tbody tr').length > 0 && firstRow !== '-- ไม่พบข้อมูล --') {
+                                        $(this).DataTable({
+                                            "paging": false,
+                                            "lengthChange": false,
+                                            "searching": false,
+                                            "ordering": true,
+                                            "info": false,
+                                            "autoWidth": false,
+                                            "responsive": false,
+                                            "fixedHeader": false,
+                                            "rowGroup": false,
+                                            "columnDefs": [
+                                                { 'orderable': false, 'targets': [0] }
+                                            ]
+                                        });
+                                    }
+                                });
+
+                                $('[id^="sales-tac-detail-"]').each(function () {
+                                    var firstRow = $(this).find('tbody tr:first td').text().trim();
+
+                                    if ($(this).find('tbody tr').length > 0 && firstRow !== '-- ไม่พบข้อมูล --') {
+                                        $(this).DataTable({
+                                            "paging": false,
+                                            "lengthChange": false,
+                                            "searching": false,
+                                            "ordering": true,
+                                            "info": false,
+                                            "autoWidth": false,
+                                            "responsive": false,
+                                            "fixedHeader": false,
+                                            "rowGroup": false,
+                                            "columnDefs": [
+                                                { 'orderable': false, 'targets': [0] }
+                                            ]
+                                        });
+                                    }
+                                });
+
+                                $('[id^="sales-omp-detail-"]').each(function () {
+                                    var firstRow = $(this).find('tbody tr:first td').text().trim();
+
+                                    if ($(this).find('tbody tr').length > 0 && firstRow !== '-- ไม่พบข้อมูล --') {
+                                        $(this).DataTable({
+                                            "paging": false,
+                                            "lengthChange": false,
+                                            "searching": false,
+                                            "ordering": true,
+                                            "info": false,
+                                            "autoWidth": false,
+                                            "responsive": false,
+                                            "fixedHeader": false,
+                                            "rowGroup": false,
+                                            "columnDefs": [
+                                                { 'orderable': false, 'targets': [0] }
+                                            ]
+                                        });
+                                    }
+                                });
+
                                 $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
                                 $('#tac-amt').text(commaSeparateNumber(amt_tac.toFixed(2)));
                                 $('#omp-amt').text(commaSeparateNumber(amt_omp.toFixed(2)));
@@ -1621,18 +1742,36 @@
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 cusName = data.Getdata[i].CUSNAM;
                                 SubmithtmlPage += '<tr>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].Company + '</td>';
-                                SubmithtmlPage += '<td class="text-truncate">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate text-center">' + data.Getdata[i].STKCOD + '</td>';
                                 SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
                                 SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
-                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
                                 SubmithtmlPage += '</tr>';
 
                             }
                             $('#namecus-item').text(cusName);
                             $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+
+                            if ($.fn.dataTable.isDataTable('#cusMonthItemDetail')) {
+                                $('#cusMonthItemDetail').DataTable().destroy();
+                            }
+                            $('#cusMonthItemDetail').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": false,
+                                "autoWidth": false,
+                                "responsive": false,
+                                "fixedHeader": false,
+                                "rowGroup": false,
+                                "columnDefs": [
+
+                                ]
+                            });
                         }
                     }
                     else {

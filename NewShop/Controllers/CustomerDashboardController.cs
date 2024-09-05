@@ -207,7 +207,7 @@ namespace NewShop.Controllers
             string message = "";
             try
             {
-                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Arm", Connection);
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -1114,6 +1114,15 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult LargeJsonResult(object data)
+        {
+            return new JsonResult
+            {
+                Data = data,
+                MaxJsonLength = Int32.MaxValue,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult GetDetailPromotion(string CUSCOD, string proCODE)
         {
             string message = "";
@@ -1159,7 +1168,7 @@ namespace NewShop.Controllers
             {
                 message = ex.Message;
             }
-            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+            return LargeJsonResult(new { message = message, Getdata });
         }
 
         public ActionResult OrderHistoryByBrand(string cuscod, string brand, string txtSearch)

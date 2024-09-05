@@ -4522,6 +4522,7 @@
     <Content Include="images\product\sm-img\3.png" />
     <Content Include="images\product\sm-img\4.png" />
     <Content Include="images\promotion_png.png" />
+    <Content Include="images\QrReginterCustomerPortal.png" />
     <Content Include="images\review\1.jpg" />
     <Content Include="images\review\2.jpg" />
     <Content Include="images\sidebar-img\1.jpg" />
@@ -4551,6 +4552,10 @@
     <Content Include="images\test\client\4.png" />
     <Content Include="images\test\client\5.png" />
     <Content Include="images\test\client\6.png" />
+    <Content Include="js\datatables.css" />
+    <Content Include="js\datatables.js" />
+    <Content Include="js\datatables.min.css" />
+    <Content Include="js\datatables.min.js" />
     <Content Include="js\lastlogin.js" />
     <Content Include="Loadingmodal\css\modal-loading-animate.css" />
     <Content Include="Loadingmodal\css\modal-loading.css" />

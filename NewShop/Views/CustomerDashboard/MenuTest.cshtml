@@ -1,11 +1,20 @@
-﻿@{
-    ViewBag.Title = "MenuTest";
-}
-
+﻿@using System.Globalization;
 <!DOCTYPE html>
-<html>
+@{
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var yearCurrent = DateTime.Now.Year;
+    List<SelectListItem> BrandList = ViewBag.BrandList;
+}
+<html lang="en">
 <head>
-    <title>Customer Portal v.1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยอดซื้อ</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="~/dashboard/assets/vendors/iconly/broken.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/dashboard/assets/css/app.css">
@@ -24,1435 +33,1741 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Import jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    @* <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>*@
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="~/dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="~/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="~/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link id="pagestyle" href="~/dashboard/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
-    <!-- JS File -->
-    <script src="~/dashboard/assets/js/perfect-scrollbar.min.js"></script>
-    <script src="~/dashboard/assets/js/smooth-scrollbar.min.js"></script>
-    <script src="~/dashboard/assets/js/chartjs.min.js"></script>
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <style>
-        @@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
-
         html body {
-            font-family: 'Kanit', sans-serif !important;
+            font-family: 'Kanit', sans-serif;
         }
 
-        .font-kanit {
-            font-family: Kanit;
+        .font-me {
+            font-family: 'Kanit', sans-serif;
         }
 
-        .bg-teal {
-            background-color: #1ED31E;
+        .selected {
+            background: #910000;
+            color: #FFFFFF;
         }
 
-        body {
-            height: 100vh;
+        .removeselected {
+            color: #fff !important;
+            background-color: #000 !important;
         }
 
-        .header {
-            background: #0dcaf0;
-            color: white;
+        .puick-contact-area {
+            background: #f6f6f6 none repeat scroll 0 0;
+            padding: 40px 0;
             text-align: center;
-            padding: 10% 0;
+            width: 370px;
+        }
+
+        .contact-btn .fv-btn:hover {
+            border: 1px solid #ff4136;
+            color: #fff;
+            background: #ff4136;
+        }
+
+        .contact-btn .fv-btn {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid #d5d5d5;
+            color: #4b4b4b;
+            font-size: 14px;
+            height: 45px;
+            letter-spacing: 2px;
+            line-height: 45px;
+            padding: 0 70px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+        }
+
+        .section-title-2 {
+            color: #555555;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 14px;
             position: relative;
-            clip-path: ellipse(75% 100% at 50% 0%);
+            text-transform: uppercase;
         }
 
-        h1 {
-            font-size: 5em;
+        .ppp {
+            font-family: 'Poppins', sans-serif;
+            color: #303030;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
+            margin-bottom: 8px;
         }
 
-        .title-text {
-            font-size: 3em;
+        .statusamt {
+            display: none;
         }
 
-        @@media only screen and (min-width: 767px) {
-            .title-text {
-                font-size: 2em;
-            }
+        .statusamtchild {
+            display: none;
         }
 
-        @@media (min-width: 768px) {
-            .container, .container-sm, .container-md {
-                max-width: 920px;
-            }
-        }
-        /*        .container-fluid {
-            min-width: 720px;
-        }*/
-        .card .card-body {
-            font-family: Kanit;
+        .statuspromotion {
+            display: none;
         }
 
-        .bg_card {
-            /*background-color: #ceeaff;*/
-            background-image: linear-gradient(39deg, #a4d0f1 0%, #afe9ff 100%);
-            border: 2px solid #a6c1ff;
+        .statuscliamoffon {
+            display: none;
         }
 
-        .bg_hov:hover {
-            background-color: #ffcc00;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        .statusbackord {
+            display: none;
         }
 
-        .bg_hov:active {
-            background-color: #997a00;
-            border-radius: 10px;
-        }
-
-        .bg-yellow {
-            background-color: #f4f757;
-        }
-
-        .bg-backorder {
-            background-color: #9FE2BF;
-        }
-
-        .bg-page {
-            background-color: #f7f7f7;
+        .statusTop20 {
+            display: none;
         }
     </style>
     <style>
-        #scroll-container {
+        .switch {
+            position: relative;
+            display: inline-block;
+            /*width: 60px;
+            height: 34px;*/
+            width: 54px;
+            height: 25px;
+            float: right;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 32px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                /*height: 26px;
+                width: 26px;*/
+                width: 20px;
+                height: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 30px;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style>
+        h5 {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+            margin: 0;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 0;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        }
+
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card-img-top {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-size: 1.28571429em;
+            font-weight: 700;
+            line-height: 1.2857em;
+        }
+
+        .card-text {
+            clear: both;
+            margin-top: .5em;
+            display: flexbox;
+            color: rgba(0, 0, 0, .68);
+        }
+
+        .card-footer {
+            font-size: 1em;
+            position: static;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            padding: .75em 1em;
+            color: rgba(0, 0, 0, .4);
+            border-top: 1px solid rgba(0, 0, 0, .05) !important;
+            background: #fff;
+        }
+
+        .card-inverse .btn {
+            border: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .profile {
+            position: absolute;
+            top: -12px;
+            display: inline-block;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .profile-avatar {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .profile-inline {
+            position: relative;
+            top: 0;
+            display: inline-block;
+        }
+
+            .profile-inline ~ .card-title {
+                display: inline-block;
+                margin-left: 4px;
+                vertical-align: top;
+            }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .meta {
+            font-size: 1em;
+            color: rgba(0, 0, 0, .4);
+        }
+
+            .meta a {
+                text-decoration: none;
+                color: rgba(0, 0, 0, .4);
+            }
+
+                .meta a:hover {
+                    color: rgba(0, 0, 0, .87);
+                }
+        /* Dropdown Button */
+        .dropbtn {
+            /* background-color: #04AA6D; */
+            color: #075896;
+            padding: 7px;
+            font-size: 16px;
+            border: none;
+        }
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #b1bfce;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            z-index: 999;
+            position: relative;
+        }
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .select-year {
+            width: 105px;
+            text-align: center;
+            font-family: Kanit,sans-serif;
+        }
+
+        .form-select option {
+            text-align: center;
+        }
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #bee0ed;
+        }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: lightsteelblue;
+        }
+
+        .td-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 0;
+        }
+
+        .vcenter {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        @@media only screen and (min-width: 319px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 100px;
+            }
+        }
+
+        @@media only screen and (min-width: 374px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 130px;
+            }
+        }
+
+        @@media only screen and (min-width: 389px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 200px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+
+        @@media only screen and (min-width: 413px) {
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 225px;
+            }
+        }
+    </style>
+    <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .footer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4; /* กำหนดให้มีลำดับการแสดงอยู่เหนือส่วนอื่น */
+            background-color: rgba(0,0,0,0); /* สีพื้นหลังของ loader */
+            padding: 20px;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .block_container {
+            display: flex;
+            align-items: center;
+        }
+
+            .block_container div {
+                margin-right: 10px; /* ระยะห่างระหว่างไอคอนและข้อความ */
+            }
+
+        .btn-font {
+            font-family: Kanit,sans-serif;
+        }
+    </style>
+    <style>
+
+        .tab-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 8px;
             overflow: hidden;
         }
 
-        .scroll-text {
-            display: inline-block;
-            /* animation properties */
-            -moz-transform: translateX(100%);
-            -webkit-transform: translateX(100%);
-            transform: translateX(100%);
-            -moz-animation: my-animation 30s linear infinite;
-            -webkit-animation: my-animation 30s linear infinite;
-            animation: my-animation 30s linear infinite;
+        .tab-buttons {
+            display: flex;
         }
 
-        /* for Firefox */
-        @@-moz-keyframes my-animation {
-            from {
-                -moz-transform: translateX(100%);
+            .tab-buttons button {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
             }
 
-            to {
-                -moz-transform: translateX(-120%);
-            }
+                .tab-buttons button.active {
+                    background-color: #008cba;
+                }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
         }
 
-        /* for Chrome */
-        @@-webkit-keyframes my-animation {
-            from {
-                -webkit-transform: translateX(100%);
+            .tab-content.active {
+                display: block;
             }
 
-            to {
-                -webkit-transform: translateX(-120%);
-            }
+        hr {
+            border-color: white;
         }
 
-        @@keyframes my-animation {
-            from {
-                -moz-transform: translateX(100%);
-                -webkit-transform: translateX(100%);
-                transform: translateX(100%);
+            hr#line-tab-credit {
+                border-color: white;
             }
 
-            to {
-                -moz-transform: translateX(-120%);
-                -webkit-transform: translateX(-120%);
-                transform: translateX(-120%);
+        @@media only screen and (max-width: 431px) {
+            span {
+                font-size: 12px;
+                font-family: Kanit,sans-serif;
             }
         }
 
-        .pause-animation {
-            -moz-animation-play-state: paused;
-            -webkit-animation-play-state: paused;
-            animation-play-state: paused;
+        @@media only screen and (min-width: 432px) {
+            span {
+                font-family: Kanit,sans-serif;
+            }
         }
 
-        .stroke-text {
-            -webkit-text-stroke-width: 0.5px;
-            -webkit-text-stroke-color: black;
+        .icon-amt {
+            color: red;
+            font-size: 20px;
+            -webkit-text-stroke: 1px black;
         }
 
-        .text-indigo {
-            color: #6f42c1;
+        .custom-button {
+            display: inline-flex; /* Change from inline-block to inline-flex */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: white; /* Green */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+            border: 1px solid #4CAF50;
+            transition: background-color 0.3s, transform 0.3s;
+            vertical-align: middle;
+            height: 17px;
+            width: 17px;
+            color: black;
         }
 
-        .text-tac {
-            color: #0d6efd;
+        .btn-circle {
+            height: 17px;
+            width: 17px;
+            background-color: white;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            font-size: 10px; /* Adjust font size to fit within the button */
+            line-height: 1;
+            border-radius: 50%; /* Make the button circular */
+            border: 1px solid #4CAF50;
+            color: #4CAF50; /* Set text color to match the border */
         }
 
-        #table-top5 tr {
-            line-height: 14px;
+        .btn-inside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4CAF50;
+            font-weight: bold;
+            color: #4CAF50;
         }
 
-        .bg-progress {
-            background-color: #b4b8bd;
+        @@media only screen and (max-width: 321px) {
+            .cut-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 150px !important;
+                white-space: nowrap;
+            }
+
+            .ui-autocomplete {
+                font-family: 'Kanit', sans-serif;
+                font-size: 12px;
+                height: 280px;
+                width: 50px !important;
+            }
         }
+
+        .ui-autocomplete.ui-widget {
+            font-family: 'Kanit', sans-serif;
+            font-size: 12px;
+            height: 350px;
+            width: 230px;
+        }
+
+        .table-scroll {
+            height: 450px;
+            overflow-y: auto;
+        }
+
+            .table-scroll thead th {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 3 !important;
+            }
+
+        /* @@media only screen and (min-width: 432px) {
+            .text-truncate {
+                display: flex;
+                align-items: center;
+                max-width: 120px;
+            }
+        }*/
     </style>
 </head>
-<body class="bg-page" style="font-family: Kanit, sans-serif;">
 
-    @*<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
-            <div class="container">
-                <a class="font-weight-bolder ms-lg-0 ms-3 text-white text-left" href="#" style="font-size: 22px;">
-                    Customer Portal
-                </a>
-                <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon mt-2">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
-                    </span>
-                </button>
-                <div class="navbar-collapse" id="navigation">
-                    <ul class="navbar-nav mx-auto"> </ul>
-                    <ul class="navbar-nav d-lg-block d-none">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-light">Contanct Tel. xxxx</a>
-                        </li>
-                    </ul>
-                </div>
+<body style="background-color: #f2f7ff; margin-bottom:5px; ">
+    <div id="app">
+        <div id="main" style=" padding-right:20px; padding-left:20px;">
+            <div>
+                <input type="hidden" id="cushid" />
+                <input type="hidden" id="slmhid" />
+                <input type="hidden" id="nocusses" />
+                <input class="note-desc" id="cussend" type="hidden">
             </div>
-        </nav>*@
-    <!-- End Navbar -->
-    <main class="main-content">
-        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-color: white;">
-            @*<div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">*@
-            <span class="mask bg-page opacity-6"></span>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 text-center mx-auto" style="white-space: nowrap;">
-                        <h2 class="text-dark mb-2 mt-4" id="head-cusname"></h2>
+            <div class="page-heading">
+                <h4 class="pt-2" id="head-cusname"></h4>
+            </div>
+            <div class="page-content">
+                <div class="container" id="loader">
+                    <div class="d-flex justify-content-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Loading...</h3>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="container container-fluid">
-            <div class="row mt-lg-n20 mt-md-n11 mt-n10 justify-content-center">
-                <div class="col-lg-12 mb-lg-0 mb-2">
-                    <div class="z-index-2 h-100">
-                        @*Tab Promotion WKP*@
+                <section class="row justify-content-center d-none" id="content">
+                    <div class="col-12 col-lg-3" id="cushead" hidden>
                         <div class="row">
-                            <div class="col-md-5 mt-4">
-                                @*Left Side Start*@
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-yellow pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ</h3>
+                            <p id="demo"></p>
+                        </div>
+                        <div id="appadjall"></div>
+                    </div>
+                    <div class="col-12 p-0">
+                        <div class="card">
+                            <div class="col-12 p-0 m-0">
+                                <div class="col-12 p-0 m-0">
+                                    <div class="w3-bar rounded-top pt-2 tab-buttons btn-group bg-info">
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-amount">
+                                            ยอดซื้อ
+                                            <hr class="m-0" />
+                                        </button>
+                                        <button type="button" class="w3-button w3-hover-khaki  w3-bar-item btn-font rounded-top" id="btn-show-order-history">
+                                            ประวัติซื้อ
+                                            <hr class="m-0" />
+                                        </button>
                                     </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="amt-text-first">ยอดซื้อทั้งหมด : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-all"></span>
-                                        </div>
-                                        <div class="row" id="company-amt">
-                                            <span class="col-12 mt-1 text-md font-weight-bold" id="amt-text-company" hidden>ยอดซื้อที่บริษัท : </span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="amt-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="amt-discount"></span>
+                                </div>
+                            </div>
+                            <div class="card-body p-0 m-0 bg-info">
+                                <div class="col-12 col-lg-12" style="font-family: Kanit,sans-serif;">
+                                    <div id="dfch">
+                                    </div>
+                                    <div id="appadj"></div>
+                                </div>
+                                @*ยอดซื้อ*@
+                                <div class="col-12 amount-div m-0 p-0" style="font-family: Kanit,sans-serif;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-header bg-secondary">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
+
+
+                                                            </div>
+                                                            <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-md-6 text-right m-0 p-0 pr-1">
+                                                                    <span>ปี-เดือน : </span>
+                                                                </div>
+                                                                <div class="col-md-6 m-0 p-0">
+                                                                    <select class="form-select form-control select-year" id="select-month-year"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="col-12" hidden>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h4>ยอดซื้อที่บริษัท</h4>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive m-0 p-0">
+                                                                            <table class="table table-bordered bg-white">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th class="text-center"><span>AAC</span></th>
+                                                                                        <th class="text-center"><span>TAC</span></th>
+                                                                                        <th class="text-center"><span>OMP</span></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <h5> ยอดซื้อ</h5>
+                                                                                        </td>
+                                                                                        <td><span id="aac-amt"></span></td>
+                                                                                        <td><span id="tac-amt"></span></td>
+                                                                                        <td><span id="omp-amt"></span></td>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+                                                    </div>
+                                                </div>
+                                                <div class="card-body p-0  ">
+                                                    <div class="m-0 table-responsive">
+                                                        <table class="table table-sm table-light m-0 table-bordered" id="amt-table" style="width:100%">
+                                                            <thead class="thead-default">
+                                                                <tr>
+                                                                    @*<th class="pl-0 pr-0"></th>*@
+                                                                    <th class="pl-0 pr-0 text-center"><span>ชื่อร้านค้า</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>AAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>TAC</span></th>
+                                                                    <th class="pl-0 pr-0 text-center"><span>OMP</span></th>
+                                                                    @*<th class="text-right">จำนวนเงิน</th>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                            <tfoot class="bg-warning " hidden>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><strong id="total-text"></strong> <strong class="float-right" id="loading-text-table"></strong> </td>
+                                                                    <td colspan="5" style="text-align:right"><strong id="amt-total"></strong></td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @*ประวัติ*@
+                                <div class="col-12 order-history-div m-0 p-0" style="font-family: Kanit,sans-serif; display: none;">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card m-0">
+                                                <div class="card-body p-0">
+                                                    <div id="id-select-brand" class="row p-2 div-select-brand">
+                                                        <div class="col-12 p-0">
+                                                            <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center">
+                                                                <div class="col-3 text-right m-0 pl-1 pr-1">
+                                                                    <span> ชื่อสินค้า </span>
+                                                                </div>
+                                                                <div class="col-8 m-0 p-0">
+                                                                    @*<div class="input-group">*@
+                                                                    <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="txt-other" name="txt-other" placeholder="" style="min-width: 190px;">
+                                                                    @*<span class="input-group-append">
+                                                                            <button class="btn btn-xs btn-success" type="button" onclick="searchByBrand();" style="margin-top: -1px; height: 35px; width: 35px;">
+                                                                                <i class="fa fa-search" style="margin-left: -5px;"></i>
+                                                                            </button>
+                                                                        </span>*@
+                                                                    @*</div>*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6 col-5 text-right d-flex align-items-center">
+                                                                <div class="col-2 text-right m-0 p-0 pr-1">
+                                                                    <span>แบรนด์ </span>
+                                                                </div>
+                                                                <div class="col-md-9 text-right">
+                                                                    <select class="form-control" id="select-brand" name="select-brand" style="width: 110%;">
+                                                                        @*<option value="" selected>ALL</option>*@
+                                                                        @for (var i = 0; i < BrandList.Count; i++)
+                                                                        {
+                                                                            <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-info pb-0 p-2">
-                                        <h3 class="card-title">ยอดซื้อ TOP 5</h3>
-                                    </div>
-                                    <div class="card-body" style="margin-bottom: 0; padding: 0px;">
-                                        <div>
-                                            <div id="top5-chart" height="250" style=" display: block" hidden><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+                                                    </div>
+                                                    <div id="show-order-history"> </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <table class="table " id="table-top5">
-                                            <thead class="thead-default">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Modal -->
+                <div class="modal fade in" id="cusMonthItemModal" role="dialog" aria-labelledby="ModalCenterTitle" data-bs-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header ">
+                                <div class="col-12">
+                                    <strong>หมายเลขการสั่งซื้อ :</strong>&nbsp;<span id="docno-item"></span>
+                                    @* <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');"><span aria-hidden="true">&times;</span></button>*@
+                                    <button type="button" class="close float-end ml-auto" data-dismiss="modal" aria-label="Close" onclick="$('#cusMonthItemModal').modal('hide');">&times;</button>
+
+                                </div>
+                            </div>
+                            <div class="modal-body d-flex justify-content-center row">
+                                <div class="col-12">
+                                    <article class="card">
+                                        <div class="card-body row">
+                                            <div class="col p-0">
+                                                <strong>ผู้ซื้อ : </strong>
+                                                <p class="m-0" id="namecus-item" style="font-family: Kanit,sans-serif;"></p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <hr />
+                                <div class="col-12">
+                                    <div class="table-responsive table-scroll m-0 overflow-auto ">
+                                        <table class="table table-light table-bordered mb-0 " id="cusMonthItemDetail" style="padding: 7px;font-size: small; ">
+                                            <thead class="thead-default" style="font-size: small;">
                                                 <tr>
+                                                    <th class="text-center">บริษัท</th>
+                                                    <th class="text-center">เบอร์สินค้า</th>
+                                                    <th class="text-center">ชื่อสินค้า</th>
+                                                    <th class="text-center">จำนวน</th>
+                                                    <th class="text-center text-truncate">ราคา <br /> (ต่อชิ้น)</th>
+                                                    <th class="text-center">ส่วนลด</th>
+                                                    <th class="text-center">ราคารวม</th>
                                                 </tr>
                                             </thead>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-backorder pb-0 p-2">
-                                        <h3 class="card-title">สินค้าค้างส่ง(Back Order)</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="back-text-first">จำนวนชิ้น : </span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-total"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="back-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-product"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="back-text-third"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="backorder-money"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2 pb-0">
-                                    <div class="card-header bg-warning pb-0 p-2">
-                                        <h3 class="card-title">Service Level</h3>
-                                    </div>
-                                    <div class="card-body pl-2 pr-2" style="margin-bottom: -10px;">
-                                        <div class="row">
-                                            <span class="col-6 mt-1 text-md font-weight-bold" id="service-text-first"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-amt"></span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col-6 text-md font-weight-bold" id="service-text-sec"></span>
-                                            <span class="col-6 text-right text-md font-weight-bold" id="service-level-delivery"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*LEFT SIDE END*@
-                            </div>
-                            <div class="col-md-7 mt-4" style="margin-bottom: -30px;">
-                                <div class="card">
-                                    <div class="card-header bg-success pb-0 p-2">
-                                        <h3 class="card-title">Promotion</h3>
-                                    </div>
-                                    <div class="card-body p-3" style="margin-bottom: -8px;">
-                                        <ul class="list-group" style="margin-top: -15px">
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" style="background-color: honeydew;">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-success shadow text-center ml-2"><i class="fa fa-money fa-3x" style="font-size: 24px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-1">ของรางวัลที่รอจ่าย <span class="text-success font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-1" hidden><span id="text-promotion-1-1">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-1">0</span> </span> บาท</span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-2" hidden><span id="text-promotion-1-2">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-2">0</span> </span> ใบ</span>
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-head-2" hidden><span>ของรางวัลที่จ่ายแล้ว </span> <span class="text-success font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-3" hidden><span id="text-promotion-1-3">เช็คเงินสด :</span><span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-3">0</span> </span> บาท</span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="text-promotion-head-1-4" hidden><span id="text-promotion-1-4">ตั๋วท่องเที่ยว :</span> <span class="text-success font-weight-bold ms-sm-2"><span id="val-promotion-1-4">0</span> </span> ใบ</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-success" id="right-text-success">Success</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-info shadow text-center ml-2"><i class="fa fa-calendar-check-o" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold">
-                                                            <span id="text-promotion-2-x">เป้าปีที่ลงทะเบียน</span> <span class="text-info font-weight-bold ms-sm-2"></span>
-                                                        </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-1" hidden><span id="text-promotion-2-1">เช็คเงินสด :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-2-2" hidden><span id="text-promotion-2-2">ตั๋วท่องเที่ยว :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-2">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold" id="head-2-5" hidden><span id="text-promotion-2-5">รางวัลที่ได้รับ :</span>  <span class="text-info font-weight-bold ms-sm-2"><span id="val-promotion-2-5">0</span></span> </span>
-                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-info font-weight-bold ms-sm-2"><span id="txtPromotion_7"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height:30px; width:210px">
-                                                            <div class="progress-bar bg-info" id="progress-year-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-year"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-2-3">ยอดซื้อสะสม</span> / <span id="text-promotion-2-4">ยังขาด</span> : <span class="text-info font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-info">เป้าปี</span>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-warning shadow text-center ml-2"><i class="fa fa-calendar" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-x">เป้าไตรมาสที่ลงทะเบียน</span> <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-1" hidden><span id="text-promotion-3-1">เช็คเงินสด :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-1">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-3-2" hidden><span id="text-promotion-3-2">ตั๋วท่องเที่ยว :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-2">0</span></span> </span>
-                                                        <span class="mb-1 text-md font-weight-bold " id="head-3-5" hidden><span id="text-promotion-3-5">รางวัลที่ได้รับ :</span>  <span class="text-warning font-weight-bold ms-sm-2"><span id="val-promotion-3-5">0</span></span> </span>
-                                                        @*<span class="mb-1 text-md font-weight-bold" hidden>ยังขาด : <span class="text-warning font-weight-bold ms-sm-2"><span id="txtPromotion_11"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
-                                                            <div class="progress-bar bg-warning" id="progress-quater-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-quater"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-3-3">ยอดซื้อสะสม</span> / <span id="text-promotion-3-4">ยังขาด</span> : <span class="text-warning font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-warning">เป้าไตรมาส</span>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between bg-gray-100 ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center ml-2"><i class="fa fa-calendar-plus-o" style="font-size: 22px;"></i></div>
-                                                    <div class="d-flex flex-column">
-                                                        <span class="mb-1 text-md font-weight-bold" id="text-promotion-4-x">เป้าอื่นๆที่ลงทะเบียน  <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-1" hidden><span id="text-promotion-4-1">เช็คเงินสด :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-1">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold pl-3" id="head-4-2" hidden><span id="text-promotion-4-2">ตั๋วท่องเที่ยว :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-2">0</span></span></span>
-                                                        <span class="mb-1 text-md font-weight-bold " id="head-4-5" hidden><span id="text-promotion-4-5">รางวัลที่ได้รับ :</span>  <span class="text-primary font-weight-bold ms-sm-2"><span id="val-promotion-4-5">0</span></span></span>
-                                                        @*<span class="mb-1 text-md font-weight-bold">ยังขาด : <span class="text-primary font-weight-bold ms-sm-2"><span id="txtPromotion_15"></span></span></span>*@
-                                                        <div class="progress bg-progress" style="height: 30px; width: 210px">
-                                                            <div class="progress-bar bg-primary" id="progress-other-amt">
-                                                                <span class="text-white font-weight-bold" id="amt-other"></span>
-                                                            </div>
-                                                        </div>
-                                                        <span class="mb-1 text-md font-weight-bold"><span id="text-promotion-4-3">ยอดซื้อสะสม</span> / <span id="text-promotion-4-4">ยังขาด</span> : <span class="text-primary font-weight-bold ms-sm-2"></span></span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-white text-md font-weight-bold">
-                                                    <span class="badge badge-primary">เป้าอื่นๆ</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*End Promotion*@
-                    </div>
-                </div>
-            </div>
-            @*menu list*@
-            <div class="row mt-2">
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card " id="menu_deliverytracking">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการสั่งซื้อ</h4>
-                                        <h4> <span id="total_deliverytrack">0</span> รายการ </h4>
-                                        @*<h3 class="font-weight-bolder"> <span id="total_deliverytrack">0</span> รายการ </h3>*@
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการสั่งซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="fa fa-shopping-bag text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6  col-sm-6">
-                    <div class="card bg_card" id="menu_backorder">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะสินค้าค้างส่ง</h4>
-                                        <h4>
-                                            <span id="backorder-amt">0</span> รายการ
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary  font-weight-bolder ">ดูสถานะสินค้าค้างส่ง</span>  <span class="text-danger  font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                        <i class="fa fa-truck text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_warranty">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">สถานะการเคลมสินค้า</h4>
-                                        <h4>
-                                            <span id="warranty-amt">0</span> รายการ
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูสถานะการเคลมสินค้า</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                        <i class="fa fa-file-text text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_promotion">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">โปรโมชั่น</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูโปรโมชั่น</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                        <i class="fa fa fa-product-hunt text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_credit">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">เครดิต</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูเครดิต</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-info shadow-warning text-center rounded-circle">
-                                        <i class="ni ni-credit-card text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                    <div class="card bg_card" id="menu_amt">
-                        <div class="card-body bg_hov p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="mb-0 text-uppercase font-weight-bold text-dark">ประวัติซื้อ</h4>
-                                        <h4>
-                                            &nbsp;
-                                        </h4>
-                                        <h6 class="mb-0">
-                                            <span class="text-secondary font-weight-bolder ">ดูประวัติซื้อ</span>  <span class="text-danger font-weight-bolder">"คลิกเลย"</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-secondary shadow-warning text-center rounded-circle">
-                                        <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
+        <!-- ModalWarning -->
+        <div class="modal" id="myModalWarning">
+            <div class="modal-dialog">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong>
+                    <div class="modal-body">
+                        <div id="textAlertWarning">Some text in the modal.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ต้องการเปลี่ยนเป็นร้านค้า<span id="cusselectpop"></span> หรือไม่
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnnot">ไม่ต้องการ</button>
+                        <button type="button" class="btn btn-primary" id="btnok">ต้องการ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="smallModalselcus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        ใส่ชื่อร้านหรือรหัสร้านค้า
+                        <div id="blcslm" style="display:block">
+                            <input type="search" id="textfree" class="form-control ui-autocomplete-input" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" hidden>
+            <div class="container">
+                <p>2024 &copy; TAC&AAC</p>
+            </div>
+        </footer>
+    </div>
 
-
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <script type="text/javascript">
-    var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
-    //var cuscod = '110T0189';
-        var chartInstance;
-        var top5chart;
-    var monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var currentDate = new Date();
-    var currentMonth = currentDate.getMonth() + 1;
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+        var id = '@Request.RequestContext.HttpContext.Session["ID"]';
+        var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
+        var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
+        var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
+        var usrclmstaff = '@Request.RequestContext.HttpContext.Session["UsrClmStaff"]';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CUSCOD"]';
+        var yearCurrent = @yearCurrent;
+        //var cuscod = '110L0003';
+        //console.log("Cuscod : " + cuscod);
+        var myChartM;
+        var myChartY;
+        var chartProfileVisit;
+        var chartdefault = $("#cushid").val();
 
-    $(document).ready(function () {
-        getCusName();
-        const $scrolltext = $('#scroll-container');
-        $scrolltext.on('mousedown touchstart', function () {
-            $('.scroll-text').addClass('pause-animation');
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        $(document).ready(function () {
+            $('#loader').show();
+            getSelectMonth();
+            $('#select-month-year option[value=""]').prop('selected', true);
+            getCusName();
+            $('#btn-show-amount').css("background", "#DEAF5B");
+            setTimeout(function () {
+                $('#loader').hide();
+                $('#content').removeClass('d-none').addClass('d-flex');
+                $('.footer').removeAttr('hidden');
+            }, 2000);
+            $('#line-tab-credit').hide();
         });
-        $scrolltext.on('mouseup touchend', function () {
-            $('.scroll-text').removeClass('pause-animation');
-        });
-        $('#btn-show-yearly').css("background", "#DEAF5B");
-        $('#promotion-table-quater').hide();
-        $('#promotion-table-other').hide();
 
-    });
-    if (cuscod != null) {
-        //getChartsamt();
-        //getBackorder();
-        //getAmt();
-        //getServiceLevel();
-        getTop5();
-        getPmotionNew();
-        getDashBoard();
-        //getDashboardNotable();
-        getDeliveryTrackAmt();
-        getBackorderAmt();
-        getWarrantyAmt();
-    }
-    function getCusName() {
-        $.ajax({
-            url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
-            data: {
-                cusel: cuscod
+        if (cuscod != "") {
+            $("#cushid").val(cuscod)
+            // getcuschamt(cuscod);
+            var currentDate = new Date();
+            var currentDay = (currentDate.getDate()).toString().padStart(2, "0")
+            var currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+            var currentYear = currentDate.getFullYear();
+            var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
+            getCreditCus(cuscod);
+            getCusMonth(cuscod, currentYear, currentMonth);
+            setTimeout(function () {
+                getDataOrderHistoryByBrand(cuscod, 'TRW', '', 'show-order-history', 'Y');
+            }, 1000);
+        }
+
+
+        function getMonthYear() {
+            const result = [];
+            const date = new Date();
+            for (let i = 0; i < 12; i++) {
+                var month = i+1;
+                var year = y;
+                var formattedMonth = month.toString().padStart(2, '0'); //< 10 ? `0${month}` : `${month}`; #01549b
+                result.push({ display: `${year}-${formattedMonth}`, value: `${year}, ${formattedMonth}` });
+            }
+            return result;
+        }
+
+        function getCusName() {
+            $.ajax({
+                url: '@Url.Action("GetdatabyCus", "CustomerDashboard")',
+                data: {
+                    cusel: cuscod
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.length != 0) {
+                        var head = $('#head-cusname');
+                        var name = data[0].CUSNAM;
+                        var club = data[0].CLUB;
+                        if (club != "") {
+                            head.text(name + '(' + club + ')');
+                        }
+                        else {
+                            head.text(name);
+                        }
+                    }
+                }
+            });
+        }
+        $('#btn-show-amount').click(function () {
+            //$('.amount-div').show("slow");
+            //$('.credit-div').hide("slow");
+            $('.amount-div').slideDown("slow");
+            $('.order-history-div').slideUp("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-order-history').removeAttr('style');
+        });
+        $('#btn-show-order-history').click(function () {
+            $('.order-history-div').slideDown("slow");
+            $('.amount-div').slideUp("slow");
+            $(this).css("background", "#DEAF5B");
+            $('#btn-show-amount').removeAttr('style');
+            //get fn push data
+            //getDataOrderHistoryByBrand(cuscod, '', 'show-order-history', 'Y');
+        });
+        //search auto
+        var valBrand = $("#select-brand option:selected").val();
+        var valTxtSearch = $("#txt-other").val();
+        //ลบชื่อสินค้า
+        $("#txt-other").keyup(function () {
+            var valBrand = $("#select-brand option:selected").val();
+            var txtOther = $(this).val();
+            if (txtOther == "" && valBrand != "") {
+                getDataOrderHistoryByBrand(cuscod, valBrand, txtOther, 'show-order-history', '');
+            }
+        });
+        //มีชื่อสินค้า
+        $("#txt-other").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = {
+                    cuscode: cuscod,
+                    brand: $("#select-brand option:selected").val(),
+                    txtOther: $("#txt-other").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("SearchOrderHistoryByTxt", "CustomerDashboard")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
             },
-            type: 'POST',
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.length != 0) {
-                    var head = $('#head-cusname');
-                    var name = data[0].CUSNAM;
-                    var club = data[0].CLUB;
-                    if (club != "") {
-                        head.text(name + '(' + club + ')');
+            select: function (event, ui) {
+                var _val = ui.item.value;
+                var _splito = "";
+                _splito = _val.split(' ');
+                var splitval = _splito;
+                _scus = _splito[0].trim();
+
+                console.log("sub(0) = " + _splito[0].trim() + " sub(1) = " + _splito[1].trim())
+
+                getDataOrderHistoryByBrand(cuscod, valBrand, _scus, 'show-order-history', '');
+            },
+            minLength: 2
+        });
+        //call stored get data
+        function getDataOrderHistoryByBrand(cuscode, brand, txtSearch, divHtml, flagFirst) {
+            var htmlTable ='<table class="table table-striped table-bordered table-hover mb-0 " id="table-history" style="padding: 7px;font-size: small;">'+
+                                 '<thead class="thead-default " style="font - size: small; ">' +
+                                    '<tr> '+
+                                        '<th rowspan="2" class="vcenter"><span>เบอร์สินค้า</span></th>' +
+                                        '<th rowspan="2" class="vcenter"><span>ชื่อสินค้า</span></th>' +
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent) + ' </th>' +
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent - 1) + ' </th>'+
+                                        '<th colspan="2" class="vcenter"> ' + (yearCurrent - 2) + ' </th>' +
+                                        '<th rowspan="2" class="vcenter"> แบรนด์ </th>' +
+                                        ' <th rowspan="2" class="vcenter"><span>บริษัท</span></th>' +
+                                    '</tr >' +
+                                    '<tr>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                        '<th class="vcenter"> จำนวน </th>' +
+                                        '<th class="vcenter"> ราคารวม </th>' +
+                                    '</tr>'+
+                                '</thead >'+
+                                '<tbody>'+
+                                    '<tr >' +
+                                        '<td colspan="10" style="text-align:center;"> -- ไม่พบข้อมูล -- </td>' +
+                                    ' </tr >' +
+                                '</tbody >'+
+                     '</table >';
+                if (flagFirst == "Y") {
+                    $("#show-order-history").html(htmlTable);
+                }
+                $.ajax({
+                type: 'post',
+                url: '@Url.Action("OrderHistoryByBrand", "CustomerDashboard")',
+                data: {
+                    cuscod: cuscode,//cuscod,
+                    brand: brand.trim(),
+                    txtSearch: txtSearch
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#table-history tbody').empty();
+                    $('#table-history tbody').html('<td class="text-center" colspan="12"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i> Loading...</td>')
+                },
+                success: function (res) {
+                    $('#' + divHtml).empty();
+                    $('#' + divHtml).html(res);
+                }
+            });
+        }
+        //select brand
+        $('#select-brand').on('change', function () {
+            var valBrand = $(this).val();
+            var valTxtSearch = $("#txt-other").val();
+            //ถ้าเลือกแบนรต้องลบชื่อสินค้า
+            if (valBrand != "") {
+                if (valTxtSearch != "") {
+                    $("#txt-other").val("");
+                    valTxtSearch = "";
+                }
+            } else { //ALL
+                $("#txt-other").val("");
+                valTxtSearch = "";
+            }
+            getDataOrderHistoryByBrand(cuscod, valBrand, valTxtSearch, 'show-order-history', '');
+        });
+
+        function getSelectMonth() {
+            const dropdown = $('#select-month-year');
+            const lastSixMonths = getMonthYear();
+            lastSixMonths.forEach(monthYear => {
+                const option = $('<option></option>')
+                    .text(monthYear.display)
+                    .val(monthYear.value);
+                dropdown.append(option);
+            });
+
+            const currentDate = new Date();
+            const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const currentYear = currentDate.getFullYear();
+            const currentMonthYear = `${currentYear}, ${currentMonth}`;
+
+            dropdown.val(currentMonthYear);
+        }
+
+        function jssor_1_slider_init() {
+            var jssor_1_options = {
+                $AutoPlay: 0,
+                $AutoPlaySteps: 5,
+                $SlideDuration: 260,
+                $SlideWidth: 200,
+                $SlideSpacing: 3,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 1
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 16,
+                    $SpacingY: 16
+                }
+            };
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            var MAX_WIDTH = 758;
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+                if (containerWidth) {
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        };
+
+        $(document).ready(function () {
+            $('#select-month-year').on('change', function () {
+                const selectMonthYear = $(this).val();
+                const [year, month] = selectMonthYear.split(',');
+                getCusMonth(cuscod, year.trim(), month.trim());
+            });
+        });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+        //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
+        function getCusMonth(cus,year,month) {
+            $.ajax({
+                url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
+                data: {
+                    CUSCOD: cus,
+                    Month: month,
+                    Year: year
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.Getdata.length > 0) {
+                        var resTotal = 0.00;
+                        var SubmithtmlPage = "";
+
+                        $.ajax({
+                            url: '@Url.Action("GetCusInvMonth", "CustomerDashboard")',
+                            data: {
+                                CUSCOD: cus,
+                                Month: month,
+                                Year: year
+                            },
+                            type: "POST",
+                            dataType: "JSON",
+                            beforeSend: function () {
+                                $('#total-text').text("");
+                                $("#amt-total").text("");
+                                $('#amt-table tbody').html("");
+                                var SubmithtmlPag = '';
+                                SubmithtmlPag += '<tr>';
+                                SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                                SubmithtmlPag += '</tr>';
+                                $('#amt-table tbody').append(SubmithtmlPag);
+                                $("#loading-text-table").text("Loading...");
+                            },
+                            success: function (result) {
+                                $('#amt-table tbody').html("");
+                                var aac_count = 0;
+                                var tac_count = 0;
+                                var omp_count = 0;
+
+                                var amt_tac = 0;
+                                var amt_omp = 0;
+                                for (var i = 0; i < data.Getdata.length; i++) {
+                                    $('#sec-table-' + i + ' tbody').html("");
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
+                                    SubmithtmlPage += '<tr>';
+                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
+                                    SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="cut-text text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        var amt_aac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span>  <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-aac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        var amt_tac = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'tac\');"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-tac-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        var amt_omp = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                }
+                                            }
+                                        }
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'omp\');"><p class="text-truncate m-0 p-0"><span>0</span> <button type="button" class="btn btn-circle" ><p class="btn-inside m-0" id="show-sales-omp-icon-' + i + '">+</p></button></p></td>'; //class="ellipsis"
+                                    }
+                                   // SubmithtmlPage += '<td style="text-align:right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                    SubmithtmlPage += '</tr>';
+
+                                    ////TR
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<td colspan="3" class="hiddenRow">';
+                                    //SubmithtmlPage += '<div class="accordian-body collapse table-responsive m-0" id="col-detail-' + i + '">';
+                                    //SubmithtmlPage += '<table class="table table-borderless" id="sales-table-'+i+'">';
+                                    //SubmithtmlPage += '<thead class="thead-default">';
+                                    //SubmithtmlPage += '<tr>';
+                                    //SubmithtmlPage += '<th>บริษัท</th> ';
+                                    //SubmithtmlPage += '</tr>';
+                                    //SubmithtmlPage += '</thead>';
+                                    //SubmithtmlPage += '<tbody>';
+
+                                    /////AAC
+                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'aac\');">';
+                                    //SubmithtmlPage += '   <th class="block_container border-0">';
+                                    //SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                    //SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-aac-icon-' + i + '">+</span></h4></div>';
+                                    //SubmithtmlPage += '            <div class="col-11"><span>AAC</span></div>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '     </th>';
+                                    //SubmithtmlPage += '</tr>';
+
+                                    ///// tr aac
+
+                                    SubmithtmlPage += '        <tr>';///tr tr
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-aac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท AAC</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-aac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        aac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'AAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_aac += Number(result.Getdata[j].Amount);
+                                                    aac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (aac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+
+                                        }
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                        SubmithtmlPage += '                    </tbody>';
+                                        SubmithtmlPage += '        </tr>';
+                                    }
+
+                                    //tr aac
+
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //AAC
+
+                                    //TAC
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-tac-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'tac\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-tac-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>TAC</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr tac
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-tac-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท TAC</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-tac-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                   // SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        tac_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'TAC') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_tac += Number(result.Getdata[j].Amount);
+                                                    tac_count++;
+                                                }
+                                            }
+                                        }
+                                        if (tac_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+
+                                    }
+                                    else {
+                                        tac_count = 0;
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr tac
+
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr>';
+                                    //TAC
+
+                                    //OMP
+                                   // SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#sales-omp-show-' + i + '" class="accordion-toggle " onclick="toggleRowColDetail(this,' + i +',\'omp\');">';
+                                   // SubmithtmlPage += '   <th class="block_container border-0">';
+                                   // SubmithtmlPage += '        <div class="col-12 d-flex align-items-center p-0">';
+                                   // SubmithtmlPage += '            <div class="col-1"><h4 style="display: inline;"><span id="show-sales-omp-icon-' + i + '">+</span></h4></div>';
+                                   // SubmithtmlPage += '            <div class="col-11"><span>OMP</span></div>';
+                                   // SubmithtmlPage += '        </div>';
+                                   // SubmithtmlPage += '     </th>';
+                                   //// SubmithtmlPage += '    <th><span id="sales-aac-qty-' + i + '">0</span></th>';
+                                   // SubmithtmlPage += '</tr>';
+                                    //tr omp
+
+                                    SubmithtmlPage += '        <tr>';
+                                    SubmithtmlPage += '        <td colspan="5" class="hiddeRow p-0">';
+                                    SubmithtmlPage += '            <div class="accordian-body collapse table-responsive m-0" id="sales-omp-show-' + i + '">';
+                                    SubmithtmlPage += '              <h6 class="ml-0 mr-0 mt-2 mb-2">ประวัติซื้อที่บริษัท OMP</h6>';
+                                    SubmithtmlPage += '                <table class="table table-borderless table-striped" id="sales-omp-detail-' + i + '">';
+                                    SubmithtmlPage += '                    <thead>';
+                                    SubmithtmlPage += '                        <tr>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0"></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
+                                    SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
+                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
+                                    SubmithtmlPage += '                        </tr>';
+                                    SubmithtmlPage += '                    </thead>';
+                                    SubmithtmlPage += '                    <tbody>';
+                                    if (result.Getdata.length > 0) {
+                                        omp_count = 0;
+                                        for (var j = 0; j < result.Getdata.length; j++) {
+                                            if (data.Getdata[i].CUSNAM == result.Getdata[j].CUSNAM) {
+                                                if (result.Getdata[j].Company == 'OMP') {
+                                                    SubmithtmlPage += '<tr onclick="getDetailCusinv(\'' + result.Getdata[j].DOCNUM + '\');">';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"> <i class="fa fa-search" aria-hidden="true"></i> </td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
+                                                    SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
+                                                    //SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
+                                                    SubmithtmlPage += '</tr>';
+                                                    amt_omp += Number(result.Getdata[j].Amount);
+                                                    omp_count++;
+                                                }
+                                            }
+                                        }
+                                        if (omp_count == 0) {
+                                            SubmithtmlPage += '<tr>';
+                                            SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                            SubmithtmlPage += '</tr>';
+                                        }
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<tr>';
+                                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                                        SubmithtmlPage += '</tr>';
+                                    }
+
+                                    //tr omp
+                                    SubmithtmlPage += '                     </tbody>';
+                                    SubmithtmlPage += '                </table>';
+                                    SubmithtmlPage += '            </div>';
+                                    SubmithtmlPage += '        </td>';
+                                    SubmithtmlPage += '        </tr >';
+                                    //OMP
+
+
+                                    //SubmithtmlPage += '</tbody>';
+                                    //SubmithtmlPage += '</table>';
+                                    //SubmithtmlPage += '        </div>';
+                                    //SubmithtmlPage += '        </td>';
+                                    //SubmithtmlPage += '        </tr>';
+                                    ////TR
+                                    var amount = Number(data.Getdata[i].Amount.replace(/,/g, ''));
+                                    if (!isNaN(amount)) {
+                                        resTotal += amount;
+                                    }
+                                }
+                                $('#total-text').text("Total");
+                                $("#amt-total").text(commaSeparateNumber(resTotal.toFixed(2)));
+                                $("#loading-text-table").text("");
+                                $("#amt-table tbody").append(SubmithtmlPage);
+                                $('#aac-amt').text(commaSeparateNumber(amt_aac.toFixed(2)));
+                                $('#tac-amt').text(commaSeparateNumber(amt_tac.toFixed(2)));
+                                $('#omp-amt').text(commaSeparateNumber(amt_omp.toFixed(2)));
+                            }
+                        });
                     }
                     else {
-                        head.text(name);
+                        var SubmithtmlPage = "";
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan="5" align="center">-- ไม่พบข้อมูล --</td>';
+                        SubmithtmlPage += '</tr>';
+                        $("#amt-table tbody").append(SubmithtmlPage);
                     }
-                }
-            }
-        });
-    }
-    function commaSeparateNumber(val) {
-        while (/(\d+)(\d{3})/.test(val.toString())) {
-            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-        }
-        return val;
-    }
-    $('#btn-show-yearly').click(function () {
-        $('#promotion-table-yeary').show('slow');
-        $('#promotion-table-quater').hide('slow');
-        $('#promotion-table-other').hide('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-quater').removeAttr('style');
-        $('#btn-show-other').removeAttr('style');
-    });
-    $('#btn-show-quater').click(function () {
-        $('#promotion-table-yeary').hide('slow');
-        $('#promotion-table-quater').show('slow');
-        $('#promotion-table-other').hide('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-yearly').removeAttr('style');
-        $('#btn-show-other').removeAttr('style');
-    });
-    $('#btn-show-other').click(function () {
-        $('#promotion-table-yeary').hide('slow');
-        $('#promotion-table-quater').hide('slow');
-        $('#promotion-table-other').show('slow');
-        $(this).css("background", "#DEAF5B");
-        $('#btn-show-yearly').removeAttr('style');
-        $('#btn-show-quater').removeAttr('style');
-    });
-
-
-
-        function getPercentAmt(num, all) {
-            var resault = Number(num) / Number(all) * 100;
-        return resault+'%';
-    }
-
-    function getDashBoard() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                var stringLoad = "Loading...";
-                $('#amt-text-first').text(stringLoad);
-                $('#back-text-first').text(stringLoad);
-                $('#service-text-first').text(stringLoad);
-            },
-            success: function (data) {
-                var HtmlStringAmt = '';
-                if (data.Getdata.length != 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        console.log("TOPIC" + item.TopicID);
-                        if (item.TopicID == "1") {
-                            if (item.Seq == "1") {
-                                $('#amt-text-first').text(item.Name + ' :');
-                                $('#amt-all').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq == "2") {
-                                $('#amt-text-sec').text(item.Name + ' :');
-                                $('#amt-discount').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq.startsWith("3")) {
-                                $('#amt-text-company').removeAttr("hidden");
-                                HtmlStringAmt += '<span class="col-6 text-md font-weight-bold pl-4">' + item.Name + '</span> ';
-                                HtmlStringAmt += '<span class="col-6 text-right text-md font-weight-bold" >' + commaSeparateNumber(Math.floor(item.Amt_Qty)) + '</span >';
-                            }
-                        }
-                        if (item.TopicID == "3") {
-                            if (item.Seq == "1") {
-                                $('#back-text-first').text(item.Name + ' :');
-                                $('#backorder-total').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                            if (item.Seq == "2") {
-                                $('#back-text-sec').text(item.Name + ' :');
-                                $('#backorder-product').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                            if (item.Seq == "3") {
-                                $('#back-text-third').text(item.Name + ' :');
-                                $('#backorder-money').text(commaSeparateNumber(Math.floor(item.Amt_Qty)))
-                            }
-                        }
-                        if (item.TopicID == "4") {
-                            if (item.Seq == "1") {
-                                $('#service-text-first').text(item.Name + ' :');
-                                $('#service-level-amt').text(commaSeparateNumber(Math.floor(item.Amt_Qty)));
-                            }
-                            if (item.Seq == "2") {
-                                $('#service-text-sec').text(item.Name + ' :');
-                                var servicePercent = item.Amt_Qty * 100;
-                                $('#service-level-delivery').text(servicePercent.toFixed(2) + '%');
-                            }
-                        }
-                    }
-                    $('#company-amt').append(HtmlStringAmt);
-                }
-                else {
-                    $('#amt-text-first').text("ไม่พบข้อมูล");
-                    $('#back-text-first').text("ไม่พบข้อมูล");
-                    $('#service-text-first').text("ไม่พบข้อมูล");
-                }
-            }
-            ,
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error: " + textStatus + " - " + errorThrown);
-                alert("มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง.");
-            }
-        });
-    }
-
-        function getPmotionNew() {
-            $.ajax({
-                url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-                data: {
-                    CUSCOD: cuscod
-                },
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-
-                },
-                success: function (data) {
-                    if (data.Getdata.length != 0) {
-                        var sub1 = 1;
-                        var sub2 = 1;
-                        var sub3 = 1;
-                        var sub4 = 1;
-                        var textProgressYear = "";
-                        var textProgressQua = "";
-                        var textProgressOth = "";
-                        var amtYear = "";
-                        var amtQuater = "";
-                        var amtOther = "";
-                        var missYear = "";
-                        var missQuater = "";
-                        var missOther = "";
-                        var sumYear = 0;
-                        var sumQuater = 0;
-                        var sumOther = 0;
-                        var seqCheck = [];
-                        for (var i = 0; i < data.Getdata.length; i++) {
-                            var item = data.Getdata[i];
-                            if (item.TopicID == '5') {
-                                seqCheck.push(item.Seq);
-                                if (item.Seq.startsWith("1")) {
-                                    if (item.Seq.endsWith(sub1.toString())) {
-                                        while (parseInt(item.Seq.slice(-1)) > sub1) {
-                                            console.log("Missing Sequence for SUB2: " + sub1);
-                                            $('#text-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#val-promotion-1-' + sub1.toString()).attr("hidden", true);
-                                            $('#text-promotion-head-1-' + sub1.toString()).attr("hidden", true);
-                                            sub1++;
-                                            continue;
-                                        }
-                                        if (item.SubTopic2.includes("ของรางวัลที่รอจ่าย")) {
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            sub1++;
-                                            continue;
-                                        }
-
-                                        if (item.SubTopic2.includes("ของรางวัลที่จ่ายแล้ว")) {
-                                            $('#text-promotion-1-' + sub1.toString()).text(item.Name);
-                                            $('#val-promotion-1-' + sub1.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#text-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#val-promotion-1-' + sub1.toString()).removeAttr("hidden");
-                                            $('#text-promotion-head-1-' + sub1.toString()).removeAttr("hidden");
-                                            sub1++;
-                                            continue;
-                                        }
-
-                                    }
-                                }
-
-                                if (item.Seq.startsWith("2")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub2) {
-                                        console.log("Missing Sequence for SUB2: " + sub2);
-                                        $('#text-promotion-2-' + sub2.toString()).attr("hidden", true);
-                                        $('#val-promotion-2-' + sub2.toString()).attr("hidden", true);
-                                        $('#head-2-' + sub2.toString()).attr("hidden", true);
-                                        console.log("Head 2 : " + sub2);
-                                        sub2++;
-                                    }
-                                    if (item.Seq.endsWith(sub2.toString())) {
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-2-' + sub2.toString()).text(lastPart);
-                                            $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-2-' + sub2.toString()).removeAttr("Hidden");
-                                            sub2++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            amtYear = item.Amt_Qty;
-                                            sub2++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            missYear = item.Amt_Qty;
-                                            sub2++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-2-' + sub2.toString()).text(item.Name);
-                                        $('#val-promotion-2-' + sub2.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-2-' + sub3.toString()).removeAttr("Hidden");
-                                        sub2++;
-                                    }
-                                }
-
-                                if (item.Seq.startsWith("3")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub3) {
-                                        console.log("Missing Sequence for SUB3: " + sub3);
-                                        $('#text-promotion-3-' + sub3.toString()).attr("hidden", true);
-                                        $('#val-promotion-3-' + sub3.toString()).attr("hidden", true);
-                                        $('#head-3-' + sub3.toString()).attr("hidden", true);
-
-                                        sub3++;
-                                    }
-                                    if (item.Seq.endsWith(sub3.toString())) {
-                                        console.log("Processing Seq: " + item.Seq);
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-3-' + sub3.toString()).text(lastPart + ' :');
-                                            $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-3-' + sub3.toString()).removeAttr("Hidden");
-                                            sub3++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            amtQuater = item.Amt_Qty;
-                                            console.log("AMT Q (Seq ends with 3): " + amtQuater);
-                                            sub3++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            missQuater = item.Amt_Qty;
-                                            console.log("MISS Q (Seq ends with 4): " + missQuater);
-                                            sub3++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-3-' + sub3.toString()).text(item.Name + ' :');
-                                        $('#val-promotion-3-' + sub3.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-3-' + sub3.toString()).removeAttr("Hidden");
-                                        sub3++;
-                                    }
-                                }
-
-
-
-
-
-                                if (item.Seq.startsWith("4")) {
-                                    while (parseInt(item.Seq.slice(-1)) > sub4) {
-                                        console.log("Missing Sequence for SUB4: " + sub4);
-                                        $('#text-promotion-4-' + sub4.toString()).attr("hidden", true);
-                                        $('#val-promotion-4-' + sub4.toString()).attr("hidden", true);
-                                        $('#head-4-' + sub4.toString()).attr("hidden", true);
-                                        sub4++;
-                                    }
-
-                                    if (item.Seq.endsWith(sub4.toString())) {
-                                        if (item.Name.includes("ลงทะเบียน")) {
-                                            var nameParts = item.Name.split(' ');
-                                            var lastPart = nameParts[nameParts.length - 1];
-                                            $('#text-promotion-4-' + sub4.toString()).text(lastPart + ' :');
-                                            $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                            $('#head-4-' + sub4.toString()).removeAttr("Hidden");
-                                            sub4++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("3")) {
-                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
-                                            amtOther = item.Amt_Qty;
-                                            console.log("SUB4 = " + sub4);
-                                            sub4++;
-                                            continue;
-                                        }
-                                        if (item.Seq.endsWith("4")) {
-                                            $('#text-promotion-4-' + sub4.toString()).text(item.Name);
-                                            console.log("SUB4 = " + sub4);
-                                            missOther = item.Amt_Qty;
-                                            sub4++;
-                                            continue;
-                                        }
-                                        $('#text-promotion-4-' + sub4.toString()).text(item.Name + ' :');
-                                        $('#val-promotion-4-' + sub4.toString()).text(commaSeparateNumber(item.Amt_Qty));
-                                        $('#head-4-' + sub4.toString()).removeAttr("Hidden");
-                                        sub4++;
-                                    }
-
-                                }
-
-
-                            }
-                        }
-                        console.log('boolean :' + seqCheck.filter(num => num.toString().startsWith("3")));
-                        var Check2 = seqCheck.filter(num => num.toString().startsWith("2"));
-                        var Check3 = seqCheck.filter(num => num.toString().startsWith("3"));
-                        var Check4 = seqCheck.filter(num => num.toString().startsWith("4"));
-                        if (Check2.length == 0) {
-                            $('#text-promotion-2-1').removeAttr('hidden');
-                            $('#val-promotion-2-1').attr('hidden', true);
-                            $('#head-2-1').removeAttr("Hidden");
-                            $('#text-promotion-2-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        if (Check3.length == 0) {
-
-                            $('#text-promotion-3-1').removeAttr('hidden');
-                            $('#val-promotion-3-1').attr('hidden', true);
-                            $('#head-3-1').removeAttr("Hidden");
-                            $('#text-promotion-3-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        if (Check4.length == 0) {
-                            console.log("No 4 Check!!!");
-                            $('#text-promotion-4-1').removeAttr('hidden');
-                            $('#val-promotion-4-1').attr('hidden', true);
-                            $('#head-4-1').removeAttr("Hidden");
-                            $('#text-promotion-4-1').text("ไม่พบการลงทะเบียน");
-                        }
-                        console.log(amtQuater + '/' + missQuater);
-                        sumYear = Number(amtYear) + Number(missYear);
-                        sumQuater = Number(amtQuater) + Number(missQuater);
-                        sumOther = Number(amtOther) + Number(missOther);
-                        $('#progress-year-amt').css('width', getPercentAmt(amtYear, sumYear));
-                        $('#progress-quater-amt').css('width', getPercentAmt(amtQuater, sumQuater));
-                        $('#progress-other-amt').css('width', getPercentAmt(amtOther, sumOther));
-
-                        if (amtYear != "" && missYear != "") {
-                            $('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
-                        }
-                        if (amtQuater != "" && missQuater != "") {
-                            $('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
-
-                        }
-                        if (amtOther != "" && missOther != "") {
-                            $('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
-                        }
-                        //$('#amt-year').text(commaSeparateNumber(amtYear) + ' / ' + commaSeparateNumber(missYear));
-                        //$('#amt-quater').text(commaSeparateNumber(amtQuater) + ' / ' + commaSeparateNumber(missQuater));
-                        //$('#amt-other').text(commaSeparateNumber(amtOther) + ' / ' + commaSeparateNumber(missOther));
-                    }
+                    console.log(data.message);
                 }
             });
         }
 
-    function getPromotion() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-
-            },
-            success: function (data) {
-                if (data.message == "Y") {
-                    console.log("Value");
-                    var item = data.Getdata[0];
-                    var sumYear = Number(data.Getdata[0].amt_qty6) + Number(data.Getdata[0].amt_qty7);
-                    var sumQuater = Number(data.Getdata[0].amt_qty10) + Number(data.Getdata[0].amt_qty11);
-                    var sumOther = Number(data.Getdata[0].amt_qty14) + Number(data.Getdata[0].amt_qty15);
-                    $('#txtPromotion_1').text(commaSeparateNumber(data.Getdata[0].amt_qty1));
-                    $('#txtPromotion_2').text(commaSeparateNumber(data.Getdata[0].amt_qty2));
-                    $('#txtPromotion_3').text(commaSeparateNumber(data.Getdata[0].amt_qty3));
-                    $('#txtPromotion_4').text(commaSeparateNumber(data.Getdata[0].amt_qty4));
-                    $('#txtPromotion_5').text(commaSeparateNumber(data.Getdata[0].amt_qty5));
-                    //$('#txtPromotion_6').text(commaSeparateNumber(data.Getdata[0].amt_qty6));
-                    //$('#txtPromotion_7').text(commaSeparateNumber(data.Getdata[0].amt_qty7));
-                    $('#txtPromotion_8').text(commaSeparateNumber(data.Getdata[0].amt_qty8));
-                    $('#txtPromotion_9').text(commaSeparateNumber(data.Getdata[0].amt_qty9));
-                    //$('#txtPromotion_10').text(commaSeparateNumber(data.Getdata[0].amt_qty10));
-                    $('#txtPromotion_11').text(commaSeparateNumber(data.Getdata[0].amt_qty11));
-                    $('#txtPromotion_12').text(commaSeparateNumber(data.Getdata[0].amt_qty12));
-                    $('#txtPromotion_13').text(commaSeparateNumber(data.Getdata[0].amt_qty13));
-                    //$('#txtPromotion_14').text(commaSeparateNumber(data.Getdata[0].amt_qty14));
-                    $('#txtPromotion_15').text(commaSeparateNumber(data.Getdata[0].amt_qty15));
-
-                    $('#progress-year-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    $('#amt-year').text(commaSeparateNumber(data.Getdata[0].amt_qty6) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty7));
-
-                    $('#progress-quater-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty10, sumQuater));
-                    $('#amt-quater').text(commaSeparateNumber(data.Getdata[0].amt_qty10) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty11));
-
-                    $('#progress-other-amt').css('width', getPercentAmt(data.Getdata[0].amt_qty14, sumOther));
-                    $('#amt-other').text(commaSeparateNumber(data.Getdata[0].amt_qty14) + ' / ' + commaSeparateNumber(data.Getdata[0].amt_qty15));
-                    console.log('Sum :' + sumYear);
-                    console.log('Percent ' + getPercentAmt(data.Getdata[0].amt_qty6, sumYear));
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        if (item.TopicID == "5") {
-
-                        }
-                    }
-                }
+        function toggleRowAndButton(row, index) {
+            var text = $('#row-show-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
             }
-        });
-    }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
+        function toggleRowColDetail(row,index,comp) {
+            var text = $('#show-sales-'+comp+'-icon-' + index);
+            if (text.text() === '+') {
+                text.text("-");
+                //$('#')
+            } else {
+                text.text("+");
+            }
+            // เพิ่มการแสดง/ซ่อนข้อมูลเพิ่มเติม
+            var targetId = row.getAttribute('data-bs-target');
+            var targetElement = document.getElementById(targetId.substring(1));
+            $(targetElement).collapse('toggle');
+        }
 
 
-
-        function getServiceLevel() {
+        //รายละเอียดเลข invoice
+        function getDetailCusinv(DocNum) {
+            $('#cusMonthItemModal').modal('show');
+            $('#docno-item').text(DocNum);
             $.ajax({
-                url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
+                url: '@Url.Action("GetCusinvDetail", "CustomerDashboard")',
                 data: {
-                    CUSCOD: '110L0003',
-                    TOPIC: 'Service Level'
+                    Docno: DocNum
                 },
                 type: "POST",
                 dataType: "JSON",
                 beforeSend: function () {
-
-                    $('#service-level-delivery').html("");
-
-                    var SubmitPage = 'Loading...';
-
-                    $('#service-level-delivery').text(SubmitPage);
-
+                    $('#namecus-item').text("");
+                    $('#cusMonthItemDetail tbody').html("");
+                    var SubmithtmlPage = "";
+                    SubmithtmlPage += '<tr>';
+                    SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
+                    SubmithtmlPage += '</tr>';
+                    $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
                 },
                 success: function (data) {
+                    $('#cusMonthItemDetail tbody').html("");
                     if (data.message == "Y") {
-                        var item = data.Getdata[0];
-                        var dlivery = item.amt_qty2 * 100;
-                        $('#service-level-amt').text(commaSeparateNumber(item.amt_qty1));
-                        $('#service-level-delivery').text(dlivery + '%');
+                        var SubmithtmlPage = "";
+                        if (data.Getdata.length != 0) {
+                            var cusName = "";
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                cusName = data.Getdata[i].CUSNAM;
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="text-center">' + data.Getdata[i].Company + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate text-center">' + data.Getdata[i].STKCOD + '</td>';
+                                SubmithtmlPage += '<td class="text-truncate" align="left" style="max-width: 300px;">' + data.Getdata[i].STKDES + '</td>';
+                                SubmithtmlPage += '<td style="text-align: center;">' + commaSeparateNumber(data.Getdata[i].Qty) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Unit_Price) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(Math.abs(data.Getdata[i].Discount)) + '</td>';
+                                SubmithtmlPage += '<td class="text-right">' + commaSeparateNumber(data.Getdata[i].Amount) + '</td>';
+                                SubmithtmlPage += '</tr>';
 
+                            }
+                            $('#namecus-item').text(cusName);
+                            $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+                        }
+                    }
+                    else {
+                        console.log("Error : "+data.message);
                     }
                 }
             });
         }
-        function getAmt() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardServiceLevelAndAmt", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Purchase'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#amt-discount').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#amt-discount').text(SubmitPage);
+        //ดึงข้อมูล credit
+        function getCreditCus(cus) {
+            $.ajax({
+                url: '@Url.Action("Credit_Cus", "CustomerDashboard")',
+                data: {
+                    cuscod: cus
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        var lastInvoiceDate = data.credits[0].LASIVC;
 
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#amt-all').text(commaSeparateNumber(item.amt_qty1));
-                            $('#amt-discount').text(commaSeparateNumber(item.amt_qty2));
+                        $('#cr-date').text(lastInvoiceDate);
+                        var aaccrbal = data.credits[0].AACCRLINE;
+                        var taccrbal = data.credits[0].TACCRLINE;
+                        var ompcrbal = data.credits[0].OMPCRLINE;
 
-                        }
+                        var aacbal = data.credits[0].AACBAL;
+                        var tacbal = data.credits[0].TACBAL;
+                        var ompbal = data.credits[0].OMPBAL;
+
+                        var resaacbal = Number(aaccrbal) - Number(aacbal);
+                        var restacbal = Number(taccrbal) - Number(tacbal);
+                        var resompbal = Number(ompcrbal) - Number(ompbal);
+
+                        var aacbaldue = data.credits[0].AACBALDue;
+                        var tacbaldue = data.credits[0].TACBALDue;
+                        var ompbaldue = data.credits[0].OMPBALDue;
+
+                        var creditdue = data.credits[0].AACPAYTR;
+                        var aacbildue = data.credits[0].AACBilDue;
+                        var tacbildue = data.credits[0].TACBilDue;
+                        var ompbildue = data.credits[0].OMPBilDue;
+
+                        $('#credit-duedate').text(creditdue);
+
+                        $('#aac-crline').text(commaSeparateNumber(aaccrbal));
+                        $('#tac-crline').text(commaSeparateNumber(taccrbal));
+                        $('#omp-crline').text(commaSeparateNumber(ompcrbal));
+
+                        $('#aac-bal').text(commaSeparateNumber(aacbal));
+                        $('#tac-bal').text(commaSeparateNumber(tacbal));
+                        $('#omp-bal').text(commaSeparateNumber(ompbal));
+
+                        $('#aac-res').text(commaSeparateNumber(resaacbal.toString()));
+                        $('#tac-res').text(commaSeparateNumber(restacbal.toString()));
+                        $('#omp-res').text(commaSeparateNumber(resompbal.toString()));
+
+                        $('#aac-baldue').text(commaSeparateNumber(aacbaldue));
+                        $('#tac-baldue').text(commaSeparateNumber(tacbaldue));
+                        $('#omp-baldue').text(commaSeparateNumber(ompbaldue));
+
+                        $('#aac-bildue-date').text(aacbildue);
+                        $('#tac-bildue-date').text(tacbildue);
+                        $('#omp-bildue-date').text(ompbildue);
+
+
+
                     }
-                });
-        }
-            function getBackorder() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoardBackOrder", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: '110L0003',
-                        TOPIC: 'Back Order'
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#backorder-money').html("");
-                        var SubmitPage = 'Loading...';
-                        $('#backorder-money').text(SubmitPage);
-
-                    },
-                    success: function (data) {
-                        if (data.message == "Y") {
-                            var item = data.Getdata[0];
-                            $('#backorder-product').text(commaSeparateNumber(item.amt_qty1));
-                            $('#backorder-money').text(commaSeparateNumber(item.amt_qty2));
-                            $('#backorder-total').text(commaSeparateNumber(item.amt_qty3));
-
-
-                        }
-                    }
-                });
-            }
-
-
-    function getDashboardNotable() {
-        $.ajax({
-            url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-            data: {
-                CUSCOD: cuscod
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $('#amt-discount').html("");
-                $('#service-level-delivery').html("");
-                $('#backorder-money').html("");
-                var SubmitPage = 'Loading...';
-                $('#amt-discount').text(SubmitPage);
-                $('#service-level-delivery').text(SubmitPage);
-                $('#backorder-money').text(SubmitPage);
-            },
-            success: function (data) {
-                if (data.Getdata.length > 0) {
-                    for (var i = 0; i < data.Getdata.length; i++) {
-                        var item = data.Getdata[i];
-                        //if (item.Topic == "Service Level") {
-                        //    if (item.Name == "จำนวนสั่งซื้อ") {
-                        //        $('#service-level-amt').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่งทันตามกำหนด") {
-                        //        var dlivery = item.Amt_Qty * 100;
-                        //        $('#service-level-delivery').text(dlivery+'%');
-                        //    }
-                        //}
-                        //if (item.Topic =="Purchase") {
-                        //    if (item.Name == "ยอดซื้อทั้งหมด") {
-                        //        $('#amt-all').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //    if (item.Name == "ส่วนลดเงินสด") {
-
-                        //        $('#amt-discount').text(commaSeparateNumber(item.Amt_Qty));
-                        //    }
-                        //}
-                        if (item.Topic == "Back Order") {
-                            if (item.Name == "จำนวนเบอร์สินค้า") {
-                                $('#backorder-product').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "เงิน") {
-                                $('#backorder-money').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                            if (item.Name == "จำนวน") {
-                                $('#backorder-total').text(commaSeparateNumber(item.Amt_Qty));
-                            }
-                        }
+                    else {
+                        console.log(data.message);
                     }
                 }
-            }
-        });
-        }
-        function shortenLabel(label, maxLength) {
-            if (label.length > maxLength) {
-                return label.substring(0, maxLength - 3) + "...";
-            }
-            return label;
+            });
         }
 
-    function getTop5() {
-                $.ajax({
-                    url: '@Url.Action("GetDashBoard", "CustomerDashboard")',
-                    data: {
-                        CUSCOD: cuscod
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () {
-                        $('#table-top5').html("");
-                        var Submithtml = "";
-                        Submithtml += '<tr>';
-                        Submithtml += '<td colspan="9" align="left"><span class="font-weight-bold">Loading...<span></td>';
-                        Submithtml += '</tr>';
-                        $('#table-top5').append(Submithtml);
-                    },
-                    success: function (data) {
-                        $('#table-top5').html("");
-                        var Submithtml = "";
-                        var countTop = 0;
-                        var labels = [];
-                        var dataValues = [];
-                        var colors = [];
-                        var seriesData = [];
-                        if (data.Getdata.length > 0) {
-                            $('#top5-chart').removeAttr("hidden");
-                            if (top5chart) {
-                                top5chart.destroy();
-                            }
-                            for (var i = 0; i < data.Getdata.length; i++) {
-                                var item = data.Getdata[i];
-                                if (item.Topic == "Top 5") {
-                                    ++countTop;
-                                    labels.push(countTop + '.' + item.Name);
-                                    dataValues.push(Math.floor(item.Amt_Qty));
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            // var parts = dateStr.split('/');
+            var parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+            var day = parseInt(parts[0], 10) + 1;
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+            var date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
 
-                                    // Add data to series
-                                    seriesData.push({
-                                        values: [Math.floor(item.Amt_Qty)],
-                                        text: countTop + '.' + item.Name,
-                                        backgroundColor: colors[countTop - 1] || 'rgb(201, 203, 207)' // use existing color or default color
-                                    });
 
-                                    switch (countTop) {
-                                        case 1:
-                                            colors.push('rgb(75, 192, 192)');
-                                            break;
-                                        case 2:
-                                            colors.push('rgb(54, 162, 235)');
-                                            break;
-                                        case 3:
-                                            colors.push('rgb(255, 99, 132)');
-                                            break;
-                                        case 4:
-                                            colors.push('rgb(255, 205, 86)');
-                                            break;
-                                        case 5:
-                                            colors.push('rgb(153, 102, 255)');
-                                            break;
-                                        default:
-                                            colors.push('rgb(201, 203, 207)');
-                                    }
-                                }
-                            }
-
-                            var myConfig = {
-                                type: "pie",
-                                plot: {
-                                    borderColor: "#2B313B",
-                                    borderWidth: 5,
-                                    valueBox: {
-                                        placement: 'out',
-                                        text: '%t\n%npv%',
-                                        fontFamily: "Open Sans"
-                                    },
-                                    tooltip: {
-                                        fontSize: '18',
-                                        fontFamily: "Open Sans",
-                                        padding: "5 10",
-                                        text: "%npv%"
-                                    },
-                                    animation: {
-                                        effect: 2,
-                                        method: 5,
-                                        speed: 900,
-                                        sequence: 1,
-                                        delay: 3000
-                                    }
-                                },
-                                source: {
-                                    text: 'gs.statcounter.com',
-                                    fontColor: "#8e99a9",
-                                    fontFamily: "Open Sans"
-                                },
-                                title: {
-                                    fontColor: "#8e99a9",
-                                    text: 'Top 5 Data',
-                                    align: "left",
-                                    offsetX: 10,
-                                    fontFamily: "Open Sans",
-                                    fontSize: 25
-                                },
-                                subtitle: {
-                                    offsetX: 10,
-                                    offsetY: 10,
-                                    fontColor: "#8e99a9",
-                                    fontFamily: "Open Sans",
-                                    fontSize: "16",
-                                    text: 'Dynamic Data',
-                                    align: "left"
-                                },
-                                plotarea: {
-                                    margin: "20 0 0 0"
-                                },
-                                series: seriesData // Use the dynamically created series data
-                            };
-
-                            zingchart.render({
-                                id: 'top5-chart',
-                                data: myConfig,
-                                height: '100%',
-                                width: '100%'
-                            });
-                            console.log("Graph Creation");
-
-                        }
-                    }
-                });
+        function myFunction() {
+            var x = document.getElementById("blcslm");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#selslm").val("ALL");
+            } else {
+                x.style.display = "none";
+                $("#selcus").prop("disabled", false);
             }
+        }
 
-
-
-    function getDeliveryTrackAmt() {
-        $.ajax({
-             url: '@Url.Action("GetAlertDeliveryTracking", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    var alert_accept = 0;
-                    var alert_packing = 0;
-                    var alert_delivery = 0;
-                    var alert_arrive = 0;
-                    var total_delivery = 0;
-                    if (res.Getdata.length > 0) {
-                        alert_accept = res.Getdata[0].Order;
-                        alert_packing = res.Getdata[0].Pack;
-                        alert_delivery = res.Getdata[0].Deliver;
-                        alert_arrive = res.Getdata[0].Arrive;
-                        total_delivery = alert_accept + alert_packing + alert_delivery + alert_arrive;
-                        $('#total_deliverytrack').text(commaSeparateNumber(total_delivery));
-
-                    }
-                }
-                else {
-                    console.log(res.message);
-                }
-            }
+        //ปุ่มยอดซื้อ
+        $(document).on("click", "#navbaramount", function () {
+            window.location.replace("../CustomerDashboard/index");
         });
-    }
-    function getBackorderAmt() {
-        var typeS = 0;
-        var backorder = 0;
-        var total = 0;
-        $.ajax({
-             url: '@Url.Action("getbackorder_S_notify", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    if (res.backorder.length > 0) {
-                        typeS = res.backorder.length;
-                    }
-                }
-                else {
-                    console.log("Error S : " + res.message);
-                }
-            }
+        //ปุ่มสินค้าค้างส่ง
+        $(document).on("click", "#navbarpending", function () {
+            window.location.replace("../CustomerDashboard/PendingDeliver");
         });
-        $.ajax({
-             url: '@Url.Action("getbackorder_notify", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (res) {
-                if (res.message == "Y") {
-                    if (res.backorder.length > 0) {
-                        backorder = res.backorder.length;
-                        total = typeS + backorder;
-                        console.log("TypeS is :" + typeS);
-                        console.log("BO is " + backorder);
-                        $('#backorder-amt').text(commaSeparateNumber(total));
-                    }
-                }
-                else {
-                    console.log("Error S : " + res.message);
-                }
-            }
+        //ปุ่มสถานะการสั่งซื้อ
+        $(document).on("click", "#navbardeliverytrack", function () {
+            window.location.replace("../CustomerDashboard/DeliveryTrack");
         });
-    }
-    function getWarrantyAmt() {
-        var total = 0;
-        $.ajax({
-             url: '@Url.Action("GetWarrantyCount", "CustomerDashboard")',
-             data: {
-                 CUSCOD: cuscod
-             },
-             type: "POST",
-            dataType: "JSON",
-            success: function (data) {
-                if (data.length > 0) {
-                    var waiting = data[0].A != "" ? data[0].A : "0";
-                    var inprogress = data[0].B != "" ? data[0].B : "0";
-                    var approve = data[0].C != "" ? data[0].C : "0";
-                    var refuse = data[0].D != "" ? data[0].D : "0";
-                    total = Number(waiting) + Number(approve) + Number(refuse);
-                    $('#warranty-amt').text(commaSeparateNumber(total));
-                }
-            }
+        //ปุ่มรายการเคลม
+        $(document).on("click", "#navbarwarranty", function () {
+            window.location.replace("../CustomerDashboard/Warranty");
         });
-    }
+        //ปุ่มโปรโมชัน
+        $(document).on("click", "#navbarpromotion", function () {
+            window.location.replace("../CustomerDashboard/Promotion");
+        });
+        //ปุ่มเครดิต
+        $(document).on("click", "#navbarcredit", function () {
+            window.location.replace("../CustomerDashboard/Credit");
+        });
+        //ปุ่มเปลี่ยนรหัสผ่าน
+        $(document).on("click", "#navbarchangepassword", function () {
+            window.location.replace("../Account/ChangePasswordPortal?page=amount");
+        });
 
-    //ปุ่มยอดซื้อ
-    $(document).on("click", "#menu_amt", function () {
-        window.location.href ="../CustomerDashboard/index";
-    });
-    //ปุ่มสินค้าค้างส่ง
-    $(document).on("click", "#menu_backorder", function () {
-        window.location.href = "../CustomerDashboard/PendingDeliver";
-    });
-    //ปุ่มสถานะการสั่งซื้อ
-    $(document).on("click", "#menu_deliverytracking", function () {
-        window.location.href = "../CustomerDashboard/DeliveryTrack";
-    });
-    //ปุ่มรายการเคลม
-    $(document).on("click", "#menu_warranty", function () {
-        window.location.href = "../CustomerDashboard/Warranty";
-    });
-    //ปุ่มโปรโมชัน
-    $(document).on("click", "#menu_promotion", function () {
-        window.location.href = "../CustomerDashboard/Promotion";
-    });
-    //ปุ่มเครดิต
-    $(document).on("click", "#menu_credit", function () {
-        window.location.href = "../CustomerDashboard/Credit";
-    });
     </script>
+    <script src="~/Scripts/carousel-slider/js/jssor.slider-28.1.0.min.js"></script>
 </body>
 </html>

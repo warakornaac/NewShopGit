@@ -534,6 +534,13 @@
                 .tab-buttons button.active {
                     background-color: #008cba;
                 }
+
+        .sticky-head {
+            position: sticky !important;
+            top: 0;
+            background-color: white;
+            z-index: 3 !important;
+        }
     </style>
 
     @*table*@
@@ -560,6 +567,10 @@
             span {
                 font-size: 12px;
             }
+        }
+
+        .dt-layout-row {
+            margin: 0 !important;
         }
     </style>
 </head>
@@ -648,12 +659,12 @@
                                                     <thead>
                                                         <tr>
                                                             <th></th>
-                                                            <th>ปี</th>
-                                                            <th>มูลค่าของรางวัลที่ลงทะเบียน</th>
-                                                            <th>มูลค่าของรางวัลที่รับแล้ว</th>
-                                                            <th>ตั๋วรางวัลสะสม (ใบ)</th>
-                                                            <th>มูลค่าของรางวัลที่รอจ่าย</th>
-                                                            <th>ภาษีที่ทำการหัก</th>
+                                                            <th class="text-center">ปี</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่ลงทะเบียน</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่จ่ายแล้ว</th>
+                                                            <th class="text-center">ตั๋วรางวัลสะสม (ใบ)</th>
+                                                            <th class="text-center">มูลค่าของรางวัลที่รอจ่าย</th>
+                                                            <th class="text-center">ภาษีที่ทำการหัก</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table"></tbody>
@@ -693,18 +704,18 @@
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-yearly-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center">โปรโมชั่น</th>
-                                                                <th class="text-center">วันเริ่ม</th>
-                                                                <th class="text-center">วันสื้นสุด</th>
-                                                                <th class="text-center">เงื่อนไข</th>
-                                                                <th class="text-center">ยอดซื้อสะสม</th>
-                                                                <th class="text-center">ยังขาดอีก</th>
-                                                                <th class="text-center">ของรางวัล</th>
-                                                                <th class="text-center">สถานะ</th>
-                                                                <th class="text-center">วันรับของรางวัล</th>
-                                                                <th class="text-center">ผู้รับ</th>
-                                                                <th class="text-center">หักภาษี</th>
+                                                                <th class="sticky-head">&nbsp;</th>
+                                                                <th class="text-center sticky-head p-0">โปรโมชั่น</th>
+                                                                <th class="text-center sticky-head p-0">วันเริ่ม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center sticky-head p-0">เงื่อนไข</th>
+                                                                <th class="text-center sticky-head p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center sticky-head p-0">ของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">สถานะ</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">ผู้รับ</th>
+                                                                <th class="text-center sticky-head p-0">หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -714,18 +725,18 @@
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-quarter-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center">โปรโมชั่น</th>
-                                                                <th class="text-center">วันเริ่ม</th>
-                                                                <th class="text-center">วันสื้นสุด</th>
-                                                                <th class="text-center">เงื่อนไข</th>
-                                                                <th class="text-center">ยอดซื้อสะสม</th>
-                                                                <th class="text-center">ยังขาดอีก</th>
-                                                                <th class="text-center">ของรางวัล</th>
-                                                                <th class="text-center">สถานะ</th>
-                                                                <th class="text-center">วันรับของรางวัล</th>
-                                                                <th class="text-center">ผู้รับ</th>
-                                                                <th class="text-center">หักภาษี</th>
+                                                                <th class="sticky-head">&nbsp;</th>
+                                                                <th class="text-center sticky-head p-0">โปรโมชั่น</th>
+                                                                <th class="text-center sticky-head p-0">วันเริ่ม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center sticky-head p-0">เงื่อนไข</th>
+                                                                <th class="text-center sticky-head p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center sticky-head p-0">ของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">สถานะ</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">ผู้รับ</th>
+                                                                <th class="text-center sticky-head p-0">หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -735,18 +746,18 @@
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-other-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center">โปรโมชั่น</th>
-                                                                <th class="text-center">วันเริ่ม</th>
-                                                                <th class="text-center">วันสื้นสุด</th>
-                                                                <th class="text-center">เงื่อนไข</th>
-                                                                <th class="text-center">ยอดซื้อสะสม</th>
-                                                                <th class="text-center">ยังขาดอีก</th>
-                                                                <th class="text-center">ของรางวัล</th>
-                                                                <th class="text-center">สถานะ</th>
-                                                                <th class="text-center">วันรับของรางวัล</th>
-                                                                <th class="text-center">ผู้รับ</th>
-                                                                <th class="text-center">หักภาษี</th>
+                                                                <th class="sticky-head">&nbsp;</th>
+                                                                <th class="text-center sticky-head p-0">โปรโมชั่น</th>
+                                                                <th class="text-center sticky-head p-0">วันเริ่ม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center sticky-head p-0">เงื่อนไข</th>
+                                                                <th class="text-center sticky-head p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center sticky-head p-0">ของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">สถานะ</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">ผู้รับ</th>
+                                                                <th class="text-center sticky-head p-0">หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -756,18 +767,18 @@
                                                     <table class="table table-striped table-bordered table-hover mb-0 " id="promotion-all-table" style="padding: 7px;font-size: small;">
                                                         <thead style="font-size: small;">
                                                             <tr>
-                                                                <th>&nbsp;</th>
-                                                                <th class="text-center">โปรโมชั่น</th>
-                                                                <th class="text-center">วันเริ่ม</th>
-                                                                <th class="text-center">วันสื้นสุด</th>
-                                                                <th class="text-center">เงื่อนไข</th>
-                                                                <th class="text-center">ยอดซื้อสะสม</th>
-                                                                <th class="text-center">ยังขาดอีก</th>
-                                                                <th class="text-center">ของรางวัล</th>
-                                                                <th class="text-center">สถานะ</th>
-                                                                <th class="text-center">วันรับของรางวัล</th>
-                                                                <th class="text-center">ผู้รับ</th>
-                                                                <th class="text-center">หักภาษี</th>
+                                                                <th class="sticky-head">&nbsp;</th>
+                                                                <th class="text-center sticky-head p-0">โปรโมชั่น</th>
+                                                                <th class="text-center sticky-head p-0">วันเริ่ม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันสื้นสุด</th>
+                                                                <th class="text-center sticky-head p-0">เงื่อนไข</th>
+                                                                <th class="text-center sticky-head p-0">ยอดซื้อสะสม</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">ยังขาดอีก</th>
+                                                                <th class="text-center sticky-head p-0">ของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">สถานะ</th>
+                                                                <th class="text-center sticky-head text-truncate p-0">วันจ่ายของรางวัล</th>
+                                                                <th class="text-center sticky-head p-0">ผู้รับ</th>
+                                                                <th class="text-center sticky-head p-0">หักภาษี</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody></tbody>
@@ -885,18 +896,18 @@
                                 </div>
                                 <hr />
                                 <div class="col-12">
-                                    <div class="table-responsive m-0 table-style-scroll overflow-auto">
+                                    <div class="table-responsive m-0 table-style overflow-auto">
                                         <table class="table table-striped table-bordered mb-0" id="tblpromotiondetail" style="padding: 7px;font-size: small;">
                                             <thead style="font-size: small;">
                                                 <tr>
-                                                    <th class="text-center"><span>บริษัท</span></th>
-                                                    <th class="text-center"><span>เบอร์สินค้า</span></th>
-                                                    <th><span>ชื่อสินค้า</span></th>
-                                                    <th class="text-center"><span>วันสั่งซื้อ</span></th>
-                                                    <th class="text-center"><span>เลขสั่งซื้อ</span></th>
-                                                    <th><span>ราคาสินค้า</span></th>
-                                                    <th class="text-center"><span>จำนวน</span></th>
-                                                    <th class="text-center"><span>ยอดซื้อ</span></th>
+                                                    <th class="text-center sticky-head"><span>บริษัท</span></th>
+                                                    <th class="text-center sticky-head"><span>เบอร์สินค้า</span></th>
+                                                    <th class="text-center sticky-head"><span>ชื่อสินค้า</span></th>
+                                                    <th class="text-center sticky-head"><span>วันสั่งซื้อ</span></th>
+                                                    <th class="text-center sticky-head"><span>เลขสั่งซื้อ</span></th>
+                                                    <th class="text-center sticky-head text-truncate"><span>ราคาสินค้า</span></th>
+                                                    <th class="text-center sticky-head"><span>จำนวน</span></th>
+                                                    <th class="text-center sticky-head"><span>ยอดซื้อ</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -919,6 +930,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/dashboard/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.5/cr-2.0.4/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/rr-1.5.0/sc-2.4.3/sb-1.8.0/sp-2.3.2/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.25/sorting/datetime-moment.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.5/sorting/numeric-comma.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -935,6 +952,7 @@
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
         var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
+        //var cuscod ='110T0239';
 
         const queryString = decodeURIComponent(window.location.search);
         const params = new URLSearchParams(queryString);
@@ -960,6 +978,10 @@
 
         }
         $(document).ready(function () {
+            $.fn.dataTable.moment('DD-MM-YY');
+            $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
+                return parseFloat(data.replace(/,/g, ''));
+            };
             getYearpromotion();
             $('.table-quarter').hide();
             $('.table-other').hide();
@@ -1275,13 +1297,13 @@
                         if (data.Getdata.length != 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
                                 SubmithtmlPag += '<tr id="pro-year-' + data.Getdata[i].Year + '" onclick="yearPromotion(' + '\'' + data.Getdata[i].Year + '\'' + ')" ' + (arrayPriod.includes(page) ? (CurrentY == data.Getdata[i].Year ? ' style="background-color:#DEAF5B;"' : '') : '') + '>';
-                                SubmithtmlPag += '<td><i class="fa fa-search" aria-hidden="true"></i></td>';
-                                SubmithtmlPag += '<td>' + data.Getdata[i].Year + '</td>';
-                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
-                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Paid_Amount) + '</td>';
-                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Ticket) + '</td>';
-                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].Waiting_Amount) + '</td>';
-                                SubmithtmlPag += '<td>' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
+                                SubmithtmlPag += '<td class="text-center"><i class="fa fa-search" aria-hidden="true"></i></td>';
+                                SubmithtmlPag += '<td class="text-center">' + data.Getdata[i].Year + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Reward_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Paid_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Ticket) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].Waiting_Amount) + '</td>';
+                                SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
                                 SubmithtmlPag += '</tr>';
                             }
                             $('#table-promotion-year tbody').append(SubmithtmlPag);
@@ -1441,12 +1463,81 @@
                             if (period === 'yearly') {
                                 console.log("test year");
                                 yearly.append(SubmithtmlPag);
+                                if ($.fn.dataTable.isDataTable('#promotion-yearly-table')) {
+                                    $('#promotion-yearly-table').DataTable().destroy();
+                                }
+                                $('#promotion-yearly-table').DataTable({
+                                    "paging": false,
+                                    "lengthChange": false,
+                                    "searching": false,
+                                    "ordering": true,
+                                    "info": false,
+                                    "autoWidth": false,
+                                    "responsive": false,
+                                    "fixedHeader": false,
+                                    "rowGroup": false,
+                                    "columnDefs": [
+
+                                    ]
+                                });
                             } else if (period === 'quarter') {
                                 quarter.append(SubmithtmlPag);
+                                if ($.fn.dataTable.isDataTable('#promotion-quarter-table')) {
+                                    $('#promotion-quarter-table').DataTable().destroy();
+                                }
+                                $('#promotion-quarter-table').DataTable({
+                                    "paging": false,
+                                    "lengthChange": false,
+                                    "searching": false,
+                                    "ordering": true,
+                                    "info": false,
+                                    "autoWidth": false,
+                                    "responsive": false,
+                                    "fixedHeader": false,
+                                    "rowGroup": false,
+                                    "columnDefs": [
+
+                                    ]
+                                });
                             } else if (period === 'other') {
                                 other.append(SubmithtmlPag);
+                                if ($.fn.dataTable.isDataTable('#promotion-other-table')) {
+                                    $('#promotion-other-table').DataTable().destroy();
+                                }
+                                $('#promotion-other-table').DataTable({
+                                    "paging": false,
+                                    "lengthChange": false,
+                                    "searching": false,
+                                    "ordering": true,
+                                    "info": false,
+                                    "autoWidth": false,
+                                    "responsive": false,
+                                    "fixedHeader": false,
+                                    "rowGroup": false,
+                                    "columnDefs": [
+
+                                    ]
+                                });
                             } else if (period === 'all') {
+
                                 all.append(SubmithtmlPag);
+                                if ($.fn.dataTable.isDataTable('#promotion-all-table')) {
+                                    $('#promotion-all-table').DataTable().destroy();
+                                }
+                                $('#promotion-all-table').DataTable({
+                                    "paging": false,
+                                    "lengthChange": false,
+                                    "searching": false,
+                                    "ordering": true,
+                                    "info": false,
+                                    "autoWidth": false,
+                                    "responsive": false,
+                                    "fixedHeader": false,
+                                    "rowGroup": false,
+                                    "columnDefs": [
+
+                                    ]
+                                });
                             }
                         }
                         else {
@@ -1486,6 +1577,7 @@
                 type: 'POST',
                 dataType: 'JSON',
                 beforeSend: function () {
+                    $('#tblpromotiondetail').DataTable().destroy();
                     var SubmithtmlPage = '';
                     var descript = "";
                     $('#prodes').text("");
@@ -1508,7 +1600,7 @@
                                 SubmithtmlPage += '<tr>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Company + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center"><p class="m-0 text-truncate"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
-                                SubmithtmlPage += '<td><span>' + data.Getdata[i].STKDES + '</span></td>';
+                                SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
                                 SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT + '</span></p></td>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].DOCNUM + '</span></td>';
                                 SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].SP_LCY) + '</span></td>';
@@ -1519,10 +1611,28 @@
                             }
                             desPro.text(descript);
                             table.append(SubmithtmlPage);
+                            if ($.fn.dataTable.isDataTable('#tblpromotiondetail')) {
+                                $('#tblpromotiondetail').DataTable().destroy();
+                            }
+                            $('#tblpromotiondetail').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": false,
+                                "autoWidth": false,
+                                "responsive": false,
+                                "fixedHeader": false,
+                                "rowGroup": false,
+                                "columnDefs": [
+
+                                ]
+                            });
+
                         }
                         else {
                             SubmithtmlPage += '<tr>';
-                            SubmithtmlPage += '<td class="text-center" colspan="8"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
+                            SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
                             SubmithtmlPage += '</tr>';
                             table.append(SubmithtmlPage);
                         }
