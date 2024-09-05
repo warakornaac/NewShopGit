@@ -207,7 +207,7 @@ namespace NewShop.Controllers
             string message = "";
             try
             {
-                var cmd = new SqlCommand("P_Search_Notify_Dashboard_Arm", Connection);
+                var cmd = new SqlCommand("P_Search_Notify_Dashboard", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inCuscod", CUSCOD);
                 SqlDataReader reader = cmd.ExecuteReader();
