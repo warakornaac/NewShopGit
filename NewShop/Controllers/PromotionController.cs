@@ -133,9 +133,10 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(promotionList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetPromotionDetail(string promotionCode)
+        public ActionResult GetPromotionDetail(string promotionCode, string slmCode)
         {
             string message = "";
+            int countList = 0;
             List<listPromotionDetail> promotionDetailList = new List<listPromotionDetail>();
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -145,9 +146,14 @@ namespace NewShop.Controllers
                 var command = new SqlCommand("P_Search_Promotion_Detail", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inSlmCode", slmCode);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
+                    ++countList;
+                    if (countList == 1) {
+                        @ViewBag.RegisterExpireDate = reader["RegisterExpireDate"].ToString();
+                    }
                     promotionDetailList.Add(new listPromotionDetail()
                     {
                         Promotion_Code = reader["Promotion_Code"].ToString(),
@@ -157,7 +163,8 @@ namespace NewShop.Controllers
                         Description = reader["Description"].ToString(),
                         Condition = reader["Condition"].ToString(),
                         Reward = reader["Reward"].ToString(),
-                        Reward_Percent = reader["Reward_Percent"].ToString()
+                        Reward_Percent = reader["Reward_Percent"].ToString(),
+                        Count_reg = reader["Count_reg"].ToString()
                     });
                 }
                 //if (Getdata.Any())
@@ -181,6 +188,7 @@ namespace NewShop.Controllers
             return PartialView("_DetailPromotionRegister", new
             {
                 @ViewBag.promotionDetailList,
+                @ViewBag.RegisterExpireDate,
                 @ViewBag.messageError
             });
         }
@@ -294,9 +302,8 @@ namespace NewShop.Controllers
         {
             string user = Session["UserID"].ToString();
             string flagSup = string.Empty;
-
             List<SelectListItem> slmCodeList = new List<SelectListItem>();
-
+            List<SelectListItem> productList = new List<SelectListItem>();
             using (SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString))
             {
                 Connection.Open();
@@ -312,11 +319,22 @@ namespace NewShop.Controllers
                 }
                 dr.Close();
                 command.Dispose();
+
+                command = new SqlCommand("P_Price_Approve_Data", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUsrID", user);
+                command.Parameters.AddWithValue("@inType", 4);
+                SqlDataReader dr2 = command.ExecuteReader();
+                while (dr2.Read())
+                {
+                    productList.Add(new SelectListItem() { Value = dr2["PROD"].ToString(), Text = dr2["PROD"].ToString() + "/" + dr2["PRODNAM"].ToString() });
+                }
+                dr2.Close();
                 command.Dispose();
             }
 
             ViewBag.slmCodeList = slmCodeList;
-            ViewBag.pmCodeList = GetProductName(user);
+            ViewBag.pmCodeList = productList;
             //ViewBag.slmCode = slmCode == null ? slmCodeDefault : slmCode;
             ViewBag.flagSup = flagSup;
 
@@ -325,35 +343,40 @@ namespace NewShop.Controllers
         public ActionResult GetPromotionApprove(string slmCode, string company, string year, string prodMgr, string promotionCode)
         {
             string message = "Y";
-
-            List<listCustomerApprove> promotionList = new List<listCustomerApprove>();
+            string user = Session["UserID"].ToString();
+            List<listCustomerApprove> promotionChangeList = new List<listCustomerApprove>();
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             try
             {
-                var command = new SqlCommand("P_Search_Customer_Approve", Connection);
+                var command = new SqlCommand("P_Search_Approve_Change_Customer", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inSlmCode", slmCode);
                 command.Parameters.AddWithValue("@inCompany", company);
                 command.Parameters.AddWithValue("@inProd", prodMgr);
                 command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
-                command.Parameters.AddWithValue("@inUser", year);
+                command.Parameters.AddWithValue("@inUser", user);
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    promotionList.Add(new listCustomerApprove()
+                    promotionChangeList.Add(new listCustomerApprove()
                     {
                         Slmcode = dr["SLMCOD"].ToString(),
                         Cuscode = dr["ProCusSelCod"].ToString(),
                         Cusname = dr["CUSNAM"].ToString(),
-                        Promotion_Code = dr["Promotion_Code"].ToString(),
-                        Description_old = dr["Description_old"].ToString(),
-                        Reward_old = dr["Reward_old"].ToString(),
-                        Cost_old = dr["Cost_old"].ToString(),
+                        Date_change = dr["Date_change"].ToString(),
 
-                        Description_new = dr["Description_new"].ToString(),
-                        Reward_new = dr["Reward_new"].ToString(),
+                        Promotion_Code_Old = dr["Promotion_Code_old"].ToString(),
+                        Promotion_Sub_Old = dr["Promotion_Sub_Old"].ToString(),
+                        Description_Old = dr["Description_old"].ToString(),
+                        Reward_Old = dr["Reward_old"].ToString(),
+                        Cost_Old = dr["Cost_old"].ToString(),
+
+                        Promotion_Code_New = dr["Promotion_Code_new"].ToString(),
+                        Promotion_Sub_New = dr["Promotion_Sub_New"].ToString(),
+                        Description_New = dr["Description_new"].ToString(),
+                        Reward_New = dr["Reward_new"].ToString(),
                         Cost_New = dr["Cost_New"].ToString()
                     });
                 }
@@ -368,14 +391,58 @@ namespace NewShop.Controllers
             }
 
             @ViewBag.messageError = message;
-            @ViewBag.promotionList = promotionList;
+            @ViewBag.promotionChangeList = promotionChangeList;
             //@ViewBag.countCustomerReg = countCustomerReg;
             //@ViewBag.textHeader = textHeader;
             return PartialView("_DetailChangeCustomer", new
             {
-                @ViewBag.promotionList,
+                @ViewBag.promotionChangeList,
                 @ViewBag.messageError
             });
+        }
+        [HttpPost]
+        public ActionResult SaveApproveChangeCustomer(listSaveCustomerApprove[] requestData, string user, string flagApprove) //(string Cuscode, string Codeold, string Seqold, string Codenew, string Seqnew, string User, string Flag)
+        {
+            int numSuccess = 0;
+            int numError = 0;
+            string message = "Y";
+            List<listSaveCustomerApprove> promotionChangeList = new List<listSaveCustomerApprove>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            try
+            {
+                if (requestData != null)
+                {
+                    Connection.Open();
+                    foreach (var rowData in requestData)
+                    {
+                        var command = new SqlCommand("P_Save_Approve_Change_Customer", Connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@inCuscode", rowData.Cuscode);
+                        command.Parameters.AddWithValue("@inCodeold", rowData.Codeold);
+                        command.Parameters.AddWithValue("@inSeqold", Convert.ToInt32(rowData.Seqold));
+                        command.Parameters.AddWithValue("@inCodenew", rowData.Codenew);
+                        command.Parameters.AddWithValue("@inSeqnew", Convert.ToInt32(rowData.Seqnew));
+                        command.Parameters.AddWithValue("@inUser", user);
+                        command.Parameters.AddWithValue("@inFlagApprove", flagApprove);
+                        //SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                        //returnValue.Direction = System.Data.ParameterDirection.Output;
+                        //command.Parameters.Add(returnValue);
+                        command.ExecuteNonQuery();
+                        //message = returnValue.Value.ToString();
+                        command.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return Json(new { status = message, numSuccess = numSuccess, numError = numError }, JsonRequestBehavior.AllowGet);
         }
     }
 }

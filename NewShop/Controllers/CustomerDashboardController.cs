@@ -30,7 +30,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=amount");
             }
             List<SelectListItem> BrandList = new List<SelectListItem>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -62,7 +62,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=menu");
             }
             return View();
         }
@@ -71,7 +71,7 @@ namespace NewShop.Controllers
 
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=promotion");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=promotion");
             }
             return View();
 
@@ -80,7 +80,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=PendingDeliver");
             }
             return View();
         }
@@ -88,7 +88,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=PendingDeliver");
             }
             return View();
         }
@@ -96,7 +96,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=deliveryTrack");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=deliveryTrack");
             }
             return View();
         }
@@ -104,7 +104,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=warranty");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=warranty");
 
             }
             return View();
@@ -113,7 +113,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=menu");
             }
             return View();
         }

@@ -36,8 +36,17 @@
     }
 
     input[type=radio] {
-        transform: scale(1.5);
+        transform: scale(1.7);
         cursor: pointer;
+    }
+
+    .badge {
+        position: relative;
+        top: -8px;
+        left: 5px;
+        border: 1px solid #393535;
+        border-radius: 50%;
+        font-size: 14px;
     }
 </style>
 <div class="row">
@@ -52,30 +61,40 @@
                         @*<i class="fa fa-list"></i>*@
                         <span id="txtHeadPromotionDetail"></span>
                     </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
-                        @*@ViewBag.promotionDetailList.Count().ToString("N0") รายการ*@
-                    </div>
+                    @if (@ViewBag.RegisterExpireDate != "")
+                    {
+                        <div class="col-xs-4 col-sm-4 col-md-4 text-right text-danger" style="font-size: 12px;">
+                            Reg Exp date : @ViewBag.RegisterExpireDate
+                        </div>
+                    }
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive" style="margin-bottom: 0;">
                     <table id="tablePromotionDetail" class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
-                            @{
-                                int rowList = 1;
-                                foreach (var rowData in ViewBag.promotionDetailList)
-                                {
-                                    <tr>
-                                        <td class="vcenter sticky-col first-col" style="cursor: pointer;">
-                                            <input type="radio" name="selectPromotion" id="selectPromotion" data-code="@rowData.Promotion_Code" data-seq="@rowData.Seq" data-destype="@rowData.DesType" data-description="@rowData.Description" data-condition="@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))" data-reward="@rowData.Reward"/>
-                                        </td>
-                                        <td class="vcenter">@rowData.DesType</td>
-                                        <td class="vcenter">@rowData.Description</td>
-                                        <td class="vright">@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))</td>
-                                        <td class="vcenter">@rowData.Reward</td>
-                                        <td class="vright">@rowData.Reward_Percent%</td>
-                                    </tr>
-                                }
-                            }
+                        @{
+                            int rowList = 0;
+                            foreach (var rowData in ViewBag.promotionDetailList)
+                            {
+                                ++rowList;
+                                <tr>
+                                    <td class="vcenter sticky-col first-col" style="cursor: pointer;">
+                                        <input type="radio" name="selectPromotionSub" id="selectPromotionSub" data-code="@rowData.Promotion_Code" data-seq="@rowData.Seq" data-destype="@rowData.DesType" data-description="@rowData.Description" data-condition="@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))" data-reward="@rowData.Reward" />
+                                    </td>
+                                    <td class="vcenter">@rowData.DesType</td>
+                                    <td class="vcenter">@rowData.Description</td>
+                                    <td class="vright">
+                                        @string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))
+                                    @if (Convert.ToInt32(rowData.Count_reg) > 0)
+                                    {
+                                        <span class="badge badge-light">@rowData.Count_reg</span>
+                                    }
+                                </td>
+                                <td class="vcenter">@rowData.Reward</td>
+                                <td class="vright">@rowData.Reward_Percent%</td>
+                            </tr>
+                        }
+                        }
                     </table>
                 </div>
             </div>
@@ -94,17 +113,17 @@
             $('#showDetailPromotionRegister').empty();
         });
         //radio เลือก promotion detail
-        $('input:radio').click(function () {
+        $('input[name=selectPromotionSub]:radio').click(function () {
             var msg = '';
             var error = 0;
             var textHeaderDetailPromotion = "";
             var slmCode = $("#slmCode option:selected").val();
-            var promotionCode = $("input[name=selectPromotion]:checked").data('code');
-            var promotionSeq = $("input[name=selectPromotion]:checked").data('seq');
-            var promotionDestype = $("input[name=selectPromotion]:checked").data('destype');
-            var promotionDescription = $("input[name=selectPromotion]:checked").data('description');
-            var promotionCondition = $("input[name=selectPromotion]:checked").data('condition');
-            var promotionReward = $("input[name=selectPromotion]:checked").data('reward');
+            var promotionCode = $("input[name=selectPromotionSub]:checked").data('code');
+            var promotionSeq = $("input[name=selectPromotionSub]:checked").data('seq');
+            var promotionDestype = $("input[name=selectPromotionSub]:checked").data('destype');
+            var promotionDescription = $("input[name=selectPromotionSub]:checked").data('description');
+            var promotionCondition = $("input[name=selectPromotionSub]:checked").data('condition');
+            var promotionReward = $("input[name=selectPromotionSub]:checked").data('reward');
 
             if (promotionCode != null) {
                 textHeaderDetailPromotion += promotionCode + " / ";
@@ -118,9 +137,7 @@
             if (promotionReward != null) {
                 textHeaderDetailPromotion += " (" + promotionReward +")";
             }
-
-            console.log("textHeaderDetailPromotion = " + textHeaderDetailPromotion);
-
+            //console.log("textHeaderDetailPromotion = " + textHeaderDetailPromotion);
             //console.log("slmCode = " + slmCode + " code = " + promotionCode + " seq = " + promotionSeq);
             //set color tr
             $(this).closest('tr').siblings().css('background-color', '').end().css('background-color', 'bisque');
@@ -177,7 +194,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: error.status,
-                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>getCustomerByPromotion<br><br>',
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>radioSelectPromotionSub<br><br>',
                         confirmButtonColor: '#d33',
                         confirmButtonText: 'ปิด',
                         allowOutsideClick: false,
@@ -187,6 +204,5 @@
             }
         });
     });
-
 
 </script>   
