@@ -613,59 +613,59 @@
                             if (result.page == "amount") { //หน้ายอดซื้อ
                                 //alert("amount");
                                 //window.location.assign("@domainName" + "/CustomerDashboard/index");
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/index");
+                                window.location.assign("../CustomerDashboard/index");
                             } else if (page == "promotion") {//หน้าโปรโมชั่น
                                 ////window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Promotion");
+                                window.location.assign("../CustomerDashboard/Promotion");
                             }
                             else if (page == "PendingDelivery") {//หน้าค้างส่ง
                                 ////window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/PendingDeliver");
+                                window.location.assign("../CustomerDashboard/PendingDeliver");
                             }
                             else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
-                                        window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/DeliveryTrack");
+                                        window.location.assign("../CustomerDashboard/DeliveryTrack");
                             }
                             else if (page == "warranty") {//หน้าสถานะการสั่งซื้อ
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Warranty");
+                                window.location.assign("../CustomerDashboard/Warranty");
                             }
                             else if (page == "credit") {
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/Credit");
+                                window.location.assign("../CustomerDashboard/Credit");
                             }
                             else  {
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerMenu");
+                                window.location.assign("../CustomerDashboard/CustomerMenu");
                             }
 
                         }
                         else {
-                            window.location.assign("@domainName" + "/MobileCatalog_Test/CustomerDashboard/CustomerMenu");
+                            window.location.assign("../CustomerDashboard/CustomerMenu");
                         }
                     }
                     //After Forget Password
                     else if (result.message == 'R') {
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=amount");
+                                window.location.assign("../Account/ChangePasswordPortal?page=amount");
                             } else if (page == "promotion") {//หน้าโปรโมชั่น
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=promotion");
+                                window.location.assign("../Account/ChangePasswordPortal?page=promotion");
                             }
                             else if (page == "PendingDelivery") {//หน้าค้างส่ง
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=PendingDelivery");
+                                window.location.assign("../Account/ChangePasswordPortal?page=PendingDelivery");
                             }
                             else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=deliveryTrack");
+                                window.location.assign("../Account/ChangePasswordPortal?page=deliveryTrack");
                             }
                             else if (page == "warranty") {//warranty
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=warranty");
+                                window.location.assign("../Account/ChangePasswordPortal?page=warranty");
                             }
                             else if (page == "credit") {
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=credit");
+                                window.location.assign("../Account/ChangePasswordPortal?page=credit");
                             }
                             else  {//หน้าเมนู
-                                window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal?page=menu");
+                                window.location.assign("../Account/ChangePasswordPortal?page=menu");
                             }
                         }
                         else {
-                            window.location.assign("@domainName" + "/MobileCatalog_Test/Account/ChangePasswordPortal");
+                            window.location.assign("../Account/ChangePasswordPortal");
                         }
                     }
                     else {
