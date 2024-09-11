@@ -982,6 +982,7 @@
         });
 
         $(document).ready(function () {
+            $.fn.dataTable.ext.errMode = 'none';
             $.fn.dataTable.moment('DD-MM-YY');
             $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
                 return parseFloat(data.replace(/,/g, ''));
@@ -1280,21 +1281,21 @@
                                 SubmithtmlPag += '<td align="center" colspan="5"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>Loading...</td>';
                                 SubmithtmlPag += '</tr>';
                                 $('#amt-table tbody').append(SubmithtmlPag);
-                                $('[id^="bill-aac-detail-"]').each(function () {
-                                    if ($.fn.dataTable.isDataTable(this)) {
-                                        $(this).DataTable().destroy();
-                                    }
-                                });
-                                $('[id^="bill-tac-detail-"]').each(function () {
-                                    if ($.fn.dataTable.isDataTable(this)) {
-                                        $(this).DataTable().destroy();
-                                    }
-                                });
-                                $('[id^="bill-omp-detail-"]').each(function () {
-                                    if ($.fn.dataTable.isDataTable(this)) {
-                                        $(this).DataTable().destroy();
-                                    }
-                                });
+                                //$('[id^="bill-aac-detail-"]').each(function () {
+                                //    if ($.fn.dataTable.isDataTable(this)) {
+                                //        $(this).DataTable().destroy();
+                                //    }
+                                //});
+                                //$('[id^="bill-tac-detail-"]').each(function () {
+                                //    if ($.fn.dataTable.isDataTable(this)) {
+                                //        $(this).DataTable().destroy();
+                                //    }
+                                //});
+                                //$('[id^="bill-omp-detail-"]').each(function () {
+                                //    if ($.fn.dataTable.isDataTable(this)) {
+                                //        $(this).DataTable().destroy();
+                                //    }
+                                //});
                                 $("#loading-text-table").text("Loading...");
                             },
                             success: function (result) {
@@ -1725,6 +1726,7 @@
                 type: "POST",
                 dataType: "JSON",
                 beforeSend: function () {
+                    $('#cusMonthItemDetail').DataTable().destroy();
                     $('#namecus-item').text("");
                     $('#cusMonthItemDetail tbody').html("");
                     var SubmithtmlPage = "";
@@ -1732,6 +1734,7 @@
                     SubmithtmlPage += '<td colspan="7"  style="text-align: center;">Loading....</td>';
                     SubmithtmlPage += '</tr>';
                     $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+
                 },
                 success: function (data) {
                     $('#cusMonthItemDetail tbody').html("");

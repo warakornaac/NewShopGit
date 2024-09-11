@@ -190,7 +190,11 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div>
-                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua"><option value="0" data-name="0"></option></select>
+                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua">
+                                            <option value="110Z0001O" data-name="Tru Automotive (Testing)">
+                                                110Z0001O/Tru Automotive (Testing)
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -420,7 +424,8 @@
         $('#clearButton').click(function () {
             var select = $("#selcus");
             select.children().remove();
-            select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+            select.append($("<option>").val("110Z0001O").attr("data-name", "Tru Automotive (Testing)").text("110Z0001O/Tru Automotive (Testing)"));
+
             $('#selcus').selectpicker('refresh');
         });
     </script>

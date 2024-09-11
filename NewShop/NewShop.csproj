@@ -146,6 +146,7 @@
     <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\Home3Controller.cs" />
     <Compile Include="Controllers\LogInRedirController.cs" />
+    <Compile Include="Controllers\ManagementCustomerportalUserController.cs" />
     <Compile Include="Controllers\MonitorPackingController.cs" />
     <Compile Include="Controllers\OrderingReportController.cs" />
     <Compile Include="Controllers\OrderlistController.cs" />
@@ -7873,6 +7874,8 @@
     <Content Include="Views\CustomerDashboard\_OrderHistoryByBrand.cshtml" />
     <Content Include="Views\CustomerDashboard\MenuTest.cshtml" />
     <Content Include="Views\Promotion\RegisterCustomer.cshtml" />
+    <Content Include="Views\ManagementCustomerportalUser\Index.cshtml" />
+    <Content Include="Views\ManagementCustomerportalUser\_UserTableSaleman.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7998,6 +8001,8 @@
           <DevelopmentServerPort>57352</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:57352/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:57352/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
