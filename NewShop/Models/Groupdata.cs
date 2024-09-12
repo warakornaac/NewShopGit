@@ -1277,7 +1277,7 @@ namespace NewShop.Models
         public string Description_New { get; set; }
         public string Reward_New { get; set; }
         public string Cost_New { get; set; }
-    } 
+    }
     public class listSaveCustomerApprove
     {
         public string Cuscode { get; set; }
@@ -1307,8 +1307,8 @@ namespace NewShop.Models
     }
     public class customerPortalUser
     {
-        public string slmcod { get; set; }
         public string Cuscode { get; set; }
-        public string Email { get; set; }
+        public string Username { get; set; }
+        public string CusName { get; set; }
     }
 }

@@ -1025,7 +1025,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddUser(string email, string username, string pass, string tel, string cuscos, string cusname, string user)
+        public ActionResult AddUser(string email, string username, string pass, string tel, string cuscos, string cusname, string user, string slmcode, string usertype)
         {
 
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -1048,6 +1048,8 @@ namespace NewShop.Controllers
                     cmd.Parameters.AddWithValue("@incuscod", cuscos.Trim());
                     cmd.Parameters.AddWithValue("@incusname", cusname);
                     cmd.Parameters.AddWithValue("@inUser", user.Trim());
+                    cmd.Parameters.AddWithValue("@inUserType", usertype.Trim());
+                    cmd.Parameters.AddWithValue("@inSLM", slmcode.Trim());
                     SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                     p.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(p);
