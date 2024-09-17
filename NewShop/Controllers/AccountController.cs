@@ -116,24 +116,13 @@ namespace NewShop.Controllers
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CUSCOD"] = rev["CusCode"].ToString();
+                        if (rev["slmcode"] != DBNull.Value)
+                        {
+                            this.Session["slmcode"] = rev["slmcode"].ToString();
+                        }
                         //get sesssion
                         string sessionId = string.Empty;
                         string httpCookie = string.Empty;
-                        if (Request.ServerVariables["HTTP_COOKIE"] != null)
-                        {
-                            httpCookie = Request.ServerVariables["HTTP_COOKIE"].Substring(0, (Request.ServerVariables["HTTP_COOKIE"].Length > 399) ? 399 : Request.ServerVariables["HTTP_COOKIE"].Length);
-                        }
-                        sessionId = httpCookie;
-
-                        if (sessionId != null)
-                        {
-                            sessionId = sessionId.Substring(sessionId.Length - 24);
-                            this.Session["ID"] = sessionId;
-                        }
-                        else
-                        {
-                            this.Session["ID"] = "775.333";
-                        }
                         //set session id
 
                         var command = new SqlCommand("P_logSingin_customer_mobileStatus", Connection);

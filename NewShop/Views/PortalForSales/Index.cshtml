@@ -70,7 +70,7 @@
                                     </div>
                                     @*<form class="signin-form" action="#" method="post">*@
                                     <div class="form-group">
-                                        <label class="control-label" for="sale-man-txt" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">SALEMAN</label>
+                                        <label class="control-label" for="sale-man-txt" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">SALEMAN CODE</label>
                                         <input type="text" class="form-control" id="sale-man-txt" name="sale-man" placeholder="SaleMan" readonly>
                                         <label class="form-control-placeholder" for="username"></label>
                                         @*<p class="warning-red" id="wronguser" hidden>Username ไม่ถูกต้อง</p>*@
@@ -225,6 +225,7 @@
                             select.append('<option value="' + value.CUSCOD + '" data-name="' + value.CUSNAM + '">' + value.CUSCOD + '|' + value.CUSNAM + '</option>');
                         });
                         $('.selectpicker').selectpicker('refresh');
+                        select.val(cuscod).change();
                     }
 
                 }
