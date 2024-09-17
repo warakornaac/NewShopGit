@@ -150,6 +150,7 @@
     <Compile Include="Controllers\MonitorPackingController.cs" />
     <Compile Include="Controllers\OrderingReportController.cs" />
     <Compile Include="Controllers\OrderlistController.cs" />
+    <Compile Include="Controllers\PortalForSalesController.cs" />
     <Compile Include="Controllers\PriceApprovalController.cs" />
     <Compile Include="Controllers\PrintStatementController.cs" />
     <Compile Include="Controllers\ProductdetailsController.cs" />
@@ -7876,6 +7877,7 @@
     <Content Include="Views\Promotion\RegisterCustomer.cshtml" />
     <Content Include="Views\ManagementCustomerportalUser\Index.cshtml" />
     <Content Include="Views\ManagementCustomerportalUser\_UserTableSaleman.cshtml" />
+    <Content Include="Views\PortalForSales\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

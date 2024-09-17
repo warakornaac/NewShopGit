@@ -310,6 +310,7 @@
         const queryString = decodeURIComponent(window.location.search);
         const params = new URLSearchParams(queryString);
         const page = params.get('page');
+        var typeUser = '';
         console.log("Page: " + page);
         console.log("Line : " + '@_lineUser');
         var sessionLine = '@Request.RequestContext.HttpContext.Session["Line"]';
@@ -495,6 +496,7 @@
                             }
                         }
                     } else if (result.message == "N" || result.message == "R") {
+                        typeUser = result.UserType;
                         phonenum = result.tel;
                         console.log("N Result " + result.message);
                         console.log("Phone is " + phonenum);
@@ -595,7 +597,8 @@
                     user: username,
                     otp: otpenter,
                     refer: refer,
-                    page:page
+                    page: page,
+                    UserType: typeUser
                 }),
                 type: "POST",
                 cache: false,
@@ -607,74 +610,112 @@
 
                 },
                 success: function (result) {
-                    if (result.message == 'Y') {
-                        //alert("login Success!!!" + "Page : " + result.page);
+                    if (result.UserType == '3') {
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
                                 //alert("amount");
                                 //window.location.assign("@domainName" + "/CustomerDashboard/index");
-                                window.location.assign("../CustomerDashboard/index");
+                                window.location.assign("../PortalForSales/index?page=amount");
                             } else if (page == "promotion") {//หน้าโปรโมชั่น
                                 ////window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
-                                window.location.assign("../CustomerDashboard/Promotion");
+                                window.location.assign("../PortalForSales/index?page=promotion");
+
                             }
                             else if (page == "PendingDelivery") {//หน้าค้างส่ง
                                 ////window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
-                                window.location.assign("../CustomerDashboard/PendingDeliver");
+                                window.location.assign("../PortalForSales/index?page=PendingDelivery");
+
                             }
                             else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
-                                        window.location.assign("../CustomerDashboard/DeliveryTrack");
+                                window.location.assign("../PortalForSales/index?page=deliveryTrack");
+
                             }
                             else if (page == "warranty") {//หน้าสถานะการสั่งซื้อ
-                                window.location.assign("../CustomerDashboard/Warranty");
+                                window.location.assign("../PortalForSales/index?page=warranty");
+
                             }
                             else if (page == "credit") {
-                                window.location.assign("../CustomerDashboard/Credit");
+                                window.location.assign("../PortalForSales/index?page=credit");
+
                             }
                             else  {
-                                window.location.assign("../CustomerDashboard/CustomerMenu");
+                                window.location.assign("../PortalForSales/index?page=menu");
+
                             }
 
-                        }
-                        else {
-                            window.location.assign("../CustomerDashboard/CustomerMenu");
-                        }
-                    }
-                    //After Forget Password
-                    else if (result.message == 'R') {
-                        if (result.page != null && result.page != '') {
-                            if (result.page == "amount") { //หน้ายอดซื้อ
-                                window.location.assign("../Account/ChangePasswordPortal?page=amount");
-                            } else if (page == "promotion") {//หน้าโปรโมชั่น
-                                window.location.assign("../Account/ChangePasswordPortal?page=promotion");
-                            }
-                            else if (page == "PendingDelivery") {//หน้าค้างส่ง
-                                window.location.assign("../Account/ChangePasswordPortal?page=PendingDelivery");
-                            }
-                            else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
-                                window.location.assign("../Account/ChangePasswordPortal?page=deliveryTrack");
-                            }
-                            else if (page == "warranty") {//warranty
-                                window.location.assign("../Account/ChangePasswordPortal?page=warranty");
-                            }
-                            else if (page == "credit") {
-                                window.location.assign("../Account/ChangePasswordPortal?page=credit");
-                            }
-                            else  {//หน้าเมนู
-                                window.location.assign("../Account/ChangePasswordPortal?page=menu");
-                            }
-                        }
-                        else {
-                            window.location.assign("../Account/ChangePasswordPortal");
                         }
                     }
                     else {
+                        if (result.message == 'Y') {
+                            //alert("login Success!!!" + "Page : " + result.page);
+                            if (result.page != null && result.page != '') {
+                                if (result.page == "amount") { //หน้ายอดซื้อ
+                                    //alert("amount");
+                                    //window.location.assign("@domainName" + "/CustomerDashboard/index");
+                                    window.location.assign("../CustomerDashboard/index");
+                                } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                    ////window.location.assign("@domainName" + "/CustomerDashboard/Promotion");
+                                    window.location.assign("../CustomerDashboard/Promotion");
+                                }
+                                else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                    ////window.location.assign("@domainName" + "/CustomerDashboard/PendingDeliver");
+                                    window.location.assign("../CustomerDashboard/PendingDeliver");
+                                }
+                                else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
+                                            window.location.assign("../CustomerDashboard/DeliveryTrack");
+                                }
+                                else if (page == "warranty") {//หน้าสถานะการสั่งซื้อ
+                                    window.location.assign("../CustomerDashboard/Warranty");
+                                }
+                                else if (page == "credit") {
+                                    window.location.assign("../CustomerDashboard/Credit");
+                                }
+                                else  {
+                                    window.location.assign("../CustomerDashboard/CustomerMenu");
+                                }
 
-                        Swal.fire({
-                            text: result.message,
-                            icon: "warning",
-                        });
+                            }
+                            else {
+                                window.location.assign("../CustomerDashboard/CustomerMenu");
+                            }
+                        }
+                        //After Forget Password
+                        else if (result.message == 'R') {
+                            if (result.page != null && result.page != '') {
+                                if (result.page == "amount") { //หน้ายอดซื้อ
+                                    window.location.assign("../Account/ChangePasswordPortal?page=amount");
+                                } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                    window.location.assign("../Account/ChangePasswordPortal?page=promotion");
+                                }
+                                else if (page == "PendingDelivery") {//หน้าค้างส่ง
+                                    window.location.assign("../Account/ChangePasswordPortal?page=PendingDelivery");
+                                }
+                                else if (page == "deliveryTrack") {//หน้าสถานะการสั่งซื้อ
+                                    window.location.assign("../Account/ChangePasswordPortal?page=deliveryTrack");
+                                }
+                                else if (page == "warranty") {//warranty
+                                    window.location.assign("../Account/ChangePasswordPortal?page=warranty");
+                                }
+                                else if (page == "credit") {
+                                    window.location.assign("../Account/ChangePasswordPortal?page=credit");
+                                }
+                                else  {//หน้าเมนู
+                                    window.location.assign("../Account/ChangePasswordPortal?page=menu");
+                                }
+                            }
+                            else {
+                                window.location.assign("../Account/ChangePasswordPortal");
+                            }
+                        }
+                        else {
+
+                            Swal.fire({
+                                text: result.message,
+                                icon: "warning",
+                            });
+                        }
                     }
+
                 },
                 error: function (er) {
 

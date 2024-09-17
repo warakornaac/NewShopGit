@@ -78,7 +78,7 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, status = status, Apisend = Api }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Verify(string lineid, string phone, string user, string otp, string refer, string page)
+        public JsonResult Verify(string lineid, string phone, string user, string otp, string refer, string page, string UserType)
         {
             var message = string.Empty;
             this.Session["UserID"] = null;
@@ -116,7 +116,7 @@ namespace NewShop.Controllers
             {
                 message = ex.Message;
             }
-            return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, page = page, UserType = UserType }, JsonRequestBehavior.AllowGet);
         }
         public async Task<JsonResult> ForgetPasswordCustomer(string username, string phone, string new_password)
         {

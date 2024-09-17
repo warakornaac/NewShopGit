@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@{
+    string UserType = Session["UserType"].ToString();
+}
+<!doctype html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
@@ -224,12 +227,23 @@
                             <span>ประวัติซื้อ</span>
                         </a>
                     </li>
+                    @if (UserType == "3")
+                    {
+                        <li class="nav-item dropdown messages-menu">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarchangecustomer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                                <span>เปลี่ยนลูกค้า</span>
+                            </a>
+                        </li>
+                    }
                     <li class="nav-item dropdown messages-menu">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarchangepassword" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-refresh"></i>
                             <span>เปลี่ยนรหัสผ่าน</span>
                         </a>
                     </li>
+
+
 
 
 
@@ -506,6 +520,9 @@
                 }
         $(document).on("click", "#menuDashboard", function () {
             window.location.href = "../CustomerDashboard/CustomerMenu";
+        });
+        $(document).on("click", "#navbarchangecustomer", function () {
+            window.location.href = "../PortalForSales/index";
         });
     </script>
 </body>

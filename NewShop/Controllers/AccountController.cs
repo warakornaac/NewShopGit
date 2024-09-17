@@ -910,6 +910,7 @@ namespace NewShop.Controllers
             string phoneNum = string.Empty;
             string cuscode = string.Empty;
             string email = string.Empty;
+            string UserType = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -922,9 +923,8 @@ namespace NewShop.Controllers
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
-                string UserType = string.Empty;
-                string secCodeArr = string.Empty;
 
+                string secCodeArr = string.Empty;
                 var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
                 //SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
                 SqlCommand cmdcus = new SqlCommand(sqlString, Connection);
@@ -941,6 +941,10 @@ namespace NewShop.Controllers
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
+                    if (revcus["slmcode"] != DBNull.Value)
+                    {
+                        this.Session["slmcode"] = revcus["slmcode"].ToString();
+                    }
                 }
 
 
@@ -962,7 +966,7 @@ namespace NewShop.Controllers
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
 
-            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email, UserType = UserType }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
