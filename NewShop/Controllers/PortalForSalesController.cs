@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -29,7 +30,9 @@ namespace NewShop.Controllers
             try
             {
                 Connection.Open();
-                SqlCommand cmd = new SqlCommand("select * from MobileOrder..v_CUSPROV where Blocked = 0 and INACTIVE = 'N' and SLMCOD = '" + SLM + "' order by CUSCOD", Connection);
+                var cmd = new SqlCommand("P_Get_CusSale_CustomerPortal", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inSLM", SLM);
                 SqlDataReader rev_CUSPROV = cmd.ExecuteReader();
                 while (rev_CUSPROV.Read())
                 {
