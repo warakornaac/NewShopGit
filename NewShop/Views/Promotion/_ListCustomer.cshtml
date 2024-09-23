@@ -200,7 +200,13 @@
                     success: function (result) {
                         if (result.status == "Y") {
                             //refresh list customer again
-                            $("input[name=selectPromotionSub]:checked").attr("checked", true).trigger("click");
+                            var promotionCode = $("#promotionCode option:selected").val();
+                            searchPromotionReg(promotionCode);
+                            setTimeout(() => {
+                                //console.log(promotionSeq);
+                                $("input[name=selectPromotionSub][value=" + promotionSeq + "]").attr("checked", true).trigger("click");
+                            }, "1200");
+                            //$("input[name=selectPromotionSub]:checked").attr("checked", true).trigger("click");
 
                             Swal.fire({
                                 title: 'บันทึกเรียบร้อย',

@@ -149,6 +149,7 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@inDType", DType);
                 command.Parameters.AddWithValue("@inSOW", SOW);
                 command.Parameters.AddWithValue("@Usertype", Usertype);
+                command.CommandTimeout = 120; //60 sec = 1 min
                 //command.ExecuteNonQuery();
                 SqlDataReader dr = command.ExecuteReader();
 
