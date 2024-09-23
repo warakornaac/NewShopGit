@@ -1260,7 +1260,7 @@ namespace NewShop.Models
         public string Cuscode { get; set; }
         public string PromotionCode { get; set; }
         public string PromotionSeq { get; set; }
-    } 
+    }
     public class listCustomerApprove
     {
         public string Slmcode { get; set; }
@@ -1277,7 +1277,7 @@ namespace NewShop.Models
         public string Description_New { get; set; }
         public string Reward_New { get; set; }
         public string Cost_New { get; set; }
-    } 
+    }
     public class listSaveCustomerApprove
     {
         public string Cuscode { get; set; }
@@ -1304,5 +1304,11 @@ namespace NewShop.Models
         public string amt_qty13 { get; set; }
         public string amt_qty14 { get; set; }
         public string amt_qty15 { get; set; }
+    }
+    public class customerPortalUser
+    {
+        public string Cuscode { get; set; }
+        public string Username { get; set; }
+        public string CusName { get; set; }
     }
 }

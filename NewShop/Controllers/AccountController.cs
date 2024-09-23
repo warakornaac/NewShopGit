@@ -116,24 +116,13 @@ namespace NewShop.Controllers
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CUSCOD"] = rev["CusCode"].ToString();
+                        if (rev["slmcode"] != DBNull.Value)
+                        {
+                            this.Session["slmcode"] = rev["slmcode"].ToString();
+                        }
                         //get sesssion
                         string sessionId = string.Empty;
                         string httpCookie = string.Empty;
-                        if (Request.ServerVariables["HTTP_COOKIE"] != null)
-                        {
-                            httpCookie = Request.ServerVariables["HTTP_COOKIE"].Substring(0, (Request.ServerVariables["HTTP_COOKIE"].Length > 399) ? 399 : Request.ServerVariables["HTTP_COOKIE"].Length);
-                        }
-                        sessionId = httpCookie;
-
-                        if (sessionId != null)
-                        {
-                            sessionId = sessionId.Substring(sessionId.Length - 24);
-                            this.Session["ID"] = sessionId;
-                        }
-                        else
-                        {
-                            this.Session["ID"] = "775.333";
-                        }
                         //set session id
 
                         var command = new SqlCommand("P_logSingin_customer_mobileStatus", Connection);
@@ -505,154 +494,7 @@ namespace NewShop.Controllers
             return ip;
         }
 
-        //public ActionResult LogIn(LoginUserViewModel User)
-        //{
-        //    string Userlog = string.Empty;
-        //    string Usertype = string.Empty;
-        //    string dateexpire = string.Empty;
-        //    int intdateexpire = 0;
-        //    var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-        //    SqlConnection Connection = new SqlConnection(connectionString);
-        //    //Connection.Open();
-        //    // GenericIdentity identity = null;
-        //    Connection.Open();
-        //    try
-        //    {
-        //        //ADSRV01
-        //        DirectoryEntry entry = new DirectoryEntry("LDAP://ADSRV2016-01/dc=Automotive,dc=com", User.Usre, User.Password);
-        //        DirectorySearcher search = new DirectorySearcher(entry);
-        //        search.Filter = "(SAMAccountName=" + User.Usre + ")";
-        //        search.PropertiesToLoad.Add("cn");
 
-        //        SearchResult result = search.FindOne();
-        //        //result.GetDirectoryEntry();
-        //       // Connection.Open();
-        //        if (null == result)
-        //        {
-        //            if (IsValid(User.Usre, User.Password))
-        //            {
-
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("", "Login details are wrong.");
-        //            }
-        //            //throw new SoapException("Error authenticating user.",SoapException.ClientFaultCode);
-        //        }
-        //        else
-        //        {
-        //            this.Session["UserID"] = User.Usre;
-        //            this.Session["UserPassword"] = User.Password;
-        //            this.Session["UsrGrpspecial"] = 0;
-        //            SqlCommand cmd = new SqlCommand("select * From v_UsrTbl where UsrID =N'" + User.Usre + "'", Connection);
-        //            SqlDataReader rev = cmd.ExecuteReader();
-        //            while (rev.Read())
-        //            {
-
-        //                dateexpire = rev["Date to Expire"].ToString();
-        //                //dateexpire = "2";
-        //                this.Session["UserType"] = rev["UsrTyp"].ToString();
-        //                this.Session["CUSCOD"] = "";
-        //                this.Session["Department"] = rev["Department"].ToString();
-        //            }
-        //            rev.Close();
-        //            rev.Dispose();
-        //            cmd.Dispose();
-
-        //            intdateexpire = Convert.ToInt32(dateexpire);
-        //            this.Session["expdatecal"] = intdateexpire;
-        //            if (intdateexpire <= 15)
-        //            {
-        //                this.Session["DatetoExpire"] = "Passwords expire '" + intdateexpire + "' days";
-        //            }
-        //            else if (intdateexpire == 0)
-        //            {
-        //                this.Session["DatetoExpire"] = "The user's password must be changed password  Changed password on Citrix";
-        //            }
-        //            else
-        //            {
-
-        //                this.Session["DatetoExpire"] = "..";
-        //            }
-
-        //            FormsAuthentication.SetAuthCookie(User.Usre, false);
-
-        //            //return RedirectToAction("Index", "SeleScrCustomer");
-        //            string UserType = Session["UserType"].ToString();
-        //            if (UserType == "5")
-        //            {
-        //               // return RedirectToAction("Index", "Home");
-        //                return RedirectToAction("Index", "PriceApproval");
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Index", "SeleScrCustomer");
-        //            }
-        //        }
-
-        //    }
-        //    catch (COMException ex)
-        //    {
-        //        this.Session["UserType"] = null;
-        //        this.Session["UserID"] = User.Usre;
-        //        this.Session["UserPassword"] = User.Password;
-        //        this.Session["UsrGrpspecial"] = 0;
-        //        this.Session["DatetoExpire"] = "..";
-        //        string UserType = string.Empty;
-        //        SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID =N'" + User.Usre + "'and [dbo].F_decrypt([Password])='" + User.Password + "' and  [LoginFail] <> 3", Connection);
-        //        SqlDataReader revcus = cmdcus.ExecuteReader();
-        //        while (revcus.Read())
-        //        {
-
-        //            this.Session["UserType"] = revcus["UsrTyp"].ToString();
-        //            this.Session["Department"] = revcus["Department"].ToString();
-        //            this.Session["CUSCOD"] = revcus["CUSCOD"].ToString();
-        //            UserType = Session["UserType"].ToString();
-        //        }
-
-        //        revcus.Close();
-        //        revcus.Dispose();
-        //        cmdcus.Dispose();
-        //        FormsAuthentication.SetAuthCookie(User.Usre, false);
-
-        //        if (UserType == null)
-        //        {
-        //            ModelState.AddModelError("", "Login details are wrong.");
-        //        }else if (UserType == "")
-        //        {
-        //            ModelState.AddModelError("", "Login details are wrong.");
-        //        }
-        //        else if (UserType == "6") //customer
-        //        {
-        //            //return RedirectToAction("Index", "Home");
-        //            return RedirectToAction("Index", "SeleScrCustomer");
-        //        }
-        //        else if (UserType == "2")//sales
-        //        {
-        //            return RedirectToAction("Index", "SeleScrCustomer");
-        //        }
-        //        else if (UserType == "1")//salesco
-        //        {
-        //            return RedirectToAction("Index", "SeleScrCustomer");
-        //        }
-        //        else if (UserType == "5")//pm
-        //        {
-        //            return RedirectToAction("Index", "PriceApproval");
-        //        }
-
-
-        //    }
-        //    Connection.Close();
-
-        //   return View();
-        //    // return View(User);
-        //    //  return User.Usre;
-        //}
-
-        //private bool IsValid(string p1,string p2)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // [HttpPost]
         public ActionResult LogInRedir(string User, string password)
@@ -910,6 +752,7 @@ namespace NewShop.Controllers
             string phoneNum = string.Empty;
             string cuscode = string.Empty;
             string email = string.Empty;
+            string UserType = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -922,9 +765,8 @@ namespace NewShop.Controllers
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
-                string UserType = string.Empty;
-                string secCodeArr = string.Empty;
 
+                string secCodeArr = string.Empty;
                 var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
                 //SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
                 SqlCommand cmdcus = new SqlCommand(sqlString, Connection);
@@ -941,6 +783,10 @@ namespace NewShop.Controllers
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
+                    if (revcus["slmcode"] != DBNull.Value)
+                    {
+                        this.Session["slmcode"] = revcus["slmcode"].ToString();
+                    }
                 }
 
 
@@ -962,7 +808,7 @@ namespace NewShop.Controllers
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
 
-            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email, UserType = UserType }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
@@ -1025,7 +871,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddUser(string email, string username, string pass, string tel, string cuscos, string cusname, string user)
+        public ActionResult AddUser(string email, string username, string pass, string tel, string cuscos, string cusname, string user, string slmcode, string usertype)
         {
 
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -1048,6 +894,8 @@ namespace NewShop.Controllers
                     cmd.Parameters.AddWithValue("@incuscod", cuscos.Trim());
                     cmd.Parameters.AddWithValue("@incusname", cusname);
                     cmd.Parameters.AddWithValue("@inUser", user.Trim());
+                    cmd.Parameters.AddWithValue("@inUserType", usertype.Trim());
+                    cmd.Parameters.AddWithValue("@inSLM", slmcode.Trim());
                     SqlParameter p = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                     p.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(p);

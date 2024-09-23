@@ -951,7 +951,7 @@
         var id = '@Request.RequestContext.HttpContext.Session["ID"]';
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
-        var cuscod ='@Request.RequestContext.HttpContext.Session["CusCod"]';
+        var cuscod = '@Request.RequestContext.HttpContext.Session["CusCod"]'.trim();
         //var cuscod ='110T0239';
 
         const queryString = decodeURIComponent(window.location.search);
@@ -978,6 +978,7 @@
 
         }
         $(document).ready(function () {
+            $.fn.dataTable.ext.errMode = 'none';
             $.fn.dataTable.moment('DD-MM-YY');
             $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
                 return parseFloat(data.replace(/,/g, ''));
@@ -1273,7 +1274,7 @@
 
         //GetYearOfPromotion
         function getYearpromotion() {
-            var cus = cuscod;
+            var cus = cuscod.trim();
             $.ajax({
                 url: '@Url.Action("GetYearPromotion", "CustomerDashboard")',
                 data: {
@@ -1292,7 +1293,6 @@
                 success: function (data) {
                     if (data.message == 'Y') {
                         var SubmithtmlPag = '';
-
                         $('#table-promotion-year tbody').html("");
                         if (data.Getdata.length != 0) {
                             for (var i = 0; i < data.Getdata.length; i++) {
@@ -1306,6 +1306,12 @@
                                 SubmithtmlPag += '<td class="text-center">' + commaSeparateNumber(data.Getdata[i].WHT) + '</td>';
                                 SubmithtmlPag += '</tr>';
                             }
+                            $('#table-promotion-year tbody').append(SubmithtmlPag);
+                        }
+                        else {
+                            SubmithtmlPag += '<tr>';
+                            SubmithtmlPag += '<td align="center" colspan="7">--ไม่พบข้อมูล--</td>';
+                            SubmithtmlPag += '</tr>';
                             $('#table-promotion-year tbody').append(SubmithtmlPag);
                         }
                     }
@@ -1601,7 +1607,7 @@
                                 SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].Company + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center"><p class="m-0 text-truncate"><span>' + data.Getdata[i].STKCOD + '</span></p></td>';
                                 SubmithtmlPage += '<td><p class="cut-text m-0 p-0"><span>' + data.Getdata[i].STKDES + '</span></p></td>';
-                                SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT + '</span></p></td>';
+                                SubmithtmlPage += '<td><p class="m-0 text-truncate"><span>' + data.Getdata[i].DOCDAT.replace(/\//g, '-') + '</span></p></td>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + data.Getdata[i].DOCNUM + '</span></td>';
                                 SubmithtmlPage += '<td class="text-right"><span>' + commaSeparateNumber(data.Getdata[i].SP_LCY) + '</span></td>';
                                 SubmithtmlPage += '<td class="text-center"><span>' + commaSeparateNumber(data.Getdata[i].QTY) + '</span></td>';

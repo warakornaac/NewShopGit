@@ -987,6 +987,7 @@
             $('#billing-aac').hide();
             $('#billing-tac').hide();
             $('#billing-omp').hide();
+            $.fn.dataTable.ext.errMode = 'none';
             $.fn.dataTable.moment('DD-MM-YY');
             $.fn.dataTable.ext.type.order['numeric-comma-pre'] = function (data) {
                 return parseFloat(data.replace(/,/g, ''));
@@ -1163,6 +1164,7 @@
                 type: "POST",
                 dataType: "JSON",
                 beforeSend: function () {
+                    $('#cusMonthItemDetail').DataTable().destroy();
                     $('#namecus-item').text("");
                     $('#cusMonthItemDetail tbody').html("");
                     var SubmithtmlPage = "";
@@ -1192,6 +1194,24 @@
                             }
                             $('#namecus-item').text(cusName);
                             $('#cusMonthItemDetail tbody').append(SubmithtmlPage);
+
+                            if ($.fn.dataTable.isDataTable('#cusMonthItemDetail')) {
+                                $('#cusMonthItemDetail').DataTable().destroy();
+                            }
+                            $('#cusMonthItemDetail').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": false,
+                                "autoWidth": false,
+                                "responsive": false,
+                                "fixedHeader": false,
+                                "rowGroup": false,
+                                "columnDefs": [
+
+                                ]
+                            });
                         }
                     }
                     else {

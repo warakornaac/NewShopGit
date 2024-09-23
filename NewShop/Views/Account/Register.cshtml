@@ -130,6 +130,10 @@
         .input-form {
             height: 38px;
         }
+
+        .bootstrap-select > .dropdown-toggle {
+            border: 1px solid #ccc !important;
+        }
     </style>
 </head>
 
@@ -177,7 +181,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group ">
-                                        <select class="form-control custom-select rounded input-form" id="selslm">
+                                        <select class="form-select custom-select rounded input-form" id="selslm">
                                         </select>
                                     </div>
                                 </div>
@@ -190,7 +194,11 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div>
-                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua"><option value="0" data-name="0"></option></select>
+                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua">
+                                            <option value="110Z0001O" data-name="Tru Automotive (Testing)">
+                                                110Z0001O/Tru Automotive (Testing)
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -246,6 +254,23 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-3">
+                                    User Type<span class="red-star">*</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <select class="form-select" id="select-type-cus">
+                                        <option value="0" disabled selected>เลือกประเภทผู้ใช้</option>
+                                        <option value="6">ลูกค้า</option>
+                                        <option value="2">Sales</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="co-6">
@@ -327,6 +352,9 @@
             var select = $('#selcus option:selected');
             var cuscod = select.val();
             var cusname = select.data("name");
+            var usertypr = $('#select-type-cus').val();
+            var slm = $('#selslm').val();
+            console.log("type: " + usertypr);
             var sta = 'E-mail : ' + email;
             if (cuscod.trim() == "") {
                 alert("select Customer Code please!!!");
@@ -334,6 +362,10 @@
             }
             if (tel.trim() == "") {
                 alert("Please enter phonenumber.");
+                return false;
+            }
+            if (usertypr == null) {
+                alert("Please select user type.");
                 return false;
             }
             if (username.trim() == "") {
@@ -363,7 +395,9 @@
                         tel: tel,
                         cuscos: cuscod,
                         cusname: cusname,
-                        user: '@Session["UserID"]'
+                        user: '@Session["UserID"]',
+                        slmcode: slm,
+                        usertype: usertypr
                     }),
                     dataType: 'json',
                     traditional: true,
@@ -420,7 +454,8 @@
         $('#clearButton').click(function () {
             var select = $("#selcus");
             select.children().remove();
-            select.append($("<option>").val("0").attr("data-name", "ชื่อลูกค้า").text("เลือกลูกค้า"));
+            select.append($("<option>").val("110Z0001O").attr("data-name", "Tru Automotive (Testing)").text("110Z0001O/Tru Automotive (Testing)"));
+
             $('#selcus').selectpicker('refresh');
         });
     </script>

@@ -1,0 +1,50 @@
+﻿<div class="card container">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-lg-4">
+                <div class="form-group row">
+                    <label class="col-md-3 mr-lg-0 pe-lg-0">
+                        CUSCOD:
+                    </label>
+                    <div class="col-md-9  ml-lg-0 ps-lg-0">
+                        <input type="text" class="form-control input-form" id="Cuscod" name="Cuscod" placeholder="Cuscod" title="Cuscod" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-4">
+                <div class="form-group row">
+                    <label class="col-md-3 mr-lg-0 pr-lg-0">
+                        E-mail:
+                    </label>
+                    <div class="col-md-9 ml-lg-0 pl-lg-0">
+                        <input type="email" class="form-control input-form" id="r_email" name="r_email" placeholder="E-mail" title="e-mail" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-4">
+                <div class="form-group row">
+                    <label class="col-md-3">
+                        New Cuscod:
+                    </label>
+                    <div class="col-md-9">
+                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus" style="border-color:aqua">
+                            @if (ViewBag.Getdata != null && ViewBag.Getdata.Count > 0)
+                            {
+                                foreach (var item in ViewBag.Getdata)
+                                {
+                                    <option value="@item.Cuscode">@item.Email / @item.Cuscode</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="0" data-name="ไม่พบข้อมูล">ไม่พบข้อมูล</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
