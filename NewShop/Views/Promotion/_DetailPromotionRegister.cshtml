@@ -79,7 +79,7 @@
                                 ++rowList;
                                 <tr>
                                     <td class="vcenter sticky-col first-col" style="cursor: pointer;">
-                                        <input type="radio" name="selectPromotionSub" id="selectPromotionSub" data-code="@rowData.Promotion_Code" data-seq="@rowData.Seq" data-destype="@rowData.DesType" data-description="@rowData.Description" data-condition="@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))" data-reward="@rowData.Reward" />
+                                        <input type="radio" name="selectPromotionSub" value="@rowData.Seq" id="selectPromotionSub" data-code="@rowData.Promotion_Code" data-seq="@rowData.Seq" data-destype="@rowData.DesType" data-description="@rowData.Description" data-condition="@string.Format("{0:n0}", Convert.ToDouble(rowData.Condition))" data-reward="@rowData.Reward" />
                                     </td>
                                     <td class="vcenter">@rowData.DesType</td>
                                     <td class="vcenter">@rowData.Description</td>

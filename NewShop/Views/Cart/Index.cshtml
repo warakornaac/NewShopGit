@@ -22,7 +22,7 @@
 
     <link href="~/Content/w3css.css" rel="stylesheet" />
     <style>
-      
+
         .hidden {
             display: none;
         }
@@ -882,7 +882,7 @@
                     <h4 class="modal-title" style="color:black;"> <i class="fa fa-info-circle" style="color: #dd8d1b;"></i> พบข้อผิดพลาด </h4>
                 </div>
                 <div class="modal-body">
-                  @*  <h6> มี user ท่านอื่นแก้ไขหน้ารายการสินค้า กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง </h6>*@
+                    @*  <h6> มี user ท่านอื่นแก้ไขหน้ารายการสินค้า กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง </h6>*@
                     <h6 id="textConfirmorder"></h6>
                 </div>
                 <div class="modal-footer">
@@ -948,101 +948,105 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body pb-0">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table1" style=" width:100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
 
-                    <table class="table1" style=" width:100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">จำนวนสินค้า</th>
+                                        <td><p id="sumqty"></p></td>
+                                        <td>ชิ้น</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">จำนวนเบอร์สินค้า</th>
+                                        <td><p id="sumstk"></p></td>
+                                        <td>เบอร์</td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <th scope="row">ราคาก่อนส่วนลด:</th>
+                                        <td><p id="Msumbeforprice"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
+                                        <td><p id="TotalAmt"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                        </thead>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
+                                        <td><p id="Msumbedisprice"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ค่าแรง:</th>
+                                        <td><p id="summarylaber"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th scope="row">ส่วนลดโปรโมชั่น:</th>
+                                        <td><p id="sumPro"></p></td>
+                                        <td>บาท</td>
 
-                        <tbody>
-                            <tr>
-                                <th scope="row">จำนวนสินค้า</th>
-                                <td><p id="sumqty"></p></td>
-                                <td>ชิ้น</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">จำนวนเบอร์สินค้า</th>
-                                <td><p id="sumstk"></p></td>
-                                <td>เบอร์</td>
-                            </tr>
-                            <tr style="display:none;">
-                                <th scope="row">ราคาก่อนส่วนลด:</th>
-                                <td><p id="Msumbeforprice"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
-                                <td><p id="TotalAmt"></p></td>
-                                <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
+                                        <td><p id="sumDiscount"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
-                                <td><p id="Msumbedisprice"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ค่าแรง:</th>
-                                <td><p id="summarylaber"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="display:none">
-                                <th scope="row">ส่วนลดโปรโมชั่น:</th>
-                                <td><p id="sumPro"></p></td>
-                                <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
+                                        <td><p id="sumAmt"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
-                                <td><p id="sumDiscount"></p></td>
-                                <td>บาท</td>
+                                    </tr>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
-                                <td><p id="sumAmt"></p></td>
-                                <td>บาท</td>
+                                    <tr>
+                                        <th scope="row">Vat/ภาษี 7% :</th>
+                                        <td><p id="sumvat"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="border: 1px solid #56922a;display:none ">
+                                        <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
+                                        <td><p id="sumrealprices"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th scope="row">ค่าขนส่ง:</th>
+                                        <td><p id="sumtarnport"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
+                                        <td><p id="sumTol"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> <input type="hidden" id="accessIdCurrentPop" value="" /> </th>
+                                        <th scope="row"> <input type="hidden" id="cuscodPop" value="" /> </th>
+                                    </tr>
 
-                            </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                            <tr>
-                                <th scope="row">Vat/ภาษี 7% :</th>
-                                <td><p id="sumvat"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="border: 1px solid #56922a;display:none ">
-                                <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
-                                <td><p id="sumrealprices"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="display:none">
-                                <th scope="row">ค่าขนส่ง:</th>
-                                <td><p id="sumtarnport"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
-                                <td><p id="sumTol"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"> <input type="hidden" id="accessIdCurrentPop" value="" /> </th>
-                                <th scope="row"> <input type="hidden" id="cuscodPop" value="" /> </th>
-                            </tr>
+                    <div id="checkCreditCustomer"></div>
 
-                        </tbody>
-                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
-                </div>
-            </div>
         </div>
     </div>
     <!-- ModalShipping -->
@@ -2084,7 +2088,6 @@
             });
               var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
 
-
                 var CUSCOD = cuscod;
                 var Company = $("#company").val();
                 //var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
@@ -2740,7 +2743,7 @@
                                 // SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.Qty) + '</td>';
 
 
-                               
+
                                 SubmithtmlPage += '<td><div class="tamt" id="idamt' + (i + 1) + '">' + commaSeparateNumber(data.Getdata[i].val.Amt) + '</div></td>';
                                 //<input type="number"  name="quantity" class="tamt" id="idamt' + (i + 1) + '"  style="width: 78px;z-index: 0; color: rgb(6, 6, 6); background-color: white; text-align: right; border: 0px;" value=' + commaSeparateNumber(data.Getdata[i].val.Amt) + ' disabled="disabled">
 
@@ -3102,7 +3105,7 @@
 
             });
             var chcksumbeforeDiscount = 0;
-
+            //get data pop up
             $(document).on('click', '#btnChk', function () {
                 // alert("xxx")
                 var last = null;
@@ -3365,6 +3368,7 @@
                 $("#bAmt").val((sumnetpric).toFixed(2));
                 $("#bAmt").val(commaSeparateNumber($("#bAmt").val()));//TOTAL
                 $("#sumTol").html(commaSeparateNumber($("#bAmt").val())); //TOTAL Summary
+
 
                 // return false;
             });
@@ -4057,7 +4061,6 @@
                                 //$("#textAlertSucces").text(data.Err_Message);
                                 // $("#myModalSucces").modal();
                                 var err_F = data.Err_Flg;
-
                                 // if (err_F == "0" || err_F == "") {
                                 $("#textProcheck").empty();
                                 $("#textProcheck").text(data.Err_Message);
@@ -4071,6 +4074,44 @@
                                 //return false;
                                 // }
                                 $("#ordidtemp").val(data.id);
+                                //call stored check credit
+                                var company = $("#company option:selected").val();
+                                var sumAmt = $("#bAmt").val();
+                                //disable ปุ่มยินยัน
+                                $("#btnOK").prop('disabled', true);
+                                $.ajax({
+                                    url: '@Url.Action("CheckCustomerCredit", "Cart")', 
+                                    data: {
+                                        company: company,
+                                        cuscod: cuscod,
+                                        sumAmt: sumAmt.replace(/,/g, "")
+                                    },
+                                    type: "POST",
+                                    dataType: "JSON",
+                                    beforeSend: function () {
+                                        $('#checkCreditCustomer').empty();
+                                        $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คเครดิต... </b> </div>');
+                                    },
+                                    success: function (data) {
+                                        //return false;
+                                        if (data.flagCheck == "Y") { //ติดเครดิต รอ CRC อนุมัติ
+                                            $("#checkCreditCustomer").html('<div class="row">' +
+                                                                                '<div class="col-sm-12">' +
+                                                                                    '<div class="alert alert-warning text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ต้องรอ CRC ตรวจสอบเครดิตอาจใช้เวลานานกว่า Order จะส่งไปคลังสินค้า </div>' +
+                                                                                '</div>' +
+                                                                            '</div>')
+                                        } else {  //ไม่ติดเครดิต
+                                            $("#checkCreditCustomer").html('<div class="row">' +
+                                                                                '<div class="col-sm-12">' +
+                                                                                    '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
+                                                                                '</div>' +
+                                                                            '</div>')
+                                        }
+                                       //enable ปุ่มยินยัน
+                                        $("#btnOK").prop('disabled', false);
+                                    }
+                                });
+                                //end call
                             } else {
                                 $("#textAlert").empty();
                                 $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
@@ -4819,7 +4860,7 @@
                                 //$("#textAlert").empty();
                                 //$("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
                                 //$("#myModal").modal();
-                            } else {
+                            } else { //เข้าล่าสุดแล้ว Confirm ได้
                                  ////console.log('xxbbb' + " " + DataSendPro)
                                 var ckVCompany = "";
                                 var datacomTAC = new Array();

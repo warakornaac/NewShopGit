@@ -1285,7 +1285,8 @@ namespace NewShop.Controllers
 
             return Json(new { message, DocNo }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult checkAccessIdConfirm(string accessId, string cuscod) //เช็ค last id LogAccessCart ก่อน confirm
+        //เช็ค last id LogAccessCart ก่อน confirm
+        public JsonResult checkAccessIdConfirm(string accessId, string cuscod) 
         {
             string flagCheck = string.Empty;
             string userLast = string.Empty;
@@ -1324,6 +1325,30 @@ namespace NewShop.Controllers
             Connection.Close();
 
             return Json(new { flagCheck, userLast, timeBefore, timeLast }, JsonRequestBehavior.AllowGet);
+        }
+        //เช็ค credit ลูกค้าก่อน confirm
+        public JsonResult CheckCustomerCredit(string company, string cuscod, string sumAmt) 
+        {
+            string flagCheck = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("p_CheckCustomerCredit", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@InCompany", company);
+            command.Parameters.AddWithValue("@InCuscod", cuscod);
+            command.Parameters.AddWithValue("@InOrderAmt", sumAmt);
+            SqlParameter returnFlag = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
+            returnFlag.Direction = System.Data.ParameterDirection.Output;
+            command.Parameters.Add(returnFlag);
+
+            Connection.Open();
+            command.ExecuteNonQuery();
+            flagCheck = returnFlag.Value.ToString();
+
+            command.Dispose();
+            Connection.Close();
+
+            return Json(new { flagCheck }, JsonRequestBehavior.AllowGet);
         }
     }
 }

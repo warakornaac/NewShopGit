@@ -86,6 +86,7 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             var command = new SqlCommand("p_Order_Notify", Connection);
+            command.CommandTimeout = 240; //60 sec = 1 min
             command.CommandType = CommandType.StoredProcedure;
             Connection.Open();
             SqlDataReader dr = command.ExecuteReader();
