@@ -25,10 +25,12 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Import jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <main id="main">
-        <div class="container">
+        <button class="btn btn-success" id="ok-btn">Submit</button>
+        <div class="container" id="first-div">
             <div class="container text-center">
                 <h3>User Device</h3>
                 <p>Operating System: @ViewBag.OS</p>
@@ -39,18 +41,44 @@
 
             </div>
         </div>
+        <div class="container text-center  d-flex justify-content-center" id="sec-div">
+            <div class="card">
+                <h4 class="card-header bg-warning">แจ้งเตือน!!!</h4>
+                <div class="card-body p-3">
+                    <img src="~/images/logo/AACTAC185x70.jpg" />
+
+                    <p class="mt-2">ผู้ใช้งานไม่สามารถเข้าใช้งานได้</p>
+                </div>
+            </div>
+        </div>
     </main>
     <script>
         var x = document.getElementById("location_text");
-
+        function Alert() {
+            Swal.fire({
+                title: "Warning",
+                text: "กรุณาเลือกลูกค้า",
+                icon: "warning",
+                backdrop: "false"
+            });
+        }
+        $(document).on("click", "#ok-btn", function () {
+            switchDiv();
+        });
+        function switchDiv() {
+            $('#first-div').attr('hidden', true);
+            $('#sec-div').removeAttr('hidden');
+        }
         $(document).ready(function () {
             getLocation();
+            //Alert();
         });
 
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
+            }
+            else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }

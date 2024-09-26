@@ -18,7 +18,41 @@ namespace NewShop.Controllers
 
         public ActionResult Index()
         {
+            if (Session["UserID"] == null)
+            {
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/LoginCus");
+            }
+
             return View();
+        }
+        public JsonResult GetSLMList(string SLM)
+        {
+            string message = string.Empty;
+            List<object> SlmList = new List<object>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            try
+            {
+                Connection.Open();
+                var cmd = new SqlCommand("P_Check_Sup_By_Slmcode", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@InSlmcode", SLM);
+                SqlDataReader rev = cmd.ExecuteReader();
+                while (rev.Read())
+                {
+                    SlmList.Add(new { Value = rev["SLMCOD"].ToString(), Text = rev["SLMCOD"].ToString() + "/" + rev["SLMNAM"].ToString() });
+                }
+                message = "Y";
+                rev.Close();
+                rev.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                Connection.Close();
+            }
+            return Json(new { message = message, SlmList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetcustomerList(string SLM)

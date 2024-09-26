@@ -643,8 +643,6 @@ namespace NewShop.Controllers
             Connection.Close();
 
             return View();
-            // return View(User);
-            //  return User.Usre;
         }
         /*
         //External LogIn
@@ -753,6 +751,7 @@ namespace NewShop.Controllers
             string cuscode = string.Empty;
             string email = string.Empty;
             string UserType = string.Empty;
+            string SLM = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -787,6 +786,7 @@ namespace NewShop.Controllers
                     {
                         this.Session["slmcode"] = revcus["slmcode"].ToString();
                     }
+                    SLM = revcus["slmcode"] != DBNull.Value ? revcus["slmcode"].ToString() : string.Empty;
                 }
 
 
@@ -794,13 +794,40 @@ namespace NewShop.Controllers
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
-                Connection.Close();
                 if (message == "Y")
                 {
                     message = "N";
                 }
+                if (UserType == "3")
+                {
 
+                    var cmd = new SqlCommand("P_Check_User_Active_AD", Connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@InSlmcode", SLM);
+                    SqlParameter p = new SqlParameter("@OutGenstatus", SqlDbType.NVarChar, 100);
+                    p.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(p);
+                    cmd.ExecuteNonQuery();
+                    var status = cmd.Parameters["@OutGenstatus"].Value.ToString();
 
+                    if (!string.IsNullOrEmpty(status))
+                    {
+                        if (status == "Y")
+                        {
+                            message = "N";
+                        }
+                        else
+                        {
+                            message = "B";
+                        }
+                    }
+                    else
+                    {
+                        message = "B";
+                    }
+                }
+
+                Connection.Close();
             }
             catch (Exception ex)
             {

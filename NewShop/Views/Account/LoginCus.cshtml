@@ -508,10 +508,19 @@
 
                         $('.modal-otp').modal('show');
                     }
+                    else if (result.message == "B") {
+                        $('#wronguser').removeAttr('hidden');
+                        $('#wrongpass').removeAttr('hidden');
+                        Swal.fire({
+                            title:"ประกาศ",
+                            text: "ผู้ใช้ถูกระงับการใช้งาน",
+                            icon: "warning",
+                        });
+                    }
                     else {
                         $('#wronguser').removeAttr('hidden');
                         $('#wrongpass').removeAttr('hidden');
-                        console.log("Error");
+                        console.log("Error" + result.message);
                     }
                 },
                 error: function (er) {
