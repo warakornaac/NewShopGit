@@ -63,6 +63,7 @@ namespace NewShop.Controllers
         public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page)
         {
             string message = string.Empty;
+            string SLM = string.Empty;
             _Userlineid = userId;
             this.Session["Line"] = userId;
             this.Session["UserPassword"] = string.Empty;
@@ -78,10 +79,22 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@displayName", displayName);
 
                 SqlParameter returnValuedoc = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                SqlParameter Slm = new SqlParameter("@outSLM", SqlDbType.NVarChar, 100);
+
                 returnValuedoc.Direction = System.Data.ParameterDirection.Output;
+                Slm.Direction = System.Data.ParameterDirection.Output;
                 command.Parameters.Add(returnValuedoc);
+                command.Parameters.Add(Slm);
                 command.ExecuteNonQuery();
                 message = returnValuedoc.Value.ToString();
+                SLM = Slm.Value.ToString();
+                if (message == "Y")
+                {
+                    if (!string.IsNullOrEmpty(SLM))
+                    {
+                        this.Session["slmcode"] = SLM.ToString();
+                    }
+                }
                 command.Dispose();
             }
             catch (Exception ex)
@@ -100,6 +113,8 @@ namespace NewShop.Controllers
             this.Session["UserType"] = string.Empty;
             this.Session["DisplayName"] = string.Empty;
             this.Session["CUSCOD"] = string.Empty;
+            string UsrType = string.Empty;
+            string Username = string.Empty;
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -116,10 +131,10 @@ namespace NewShop.Controllers
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
                         this.Session["CUSCOD"] = rev["CusCode"].ToString();
-                        if (rev["slmcode"] != DBNull.Value)
-                        {
-                            this.Session["slmcode"] = rev["slmcode"].ToString();
-                        }
+                        //if (rev["slmcode"] != DBNull.Value)
+                        //{
+                        //    this.Session["slmcode"] = rev["slmcode"].ToString();
+                        //}
                         //get sesssion
                         string sessionId = string.Empty;
                         string httpCookie = string.Empty;
@@ -782,11 +797,11 @@ namespace NewShop.Controllers
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
-                    if (revcus["slmcode"] != DBNull.Value)
-                    {
-                        this.Session["slmcode"] = revcus["slmcode"].ToString();
-                    }
-                    SLM = revcus["slmcode"] != DBNull.Value ? revcus["slmcode"].ToString() : string.Empty;
+                    //if (revcus["slmcode"] != DBNull.Value)
+                    //{
+                    //    this.Session["slmcode"] = revcus["slmcode"].ToString();
+                    //}
+                    //SLM = revcus["slmcode"] != DBNull.Value ? revcus["slmcode"].ToString() : string.Empty;
                 }
 
 
@@ -803,18 +818,23 @@ namespace NewShop.Controllers
 
                     var cmd = new SqlCommand("P_Check_User_Active_AD", Connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@InSlmcode", SLM);
+                    cmd.Parameters.AddWithValue("@InUsrType", UserType);
+                    cmd.Parameters.AddWithValue("@InUserName", User);
                     SqlParameter p = new SqlParameter("@OutGenstatus", SqlDbType.NVarChar, 100);
+                    SqlParameter Slm = new SqlParameter("@OutSlm", SqlDbType.NVarChar, 20);
                     p.Direction = ParameterDirection.Output;
+                    Slm.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(p);
+                    cmd.Parameters.Add(Slm);
                     cmd.ExecuteNonQuery();
                     var status = cmd.Parameters["@OutGenstatus"].Value.ToString();
-
+                    var sqlSLM = cmd.Parameters["@OutSlm"].Value.ToString();
                     if (!string.IsNullOrEmpty(status))
                     {
                         if (status == "Y")
                         {
                             message = "N";
+                            this.Session["slmcode"] = sqlSLM;
                         }
                         else
                         {
