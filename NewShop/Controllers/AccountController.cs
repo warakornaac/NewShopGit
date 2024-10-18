@@ -90,10 +90,9 @@ namespace NewShop.Controllers
                 SLM = Slm.Value.ToString();
                 if (message == "Y")
                 {
-                    if (!string.IsNullOrEmpty(SLM))
-                    {
-                        this.Session["slmcode"] = SLM.ToString();
-                    }
+
+                    this.Session["slmcode"] = SLM.ToString();
+
                 }
                 command.Dispose();
             }
