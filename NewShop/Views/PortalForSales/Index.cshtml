@@ -71,23 +71,26 @@
                                     @*<form class="signin-form" action="#" method="post">*@
                                     <div class="form-group">
                                         <label class="control-label" for="sale-man-txt" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">SALEMAN CODE</label>
-                                        <input type="text" class="form-control" id="sale-man-txt" name="sale-man" placeholder="SaleMan" readonly>
+                                        <input type="hidden" class="form-control" id="sale-man-txt" name="sale-man" placeholder="SaleMan" readonly>
+                                        <select class="form-control selectpicker" data-container="body" data-live-search="true" title="SELECT SALEMAN" data-hide-disabled="true" id="selslm">
+                                        </select>
                                         <label class="form-control-placeholder" for="username"></label>
                                         @*<p class="warning-red" id="wronguser" hidden>Username ไม่ถูกต้อง</p>*@
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px; ">CUSTOMER</label>
+                                        <label class="control-label mr-1" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px; ">CUSTOMER </label><span class="badge badge-primary" id="count-customer"></span>
                                         <div class="input-group mb-1" id="show_hide_password">
                                             @*<input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>*@
                                             @*<div class="input-group-append ">
                                                     <a href="" class="btn border d-flex align-items-center justify-content-center"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                                 </div>*@
-                                            <select class="form-control selectpicker" data-container="body" data-live-search="true" title="เลือกลูกค้า" data-hide-disabled="true" id="selcus">
+                                            <select class="form-control selectpicker" data-container="body" data-live-search="true" title="SELECT CUSTOMER" data-hide-disabled="true" id="selcus">
                                                 <option value="110Z0001O" data-name="Tru Automotive (Testing)">
                                                     110Z0001O/Tru Automotive (Testing)
                                                 </option>
                                             </select>
                                         </div>
+                                        <label class="control-label" for="selcus" id="label-select-customer-zero" style="color:red;" hidden>ไม่พบลูกค้าที่ลงทะเบียน</label>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary rounded submit px-3" onclick="submitCustomer()">ยืนยัน</button>
@@ -95,84 +98,6 @@
 
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="otp-content">
-
-    </div>
-    <div class="modal fade modal-otp" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true" data-backdrop="static">
-        <input type="hidden" id="phone" />
-        <input type="hidden" id="cuscod" />
-        <input type="hidden" id="email" />
-        <input type="hidden" id="lineid" />
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">ยืนยันตัวตน</h5>
-                    <button type="button" class="close" data-dismiss="modal-otp" aria-label="Close" onclick="$('#exampleModalCenter').modal('hide');">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                        </div>
-                        <div class="box-body">
-                            <p class="text-07" style="line-height: 16pt;"> กรุณากรอกรหัส OTP ที่ได้รับทาง SMS ด้านล่างเพื่อยืนยันตัวตน หากไม่ได้รับรหัส OTP กรุณาตรวจสอบเบอร์โทรศัพท์มือถือด้านล่างให้ถูกต้องและกดปุ่ม “ขอรหัสOTP”</p>
-                            <label class="control-label" style="color: #000000; font-weight: bold; font-size: 13px; margin-bottom: 2px;">เบอร์โทรศัพท์มือถือที่รับ OTP</label>
-                            <div class="input-group mb-1">
-                                <input type="text" class="form-control" id="otpphone" aria-describedby="basic-addon2" readonly>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-outline-secondary btn-info text-white" id="sendotp_btn" onclick="delaySendOtp(); sendOtp();">ขอรหัส OTP</button>
-                                </div>
-                            </div>
-                            @*<div class="small text-center mt-2 text-muted" id="counter-resend-text">กรุณารอ <span id="login-counter-resend">00</span> วินาทีเพื่อขอรหัส OTP ใหม่อีกครั้ง</div>*@
-                            <div class="mb-1 rounded-4 text-center divShopOtp" style="background-color: #dce4eb; border-radius: 3px; display: none;">
-                                <p class="m-0" id="refid"><span id="refhead">Ref : </span><span id="ref_show"></span> </p>
-                                <div class="otp-form justify-content-center text-center">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp1" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp2" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp3" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp4" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp5" pattern="[0-9]+" maxlength="1">
-                                    <input type="tel" class="otp form-control p-0" id="enterotp6" pattern="[0-9]+" maxlength="1">
-                                </div>
-                                <p class="mb-0">รหัส OTP มีอายุอีก <span id="login-counter">05:00</span> นาที</p>
-                            </div>
-                        </div>
-                        <div class="row divShopOtp" style=" display: none;"><div class="col-sm-12 p-0"><hr></div></div>
-                        <div class="row divShopOtp" style=" display: none;">
-                            <div class="col-md-12 text-right">
-                                <button class="btn btn-success" id="otpcheck" onclick="otpCheck();"> ยืนยัน </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*FORGET PASSWORD*@
-    <div class="modal fade modal-forget" id="modalForgetPassword" tabindex="-1" role="dialog" aria-labelledby="ModalForgetPassword" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">ลืมรหัสผ่าน</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modalForgetPassword').modal('hide');">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-07" style="line-height: 16pt;" id="title-forgetpassword"> กรุณาตรวจสอบเบอร์มือถือ หากเบอร์มือถือถูกต้องให้กดปุ่ม “รีเซ็ตรหัสผ่าน”</p>
-                    <div class="input-group mb-1">
-                        <input type="text" class="form-control" id="repass_phone" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary btn-info text-white" id="repass_btn" onclick="forgetPasswordSend();">รีเซ็ตรหัสผ่าน</button>
                         </div>
                     </div>
                 </div>
@@ -196,14 +121,46 @@
     const page = params.get('page');
     if (slm != null) {
         $('#sale-man-txt').val(slm);
-        $('#slm').val(slm);
-        getCustomerList();
+        //$('#slm').val(slm);
+        getSlmList();
+        getCustomerList(slm);
     }
-    function getCustomerList() {
+    $(document).ready(function () {
+        $('#selslm').on('change', function () {
+            const slmcode = $(this).val();
+            getCustomerList(slmcode);
+        });
+    });
+    function getSlmList() {
+        $.ajax({
+            url: '@Url.Action("GetSLMList", "PortalForSales")',
+            data: {
+                SLM: slm
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.message == 'Y') {
+                    var selectSLM = $('#selslm');
+                    selectSLM.children().remove();
+                    $.each(data.SlmList, function (key, value) {
+                        //selectSLM.append()
+                        selectSLM.append('<option value="' + value.Value + '" data-name="' + value.Text + '">' + value.Text + '</option>');
+                    });
+                    $('.selectpicker').selectpicker('refresh');
+                    selectSLM.val(slm).change();
+                }
+                else {
+                    console.log("Error :" + data.message);
+                }
+            }
+        })
+    }
+    function getCustomerList(SLMCOD) {
         $.ajax({
             url: '@Url.Action("GetcustomerList", "PortalForSales")',
             data: {
-                SLM:slm
+                SLM: SLMCOD
             },
             type: 'POST',
             dataType: 'JSON',
@@ -218,6 +175,7 @@
                         select.val("110Z0001O").change();
                     }
                     else {
+                        console.log(data.CUSList);
                         var select = $("#selcus");
                         select.children().remove();
                         //select.append($("<option>").val("110Z0001O").attr("data-name", "Tru Automotive (Testing)").text("110Z0001O/Tru Automotive (Testing)"));
@@ -226,6 +184,12 @@
                         });
                         $('.selectpicker').selectpicker('refresh');
                         select.val(cuscod).change();
+                        if (data.CUSList.length == 0) {
+                            $('#label-select-customer-zero').removeAttr('hidden');
+                        }
+                        $('#count-customer').text(data.CUSList.length);
+
+
                     }
 
                 }
@@ -253,8 +217,8 @@
                     }
                     else {
                         Swal.fire({
-                            title: "Warning!",
-                            text: "กรุณาเลือกลูกค้าที่ต้องการ!",
+                            title: "Warning",
+                            text: "กรุณาเลือกลูกค้า",
                             icon: "warning"
                         });
                     }

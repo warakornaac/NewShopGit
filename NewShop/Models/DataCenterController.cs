@@ -446,7 +446,7 @@ namespace NewShop.Models
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             List<CUS> CUSList = new List<CUS>();
-            SqlCommand cmd = new SqlCommand("select * from v_CUSPROV where SLMCOD =N'" + SLXX + "' order by SLMCOD", Connection);
+            SqlCommand cmd = new SqlCommand("select * from [MobileOrder].[dbo].v_CUSPROV where SLMCOD =N'" + SLXX + "' order by SLMCOD", Connection);
             this.Session["SLM"] = SLXX;
             this.Session["SLMCOD"] = SLMNAM;
             SqlDataReader rev_CUSPROV = cmd.ExecuteReader();

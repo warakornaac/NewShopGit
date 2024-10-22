@@ -108,6 +108,10 @@
             opacity: .8;
             margin: 0;
         }
+
+        .swal2-title {
+            padding: 0 !important;
+        }
     </style>
 </head>
 <body class="bg-login-color-redient">
@@ -508,10 +512,17 @@
 
                         $('.modal-otp').modal('show');
                     }
+                    else if (result.message == "B") {
+                        Swal.fire({
+                            title:' <div class="container-fluid bg-warning ">ประกาศ</div>',
+                            html: '<img class="rounded" src="../images/logo/AACTAC185x70.jpg" / style="width:74px;height:28px:"> <br/ ><p class="mt-3">ไม่สามารถใช้งานระบบได้</p>',
+                            //icon: "warning",
+                        });
+                    }
                     else {
                         $('#wronguser').removeAttr('hidden');
                         $('#wrongpass').removeAttr('hidden');
-                        console.log("Error");
+                        console.log("Error" + result.message);
                     }
                 },
                 error: function (er) {
@@ -610,7 +621,7 @@
 
                 },
                 success: function (result) {
-                    if (result.UserType == '3') {
+                    if (result.UserType == '3' || result.UserType == '1') {
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
                                 //alert("amount");
