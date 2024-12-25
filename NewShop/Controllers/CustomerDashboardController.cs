@@ -813,8 +813,9 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetCusInvMonth(string CUSCOD, string Month, string Year)
+        public JsonResult GetCusInvMonth(string CUSCOD, string Month, string Year, Boolean CNflag)
         {
+            int CNflagInt = CNflag ? 1 : 0;
             string message = "";
             List<Cusinv_Month> Getdata = new List<Cusinv_Month>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -822,11 +823,13 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
+
                 var command = new SqlCommand("p_Search_Cusinv_Month", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inCUSCOD", CUSCOD.Trim());
                 command.Parameters.AddWithValue("@inYear", Year.Trim());
                 command.Parameters.AddWithValue("@inMonth", Month.Trim());
+                command.Parameters.AddWithValue("@CN_Flg", CNflagInt);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

@@ -645,6 +645,10 @@
             background-color: white;
             z-index: 3 !important;
         }
+
+        .custom-checkbox {
+            transform: scale(1.5); /* เพิ่มขนาดของ checkbox */
+        }
     </style>
 </head>
 
@@ -705,9 +709,16 @@
                                             <div class="card m-0">
                                                 <div class="card-header bg-secondary">
                                                     <div class="row">
-                                                        <div class="col-12">
+                                                        <div class="col-12 d-flex align-items-center">
                                                             <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
-
+                                                                <div class="form-group float-left m-0 pt-2">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input custom-checkbox" type="checkbox" id="chk-cn">
+                                                                        <label class="form-check-label" for="chk-cn">
+                                                                            เลือกเฉพาะ C/N
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
 
                                                             </div>
                                                             <div class="col-sm-6 col-8 float-end m-0 p-0 d-flex align-items-center">
@@ -998,7 +1009,7 @@
             var currentYear = currentDate.getFullYear();
             var toDay = currentDay + "-" + currentMonth + "-" + currentYear;
             //getCreditCus(cuscod);
-            getCusMonth(cuscod, currentYear, currentMonth);
+            getCusMonth(cuscod, currentYear, currentMonth,false);
             setTimeout(function () {
                 getDataOrderHistoryByBrand(cuscod, 'TRW', '', 'show-order-history', 'Y');
             }, 1000);
@@ -1236,7 +1247,22 @@
             $('#select-month-year').on('change', function () {
                 const selectMonthYear = $(this).val();
                 const [year, month] = selectMonthYear.split(',');
-                getCusMonth(cuscod, year.trim(), month.trim());
+                if ($('#chk-cn').is(':checked')) {
+                    getCusMonth(cuscod, year.trim(), month.trim(),true);
+                }
+                else {
+                    getCusMonth(cuscod, year.trim(), month.trim(), false);
+                }
+            });
+            $('#chk-cn').on('click', function () {
+                const selectMonthYear = $('#select-month-year').val();
+                const [year, month] = selectMonthYear.split(',');
+                if ($(this).is(':checked')) {
+                    getCusMonth(cuscod, year.trim(), month.trim(), true);
+                }
+                else {
+                    getCusMonth(cuscod, year.trim(), month.trim(), false);
+                }
             });
         });
 
@@ -1248,7 +1274,7 @@
         }
 
         //ดึงข้อมูลยอดซื้อของลูกค้า + ข้อเลข invoice ในยอดของลูกค้าแต่ละเดือน
-        function getCusMonth(cus,year,month) {
+        function getCusMonth(cus,year,month,actionbool) {
             $.ajax({
                 url: '@Url.Action("GetCusMonth", "CustomerDashboard")',
                 data: {
@@ -1268,7 +1294,8 @@
                             data: {
                                 CUSCOD: cus,
                                 Month: month,
-                                Year: year
+                                Year: year,
+                                CNflag: actionbool
                             },
                             type: "POST",
                             dataType: "JSON",
@@ -1303,14 +1330,60 @@
                                 var aac_count = 0;
                                 var tac_count = 0;
                                 var omp_count = 0;
-
+                                var sum_count = 0;
                                 var amt_tac = 0;
                                 var amt_omp = 0;
+                                SubmithtmlPage += '<tr>';
+                                SubmithtmlPage += '<td class="pl-0 pr-1"><p class="cut-text text-truncate m-0 p-0"><span>ยอดซื้อรวม</span></p></td>';
+                                if (result.Getdata.length > 0) {
+                                    var amt_aac = 0;
+                                    for (var j = 0; j < result.Getdata.length; j++) {
+
+                                        if (result.Getdata[j].CUSNAM.includes('*ยอดซื้อรวม')) {
+                                            if (result.Getdata[j].Company == 'AAC') {
+                                                amt_aac += Number(result.Getdata[j].Amount);
+                                            }
+                                        }
+                                    }
+                                    SubmithtmlPage += '<td class=" text-right ellipsis pl-0 pr-1" ><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_aac.toFixed(2)) + '</span> </p></td>';
+                                }
+                                else {
+                                    SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> </p></td>';
+                                }
+                                if (result.Getdata.length > 0) {
+                                    var amt_tac = 0;
+                                    for (var j = 0; j < result.Getdata.length; j++) {
+
+                                        if (result.Getdata[j].CUSNAM.includes('*ยอดซื้อรวม')) {
+                                            if (result.Getdata[j].Company == 'TAC') {
+                                                amt_tac += Number(result.Getdata[j].Amount);
+                                            }
+                                        }
+                                    }
+                                    SubmithtmlPage += '<td class=" text-right ellipsis pl-0 pr-1" ><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_tac.toFixed(2)) + '</span> </p></td>';
+                                }
+                                else {
+                                    SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> </p></td>';
+                                }
+                                if (result.Getdata.length > 0) {
+                                    var amt_omp = 0;
+                                    for (var j = 0; j < result.Getdata.length; j++) {
+
+                                        if (result.Getdata[j].CUSNAM.includes('*ยอดซื้อรวม')) {
+                                            if (result.Getdata[j].Company == 'OMP') {
+                                                amt_omp += Number(result.Getdata[j].Amount);
+                                            }
+                                        }
+                                    }
+                                    SubmithtmlPage += '<td class=" text-right ellipsis pl-0 pr-1" ><p class="text-truncate m-0 p-0"><span>' + commaSeparateNumber(amt_omp.toFixed(2)) + '</span> </p></td>';
+                                }
+                                else {
+                                    SubmithtmlPage += '<td data-bs-toggle="collapse" data-bs-target="#sales-aac-show-' + i + '" class="accordion-toggle text-right ellipsis pl-0 pr-1" onclick="toggleRowColDetail(this,' + i + ',\'aac\');"><p class="text-truncate m-0 p-0"><p class="text-truncate m-0 p-0"><span>0</span> </p></td>';
+                                }
+                                SubmithtmlPage += '</tr>'
                                 for (var i = 0; i < data.Getdata.length; i++) {
                                     $('#sec-table-' + i + ' tbody').html("");
-                                    //SubmithtmlPage += '<tr data-bs-toggle="collapse" data-bs-target="#col-detail-' + i + '" class="accordion-toggle" onclick="toggleRowAndButton(this, ' + i + ')">';
                                     SubmithtmlPage += '<tr>';
-                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><h4><span id="row-show-'+ i +'">+</span></h4></td>';
                                     SubmithtmlPage += '<td class="ellipsis pl-0 pr-1"><p class="cut-text text-truncate m-0 p-0"><span>' + data.Getdata[i].CUSNAM + '</span></p></td>'; //class="ellipsis"
                                     if (result.Getdata.length > 0) {
                                         aac_count = 0;
@@ -1395,7 +1468,6 @@
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>วันที่</span></th>';
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>บิลเลขที่</span></th>';
                                     SubmithtmlPage += '                           <th class="pl-0 pr-0 text-center"><span>จำนวนเงิน</span></th>';
-                                    //SubmithtmlPage += '                           <th class="pl-0 pr-0"><span>สถานะ</span></th>';
                                     SubmithtmlPage += '                        </tr>';
                                     SubmithtmlPage += '                    </thead>';
                                     SubmithtmlPage += '                    <tbody>';
@@ -1409,7 +1481,6 @@
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].PSTDAT + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-0 text-center"><span>' + result.Getdata[j].DOCNUM + '</span></td>';
                                                     SubmithtmlPage += '<td class="pl-0 pr-1 text-right"><span>' + commaSeparateNumber(Number(result.Getdata[j].Amount).toFixed(2)) + '</span></td>';
-                                                   // SubmithtmlPage += '<td class="pl-0 pr-0"><span>' + result.Getdata[j].Status + '</span></td>';
                                                     SubmithtmlPage += '</tr>';
                                                     amt_aac += Number(result.Getdata[j].Amount);
                                                     aac_count++;
