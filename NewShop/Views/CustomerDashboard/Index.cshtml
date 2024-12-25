@@ -646,8 +646,15 @@
             z-index: 3 !important;
         }
 
-        .custom-checkbox {
+        .cuscn-checkbox {
             transform: scale(1.5); /* เพิ่มขนาดของ checkbox */
+            margin-right: 5px;
+        }
+
+        .form-check-label {
+            color: #292b2c !important;
+            font-weight: normal !important;
+            font-family: 'Kanit', sans-serif !important;
         }
     </style>
 </head>
@@ -711,11 +718,11 @@
                                                     <div class="row">
                                                         <div class="col-12 d-flex align-items-center">
                                                             <div class="col-sm-6 col-4 text-left m-0 p-0 pl-3 d-flex align-items-center">
-                                                                <div class="form-group float-left m-0 pt-2">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input custom-checkbox" type="checkbox" id="chk-cn">
-                                                                        <label class="form-check-label" for="chk-cn">
-                                                                            เลือกเฉพาะ C/N
+                                                                <div class="form-group float-left m-0 pt-2 ">
+                                                                    <div class="form-check d-flex align-items-center">
+                                                                        <input class="form-check-input cuscn-checkbox" type="checkbox" id="chk-cn">
+                                                                        <label class="form-check-label text-dark ml-2" for="chk-cn" style="font-size: 12px; font-family: Kanit,sans-serif; ">
+                                                                            เฉพาะ C/N
                                                                         </label>
                                                                     </div>
                                                                 </div>
