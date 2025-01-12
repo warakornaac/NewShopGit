@@ -20,7 +20,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/LoginCus");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/LoginCus");
             }
 
             return View();

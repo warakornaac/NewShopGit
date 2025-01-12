@@ -356,10 +356,18 @@
             var slm = $('#selslm').val();
             console.log("type: " + usertypr);
             var sta = 'E-mail : ' + email;
-            if (cuscod.trim() == "") {
-                alert("select Customer Code please!!!");
-                return false;
+            if (usertypr == 6 || usertypr == null) { //ถ้าเป็นลูกค้าต้องเลือกร้าน
+                if (cuscod.trim() == "") {
+                    alert("select Customer Code please!!!");
+                    return false;
+                }
+            } else {
+                if (cuscod.trim() == "") {
+                    cuscod = "110Z0001O";
+                    cusname = "Tru Automotive (Testing)";
+                }
             }
+           
             if (tel.trim() == "") {
                 alert("Please enter phonenumber.");
                 return false;

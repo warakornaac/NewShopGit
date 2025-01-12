@@ -293,6 +293,7 @@ namespace NewShop.Controllers
                     model.AccessID = dr["AccessID"].ToString();
                     model.AccessID = dr["AccessID"].ToString();
                     model.Intransit = dr["Intrnsit"].ToString();
+                    model.InsertedBy = dr["Inserted By"].ToString();
                     //model.Promotion_Foc = dr["Promotion_Foc"].ToString();
                     //sumSalePrice += Convert.(sum);
                     Getdata.Add(new ItemListGetdata { val = model });
@@ -1340,7 +1341,6 @@ namespace NewShop.Controllers
             SqlParameter returnFlag = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
             returnFlag.Direction = System.Data.ParameterDirection.Output;
             command.Parameters.Add(returnFlag);
-
             Connection.Open();
             command.ExecuteNonQuery();
             flagCheck = returnFlag.Value.ToString();

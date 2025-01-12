@@ -142,15 +142,17 @@
                             dataType: "JSON",
                             success: function (result) {
                                 if (result.message == "Y") {
-                                    console.log("GetDataLoginExternal Success!!!");
-                                    console.log("userId = " + result.UserId);
-                                    console.log("UserType = " + result.UserType);
-                                    console.log("ID = " + result.ID);
-                                    console.log("Page = " + result.page);
+                                    //if (result.UserType == '2') {
+                                    //    console.log("GetDataLoginExternal Success!!!");
+                                    //    console.log("userId = " + result.UserId);
+                                    //    console.log("UserType = " + result.UserType);
+                                    //    console.log("ID = " + result.ID);
+                                    //    console.log("Page = " + result.page);
+                                    //    return false;
+                                    //}
 
-                                    //return false;
                                     //พาไปหน้า
-                                    if (result.UserType == 3) {
+                                    if (result.UserType == '1' || result.UserType == '2') {
                                         if (result.page != null && result.page != '') {
                                             if (result.page == "amount") { //หน้ายอดซื้อ
                                                 //alert("amount");
@@ -320,12 +322,12 @@
             document.getElementById("page").innerHTML = '<b>Page:</b> ' + page;
             if (page != null && page != '') {
                 if (page == "amount") { //หน้ายอดซื้อ
-                    window.location.assign("https://mst.aac.co.th/MobileCatalog_test/CustomerDashboard/index");
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog/CustomerDashboard/index");
                 } else if (page == "promotion") {//หน้าโปรโมชั่น
-                    window.location.assign("https://mst.aac.co.th/MobileCatalog_test/CustomerDashboard/Promotion");
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog/CustomerDashboard/Promotion");
                 }
                 else if (page == "PendingDelivery") {
-                    window.location.assign("https://mst.aac.co.th/MobileCatalog_test/CustomerDashboard/pendingDeliver");
+                    window.location.assign("https://mst.aac.co.th/MobileCatalog/CustomerDashboard/pendingDeliver");
                 }
             }
         }
@@ -354,7 +356,7 @@
         const destinationURL = window.location.href;
         //2004036305-aJVm4b34 -- StatusMobileOrder
         //2005594203-dxx2EV0L -- AAC@TAC
-        liff.init({ liffId: "2004036305-aJVm4b34" }, () => {
+        liff.init({ liffId: "2005594203-dxx2EV0L" }, () => {
             if (liff.isLoggedIn()) {
                 //getPage();
                 runApp();

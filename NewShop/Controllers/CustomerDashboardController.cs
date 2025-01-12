@@ -351,7 +351,7 @@ namespace NewShop.Controllers
             string message = "";
             try
             {
-                var cmd = new SqlCommand("P_Customer_credit", Connection);
+                var cmd = new SqlCommand("P_Customer_credit_Portal", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@CUSCOD", cuscod);
                 SqlDataReader reader = cmd.ExecuteReader();

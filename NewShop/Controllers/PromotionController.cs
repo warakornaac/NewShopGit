@@ -17,6 +17,7 @@ namespace NewShop.Controllers
 {
     public class PromotionController : Controller
     {
+
         //
         // GET: /Promotion/
 
@@ -26,6 +27,7 @@ namespace NewShop.Controllers
         }
         public ActionResult RegisterCustomer()
         {
+           // string appEnv = Session["appEnv"].ToString();
             string user = Session["UserID"].ToString();
             string slmCodeDefault = Session["UserID"].ToString();
             string flagSup = string.Empty;
@@ -108,7 +110,7 @@ namespace NewShop.Controllers
             return productList;
         }
         //get PromotionCode By Pmcode
-        public JsonResult GetPromotion(string prodMgr, string year, string company)
+        public JsonResult GetPromotion(string prodMgr, string year, string company, string period)
         {
             List<listPromotionCode> promotionList = new List<listPromotionCode>();
             SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString);
@@ -118,6 +120,7 @@ namespace NewShop.Controllers
             command.Parameters.AddWithValue("@inPm", prodMgr);
             command.Parameters.AddWithValue("@inYear", year);
             command.Parameters.AddWithValue("@inCom", company);
+            command.Parameters.AddWithValue("@inPeriod", period);
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
@@ -300,7 +303,11 @@ namespace NewShop.Controllers
         }
         public ActionResult ApproveChangeCustomer()
         {
-            string user = Session["UserID"].ToString();
+            string user = Session["UserID"] as string;
+            if (string.IsNullOrEmpty(user))
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             string flagSup = string.Empty;
             List<SelectListItem> slmCodeList = new List<SelectListItem>();
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -340,7 +347,7 @@ namespace NewShop.Controllers
 
             return View();
         }
-        public ActionResult GetPromotionApprove(string slmCode, string company, string year, string prodMgr, string promotionCode)
+        public ActionResult GetPromotionApprove(string slmCode, string company, string year, string period, string prodMgr, string promotionCode)
         {
             string message = "Y";
             string user = Session["UserID"].ToString();
@@ -354,6 +361,7 @@ namespace NewShop.Controllers
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inSlmCode", slmCode);
                 command.Parameters.AddWithValue("@inCompany", company);
+                command.Parameters.AddWithValue("@inPeriod", period);
                 command.Parameters.AddWithValue("@inProd", prodMgr);
                 command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
                 command.Parameters.AddWithValue("@inUser", user);
@@ -368,6 +376,7 @@ namespace NewShop.Controllers
                         Date_change = dr["Date_change"].ToString(),
 
                         Promotion_Code_Old = dr["Promotion_Code_old"].ToString(),
+                        Promotion_Code_old_Description = dr["Promotion_Code_old_Description"].ToString(),
                         Promotion_Sub_Old = dr["Promotion_Sub_Old"].ToString(),
                         Description_Old = dr["Description_old"].ToString(),
                         Reward_Old = dr["Reward_old"].ToString(),

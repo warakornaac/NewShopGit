@@ -45,39 +45,39 @@
         border-bottom: 1px solid #ccc;
     }
 
-        .panel-order .row:last-child {
-            border: 0px;
+    .panel-order .row:last-child {
+        border: 0px;
+    }
+
+    .panel-order .row .col-md-1 {
+        text-align: center;
+        padding-top: 15px;
+    }
+
+        .panel-order .row .col-md-1 img {
+            width: 50px;
+            max-height: 50px;
         }
 
-        .panel-order .row .col-md-1 {
-            text-align: center;
-            padding-top: 15px;
-        }
+    .panel-order .row .row {
+        border-bottom: 0;
+    }
 
-            .panel-order .row .col-md-1 img {
-                width: 50px;
-                max-height: 50px;
-            }
+    .panel-order .row .col-md-8 {
+        border-left: 1px solid #ccc;
+    }
 
-        .panel-order .row .row {
-            border-bottom: 0;
-        }
+    .panel-order .row .row .col-md-12 {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
 
-        .panel-order .row .col-md-8 {
-            border-left: 1px solid #ccc;
-        }
-
-        .panel-order .row .row .col-md-12 {
-            padding-top: 7px;
-            padding-bottom: 7px;
-        }
-
-            .panel-order .row .row .col-md-12:last-child {
-                /*font-size: 11px;*/
-                color: #555;
-                background: #d5f7dd;
-                border-top: 1px solid #ccc;
-            }
+    .panel-order .row .row .col-md-12:last-child {
+        /*font-size: 11px;*/
+        color: #555;
+        background: #d5f7dd;
+        border-top: 1px solid #ccc;
+    }
 
     .panel-order .btn-group {
         margin: 0px;
@@ -116,25 +116,25 @@
         display: none;
     }
 
-        .form-group input[type="checkbox"] + .btn-group > label span {
-            width: 20px;
-        }
+    .form-group input[type="checkbox"] + .btn-group > label span {
+        width: 20px;
+    }
 
-            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
-                display: none;
-            }
+    .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+        display: none;
+    }
 
-            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
-                display: inline-block;
-            }
+    .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+        display: inline-block;
+    }
 
-        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
-            display: inline-block;
-        }
+    .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+        display: inline-block;
+    }
 
-        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-            display: none;
-        }
+    .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+        display: none;
+    }
 </style>
 <div class="row">
     <div class="col-12">
@@ -230,21 +230,21 @@
                                                     <div class="pull-right">
                                                         <label class="label label-warning">Old</label>
                                                     </div>
-                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_Old</strong></span>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_Old / @rowData.Promotion_Code_old_Description</strong></span>
                                                     <br />
                                                     <i class="fa fa-usd icon"></i>
                                                     @rowData.Description_Old |
-                                                    @rowData.Reward_Old / @rowData.Cost_Old <br />
+                                                    @rowData.Reward_Old (@rowData.Cost_Old) <br />
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="pull-right icon">
                                                         <label class="label label-success">New</label>
                                                     </div>
-                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_New</strong></span>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_New / @rowData.Promotion_Code_old_Description</strong></span>
                                                     <br />
                                                     <i class="fa fa-usd icon"></i>
                                                     @rowData.Description_New |
-                                                    @rowData.Reward_New / @rowData.Cost_New <br />
+                                                    @rowData.Reward_New (@rowData.Cost_New) <br />
                                                 </div>
                                             </div>
                                         </div>

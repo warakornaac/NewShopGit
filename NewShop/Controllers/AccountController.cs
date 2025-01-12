@@ -19,16 +19,6 @@ namespace NewShop.Controllers
 {
     public class AccountController : Controller
     {
-        //public static AppSettings LoadAppSettings()
-        //{
-        //    var path = HostingEnvironment.MapPath("~/appsettings.json");
-        //    if (File.Exists(path))
-        //    {
-        //        var json = File.ReadAllText(path);
-        //        return JsonConvert.DeserializeObject<AppSettings>(json);
-        //    }
-        //    return null; // Handle this case as needed
-        //}
         //global variable
         string _Userlineid = string.Empty;
         // GET: /Account/
@@ -181,10 +171,10 @@ namespace NewShop.Controllers
             string Usertype = string.Empty;
             string dateexpire = string.Empty;
             string UsrClmStaff = string.Empty;
-            string appEnv = string.Empty;
+            //string appEnv = string.Empty;
             int intdateexpire = 0;
-            appEnv = ConfigurationManager.AppSettings["Environment"];
-            this.Session["appEnv"] = appEnv;
+            //appEnv = ConfigurationManager.AppSettings["Environment"];
+            //this.Session["appEnv"] = appEnv;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             //Connection.Open();
@@ -828,9 +818,8 @@ namespace NewShop.Controllers
                 {
                     message = "N";
                 }
-                if (UserType == "3")
+                if (UserType == "2")
                 {
-
                     var cmd = new SqlCommand("P_Check_User_Active_AD", Connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@InUsrType", UserType);

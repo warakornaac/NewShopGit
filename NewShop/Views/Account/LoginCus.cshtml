@@ -126,7 +126,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-7 col-lg-5">
                             <div class="wrap">
-                                <div class="img" style="background-image: url(../../images/bg-1.jpg);"></div>
+                                <div class="img" style="background-image: url(~/images/bg-1.jpg);"></div>
                                 <div class="login-wrap p-4 p-md-5">
                                     <div class="d-flex text-center">
                                         <div class="w-100">
@@ -141,7 +141,7 @@
                                     </div>
                                     @*<form class="signin-form" action="#" method="post">*@
                                     <div class="form-group">
-                                        <label class="control-label" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">USERNAME or EMAIL</label>
+                                        <label class="control-label" for="username" style="color: #2d6eff; font-weight: bold; font-size: 13px; margin-bottom: 2px;">USERNAME/EMAIL</label>
                                         <input type="text" class="form-control" id="inputusername" name="User" placeholder="Username" required>
                                         <label class="form-control-placeholder" for="username"></label>
                                         <p class="warning-red" id="wronguser" hidden>Username ไม่ถูกต้อง</p>
@@ -621,7 +621,11 @@
 
                 },
                 success: function (result) {
-                    if (result.UserType == '3' || result.UserType == '1') {
+                    console.log("message = " + result.message);
+                    console.log("page = " + result.page);
+                    console.log("UserType = " + result.UserType);
+
+                    if (result.UserType == '1' || result.UserType == '2') {
                         if (result.page != null && result.page != '') {
                             if (result.page == "amount") { //หน้ายอดซื้อ
                                 //alert("amount");

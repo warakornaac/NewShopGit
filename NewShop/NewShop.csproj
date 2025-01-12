@@ -7140,6 +7140,7 @@
       <DependentUpon>MobileOrderDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="CSS\argon-dashboard.css.map" />
+    <Content Include="appsettings.json" />
     <None Include="MobileOrderDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MobileOrderDataSet.Designer.cs</LastGenOutput>

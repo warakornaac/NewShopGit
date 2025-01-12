@@ -179,7 +179,6 @@
     <header class="header fixheader bg-primary">
         <nav class="navbar navbar-toggleable navbar-light ">
             <a class="p-0 pl-1" href="#" id="menuDashboard"><img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUL4xmD5Dk_p1W7_8LFhfUBZi51UQf5UUCYKL8PWrbg&s?sz=120" /></a>
-            <span class="text-white">Demo</span>
             <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon btn-nav"></span>
 
@@ -227,7 +226,7 @@
                             <span>ประวัติซื้อ</span>
                         </a>
                     </li>
-                    @if (UserType == "3")
+                    @if (UserType == "1" || UserType == "3")
                     {
                         <li class="nav-item dropdown messages-menu">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarchangecustomer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -248,46 +247,46 @@
 
 
                     @*&nbsp;
-                        @if (Session["UserType"].ToString() != "6")
-                        {
-                            <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;"> บัญชีของคุณ @Session["UserID"]</span>
-                        }
-                        else if (Session["UserType"].ToString() == "6")
-                        {
-                            if (Session["DisplayName"].ToString() != "")
-                            {
-                                //<span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">  @Session["DisplayName"]</span>
+                @if (Session["UserType"].ToString() != "6")
+                {
+                    <span style=" padding: 12px 0px 0px; margin-right:15px; color: white; font-size: 14px;"> บัญชีของคุณ @Session["UserID"]</span>
+                }
+                else if (Session["UserType"].ToString() == "6")
+                {
+                    if (Session["DisplayName"].ToString() != "")
+                    {
+                        //<span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">  @Session["DisplayName"]</span>
 
-                            }
-                            else
-                            {
-                                <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
-                            }
+                    }
+                    else
+                    {
+                        <span style=" padding: 12px 0px 0px; margin-right: 15px; color: white; font-size: 14px;">บัญชีของคุณ @Session["UserID"]</span>
+                    }
 
-                        }*@
+                }*@
 
                     @*<li class="nav-item dropdown messages-menu">
-                            <a class="nav-link dropdown-toggle" href="#" id="logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-sign-out"></i>
-                                <span>LogOut</span>
-                            </a>
-                        </li>*@
+                    <a class="nav-link dropdown-toggle" href="#" id="logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-sign-out"></i>
+                        <span>LogOut</span>
+                    </a>
+                </li>*@
 
                     @*@if (Session["UserType"].ToString() != "6") //ไม่ใช่ลุกค้า
-                        {
-                            <li class="nav-item dropdown messages-menu">
-                                <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">
-                                    <i class="fa fa fa-undo"></i>
-                                    <span>Change Password</span>
-                                </a>
-                            </li>
-                        }*@
+                {
+                    <li class="nav-item dropdown messages-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="formChangePassword">
+                            <i class="fa fa fa-undo"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                }*@
                     @*<li class="nav-item dropdown messages-menu">
-                            <a class="nav-link dropdown-toggle" href="~/Account/LogIn">
-                                <i class="fa fa fa-outdent"></i>
-                                <span>ออกจากระบบ</span>
-                            </a>
-                        </li>*@
+                    <a class="nav-link dropdown-toggle" href="~/Account/LogIn">
+                        <i class="fa fa fa-outdent"></i>
+                        <span>ออกจากระบบ</span>
+                    </a>
+                </li>*@
                 </ul>
             </div>
         </nav>

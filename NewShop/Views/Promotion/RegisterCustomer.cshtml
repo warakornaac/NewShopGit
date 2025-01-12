@@ -74,9 +74,27 @@
                                 </div>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="form-group">
+                                        <span> <i class="fa fa-calendar"></i><b> PERIOD:</b></span>
+                                        <span>
+                                            <select class="form-control selectpicker" id="period" name="period" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PERIOD">
+                                                <option value="ALL" selected>ALL</option>
+                                                <option value="Yearly">Yearly</option>
+                                                <option value="Half Year">Half Year</option>
+                                                <option value="Quarter">Quarter</option>
+                                                <option value="Monthly">Monthly</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="form-group">
                                         <span> <i class="fa fa-user"></i><b> PROD MGR:</b></span>
                                         <span>
                                             <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PROD MGR">
+                                                <option value="ALL" selected>ALL</option>
                                                 @for (var i = 0; i < getPmCodeList.Count; i++)
                                                 {
                                                     <option value="@getPmCodeList[i].Value">@getPmCodeList[i].Text</option>
@@ -85,9 +103,7 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-12 col-md-12">
+                                <div class="col-sm-9 col-md-9">
                                     <div class="form-group">
                                         <span> <i class="fa fa-tag"></i><b> PROMOTION CODE:</b></span>
                                         <span>
@@ -102,7 +118,7 @@
                             <div class="row">
                                 <div class="col-md-12 text-right" style="font-size:14px; color:red;">
                                     @*<button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;
-                                    <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionReg();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>*@
+                                        <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionReg();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>*@
                                     ระบบจะแสดงรายละเอียดเมื่อเลือก Promotion code
                                 </div>
                             </div>
@@ -118,6 +134,7 @@
                 }*@
         }
         <div id="showDetailPromotionRegister" class="pt-1 pb-1"></div>
+
     </div>
 </body>
 </html>
@@ -134,24 +151,35 @@
         });
         //เลือก Company
         $('#company').change(function () {
+            var period = $("#period option:selected").val();
             var prodMgr = $("#prodMgr option:selected").val();
             var year = $("#year option:selected").val();
             var company = $(this).val();
-            GetPromotion(prodMgr, year, company);
+            GetPromotion(prodMgr, year, company, period);
         });
         //เลือก Year
         $('#year').change(function () {
+            var period = $("#period option:selected").val();
             var prodMgr = $("#prodMgr option:selected").val();
             var year = $(this).val();
             var company = $("#company option:selected").val();
-            GetPromotion(prodMgr, year, company);
+            GetPromotion(prodMgr, year, company, period);
+        });
+        //เลือก Period
+        $('#period').change(function () {
+            var period = $(this).val();
+            var prodMgr = $("#prodMgr option:selected").val();
+            var year = $("#year option:selected").val();
+            var company = $("#company option:selected").val();
+            GetPromotion(prodMgr, year, company, period);
         });
         //เลือก PM
         $('#prodMgr').change(function () {
+            var period = $("#period option:selected").val();
             var prodMgr =  $(this).val();
             var year = $("#year option:selected").val();
             var company = $("#company option:selected").val();
-            GetPromotion(prodMgr, year, company);
+            GetPromotion(prodMgr, year, company, period);
         });
         //เลือก Promotion code
         $('#promotionCode').change(function () {
@@ -162,20 +190,21 @@
         });
     });
     //ดึง promotion code
-    function GetPromotion(prodMgr, year, company) {
+    function GetPromotion(prodMgr, year, company, period) {
         if (prodMgr == null || prodMgr == '') {
             prodMgr = 0;
         }
         if (year == null || year == '') {
             year = 0;
         }
-        console.log("prodMgr = " + prodMgr + " year = " + year.slice(-2) + " company = " + company);
+        console.log("prodMgr = " + prodMgr + " year = " + year.slice(-2) + " company = " + company + " period = " + period);
         $.ajax({
             url: '@Url.Action("GetPromotion", "Promotion")',
             data: {
                 prodMgr: prodMgr,
                 year: year.slice(-2),
-                company: company
+                company: company,
+                period: period
             },
             type: "POST",
             dataType: "JSON",
@@ -194,8 +223,10 @@
                 //$('#promotionCode').trigger('change');
                 setTimeout(() => {
                     promotionCode = $("#promotionCode option:selected").val();
-                    if (promotionCode != undefined) {
+                    if (promotionCode != undefined) { //ถ้าเจอโปโมรชั่น
                         searchPromotionReg(promotionCode);
+                    } else {
+                        $('#showDetailPromotionRegister').empty();
                     }
                 }, "1000");
             }
@@ -260,9 +291,9 @@
                     LoadingShow();
                 },
                 success: function (res) {
-                    LoadingHide();
                     $('#showDetailPromotionRegister').html(res);
                     $("#txtHeadPromotionDetail").text(promotionText);
+                    LoadingHide();
                 },
                 error: function (er) {
                     alert(er.error);

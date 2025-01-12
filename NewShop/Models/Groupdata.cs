@@ -279,6 +279,7 @@ namespace NewShop.Models
         public string PDC_QTY { get; set; }
         public string AccessID { get; set; }
         public string Intransit { get; set; }
+        public string InsertedBy { get; set; }
 
     }
     public class SLM
@@ -1268,6 +1269,7 @@ namespace NewShop.Models
         public string Cusname { get; set; }
         public string Date_change { get; set; }
         public string Promotion_Code_Old { get; set; }
+        public string Promotion_Code_old_Description { get; set; }
         public string Promotion_Sub_Old { get; set; }
         public string Description_Old { get; set; }
         public string Reward_Old { get; set; }

@@ -1,298 +1,328 @@
 ﻿@{
   ViewBag.Title = "ApproveChangeCustomer";
-    Layout = "~/Views/Shared/_Layoutyouknow_center.cshtml";
+    Layout = "~/Views/Shared/_Layout_product.cshtml";
     List<SelectListItem> getSlmCodeList = ViewBag.slmCodeList;
     List<SelectListItem> getPmCodeList = ViewBag.pmCodeList;
 }
-<html>
-<head>
-    <meta charset="utf-8">
-    <title> Approve Change Promotion </title> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <script src="~/Scripts/jquery-2.2.4.js"></script>
-    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
-    <link href="~/Content/Normalize.css" rel="stylesheet" />
-    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-    <script src="~/Scripts/bootstrap.bundle.min.4.5.0.js"></script>
-    <script src="~/Scripts/bootstrap-select.min.1.13.17.js"></script>
-    <script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
-    <link href="~/Scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet">
-    <script src="~/Scripts/loadingoverlay.min.js"></script>
-</head>
-<body>
-    <div class="container-fluid mt--90">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-12 mt-4">
-                    <form action="" id="forecastPmForm" method="post" onsubmit="">
-                        <div class="card-header bg-primary text-white font-weight-bold" style="cursor: pointer;">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <i class="fa fa-table"></i> Approve Change Promotion
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title> Approve Change Promotion </title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <script src="~/Scripts/jquery-2.2.4.js"></script>
+            <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+            <link href="~/Content/Normalize.css" rel="stylesheet" />
+            <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+            <script src="~/Scripts/bootstrap.bundle.min.4.5.0.js"></script>
+            <script src="~/Scripts/bootstrap-select.min.1.13.17.js"></script>
+            <script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
+            <link href="~/Scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+            <script src="~/Scripts/loadingoverlay.min.js"></script>
+        </head>
+        <body>
+            <div class="container-fluid mt--50">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-12">
+                            <form action="" id="forecastPmForm" method="post" onsubmit="">
+                                <div class="card-header bg-primary text-white font-weight-bold" style="cursor: pointer;">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <i class="fa fa-table"></i> Approve Change Promotion
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="card-body" id="headerSearch">
+                                    <div class="row p-2">
+                                        <div class="col-sm-3 col-md-3">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-user"></i><b> SLMCODE:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="slmCode" name="slmCode" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT SLMCODE">
+                                                        @for (var i = 0; i < getSlmCodeList.Count; i++)
+                                                        {
+                                                        <option value="@getSlmCodeList[i].Value">@getSlmCodeList[i].Text</option>
+                                                        }
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-md-3">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-university"></i><b> COMPANY:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="company" name="company" style="width: 100%;" data-none-selected-text="SELECT COMPANY">
+                                                        <option value="ALL" selected>ALL</option>
+                                                        <option value="TAC">TAC</option>
+                                                        <option value="AAC">AAC</option>
+                                                        <option value="OMP">OMP</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-md-3">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-calendar"></i><b> YEAR:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="year" name="year" style="width: 100%;">
+                                                        <option value="2024" selected>2024</option>
+                                                        <option value="2023">2023</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-md-3">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-calendar"></i><b> PERIOD:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="period" name="period" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PERIOD">
+                                                        <option value="ALL" selected>ALL</option>
+                                                        <option value="Yearly">Yearly</option>
+                                                        <option value="Half Year">Half Year</option>
+                                                        <option value="Quarter">Quarter</option>
+                                                        <option value="Monthly">Monthly</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-2">
+                                        <div class="col-sm-3 col-md-3">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-user"></i><b> PROD MGR:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-none-selected-text="SELECT PROD MGR">
+                                                        @for (var i = 0; i < getPmCodeList.Count; i++)
+                                                        {
+                                                        <option value="@getPmCodeList[i].Value">@getPmCodeList[i].Text</option>
+                                                        }
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <div class="form-group">
+                                                <span> <i class="fa fa-tag"></i><b> PROMOTION CODE:</b></span>
+                                                <span>
+                                                    <select class="form-control selectpicker" id="promotionCode" name="promotionCode" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PROMOTION CODE">
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer" id="headerSearchFooter">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6 text-left">
+                                            @*<button type="reset" class="btn btn-success btn-md" onclick="approveChangeCustomer('Y');" style="font-size: medium;"><i class="fa fa-check"></i> Approve </button> &nbsp;
+                                            <button type="button" class="btn btn-danger btn-md" onclick="approveChangeCustomer('N');" style="font-size: medium;"><i class="fa fa-remove"></i> Reject </button>*@
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 text-right">
+                                            @* <button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;*@
+                                            <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionApprove();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="card-body" id="headerSearch">
-                            <div class="row p-2">
-                                <div class="col-sm-3 col-md-3">
-                                    <div class="form-group">
-                                        <span> <i class="fa fa-user"></i><b> SLMCODE:</b></span>
-                                        <span>
-                                            <select class="form-control selectpicker" id="slmCode" name="slmCode" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT SLMCODE">
-                                                @for (var i = 0; i < getSlmCodeList.Count; i++)
-                                                {
-                                                    <option value="@getSlmCodeList[i].Value">@getSlmCodeList[i].Text</option>
-                                                }
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    <div class="form-group">
-                                        <span> <i class="fa fa-university"></i><b> COMPANY:</b></span>
-                                        <span>
-                                            <select class="form-control selectpicker" id="company" name="company" style="width: 100%;" data-none-selected-text="SELECT COMPANY">
-                                                <option value="ALL" selected>ALL</option>
-                                                <option value="TAC">TAC</option>
-                                                <option value="AAC">AAC</option>
-                                                <option value="OMP">OMP</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    <div class="form-group">
-                                        <span> <i class="fa fa-calendar"></i><b> YEAR:</b></span>
-                                        <span>
-                                            <select class="form-control selectpicker" id="year" name="year" style="width: 100%;">
-                                                <option value="2024" selected>2024</option>
-                                                <option value="2023">2023</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    <div class="form-group">
-                                        <span> <i class="fa fa-user"></i><b> PROD MGR:</b></span>
-                                        <span>
-                                            <select class="form-control selectpicker" id="prodMgr" name="prodMgr" style="width: 100%;" data-none-selected-text="SELECT PROD MGR">
-                                                @for (var i = 0; i < getPmCodeList.Count; i++)
-                                                {
-                                                    <option value="@getPmCodeList[i].Value">@getPmCodeList[i].Text</option>
-                                                }
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <span> <i class="fa fa-tag"></i><b> PROMOTION CODE:</b></span>
-                                        <span>
-                                            <select class="form-control selectpicker" id="promotionCode" name="promotionCode" style="width: 100%;" data-live-search="true" data-none-selected-text="SELECT PROMOTION CODE">
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" id="headerSearchFooter">
-                            <div class="row">
-                                <div class="col-md-6 col-xs-6 text-left">
-                                    @*<button type="reset" class="btn btn-success btn-md" onclick="approveChangeCustomer('Y');" style="font-size: medium;"><i class="fa fa-check"></i> Approve </button> &nbsp;
-                                    <button type="button" class="btn btn-danger btn-md" onclick="approveChangeCustomer('N');" style="font-size: medium;"><i class="fa fa-remove"></i> Reject </button>*@
-                                </div>
-                                <div class="col-md-6 col-xs-6 text-right">
-                                   @* <button type="reset" class="btn btn-default btn-md" onclick="resetSearch();" style="font-size: medium;"><i class="fa fa-refresh"></i> Reset</button> &nbsp;*@
-                                    <button type="button" class="btn btn-primary btn-md" onclick="searchPromotionApprove();" style="font-size: medium;"><i class="fa fa-search"></i> Search</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
+                <div id="showCustomerApprove" class="pt-1 pb-1"></div>
             </div>
-        </div>
-        <div id="showCustomerApprove" class="pt-1 pb-1"></div>
-    </div>
-</body>
-</html>
-<script defer>
-    var userType = @this.Session["UserType"].ToString();
-    $(document).ready(function () {
-        //เลือก Company
-        $('#company').change(function () {
-            var prodMgr = $("#prodMgr option:selected").val();
-            var year = $("#year option:selected").val();
-            var company = $(this).val();
-            GetPromotion(prodMgr, year, company);
-        });
-        //เลือก Year
-        $('#year').change(function () {
-            var prodMgr = $("#prodMgr option:selected").val();
-            var year = $(this).val();
-            var company = $("#company option:selected").val();
-            GetPromotion(prodMgr, year, company);
-        });
-        //เลือก PM
-        $('#prodMgr').change(function () {
-            var prodMgr =  $(this).val();
-            var year = $("#year option:selected").val();
-            var company = $("#company option:selected").val();
-            GetPromotion(prodMgr, year, company);
-        });
-    });
-    //ดึง promotion code
-    function GetPromotion(prodMgr, year, company) {
-        if (prodMgr == null || prodMgr == '') {
-            prodMgr = 0;
-        }
-        if (year == null || year == '') {
-            year = 0;
-        }
-        if (company == null || company == '') {
-            company = "ALL";
-        }
-        console.log("prodMgr = " + prodMgr + " year = " + year.slice(-2) + " company = " + company);
-        $.ajax({
-            url: '@Url.Action("GetPromotion", "Promotion")',
-            data: {
-                prodMgr: prodMgr,
-                year: year.slice(-2),
-                company: company
-            },
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                LoadingShow();
-            },
-            success: function (data) {
-                var select = $("#promotionCode");
-                select.children().remove();
-                select.append($("<option>").val("ALL").text("ALL"));
-                $(data).each(function (index, item) {
-                    select.append($("<option>").val(item.PromotionCode).text(item.PromotionCode + " / " + item.PromotionDes));
-                });
-                $('#promotionCode').selectpicker('refresh');
-                $('#promotionCode').selectpicker('selectAll');
-                $('#promotionCode').trigger('change');
-                searchPromotionApprove();
-                LoadingHide();
-            }
-        });
-    }
-    //search detail promotion
-    function searchPromotionApprove() {
-        //$("#slmCode").prop('disabled', false);
-        var msg = '';
-        var error = 0;
-        var slmCode = $("#slmCode option:selected").val();
-        var company = $("#company option:selected").val();
-        var year = $("#year option:selected").val();
-        var prodMgr = $("#prodMgr option:selected").val();
-        var promotionCode = $("#promotionCode option:selected").val();
-        var promotionText = $("#promotionCode option:selected").text();
-        //alert(promotionText);
-        if (slmCode == undefined || slmCode == null) {
-            slmCode = "ALL";
-        }
-
-        if (prodMgr == undefined) {
-            ++error;
-            msg += '<br>' + error + '. กรุณาเลือก Prod MGR';
-        }
-        if (year == undefined) {
-            ++error;
-            msg += '<br>' + error + '. กรุณาเลือก ปี';
-        }
-        //console.log("stksec = " + stksec);
-        //return false;
-        if (error) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
-                html: msg,
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'Close',
-                allowOutsideClick: false,
-                focusConfirm: false,
+        </body>
+    </html>
+    <script defer>
+        var userType = @this.Session["UserType"].ToString();
+        $(document).ready(function () {
+            //เลือก Company
+            $('#company').change(function () {
+                var period = $("#period option:selected").val();
+                var prodMgr = $("#prodMgr option:selected").val();
+                var year = $("#year option:selected").val();
+                var company = $(this).val();
+                GetPromotion(prodMgr, year, company, period);
             });
-            return false;
-        } else {
+            //เลือก Year
+            $('#year').change(function () {
+                var period = $("#period option:selected").val();
+                var prodMgr = $("#prodMgr option:selected").val();
+                var year = $(this).val();
+                var company = $("#company option:selected").val();
+                GetPromotion(prodMgr, year, company, period);
+            });
+            //เลือก Period
+            $('#period').change(function () {
+                var period = $(this).val();
+                var prodMgr = $("#prodMgr option:selected").val();
+                var year = $("#year option:selected").val();
+                var company = $("#company option:selected").val();
+                GetPromotion(prodMgr, year, company, period);
+            });
+            //เลือก PM
+            $('#prodMgr').change(function () {
+                var period = $("#period option:selected").val();
+                var prodMgr = $(this).val();
+                var year = $("#year option:selected").val();
+                var company = $("#company option:selected").val();
+                GetPromotion(prodMgr, year, company, period);
+            });
+        });
+        //ดึง promotion code
+        function GetPromotion(prodMgr, year, company, period) {
+            if (prodMgr == null || prodMgr == '') {
+                prodMgr = 0;
+            }
+            if (year == null || year == '') {
+                year = 0;
+            }
+            if (company == null || company == '') {
+                company = "ALL";
+            }
+            console.log("prodMgr = " + prodMgr + " year = " + year.slice(-2) + " company = " + company + " period = " + period);
             $.ajax({
-                type: 'post',
-                url: '@Url.Action("GetPromotionApprove", "Promotion")',
+                url: '@Url.Action("GetPromotion", "Promotion")',
                 data: {
-                    slmCode: slmCode,
-                    company: company,
-                    year: year,
                     prodMgr: prodMgr,
-                    promotionCode: promotionCode
+                    year: year.slice(-2),
+                    company: company,
+                    period: period
                 },
-                dataType: 'html',
-                cache: false,
-                Async: true,
+                type: "POST",
+                dataType: "JSON",
                 beforeSend: function () {
-                    $('#showCustomerApprove').empty();
-                    $('#showCustomerApprove').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
-                    //LoadingShow();
+                    LoadingShow();
                 },
-                success: function (res) {
-                    //LoadingHide();
-                    $('#showCustomerApprove').html(res);
-                    //$("#txtHeadPromotionDetail").text(promotionText);
-                },
-                error: function (er) {
-                    alert(er.error);
+                success: function (data) {
+                    var select = $("#promotionCode");
+                    select.children().remove();
+                    select.append($("<option>").val("ALL").text("ALL"));
+                    $(data).each(function (index, item) {
+                        select.append($("<option>").val(item.PromotionCode).text(item.PromotionCode + " / " + item.PromotionDes));
+                    });
+                    $('#promotionCode').selectpicker('refresh');
+                    $('#promotionCode').selectpicker('selectAll');
+                    $('#promotionCode').trigger('change');
+                    searchPromotionApprove();
+                    LoadingHide();
                 }
-            }).fail(function (error) {
-                LoadingHide();
+            });
+        }
+        //search detail promotion
+        function searchPromotionApprove() {
+            //$("#slmCode").prop('disabled', false);
+            var msg = '';
+            var error = 0;
+            var slmCode = $("#slmCode option:selected").val();
+            var company = $("#company option:selected").val();
+            var year = $("#year option:selected").val();
+            var period = $("#period option:selected").val();
+            var prodMgr = $("#prodMgr option:selected").val();
+            var promotionCode = $("#promotionCode option:selected").val();
+            var promotionText = $("#promotionCode option:selected").text();
+            //alert(promotionText);
+            if (slmCode == undefined || slmCode == null) {
+                slmCode = "ALL";
+            }
+
+            if (prodMgr == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก Prod MGR';
+            }
+            if (year == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก ปี';
+            }
+            //console.log("stksec = " + stksec);
+            //return false;
+            if (error) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error not search',
-                    html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>searchPromotionApprove<br><br>',
+                    icon: 'warning',
+                    title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                    html: msg,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'ปิด',
+                    confirmButtonText: 'Close',
                     allowOutsideClick: false,
                     focusConfirm: false,
                 });
-            });
-        }
-    }
-    function resetSearch() {
-        LoadingShow();
-        location.reload();
-        LoadingHide();
-    }
-
-    document.onreadystatechange = function () {
-        if (document.readyState === 'interactive') {
-            //LoadingShow();
-        }
-        if (document.readyState === "complete") {
-            $('#slmCode').selectpicker('val', '');
-            //$('#company').selectpicker('val', '');
-            if (userType == 3) {
-                $("#slmCode").prop('disabled', true);
+                return false;
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("GetPromotionApprove", "Promotion")',
+                    data: {
+                        slmCode: slmCode,
+                        company: company,
+                        year: year,
+                        period: period,
+                        prodMgr: prodMgr,
+                        promotionCode: promotionCode
+                    },
+                    dataType: 'html',
+                    cache: false,
+                    Async: true,
+                    beforeSend: function () {
+                        $('#showCustomerApprove').empty();
+                        $('#showCustomerApprove').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                        //LoadingShow();
+                    },
+                    success: function (res) {
+                        //LoadingHide();
+                        $('#showCustomerApprove').html(res);
+                        //$("#txtHeadPromotionDetail").text(promotionText);
+                    },
+                    error: function (er) {
+                        alert(er.error);
+                    }
+                }).fail(function (error) {
+                    LoadingHide();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error not search',
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>searchPromotionApprove<br><br>',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'ปิด',
+                        allowOutsideClick: false,
+                        focusConfirm: false,
+                    });
+                });
             }
-            //show code promotion all first
-            var prodMgr = $("#prodMgr option:selected").val();
-            var year = $("#year option:selected").val();
-            var company = $("#company option:selected").val();
-            GetPromotion(prodMgr, year, company);
-            setTimeout(() => {
-                //LoadingHide();
-                searchPromotionApprove();
-            }, "1500");
         }
-    }
+        function resetSearch() {
+            LoadingShow();
+            location.reload();
+            LoadingHide();
+        }
 
-    function LoadingShow() {
-        $.LoadingOverlay("show");
-    }
+        document.onreadystatechange = function () {
+            if (document.readyState === 'interactive') {
+                //LoadingShow();
+            }
+            if (document.readyState === "complete") {
+                $('#slmCode').selectpicker('val', '');
+                //$('#company').selectpicker('val', '');
+                if (userType == 3) {
+                    $("#slmCode").prop('disabled', true);
+                }
+                //show code promotion all first
+                var period = $("#period option:selected").val();
+                var prodMgr = $("#prodMgr option:selected").val();
+                var year = $("#year option:selected").val();
+                var company = $("#company option:selected").val();
+                GetPromotion(prodMgr, year, company, period);
+                setTimeout(() => {
+                    //LoadingHide();
+                    searchPromotionApprove();
+                }, "1500");
+            }
+        }
 
-    function LoadingHide() {
-        $.LoadingOverlay("hide");
-    }
-</script>
+        function LoadingShow() {
+            $.LoadingOverlay("show");
+        }
+
+        function LoadingHide() {
+            $.LoadingOverlay("hide");
+        }
+    </script>

@@ -315,6 +315,7 @@
 
                                         @*<th class="product-name">สถานะสินค้า</th>*@
                                         <th class="product-name">Type</th>
+                                        <th class="product-name" style="text-align: center;">เพิ่มโดย</th>
                                         @*<th class="product-name" style="display:none">Status</th>
                                             <th class="product-name" style="display:none">PromotionDes</th>*@
                                     </tr>
@@ -1663,6 +1664,7 @@
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Promotion + '</td>';
 
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.InsertedBy + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.UOM + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.CartID + '</td>';
                                 SubmithtmlPage += '</tr>';
@@ -4097,15 +4099,16 @@
                                         if (data.flagCheck == "Y") { //ติดเครดิต รอ CRC อนุมัติ
                                             $("#checkCreditCustomer").html('<div class="row">' +
                                                                                 '<div class="col-sm-12">' +
-                                                                                    '<div class="alert alert-warning text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ต้องรอ CRC ตรวจสอบเครดิตอาจใช้เวลานานกว่า Order จะส่งไปคลังสินค้า </div>' +
+                                                                                    '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ต้องรอ CRC ตรวจสอบเครดิตอาจใช้เวลานานกว่า Order จะส่งไปคลังสินค้า </div>' +
                                                                                 '</div>' +
                                                                             '</div>')
                                         } else {  //ไม่ติดเครดิต
-                                            $("#checkCreditCustomer").html('<div class="row">' +
-                                                                                '<div class="col-sm-12">' +
-                                                                                    '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
-                                                                                '</div>' +
-                                                                            '</div>')
+                                            //$("#checkCreditCustomer").html('<div class="row">' +
+                                            //                                    '<div class="col-sm-12">' +
+                                            //                                        '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
+                                            //                                    '</div>' +
+                                            //                                '</div>')
+                                            $('#checkCreditCustomer').empty();
                                         }
                                        //enable ปุ่มยินยัน
                                         $("#btnOK").prop('disabled', false);
