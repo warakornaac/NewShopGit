@@ -187,6 +187,9 @@
                         if (data.CUSList.length == 0) {
                             $('#label-select-customer-zero').removeAttr('hidden');
                         }
+                        else {
+                            $('#label-select-customer-zero').attr('hidden',true);
+                        }
                         $('#count-customer').text(data.CUSList.length);
 
 

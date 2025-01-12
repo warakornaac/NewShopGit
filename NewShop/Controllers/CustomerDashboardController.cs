@@ -813,8 +813,9 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetCusInvMonth(string CUSCOD, string Month, string Year)
+        public JsonResult GetCusInvMonth(string CUSCOD, string Month, string Year, Boolean CNflag)
         {
+            int CNflagInt = CNflag ? 1 : 0;
             string message = "";
             List<Cusinv_Month> Getdata = new List<Cusinv_Month>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -822,11 +823,13 @@ namespace NewShop.Controllers
             Connection.Open();
             try
             {
+
                 var command = new SqlCommand("p_Search_Cusinv_Month", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inCUSCOD", CUSCOD.Trim());
                 command.Parameters.AddWithValue("@inYear", Year.Trim());
                 command.Parameters.AddWithValue("@inMonth", Month.Trim());
+                command.Parameters.AddWithValue("@CN_Flg", CNflagInt);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -988,6 +991,101 @@ namespace NewShop.Controllers
             return Json(Getdata, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetReturn(string CUSCOD, string Tab)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            string message = "false";
+            var Getdata = new List<object>();
+            try
+            {
+                var command = new SqlCommand("P_Search_SalesReturn_Portal", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+                command.Parameters.AddWithValue("@instatus", Tab);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+
+                    Getdata.Add(new
+                    {
+                        REQ_NO = dr["REQ_NO"].ToString(),
+                        CLM_NO_SUB = dr["CLM_NO_SUB"].ToString(),
+                        REQ_DATE = dr["REQ_DATE"].ToString(),
+                        ReceiveDate = dr["FormatReceiveDate"].ToString(),
+                        CLM_COMPANY = dr["CLM_COMPANY"].ToString(),
+                        CUSCOD = dr["CUSCOD"].ToString(),
+                        STKCOD = dr["STKCOD"].ToString(),
+                        STKDES = dr["STKDES"].ToString(),
+                        Qty = dr["Qty"].ToString(),
+                        InvoiceNo = dr["Invoice No"].ToString(),
+                        InvoiceDate = dr["Invoice Date"].ToString(),
+                        Symptom = dr["Symptom"].ToString(),
+                        Request = dr["Request"].ToString(),
+                        DueDate = dr["Due Date"].ToString(),
+                        Checking = dr["Checking"].ToString(),
+                        ApproveDate = dr["Approve Date"].ToString(),
+                        Status = dr["Status"].ToString(),
+                        CS_No = dr["CS_No"].ToString(),
+                        CS_Date = dr["CS_Date"] != DBNull.Value ? DateTime.Parse(dr["CS_Date"].ToString()).ToString("dd-MM-yy") : string.Empty,
+                    });
+
+                }
+                message = "Y";
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetReturnCount(string CUSCOD)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            string message = "false";
+            var Getdata = new List<object>();
+
+            try
+            {
+
+
+                var command = new SqlCommand("P_Search_SalesReturn_Portal_count", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCUSCOD", CUSCOD);
+
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+
+                    Getdata.Add(new
+                    {
+                        A = dr["รอดำเนินงาน/กำลังตรวจสอบ"].ToString(),
+                        B = dr["อนุมัติ"].ToString(),
+                        C = dr["ไม่อนุมัติ"].ToString(),
+
+                    });
+
+                }
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return Json(Getdata, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetBilling(string CUSCOD, string Company, string DueDatMin, string DueDatMax)
         {
             string message = "";
