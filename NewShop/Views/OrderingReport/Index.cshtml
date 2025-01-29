@@ -473,17 +473,17 @@
                         if (typin == "Y") {
                             if (block == "0") {
                                 $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + " ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
                             } else {
                                 $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + " ถูกระงับการขายชั่วคราวและไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
                             }
                         } else {
                             if (block == "1") {
                                 $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + getCuscodeText + "ถูกระงับการขายชั่วคราว กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
                             } else {//ถ้าลูกค้าไม่ block
                                 $(".modal-body #getDataStkcod").text(getStkcod);
