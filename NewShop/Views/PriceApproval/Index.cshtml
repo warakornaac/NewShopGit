@@ -688,13 +688,13 @@
                             if (data.Getdata[i].val.Status == "W") {
                                 SubmithtmlPage += '<td style="width: 79px;"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
-                                SubmithtmlPage += '<td>' + (data.Getdata[i].val.Item_Type === "BCK" ? "BCK" : " ") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
                             }
                             else {
                                 SubmithtmlPage += '<td></td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
-                                SubmithtmlPage += '<td>' + (data.Getdata[i].val.Item_Type === "BCK" ? "BCK" : " ") + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + ' <br>' + data.Getdata[i].val.PrcApproveDate + '</td>';
                             }
 

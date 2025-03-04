@@ -1233,7 +1233,6 @@ namespace NewShop.Controllers
                     while (rev_.Read())
                     {
                         DocNo = rev_["Sale Order"].ToString();
-
                     }
 
                     rev_.Close();
@@ -1287,7 +1286,7 @@ namespace NewShop.Controllers
             return Json(new { message, DocNo }, JsonRequestBehavior.AllowGet);
         }
         //เช็ค last id LogAccessCart ก่อน confirm
-        public JsonResult checkAccessIdConfirm(string accessId, string cuscod) 
+        public JsonResult checkAccessIdConfirm(string accessId, string cuscod)
         {
             string flagCheck = string.Empty;
             string userLast = string.Empty;
@@ -1328,7 +1327,7 @@ namespace NewShop.Controllers
             return Json(new { flagCheck, userLast, timeBefore, timeLast }, JsonRequestBehavior.AllowGet);
         }
         //เช็ค credit ลูกค้าก่อน confirm
-        public JsonResult CheckCustomerCredit(string company, string cuscod, string sumAmt) 
+        public JsonResult CheckCustomerCredit(string company, string cuscod, string sumAmt)
         {
             string flagCheck = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
