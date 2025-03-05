@@ -93,6 +93,14 @@
         box-shadow: none;
         cursor: pointer;
     }
+
+    .vcenter {
+        text-align: center !important;
+    }
+
+    .bgSpc {
+        background-color: #793210;
+    }
 </style>
 <html>
 <head>
@@ -115,6 +123,9 @@
     <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
     <link href="~/Scripts/datepicker/jquery-ui.css" rel="stylesheet" />
     <script src="~/Scripts/datepicker/jquery-ui.min.js"></script>
+    <script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
+    <link href="~/Scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
 
 </head>
 <body style="background: linear-gradient(-180deg,#071d6dfa,#9b9fbda3);">
@@ -275,12 +286,28 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3" style="text-align: center">
-                                    <div class="input-group">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon ">Topic Type<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                            <select id="topicType" class="form-control" style="width:180px">
+                                                <option value="ALL">ทั้งหมด</option>
+                                                <option value="FOC">ของแถม</option>
+                                                <option value="SOC">ต่อรองราคา</option>
+                                                <option value="SPC">ต่อรองราคาต่ำกว่าทุน</option>
+                                                <option value="BOC">ลดจำนวน BO</option>
 
-                                        <button type="button" id="btnseach" class="btn btn-info btn-large" style="width: 234px;"> SEARCH</button>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+
+                                @*<div class="col-md-3" style="text-align: center">
+                                        <div class="input-group">
+
+                                            <button type="button" id="btnseach" class="btn btn-info btn-large" style="width: 234px;"> SEARCH</button>
+                                        </div>
+                                    </div>*@
                             </div>
 
                         </div>
@@ -293,17 +320,20 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-md-3" style="text-align:center">
+                <div class="col-md-4" style="text-align: center">
+                    @*<div class="form-group">
+                            <i class="topnav_home" style="color: #F7EFEF;font-size: 24px;">รายการรออนุมัติ</i>
+                        </div>*@
                     <div class="form-group">
-                        <i class="topnav_home" style="color: #F7EFEF;font-size: 24px;">รายการรออนุมัติ</i>
+                        <button type="button" id="btnseach" class="btn btn-info btn-large" style="width: 234px;"> SEARCH</button>
                     </div>
                 </div>
-                <div class="col-md-5" style="text-align:center">
+                <div class="col-md-4" style="text-align:center">
                     <div class="form-group">
                         <button type="button" id="btncan" class="btn btn-warning btn-large" style="width: 234px;">Not Approve</button>
                     </div>
                 </div>
-                <div class="col-md-4" style="text-align:center">
+                <div class="col-md-4" style="text-align: center">
                     <div class=" form-group">
 
                         <input type="button" id="btnapproval" class="btn btn-success btn-large" style="width: 234px;" value="Approve">
@@ -370,10 +400,12 @@
                     <tr>
                         <th>Select</th>
                         <th>No</th>
+                        <th>Topic Type</th>
                         <th>Status</th>
                         <th>Stkcod</th>
                         <th>Stkdes</th>
-                        <th>จำนวนสั่งซื้อ</th>
+                        <th>จำนวน</th>
+                        <th>Cost</th>
                         <th>ราคาต่อรอง</th>
                         <th>Customer</th>
                         <th>Slmcod</th>
@@ -386,7 +418,6 @@
                         <th>Stock</th>
                         <th>Spc Remark</th>
                         <th>ราคาซื้อล่าสุด</th>
-                        <th>Cost</th>
                         <th>วันที่สั่งซื้อ</th>
                         <th>Line Note</th>
                         <th>Insert date/time</th>
@@ -440,6 +471,25 @@
     <input type="hidden" id="User">
     <script src="~/fixed-table-master/fixed-table.js"></script>
     <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+
+    <div class="modal fade" id="DetailPriceLowCost" tabindex="-1" aria-labelledby="ModalCancel" @*data-backdrop="static"*@ data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header pb-2">
+                    <div class="col-sm-10 col-md-10">
+                        <h4 class="modal-title" id="myModalLabel">รายละเอียดสินค้า</h4>
+                    </div>
+                    <div class="col-sm-2 col-md-2 text-right"><button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" style="padding: 10px;">ปิด</button></div>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-warning" id="cancel_submit"><i class="fa fa-trash"></i> ยกเลิกรายการ </button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -518,12 +568,16 @@
             $('#checkboxAll').click(function (event) {  //on click
                 if (this.checked) { // check select status
                     $('.chk').each(function () { //loop through each checkbox
-                        this.checked = true;
+                        if (!$(this).prop('disabled')) { 
+                            this.checked = true;
+                        }
 
                     });
                 } else {
                     $('.chk').each(function () { //loop through each checkbox
-                        this.checked = false; //deselect all checkboxes with class "chk"
+                        if (!$(this).prop('disabled')) { 
+                            this.checked = false; //deselect all checkboxes with class "chk"
+                        }
 
                     });
                 }
@@ -627,6 +681,7 @@
             var _CUSCOD = $('#CUSCOD').val();
             var _STKGRP = $('#STKGroup').val();
             var _ProdMRG = $('#ddlProdMRG').val();
+            var topicType = $('#topicType').val();
             //var _Usre = $("#User").val();
             var _User = userid;
 
@@ -641,6 +696,7 @@
                     STKGRP: _STKGRP,
                     ProdMRG: _ProdMRG,
                     vStatus: vStatus,
+                    topicType: topicType,
                     Usre: _User
                 },
                 type: "POST",
@@ -671,33 +727,71 @@
                         var strsub;
                         var Prcre;
                         var Inseby;
+                        var BgColor;
+                        var ProdCodeHigh;
+                        var DisableCheckbox;
                         for (var i = 0; i < data.Getdata.length; i++) {
                             Status = data.Getdata[i].val.Status;
-
                             strsub = data.Getdata[i].val.InsertedBy;
+                            ItemType = data.Getdata[i].val.ItemType;
+                            ProdCodeHigh = data.Getdata[i].val.ProdCodeHigh;
+                            BgColor = "";
+                            DisableCheckbox = "";
                             strsub = strsub.split("|");
                             Inseby = strsub[0];
                             if (typeof strsub[1] === "undefined") {
                                 Prcre = "";
                             } else { Prcre = strsub[1]; }
                             // console.log(Prcre)
-                            SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">';
+                            if (ItemType == "SPC") {
+                                BgColor = "bgSpc";
+                            }
+                            if (ProdCodeHigh == 0) {
+                                DisableCheckbox = "disabled";
+                            }
+                            SubmithtmlPage += '<tr class="' + BgColor +'" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">';
 
                             if (data.Getdata[i].val.Status == "W") {
-                                SubmithtmlPage += '<td style="width: 79px;"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
-                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
+                                if (ItemType == "SPC") {
+                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter">';
+                                    SubmithtmlPage += '<input id="checkbox" ' + DisableCheckbox + ' style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" >';
+                                    SubmithtmlPage += '</td > ';
+                                } else {
+                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
+                                }
+                                SubmithtmlPage += '<td align="center" class="vcenter">' + data.Getdata[i].val.RowNo + '</td>';
+
+                                SubmithtmlPage += '<td align="center" class="vcenter">';
+                                SubmithtmlPage += data.Getdata[i].val.ItemTypeDes;
+                                //ปุ่ม pop up apperove cost
+                                if (ItemType == "SPC") {
+                                    SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.ID + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
+                                }
+                                SubmithtmlPage += '</td >';
+
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
                             }
                             else {
                                 SubmithtmlPage += '<td></td>';
-                                SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
+                                SubmithtmlPage += '<td align="center" class="vcenter">' + data.Getdata[i].val.RowNo + '</td>';
+                                SubmithtmlPage += '<td class="vcenter">' + data.Getdata[i].val.ItemTypeDes + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + ' <br>' + data.Getdata[i].val.PrcApproveDate + '</td>';
                             }
 
-                            // SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '"  CartID="' + data.Getdata[i].val.CartID + '" style=" color: red; cursor: pointer; "></div></td>';
                             SubmithtmlPage += '<td align="left"><a id="myHref" STKCOD="' + data.Getdata[i].val.STKCOD + '" CartID="' + data.Getdata[i].val.ID + '" style="font-size: 14px;cursor: pointer;color: #1BB847;">' + data.Getdata[i].val.STKCOD + '</a></td>';
                             SubmithtmlPage += '<td style="text-align:left;width:10%;">' + data.Getdata[i].val.STKDES + '</td>';
-                            SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            //SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            //SubMIT QTY Color LineNote like '%CCBck%'
+                            if (data.Getdata[i].val.Item_Type == 'BCK') {
+                                SubmithtmlPage += '<td style="background: rgba(205, 110, 255, 0.8);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
+                            else if (data.Getdata[i].val.Item_Type == 'CBK') {
+                                SubmithtmlPage += '<td style="background: rgba(205, 110, 255, 0.8);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
+                            SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.UNITCOST) + '</td>';
                             SubmithtmlPage += '<td style="color: rgba(212, 25, 84, 0.98);text-align: right;/* background-color: burlywood; */font-weight: bold;">' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '</td>';
                             SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.CUSCOD + '</td>';
                             SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.SLMID + '</td>';
@@ -716,7 +810,6 @@
                                 SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
                             }
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.LastInvPrice) + '</td>';
-                            SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.UNITCOST) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].val.ORDDAT + '</td>';
 
                             SubmithtmlPage += '<td>' + data.Getdata[i].val.LineNote + '</td>';
@@ -744,6 +837,46 @@
             });
         }
 
+        function popupApprovePrice(cartId) {
+            $.ajax({
+            url: '@Url.Action("GetDetailPriceLowCost", "PriceApproval")',
+            data: {
+                cartId: cartId
+            },
+            type: 'POST',
+            dataType: 'HTML',
+            beforeSend: function () {
+                LoadingShow();
+                $('#DetailPriceLowCost').find('.modal-body').html("");
+            },
+            success: function (data) {
+                $('#DetailPriceLowCost').find('.modal-body').html(data);
+                $('#DetailPriceLowCost').modal('show');
+            },complete: function (res) {
+                LoadingHide();
+            },
+            error: function (er) {
+                Swal.fire({
+                    icon: 'error',
+                    html: '<p>GetReqDetail :</p><p>' + er.error + '</p>',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+            }
+        }).fail(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
+                html: '<p>popupApprovePrice :</p><p>' + error.responseText + '</p>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+        });
+        }
         function fnApproveData(vStatus) {
 
             //var User = $('#User').val();
@@ -927,7 +1060,13 @@
             });
 
         });
+        function LoadingShow() {
+            $.LoadingOverlay("show");
+        }
 
+        function LoadingHide() {
+            $.LoadingOverlay("hide");
+        }
     </script>
 </body>
 

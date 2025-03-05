@@ -1,0 +1,246 @@
+﻿@{
+    string getRemarkSelf = string.Empty;
+
+}
+
+@if (ViewBag.listDetailPriceLowCost != null)
+{
+    foreach (var priceLowCostDetail in ViewBag.listDetailPriceLowCost)
+    {
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="">
+                    <label class="control-label has-star" for=""> <b> ร้านค้า : </b> </label>
+                    @priceLowCostDetail.CusnameFull
+                    <input type="hidden" id="getCartId" value="@priceLowCostDetail.CartId" />
+                    <input type="hidden" id="getStep" value="@ViewBag.isStep" />
+                    <input type="hidden" id="getProdCode" value="@ViewBag.isProdCode" />
+                    <input type="hidden" id="getProdCodeHigh" value="@ViewBag.isProdCodeHigh" />
+                    <input type="hidden" id="getHighLevel" value="@ViewBag.isHighLevel" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="">
+                    <label class="control-label has-star" for=""> <b> สินค้า : </b> </label>
+                    @priceLowCostDetail.Stkcod
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="">
+                    <label class="control-label has-star" for=""> <b> จำนวน : </b> </label>
+                    @priceLowCostDetail.Qty
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="">
+                    <label class="control-label has-star" for=""> <b> ราคาทุน : </b> </label>
+                    @priceLowCostDetail.Cost
+                    <b> บาท </b>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="">
+                    <label class="control-label has-star" for=""> <b> ราคาต่อรอง : </b> </label>
+                    @priceLowCostDetail.ExpectPrice
+                    <b> บาท </b>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 text-left">
+                <span class="label label-default" style="font-size: 16px;"> <b> ความคิดเห็น : </b> </span>
+            </div>
+        </div><div class="row pt-1 pb-3">
+            <div class="col-12">
+                <textarea class="form-control" rows="3" placeholder="กรอกความคิดเห็น" id="remark">@ViewBag.isRemarkSelf</textarea>
+            </div>
+        </div>
+        if (priceLowCostDetail.ApproveDate_Step1 != "-" || priceLowCostDetail.ApproveDate_Step2 != "-" || priceLowCostDetail.ApproveDate_Step3 != "-")
+        {
+            <div class="row" style="margin-top: -13px;">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <hr>
+                </div>
+            </div>
+        }
+        <div class="list-group">
+            @if (priceLowCostDetail.ApproveDate_Step1 != "-")
+            {
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step1</b></h6>
+                        <small> @*<b>Step1 : </b> &nbsp; <b> @priceLowCostDetail.ProdCode_Step1 </b>*@</small>
+                    </div>
+                    <p class="mb-1"> <b> ความคิดเห็น : </b> @priceLowCostDetail.Remark_Step1</p>
+                    <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step1</p>
+                    <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step1</p>
+                </a>
+            }
+            @if (priceLowCostDetail.ApproveDate_Step2 != "-")
+            {
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step2</b></h6>
+                        <small> @*<b>Step1 : </b> &nbsp; <b> @priceLowCostDetail.ProdCode_Step2 </b>*@</small>
+                    </div>
+                    <p class="mb-1"> <b> ความคิดเห็น : </b> @priceLowCostDetail.Remark_Step2</p>
+                    <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step2</p>
+                    <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step2</p>
+                </a>
+            }
+            @if (priceLowCostDetail.ApproveDate_Step3 != "-")
+            {
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step3</b></h6>
+                        <small> @*<b>Step1 : </b> &nbsp; <b> @priceLowCostDetail.ProdCode_Step3 </b>*@</small>
+                    </div>
+                    <p class="mb-1"> <b> ความคิดเห็น : </b> @priceLowCostDetail.Remark_Step3</p>
+                    <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step3</p>
+                    <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step3</p>
+                </a>
+            }
+        </div>
+    }
+    <div class="row">
+        <hr />
+    </div>
+
+    <div class="modal-footer" style="padding-bottom: 0px;">
+
+
+        @if (ViewBag.isHighLevel == "N")
+        {
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Cancel </button>
+            <button type="button" class="btn btn-success" onclick="btnSubmitCost('S')" style="margin-left: 15px;"><i class="fa fa-save"></i> Submit </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-warning" onclick="btnSubmitCost('N')"><i class="fa fa-times"></i> Reject </button>
+            <button type="button" class="btn btn-success" onclick="btnSubmitCost('Y')" style="margin-left: 15px;"><i class="fa fa-check"></i> Approve </button>
+        }
+
+    </div>
+
+    @*if (ViewBag.ApprvComment.Count > 0)
+        {
+            <div class="row">
+                <div class="col-sm-6 col-md-6 text-left">
+                    <span class="badge badge-light-secondary" style="font-size: 16px;"> Approval Remarks | ความเห็นผู้อนุมัติ </span>
+                </div>
+            </div>
+        }
+
+        <div class="row mt-1 mb-2">
+            <div class="col-sm-6 col-md-6 text-left">
+                <span class="badge badge-light-secondary" style="font-size: 16px;"> Attach File </span>
+            </div>
+        </div>*@
+
+}
+else
+{
+    <div class="alert alert-danger text-center" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล</div>
+}
+
+<script defer>
+function btnSubmitCost(flag){
+    var flagText = "บันทึก";
+    if (flag == "N")
+    {
+        flagText = "ปฏิเสธ";
+    }
+    else if (flag == "Y")
+    {
+        flagText = "อนุมัติ";
+    }
+
+    var cartId = $('#getCartId').val();
+    var step = $('#getStep').val()
+    var prodCode = $('#getProdCode').val()
+    var highLevel = $('#getHighLevel').val()
+    var remark = $('#remark').val()
+    console.log('cartId = ' + cartId + " remark = " + remark);
+    //return false;
+    Swal.fire({
+        title: 'ต้องการ' + flagText + 'ใช่หรือไม่',
+         html: '',
+         icon: 'question',
+         showCancelButton: true,
+         confirmButtonColor: '#00a65a',
+         cancelButtonColor: '#d33',
+         confirmButtonText: '<i class="fa fa-check"></i> ใช่',
+         cancelButtonText: '<i class="fa fa-times"></i> ไม่',
+         allowOutsideClick: false,
+         focusConfirm: false,
+    }).then((result) => {
+    if (result.value)
+    {
+        $.ajax({
+        type: 'POST',
+                url: '@Url.Action("SaveApprovePriceLowCost", "PriceApproval")',
+                data:
+            {
+            cartId: cartId,
+                    step: step,
+                    remark: remark,
+                    approveStatus: flag,
+                    prodCode: prodCode,
+                },
+                beforeSend: function() {
+                LoadingShow();
+            },
+                success: function(result) {
+                if (result.message == "Y")
+                {
+                    Swal.fire({
+                    title: 'บันทึกเรียบร้อย',
+                            //html: 'บันทึกเรียบร้อย',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'ปิด',
+                            allowOutsideClick: false,
+                            focusConfirm: false,
+                            timer: 4000,
+                            timerProgressBar: true,
+                            didClose: () =>
+                            {
+                                LoadingHide();
+                                $('#DetailPriceLowCost').modal('hide');
+                                $('#DetailPriceLowCost').find('.modal-body').html('');
+                                if (highLevel == 'Y') {
+                                    fnGetPriceApprove();
+                                }
+                            }
+                        });
+                } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error not saved',
+                            html: result.status,
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'ปิด',
+                            allowOutsideClick: false,
+                            focusConfirm: false,
+                        });
+                    }
+                },
+                complete: function(res) {
+        LoadingHide();
+        }
+        }).fail(function(error) {
+            Swal.fire({
+            icon: 'error',
+                        title: 'Error not saved',
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>ApproveSubmit<br><br>',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'ปิด',
+                        allowOutsideClick: false,
+                        focusConfirm: false,
+                    });
+        });
+    }
+    });
+}
+
+</script>
