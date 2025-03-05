@@ -123,8 +123,8 @@ namespace NewShop.Controllers
             }
             return View();
         }
-       
-       
+
+
         public JsonResult GetdataCus(string SLM, string SLMNAME)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -307,8 +307,7 @@ namespace NewShop.Controllers
             return Json(new { Getdata, sumQty, sumSalePrice }, JsonRequestBehavior.AllowGet);
         }
      
-        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string topicType, string Usre)
-        {
+        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string topicType, string Usre) { 
             int sumQty = 0;
             int sumSalePrice = 0;
             //  int sumDiscount = 0;
@@ -423,6 +422,8 @@ namespace NewShop.Controllers
                         model.ID = dr["ID"].ToString();
                         model.InsertedBy = dr["Inserted By"].ToString();
                         model.InsertedDate = dr["Inserted Date"].ToString();
+                        model.Item_Type = dr["Item_Type"].ToString();
+                        model.Item_Type_Des = dr["Item_Type_Des"].ToString();
                         model.LineNote = dr["LineNote"].ToString();
                         model.UNITCOST = dr["UNITCOST"].ToString();
                         model.readyQty = dr["readyQty"].ToString();
@@ -785,7 +786,7 @@ namespace NewShop.Controllers
                             //E20161016
                             //if (messagereturnsql == "N")
                             //{
-                               
+
 
                             //}
 
@@ -874,6 +875,8 @@ namespace NewShop.Controllers
         public string User { get; set; }
         public string Amt { get; set; }
         public string ORDDAT { get; set; }
+        public string Item_Type { get; set; }
+        public string Item_Type_Des { get; set; }
         public string LineNote { get; set; }
         public string Status { get; set; }
         public string StatusFull { get; set; }
