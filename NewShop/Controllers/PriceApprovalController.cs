@@ -423,6 +423,7 @@ namespace NewShop.Controllers
                         model.InsertedBy = dr["Inserted By"].ToString();
                         model.InsertedDate = dr["Inserted Date"].ToString();
                         model.Item_Type = dr["Item_Type"].ToString();
+                        model.Item_Type_Des = dr["Item_Type_Des"].ToString();
                         model.LineNote = dr["LineNote"].ToString();
                         model.UNITCOST = dr["UNITCOST"].ToString();
                         model.readyQty = dr["readyQty"].ToString();
@@ -736,6 +737,7 @@ namespace NewShop.Controllers
         public string Amt { get; set; }
         public string ORDDAT { get; set; }
         public string Item_Type { get; set; }
+        public string Item_Type_Des { get; set; }
         public string LineNote { get; set; }
         public string Status { get; set; }
         public string StatusFull { get; set; }

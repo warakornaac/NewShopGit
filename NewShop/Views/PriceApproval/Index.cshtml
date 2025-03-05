@@ -374,7 +374,7 @@
                         <th>Status</th>
                         <th>Stkcod</th>
                         <th>Stkdes</th>
-                        <th>จำนวนสั่งซื้อ</th>
+                        <th>จำนวน</th>
                         <th>ราคาต่อรอง</th>
                         <th>Customer</th>
                         <th>Slmcod</th>
@@ -688,20 +688,29 @@
                             if (data.Getdata[i].val.Status == "W") {
                                 SubmithtmlPage += '<td style="width: 79px;"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type_Des + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
                             }
                             else {
                                 SubmithtmlPage += '<td></td>';
                                 SubmithtmlPage += '<td align="center">' + data.Getdata[i].val.RowNo + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type_Des + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + ' <br>' + data.Getdata[i].val.PrcApproveDate + '</td>';
                             }
 
                             // SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '"  CartID="' + data.Getdata[i].val.CartID + '" style=" color: red; cursor: pointer; "></div></td>';
                             SubmithtmlPage += '<td align="left"><a id="myHref" STKCOD="' + data.Getdata[i].val.STKCOD + '" CartID="' + data.Getdata[i].val.ID + '" style="font-size: 14px;cursor: pointer;color: #1BB847;">' + data.Getdata[i].val.STKCOD + '</a></td>';
                             SubmithtmlPage += '<td style="text-align:left;width:10%;">' + data.Getdata[i].val.STKDES + '</td>';
-                            SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            //SubMIT QTY Color LineNote like '%CCBck%'
+                            if (data.Getdata[i].val.Item_Type == 'BCK') {
+                                SubmithtmlPage += '<td style="background: rgba(205, 110, 255, 0.8);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
+                            else if (data.Getdata[i].val.Item_Type == 'CBK') {
+                                SubmithtmlPage += '<td style="background: rgba(205, 110, 255, 0.8);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
+                            else {
+                                SubmithtmlPage += '<td style="background: rgba(0, 206, 209, 0.28);">' + data.Getdata[i].val.Qty + '</td>';
+                            }
                             SubmithtmlPage += '<td style="color: rgba(212, 25, 84, 0.98);text-align: right;/* background-color: burlywood; */font-weight: bold;">' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '</td>';
                             SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.CUSCOD + '</td>';
                             SubmithtmlPage += '<td style="text-align: left">' + data.Getdata[i].val.SLMID + '</td>';
