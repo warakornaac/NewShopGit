@@ -306,9 +306,8 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice }, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string Usre)
-        {
+     
+        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string topicType, string Usre) { 
             int sumQty = 0;
             int sumSalePrice = 0;
             //  int sumDiscount = 0;
@@ -331,6 +330,7 @@ namespace NewShop.Controllers
                     command.Parameters.AddWithValue("@inSTKGRP", STKGRP);
                     command.Parameters.AddWithValue("@inProd", ProdMRG);
                     command.Parameters.AddWithValue("@inStatus", vStatus);
+                    command.Parameters.AddWithValue("@topicType", topicType);
                     command.Parameters.AddWithValue("@inUsrID", usre);
                     //command.ExecuteNonQuery();
                     SqlDataReader dr = command.ExecuteReader();
@@ -427,6 +427,10 @@ namespace NewShop.Controllers
                         model.LineNote = dr["LineNote"].ToString();
                         model.UNITCOST = dr["UNITCOST"].ToString();
                         model.readyQty = dr["readyQty"].ToString();
+                        model.ItemType = dr["Item_Type"].ToString();
+                        model.ItemTypeDes = dr["Item_Type_Des"].ToString();
+                        model.ProdCodeHigh = dr["ProdCodeHigh"].ToString();
+                        model.PriceApproveId = dr["PriceApproveId"].ToString();
                         // sumQty += Convert.ToInt32(dr.GetValue(15));
                         // sumSalePrice += Convert.ToInt32(dr.GetValue(9));
                         Getdata.Add(new ItemList_PriceApprove { val = model });
@@ -549,6 +553,8 @@ namespace NewShop.Controllers
                         model.InsertedDate = dr["Inserted Date"].ToString();
                         model.LineNote = dr["LineNote"].ToString();
                         model.UNITCOST = dr["UNITCOST"].ToString();
+                        model.ItemTypeDes = dr["Item_Type_Des"].ToString();
+                        model.ProdCodeHigh = dr["ProdCodeHigh"].ToString();
                         // sumQty += Convert.ToInt32(dr.GetValue(15));
                         // sumSalePrice += Convert.ToInt32(dr.GetValue(9));
                         Getdata.Add(new ItemList_PriceApprove { val = model });
@@ -565,6 +571,140 @@ namespace NewShop.Controllers
             }
 
             return Json(new { Getdata, sumQty, sumSalePrice }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDetailPriceLowCost(string cartId)
+        {
+            string message = "Y";
+            string userId = Session["UserID"].ToString();
+            string isStep = "";
+            string isProdCode = "";
+            string isHighLevel = "";
+            string isProdCodeHigh = "";
+            string isRemarkSelf = "";
+
+            List<listDetailPriceLowCost> detailPriceLowCostList = new List<listDetailPriceLowCost>();
+
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Get_Detail_PriceLowCost", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCartId", cartId);
+                command.Parameters.AddWithValue("@inUserId", userId);
+                SqlParameter returnStep = new SqlParameter("@isStep", SqlDbType.NVarChar, 1000);
+                SqlParameter returnProdCode = new SqlParameter("@isProdCode", SqlDbType.NVarChar, 1000);
+                SqlParameter returnHighLeve = new SqlParameter("@isHighLevel", SqlDbType.NVarChar, 1000);
+                SqlParameter returndProdCodeHigh = new SqlParameter("@isProdCodeHigh", SqlDbType.NVarChar, 1000);
+                SqlParameter returndRemarkSelf = new SqlParameter("@isRemarkSelf", SqlDbType.NVarChar, 1000);
+                returnStep.Direction = ParameterDirection.Output;
+                returnProdCode.Direction = ParameterDirection.Output;
+                returnHighLeve.Direction = ParameterDirection.Output;
+                returndProdCodeHigh.Direction = ParameterDirection.Output;
+                returndRemarkSelf.Direction = ParameterDirection.Output;
+                command.Parameters.Add(returnStep);
+                command.Parameters.Add(returnProdCode);
+                command.Parameters.Add(returnHighLeve);
+                command.Parameters.Add(returndProdCodeHigh);
+                command.Parameters.Add(returndRemarkSelf);
+                int outputResult = command.ExecuteNonQuery();
+                isStep = command.Parameters["@isStep"].Value.ToString();
+                isProdCode = command.Parameters["@isProdCode"].Value.ToString();
+                isHighLevel = command.Parameters["@isHighLevel"].Value.ToString();
+                isProdCodeHigh = command.Parameters["@isProdCodeHigh"].Value.ToString();
+                isRemarkSelf = command.Parameters["@isRemarkSelf"].Value.ToString();
+
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    detailPriceLowCostList.Add(new listDetailPriceLowCost()
+                    {
+                        CartId = dr["PriceApproveId"].ToString(),
+                        Cuscode = dr["CUSCOD"].ToString(),
+                        CusnameFull = dr["CUSNAM_FULL"].ToString(),
+
+                        Slmcod = dr["SLMCODE"].ToString(),
+                        SlmcodFull = dr["SLMNAM_FULL"].ToString(),
+
+                        Stkcod = dr["STKCOD_FULL"].ToString(),
+
+                        Qty = dr["Qty"].ToString(),
+                        ExpectPrice = dr["ExpectPrice"].ToString(),
+                        Cost = dr["Cost"].ToString(),
+
+                        ProdCode_Step1 = dr["ProdCode_Step1"].ToString(),
+                        ApproveDate_Step1 = dr["ApproveDate_Step1"].ToString(),
+                        ApproveBy_Step1 = dr["ApproveBy_Step1"].ToString(),
+                        Remark_Step1 = dr["Remark_Step1"].ToString(),
+
+                        ProdCode_Step2 = dr["ProdCode_Step2"].ToString(),
+                        ApproveDate_Step2 = dr["ApproveDate_Step2"].ToString(),
+                        ApproveBy_Step2 = dr["ApproveBy_Step2"].ToString(),
+                        Remark_Step2 = dr["Remark_Step2"].ToString(),
+
+                        ProdCode_Step3 = dr["ProdCode_Step3"].ToString(),
+                        ApproveDate_Step3 = dr["ApproveDate_Step3"].ToString(),
+                        ApproveBy_Step3 = dr["ApproveBy_Step3"].ToString(),
+                        Remark_Step3 = dr["Remark_Step3"].ToString()
+                    });
+                }
+                @ViewBag.listDetailPriceLowCost = detailPriceLowCostList;
+                @ViewBag.isStep = isStep;
+                @ViewBag.isProdCode = isProdCode;
+                @ViewBag.isHighLevel = isHighLevel;
+                @ViewBag.isProdCodeHigh = isProdCodeHigh;
+                @ViewBag.isRemarkSelf = isRemarkSelf;
+
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewBag.Message = message;
+            return PartialView("_PriceLowCostDetail", new
+            {
+                @ViewBag.Message,
+                @ViewBag.listDetailPriceLowCost,
+                @ViewBag.isStep,
+                @ViewBag.isProdCode,
+                @ViewBag.isHighLevel,
+                @ViewBag.isProdCodeHigh,
+                @ViewBag.isRemarkSelf,
+            });
+        }
+        public JsonResult SaveApprovePriceLowCost(string cartId, string step, string remark, string approveStatus)
+        {
+            string message = string.Empty;
+            string userId = Session["UserID"].ToString();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+            try
+            {
+                var cmd = new SqlCommand("P_Save_Approve_PriceLowCost", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@inCartId", cartId.Trim());
+                cmd.Parameters.AddWithValue("@inUserId", userId);
+                cmd.Parameters.AddWithValue("@inStep", step);
+                cmd.Parameters.AddWithValue("@inApproveStatus", approveStatus);
+                cmd.Parameters.AddWithValue("@inRemark", remark);
+                SqlParameter p = new SqlParameter("@OutGenstatus", SqlDbType.NVarChar, 100);
+                p.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(p);
+                cmd.ExecuteNonQuery();
+                message = cmd.Parameters["@OutGenstatus"].Value.ToString();
+                conn.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                conn.Close();
+            }
+            return Json(new { message = message }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Approvalndata(string data, string User, string vStatus)
         {
@@ -757,10 +897,39 @@ namespace NewShop.Controllers
         public string PrcApproveDate { get; set; }
         public string InsertedDate { get; set; }
         public string InsertedBy { get; set; }
-
         public string Prcdes { get; set; }
         public string UNITCOST { get; set; }
         public string readyQty { get; set; }
+        public string ItemType { get; set; }
+        public string ItemTypeDes { get; set; }
+        public string ProdCodeHigh { get; set; }
+        public string PriceApproveId { get; set; }
 
+    }
+
+    public class listDetailPriceLowCost
+    {
+        public string CartId { get; set; }
+        public string Stkcod { get; set; }
+        public string Cusname { get; set; }
+        public string Cuscode { get; set; }
+        public string CusnameFull { get; set; }
+        public string Slmcod { get; set; }
+        public string SlmcodFull { get; set; }
+        public string Qty { get; set; }
+        public string ExpectPrice { get; set; }
+        public string Cost { get; set; }
+        public string ProdCode_Step1 { get; set; }
+        public string ApproveDate_Step1 { get; set; }
+        public string ApproveBy_Step1 { get; set; }
+        public string Remark_Step1 { get; set; }
+        public string ProdCode_Step2 { get; set; }
+        public string ApproveDate_Step2 { get; set; }
+        public string ApproveBy_Step2 { get; set; }
+        public string Remark_Step2 { get; set; }
+        public string ProdCode_Step3 { get; set; }
+        public string ApproveDate_Step3 { get; set; }
+        public string ApproveBy_Step3 { get; set; }
+        public string Remark_Step3 { get; set; }
     }
 }
