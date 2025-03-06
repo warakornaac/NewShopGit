@@ -1,9 +1,4 @@
-﻿@{
-    string getRemarkSelf = string.Empty;
-
-}
-
-@if (ViewBag.listDetailPriceLowCost != null)
+﻿@if (ViewBag.listDetailPriceLowCost != null)
 {
     foreach (var priceLowCostDetail in ViewBag.listDetailPriceLowCost)
     {
@@ -116,7 +111,7 @@
         }
         else
         {
-            <button type="button" class="btn btn-warning" onclick="btnSubmitCost('N')"><i class="fa fa-times"></i> Reject </button>
+            <button type="button" class="btn btn-warning" onclick="btnSubmitCost('R')"><i class="fa fa-times"></i> Reject </button>
             <button type="button" class="btn btn-success" onclick="btnSubmitCost('Y')" style="margin-left: 15px;"><i class="fa fa-check"></i> Approve </button>
         }
 
@@ -146,7 +141,7 @@ else
 <script defer>
 function btnSubmitCost(flag){
     var flagText = "บันทึก";
-    if (flag == "N")
+    if (flag == "R")
     {
         flagText = "ปฏิเสธ";
     }
@@ -187,46 +182,46 @@ function btnSubmitCost(flag){
                     approveStatus: flag,
                     prodCode: prodCode,
                 },
-                beforeSend: function() {
+            beforeSend: function() {
                 LoadingShow();
             },
-                success: function(result) {
-                if (result.message == "Y")
-                {
-                    Swal.fire({
-                    title: 'บันทึกเรียบร้อย',
-                            //html: 'บันทึกเรียบร้อย',
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'ปิด',
-                            allowOutsideClick: false,
-                            focusConfirm: false,
-                            timer: 4000,
-                            timerProgressBar: true,
-                            didClose: () =>
-                            {
-                                LoadingHide();
-                                $('#DetailPriceLowCost').modal('hide');
-                                $('#DetailPriceLowCost').find('.modal-body').html('');
-                                if (highLevel == 'Y') {
-                                    fnGetPriceApprove();
-                                }
-                            }
-                        });
-                } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error not saved',
-                            html: result.status,
-                            confirmButtonColor: '#d33',
-                            confirmButtonText: 'ปิด',
-                            allowOutsideClick: false,
-                            focusConfirm: false,
-                        });
+        success: function(result) {
+        if (result.message == "Y")
+        {
+            Swal.fire({
+            title: 'บันทึกเรียบร้อย',
+                    //html: 'บันทึกเรียบร้อย',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didClose: () =>
+                    {
+                        LoadingHide();
+                        $('#DetailPriceLowCost').modal('hide');
+                        $('#DetailPriceLowCost').find('.modal-body').html('');
+                        if (highLevel == 'Y') {
+                            fnGetPriceApprove();
+                        }
                     }
-                },
-                complete: function(res) {
-        LoadingHide();
+                });
+        } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error not saved',
+                    html: result.status,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+            }
+        },
+        complete: function(res) {
+            LoadingHide();
         }
         }).fail(function(error) {
             Swal.fire({

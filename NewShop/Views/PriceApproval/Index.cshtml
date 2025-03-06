@@ -611,6 +611,9 @@
                 },
                 type: "POST",
                 dataType: "JSON",
+                beforeSend: function () {
+                    LoadingShow();
+                },
                 success: function (data) {
                     console.log(data);
 
@@ -670,6 +673,9 @@
                         // $("#myModalWarning").modal(); return false;
                     }
                     var fixedTable1 = fixTable(document.getElementById('fixed-table-container-2'));
+                },
+                complete: function (res) {
+                    LoadingHide();
                 }
             });
         }
@@ -701,6 +707,9 @@
                 },
                 type: "POST",
                 dataType: "JSON",
+                beforeSend: function () {
+                    LoadingShow();
+                },
                 success: function (data) {
                     //console.log(data);
                     $('#tblDetail > tbody:last-child').empty();
@@ -765,7 +774,7 @@
                                 SubmithtmlPage += data.Getdata[i].val.ItemTypeDes;
                                 //ปุ่ม pop up apperove cost
                                 if (ItemType == "SPC") {
-                                    SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.ID + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
+                                    SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.PriceApproveId + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
                                 }
                                 SubmithtmlPage += '</td >';
 
@@ -833,6 +842,9 @@
                         // $("#myModalWarning").modal(); return false;
                     }
                     var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
+                },
+                complete: function (res) {
+                    LoadingHide();
                 }
             });
         }

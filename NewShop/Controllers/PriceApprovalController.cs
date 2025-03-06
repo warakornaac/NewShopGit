@@ -430,6 +430,7 @@ namespace NewShop.Controllers
                         model.ItemType = dr["Item_Type"].ToString();
                         model.ItemTypeDes = dr["Item_Type_Des"].ToString();
                         model.ProdCodeHigh = dr["ProdCodeHigh"].ToString();
+                        model.PriceApproveId = dr["PriceApproveId"].ToString();
                         // sumQty += Convert.ToInt32(dr.GetValue(15));
                         // sumSalePrice += Convert.ToInt32(dr.GetValue(9));
                         Getdata.Add(new ItemList_PriceApprove { val = model });
@@ -619,7 +620,7 @@ namespace NewShop.Controllers
                 {
                     detailPriceLowCostList.Add(new listDetailPriceLowCost()
                     {
-                        CartId = dr["CartId"].ToString(),
+                        CartId = dr["PriceApproveId"].ToString(),
                         Cuscode = dr["CUSCOD"].ToString(),
                         CusnameFull = dr["CUSNAM_FULL"].ToString(),
 
@@ -896,13 +897,13 @@ namespace NewShop.Controllers
         public string PrcApproveDate { get; set; }
         public string InsertedDate { get; set; }
         public string InsertedBy { get; set; }
-
         public string Prcdes { get; set; }
         public string UNITCOST { get; set; }
         public string readyQty { get; set; }
         public string ItemType { get; set; }
         public string ItemTypeDes { get; set; }
         public string ProdCodeHigh { get; set; }
+        public string PriceApproveId { get; set; }
 
     }
 
