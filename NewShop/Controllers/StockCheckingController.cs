@@ -16,10 +16,10 @@ namespace NewShop.Controllers
 
         public ActionResult Index()
         {
-            //if (this.Session["UserType"] == "" || this.Session["UserType"] == null)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
+            if (this.Session["UserType"] == "" || this.Session["UserType"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
             return View();
         }
         public JsonResult GetCheckingStock(string Company, string Stkcod)
