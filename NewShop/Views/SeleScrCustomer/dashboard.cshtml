@@ -1353,6 +1353,8 @@
                                 <a href="#" id="nextcheckstock"> >>>> ตรวจสอบ Stock สินค้า >>>></a><br />
                                 <a href="#" id="nextbck"> >>>> Back Order  >>>></a><br />
                                 <a href="#" id="nextcrm"> >>>> CRM  >>>></a><br />
+                                <a href="#" id="nextcheckstkcansale"> >>>> Check Sale Stock >>>></a><br />
+
                                 @*<a href="#" id="nextdas"> >>>> Dashboard TAC Expro  >>>></a>*@
 
                                 <div class="dropdown" id="desb">
@@ -4708,6 +4710,9 @@
                 }*@
 
             //});
+        });
+        $('#nextcheckstkcansale').click(function () {
+            window.location.href = "../StockChecking/index";
         });
         $('#btnclear').click(function () {
             window.location.replace("../SeleScrCustomer/dashboard");
