@@ -19,6 +19,14 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <link href="~/Content/Normalize.css" rel="stylesheet" />
     <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+
+    <style>
+        .fixed-height {
+            padding: 1px;
+            max-height: 300px;
+            overflow: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,11 +73,11 @@
             </div>
             <div class="col-12 pt-3" id="div-table-detail" hidden>
                 <div class="card">
-                    <div class="card-body p-2">
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-dark table-striped" id="table-stock">
+                            <table class="table table-bordered table-dark table-striped m-0" id="table-stock">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-warning">
                                         <th>WH</th>
                                         <th>Company</th>
                                         <th>STKCOD</th>
@@ -80,7 +88,7 @@
                                         <th>Mobile Order</th>
                                         <th>SO Order</th>
                                         <th>BckDue</th>
-                                        <th>LastUpdate</th>
+                                        <th>LastInStock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,7 +133,7 @@
                         }))
                     },
                     error: function (XMLhttpsRequest, textStatus, errorThrown) {
-                        alert(textStatus);
+                        //alert(textStatus);
                     }
                 });
             },
@@ -140,7 +148,8 @@
 
             },
              minLength: 2
-        });
+         });
+        $('#stkcod').autocomplete('widget').addClass('fixed-height');
     });
 
     function commaSeparateNumber(val) {
@@ -159,6 +168,7 @@
                 title: "กรุณากรอก STKCOD",
                 icon: "warning"
             });
+            return false;
         }
         else {
             var splitstk = stkfull.split('|');
@@ -185,13 +195,14 @@
                 if (res.message = "Y") {
                     if (res.Getdata.length > 0) {
                         for (var i = 0; i < res.Getdata.length; i++) {
+
+
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>' + res.Getdata[i].WH + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].Company + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKCOD + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKDES + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKGRP + '</td>'
-                            //SubmithtmlPage += '<td>' + res.Getdata[i].Cansale_Qty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].ReadyQty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].UOM + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].MO_Qty + '</td>'
@@ -204,7 +215,7 @@
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan = "11" class="text-center"> --ไม่พบข้อมูลหมายเลข STKCOD นี้กรุณาตรวจสอบข้อมูล-- </td>';
+                        SubmithtmlPage += '<td colspan = "11" class="text-center"> --ไม่พบข้อมูลหรือข้อมูลที่ค้นหาไม่ถูกต้อง นี้กรุณาตรวจสอบข้อมูล-- </td>';
                         SubmithtmlPage += '</tr>';
                         table.append(SubmithtmlPage);
                     }
