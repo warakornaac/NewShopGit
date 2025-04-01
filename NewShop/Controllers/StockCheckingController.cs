@@ -34,6 +34,7 @@ namespace NewShop.Controllers
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("P_Search_Stock_CanSales", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandTimeout = 120;
                 cmd.Parameters.AddWithValue("@inCompany", Company);
                 cmd.Parameters.AddWithValue("@inSTKCOD", Stkcod);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -41,17 +42,21 @@ namespace NewShop.Controllers
                 {
                     Getdata.Add(new StkCanSale()
                     {
-                        WH = reader["WH"] != DBNull.Value ? reader["WH"].ToString() : string.Empty,
-                        Company = reader["Company"] != DBNull.Value ? reader["Company"].ToString() : string.Empty,
-                        STKCOD = reader["STKCOD"] != DBNull.Value ? reader["STKCOD"].ToString() : string.Empty,
-                        STKDES = reader["STKDES"] != DBNull.Value ? reader["STKDES"].ToString() : string.Empty,
-                        STKGRP = reader["STKGRP"] != DBNull.Value ? reader["STKGRP"].ToString() : string.Empty,
-                        UOM = reader["UOM"] != DBNull.Value ? reader["UOM"].ToString() : string.Empty,
-                        ReadyQty = reader["ReadyQty"] != DBNull.Value ? Convert.ToDecimal(reader["ReadyQty"]).ToString("0") : string.Empty,
-                        MO_Qty = reader["Mobile_Qty"] != DBNull.Value ? reader["Mobile_Qty"].ToString() : string.Empty,
-                        SO_Qty = reader["SO_Qty"] != DBNull.Value ? Convert.ToDecimal(reader["SO_Qty"]).ToString("0") : string.Empty,
-                        InStock = reader["InStock"] != DBNull.Value ? reader["InStock"].ToString() : string.Empty,
-                        BckDue = reader["BckDue"] != DBNull.Value ? Convert.ToDecimal(reader["BckDue"]).ToString("0") : string.Empty
+                        WH = !reader.IsDBNull(reader.GetOrdinal("WH")) ? reader.GetString(reader.GetOrdinal("WH")) : string.Empty,
+                        Company = !reader.IsDBNull(reader.GetOrdinal("Company")) ? reader.GetString(reader.GetOrdinal("Company")) : string.Empty,
+                        STKCOD = !reader.IsDBNull(reader.GetOrdinal("STKCOD")) ? reader.GetString(reader.GetOrdinal("STKCOD")) : string.Empty,
+                        STKDES = !reader.IsDBNull(reader.GetOrdinal("STKDES")) ? reader.GetString(reader.GetOrdinal("STKDES")) : string.Empty,
+                        STKGRP = !reader.IsDBNull(reader.GetOrdinal("STKGRP")) ? reader.GetString(reader.GetOrdinal("STKGRP")) : string.Empty,
+                        UOM = !reader.IsDBNull(reader.GetOrdinal("UOM")) ? reader.GetString(reader.GetOrdinal("UOM")) : string.Empty,
+
+                        ItemQty = !reader.IsDBNull(reader.GetOrdinal("ItemQty")) ? reader.GetDecimal(reader.GetOrdinal("ItemQty")).ToString("0") : string.Empty,
+                        ReadyQty = !reader.IsDBNull(reader.GetOrdinal("ReadyQty")) ? reader.GetDecimal(reader.GetOrdinal("ReadyQty")).ToString("0") : string.Empty,
+                        MO_Qty = !reader.IsDBNull(reader.GetOrdinal("Mobile_Qty")) ? reader.GetDecimal(reader.GetOrdinal("Mobile_Qty")).ToString("0") : string.Empty,
+                        SO_Qty = !reader.IsDBNull(reader.GetOrdinal("SO_Qty")) ? reader.GetDecimal(reader.GetOrdinal("SO_Qty")).ToString("0") : string.Empty,
+                        BuffQty = !reader.IsDBNull(reader.GetOrdinal("Buff_Qty")) ? reader.GetDecimal(reader.GetOrdinal("Buff_Qty")).ToString("0") : string.Empty,
+                        RevQty = !reader.IsDBNull(reader.GetOrdinal("RevQty")) ? reader.GetDecimal(reader.GetOrdinal("RevQty")).ToString("0") : string.Empty,
+                        InStock = !reader.IsDBNull(reader.GetOrdinal("InStock")) ? reader.GetString(reader.GetOrdinal("InStock")) : string.Empty,
+                        BckDue = !reader.IsDBNull(reader.GetOrdinal("BckDue")) ? reader.GetDecimal(reader.GetOrdinal("BckDue")).ToString("0") : string.Empty
 
                     });
                 }

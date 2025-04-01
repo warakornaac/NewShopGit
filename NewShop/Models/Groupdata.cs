@@ -1321,11 +1321,13 @@ namespace NewShop.Models
         public string STKCOD { get; set; }
         public string STKDES { get; set; }
         public string STKGRP { get; set; }
-        public string Cansale_Qty { get; set; }
         public string UOM { get; set; }
+        public string ItemQty { get; set; }
         public string ReadyQty { get; set; }
         public string MO_Qty { get; set; }
         public string SO_Qty { get; set; }
+        public string BuffQty { get; set; }
+        public string RevQty { get; set; }
         public string InStock { get; set; }
         public string BckDue { get; set; }
     }

@@ -83,10 +83,13 @@
                                         <th>STKCOD</th>
                                         <th>STKDES</th>
                                         <th>STKGRP</th>
-                                        <th>ReadyQty</th>
                                         <th>UOM</th>
-                                        <th>Mobile Order</th>
-                                        <th>SO Order</th>
+                                        <th>StockQty</th>
+                                        <th>ReadyQty</th>
+                                        <th>Idel Mobile Order</th>
+                                        <th>Idel SO Order</th>
+                                        <th>Idel Buffer</th>
+                                        <th>Reserve</th>
                                         <th>BckDue</th>
                                         <th>LastInStock</th>
                                     </tr>
@@ -203,10 +206,13 @@
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKCOD + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKDES + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].STKGRP + '</td>'
-                            SubmithtmlPage += '<td>' + res.Getdata[i].ReadyQty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].UOM + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ItemQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ReadyQty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].MO_Qty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].SO_Qty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].BuffQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].RevQty + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].BckDue + '</td>'
                             SubmithtmlPage += '<td>' + res.Getdata[i].InStock + '</td>'
                             SubmithtmlPage += '</tr>';
@@ -215,17 +221,19 @@
                     }
                     else {
                         SubmithtmlPage += '<tr>';
-                        SubmithtmlPage += '<td colspan = "11" class="text-center"> --ไม่พบข้อมูลหรือข้อมูลที่ค้นหาไม่ถูกต้อง นี้กรุณาตรวจสอบข้อมูล-- </td>';
+                        SubmithtmlPage += '<td colspan = "14" class="text-center"> --ไม่พบข้อมูลหรือข้อมูลที่ค้นหาไม่ถูกต้อง นี้กรุณาตรวจสอบข้อมูล-- </td>';
                         SubmithtmlPage += '</tr>';
                         table.append(SubmithtmlPage);
+
                     }
                 }
-                else {
+                else if (res.message != "Y") {
                     Swal.fire({
                         title: 'Error!',
                         html: 'เกิดข้อผิดพลาก <br > ' + res.message + ' <br > กรุณาติดต่อแผนก MIS',
                         icon: 'danger'
                     });
+
                 }
             },
             error: function (ex) {

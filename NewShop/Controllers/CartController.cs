@@ -1209,6 +1209,8 @@ namespace NewShop.Controllers
             int idorder = 0;
             string docgen = string.Empty;
             string DocNo = string.Empty;
+            string ItemListORD_ID = string.Join(",", _ItemList.Select(item => item.Vidorder));
+            //message = ItemListORD_ID;
 
             if (_ItemList.Count > 0)
             {
@@ -1220,51 +1222,65 @@ namespace NewShop.Controllers
                 SqlTransaction trans = null;
                 try
                 {
-                    SqlCommand cmd = new SqlCommand("P_Save_OrderConfirmTH_catalog_All", conn);
+                    SqlCommand cmd = new SqlCommand("P_Save_OrderConfirmTH_catalog_All_Arm", conn);
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@inORD_ID", ordidtemp);
                     cmd.Parameters.AddWithValue("@inCompany", com);
+                    cmd.Parameters.AddWithValue("@inUser", Xusrlogin);
+                    cmd.Parameters.AddWithValue("@inOrderListID", ItemListORD_ID);
                     SqlParameter returnValue = new SqlParameter("@outGenID", SqlDbType.Int);
                     returnValue.Direction = System.Data.ParameterDirection.Output;
+                    SqlParameter p = new SqlParameter("@OutGenstatus", SqlDbType.NVarChar, 100);
+                    p.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(returnValue);
+                    cmd.Parameters.Add(p);
 
-                    SqlDataReader rev_ = cmd.ExecuteReader();
-                    while (rev_.Read())
+                    using (SqlDataReader rev_ = cmd.ExecuteReader())
                     {
-                        DocNo = rev_["Sale Order"].ToString();
+                        while (rev_.Read())
+                        {
+                            // ตรวจสอบชื่อคอลัมน์ที่แน่นอน
+                            DocNo = rev_["Sale Order"].ToString();
+                        }
+                    } // ปิด reader อัตโนมัติ
+                    message = p.Value.ToString();
 
-                    }
-
-                    rev_.Close();
-                    rev_.Dispose();
+                    //rev_.Close();
+                    //rev_.Dispose();
                     cmd.Dispose();
+
+
+                    //Comment
+                    /*
 
                     for (int i = 0; i < _ItemList.Count; i++)
                     {
-                        SqlCommand cmdupdate = new SqlCommand("P_UpdateStatus_Ordering_Cart", conn);
-                        cmdupdate.Connection = conn;
-                        cmdupdate.CommandType = CommandType.StoredProcedure;
-                        cmdupdate.Parameters.AddWithValue("@inCart_ID", _ItemList[i].Vidorder);
-                        //cmdupdate.Parameters.AddWithValue("@inCart_ID", null);
-                        cmdupdate.Parameters.AddWithValue("@inUser", Xusrlogin);
-                        cmdupdate.Parameters.AddWithValue("@inDocNo", DocNo);
-                        //cmdupdate.Parameters.Add(returnValue);
-                        cmdupdate.ExecuteReader();
-
-                        cmdupdate.Dispose();
-
-
-
+                        if (!string.IsNullOrEmpty(DocNo))
+                        {
+                            SqlCommand cmdupdate = new SqlCommand("P_UpdateStatus_Ordering_Cart", conn);
+                            cmdupdate.Connection = conn;
+                            cmdupdate.CommandType = CommandType.StoredProcedure;
+                            cmdupdate.Parameters.AddWithValue("@inCart_ID", _ItemList[i].Vidorder);
+                            //cmdupdate.Parameters.AddWithValue("@inCart_ID", null);
+                            cmdupdate.Parameters.AddWithValue("@inUser", Xusrlogin);
+                            cmdupdate.Parameters.AddWithValue("@inDocNo", DocNo);
+                            //cmdupdate.Parameters.Add(returnValue);
+                            cmdupdate.ExecuteReader();
+                            cmdupdate.Dispose();
+                        }
                     }
 
+                    */
 
-                    message = "true";
+
+
                     conn.Close();
                     //}
                 }
                 catch (Exception ex)
                 {
+                    message = ex.Message;
                     if (trans != null)
                     {
                         trans.Rollback();
@@ -1287,7 +1303,7 @@ namespace NewShop.Controllers
             return Json(new { message, DocNo }, JsonRequestBehavior.AllowGet);
         }
         //เช็ค last id LogAccessCart ก่อน confirm
-        public JsonResult checkAccessIdConfirm(string accessId, string cuscod) 
+        public JsonResult checkAccessIdConfirm(string accessId, string cuscod)
         {
             string flagCheck = string.Empty;
             string userLast = string.Empty;
@@ -1328,7 +1344,7 @@ namespace NewShop.Controllers
             return Json(new { flagCheck, userLast, timeBefore, timeLast }, JsonRequestBehavior.AllowGet);
         }
         //เช็ค credit ลูกค้าก่อน confirm
-        public JsonResult CheckCustomerCredit(string company, string cuscod, string sumAmt) 
+        public JsonResult CheckCustomerCredit(string company, string cuscod, string sumAmt)
         {
             string flagCheck = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
