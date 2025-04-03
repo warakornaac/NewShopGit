@@ -1222,7 +1222,7 @@ namespace NewShop.Controllers
                 SqlTransaction trans = null;
                 try
                 {
-                    SqlCommand cmd = new SqlCommand("P_Save_OrderConfirmTH_catalog_All_Arm", conn);
+                    SqlCommand cmd = new SqlCommand("P_Save_OrderConfirmTH_catalog_All", conn);
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@inORD_ID", ordidtemp);
