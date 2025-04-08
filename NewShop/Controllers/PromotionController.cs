@@ -200,6 +200,7 @@ namespace NewShop.Controllers
             int countCustomer = 0;
             int countCustomerReg = 0;
             string message = "Y";
+            string customerMasterList = string.Empty;
             List<listCustomerRegister> customerRegisterList = new List<listCustomerRegister>();
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -211,6 +212,7 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@inSlmCode", slmCode);
                 command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
                 command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                command.Parameters.AddWithValue("@inCuscodeSearch", "ALL");
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -229,6 +231,7 @@ namespace NewShop.Controllers
                     });
                 }
                 @ViewBag.customerRegisterList = customerRegisterList;
+                //ดึงรายชื่อร้านค้า
                 reader.Close();
                 command.Dispose();
                 Connection.Close();
@@ -241,11 +244,73 @@ namespace NewShop.Controllers
             @ViewBag.countCustomer = countCustomer;
             @ViewBag.countCustomerReg = countCustomerReg;
             @ViewBag.textHeader = textHeader;
+            @ViewBag.customerMasterList = GetCustpmerBySlmcode(slmCode); 
             return PartialView("_ListCustomer", new
             {
                 @ViewBag.customerRegisterList,
+                @ViewBag.customerMasterList,
                 @ViewBag.messageError,
                 @ViewBag.textHeader,
+                @ViewBag.countCustomer,
+                @ViewBag.countCustomerReg
+            });
+        }
+        public ActionResult GetSubCustomerByPromotion(string slmCode, string promotionCode, string promotionSeq, string cusCodeSearch)
+        {
+            int countCustomer = 0;
+            int countCustomerReg = 0;
+            string message = "Y";
+            string customerMasterList = string.Empty;
+            List<listCustomerRegister> customerRegisterList = new List<listCustomerRegister>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Customer_Register", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inSlmCode", slmCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                command.Parameters.AddWithValue("@inCuscodeSearch", cusCodeSearch);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ++countCustomer;
+                    if (!string.IsNullOrEmpty(reader["FLAG_REG"].ToString()))
+                    {
+                        ++countCustomerReg;
+                    }
+                    customerRegisterList.Add(new listCustomerRegister()
+                    {
+                        Cuscode = reader["CUSCOD"].ToString(),
+                        Cusname = reader["CUSNAM"].ToString(),
+                        Slmcode = reader["SLMCOD"].ToString(),
+                        FlagReg = reader["FLAG_REG"].ToString(),
+                        FlagApprove = reader["FLAG_APPROVE"].ToString()
+                    });
+                }
+                @ViewBag.customerRegisterList = customerRegisterList;
+                //ดึงรายชื่อร้านค้า
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            @ViewBag.messageError = message;
+            @ViewBag.countCustomer = countCustomer;
+            @ViewBag.countCustomerReg = countCustomerReg;
+            //@ViewBag.textHeader = textHeader;
+            @ViewBag.customerMasterList = GetCustpmerBySlmcode(slmCode);
+            return PartialView("_SubListCustomer", new
+            {
+                @ViewBag.customerRegisterList,
+                @ViewBag.customerMasterList,
+                @ViewBag.messageError,
+                //@ViewBag.textHeader,
                 @ViewBag.countCustomer,
                 @ViewBag.countCustomerReg
             });
@@ -452,6 +517,39 @@ namespace NewShop.Controllers
                 Connection.Close();
             }
             return Json(new { status = message, numSuccess = numSuccess, numError = numError }, JsonRequestBehavior.AllowGet);
+        }
+        public List<SelectListItem> GetCustpmerBySlmcode(string slmCode)
+        {
+            List<SelectListItem> CUSList = new List<SelectListItem>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            //SqlCommand cmd = new SqlCommand("select * from lip.dbo.CUSPROV cusMaster inner join lip.dbo.CUSPROV cusPro on cusMaster.CUSCOD = cusPro.[Promotion Group] where cusMaster.SLMCOD =N'" + slmCode + "' group by cusMaster.CUSCOD, cusMaster.CUSNAM, cusMaster.SLMCOD order by cusMaster.CUSCOD", Connection);
+            //SqlDataReader rev_CUSPROV = cmd.ExecuteReader();
+            //while (rev_CUSPROV.Read())
+            //{
+            //    CUSList.Add(new SelectListItem() {
+            //        Value = rev_CUSPROV["CUSCOD"].ToString(), 
+            //        Text = rev_CUSPROV["CUSCOD"].ToString() + "/" + rev_CUSPROV["CUSNAM"].ToString() 
+            //    });
+            //}            //
+            var command = new SqlCommand("P_Search_Customer_By_Slmcode", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inSlmCode", slmCode);
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                CUSList.Add(new SelectListItem()
+                {
+                    Value = dr["CUSCOD"].ToString(),
+                    Text = dr["CUSCOD"].ToString() + "/" + dr["CUSNAM"].ToString() 
+                });
+            }
+            dr.Close();
+            dr.Dispose();
+            command.Dispose();
+            Connection.Close();
+            return CUSList;
         }
     }
 }

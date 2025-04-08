@@ -41,7 +41,7 @@
         top: 0;
         z-index: 1;
         background-color: white;*/
-    /*padding: 10px;*/
+        /*padding: 10px;*/
     /*}*/
 </style>
 
@@ -64,83 +64,37 @@
                     <div class="row" style="position: sticky; top: 0; z-index: 1; padding-left: 10px; display: none; padding : 10px;" id="headerSearchCustomer">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="customerSearch" id="customerSearch" value="" style="min-height: 40px;" autocomplete="off" placeholder="กรอกรหัสหรือชื่อร้านค้าที่ต้องการค้นหา"/>
-                                <span class="input-group-addon" style="background-color: #6e7071; padding-right: 25px;" role="button" onclick="resetCustomerSearch()">
-                                    <span style="color: #ffffff">
+                                <select class="form-control selectpicker" id="cusCodeSearch" name="cusCodeSearch" tabindex="null" data-live-search="true" data-dropup-auto="false" data-size="12" onchange="dropdownGetCustomerByCuscode(this.value);">
+                                    <option value="ALL">SELECT CUSTOMER ALL</option>
+                                    @for (var i = 0; i < customerMasterList.Count; i++)
+                                    {
+                                        <option value="@customerMasterList[i].Value">@customerMasterList[i].Text</option>
+                                    }
+                                </select>
+                                @* <input type="text" id="search" placeholder="Search for names.."> *@
+                                <span class="input-group-addon" style="background-color: #6e7071; padding-right: 25px;" role="button" onclick="dropdownGetCustomerByCuscode('ALL');">
+                                    <span id="filter" style="color: #ffffff">
                                         <i class="fa fa-times" style="font-weight: bold;"></i>
                                     </span>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <ul id="listCustomer" class="list-group list-group-flush w-100 align-items-stretch" list-style: none>
-                        @{
-                            int rowList = 1;
-                            if (ViewBag.customerRegisterList != null)
-                            {
-                                foreach (var rowData in ViewBag.customerRegisterList)
-                                {
-                                    var checkboxChecked = "";
-                                    var checkboxDisable = "";
-                                    if (!string.IsNullOrEmpty(@rowData.FlagReg))
-                                    {
-                                        checkboxChecked = "checked";
-                                    }
-                                    if (!string.IsNullOrEmpty(@rowData.FlagApprove))
-                                    {
-                                        checkboxDisable = "disabled";
-                                    }
-                                    <li id="list-code-@rowData.Cuscode" class="list-group-item cursor-pointer d-flex justify-content-between align-items-center py-1 pl-3" style="white-space: nowrap;" data-cuscode="@rowData.Cuscode" data-cusname="@rowData.Cusname">
-                                        <span class="align-middle textCut" style="padding: 7px;">
-                                            <input type="checkbox" name="selectPromotion" id="selectPromotion" class="cursor-pointer" value="@rowData.Cuscode" data-cuscode="@rowData.Cuscode" @checkboxChecked @checkboxDisable />
-                                            <span class="pl-1"> @rowData.Cuscode (@rowData.Cusname) </span>
-                                        </span>
-                                        <span class="list-group-item-heading justify-content-between align-items-center">
-                                            @if (@rowData.FlagApprove == "Y")
-                                            {
-                                                <span class="label label-danger pull-right">รอ Approve</span>
-                                            }
-                                        </span>
-                                    </li>
-                                }
-                            }
-                        }
-                    </ul>
+                    <div id="showSubListCustomer"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script defer>
-    //ค้นหาร้านค้า
-    $("#customerSearch").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#listCustomer li").each(function () {
-            var cusname = $(this).data("cusname").toLowerCase();
-            var cuscode = $(this).data("cuscode").toLowerCase();
-            if (cusname.indexOf(value) > -1 || cuscode.indexOf(value) > -1) {
-                $(this).css("display", "block");  // Show the item
-            } else {
-                $(this).attr("style", "display: none !important");
-            }
-        });
-    });
-    //ปุ่มค้นหาร้านค้า
+   
     function showCustomerSearch() {
         var x = document.getElementById("headerSearchCustomer");
         if (x.style.display === "block") {
             x.style.display = "none";
         } else {
             x.style.display = "block";
-            $("#customerSearch").focus();
         }
-    }
-
-    function resetCustomerSearch() {
-        $('#customerSearch').val('');
-        $('#customerSearch').trigger('keyup');
-        $('#showSubListCustomer').empty();
-        $('#showSubListCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
     }
     //$("input:checkbox[name=selectPromotion]:checked").each(function () {
     //    var cuscode = $(this).data("cuscode");
@@ -309,5 +263,81 @@
                 });
             }
         });
+    }
+    setTimeout(function () {
+        //$('#showSubListCustomer').empty();
+        //$('#showSubListCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+        getSubCustomerByPromotion('ALL');
+    }, 200);
+
+    function dropdownGetCustomerByCuscode(cusCodeSearch) {
+        console.log("dropdownGetCustomerByCuscode = Current");
+         if (cusCodeSearch == 'ALL') {
+             $('#cusCodeSearch').selectpicker('val', 'ALL');
+        }
+        getSubCustomerByPromotion(cusCodeSearch);
+    }
+
+    //get list customer
+    function getSubCustomerByPromotion(cusCodeSearch) {
+        console.log("getSubCustomerByPromotion = Current");
+        var cusCodeSearchTxt = 'ALL';
+        if (cusCodeSearch || cusCodeSearch != 'ALL') {
+            cusCodeSearchTxt = cusCodeSearch
+        }
+        var slmCode = $("#slmCode option:selected").val();
+        var promotionCode = $("input[name=selectPromotionSub]:checked").data('code');
+        var promotionSeq = $("input[name=selectPromotionSub]:checked").data('seq');
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("GetSubCustomerByPromotion", "Promotion")',
+            data: {
+                slmCode: slmCode,
+                promotionCode: promotionCode,
+                promotionSeq: promotionSeq,
+                cusCodeSearch: cusCodeSearchTxt,
+                //textHeader: textHeaderDetailPromotion
+            },
+            dataType: 'html',
+            cache: false,
+            Async: true,
+            beforeSend: function () {
+                $('#showSubListCustomer').empty();
+                $('#showSubListCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                // LoadingShow();
+            },
+            success: function (res) {
+                // LoadingHide();
+                $('#showSubListCustomer').html(res);
+                //$('#cusCodeSearch').selectpicker('refresh');
+                $('#cusCodeSearch').selectpicker({
+                    //style: 'btn-primary',
+                    //size: 2
+                });
+            },
+            error: function (er) {
+                alert(er.error);
+            }
+        }).fail(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: error.status,
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>radioSelectPromotionSub<br><br>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+        });
+    }
+    //
+    document.onreadystatechange = function () {
+        if (document.readyState === 'interactive') {
+            //LoadingShow();
+        }
+        if (document.readyState === "complete") {
+            //alert()
+            //LoadingHide()
+        }
     }
 </script>

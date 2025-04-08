@@ -1,0 +1,52 @@
+﻿<ul class="list-group list-group-flush w-100 align-items-stretch myMenu" id="myMenu">
+    @{
+        int rowList = 1;
+        if (ViewBag.customerRegisterList != null)
+        {
+            foreach (var rowData in ViewBag.customerRegisterList)
+            {
+                var checkboxChecked = "";
+                var checkboxDisable = "";
+                if (!string.IsNullOrEmpty(@rowData.FlagReg))
+                {
+                    checkboxChecked = "checked";
+                }
+                if (!string.IsNullOrEmpty(@rowData.FlagApprove))
+                {
+                    checkboxDisable = "disabled";
+                }
+                <li id="list-code-@rowData.Cuscode" class="list-group-item cursor-pointer d-flex justify-content-between align-items-center py-1 pl-3" style="white-space: nowrap;">
+                    <span class="align-middle textCut" style="padding: 7px;">
+                        <input type="checkbox" name="selectPromotion" id="selectPromotion" class="cursor-pointer" value="@rowData.Cuscode" data-cuscode="@rowData.Cuscode" @checkboxChecked @checkboxDisable />
+                        <span class="pl-1"> @rowData.Cuscode (@rowData.Cusname) </span>
+                    </span>
+                    <span class="list-group-item-heading justify-content-between align-items-center">
+                        @if (@rowData.FlagApprove == "Y")
+                        {
+                            <span class="label label-danger pull-right">รอ Approve</span>
+                        }
+                    </span>
+                </li>
+            }
+        }
+    }
+</ul>
+
+<script defer>
+    $("input:checkbox[name=selectPromotion]:checked").each(function () {
+        var cuscode = $(this).data("cuscode");
+        if ($(this).is(':checked')) {
+            $('#list-code-' + cuscode).css("background-color", "#ebebeb");
+        } else {
+            $('#list-code-' + cuscode).css("background-color", "#ffffff");
+        }
+    });
+    $('input[name="selectPromotion"]').on('change', function () {
+        var cuscode = $(this).data("cuscode");
+        if ($(this).is(':checked')) {
+            $('#list-code-' + cuscode).css("background-color", "#ebebeb");
+        } else {
+            $('#list-code-' + cuscode).css("background-color", "#ffffff");
+        }
+    });
+</script>

@@ -315,7 +315,6 @@
 
                                         @*<th class="product-name">สถานะสินค้า</th>*@
                                         <th class="product-name">Type</th>
-                                        <th class="product-name" style="text-align: center;">เพิ่มโดย</th>
                                         @*<th class="product-name" style="display:none">Status</th>
                                             <th class="product-name" style="display:none">PromotionDes</th>*@
                                     </tr>
@@ -1048,125 +1047,125 @@
                         <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
                     </div>
                 </div>
+        </div>
+    </div>
+    <!-- ModalShipping -->
+    <!-- Modalconfirm-Shipto-->
+
+    <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div class="modal-body">
+                    คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
+                    <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
+
+                    <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                </div>
             </div>
         </div>
-        <!-- ModalShipping -->
-        <!-- Modalconfirm-Shipto-->
+        <!-- EndModaldelete -->
+    </div>
+    <!-- Modalconfirm-Shipto-->
 
-        <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+    <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
                 <div class="modal-content">
                     <div class="modal-header">
-
+                        <div id="textAlertnextshopping">Some text in the modal.</div>
                     </div>
                     <div class="modal-body">
-                        คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+
+                        คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
-                        <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
 
-                        <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                        <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
+
+                        <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
                     </div>
                 </div>
             </div>
-            <!-- EndModaldelete -->
         </div>
-        <!-- Modalconfirm-Shipto-->
+        <!-- EndModaldelete -->
+    </div>
 
-        <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div id="textAlertnextshopping">Some text in the modal.</div>
-                        </div>
-                        <div class="modal-body">
+    <div class="modal" id="myModal3" style="background-color: black;">
 
-                            คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
-                        </div>
-                        <div class="modal-footer">
+        <div class="modal-dialog" role="document" style="width: 360px;">
 
-                            <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
+            <div class="modal-content">
 
-                            <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
-                        </div>
-                    </div>
+                <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+
                 </div>
-            </div>
-            <!-- EndModaldelete -->
-        </div>
 
-        <div class="modal" id="myModal3" style="background-color: black;">
+                <div class="modal-body" id="texterror">
+                </div>
 
-            <div class="modal-dialog" role="document" style="width: 360px;">
+                <div class="modal-footer">
 
-                <div class="modal-content">
+                    @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
 
-                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+                    <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
 
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-
-                    </div>
-
-                    <div class="modal-body" id="texterror">
-                    </div>
-
-                    <div class="modal-footer">
-
-                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                    </div>
+                    @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
 
                 </div>
 
             </div>
 
         </div>
-        <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
-        <button type="button" data-column="#column-i" style="display:none"></button>
-        <button type="button" data-column="#column-l" style="display:none"></button>
-        <button type="button" data-column="#column-lKDC" style="display:none"></button>
-        <button type="button" data-column="#column-lPDC" style="display:none"></button>
-        <button type="button" data-column="#column-lWH" style="display:none"></button>
-        <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
-        <input id="ordidtemp" type="hidden">
-        <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
-        <!-- Bootstrap framework js -->
-        <script src="~/tmartcssjs/bootstrap.min.js"></script>
-        <!-- All js plugins included in this file. -->
-        <script src="~/tmartcss/js/plugins.js"></script>
-        <script src="~/tmartcss/js/slick.min.js"></script>
-        <script src="~/tmartcss/js/owl.carousel.min.js"></script>
-        <!-- Waypoints.min.js. -->
-        <script src="~/tmartcss/js/waypoints.min.js"></script>
-        <!-- Main js file that contents all jQuery plugins activation. -->
-        <script src="~/tmartcss/js/main.js"></script>
 
-        <script src="~/fixed-table-master/fixed-table.js"></script>
-        <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    </div>
+    <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
+    <button type="button" data-column="#column-i" style="display:none"></button>
+    <button type="button" data-column="#column-l" style="display:none"></button>
+    <button type="button" data-column="#column-lKDC" style="display:none"></button>
+    <button type="button" data-column="#column-lPDC" style="display:none"></button>
+    <button type="button" data-column="#column-lWH" style="display:none"></button>
+    <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
+    <input id="ordidtemp" type="hidden">
+    <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap framework js -->
+    <script src="~/tmartcssjs/bootstrap.min.js"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="~/tmartcss/js/plugins.js"></script>
+    <script src="~/tmartcss/js/slick.min.js"></script>
+    <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+    <!-- Waypoints.min.js. -->
+    <script src="~/tmartcss/js/waypoints.min.js"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="~/tmartcss/js/main.js"></script>
 
-        <script src="~/Loadingmodal/js/modal-loading.js"></script>
-        <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
-        <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
 
-        <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
-        <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+
+    <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
+    <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-        <script src="~/Scripts/webAddress.js"></script>
-        <script src="~/Scripts/bootstrap-datepicker.js"></script>
-        <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-        @*<input type="hidden" id="_udernumber" value="@number" />
-            <input type="hidden" id="_udercompan" value="@compan" />*@
-        <script type="text/javascript">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    @*<input type="hidden" id="_udernumber" value="@number" />
+        <input type="hidden" id="_udercompan" value="@compan" />*@
+    <script type="text/javascript">
             var id = '@Request.RequestContext.HttpContext.Session["ID"]';
             var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
             var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -1491,7 +1490,6 @@
                                 var bck = data.Getdata[i].val.Backorder;
                                 var bck = data.Getdata[i].val.Backorder;
                                 var accessId = data.Getdata[0].val.AccessID;
-                                var sta = data.Getdata[i].val.Status;
 
                                 //เก็บเลข accessLog ของตัวเอง
                                 if (accessId != "") {
@@ -1499,20 +1497,10 @@
                                 }
 
 
-
                                 if (bck != "0") {
                                     discol = "color:red;";
                                     disdisbackorder = "disabled: disabled";
-                                }
-                               else if (sta == "W" && Type == "BCK") {
-                                    discol = "color:red;";
-                                    disdisbackorder = "disabled: disabled";
-                                }
-                                else if (sta == "C" && Type == "BCK") {
-                                    discol = "color:red;";
-                                    disdisbackorder = "disabled: disabled";
-                                }
-                                else {
+                                } else {
                                     discol = "color:green;";
                                     disdisbackorder = "";
                                 }
@@ -1675,7 +1663,6 @@
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Promotion + '</td>';
 
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
-                                SubmithtmlPage += '<td>' + data.Getdata[i].val.InsertedBy + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.UOM + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.CartID + '</td>';
                                 SubmithtmlPage += '</tr>';
@@ -4093,7 +4080,7 @@
                                 //disable ปุ่มยินยัน
                                 $("#btnOK").prop('disabled', true);
                                 $.ajax({
-                                    url: '@Url.Action("CheckCustomerCredit", "Cart")',
+                                    url: '@Url.Action("CheckCustomerCredit", "Cart")', 
                                     data: {
                                         company: company,
                                         cuscod: cuscod,
@@ -5358,7 +5345,7 @@
             //      }
             //};
             //Lock show code display //
-        </script>
+    </script>
 
 
 </body>
