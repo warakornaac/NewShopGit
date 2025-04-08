@@ -1,0 +1,261 @@
+﻿@{
+    ViewBag.Title = "CheckingStock";
+    Layout = "~/Views/Shared/_Layoutyouknow_center.cshtml";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CheckingStock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="~/Scripts/jquery-2.2.4.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.4.5.0.js"></script>
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.min.1.13.17.js"></script>
+    <script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
+    <link href="~/Scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+
+    <style>
+        .fixed-height {
+            padding: 1px;
+            max-height: 300px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid mt--90">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-12 mt-4">
+                    <div class="card-header bg-primary text-white font-weight-bold">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <i class="fa fa-th-list" aria-hidden="true"></i> Search Stock
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="row p-3">
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="select-company" class="col-12 col-md-4 m-0">Company : </label>
+                                    <select id="select-company" class="form-control col-12 col-md-8" style="color:black">
+                                        <option value="TAC" selected>TAC</option>
+                                        <option value="AAC">AAC</option>
+                                        <option value="OMP">OMP</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="stkcod" class="col-12 col-md-4 m-0">STKCOD : </label>
+                                    <input type="text" class="form-control col-12 col-md-8 ui-autocomplete-input"
+                                           onfocus="this.select();" onmouseup="return false;"
+                                           id="stkcod" name="stkcod" autocomplete="off"
+                                           placeholder="STKCOD" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <div class="form-group float-right m-0">
+                            <button class="btn btn-success" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 pt-3" id="div-table-detail" hidden>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-dark table-striped m-0" id="table-stock">
+                                <thead>
+                                    <tr class="bg-warning">
+                                        <th>WH</th>
+                                        <th>Company</th>
+                                        <th>STKCOD</th>
+                                        <th>STKDES</th>
+                                        <th>STKGRP</th>
+                                        <th>UOM</th>
+                                        <th>StockQty</th>
+                                        <th>ReadyQty</th>
+                                        <th>Idel Mobile Order</th>
+                                        <th>Idel SO Order</th>
+                                        <th>Idel Buffer</th>
+                                        <th>Reserve</th>
+                                        <th>BckDue</th>
+                                        <th>LastInStock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).on('change', '#select-company', function () {
+        $('#stkcod').val('');
+    });
+    $(document).ready(function () {
+        console.log("jQuery Version:", $.fn.jquery);
+         $("#stkcod").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = {
+                    Name: $("#stkcod").val(),
+                    XvalCompany: $('#select-company').val()
+                };
+                $.ajax({
+                    url: '@Url.Action("GetdateStockCode", "SrcSaleCoCrm")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //console.log(data.length);
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        //alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                var val = ui.item.value;
+                var StockCode = val;
+                var split_StockCode = StockCode.split('|');
+
+                var stkitem = split_StockCode[0];
+                //$("#" + idstkdes + "").val("");
+                var stkitemdes = split_StockCode[1];
+
+            },
+             minLength: 2
+         });
+        $('#stkcod').autocomplete('widget').addClass('fixed-height');
+    });
+
+    function commaSeparateNumber(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+        }
+        return val;
+    }
+
+    $(document).on('click', '#btn-search', function () {
+        var comp = $('#select-company').val();
+        var stkfull = $('#stkcod').val();
+        var stk = "";
+        if (stkfull == '' || stkfull == null) {
+            Swal.fire({
+                title: "กรุณากรอก STKCOD",
+                icon: "warning"
+            });
+            return false;
+        }
+        else {
+            var splitstk = stkfull.split('|');
+            stk = splitstk[0].trim();
+        }
+        $.ajax({
+            url: '@Url.Action("GetCheckingStock", "StockChecking")',
+            data: {
+                Company: comp,
+                Stkcod: stk
+            },
+            dataType: "json",
+            type: "POST",
+            beforeSend: function () {
+                LoadingShow();
+                $('#table-stock tbody').html('');
+                $('#div-table-detail').attr("hidden", true);
+
+            },
+            success: function (res) {
+                $('#div-table-detail').removeAttr('hidden');
+                var table = $('#table-stock tbody');
+                var SubmithtmlPage = '';
+                if (res.message = "Y") {
+                    if (res.Getdata.length > 0) {
+                        for (var i = 0; i < res.Getdata.length; i++) {
+
+
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td>' + res.Getdata[i].WH + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].Company + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKCOD + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKDES + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKGRP + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].UOM + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ItemQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ReadyQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].MO_Qty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].SO_Qty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].BuffQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].RevQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].BckDue + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].InStock + '</td>'
+                            SubmithtmlPage += '</tr>';
+                        }
+                        table.append(SubmithtmlPage);
+                    }
+                    else {
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan = "14" class="text-center"> --ไม่พบข้อมูลหรือข้อมูลที่ค้นหาไม่ถูกต้อง นี้กรุณาตรวจสอบข้อมูล-- </td>';
+                        SubmithtmlPage += '</tr>';
+                        table.append(SubmithtmlPage);
+
+                    }
+                }
+                else if (res.message != "Y") {
+                    Swal.fire({
+                        title: 'Error!',
+                        html: 'เกิดข้อผิดพลาก <br > ' + res.message + ' <br > กรุณาติดต่อแผนก MIS',
+                        icon: 'danger'
+                    });
+
+                }
+            },
+            error: function (ex) {
+                console.log(ex);
+                Swal.fire({
+                    title: 'Error!',
+                    html: 'เกิดข้อผิดพลาก <br > '+ex+' <br > กรุณาติดต่อแผนก MIS',
+                    icon: 'danger'
+                });
+
+            },
+            complete: function (res) {
+                LoadingHide();
+            }
+        });
+    });
+
+    function LoadingShow() {
+        $.LoadingOverlay("show");
+    }
+
+    function LoadingHide() {
+        $.LoadingOverlay("hide");
+    }
+</script>

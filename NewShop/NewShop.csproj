@@ -164,6 +164,7 @@
     <Compile Include="Controllers\SrcSaleCoCrmController.cs" />
     <Compile Include="Controllers\CustomerDashboardController.cs" />
     <Compile Include="Controllers\StatuslistController.cs" />
+    <Compile Include="Controllers\StockCheckingController.cs" />
     <Compile Include="Controllers\UploadsExcelController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
     <Compile Include="MobileOrderDataSet.Designer.cs">
@@ -7879,6 +7880,7 @@
     <Content Include="Views\ManagementCustomerportalUser\Index.cshtml" />
     <Content Include="Views\ManagementCustomerportalUser\_UserTableSaleman.cshtml" />
     <Content Include="Views\PortalForSales\Index.cshtml" />
+    <Content Include="Views\StockChecking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

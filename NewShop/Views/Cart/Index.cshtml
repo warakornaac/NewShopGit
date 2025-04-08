@@ -1518,14 +1518,17 @@
                                 }
 
                                 var substabor = stabor.substring(0, 3);
-                                if (substabor == "Bck") {
-                                    //disbck = "display:none";
+                                if (substabor == "BCK") {
+                                    disbck = "display:none";
                                 } else {
-                                    // disbck = "display:block";
+                                    disbck = "display:block";
                                 }
                                 if (Type == '-') { SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
                                 else { SubmithtmlPage += '<tr style="background-color: rgba(130, 198, 223, 0.3);" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
 
+                                if (Type == 'BCK') {
+                                    discol = "color:red;";
+                                }
                                 var sta = data.Getdata[i].val.Status;
                                 if (sta != "N") {
                                     SubmithtmlPage += '<td></td>';
@@ -5155,11 +5158,10 @@
                                             });
 
                                             //location.reload();
-                                        } else {
-
-                                            $("#textAlert").empty();
-                                            $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
-                                            $("#myModal").modal();
+                                        } else {//alert  After Roll Back
+                                            $("#textAlertWarning").empty();
+                                            $("#textAlertWarning").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
+                                            $("#myModalWarning").modal();
                                         }
                                     }
                                 });
