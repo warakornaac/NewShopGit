@@ -1,0 +1,491 @@
+﻿@{
+    ViewBag.Title = "_DetailPromotionRegister";
+}
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+<style>
+    .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        /*background: #f2d900;*/
+        text-align: center;
+        border-radius: 5px;
+        color: #000;
+        padding: 2px 2px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .vcenter {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .vright {
+        text-align: right;
+        vertical-align: middle !important;
+    }
+
+    .sticky-col {
+        position: -webkit-sticky;
+        position: sticky;
+        /*background-color: #ededed;*/
+    }
+
+    .first-col {
+        left: 0px;
+    }
+
+    input[type=radio] {
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+    /*new*/
+    .panel-order .row {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .panel-order .row:last-child {
+        border: 0px;
+    }
+
+    .panel-order .row .col-md-1 {
+        text-align: center;
+        padding-top: 15px;
+    }
+
+        .panel-order .row .col-md-1 img {
+            width: 50px;
+            max-height: 50px;
+        }
+
+    .panel-order .row .row {
+        border-bottom: 0;
+    }
+
+    .panel-order .row .col-md-8 {
+        border-left: 1px solid #ccc;
+    }
+
+    .panel-order .row .row .col-md-12 {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    .panel-order .row .row .col-md-12:last-child {
+        /*font-size: 11px;*/
+        color: #555;
+        background: #d5f7dd;
+        border-top: 1px solid #ccc;
+    }
+
+    .panel-order .btn-group {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .panel-order .panel-body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .panel-order .panel-deading {
+        margin-bottom: 0;
+    }
+
+    .icon {
+        color: #007bff;
+    }
+
+    input[type=checkbox] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        transform: scale(2);
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .date-time {
+        font-size: 12px;
+    }
+
+    .form-group input[type="checkbox"] {
+        display: none;
+    }
+
+    .form-group input[type="checkbox"] + .btn-group > label span {
+        width: 20px;
+    }
+
+    .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+        display: none;
+    }
+
+    .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+        display: inline-block;
+    }
+
+    .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+        display: inline-block;
+    }
+
+    .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        @*new*@
+        <!--<div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">-->
+        @*<i class="fa fa-list"></i>*@
+        <!--<span id="txtHeadPromotionDetail"></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 text-right">-->
+        @*@ViewBag.promotionDetailList.Count().ToString("N0") รายการ*@
+        <!--</div>
+            </div>
+        </div>-->
+        @{
+            var countRow = 0;
+            if (ViewBag.promotionChangeList.Count == 0)
+            {
+                <div class="alert alert-danger text-center mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูลร้านค้าที่เปลี่ยนโปรโมชั่น </div>
+            }
+            else
+            {
+                <div class="card mb-12 mt-2">
+                    <div class="card-header text-black font-weight-bold p-2" style="background-color: #f9dfbf;">
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5 col-md-5 text-left">
+
+                                @if (ViewBag.promotionChangeList.Count > 0)
+                                {
+                                    <span class="label label-default align-text-bottom"> @ViewBag.promotionChangeList.Count รายการ </span>
+                                }
+
+
+                                @*<div class="input-group">
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <div class="input-group ">
+                                                            <span class="input-group-addon"><input id="checkboxAll" type="checkbox"> </span>
+                                                            <span class="input-group-btn">
+                                                                <button type="button" id="btncheck" class="btn btn-info btn-block "><span class="fa fa-check"></span>เลือกรายการอนุมัติ ทั้งหมด</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                            </div>
+                            <div class="col-xs-7 col-sm-7 col-md-7 text-right">
+                                <button type="reset" class="btn btn-success btn-md" onclick="approveChangeCustomer('Y');" style="font-size: medium;"><i class="fa fa-check"></i> Approve </button> &nbsp;
+                                <button type="button" class="btn btn-danger btn-md" onclick="approveChangeCustomer('N');" style="font-size: medium;"><i class="fa fa-remove"></i> Reject </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var rowData in ViewBag.promotionChangeList)
+                        {
+                            var txtCss = "";
+                            ++countRow;
+                            if (countRow > 0)
+                            {
+                                txtCss = "margin-top:10px;";
+                            }
+                            <div class="panel panel-default panel-order m-2">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4" id="col-@rowData.Cuscode" >
+                                            <h4 class="pt-2 text-170 text-600 letter-spacing">
+                                                <input type="checkbox" name="selectChangeCustomer" class="ml-2" id="selectPromotion"
+                                                       data-cuscode="@rowData.Cuscode"
+                                                       data-codeold="@rowData.Promotion_Code_Old"
+                                                       data-seqold="@rowData.Promotion_Sub_Old"
+                                                       data-codenew="@rowData.Promotion_Code_New"
+                                                       data-seqnew="@rowData.Promotion_Sub_New" /> &nbsp;
+                                                <span class="label label-info">
+                                                    @rowData.Slmcode
+                                                </span>
+                                            </h4>
+                                            <div class="text-secondary-d1 text-xs"> <span class="ml-n15 align-text-bottom"> @rowData.Cuscode @rowData.Cusname </span></div>
+
+                                            <div class="d-flex flex-row mt-1 text-black-50 date-time align-text-bottom pb-1">
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-1">@rowData.Date_change</span></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-8" style="font-size: 14px;">
+                                            <div class="row">
+                                                <div class="col-md-12" style="background: #f3f0f0; border-top: 1px solid #ede6e6;">
+                                                    <div class="pull-right">
+                                                        <label class="label label-warning">Old</label>
+                                                    </div>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_Old / @rowData.Promotion_Code_old_Description</strong></span>
+                                                    <br />
+                                                    <i class="fa fa-usd icon"></i>
+                                                    @rowData.Description_Old |
+                                                    @rowData.Reward_Old (@rowData.Cost_Old) <br />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="pull-right icon">
+                                                        <label class="label label-success">New</label>
+                                                    </div>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_New / @rowData.Promotion_Code_old_Description</strong></span>
+                                                    <br />
+                                                    <i class="fa fa-usd icon"></i>
+                                                    @rowData.Description_New |
+                                                    @rowData.Reward_New (@rowData.Cost_New) <br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        @*<div class="panel-footer">//</div>*@
+        <div id="showDetailPromotionCustomer"></div>
+    </div>
+</div>
+<script defer>
+    //click checkbox change color
+    $('input[name="selectChangeCustomer"]').on('change', function () {
+        var cuscode = $(this).data("cuscode");
+        if ($(this).is(':checked')) {
+            $('#col-' + cuscode).css("background-color", "#f9e3c8");
+        } else {
+            $('#col-' + cuscode).css("background-color", "#ffffff");
+        }
+    });
+
+    $(document).ready(function () {
+        //เลือก Promotion code reset result
+        $("#promotionCode").change(function () {
+            $('#showDetailPromotionRegister').empty();
+        });
+        //radio เลือก promotion detail
+        $('input:radio').click(function () {
+            var msg = '';
+            var error = 0;
+            var textHeaderDetailPromotion = "";
+            var slmCode = $("#slmCode option:selected").val();
+            var promotionCode = $("input[name=selectPromotion]:checked").data('code');
+            var promotionSeq = $("input[name=selectPromotion]:checked").data('seq');
+            var promotionDestype = $("input[name=selectPromotion]:checked").data('destype');
+            var promotionDescription = $("input[name=selectPromotion]:checked").data('description');
+            var promotionCondition = $("input[name=selectPromotion]:checked").data('condition');
+            var promotionReward = $("input[name=selectPromotion]:checked").data('reward');
+
+            if (promotionCode != null) {
+                textHeaderDetailPromotion += promotionCode + " / ";
+            }
+            if (promotionDescription != null) {
+                textHeaderDetailPromotion += promotionDescription;
+            }
+            if (promotionCondition != null) {
+                textHeaderDetailPromotion += " " + promotionCondition;
+            }
+            if (promotionReward != null) {
+                textHeaderDetailPromotion += " (" + promotionReward +")";
+            }
+
+            console.log("textHeaderDetailPromotion = " + textHeaderDetailPromotion);
+
+            //console.log("slmCode = " + slmCode + " code = " + promotionCode + " seq = " + promotionSeq);
+            //set color tr
+            $(this).closest('tr').siblings().css('background-color', '').end().css('background-color', 'bisque');
+
+            if (slmCode == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก พนักงานขาย';
+            }
+            if (promotionCode == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือก Promotion Code';
+            }
+            if (promotionSeq == undefined) {
+                ++error;
+                msg += '<br>' + error + '. กรุณาเลือกรายการย่อย Promotion Code';
+            }
+            if (error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                    html: msg,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Close',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+                return false;
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("GetCustomerByPromotion", "Promotion")',
+                    data: {
+                        slmCode: slmCode,
+                        promotionCode: promotionCode,
+                        promotionSeq: promotionSeq,
+                        textHeader: textHeaderDetailPromotion
+                    },
+                    dataType: 'html',
+                    cache: false,
+                    Async: true,
+                    beforeSend: function () {
+                        $('#showDetailPromotionCustomer').empty();
+                        $('#showDetailPromotionCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                       // LoadingShow();
+                    },
+                    success: function (res) {
+                       // LoadingHide();
+                        $('#showDetailPromotionCustomer').html(res);
+                    },
+                    error: function (er) {
+                        alert(er.error);
+                    }
+                }).fail(function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: error.status,
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>getCustomerByPromotion<br><br>',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'ปิด',
+                        allowOutsideClick: false,
+                        focusConfirm: false,
+                    });
+                });
+            }
+        });
+    });
+    //save approve
+    approveChangeCustomer = async (flag) => {
+        var txtFlag = 'อนุมัติ';
+        var request = [];
+        var countSelect = 0;
+        if (flag == 'N') {
+            txtFlag = 'ยกเลิก';
+        }
+        $("input[name='selectChangeCustomer']:checked").each(function () {
+            var cuscode = $(this).data("cuscode");
+            var codeold = $(this).data("codeold");
+            var seqold = $(this).data("seqold");
+            var codenew = $(this).data("codenew");
+            var seqnew = $(this).data("seqnew");
+            if (cuscode != null) {
+                ++countSelect;
+                //console.log("requestCuscode = " + requestCuscode + " requestCodeold = " + requestCodeold + " requestSeqold = " + requestSeqold);
+                var details = {
+                    Cuscode: cuscode,
+                    Codeold: codeold,
+                    Seqold: seqold,
+                    Codenew: codenew,
+                    Seqnew: seqnew,
+                }
+                request.push(details);
+                console.log(request);
+            }
+        });
+        //console.log(flag)
+        //return false;
+        if (countSelect == 0) {
+            Swal.fire({
+                icon: 'warning',
+                html: 'กรุณาเลือกร้านค้าอย่างน้อย 1 รายการ',
+                //html: msg,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+            return false;
+        } else {
+            Swal.fire({
+                title: 'ต้องการ' + txtFlag + 'รายการใช่หรือไม่',
+                html: 'เลือกร้านค้าจำนวน  ' + countSelect + '  ร้านค้า',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#00a65a',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="fa fa-check"></i> ใช่',
+                cancelButtonText: '<i class="fa fa-times"></i> ไม่',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        url: '@Url.Action("SaveApproveChangeCustomer", "Promotion")',
+                        data: JSON.stringify({
+                            requestData: request,
+                            user: '@Session["UserID"]',
+                            flagApprove: flag
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        enctype: 'multipart/form-data',
+                        beforeSend: function () {
+                            LoadingShow();
+                        },
+                        success: function (result) {
+                            if (result.status == "Y") {
+                                Swal.fire({
+                                    title: 'บันทึกเรียบร้อย',
+                                    //html: 'บันทึกเรียบร้อย',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                    timer: 5000,
+                                    timerProgressBar: true,
+                                    onClose: () => {
+                                        LoadingHide();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error not saved',
+                                    html: result.status,
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: 'ปิด',
+                                    allowOutsideClick: false,
+                                    focusConfirm: false,
+                                });
+                            }
+                        },
+                        complete: function (res) {
+                            searchPromotionApprove();
+                            LoadingHide();
+                        }
+                    }).fail(function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error not saved',
+                            html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>SaveCustomerRegister<br><br>',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'ปิด',
+                            allowOutsideClick: false,
+                            focusConfirm: false,
+                        });
+                    });
+                }
+            });
+        }
+    }
+
+
+</script>

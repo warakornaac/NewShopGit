@@ -58,9 +58,9 @@
                 </div>
             </div>
         }
-        <div class="list-group">
-            @if (priceLowCostDetail.ApproveDate_Step1 != "-")
-            {
+            <div class="list-group">
+                @if (priceLowCostDetail.ApproveDate_Step1 != "-" && priceLowCostDetail.ApproveDate_Step1 != "")
+                {
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
                     <div class="d-flex w-100 justify-content-between">
                         <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step1</b></h6>
@@ -70,9 +70,9 @@
                     <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step1</p>
                     <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step1</p>
                 </a>
-            }
-            @if (priceLowCostDetail.ApproveDate_Step2 != "-")
-            {
+                }
+                @if (priceLowCostDetail.ApproveDate_Step2 != "-" && priceLowCostDetail.ApproveDate_Step2 != "")
+                {
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
                     <div class="d-flex w-100 justify-content-between">
                         <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step2</b></h6>
@@ -82,9 +82,9 @@
                     <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step2</p>
                     <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step2</p>
                 </a>
-            }
-            @if (priceLowCostDetail.ApproveDate_Step3 != "-")
-            {
+                }
+                @if (priceLowCostDetail.ApproveDate_Step3 != "-" && priceLowCostDetail.ApproveDate_Step3 != "")
+                {
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #efefef;">
                     <div class="d-flex w-100 justify-content-between">
                         <h6 class="mb-1 text-primary"><b>@priceLowCostDetail.ProdCode_Step3</b></h6>
@@ -94,8 +94,8 @@
                     <p class="mb-1"> <b> วันที่บันทึก : </b> @priceLowCostDetail.ApproveDate_Step3</p>
                     <p class="mb-1"> <b> ผู้บันทึก : </b> @priceLowCostDetail.ApproveBy_Step3</p>
                 </a>
-            }
-        </div>
+                }
+            </div>
     }
     <div class="row">
         <hr />

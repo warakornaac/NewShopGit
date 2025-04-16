@@ -3658,6 +3658,14 @@
                 if (retval[0] == "1") {
                     showalr(retval[1])
                     return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
+                    return false;
                 } else {
                     countorder(item, $('#selslm').val());
                     datacus($('#selslm').val());
@@ -3675,6 +3683,16 @@
         function showalr(cusname) {
             $("#textAlertWarning").empty();
             $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+            $("#myModalWarning").modal();
+        }
+        function showalrblock(cusname) {
+            $("#textAlertWarning").empty();
+            $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ถูกระงับการขายชั่วคราว กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+            $("#myModalWarning").modal();
+        }
+        function showalrblockandinact(cusname) {
+            $("#textAlertWarning").empty();
+            $("#textAlertWarning").text("ลูกค้าร้าน " + cusname + "ถูกระงับการขายชั่วคราวและไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
             $("#myModalWarning").modal();
         }
         function checkcustomerinactive(cuscod) {
@@ -3752,7 +3770,7 @@
                             //$("#textAlertWarning").empty();
                             //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ถูกระงับการขายชั่วคราวและไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
 
@@ -3803,7 +3821,7 @@
                             $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
                             $("#nocusses").val(data[0].CUSCOD);//master key customer
                             $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
+                            return retval = ["3", data[0].CUSNAM];
                         }
 
                     } else {
@@ -3813,7 +3831,7 @@
                             //$("#textAlertWarning").empty();
                             //$("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             //$("#myModalWarning").modal();
-                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                            $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ถูกระงับการขายชั่วคราว กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                             $('#cus').attr('title', data[0].Hierarchy2_Channel);
                             $("#addcus").text(data[0].ADDR_01 + (data[0].ADDR_02));
                             if (usertype == "6") {
@@ -3862,7 +3880,7 @@
                             $("#cussend").val(data[0].CUSCOD);//checkcustomerบัญชีลูกค้า:
                             $("#nocusses").val(data[0].CUSCOD);//master key customer
                             $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["1", data[0].CUSNAM];
+                            return retval = ["2", data[0].CUSNAM];
                         }
                         else {
                             //alert("aa")
@@ -3915,7 +3933,7 @@
                             $("#nocusses").val(data[0].CUSCOD);//master key customer
                             getCreditcuskey(cuscod)
                             $('#dnow').html("คำนวณวงเงิน ณ วันที่:" + d + "/" + m + "/" + y);
-                            return retval = ["2", data[0].CUSNAM];
+                            return retval = ["0", data[0].CUSNAM];
                         }
                     }
 
@@ -4054,9 +4072,9 @@
                             //$("#cus").text("Custome Code:" + data[0].CUSCOD + "  Customer Name" + data[0].CUSNAM);
                             if (block == "1") {
                                 $("#textAlertWarning").empty();
-                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + "ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#textAlertWarning").text("ลูกค้าร้าน " + data[0].CUSNAM + " ถูกระงับการขายชั่วคราว กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $("#myModalWarning").modal();
-                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ไม่สามารถทำรายการสั่งซื้อสินค้าได้ กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
+                                $("#cus").text(data[0].CUSNAM + " (" + data[0].CUSCOD + ") ถูกระงับการขายชั่วคราว กรุณาติดต่อแผนก Credit Control หรือ Sales Admin");
                                 $('#cus').attr('title', data[0].Hierarchy2_Channel);
                                 $("#addcus").text("");
                                 $("#crlicusaac").text("");
@@ -4247,7 +4265,16 @@
             if (retval[0] == "1") {
                 showalr(retval[1])
                 return false;
-            } else {
+            }
+            else if (retval[0] == "2") {
+                showalrblock(retval[1])
+                return false;
+            }
+            else if (retval[0] == "3") {
+                showalrblockandinact(retval[1])
+                return false;
+            }
+            else {
                 $.ajax({
                     url: '@Url.Action("GetdatabyCus", "DataCenter")',
                     data: {
@@ -4313,6 +4340,14 @@
                 if (retval[0] == "1") {
                     showalr(retval[1])
                     return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
+                    return false;
                 } else {
                     //window.location.replace("../Home/Index?numcuber=" + btoa(cuskey));
                     window.location.replace("../Orderlist/Index?numcuber=" + btoa(cuskey));
@@ -4354,6 +4389,14 @@
 
                 if (retval[0] == "1") {
                     showalr(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
                     return false;
                 } else {
                     window.location.replace("../Shoppinglist/Index?numcuber=" + btoa(cuskey));
@@ -4398,6 +4441,14 @@
 
                 if (retval[0] == "1") {
                     showalr(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
                     return false;
                 } else {
                     window.location.replace("../SCStockSco/Index?numcuber=" + btoa(cuskey));
@@ -4446,6 +4497,14 @@
                 if (retval[0] == "1") {
                     showalr(retval[1])
                     return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
+                    return false;
                 } else {
                     window.location.replace("../UploadsExcel/Index?numcuber=" + btoa(cuskey));
                 }
@@ -4491,6 +4550,14 @@
                 if (retval[0] == "1") {
                     showalr(retval[1])
                     return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
+                    return false;
                 } else {
                     window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuskey));
                 }
@@ -4533,7 +4600,15 @@
                 if (cuskey != "") {
                     var retval = checkcustomerinactive(cuskey)
                     if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
+                        showalr(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "2") {
+                        showalrblock(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "3") {
+                        showalrblockandinact(retval[1])
                         return false;
                     } else {
                         //Getdatacartslm(codval)
@@ -4548,7 +4623,15 @@
                 if (cuskey != "") {
                     var retval = checkcustomerinactive(cuskey)
                     if (retval[0] == "1") {
-                        showalr(retval[1]) //csutomer block//
+                        showalr(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "2") {
+                        showalrblock(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "3") {
+                        showalrblockandinact(retval[1])
                         return false;
                     } else {
                         //Getdatacartslm(codval)
@@ -4669,7 +4752,15 @@
                 $("#ModalwConfirm").modal('hide');
                 var retval = checkcustomerinactive(cus)
                 if (retval[0] == "1") {
-                    showalr(retval[1]) //csutomer block//
+                    showalr(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
                     return false;
                 } else {
                     //Getdatacartslm(codval)
@@ -4685,6 +4776,14 @@
             var retval = checkcustomerinactive(cuskey)
             if (retval[0] == "1") {
                 showalr(retval[1])
+                return false;
+            }
+            else if (retval[0] == "2") {
+                showalrblock(retval[1])
+                return false;
+            }
+            else if (retval[0] == "3") {
+                showalrblockandinact(retval[1])
                 return false;
             } else {
                 window.location.replace("../SrcSaleCoCrm/Index");
@@ -4733,6 +4832,14 @@
             var retval = checkcustomerinactive(cuskey)
             if (retval[0] == "1") {
                 showalr(retval[1])
+                return false;
+            }
+            else if (retval[0] == "2") {
+                showalrblock(retval[1])
+                return false;
+            }
+            else if (retval[0] == "3") {
+                showalrblockandinact(retval[1])
                 return false;
             } else {
                 window.location.replace("../BackorderAll/Index");

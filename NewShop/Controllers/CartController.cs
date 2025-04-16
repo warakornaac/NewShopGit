@@ -1242,14 +1242,11 @@ namespace NewShop.Controllers
                         {
                             // ตรวจสอบชื่อคอลัมน์ที่แน่นอน
                             DocNo = rev_["Sale Order"].ToString();
+
                         }
                     } // ปิด reader อัตโนมัติ
                     message = p.Value.ToString();
-
-                    //rev_.Close();
-                    //rev_.Dispose();
                     cmd.Dispose();
-
 
                     //Comment
                     /*
@@ -1273,8 +1270,6 @@ namespace NewShop.Controllers
 
                     */
 
-
-
                     conn.Close();
                     //}
                 }
@@ -1294,12 +1289,8 @@ namespace NewShop.Controllers
                         conn.Close();
                     }
                 }
-
-
                 //}
             }
-
-
             return Json(new { message, DocNo }, JsonRequestBehavior.AllowGet);
         }
         //เช็ค last id LogAccessCart ก่อน confirm
