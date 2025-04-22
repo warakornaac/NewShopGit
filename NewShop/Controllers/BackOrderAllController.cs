@@ -339,7 +339,7 @@ namespace NewShop.Controllers
             return Json(GetdatabyItem, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertdataBackorder(string Cuspo, string User, string CUSCOD, string DocNo, string SeqNo, string VSTKCOD, string MyIndexValueQty, string MyIndexValueQtyclear, string MyIndexValueQtyLeftover, string company)
+        public JsonResult InsertdataBackorder(string Cuspo, string User, string CUSCOD, string DocNo, string SeqNo, string VSTKCOD, string MyIndexValueQty, string MyIndexValueQtyclear, string MyIndexValueQtyLeftover, string company, string CComment)
         {
 
             string message = "false";
@@ -367,6 +367,7 @@ namespace NewShop.Controllers
                     command.Parameters.AddWithValue("@Com", company);
                     command.Parameters.AddWithValue("@User ", User);
                     command.Parameters.AddWithValue("@Cuspo", Cuspo);
+                    command.Parameters.AddWithValue("@inComment", CComment);
                     SqlParameter returnValue = new SqlParameter("@outResult", SqlDbType.NVarChar, 100);
                     returnValue.Direction = System.Data.ParameterDirection.Output;
                     command.Parameters.Add(returnValue);

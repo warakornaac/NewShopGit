@@ -145,6 +145,7 @@
                                 <th scope="col">
                                     <div class="btn btn-primary" id="btngenbck"> เตรียมข้อมูล Back order</div>
                                 </th>
+                                <th scope="col">@*<textarea class="form-control" name="Comment" placeholder="Enter text hear..." style="width: 300px; height: 48px; background-color:white; border:1px thin black; resize:both;"> </textarea>*@</th>
                             </tr>
                             <tr>
                                 <th scope="col">พนักงานขาย</th>
@@ -227,6 +228,7 @@
                                 <th>ยืนยันส่ง</th>
                                 <th>จำนวนคงเหลือ</th>
                                 <th>Add to cart</th>
+                                <th>เหตุผลยกเลิก<br>B/O</th>
                                 <th>ราคา</th>
                                 <th>Stock <br>พร้อมขาย</th>
                                 <th>B/O รวม</th>
@@ -362,6 +364,7 @@
 
                 <div class="modal-body">
                     <div id="textAlertWarning">Some text in the modal.</div>
+
                 </div>
 
             </div>
@@ -814,6 +817,7 @@
                                         SubmithtmlPage += '<td class="tLeftover"><input title=""  id="' + data[i].Qtyleftoverkrow + '" name="S_QtyLeftover" min="0" ' + disshow + ' value="0" type="number"   style="color: blue; width: 81px; height: 35px;font-size: 20px;" disabled="readonly"></td>';
                                     }
                                     SubmithtmlPage += '<td><button id="' + data[i].ckrow + '" com="' + data[i].COM + '" cuscod="' + data[i].CUSCOD + '" docnoe="' + data[i].SaleOrder_No + '" lineno="' + data[i].SeqNum + '" stkcod="' + data[i].STKCOD + '" class="btn btn-success btn-sm use-address"  style=" cursor pointer;color:white;">Add to cart</button></td>';
+                                    SubmithtmlPage += '<td class="tComment"><textarea class="form-control" id="Comment' + i + 1 +'" name="S_Comment" title="ช่องใส่เหตุผลการยกเลิก BO" placeholder="เหตุผลการยกเลิก B/O" style="width: 200px; height: 48px; background-color:white; border:1px thin black;resize:both;"></textarea></td>'
                                 } else {
                                     SubmithtmlPage += '<td></td>';
                                     SubmithtmlPage += '<td></td>';
@@ -884,7 +888,43 @@
                     }
                 });
             }
+            $(document).on("click", "#table-basic .use-address-TEST", function () {
+                var $idValueQty = $(this).parents("tr:eq(0)").find(".tQty").find("input[name='S_Qty']").attr('id');
+                var MyIndexValueQty = $("#" + $idValueQty + "").val();
+                var $idValueQtycleary = $(this).parents("tr:eq(0)").find(".tclear").find("input[name='S_Qtyclear']").attr('id');
+                var MyIndexValueQtyclear = $("#" + $idValueQtycleary + "").val();
+                var $idValueQtyLeftover = $(this).parents("tr:eq(0)").find(".tLeftover").find("input[name='S_QtyLeftover']").attr('id');
+                var MyIndexValueQtyLeftover = $("#" + $idValueQtyLeftover + "").val();
+                var $idValuecusuppo = $(this).parents("tr:eq(0)").find(".tcusuppo").find("input[name='S_cusuppo']").attr('id');
+                var MyIndexValuecusuppo = $("#" + $idValuecusuppo + "").val();
+                //Comment
+                var $idValueComment = $(this).parents("tr:eq(0)").find(".tComment").find("textarea[name='S_Comment']").attr('id');
+                var MyIndexValueComment = $("#" + $idValueComment + "").val();
+                var idorgbck = $(this).parents("tr:eq(0)").find(".orgbck").html();
+                //var ReadyStock = $(this).attr('rdystk');
+                //var ReadyStockNumber = parseInt(ReadyStock);
+                console.log('ValueQty:' + MyIndexValueQty);
+                console.log('ValueQtyclear:' + MyIndexValueQtyclear);
+                console.log('ValueQtyLeftover:' + MyIndexValueQtyLeftover);
+                console.log('IDComment:' + $idValueComment);
+                console.log('ValueComment:' + MyIndexValueComment);
+                console.log('countComment:' + MyIndexValueComment.length);
 
+                if (MyIndexValueComment.length > 255) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุเหตุผลในการยกเลิก B/O ไม่เกิน 255 ตัวอักษร");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
+
+                if (MyIndexValueQtyclear == 0 && (MyIndexValueQtyLeftover < MyIndexValueQty) && MyIndexValueComment == "") {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุเหตุผลในการยกเลิก B/O");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
+
+            })
             $(document).on("click", "#table-basic .use-address", function () {
 
                 var $idValueQty = $(this).parents("tr:eq(0)").find(".tQty").find("input[name='S_Qty']").attr('id');
@@ -895,8 +935,25 @@
                 var MyIndexValueQtyclear = $("#" + $idValueQtycleary + "").val();
                 var $idValueQtyLeftover = $(this).parents("tr:eq(0)").find(".tLeftover").find("input[name='S_QtyLeftover']").attr('id');
                 var MyIndexValueQtyLeftover = $("#" + $idValueQtyLeftover + "").val();
+                //Comment
+                var $idValueComment = $(this).parents("tr:eq(0)").find(".tComment").find("textarea[name='S_Comment']").attr('id');
+                var MyIndexValueComment = $("#" + $idValueComment + "").val();
                 //var ReadyStock = $(this).attr('rdystk');
                 //var ReadyStockNumber = parseInt(ReadyStock);
+
+                if (MyIndexValueComment.length > 255) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุเหตุผลในการยกเลิก B/O ไม่เกิน 255 ตัวอักษร");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
+
+                if (MyIndexValueQtyclear == 0 && (MyIndexValueQtyLeftover < MyIndexValueQty) && MyIndexValueComment == "") {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุเหตุผลในการยกเลิก B/O");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
 
                 if (MyIndexValueQtyclear == "") {
                     $("#textAlertWarning").empty();
@@ -938,7 +995,8 @@
                         MyIndexValueQtyclear: MyIndexValueQtyclear,
                         MyIndexValueQtyLeftover: MyIndexValueQtyLeftover,
                         company: Vcompany,
-                        Cuspo: MyIndexValuecusuppo
+                        Cuspo: MyIndexValuecusuppo,
+                        CComment: MyIndexValueComment
                     },
                     type: "POST",
                     dataType: "JSON",

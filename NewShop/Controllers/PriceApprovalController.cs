@@ -278,7 +278,6 @@ namespace NewShop.Controllers
                     else
                     {
                         model.spcend_date = "-";
-
                     }
                     model.Qty = dr["Qty"].ToString();
                     model.Amt = dr["Amt"].ToString();
@@ -306,8 +305,9 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice }, JsonRequestBehavior.AllowGet);
         }
-     
-        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string topicType, string Usre) { 
+
+        public JsonResult GetPriceApprove(string CUSCOD, string SLMCODE, string STKGRP, string ProdMRG, string vStatus, string topicType, string Usre)
+        {
             int sumQty = 0;
             int sumSalePrice = 0;
             //  int sumDiscount = 0;
@@ -431,6 +431,7 @@ namespace NewShop.Controllers
                         model.ItemTypeDes = dr["Item_Type_Des"].ToString();
                         model.ProdCodeHigh = dr["ProdCodeHigh"].ToString();
                         model.PriceApproveId = dr["PriceApproveId"].ToString();
+                        model.BckComment = dr["BckComment"].ToString();
                         // sumQty += Convert.ToInt32(dr.GetValue(15));
                         // sumSalePrice += Convert.ToInt32(dr.GetValue(9));
                         Getdata.Add(new ItemList_PriceApprove { val = model });
@@ -904,6 +905,7 @@ namespace NewShop.Controllers
         public string ItemTypeDes { get; set; }
         public string ProdCodeHigh { get; set; }
         public string PriceApproveId { get; set; }
+        public string BckComment { get; set; }
 
     }
 

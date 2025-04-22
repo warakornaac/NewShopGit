@@ -101,6 +101,16 @@
     .bgSpc {
         background-color: #793210;
     }
+
+    .text-remark {
+        width: 200px;
+        word-wrap: break-word;
+        white-space: normal;
+        /*background-color: rgba(205, 110, 255, 0.8);*/
+        border: 1px solid white;
+        padding: 5px;
+        border-radius: 4px;
+    }
 </style>
 <html>
 <head>
@@ -466,6 +476,8 @@
         </div>
     </div>
 
+
+
     <input type="hidden" id="usrexpire">
     <input type="hidden" id="stus" />
     <input type="hidden" id="User">
@@ -490,6 +502,27 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="CommentBck" tabindex="-1" aria-labelledby="ModalCancel" @*data-backdrop="static"*@ data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header pb-2">
+                    <div class="col-sm-10 col-md-10">
+                        <h4 class="modal-title" id="commenthdr">เหตุผล:</h4>
+                    </div>
+                    <div class="col-sm-2 col-md-2 text-right"><button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" style="padding: 10px;">x</button></div>
+                </div>
+                <div class="modal-body">
+                    <span id="commentlbl"></span>
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-warning" id="cancel_submit"><i class="fa fa-trash"></i> ยกเลิกรายการ </button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
         var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
         var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -568,14 +601,14 @@
             $('#checkboxAll').click(function (event) {  //on click
                 if (this.checked) { // check select status
                     $('.chk').each(function () { //loop through each checkbox
-                        if (!$(this).prop('disabled')) { 
+                        if (!$(this).prop('disabled')) {
                             this.checked = true;
                         }
 
                     });
                 } else {
                     $('.chk').each(function () { //loop through each checkbox
-                        if (!$(this).prop('disabled')) { 
+                        if (!$(this).prop('disabled')) {
                             this.checked = false; //deselect all checkboxes with class "chk"
                         }
 
@@ -776,6 +809,16 @@
                                 if (ItemType == "SPC") {
                                     SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.PriceApproveId + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
                                 }
+                                if (ItemType == "BCK" || ItemType == "CBK") {
+                                    SubmithtmlPage += '<br>'
+                                    //SubmithtmlPage += '<span > เหตผล:' + data.Getdata[i].val.BckComment +'</span>'
+                                    if (data.Getdata[i].val.BckComment.trim() === "") {
+                                        SubmithtmlPage += '<span > เหตุผล: - </span>'
+                                    }
+                                    else {
+                                        SubmithtmlPage += '<div class="text-remark"> <b>เหตุผล : </b>' + data.Getdata[i].val.BckComment + '</div>'
+                                    }
+                                }
                                 SubmithtmlPage += '</td >';
 
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.StatusFull + '</td>';
@@ -889,6 +932,13 @@
             });
         });
         }
+
+        //function showCommentDetail(detail) {
+        //    $('#commentlbl').html('');
+        //    $('#commentlbl').text(detail);
+        //    $('#CommentBck').modal('show');
+        //}
+
         function fnApproveData(vStatus) {
 
             //var User = $('#User').val();
