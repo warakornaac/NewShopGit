@@ -930,7 +930,7 @@
                 var $idValueQty = $(this).parents("tr:eq(0)").find(".tQty").find("input[name='S_Qty']").attr('id');
 
                 var MyIndexValueQty = $("#" + $idValueQty + "").val();
-
+                var idorgbck = $(this).parents("tr:eq(0)").find(".orgbck").html(); //จำนวนB/o
                 var $idValueQtycleary = $(this).parents("tr:eq(0)").find(".tclear").find("input[name='S_Qtyclear']").attr('id');
                 var MyIndexValueQtyclear = $("#" + $idValueQtycleary + "").val();
                 var $idValueQtyLeftover = $(this).parents("tr:eq(0)").find(".tLeftover").find("input[name='S_QtyLeftover']").attr('id');
@@ -940,6 +940,8 @@
                 var MyIndexValueComment = $("#" + $idValueComment + "").val();
                 //var ReadyStock = $(this).attr('rdystk');
                 //var ReadyStockNumber = parseInt(ReadyStock);
+
+
 
                 if (MyIndexValueComment.length > 255) {
                     $("#textAlertWarning").empty();
@@ -957,8 +959,26 @@
 
                 if (MyIndexValueQtyclear == "") {
                     $("#textAlertWarning").empty();
-                    $("#textAlertWarning").text("กรุณา ใส่จำนวน ยืนยันส่ง");
+                    $("#textAlertWarning").text("กรุณา ใส่จำนวนยืนยันส่ง");
                     $("#myModalWarning").modal();
+                    return false;
+                }
+
+                if (MyIndexValueQtyLeftover == idorgbck) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนยืนยันส่งและจำนวนคงเหลือไม่ถูกต้อง");
+                    $("#myModalWarning").modal();
+                    $("#" + $idValueQtycleary + "").val("");
+                    $("#" + $idValueQtyLeftover + "").val("");
+                    return false;
+                }
+
+                if ((parseFloat(MyIndexValueQtyLeftover) + parseFloat(MyIndexValueQtyclear)) > parseFloat(idorgbck)) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนยืนยันส่ง + จำนวนคงเหลือ ต้องไม่เกิน จำนวน B/O");
+                    $("#myModalWarning").modal();
+                    $("#" + $idValueQtycleary + "").val("");
+                    $("#" + $idValueQtyLeftover + "").val("");
                     return false;
                 }
                 //if (ReadyStockNumber <= 0) {
@@ -1136,7 +1156,13 @@
                 var $idValueQtyLeftover = $(this).parents("tr:eq(0)").find(".tLeftover").find("input[name='S_QtyLeftover']").attr('id');
                 var idtLeftover = $("#" + $idValueQtyLeftover + "").val();//จำนวนคงค้าง//
 
-
+                //if (parseFloat(idtLeftover) > (parseFloat(idorgbck))) {
+                //        $("#textAlertWarning").empty();
+                //        $("#textAlertWarning").text("จำนวนยืนยันส่ง + จำนวนคงเหลือ ต้องไม่เกิน จำนวน B/O ");
+                //        $("#myModalWarning").modal();
+                //    $("#" + $idValueQtyLeftover + "").val(parseFloat(idtLeftover));
+                //     return false;
+                //}
                 //จำนวนคงค้าง > จำนวนที่ปล่อยได้ b/o+ ยืนยันส่ง//
                 //if (parseFloat(idtLeftover) > (parseFloat(Seqval) + parseFloat(cQty))) {
 
@@ -1146,7 +1172,7 @@
                 //    //$("#" + $idValueQtyLeftover + "").val("");
                 //    $("#" + $idValueQtyLeftover + "").val((parseFloat(idorgbck) - parseFloat(cQty)));
                 //    return false;
-                //} else
+                //} //else
                 //if (parseFloat(Seqval) == parseFloat(idtLeftover)) {
                 //    $("#" + $idValueQtycleary + "").val("0");
                 //}
