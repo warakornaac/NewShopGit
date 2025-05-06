@@ -66,7 +66,7 @@
                     </div>
                     <div class="card-footer ">
                         <div class="form-group float-right m-0">
-                            <button class="btn btn-success" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            @* <button class="btn btn-success" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>*@
                         </div>
                     </div>
                 </div>
@@ -148,9 +148,10 @@
                 var stkitem = split_StockCode[0];
                 //$("#" + idstkdes + "").val("");
                 var stkitemdes = split_StockCode[1];
-
+                var comp = $('#select-company').val();
+                checkStock(comp, stkitem);
             },
-             minLength: 2
+             minLength: 1
          });
         $('#stkcod').autocomplete('widget').addClass('fixed-height');
     });
@@ -160,6 +161,82 @@
             val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
         }
         return val;
+    }
+
+
+    function checkStock(comp,stk) {
+        $.ajax({
+            url: '@Url.Action("GetCheckingStock", "StockChecking")',
+            data: {
+                Company: comp,
+                Stkcod: stk
+            },
+            dataType: "json",
+            type: "POST",
+            beforeSend: function () {
+                LoadingShow();
+                $('#table-stock tbody').html('');
+                $('#div-table-detail').attr("hidden", true);
+
+            },
+            success: function (res) {
+                $('#div-table-detail').removeAttr('hidden');
+                var table = $('#table-stock tbody');
+                var SubmithtmlPage = '';
+                if (res.message = "Y") {
+                    if (res.Getdata.length > 0) {
+                        for (var i = 0; i < res.Getdata.length; i++) {
+
+
+                            SubmithtmlPage += '<tr>';
+                            SubmithtmlPage += '<td>' + res.Getdata[i].WH + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].Company + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKCOD + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKDES + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].STKGRP + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].UOM + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ItemQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].ReadyQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].MO_Qty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].SO_Qty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].BuffQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].RevQty + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].BckDue + '</td>'
+                            SubmithtmlPage += '<td>' + res.Getdata[i].InStock + '</td>'
+                            SubmithtmlPage += '</tr>';
+                        }
+                        table.append(SubmithtmlPage);
+                    }
+                    else {
+                        SubmithtmlPage += '<tr>';
+                        SubmithtmlPage += '<td colspan = "14" class="text-center"> --ไม่พบข้อมูลหรือข้อมูลที่ค้นหาไม่ถูกต้อง นี้กรุณาตรวจสอบข้อมูล-- </td>';
+                        SubmithtmlPage += '</tr>';
+                        table.append(SubmithtmlPage);
+
+                    }
+                }
+                else if (res.message != "Y") {
+                    Swal.fire({
+                        title: 'Error!',
+                        html: 'เกิดข้อผิดพลาก <br > ' + res.message + ' <br > กรุณาติดต่อแผนก MIS',
+                        icon: 'danger'
+                    });
+
+                }
+            },
+            error: function (ex) {
+                console.log(ex);
+                Swal.fire({
+                    title: 'Error!',
+                    html: 'เกิดข้อผิดพลาก <br > '+ex+' <br > กรุณาติดต่อแผนก MIS',
+                    icon: 'danger'
+                });
+
+            },
+            complete: function (res) {
+                LoadingHide();
+            }
+        });
     }
 
     $(document).on('click', '#btn-search', function () {
