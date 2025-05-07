@@ -53,5 +53,58 @@ namespace NewShop.Controllers
             return View();
         }
 
+        public JsonResult GetReason(string flag)
+        {
+            if (string.IsNullOrWhiteSpace(flag))
+            {
+                return Json(new
+                {
+                    StatusId = "400",
+                    Error = "Bad Request",
+                    Message = "flag parameter is required."
+                }, JsonRequestBehavior.AllowGet);
+            }
+            var Getdata = new List<object>();
+            string message = string.Empty;
+
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (var cmd = new SqlCommand("P_Get_OrderTracking", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@inflag", flag);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Getdata.Add(new
+                                {
+                                    Id = reader["Id"]?.ToString(),
+                                    Value = reader["Value"]?.ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new
+                    {
+                        StatusId = "500",
+                        Error = "Internal Server Error",
+                        Message = ex.Message
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(Getdata, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
