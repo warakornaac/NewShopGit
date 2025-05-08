@@ -228,7 +228,6 @@
                                 <th>ยืนยันส่ง</th>
                                 <th>จำนวนคงเหลือ</th>
                                 <th>Add to cart</th>
-                                <th>เหตุผลยกเลิก<br>B/O</th>
                                 <th>ราคา</th>
                                 <th>Stock <br>พร้อมขาย</th>
                                 <th>B/O รวม</th>
@@ -238,6 +237,8 @@
                                 <th>Reserve</th>
                                 <th>OnOrd</th>
                                 <th>เข้าคลังล่าสุด</th>
+                                <th>เหตุผลยกเลิก<br>B/O</th>
+
                                 <th>CustomerPo</th>
                                 <th>หมายเหตุ</th>
                                 <th>Ship to</th>
@@ -817,7 +818,6 @@
                                         SubmithtmlPage += '<td class="tLeftover"><input title=""  id="' + data[i].Qtyleftoverkrow + '" name="S_QtyLeftover" min="0" ' + disshow + ' value="0" type="number"   style="color: blue; width: 81px; height: 35px;font-size: 20px;" disabled="readonly"></td>';
                                     }
                                     SubmithtmlPage += '<td><button id="' + data[i].ckrow + '" com="' + data[i].COM + '" cuscod="' + data[i].CUSCOD + '" docnoe="' + data[i].SaleOrder_No + '" lineno="' + data[i].SeqNum + '" stkcod="' + data[i].STKCOD + '" class="btn btn-success btn-sm use-address"  style=" cursor pointer;color:white;">Add to cart</button></td>';
-                                    SubmithtmlPage += '<td class="tComment"><textarea class="form-control" id="Comment' + i + 1 +'" name="S_Comment" title="ช่องใส่เหตุผลการยกเลิก BO" placeholder="เหตุผลการยกเลิก B/O" style="width: 200px; height: 48px; background-color:white; border:1px thin black;resize:both;"></textarea></td>'
                                 } else {
                                     SubmithtmlPage += '<td></td>';
                                     SubmithtmlPage += '<td></td>';
@@ -834,6 +834,8 @@
                                 SubmithtmlPage += '<td>' + data[i].REVQTY + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].TOTRES + '</td>';
                                 SubmithtmlPage += '<td>' + data[i].InStock + '</td>';
+                                SubmithtmlPage += '<td class="tComment"><textarea class="form-control" id="Comment' + i + 1 + '" name="S_Comment" title="ช่องใส่เหตุผลการยกเลิก BO" placeholder="เหตุผลการยกเลิก B/O" style="width: 200px; height: 48px; background-color:white; border:1px thin black;resize:both;"></textarea></td>'
+
                                 if (usertype == "1" || usertype == "2") {
                                     SubmithtmlPage += '<td class="tcusuppo"><input type="text" id="' + data[i].Qtyleftoverkrow + data[i].Qtybackrow + '" name="S_cusuppo"  value="' + data[i].CUSPO + '" style="color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
                                 } else {
