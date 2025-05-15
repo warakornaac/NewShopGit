@@ -7883,6 +7883,8 @@
     <Content Include="Views\PortalForSales\Index.cshtml" />
     <Content Include="Views\StockChecking\Index.cshtml" />
     <Content Include="Views\OrderTracking\Index.cshtml" />
+    <Content Include="Views\OrderTracking\Tatrackdetail.cshtml" />
+    <Content Include="Views\OrderTracking\Driver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
