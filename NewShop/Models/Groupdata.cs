@@ -441,6 +441,17 @@ namespace NewShop.Models
     {
         public DetailSLM val { get; set; }
     }
+    public class DetailApprvSLM
+    {
+        public string CUSCOD { get; set; }
+        public string CUSNAM { get; set; }
+        public string SLMCOD { get; set; }
+        public string SLMNAM { get; set; }
+        public string STKCOD { get; set; }
+        public string STKDES { get; set; }
+        public string qty { get; set; }
+        public string Item_typ { get; set; }
+    }
     public class SaleOrderList
     {
 

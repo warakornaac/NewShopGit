@@ -997,6 +997,53 @@ namespace NewShop.Models
             Connection.Close();
             return Json(new { Getdata }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Getdatailorderwaitapprv(string slmcod, string cuscod)
+        {
+            List<DetailApprvSLM> Getdata = new List<DetailApprvSLM>();
+            DetailSLM DetailLists = null;
+            string message = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_detail_Order_waitApprov_By_Sales_catalog", Connection);
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Salecode", slmcod);
+                command.Parameters.AddWithValue("@Cuscod", cuscod);
+
+
+                SqlDataReader dr_Orde = command.ExecuteReader();
+
+                while (dr_Orde.Read())
+                {
+                    Getdata.Add(new DetailApprvSLM
+                    {
+                        CUSCOD = dr_Orde["CUSCOD"] != DBNull.Value ? dr_Orde["CUSCOD"].ToString() : string.Empty,
+                        CUSNAM = dr_Orde["CUSNAM"] != DBNull.Value ? dr_Orde["CUSNAM"].ToString() : string.Empty,
+                        SLMCOD = dr_Orde["SLMCOD"] != DBNull.Value ? dr_Orde["SLMCOD"].ToString() : string.Empty,
+                        SLMNAM = dr_Orde["SLMNAM"] != DBNull.Value ? dr_Orde["SLMNAM"].ToString() : string.Empty,
+                        STKCOD = dr_Orde["STKCOD"] != DBNull.Value ? dr_Orde["STKCOD"].ToString() : string.Empty,
+                        STKDES = dr_Orde["STKDES"] != DBNull.Value ? dr_Orde["STKDES"].ToString() : string.Empty,
+                        qty = dr_Orde["qty"] != DBNull.Value ? dr_Orde["qty"].ToString() : string.Empty,
+                        Item_typ = dr_Orde["Item_Type"] != DBNull.Value ? dr_Orde["Item_Type"].ToString() : string.Empty
+                    });
+                }
+
+                dr_Orde.Dispose();
+                command.Dispose();
+                Connection.Dispose();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            Connection.Close();
+            return Json(new { message = message, Getdata }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Getdatailorderbycustomer(string codval)
         {
             List<ListsDetailSLM> Getdata = new List<ListsDetailSLM>();

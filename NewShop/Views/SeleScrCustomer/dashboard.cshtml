@@ -1538,6 +1538,46 @@
 
             </div>
         </div>
+
+        <!-- ModalwApprv -->
+        <div id="ModalwApprv" class="modal">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content " id="ColorboxError">
+                    <button type="button" class="close" data-dismiss="modal" style=" margin-left: auto;">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" style="color:black;">สินค้ารออนุมัติ</h4>
+
+                    <div class="modal-body" style="overflow-y: auto;overflow-x: auto;">
+
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered" id="wApprv">
+                                <thead style="background-color: rgb(51, 51, 51);color: white;">
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Salesman</th>
+                                        <th>สินค้า</th>
+                                        <th>จำนวนชิ้น</th>
+                                        <th>ประเภทการอนุมัติ</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" id="CancalShippto" data-dismiss="modal">X</button>
+
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
         @*Modal date expire*@
         <div class="modal" id="myModalWarningDateExpire" role="dialog" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
@@ -4643,6 +4683,61 @@
                 }
             }
         });
+
+        $('#navbarwait').click(function () {
+
+            var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
+
+            var codval = $('#selslm').val();
+            if (usertype != "6") {
+                if (cuskey != "") {
+                    var retval = checkcustomerinactive(cuskey)
+                    if (retval[0] == "1") {
+                        showalr(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "2") {
+                        showalrblock(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "3") {
+                        showalrblockandinact(retval[1])
+                        return false;
+                    } else {
+                        //Getdatacartslm(codval)
+                        Getdatawaitapprvcus(cuskey)
+                        //window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
+                    }
+
+                } else {
+                    Getdatawaitapprvslm(codval)
+                }
+
+            } else {
+                if (cuskey != "") {
+                    var retval = checkcustomerinactive(cuskey)
+                    if (retval[0] == "1") {
+                        showalr(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "2") {
+                        showalrblock(retval[1])
+                        return false;
+                    }
+                    else if (retval[0] == "3") {
+                        showalrblockandinact(retval[1])
+                        return false;
+                    } else {
+                        //Getdatacartslm(codval)
+                        ฝฝGetdatawaitapprvcus(cuskey)
+                        window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
+                    }
+
+                } else {
+                    Getdatawaitapprvcus(cuskey)
+                }
+            }
+        });
         function Getdatacartcus(cuskey) {
             $.ajax({
                 url: '@Url.Action("Getdatailorderbycustomer", "DataCenter")',
@@ -4668,6 +4763,88 @@
                     }
 
 
+                }
+            });
+        }
+        function Getdatawaitapprvslm(slm) {
+            $.ajax({
+                url: '@Url.Action("Getdatailorderwaitapprv", "DataCenter")',
+                data: { slmcod: slm },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        $("#ModalwApprv").modal();
+                        $("#wApprv tbody").html("");
+                        var SubmithtmlPage = '';
+                        if (data.Getdata.length == 0) {
+                            SubmithtmlPage += '<tr>'
+                            SubmithtmlPage += '<td  colspan="4">ไม่พบสินค้ารออนุมัติ</td>'
+                            SubmithtmlPage += '</tr>'
+                            $("#wApprv tbody").append(SubmithtmlPage);
+                        }
+                        else {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                                SubmithtmlPage += '<tr style="cursor: pointer;" cus="' + data.Getdata[i].CUSCOD + '"  slm="' + data.Getdata[i].SLMCOD + '">';
+                                //SubmithtmlPage += '<tr>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].CUSCOD + ' | ' + data.Getdata[i].CUSNAM + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].SLMCOD + ' | ' + data.Getdata[i].SLMNAM + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + ' | ' + data.Getdata[i].STKDES + '</td>'
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].qty) + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Item_typ + '</td>'
+                                SubmithtmlPage += '</tr>'
+                            }
+                                $("#wApprv tbody").append(SubmithtmlPage);
+                            }
+                    }
+                    else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text("กรุณาเลือกพนักงานขาย");
+                        $("#myModalWarning").modal();
+                        $("#myModal").modal('hide');
+                        return false;
+                    }
+                }
+            });
+        }
+        function Getdatawaitapprvcus(cus) {
+            $.ajax({
+                url: '@Url.Action("Getdatailorderwaitapprv", "DataCenter")',
+                data: { cuscod: cus },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.message == 'Y') {
+                        $("#ModalwApprv").modal();
+                        $("#wApprv tbody").html("");
+                        var SubmithtmlPage = '';
+                        if (data.Getdata.length == 0) {
+                            SubmithtmlPage += '<tr>'
+                            SubmithtmlPage += '<td  colspan="4">ไม่พบสินค้ารออนุมัติ</td>'
+                            SubmithtmlPage += '</tr>'
+                            $("#wApprv tbody").append(SubmithtmlPage);
+                        }
+                        else {
+                            for (var i = 0; i < data.Getdata.length; i++) {
+                               // SubmithtmlPage += '<tr>'
+                                SubmithtmlPage += '<tr style="cursor: pointer;" cus="' + data.Getdata[i].CUSCOD + '"  slm="' + data.Getdata[i].SLMCOD + '">';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].CUSCOD + ' | ' + data.Getdata[i].CUSNAM + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].SLMCOD + ' | ' + data.Getdata[i].SLMNAM + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].STKCOD + ' | ' + data.Getdata[i].STKDES + '</td>'
+                                SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].qty) + '</td>'
+                                SubmithtmlPage += '<td>' + data.Getdata[i].Item_typ + '</td>'
+                                SubmithtmlPage += '</tr>'
+                            }
+                            $("#wApprv tbody").append(SubmithtmlPage);
+                        }
+                    }
+                    else {
+                        $("#textAlertWarning").empty();
+                        $("#textAlertWarning").text(data.message);
+                        $("#myModalWarning").modal();
+                        $("#myModal").modal('hide');
+                        return false;
+                    }
                 }
             });
         }
@@ -4738,6 +4915,38 @@
             }
         });
         $("#wConfirm").on("click", "tr", function () {
+            var cus = $(this).attr('cus');
+            var slm = $(this).attr('slm');
+            if (cus == "") {
+                //cuskey = cusel;
+                $("#ModalwConfirm").modal('hide');
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("กรุณาเลือกลูกค้าที่ต้องการ Shopping");
+                $("#myModalWarning").modal();
+                $("#myModal").modal('hide');
+                return false;
+            } else {
+                $("#ModalwConfirm").modal('hide');
+                var retval = checkcustomerinactive(cus)
+                if (retval[0] == "1") {
+                    showalr(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "2") {
+                    showalrblock(retval[1])
+                    return false;
+                }
+                else if (retval[0] == "3") {
+                    showalrblockandinact(retval[1])
+                    return false;
+                } else {
+                    //Getdatacartslm(codval)
+                    window.location.replace("../Cart/Index?numcuber=" + btoa(cus));
+                }
+
+            }
+        });
+        $("#wApprv").on("click", "tr", function () {
             var cus = $(this).attr('cus');
             var slm = $(this).attr('slm');
             if (cus == "") {
