@@ -1359,6 +1359,47 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(Code, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetdateStockCode(string Name, string Prod, string STKGR, string Xcus, string XvalCompany)
+        {
+            string CUSCOD = string.Empty;
+            List<string> StockCode = new List<string>();
+
+
+            if (Prod == "(ALL)") { Prod = ""; }
+            if (STKGR == "(ALL)") { STKGR = ""; }
+
+
+
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("P_Search_Item_ALL_Portal", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@inCUSCOD", Xcus);
+            command.Parameters.AddWithValue("@inSearch", Name);
+            command.Parameters.AddWithValue("@inProd", Prod);
+            command.Parameters.AddWithValue("@inSTKGRP", STKGR);
+            command.Parameters.AddWithValue("@inFix ", 1);
+            command.Parameters.AddWithValue("@Company", XvalCompany);
+
+            Connection.Open();
+            command.ExecuteNonQuery();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                StockCode.Add(dr.GetString(1));
+            }
+            //dr.Close();
+            //S20161016
+            dr.Close();
+            dr.Dispose();
+            command.Dispose();
+            //E20161016
+            Connection.Close();
+            //}
+            return Json(StockCode, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult MenuTest()
         {
             return View("MenuTest");
