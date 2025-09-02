@@ -173,7 +173,10 @@ namespace NewShop.Controllers
                         minord = dr["minord"].ToString(),
                         maxord = dr["maxord"].ToString(),
                         spackuom = dr["SPackUOM"].ToString(),
-                        prclst_no = dr["prclst_no"].ToString()
+                        prclst_no = dr["prclst_no"].ToString(),
+                        Stock = dr["Stock"].ToString(),
+                        ItemClass = dr["ItemClass"].ToString()
+
                     });
 
                     //Getdata.Add(new SearchitemDetailGetdata { val = model });

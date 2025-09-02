@@ -32,11 +32,17 @@
     .list-group-item:hover {
         background-color: #f5f5f5;
     }
-
-    .modal-dialog {
-        margin: 20vh auto 0px auto
-    }
-
+    /*.bootstrap-select > .dropdown-toggle {
+        position: relative;
+        width: 130%;
+    }*/
+    /*.list-group li:first-child {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: white;*/
+    /*padding: 10px;*/
+    /*}*/
 </style>
 
 <div class="card-footer p-2">
@@ -94,16 +100,16 @@
 
                                             </span>
                                             @*กรณีมีลง Pack ไว้ *@
-                                            @if (@rowData.PackQty != null && @rowData.PackQty > 0)
-                                            {
-                                                <span class="label label-success" onclick="btnManagePack('@rowData.Cuscode', '@rowData.Cusname', '@ViewBag.promotionCode', '@ViewBag.promotionSeq', '@rowData.PackQty', '@rowData.PackAmt', '@rowData.SumPackAmt');" style="padding: 6px 9px; font-size: 14px;">@rowData.PackQty</span>
-                                            }
+                                             @if (@rowData.PackQty != null && @rowData.PackQty > 0)
+                                             {
+                                                <span class="label label-warning" onclick="popupAddPack('@rowData.Cuscode', '@rowData.Cusname', '@rowData.PackQty', '@rowData.PackAmt', '@rowData.SumPackAmt', '@ViewBag.promotionCode', '@ViewBag.promotionSeq');" style="padding: 8px; font-size: 14px;">@rowData.PackQty</span>
+                                             }
                                         </span>
                                         <span class="list-group-item-heading justify-content-between align-items-center">
-                                            @if (@rowData.FlagApprove == "Y")
-                                            {
+                                             @if (@rowData.FlagApprove == "Y")
+                                             {
                                                 <span class="label label-danger pull-right">รอ Approve</span>
-                                            }
+                                             }
 
                                         </span>
                                     </li>
@@ -116,38 +122,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="managePackPromotionModal" tabindex="-1" aria-labelledby="ModalCancel" aria-hidden="true" data-backdrop="static" data-keyboard="false" data-bs-focus="false">
-    <div class="modal-dialog modal-lg" style="max-width: 70%;" role="document">
-        <div class="modal-content">
-            <div class="modal-header pb-2">
-                <div class="col-sm-10 col-md-10">
-                    <h5 class="modal-title" id="myModalLabel"> รายละเอียด </h5>
-                </div>
-                <div class="col-sm-2 col-md-2 text-right"><button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"> ปิด </button></div>
-            </div>
-            <div class="modal-body"> </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-times"></i> ปิด</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script defer>
-    //get modal
-    $('#managePackPromotionModal').on('shown.bs.modal', function () {
-        $(document).off('focusin.modal');
-    });
-    //get list customer
-    $('#managePackPromotionModal').on('hidden.bs.modal', function (e) {
-        var promotionSeq = $("#promotionSeq").val();
-        var promotionCode = $("#promotionCode option:selected").val();
-        searchPromotionReg(promotionCode);
-        setTimeout(() => {
-            $("input[name=selectPromotionSub][value=" + promotionSeq + "]").attr("checked", true).trigger("click");
-        }, "1500");
-    });
     //ค้นหาร้านค้า
     $("#customerSearch").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -178,144 +153,119 @@
         $('#showSubListCustomer').empty();
         $('#showSubListCustomer').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
     }
-    //คำนวณ
     function calSumPackAmt(packAmt) {
         var packQty = $('#packQty').val();
-        var sumPackAmt = packAmt;
+        var sumPackAmt = 0;//packAmt;
+        //var packQtyNumber = parseFloat(packQty) || 0;
+
         console.log("packQty = " + packQty);
         console.log("packAmt = " + packAmt);
+
         if (packQty > 0 && packAmt > 0) {
             sumPackAmt = packQty * packAmt;
         }
         $('#sumPackAmt').val(sumPackAmt);
     }
-    //Modal จัดการ
-    function getManagePackPromotion(customerCode, customerName, promotionCode, promotionSeq, packQty, packAmt, sumPackAmt) {
-        var slmCode = $("#slmCode option:selected").val();
-        var txtHeaderManagePackPromotion = '@ViewBag.textHeader';// customerCode + ' /' + customerName;
-        $.ajax({
-            url: '@Url.Action("GetManagePackPromotion", "Promotion")',
-            data: {
-                slmCode: slmCode,
-                customerCode: customerCode,
-                customerName: customerName,
-                promotionCode: promotionCode,
-                promotionSeq: promotionSeq
+    //Pop up ใส่จำนวนแพ็ค
+    function popupAddPack(cuscode, cusname, packqty, packamt, sumpackamt, promotioncode, promotionseq) {
+        console.log("popupAddPack");
+        var sumpackNew = 0;
+        var form = '<form id="form-add-pack" style="text-align: left;">';
+        form += '<label> <span class="label label-info">' + promotioncode + '</span> </label> <br>'
+        form += '<label>' + cuscode + ' (' + cusname + ')' + '</label> <br>'
+        form += '<label>Pack Qty</label> <input type="number" id="packQty" name="packQty" value="' + packqty + '" onkeyup="calSumPackAmt('+ packamt +')" class="form-control" autocomplete="off" style="width:100%;"></input>'
+        form += '<label>Amount</label> <input type="text" readonly id="sumPackAmt" name="sumPackAmt" value="' + sumpackamt + '" class="form-control" autocomplete="off" style="width:100%;"></input>'
+        form += '</form>';
+        Swal.fire({
+            //title: 'ยืนยันยกเลิกลีด',
+            //icon: 'question',
+            html: form,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก',
+            backdrop: true,
+            allowOutsideClick: false,
+            preConfirm: function () {
+                if ($('#packQty').val() == '' || $('#packQty').val() == '0') {
+                    Swal.showValidationMessage(
+                        'จำนวน Pack ต้องไม่ว่าง'
+                    )
+                }
             },
-            type: 'POST',
-            dataType: 'HTML',
-            beforeSend: function () {
-                LoadingShow();
-                $('#managePackPromotionModal').find('.modal-body').html("");
-            },
-            success: function (data) {
-                //set text header
-                $('#managePackPromotionModal .modal-title').text(txtHeaderManagePackPromotion);
-                $('#managePackPromotionModal').find('.modal-body').html(data);
-                $('#managePackPromotionModal').modal('show');
-            },complete: function (res) {
-                LoadingHide();
-            },
-            error: function (er) {
-                Swal.fire({
-                    icon: 'error',
-                    html: '<p>managePackPromotionModal :</p><p>' + er.error + '</p>',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'ปิด',
-                    allowOutsideClick: false,
-                    focusConfirm: false,
-                });
+            //allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.value) {
+                var packQty = $('#packQty').val() || 0;
+                if (packQty > 0 && packamt > 0) {
+                    sumpackNew = packQty * packamt;
+                    sumpackNew = sumpackNew.toFixed(2);
+                }
+                $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepack', packQty);
+                $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepacksumamt', sumpackNew);
+                //LoadingShow();
+                //var arrData = new Array();
+                //var remark = $('#remark').val();
+                //$('input[name="select_user_cancel_sharelead[]"]:checked').each(function () {
+                //    var LeadID = $(this).val();
+                //    var UserID = $(this).data('id');
+                //    arrData.push(UserID + '||' + LeadID);
+                //});
+                //$.ajax({
+                //    type: 'post',
+                //    url: '<?php echo Url::to([' / telephony - callout / share - lead / save - cancel - lead - manual']) ?>',
+                //    dataType: 'json',
+                //    data: {
+                //        data: arrData, cancel_remark: remark
+                //    },
+                //    success: function (res) {
+                //        LoadingHide();
+                //        if (res['status'] == 'Y') {
+                //            Swal.fire({
+                //                icon: 'success',
+                //                title: res['msg'],
+                //                showConfirmButton: false,
+                //                timer: 1500
+                //            }).then((result) => {
+                //                LoadingShow();
+                //                location.reload();
+                //            });
+                //        } else {
+                //            Swal.fire({
+                //                icon: 'error',
+                //                title: 'กรุณาตรวจสอบและลองใหม่อีกครั้ง',
+                //                html: res['msg'],
+                //            });
+                //            return false;
+                //        }
+                //    }
+                //});
+            } else if (result.dismiss == 'cancel') {
+                console.log('cancel');
+                $("#list-code-" + cuscode).prop('checked', false);
+                $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepack', 0);
+                $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepacksumamt', 0);
             }
-        }).fail(function (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
-                html: '<p>managePackPromotionModal :</p><p>' + error.responseText + '</p>',
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'ปิด',
-                allowOutsideClick: false,
-                focusConfirm: false,
-            });
         });
     }
-    //Button จัดการ
-    function btnManagePack(customerCode, customerName, promotionCode, promotionSeq, packQty, packAmt, sumPackAmt) {
-        console.log("getManagePackPromotion");
-        getManagePackPromotion(customerCode, customerName, promotionCode, promotionSeq, packQty, packAmt, sumPackAmt);
 
-        var sumPackNew = 0;
-        if (packQty == 1) {
-            sumPackAmt = packAmt;
-        } else {
-            sumPackAmt = sumPackAmt;
-        }
-        //var form = '<form id="form-add-pack" style="text-align: left;">';
-        //form += '<label> <span class="label label-info">' + promotionCode + '</span> </label> <br>'
-        //form += '<label>' + customerCode + ' (' + customerName + ')' + '</label> <br>'
-        //form += '<label>Pack Qty</label> <input type="number" id="packQty" name="packQty" min="1" value="' + packQty + '" onkeyup="calSumPackAmt('+ packAmt +')" class="form-control" autocomplete="off" style="width:100%;"></input>'
-        //form += '<label>Amount</label> <input type="text" readonly id="sumPackAmt" name="sumPackAmt" value="' + sumPackAmt + '" class="form-control" autocomplete="off" style="width:100%;"></input>'
-        //form += '</form>';
-        //Swal.fire({
-        //    //title: 'ยืนยันยกเลิกลีด',
-        //    //icon: 'question',
-        //    html: form,
-        //    showCancelButton: true,
-        //    confirmButtonColor: '#3085d6',
-        //    cancelButtonColor: '#d33',
-        //    confirmButtonText: 'ยืนยัน',
-        //    cancelButtonText: 'ยกเลิก',
-        //    backdrop: true,
-        //    allowOutsideClick: false,
-        //    preConfirm: function () {
-        //        if ($('#packQty').val() == '' || $('#packQty').val() == '0') {
-        //            Swal.showValidationMessage(
-        //                'จำนวน Pack ต้องไม่ว่าง'
-        //            )
-        //        }
-        //    },
-        //    //allowOutsideClick: () => !Swal.isLoading()
-        //}).then((result) => {
-        //    if (result.value) { //ยืนยัน Save PackQty
-        //        var packQty = $('#packQty').val() || 0;
-        //        if (packQty > 0 && packAmt > 0) {
-        //            sumPackNew = packQty * packAmt;
-        //            sumPackNew = sumPackNew.toFixed(2);
-        //        }
-        //        $('.select_promotion_' + customerCode + '_' + promotionCode + '_' + promotionSeq).attr('data-valuepack', packQty);
-        //        $('.select_promotion_' + customerCode + '_' + promotionCode + '_' + promotionSeq).attr('data-valuepacksumamt', sumPackNew);
-
-        //        console.log("customerCode = " + customerCode + ", packQty = " + packQty + ", packAmt = " + packAmt + ", sumPackAmt = " + sumPackAmt);
-        //        saveCustomerRegister(customerCode, packQty, packAmt, sumPackAmt);
-
-
-        //    } else if (result.dismiss == 'cancel') {
-        //        console.log('cancel');
-        //        //กรณียังไม่เคย checked
-        //        $('.select_promotion_' + customerCode + '_' + promotionCode + '_' + promotionSeq).prop('checked', false);
-        //        //reset packQty, packSumAmt = 0
-        //        $('.select_promotion_' + customerCode + '_' + promotionCode + '_' + promotionSeq).attr('data-valuepack', 0);
-        //        $('.select_promotion_' + customerCode + '_' + promotionCode + '_' + promotionsSeq).attr('data-valuepacksumamt', 0);
-        //    }
-        //});
-    }
-
-    //Click เลือก
+    //ClickCheckbox
     $('input[name="selectPromotion"]').on('change', function () {
-        var slmCode = $("#slmCode option:selected").val();
-        var cusCode = $(this).data("cuscode");
-        var cusName = $(this).data("cusname");
-        var packQty = $(this).data("pack") || 1;
-        var packAmt = $(this).data("packamt") || 0;
-        var sumPackAmt = $(this).data("sumpack") || 0;
-        var promotionCode = $(this).data("promotioncode") || "";
-        var promotionSeq = $(this).data("promotionseq") || "";
+        var cuscode = $(this).data("cuscode");
+        var cusname = $(this).data("cusname");
+        var pack = $(this).data("pack") || 1;
+        var packamt = $(this).data("packamt") || 0;
+        var sumpack = $(this).data("sumpack") || 0;
+        var promotioncode = $(this).data("promotioncode") || "";
+        var promotionseq = $(this).data("promotionseq") || "";
 
         if ($(this).is(':checked')) { //เลือกร้าน checked
-            getManagePackPromotion(cusCode, cusName, promotionCode, promotionSeq, packQty, packAmt, sumPackAmt)
+            popupAddPack(cuscode, cusname, pack, packamt, sumpack, promotioncode, promotionseq)
         } else {//กรณีกดยกเลิก Check
             Swal.fire({
-                //title: 'ต้องการยกเลิก Promotion ทั้งหมด',
-                html: '<b> ต้องการยกเลิก Promotion ' + promotionCode + ' </b>' + '<br>' + cusCode + '(' + cusName + ')' + ' จำนวน ' + packQty + ' แพ๊ค',
+                title: 'ต้องการยกเลิก',
+                html: cuscode,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#00a65a',
@@ -326,79 +276,10 @@
                 focusConfirm: false,
             }).then((result) => {
                 if (result.value) {//ยกเลิก
-                   $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: '@Url.Action("SaveCustomerRegister", "Promotion")',
-                    data: {
-                            user: '@Session["UserID"]',
-                            slmCode: slmCode,
-                            cusCode: cusCode,
-                            promotionCode: promotionCode,
-                            promotionSeq: promotionSeq,
-                            packQty: 0,
-                            packAmt: packAmt,
-                            sumPackAmt: 0
-                        },
-                    //contentType: "application/json; charset=utf-8",
-                    //enctype: 'multipart/form-data',
-                    beforeSend: function () {
-                        LoadingShow();
-                    },
-                    success: function (result) {
-                        if (result.status == "Y") {
-                            var promotionCode = $("#promotionCode option:selected").val();
-                            searchPromotionReg(promotionCode);
-                            setTimeout(() => {
-                                //console.log(promotionSeq);
-                                $("input[name=selectPromotionSub][value=" + promotionSeq + "]").attr("checked", true).trigger("click");
-                            }, "1400");
-                            Swal.fire({
-                                title: 'บันทึกเรียบร้อย',
-                                //html: 'บันทึกเรียบร้อย',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'ปิด',
-                                allowOutsideClick: false,
-                                focusConfirm: false,
-                                timer: 5000,
-                                timerProgressBar: true,
-                                onClose: () => {
-                                    LoadingHide();
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error not saved',
-                                html: result.status,
-                                confirmButtonColor: '#d33',
-                                confirmButtonText: 'ปิด',
-                                allowOutsideClick: false,
-                                focusConfirm: false,
-                            });
-                        }
-                    },
-                    complete: function (res) {
-                        LoadingHide();
-                        }
-                    }).fail(function (error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error not saved',
-                            html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>btnDeletePackPromotionBySeq<br><br>',
-                            confirmButtonColor: '#d33',
-                            confirmButtonText: 'ปิด',
-                            allowOutsideClick: false,
-                            focusConfirm: false,
-                        });
-                    });
-
-                    $('.select_promotion_' + cusCode + '_' + promotionCode + '_' + promotionSeq).attr('data-valuepack', 0);
-                    $('.select_promotion_' + cusCode + '_' + promotionCode + '_' + promotionSeq).attr('data-valuepacksumamt', 0);
-
+                    $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepack', 0);
+                    $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).attr('data-valuepacksumamt', 0);
                 } else {//ไม่ยกเลิก
-                    $('.select_promotion_' + cusCode + '_' + promotionCode + '_' + promotionSeq).prop('checked', true);
+                    $('.select_promotion_' + cuscode + '_' + promotioncode + '_' + promotionseq).prop('checked', true);
                 }
             });
 
@@ -475,7 +356,7 @@
         $("#countCustomerReg").text(countCustomerReg);
     });
     //btn save
-    function saveCustomerRegister(customerCode, packQty, packAmt, sumPackAmt) {
+    saveCustomerRegister = async () => {
         var request = [];
         var slmCode = $("#slmCode option:selected").val();
         var promotionCode = $("input[name=selectPromotionSub]:checked").data('code');
@@ -526,8 +407,10 @@
                         //console.log("request = " + request);
                     }
                 });*@
+
                 console.log("request = " + JSON.stringify(request));
                 return false;
+
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -538,9 +421,9 @@
                             cusCode: cuscode,
                             promotionCode: promotionCode,
                             promotionSeq: promotionSeq,
-                            packQty: packQty,
-                            packAmt: packAmt,
-                            sumPackAmt: sumPackAmt,
+                            packQty: pack,
+                            packAmt: packamt,
+                            sumPackAmt: sumpackamt,
                         },
                     contentType: "application/json; charset=utf-8",
                     enctype: 'multipart/form-data',
@@ -556,6 +439,7 @@
                                 //console.log(promotionSeq);
                                 $("input[name=selectPromotionSub][value=" + promotionSeq + "]").attr("checked", true).trigger("click");
                             }, "1200");
+                            //$("input[name=selectPromotionSub]:checked").attr("checked", true).trigger("click");
                             Swal.fire({
                                 title: 'บันทึกเรียบร้อย',
                                 //html: 'บันทึกเรียบร้อย',

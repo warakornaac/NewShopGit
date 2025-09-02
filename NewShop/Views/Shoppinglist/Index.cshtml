@@ -183,6 +183,7 @@
                                     <option value="TAC">TAC</option>
                                     <option value="AAC">AAC</option>
                                     <option value="OMP">OMP</option>
+                                    <option value="AGS">AGS</option>
                                 </select>
 
                             </div>
@@ -1443,6 +1444,7 @@
 
                     MyIndexValueQtybo = "0"
                 }
+                //console.log("MyIndexValueQtybo1 = " + MyIndexValueQtybo);
 
 
                 var MyIndexValueLinenote = $(MyRows[i]).find('td .tlinenote').val();
@@ -1463,6 +1465,8 @@
                 } else {
                     MyIndexValueQtybo = MyIndexValueQtybo;
                 }
+                //console.log("MyIndexValueQtybo2 = " + MyIndexValueQtybo);
+
                 var MyIndexValueExpectPrice = $(MyRows[i]).find('td  .Expect').val();
                 var MyIndexValuepricehot = $(MyRows[i]).find('td  .pricehot').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
                 var MyIndexValuePrice = $(MyRows[i]).find('td .Price0').html().replace(',', '').replace(' ', '').replace(',', '').replace(' ', '');
@@ -1502,6 +1506,7 @@
                 } else {
                     MyIndexValueExpectPrice;
                 }
+                //console.log("MyIndexValueQty = " + MyIndexValueQty);
                 var ItemList = {
                     CUSCOD: cuscod.toUpperCase(),
                     STKCOD: res[1],
@@ -1528,6 +1533,8 @@
                     Sop: chksop // new add
 
                 };
+
+                //console.log("ItemList = " + ItemList);
 
                 if (parseFloat(ItemList.Qty) <0) {
                     alert(parseFloat(ItemList.Qty))
@@ -1588,7 +1595,7 @@
 
 
             var DataSend = JSON.stringify(data);
-            //console.log(DataSend)
+            //console.log("DataSend = " + DataSend)
             // return false;
 
             var MyRows = $('#example1').find('tbody').find('tr');
@@ -1680,7 +1687,7 @@
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
-                    console.log("confirm = " + data);
+                    //console.log("confirm = " + data);
                     if (data == "Y") {
                         $("#btnsubmitinsert").attr("disabled", false);
                         $(".fixed_headers > tbody").empty();

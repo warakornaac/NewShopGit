@@ -1,11 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutOrderlist.cshtml";
-   
-   // Layout = "~/Views/Shared/_Layoutnavigationbar.cshtml";
+
+    // Layout = "~/Views/Shared/_Layoutnavigationbar.cshtml";
     //Layout = "~/Views/Shared/_LayoutStatus.cshtml";
     //Layout = "~/Views/Shared/View3.cshtml";
     //Layout = "~/Views/Shared/_LayoutPage.cshtml";
-  
+
 
 }
 <html class="no-js" lang="">
@@ -20,11 +20,11 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
 
-     <!-- <link rel="manifest" href="~/html5boilerplate_v8/site.webmanifest">-->
-   
+    <!-- <link rel="manifest" href="~/html5boilerplate_v8/site.webmanifest">-->
+
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
-  
+
     <link href="~/html5boilerplate_v8/css/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/html5boilerplate_v8/css/normalize.css">
     <link rel="stylesheet" href="~/html5boilerplate_v8/css/main.css">
@@ -33,11 +33,11 @@
     <!------ Include the above in your HEAD tag ---------->
     <script src="~/SortTable-master/sort-table.js"></script>
 
-        <style>
+    <style>
 
-             .collapsed-icon-toggle.collapsed .on-closed {
+        .collapsed-icon-toggle.collapsed .on-closed {
             display: initial;
-             }
+        }
 
         .collapsed-icon-toggle.collapsed .on-opened {
             display: none;
@@ -68,116 +68,122 @@
         .btn.ico.active span.icon {
             opacity: 1;
         }
-        </style>
-        <style>
-            #second-element {
-                visibility: hidden;
-            }
-            .tableFixHead {
-                /*overflow-y: auto;
+    </style>
+    <style>
+        #second-element {
+            visibility: hidden;
+        }
+
+        .tableFixHead {
+            /*overflow-y: auto;
                 height: 1000px;*/
+        }
+
+            .tableFixHead thead th {
+                position: sticky;
+                top: 0;
             }
 
-                .tableFixHead thead th {
-                    position: sticky;
-                    top: 0;
-                }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
+        th,
+        td {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+        }
 
-            th,
-            td {
-                padding: 8px 16px;
-                border: 1px solid #ccc;
-            }
+        th {
+            background: #eee;
+        }
 
-            th {
-                background: #eee;
-            }
-            .rat__qun {
-                color: #FFFFFF;
-                background-color: #4CAF50;
-                /*float: right;
+        .rat__qun {
+            color: #FFFFFF;
+            background-color: #4CAF50;
+            /*float: right;
                 margin-right: 470px;*/
-            }
-            .rat__sp {
-                color: #FFFFFF;
-                background-color: #1c6c65;
-                /*float: right;
+        }
+
+        .rat__sp {
+            color: #FFFFFF;
+            background-color: #1c6c65;
+            /*float: right;
                 margin-right: 470px;*/
-            }
-            .fa fa-star-half-o {
-                color: yellow;
-                -webkit-text-stroke-width: 1px;
-                -webkit-text-stroke-color: orange;
-            }
-            /*#sidebar{
+        }
+
+        .fa fa-star-half-o {
+            color: yellow;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: orange;
+        }
+        /*#sidebar{
                 font-size:larger;
             }*/
-            .clabl {
-                font: unset;
-                font-weight: bold;
-                font-size: small;
-            }
-            .panel-bodydis {
-                padding: 0px;
-            }
-            .line {
-                margin-top: 0px;
-                margin-bottom: 0px;
-                border: 0;
-                border-top: 1px solid #eee;
-            }
-            #_btnlinkdetail {
-                color: -webkit-link;
-                cursor: pointer;
-                text-decoration: underline;
-                color: #007bff;
-             
-                background-color: transparent;
-                -webkit-text-decoration-skip: objects;
-            }
-        </style>
-    </head>
+        .clabl {
+            font: unset;
+            font-weight: bold;
+            font-size: small;
+        }
+
+        .panel-bodydis {
+            padding: 0px;
+        }
+
+        .line {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+        #_btnlinkdetail {
+            color: -webkit-link;
+            cursor: pointer;
+            text-decoration: underline;
+            color: #007bff;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+    </style>
+</head>
 
 
- <body>
-  
-     <!-- Add your site or application content here -->
-      <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
+<body>
+
+    <!-- Add your site or application content here -->
+    <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
     <script src="~/html5boilerplate_v8/js/vendor/modernizr-3.11.2.min.js"></script>
     <script src="~/html5boilerplate_v8/js/plugins.js"></script>
     <script src="~/html5boilerplate_v8/js/main.js"></script>
-   
-   @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>*@
+
+    @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>*@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    
+
     <link href="~/bootstrap-4.0.0/dist/css/bootstrap.css" rel="stylesheet" />
-  
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
-     <script src="~/bootstrap/bootstrap3_4_1.js"></script>
-     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-     <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-     <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+    <script src="~/bootstrap/bootstrap3_4_1.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
 
 
-     <script src="~/Loadingmodal/js/modal-loading.js"></script>
-     <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
-     <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
-     <script src="~/Scripts/webAddress.js"></script>
-     <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
 
-     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-    
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-     <script src="~/fixed-table-master/fixed-table.js"></script>
-     <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#" style="z-index: 9999;">
             <i class="fas fa-bars"></i>
@@ -190,12 +196,12 @@
                     <div id="close-sidebar">
                         <i class="fas fa-times"></i>
                     </div>
-                    
+
                 </div>
-     
-                
+
+
                 <div class="panel-bodydis  scrollable">
-                   
+
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -213,7 +219,7 @@
                                     @*<label>แสดงตัวกรอง</label>*@
                                     <div class="filter-setting">
                                         <form>
-                                           
+
                                             <div class="col-md-6">
                                                 <button type="button" class="btn btn-block btn-warning" id="searchbox">
                                                     <span class="glyphicon">Search  </span>
@@ -224,7 +230,7 @@
                                                     <span class="glyphicon">ClearFilter</span>
                                                 </button>
                                             </div>
-                                           <br />
+                                            <br />
                                             <label class="clabl">ค้นหาเบอร์สินค้า</label>
                                             <a class="pull-right collapsed-icon-toggle" href="#coll-0" data-toggle="collapse">
                                                 <span class="glyphicon glyphicon-minus on-opened"></span>
@@ -306,17 +312,17 @@
                                                 </div>
                                                 <label class="clabl">รุ่น(Model)</label>
                                                 <br />
-                                              
-                                                    <div class="padding-v-xs" data-toggle="buttons">
-                                                        <select class="selectpicker form-control bg-primary" data-container="body" data-live-search="true" data-hide-disabled="true" id="Model"></select>
 
-                                                        <select class="form-control custom-select bg-primary" id="submodel" style="display:none">
-                                                            <option selected value="">Submodel</option>
-                                                        </select>
-                                                    </div>
-                                              
+                                                <div class="padding-v-xs" data-toggle="buttons">
+                                                    <select class="selectpicker form-control bg-primary" data-container="body" data-live-search="true" data-hide-disabled="true" id="Model"></select>
+
+                                                    <select class="form-control custom-select bg-primary" id="submodel" style="display:none">
+                                                        <option selected value="">Submodel</option>
+                                                    </select>
+                                                </div>
+
                                             </div>
-                                            
+
                                             <hr class="line" />
 
 
@@ -326,29 +332,29 @@
                                                 <span class="glyphicon glyphicon-minus on-opened"></span>
                                                 <span class="glyphicon glyphicon-plus on-closed"></span>
                                             </a>
-                                             <br />
+                                            <br />
                                             <div id="coll-6" class="scroll-v-250px collapse in">
                                                 <div class="padding-v-xs" data-toggle="buttons">
 
                                                     <select class="form-control-lg" data-container="body" data-live-search="false" data-hide-disabled="true" id="company"></select>
                                                 </div>
                                             </div>
-                                                <hr class="line" />
-                                                <label class="clabl">Group</label>
-                                                <a class="pull-right collapsed-icon-toggle" href="#coll-7" data-toggle="collapse">
-                                                    <span class="glyphicon glyphicon-minus on-opened"></span>
-                                                    <span class="glyphicon glyphicon-plus on-closed"></span>
-                                                </a>
-                                                <br />
-                                                <div id="coll-7" class="scroll-v-250px collapse in">
-                                                    <div class="padding-v-xs" data-toggle="buttons">
-                                                        <select class="selectpicker form-control" data-container="body" data-live-search="true" data-hide-disabled="true" id="catalogue"></select>
+                                            <hr class="line" />
+                                            <label class="clabl">Group</label>
+                                            <a class="pull-right collapsed-icon-toggle" href="#coll-7" data-toggle="collapse">
+                                                <span class="glyphicon glyphicon-minus on-opened"></span>
+                                                <span class="glyphicon glyphicon-plus on-closed"></span>
+                                            </a>
+                                            <br />
+                                            <div id="coll-7" class="scroll-v-250px collapse in">
+                                                <div class="padding-v-xs" data-toggle="buttons">
+                                                    <select class="selectpicker form-control" data-container="body" data-live-search="true" data-hide-disabled="true" id="catalogue"></select>
 
-                                                    </div>
                                                 </div>
-                                                <hr class="line" />
-                                          
-                                                @*<div class="col-md-6">
+                                            </div>
+                                            <hr class="line" />
+
+                                            @*<div class="col-md-6">
                                                     <button type="button" class="btn btn-block btn-warning" id="searchbox">
                                                         <span class="glyphicon">Search  </span>
                                                     </button>
@@ -358,403 +364,401 @@
                                                         <span class="glyphicon">ClearFilter</span>
                                                     </button>
                                                 </div>*@
-                                         
-                                               
-                                               
 
-</form>
+
+
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                    <!-- sidebar-header  -->
-                     <!-- <div class="sidebar-search">
-                        <div>
-                            <div class="input-group">
-                                <input type="text" class="form-control search-menu" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </span>
-                                </div>
+                <!-- sidebar-header  -->
+                <!-- <div class="sidebar-search">
+                    <div>
+                        <div class="input-group">
+                            <input type="text" class="form-control search-menu" placeholder="Search...">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
                             </div>
                         </div>
-                    </div>-->
-                    <!-- sidebar-search  -->
-                   <!--  <div class="sidebar-menu">
-                        <ul>
-                            <li class="header-menu">
-                                <span>General</span>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-tachometer-alt"></i>
-                                    <span>Dashboard</span>
-                                    <span class="badge badge-pill badge-warning">New</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                Dashboard 1
-                                                <span class="badge badge-pill badge-success">Pro</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Dashboard 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Dashboard 3</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>E-commerce</span>
-                                    <span class="badge badge-pill badge-danger">3</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                Products
+                    </div>
+                </div>-->
+                <!-- sidebar-search  -->
+                <!--  <div class="sidebar-menu">
+                     <ul>
+                         <li class="header-menu">
+                             <span>General</span>
+                         </li>
+                         <li class="sidebar-dropdown">
+                             <a href="#">
+                                 <i class="fa fa-tachometer-alt"></i>
+                                 <span>Dashboard</span>
+                                 <span class="badge badge-pill badge-warning">New</span>
+                             </a>
+                             <div class="sidebar-submenu">
+                                 <ul>
+                                     <li>
+                                         <a href="#">
+                                             Dashboard 1
+                                             <span class="badge badge-pill badge-success">Pro</span>
+                                         </a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Dashboard 2</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Dashboard 3</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </li>
+                         <li class="sidebar-dropdown">
+                             <a href="#">
+                                 <i class="fa fa-shopping-cart"></i>
+                                 <span>E-commerce</span>
+                                 <span class="badge badge-pill badge-danger">3</span>
+                             </a>
+                             <div class="sidebar-submenu">
+                                 <ul>
+                                     <li>
+                                         <a href="#">
+                                             Products
 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Orders</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Credit cart</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="far fa-gem"></i>
-                                    <span>Components</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">General</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Panels</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Icons</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Forms</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-chart-line"></i>
-                                    <span>Charts</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Pie chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Line chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Bar chart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Histogram</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-globe"></i>
-                                    <span>Maps</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="#">Google maps</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Open street map</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="header-menu">
-                                <span>Extra</span>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Documentation</span>
-                                    <span class="badge badge-pill badge-primary">Beta</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-calendar"></i>
-                                    <span>Calendar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-folder"></i>
-                                    <span>Examples</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div> -->
-                    <!-- sidebar-menu  -->
-                </div>
+                                         </a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Orders</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Credit cart</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </li>
+                         <li class="sidebar-dropdown">
+                             <a href="#">
+                                 <i class="far fa-gem"></i>
+                                 <span>Components</span>
+                             </a>
+                             <div class="sidebar-submenu">
+                                 <ul>
+                                     <li>
+                                         <a href="#">General</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Panels</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Tables</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Icons</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Forms</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </li>
+                         <li class="sidebar-dropdown">
+                             <a href="#">
+                                 <i class="fa fa-chart-line"></i>
+                                 <span>Charts</span>
+                             </a>
+                             <div class="sidebar-submenu">
+                                 <ul>
+                                     <li>
+                                         <a href="#">Pie chart</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Line chart</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Bar chart</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Histogram</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </li>
+                         <li class="sidebar-dropdown">
+                             <a href="#">
+                                 <i class="fa fa-globe"></i>
+                                 <span>Maps</span>
+                             </a>
+                             <div class="sidebar-submenu">
+                                 <ul>
+                                     <li>
+                                         <a href="#">Google maps</a>
+                                     </li>
+                                     <li>
+                                         <a href="#">Open street map</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </li>
+                         <li class="header-menu">
+                             <span>Extra</span>
+                         </li>
+                         <li>
+                             <a href="#">
+                                 <i class="fa fa-book"></i>
+                                 <span>Documentation</span>
+                                 <span class="badge badge-pill badge-primary">Beta</span>
+                             </a>
+                         </li>
+                         <li>
+                             <a href="#">
+                                 <i class="fa fa-calendar"></i>
+                                 <span>Calendar</span>
+                             </a>
+                         </li>
+                         <li>
+                             <a href="#">
+                                 <i class="fa fa-folder"></i>
+                                 <span>Examples</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div> -->
+                <!-- sidebar-menu  -->
+            </div>
             <!-- sidebar-content  -->
             <div class="sidebar-footer">
-               <!--   <a href="#">
-                    <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-warning notification">3</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-envelope"></i>
-                    <span class="badge badge-pill badge-success notification">7</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-cog"></i>
-                    <span class="badge-sonar"></span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-power-off"></i>
-                </a> -->
+                <!--   <a href="#">
+                     <i class="fa fa-bell"></i>
+                     <span class="badge badge-pill badge-warning notification">3</span>
+                 </a>
+                 <a href="#">
+                     <i class="fa fa-envelope"></i>
+                     <span class="badge badge-pill badge-success notification">7</span>
+                 </a>
+                 <a href="#">
+                     <i class="fa fa-cog"></i>
+                     <span class="badge-sonar"></span>
+                 </a>
+                 <a href="#">
+                     <i class="fa fa-power-off"></i>
+                 </a> -->
             </div>
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
-           
 
-                 <div>
-             
-               
+
+            <div>
+
+
                 <div class="form-group">
                     <div class="col-md-4">
 
-                            <div class="cd-select cd-filters">
-                                <select class="form-control-lg" id="sortby">
-                                    <option selected value="0">Sort by </option>
-                                    <option value="1">Favorite Item</option>
-                                    <option value="2">New Item</option>
-                                    <option value="3">Maker,Model</option>
-                                    <option value="4">Item No</option>
-                                    <option value="5">Description</option>
-                                    <option value="6">Pricelist</option>
-                                </select>
-                            </div>
-                      
+                        <div class="cd-select cd-filters">
+                            <select class="form-control-lg" id="sortby">
+                                <option selected value="0">Sort by </option>
+                                <option value="1">Favorite Item</option>
+                                <option value="2">New Item</option>
+                                <option value="3">Maker,Model</option>
+                                <option value="4">Item No</option>
+                                <option value="5">Description</option>
+                                <option value="6">Pricelist</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="col-md-2">
-                     
+
                     </div>
                     <div class="col-md-4">
-                       
-                            <div class="form-group">
-                                <div class="input-group ">
-                                    <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;">
-                                        <button type="button" id="btncheck" class="btn btn-warning">
-                                            จำนวนสินค้าในตระกร้า
-                                        </button>
-                                    </span>
-                                    <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;"><i><i id="Cuitem" style="color:crimson; font-size: large; font: icon;">0</i>ชิ้น</i></span>
-                                    <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;"><i><i id="Cuqty" style="color: crimson; font-size: large; font: icon;">0</i> เบอร์</i></span>
-                                </div>
+
+                        <div class="form-group">
+                            <div class="input-group ">
+                                <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;">
+                                    <button type="button" id="btncheck" class="btn btn-warning">
+                                        จำนวนสินค้าในตระกร้า
+                                    </button>
+                                </span>
+                                <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;"><i><i id="Cuitem" style="color:crimson; font-size: large; font: icon;">0</i>ชิ้น</i></span>
+                                <span class="col-sm-4 input-group-addon" style="float: initial;padding: 0px 0px;"><i><i id="Cuqty" style="color: crimson; font-size: large; font: icon;">0</i> เบอร์</i></span>
                             </div>
-                       
+                        </div>
+
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group col-md-12 content">
+
+                <div class="col-md-6 sort">
+                    <h2>รายการสินค้า</h2>
                 </div>
-              
-             <div class="form-group col-md-12 content">
-                     
-                        <div class="col-md-6 sort">
-                            <h2>รายการสินค้า</h2>
+                <div class="col-md-4" @*style="float: right;"*@>
+                    <div class="form-group">
+                        <div class="input-group ">
+
+                            <span>
+                                <button type="submit" id="btnsubmitinsert" class="fa fa-shopping-cart  btn btn-success btn-large" style="width: 200px;">Add To Cart </button>
+                            </span>
+
+
                         </div>
-                 <div class="col-md-4" @*style="float: right;"*@>
-                     <div class="form-group">
-                         <div class="input-group ">
-
-                             <span>
-                                 <button type="submit" id="btnsubmitinsert" class="fa fa-shopping-cart  btn btn-success btn-large" style="width: 200px;">Add To Cart </button>
-                             </span>
+                    </div>
 
 
-                         </div>
-                     </div>
+                </div>
+
+                <div class="form-group col-md-12 content">
 
 
-                 </div>
-                       
-                 <div class="form-group col-md-12 content">
-                   
 
-                 
-                     @*<p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
-            <p>
-                You can find the complete code on <a href="https://github.com/azouaoui-med/pro-sidebar-template" target="_blank">
-                    Github
-                </a>, it contains more themes and background image option
-            </p>*@
-                     <div class="table-responsive">
-                         @*<div class="tableFixHead">*@
-                         <table class="js-sort-table table table-hover shopping-cart-wrap" id="fixed-table-container-1">
-                             <thead class="text-muted">
-                                 <tr>
-                                     <th scope="col">Product</th>
-                                     <th scope="col" width="120" class="js-sort-input" title="class=&quot;js-sort-input&quot;">Quantity</th>
-                                     <th scope="col" width="120">Price</th>
-                                     <th scope="col" width="200">Line Note</th>
-                                 </tr>
-                             </thead>
-                             <tbody></tbody>
-                         </table>
-                     </div>
-                 </div>
-                      
-                     
-              </div>
+                    @*<p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
+                        <p>
+                            You can find the complete code on <a href="https://github.com/azouaoui-med/pro-sidebar-template" target="_blank">
+                                Github
+                            </a>, it contains more themes and background image option
+                        </p>*@
+                    <div class="table-responsive">
+                        @*<div class="tableFixHead">*@
+                        <table class="js-sort-table table table-hover shopping-cart-wrap" id="fixed-table-container-1">
+                            <thead class="text-muted">
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="120" class="js-sort-input" title="class=&quot;js-sort-input&quot;">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                    <th scope="col" width="100">Stock</th>
+                                    <th scope="col" width="200">Line Note</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
             <hr>
-           
+
         </main>
         <!-- page-content" -->
     </div>
-     <!-- ModalWarning -->
-     <div class="modal fade" id="myModalWarning" role="dialog">
-         <div class="modal-dialog">
-             <div class="alert alert-warning alert-dismissible" role="alert">
-                 <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                 <strong>Warning!</strong>
-                 <div class="modal-body">
-                     <div id="textAlertWarning">Some text in the modal.</div>
-                 </div>
+    <!-- ModalWarning -->
+    <div class="modal fade" id="myModalWarning" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarning">Some text in the modal.</div>
+                </div>
 
-             </div>
-         </div>
-     </div>
-     <!-- ModalWarning -->
-     <!-- ModalWarning -->
-     <div class="modal" id="myModalWarninglog" role="dialog">
-         <div class="modal-dialog">
-             <div class="alert alert-warning alert-dismissible" role="alert">
-                 <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                 <strong>Warning!</strong>
-                 <div class="modal-body">
-                     <div id="textAlertWarninglog">Some text in the modal.</div>
-                 </div>
-             </div>
-         </div>
-     </div>
-     <!-- Modalsuccess -->
-     <div class="modal" id="myModalSucces" role="dialog">
-         <div class="modal-dialog">
-             <div class="alert alert-success alert-dismissible" role="alert">
-                 <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
-                 <strong>Succes</strong>
-                 <div class="modal-body">
-                     <div id="textAlertSucces">Save success</div>
-                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- ModalWarning -->
+    <!-- ModalWarning -->
+    <div class="modal" id="myModalWarninglog" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <div class="modal-body">
+                    <div id="textAlertWarninglog">Some text in the modal.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modalsuccess -->
+    <div class="modal" id="myModalSucces" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label=" close"><span aria-hidden="true">&times;</span></button>
+                <strong>Succes</strong>
+                <div class="modal-body">
+                    <div id="textAlertSucces">Save success</div>
+                </div>
 
-             </div>
-         </div>
-     </div>
-     <!-- EndModalsuccess -->
+            </div>
+        </div>
+    </div>
+    <!-- EndModalsuccess -->
+    <!-- page-wrapper -->
+    <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <strong>Detail</strong>
+                    <table id="classTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Stockcode</th>
+                                <th>Qty</th>
+                                <th>Status Upload</th>
+                                <th>Status Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+    <div class="modal" id="myModal" style="background-color: black;">
+
+        <div class="modal-dialog" role="document" style="width: 360px;">
+
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+
+                </div>
+
+                <div class="modal-body" id="texterror">
+                </div>
+
+                <div class="modal-footer">
+
+                    @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
+
+                    <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
+
+                    @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
-     <!-- page-wrapper -->
-     <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-         <div class="modal-dialog modal-lg">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                         ×
-                     </button>
-                     
-                 </div>
-                 <div class="modal-body">
-                     <strong>Detail</strong>
-                     <table id="classTable" class="table table-bordered">
-                         <thead>
-                               <tr>
-                                   <th>No.</th>
-                                   <th>Stockcode</th>
-                                   <th>Qty</th>
-                                   <th>Status Upload</th>
-                                   <th>Status Message</th>
-                               </tr>
-                         </thead>
-                         <tbody>
-                           
-                         </tbody>
-                     </table>
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-primary" data-dismiss="modal">
-                         Close
-                     </button>
-                 </div>
-             </div>
-         </div>
-     </div>
-  
-     <!-- Modal -->
-
-     <div class="modal" id="myModal" style="background-color: black;">
-
-         <div class="modal-dialog" role="document" style="width: 360px;">
-
-             <div class="modal-content">
-
-                 <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
-
-                     @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                     <h4 class="modal-title" id="myModalLabel"></h4>
-
-                 </div>
-
-                 <div class="modal-body" id="texterror">
-                 </div>
-
-                 <div class="modal-footer">
-
-                     @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                     <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                     @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                 </div>
-
-             </div>
-
-         </div>
-
-     </div>
-   
-    
     <script type="text/javascript">
-       
+
         window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
         ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
 
@@ -804,7 +808,7 @@
             if (usertype == "1" || usertype == "2") {
                 resourceAddress.hash();
                 var cuscod = atob(param_values.numcuber);
-               
+
                // var cuscod = "110Z0001O";
                 $("#changepass").css("display", "none");
             } else if (usertype == "5") {
@@ -815,7 +819,7 @@
                  resourceAddress.hash();
                 // var cuscod = usercode;
                  var cuscod = atob(param_values.numcuber);
-              
+
                  $("#changepass").css("display", "block");
             }
         }
@@ -866,7 +870,7 @@
                     let mysession = myArray[1];
                     let mystatus = myArray[0];
                     //myModal
-                    
+
                     //console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
                     if (id != mysession) {
                         $("#texterror").empty();
@@ -886,7 +890,7 @@
             });
 
         }
-       
+
         $(document).ready(function () {
             if (usertype == "6") {
                 if (cuscod != "") {
@@ -969,7 +973,7 @@
             type: "POST",
             dataType: "JSON",
             success: function (data) {
-              
+
                 var select = $("#productgroup");
                 select.children().remove();
                 select.append($("<option>").val("").text("หมวดสินค้า(Product Group)"));
@@ -978,19 +982,19 @@
                     select.append($("<option>").val(item.ProductGroup).text(item.ProductGroup));
 
                 });
-               
+
                 $('.selectpicker').selectpicker('refresh');
                 //$('.selectpicker').selectpicker('val', '');
                // $("#productgroup").val("");
             }
         });
-        
+
         $('.selectpicker').selectpicker({
             noneResultsText: 'Not found'
 
         });
-      
-          
+
+
         $.ajax({
             url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
             data: {
@@ -1014,7 +1018,7 @@
                // $('.selectpicker').selectpicker('val', '');
                 //$('.selectpicker').selectpicker('refresh');
                 $("#productline").selectpicker('refresh');
-               
+
             //    $('.selectpicker').selectpicker('val', '');
                 //$("#productline").val("");
                 $(".selectpicker #productline").selectpicker({
@@ -1038,18 +1042,14 @@
                 select.children().remove();
                 select.append($("<option>").val("").text("Group"));
                 $(data).each(function (index, item) {
-
                     select.append($("<option custyp=" + item.STKGRP + ">").val(item.STKGRP).text(item.GRPNAM));
-
                 });
-               
+                $('#catalogue').selectpicker('refresh');
                 //$('.selectpicker').selectpicker('refresh');
                 //$("#catalogue").selectpicker('refresh');
-              
                 //$("#catalogue").selectpicker('val', "");
-               // $('.selectpicker').selectpicker('val', '');
-                // $("#catalogue").val("");
-               
+                //$('.selectpicker').selectpicker('val', '');
+                //$("#catalogue").val("");
             }
         });
         $.ajax({
@@ -1066,11 +1066,11 @@
                 optgroup = "<optgroup label='ยี่ห้อรถ'>";
                 var select = $("#maker");
                 //select.children().remove();
-              
+
                 $(data).each(function (index, item) {
                     if (index == 0 || index == 1 || index == 2 ) {
                         optgroup += "<option value='" + item.Code + "'>" + item.Code + "</option>"
-                       
+
                     }else{
                         select.append($("<option custyp=" + item.Code + ">").val(item.Code).text(item.Code));
                     }
@@ -1091,11 +1091,11 @@
                 $('.selectpicker').selectpicker('refresh');
                 //$('.selectpicker').selectpicker('val', '');
 
-               
-               
-               
-               
-               
+
+
+
+
+
 
                // $('#maker option[value=""]').attr("selected", true);
 
@@ -1149,13 +1149,13 @@
 
                 });
                 //$('.selectpicker').selectpicker('refresh');
-               
+
                 $('#segment').selectpicker('refresh');
                // $('.selectpicker').selectpicker('val', '');
               //  $("#segment").val("");
             }
         });
-       
+
         $("#company").change(function () {
             var _var = $(this).val();
             $.ajax({
@@ -1205,7 +1205,7 @@
             });
         });
         countorder()
-        
+
         function countorder() {
             // var SLM = $("#Slm").val()
             $.ajax({
@@ -1221,7 +1221,7 @@
                 dataType: "JSON",
                 success: function (data) {
                     //console.log(data);
-                    
+
                     $("#countsku").html(data.Getdata[0].val.SumQty);
 
                 }
@@ -1251,7 +1251,7 @@
             }
             return val;
         }
-       
+
         $("#productgroup").change(function () {
             var _progroup = $(this).val();
             // var _var = $("#company").val();
@@ -1265,7 +1265,7 @@
                 url: '@Url.Action("GetCatProductGroupline", "DataCenter")',
                 data: {
                     com: _var,
-                    progroup: _progroup,    
+                    progroup: _progroup,
                     brand: brand,
                     cuscod: cuscod
                 },
@@ -1283,7 +1283,7 @@
                     });
                     $('.selectpicker').selectpicker('refresh');
                     //$('.selectpicker').selectpicker('val', '');
-                   
+
                 }
             });
 
@@ -1313,11 +1313,11 @@
                         select.append($("<option custyp=" + item.CODE + ">").val(item.CODE).text(item.CODE));
 
                     });
-                   
+
                     $('select[name=selValuebrand]').selectpicker('refresh');
-                   
+
                     $('select[name=selValuebrand]').selectpicker('val', _vakbrand);
-                   
+
                     $('select[name=selValuebproductgroup]').selectpicker('val', _progroup);
                 }
             });
@@ -1359,7 +1359,7 @@
 
                     });
 
-                  
+
                     $('.selectpicker').selectpicker('refresh');
                     $('select[name=selValuebproductline]').selectpicker('val', _valproductline);
                    // $('select[name=selValuebproductline]').val(_valproductline);
@@ -1377,9 +1377,9 @@
         //var fixedTable1 = fixTable(document.getElementById('fixed-table-container'));
         function ShoppingCartNumber() {
             var MyRows = $('#fixed-table-container-1').find('tbody').find('tr');
-        
+
             var datacount = new Array();
-         
+
             var datacountsum = new Array();
             var datacountQty = new Array();
             var data = [];
@@ -1409,14 +1409,14 @@
                 dataType: "JSON",
                 success: function (data) {
                     //console.log(data);
-                   
+
                     chunk = parseFloat(data.Getdata[0].val.SumQty);
                     Row = parseFloat(data.Getdata[0].val.Countrow);
                     for (var i = 0; i < MyRows.length; i++) {
 
                         var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val();
                         var MyIndexValueSTKCOD = $(MyRows[i]).find('td figcaption .STKCODdiv').html();
-                       
+
                         if (MyIndexValueSTKCOD !== "") {
                             res = MyIndexValueSTKCOD.split("|");
                         } else { res[1] = ""; }
@@ -1435,10 +1435,8 @@
                             //console.log("ItemList"+ItemList);
                             //data.push(ItemList);
                         }
-
                     }
-                    
-              
+
                     var sorted_arr = datacountsum.sort();
                     var sorted_arrnum = 0;
 
@@ -1505,9 +1503,9 @@
             var _NoAr = _StkNo.split("|");
           if (parseInt(qtyinput) ==0) {
               $(this).val("1");//aps//
-            
+
           }
-         
+
           if (parseInt(qtyinput) > parseInt(maxord)) {
               //$(this).val(maxord);//aps//
               $(this).val("");
@@ -1651,8 +1649,8 @@
                 $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
             })
         }
-        
-        function getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno) {
+
+        @*function getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno) {
             //console.log(_productgroup);
             //alert(submodel)
              _submodel = "";
@@ -1669,7 +1667,7 @@
             textfree = splitval(textfree);
             var _itemsegment = itemsegment
             //alert(textfree);
-           
+
            // $('#fixbox').empty();
             var MyRows = $('#fixed-table-container-1').find('tbody').find('tr');
             for (var i = 0; i < MyRows.length; i++) {
@@ -1684,7 +1682,7 @@
             //$('.loader').css("display", "block");
             var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
             // $("#scrollUp").trigger("click");
-          
+
             $.ajax({
                 url: '@Url.Action("Getdataitemdetail", "Home")',
                 data: {
@@ -1739,16 +1737,20 @@
                         var imgpromotion = "";
                         var procodsub = "";
                         var prclstno = "";
-                      
+
                         //$('.loader').css("display", "none");
                         loading.out()
                         var SubmithtmlPage = "";
                         for (var i = 0; i < employees.length; i++) {
+                            var flagShowStock = "";
+                            var txtShowStock = "";
                             ItemNo = employees[i].ItemNo;
                            //Supdescri = splitval2(employees[i].Description).substr(0, 50);
                             //Supdescri = nl2br(employees[i].Description);
                             Supdescri = employees[i].Description;
                             Price = employees[i].Price;
+                            Stock = employees[i].Stock;
+                            ItemClass = employees[i].ItemClass;
                             Company = employees[i].Company;
                             Available_Stock = employees[i].Available_Stock;
                             SalePrice = employees[i].SalePrice;
@@ -1773,7 +1775,7 @@
                             prclstno = employees[i].prclst_no;
                             //console.log(favitm)
                             if (favitm != "") {
-                               
+
                                 displ = "display:block"
                                 displstr = "data-selected='true'";
                                 if (favitm == "1") {
@@ -1798,7 +1800,7 @@
                                     fastar = '<i class="fa fa-star-half-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
                                 }
                             } else {
-                                
+
                                 displ = "display:none";
                                 displstr = "";
                                 fastar = "";
@@ -1854,13 +1856,13 @@
 
                             SubmithtmlPage += '<tr>';
                             SubmithtmlPage += '<td>';
-                           
+
                             SubmithtmlPage += '<figure class="media">';
                             SubmithtmlPage += '<div class="img-wrap" style="margin-right: 6px;"><img src="' + strphsrc + '"  class="img-thumbnail img-sm" style="width: 65px;"></div>';
                             SubmithtmlPage += '<div style="width: 10%;">' + imgpromotion + '</div>';
                             SubmithtmlPage += '<figcaption class="media-body" style="width: 500px;">';
                             SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + ' </a>';
-                           
+
                             SubmithtmlPage += '<dl class="param param-inline small">';
                             SubmithtmlPage += '<div>' + fastar +'</div>';
                            // SubmithtmlPage += '<div>' + favitm + '</div>';
@@ -1871,40 +1873,72 @@
                             SubmithtmlPage += '<div style="word-break: break-all;display: flex; align-items: stretch;flex-wrap: nowrap;align-content: space-between;flex-direction: column;width: 454px;">' + Supdescri + ' </div>';
                             SubmithtmlPage += '<dd style="width: 168px;"></span><span class="rat__qun">(MOQ:' + moq + ')</span>&nbsp;<span class="rat__sp"> (standard packing:' + spackuom + ')</span><p style="margin-block-start:auto;">' + displinactive + "<br>  " + displnew + '</p><span class="rat0" id="second-element">' + CryptoJS.AES.encrypt(commaSeparateNumber(Price), 'secret key 123') + '</span><span class="ratmoq" id="second-element">' + CryptoJS.AES.encrypt(moq, 'secret key 123') + '</span><span class="ratcy" id="second-element">' + CryptoJS.AES.encrypt(Company, 'secret key 123') + '</dd>';
                             SubmithtmlPage += '<span class="ratplc" id="second-element">' + CryptoJS.AES.encrypt(commaSeparateNumber(PlcPrice), 'secret key 123') + '</span><span class="ratprc" id="second-element">' + CryptoJS.AES.encrypt(SalePrice, 'secret key 123') + '</span><span class="ratspc" id="second-element">' + CryptoJS.AES.encrypt(SpcPrice, 'secret key 123') + '</span><span class="ratprcod" id="second-element">' + CryptoJS.AES.encrypt(PromotionCode, 'secret key 123') + '</span><span class="ratprde" id="second-element">' + CryptoJS.AES.encrypt(PromoDesc, 'secret key 123') + '</span><span class="ratprpr" id="second-element">' + CryptoJS.AES.encrypt(PromoPrice, 'secret key 123') + '</span><span class="rttprclst" id="second-element">' + CryptoJS.AES.encrypt(prclstno, 'secret key 123') + '</span></dd>';
-                            
+
                             //SubmithtmlPage += '<dd>(MOQ:' + moq + ')</dd>';
                             SubmithtmlPage += '</dl>';
                             SubmithtmlPage += '</figcaption>';
                             SubmithtmlPage += '</figure>';
                             SubmithtmlPage += '</td>';
-                          
+
                             SubmithtmlPage += '<td>';
-                         
                             SubmithtmlPage += '<input  name="S_Qty" class="tQty" maxlength="5" min="1" max=' + Maxord + ' moq=' + moq + '  ratspackuom =' + spackuom + '  type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;' + displbut + '">';
-                           
                             SubmithtmlPage += '</td>';
-                           
+
                             SubmithtmlPage += '<td>';
                             SubmithtmlPage += '<div class="price-wrap">';
-                           
                             SubmithtmlPage += '<var style="' + displbut + '"  class="price">' + commaSeparateNumber(Price) + '</var>';
                             SubmithtmlPage += '<small class="text-muted" style=" text-decoration: line-through;color: deeppink;font-family: cursive;font-size:revert;text-align: left;margin-left: 1rem;' + displbut + '"  class="pricehot">฿ ' + commaSeparateNumber(PlcPrice) + ' </small>';
                             SubmithtmlPage += '</div> ';
                             SubmithtmlPage += '</td>';
+                            //stock
+                            if (usertype == "1" || usertype == "2" || usertype == "5") {
+                                flagShowStock = "yes";
+                            } else {
+                                if (Stock != "0") {
+                                    if (ItemClass == "A") {
+                                        if (parseInt(Stock) > 10) { //มากกว่า 10 Show in stock
+                                            flagShowStock = "no";
+                                        } else if (parseInt(Stock) <= 10) { //น้อยกว่า 10 Show
+                                            flagShowStock = "yes";
+                                        }
+                                    } else {
+                                        if (parseInt(Stock) > 20) { //มากกว่า 10 Show in stock
+                                            flagShowStock = "no";
+                                        } else if (parseInt(Stock) <= 20) { //น้อยกว่า 10 Show
+                                            flagShowStock = "yes";
+                                        }
+                                    }
+                                }
+                            }
+                            SubmithtmlPage += '<td style="text-align: center; font-weight: bold;">';
+                            SubmithtmlPage += '<div class="wrap">';
+                            SubmithtmlPage += '<span style="font-style: italic;" class="Stock"> ';
+                            if (Stock == 0) {
+                                SubmithtmlPage += "<div style='color: red;'>Out Of Stock</div>";
+                            } else {
+                                if (flagShowStock == 'no') { //ไม่แสดงจำนวน
+                                    SubmithtmlPage += '<div style="color: blue;">In Stock</div>';
+                                    //SubmithtmlPage += commaSeparateNumber(Stock);
+                                } else { //แสดงจำนวน
+                                    SubmithtmlPage += commaSeparateNumber(Stock);
+                                }
+                            }
+                            SubmithtmlPage += '</span>';
+                            SubmithtmlPage += '</div> ';
+                            SubmithtmlPage += '</td>';
+                            //linenote
                             SubmithtmlPage += '<td>';
                             SubmithtmlPage += '<input  name="S_Linenote" class="tlinenote" style=" background-color:white;' + displbut + '">';
                             SubmithtmlPage += '</td>';
                             //SubmithtmlPage += '<td class="text-right">';
-                                        @*<a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>*@
-                                        @*<a href="" class="btn btn-outline-danger"> × Remove</a>*@
-                           // SubmithtmlPage += '</td>';
+                            //SubmithtmlPage += '</td>';
                             SubmithtmlPage += '</tr>';
-
-
 
                         }
                         //$('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
-                          $('#fixed-table-container-1  tbody:last-child').prepend(SubmithtmlPage);
+                        //$('#fixed-table-container-1  tbody:last-child').prepend(SubmithtmlPage);
+                        var $tbody = $('#fixed-table-container-1 tbody');
+                        $tbody.html(SubmithtmlPage);
                     } else {
                         //$('.loader').css("display", "none");
                         loading.out()
@@ -1914,22 +1948,330 @@
                         $("#textAlertWarning").text("No Data.....");
                         $("#myModalWarning").modal();
                     }
-                
+
                 }
-                 
+
+            });
+        }*@
+        let batchSize = 20;
+        let currentIndex = 0;
+
+        function getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno) {
+            currentIndex = 0;
+            var _maker = maker;
+            var _Model = Model;
+            var _submodel = submodel;
+            var _company = company;
+            var _catalogue = catalogue;
+            var _brand = brand;
+            var productgroup = _productgroup;
+            var productline = _productline;
+            var textfree = splitval(textfree);
+            var _itemsegment = itemsegment;
+
+            // Remove rows with no qty
+            var MyRows = $('#fixed-table-container-1 tbody tr');
+            for (var i = 0; i < MyRows.length; i++) {
+                var qty = $(MyRows[i]).find('td .tQty').val();
+                if (qty == "") {
+                    $(MyRows[i]).remove();
+                }
+            }
+
+            var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
+            let $tbody = $('#fixed-table-container-1 tbody');
+            $tbody.empty();
+            const loadingRow = `
+                <tr class="loading-row">
+                    <td colspan="100%" style="text-align:center;">Loading data...</td>
+                </tr>`;
+            $tbody.append(loadingRow);
+
+            $.ajax({
+                url: '@Url.Action("Getdataitemdetail", "Home")',
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    maker: _maker,
+                    modelno: _Model,
+                    submodel: _submodel,
+                    company: _company,
+                    catalogue: _catalogue,
+                    brand: _brand,
+                    textfree: textfree,
+                    cuscod: cuscod,
+                    yrStart: "",
+                    yrEnd: "",
+                    itemno: itemno,
+                    engine: "",
+                    productgroup: productgroup,
+                    productline: productline,
+                    itemsegment: _itemsegment,
+                    sortby: sortby,
+                    usrtyp: usertype
+                },
+                success: function (data) {
+                    $tbody.find('.loading-row').remove();
+                    $tbody.empty();
+
+                    if (data.length === 0) {
+                        const loadingRow = `
+                        <tr class="loading-row">
+                            <td colspan="100%" style="text-align:center;">No Data.....</td>
+                        </tr>`;
+                        $tbody.append(loadingRow);
+                        loading.out();
+                        $("#textAlertWarning").text("No Data.....");
+                        $("#myModalWarning").modal();
+                        return;
+                    }
+
+                    appendBatch(data, $tbody, () => {
+                        loading.out();
+                    });
+                }
             });
         }
+
+        function buildRowHtml(employees, index) {
+            let position = index + 1;
+            var favitm = "";
+            var displ = "";
+            var displstr = "";
+            var displnew = "";
+            var displstrnew = "";
+            var newitem = "";
+            var strph = "";
+            var strphsrc = "";
+            var _strinactive = "";
+            var displinactive = "";
+            var imgdisplinactive = "";
+            var displbut = "";
+            var SalePrice = "";
+            var moq = "";
+            var fastar = "";
+            var PlcPrice = "";
+            var SpcPrice = "";
+            var PromotionCode = "";
+            var PromoDesc = "";
+            var PromoPrice = "";
+            var Maxord = "";
+            var idlink = "";
+            var imgpromotion = "";
+            var procodsub = "";
+            var prclstno = "";
+            var SubmithtmlPage = "";
+            var flagShowStock = "";
+            var txtShowStock = "";
+            ItemNo = employees.ItemNo;
+            Supdescri = employees.Description;
+            Price = employees.Price;
+            Stock = employees.Stock;
+            ItemClass = employees.ItemClass;
+            Company = employees.Company;
+            Available_Stock = employees.Available_Stock;
+            SalePrice = employees.SalePrice;
+            PlcPrice = employees.PlcPrice;//ราคาป้าย//
+            SpcPrice = employees.SpcPrice;//ราคาพิเศษ//
+            PromotionCode = employees.PromotionCode;//PromotionCode//
+            var strprocodsub = PromotionCode;
+            procodsub = strprocodsub.substring(8, 13);
+            PromoDesc = employees.PromoDesc;
+            PromoPrice = employees.PromoPrice;//ราคาโปรโมชั่น//
+            strph = employees.PATH;
+            Maxord = employees.maxord;
+            moq = employees.minord;
+            spackuom = employees.spackuom;
+            if (Available_Stock != "Y") {
+                Stravailable_Stock = "Sold out"
+                Stravailable_Stock = "";
+            } else {
+                Stravailable_Stock = ""
+            }
+            favitm = employees.FavoriteItem;
+            newitem = employees.NewItem;
+            _strinactive = employees.Inactive;
+            prclstno = employees.prclst_no;
+            //console.log(favitm)
+            if (favitm != "") {
+
+                displ = "display:block"
+                displstr = "data-selected='true'";
+                if (favitm == "1") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "2") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-half-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "3") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "4") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "5") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "6") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "7") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "8") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-half-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "9") {
+                    fastar = '<i class="fa fa-star" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                } else if (favitm == "10") {
+                    fastar = '<i class="fa fa-star-half-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o" style="font-size:15px;color: #b1b148;" aria-hidden="true"></i><i class="fa fa-star-o"  style="font-size:15px;color: #b1b148;" aria-hidden="true"></i>';
+                }
+            } else {
+                displ = "display:none";
+                displstr = "";
+                fastar = "";
+            }
+            if (newitem != "") {
+                displnew = "<i style='font-size: inherit;color: red;float: right;'>New item</i>";
+                displstrnew = "data-selected='true'";
+            } else {
+                displnew = ""
+                displstrnew = "";
+            }
+
+            var ustypdisp
+            var ustyp = usertype;
+            if (ustyp == "") {
+                ustypdisp = "display:none";
+            } else {
+                ustypdisp = "";
+            }
+            if (strph == "") {
+                strph = 'holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail';
+                strphsrc = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1754a3eb838%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1754a3eb838%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'
+            } else {
+                strph = strph;
+                strphsrc = strph;
+            }
+            if (_strinactive == "Y") {
+                //RED//
+                displinactive = "<i class=''></i>"
+                imgdisplinactive = '<img src="../images/logo/cancelled.png" style="width: 127px;"/>';
+                displbut = "display:none";
+                idlink = "";
+            } else {
+                //Graee//
+                imgdisplinactive = '';
+                displbut = "display:block";
+                idlink = "id='_btnlinkdetail'";
+            }
+            if (PromotionCode != "") {
+                if (procodsub != "Flash") {
+                    imgpromotion = '<img src="../images/promotion_png.png" style="width: 88px;"/>';
+                } else {
+                    imgpromotion = '<img src="../images/flash_sale_f.gif"/>';
+                }
+            } else {
+                imgpromotion = '';
+            }
+
+            SubmithtmlPage += '<tr>';
+            SubmithtmlPage += '<td>';
+
+            SubmithtmlPage += '<figure class="media">';
+            SubmithtmlPage += '<div class="img-wrap" style="margin-right: 6px;"><img src="' + strphsrc + '"  class="img-thumbnail img-sm" style="width: 65px;"></div>';
+            SubmithtmlPage += '<div style="width: 10%;">' + imgpromotion + '</div>';
+            SubmithtmlPage += '<figcaption class="media-body" style="width: 500px;">';
+            SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + ' </a>';
+
+            SubmithtmlPage += '<dl class="param param-inline small">';
+            SubmithtmlPage += '<div>' + fastar + '</div>';
+            SubmithtmlPage += '<dt><p style="margin-block-start:auto;position:inherit;z-index: 9999;">' + imgdisplinactive + '</p></dt>';
+            SubmithtmlPage += '</dl>';
+            SubmithtmlPage += '<dl class="param param-inline small" style="margin-bottom: -51px;">';
+            SubmithtmlPage += '<div style="word-break: break-all;display: flex; align-items: stretch;flex-wrap: nowrap;align-content: space-between;flex-direction: column;width: 454px;">' + Supdescri + ' </div>';
+            SubmithtmlPage += '<dd style="width: 168px;"></span><span class="rat__qun">(MOQ:' + moq + ')</span>&nbsp;<span class="rat__sp"> (standard packing:' + spackuom + ')</span><p style="margin-block-start:auto;">' + displinactive + "<br>  " + displnew + '</p><span class="rat0" id="second-element">' + CryptoJS.AES.encrypt(commaSeparateNumber(Price), 'secret key 123') + '</span><span class="ratmoq" id="second-element">' + CryptoJS.AES.encrypt(moq, 'secret key 123') + '</span><span class="ratcy" id="second-element">' + CryptoJS.AES.encrypt(Company, 'secret key 123') + '</dd>';
+            SubmithtmlPage += '<span class="ratplc" id="second-element">' + CryptoJS.AES.encrypt(commaSeparateNumber(PlcPrice), 'secret key 123') + '</span><span class="ratprc" id="second-element">' + CryptoJS.AES.encrypt(SalePrice, 'secret key 123') + '</span><span class="ratspc" id="second-element">' + CryptoJS.AES.encrypt(SpcPrice, 'secret key 123') + '</span><span class="ratprcod" id="second-element">' + CryptoJS.AES.encrypt(PromotionCode, 'secret key 123') + '</span><span class="ratprde" id="second-element">' + CryptoJS.AES.encrypt(PromoDesc, 'secret key 123') + '</span><span class="ratprpr" id="second-element">' + CryptoJS.AES.encrypt(PromoPrice, 'secret key 123') + '</span><span class="rttprclst" id="second-element">' + CryptoJS.AES.encrypt(prclstno, 'secret key 123') + '</span></dd>';
+
+            SubmithtmlPage += '</dl>';
+            SubmithtmlPage += '</figcaption>';
+            SubmithtmlPage += '</figure>';
+            SubmithtmlPage += '</td>';
+
+            SubmithtmlPage += '<td>';
+            SubmithtmlPage += '<input  name="S_Qty" class="tQty" maxlength="5" min="1" max=' + Maxord + ' moq=' + moq + '  ratspackuom =' + spackuom + '  type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;' + displbut + '">';
+            SubmithtmlPage += '</td>';
+
+            SubmithtmlPage += '<td>';
+            SubmithtmlPage += '<div class="price-wrap">';
+            SubmithtmlPage += '<var style="' + displbut + '"  class="price">' + commaSeparateNumber(Price) + '</var>';
+            SubmithtmlPage += '<small class="text-muted" style=" text-decoration: line-through;color: deeppink;font-family: cursive;font-size:revert;text-align: left;margin-left: 1rem;' + displbut + '"  class="pricehot">฿ ' + commaSeparateNumber(PlcPrice) + ' </small>';
+            SubmithtmlPage += '</div> ';
+            SubmithtmlPage += '</td>';
+            //stock
+            if (usertype == "1" || usertype == "2" || usertype == "5") {
+                flagShowStock = "yes";
+            } else {
+                if (Stock != "0") {
+                    if (ItemClass == "A") {
+                        if (parseInt(Stock) > 10) { //มากกว่า 10 Show in stock
+                            flagShowStock = "no";
+                        } else if (parseInt(Stock) <= 10) { //น้อยกว่า 10 Show
+                            flagShowStock = "yes";
+                        }
+                    } else {
+                        if (parseInt(Stock) > 20) { //มากกว่า 10 Show in stock
+                            flagShowStock = "no";
+                        } else if (parseInt(Stock) <= 20) { //น้อยกว่า 10 Show
+                            flagShowStock = "yes";
+                        }
+                    }
+                }
+            }
+            SubmithtmlPage += '<td style="text-align: center; font-weight: bold;">';
+            SubmithtmlPage += '<div class="wrap">';
+            SubmithtmlPage += '<span style="font-style: italic;" class="Stock"> ';
+            if (Stock == 0) {
+                SubmithtmlPage += "<div style='color: red;'>Out Of Stock</div>";
+            } else {
+                if (flagShowStock == 'no') { //ไม่แสดงจำนวน
+                    SubmithtmlPage += '<div style="color: blue;">In Stock</div>';
+                    //SubmithtmlPage += commaSeparateNumber(Stock);
+                } else { //แสดงจำนวน
+                    SubmithtmlPage += commaSeparateNumber(Stock);
+                }
+            }
+            SubmithtmlPage += '</span>';
+            SubmithtmlPage += '</div> ';
+            SubmithtmlPage += '</td>';
+            //linenote
+            SubmithtmlPage += '<td>';
+            SubmithtmlPage += '<input  name="S_Linenote" class="tlinenote" style=" background-color:white;' + displbut + '">';
+            SubmithtmlPage += '</td>';
+            SubmithtmlPage += '</tr>';
+            return SubmithtmlPage;
+        }
+
+        function appendBatch(data, $tbody, onComplete) {
+            let batch = data.slice(currentIndex, currentIndex + batchSize);
+
+            batch.forEach((employees, i) => {
+                let rowHtml = buildRowHtml(employees, currentIndex + i);
+                $tbody.append(rowHtml);
+            });
+
+            currentIndex += batchSize;
+
+            if (currentIndex < data.length) {
+                setTimeout(() => appendBatch(data, $tbody, onComplete), 100);
+            } else if (onComplete) {
+                onComplete();
+            }
+        }
+
         $("table").on("click", "tr #_btnlinkdetail", function () {
         //$(document).on("click", "#_btnlinkdetail", function () {
             var _vcom = $(this).attr('card__buy');
-            
+
             var _vfd = $(this).attr('card__item');
-           
+
             var bytesc = CryptoJS.AES.decrypt(_vcom.toString(), 'secret key 123');
             var MyIndexValuecom = bytesc.toString(CryptoJS.enc.Utf8);
             var bytesitm = CryptoJS.AES.decrypt(_vfd.toString(), 'secret key 123');
             var MyIndexValuitm = bytesitm.toString(CryptoJS.enc.Utf8);
-          
+
             if (usertype == "6") {
                 if (cuscod != "") {
                     ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
@@ -1982,7 +2324,7 @@
         //    alert('not allowed');
         //})
         //document.onkeydown = function (e) {
-         
+
         //    if (e.ctrlKey &&
         //    (e.keyCode === 85)) {
         //        return false;
@@ -2003,21 +2345,21 @@
             var MyRows = $('#fixed-table-container-1').find('tbody').find('tr');
 
             for (var i = 0; i < MyRows.length; i++) {
-             
+
                 var MyIndexValueSTKCOD = $(MyRows[i]).find('td .STKCODdiv').html();
                 if(MyIndexValueSTKCOD !== ""){
                     res = MyIndexValueSTKCOD.split("|");
 
                 } else { res[0] = ""; }
-                
+
                 var MyIndexValueQty = $(MyRows[i]).find('td .tQty').val().replace(',', '').replace(' ', '');
                 var MyIndexValueMoq;
                   MyIndexValueMoq = $(MyRows[i]).find('td .ratmoq').html();
                   var bytesm = CryptoJS.AES.decrypt(MyIndexValueMoq.toString(), 'secret key 123');
                   MyIndexValueMoq = bytesm.toString(CryptoJS.enc.Utf8);
-            
+
                 var MyIndexValueLinenote = $(MyRows[i]).find('td .tlinenote').val();
-              
+
                 var MyIndexValueSalePrice;
                 MyIndexValueSalePrice = $(MyRows[i]).find('td .rat0').html();
                 var bytes0 = CryptoJS.AES.decrypt(MyIndexValueSalePrice.toString(), 'secret key 123');
@@ -2025,22 +2367,22 @@
 
                 var MyIndexValuecompany;
                     MyIndexValuecompany = $(MyRows[i]).find('td .ratcy').html();
-             
+
                 var bytesc = CryptoJS.AES.decrypt(MyIndexValuecompany.toString(), 'secret key 123');
                 MyIndexValuecompany = bytesc.toString(CryptoJS.enc.Utf8);
-                
+
                 var MyIndexValueratplc;
                 MyIndexValueratplc = $(MyRows[i]).find('td .ratplc').html();
 
                 var byteplc = CryptoJS.AES.decrypt(MyIndexValueratplc.toString(), 'secret key 123');
                 MyIndexValueratplc= byteplc.toString(CryptoJS.enc.Utf8);
-                
+
                 var MyIndexValueratspc;
                 MyIndexValueratspc = $(MyRows[i]).find('td .ratspc').html();
 
                 var byteratspc = CryptoJS.AES.decrypt(MyIndexValueratspc.toString(), 'secret key 123');
                 MyIndexValueratspc = byteratspc.toString(CryptoJS.enc.Utf8);
-               
+
                 var MyIndexValueratprcod;
                 MyIndexValueratprcod = $(MyRows[i]).find('td .ratprcod').html();
 
@@ -2070,10 +2412,10 @@
                 //ratspc = SpcPrice
                 //ratprcod = PromotionCode
                 //ratprde = PromoDesc
-                //ratprpr = PromoPrice  .replace(',', '').replace(' ', '').replace(',', '').replace(' ', '') 
+                //ratprpr = PromoPrice  .replace(',', '').replace(' ', '').replace(',', '').replace(' ', '')
                 //(age >= 21) ? "Beer" : "Juice";
 
-             
+
                 var ItemList = {
                     CUSCOD: cuscod.toUpperCase(),
                     STKCOD: res[0],
@@ -2090,7 +2432,7 @@
                     PromoPrice: (MyIndexValuerratprpr.replace(',', '').replace(' ', '').replace(',', '').replace(' ', '') != "0" ) ? MyIndexValuerratprpr.replace(',', '').replace(' ', '').replace(',', '').replace(' ', '') : "0.00",
                     PRCLST_NO: MyIndexValuerrttprclst
                 };
-             
+
                 if (ItemList.Qty != "") {
                     if (ItemList.Qty != "0") {
                         data.push(ItemList);
@@ -2099,9 +2441,9 @@
                 }
 
             }
-            
+
             var DataSend = JSON.stringify(data);
-           
+
             if (data.length == 0 ) {
                 $("#btnsubmitinsert").attr("disabled", false);
                 $("#textAlertWarning").empty();
@@ -2111,7 +2453,7 @@
                 $("#example1 > tbody").empty();
                 return false;
             }
-           
+
             $.ajax({
                 url: '@Url.Action("Confirmationdata", "Orderlist")',
                 data: {
@@ -2144,7 +2486,7 @@
             });
 
         });
-       
+
         $("#sortby").change(function () {
             var vb = $(this).val();
 
@@ -2199,7 +2541,7 @@
                     Name: _var,
                     sty: '1'
                },
-           
+
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
@@ -2479,7 +2821,7 @@
 
         });
             $("#crsearchbox").click(function () {
-               
+
             $("#maker").val("");
             $("#Model").val("");
             $("#submodel").val("");
@@ -2516,7 +2858,7 @@
                    // $('.selectpicker').selectpicker('val', '');
                     // $("#productline").val("").change();
 
-                 
+
                 }
             });
         });
@@ -2537,11 +2879,11 @@
             var itemno = $("#textfreeoe").val();
             getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno);
         });
-       
+
 
 
             // getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment);
-    
+
         $("#textfree").click(function () {
             this.select();
             countorder();
@@ -2574,7 +2916,7 @@
                 };
                 // $('#fixbox').empty();
                 // $('.loader').css("display", "block");
-               
+
                 $.ajax({
                     url: '@Url.Action("GetdateStockCode", "Home")',
                     data: JSON.stringify(param),
@@ -2610,7 +2952,7 @@
 
                 var _splval = splitval(textfree);
                 var company = splitval3(textfree);
-                
+
                 var itemsegment = $("#segment").val();
                 var sortby = $("#sortby").val();
                 //var itemno = _splval;
@@ -2655,7 +2997,7 @@
                     //$('#UserID').val(CUSCODt);
                 }
             });
-         
+
 
         });*@
         // $("#nextsp").click(function () {
@@ -2824,7 +3166,7 @@
         //    noneSelectedText: 'Please Select' // by this default 'Nothing selected' -->will change to Please Select
         //});
     </script>
-    
+
     <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 </html>

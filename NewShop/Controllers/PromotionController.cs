@@ -227,7 +227,12 @@ namespace NewShop.Controllers
                         Cusname = reader["CUSNAM"].ToString(),
                         Slmcode = reader["SLMCOD"].ToString(),
                         FlagReg = reader["FLAG_REG"].ToString(),
-                        FlagApprove = reader["FLAG_APPROVE"].ToString()
+                        FlagApprove = reader["FLAG_APPROVE"].ToString(),
+                        PackQty = reader["PackQty"] != DBNull.Value ? Convert.ToInt32(reader["PackQty"]) : 0,
+                        PackAmt = reader["PackAmt"] != DBNull.Value ? Convert.ToInt32(reader["PackAmt"]) : 0,
+                        SumPackAmt = reader["SumPackAmt"] != DBNull.Value ? Convert.ToDouble(reader["SumPackAmt"]) : 0.0,
+                        PackQtyPedingApprove = reader["PackQtyPedingApprove"].ToString(),
+
                     });
                 }
                 @ViewBag.customerRegisterList = customerRegisterList;
@@ -244,6 +249,8 @@ namespace NewShop.Controllers
             @ViewBag.countCustomer = countCustomer;
             @ViewBag.countCustomerReg = countCustomerReg;
             @ViewBag.textHeader = textHeader;
+            @ViewBag.promotionCode = promotionCode;
+            @ViewBag.promotionSeq = promotionSeq;
             @ViewBag.customerMasterList = GetCustpmerBySlmcode(slmCode); 
             return PartialView("_ListCustomer", new
             {
@@ -252,7 +259,9 @@ namespace NewShop.Controllers
                 @ViewBag.messageError,
                 @ViewBag.textHeader,
                 @ViewBag.countCustomer,
-                @ViewBag.countCustomerReg
+                @ViewBag.countCustomerReg,
+                @ViewBag.promotionCode,
+                @ViewBag.promotionSeq
             });
         }
         public ActionResult GetSubCustomerByPromotion(string slmCode, string promotionCode, string promotionSeq, string cusCodeSearch)
@@ -287,7 +296,8 @@ namespace NewShop.Controllers
                         Cusname = reader["CUSNAM"].ToString(),
                         Slmcode = reader["SLMCOD"].ToString(),
                         FlagReg = reader["FLAG_REG"].ToString(),
-                        FlagApprove = reader["FLAG_APPROVE"].ToString()
+                        FlagApprove = reader["FLAG_APPROVE"].ToString(),
+                        PackQtyPedingApprove = reader["PackQtyPedingApprove"].ToString(),
                     });
                 }
                 @ViewBag.customerRegisterList = customerRegisterList;
@@ -316,16 +326,16 @@ namespace NewShop.Controllers
             });
         }
         [HttpPost]
-        public ActionResult SaveCustomerRegister(string user, string slmCode, string promotionCode, string promotionSeq, string[] cusCode)
+        public ActionResult SaveCustomerRegister(string user, string slmCode, string cusCode, string promotionCode, string promotionSeq, string packQty, string packAmt, string sumPackAmt, string txtReason)
         {
             int numSuccess = 0;
             int numError = 0;
             string message = "Y";
-            string cusCodArr = "";
-            if (cusCode != null)
-            {
-                cusCodArr = String.Join(",", cusCode.Select(s => "" + s + ""));
-            }
+            //string cusCodArr = "";
+            //if (cusCode != null)
+            //{
+            //    cusCodArr = String.Join(",", cusCode.Select(s => "" + s + ""));
+            //}
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             try
@@ -337,14 +347,20 @@ namespace NewShop.Controllers
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@inUser", user);
                 command.Parameters.AddWithValue("@inSlmCode", slmCode);
+                command.Parameters.AddWithValue("@inCustomerCode", cusCode);
                 command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
                 command.Parameters.AddWithValue("@inPromotionSeq", Convert.ToInt32(promotionSeq));
-                command.Parameters.AddWithValue("@inCustomerCode", cusCodArr);
+                command.Parameters.AddWithValue("@inPackQty", Convert.ToInt32(packQty));
+                command.Parameters.AddWithValue("@inPackAmt", packAmt);
+                command.Parameters.AddWithValue("@inSumPackAmt", sumPackAmt);
+                command.Parameters.AddWithValue("@inReason", txtReason);
                 SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                 returnValue.Direction = System.Data.ParameterDirection.Output;
                 command.Parameters.Add(returnValue);
                 command.ExecuteNonQuery();
-                message = returnValue.Value.ToString();
+                if (!string.IsNullOrEmpty(returnValue.Value.ToString())) { 
+                    message = returnValue.Value.ToString();
+                }
                 //if (message == "Y")
                 //{
                 //    ++numSuccess;
@@ -412,11 +428,350 @@ namespace NewShop.Controllers
 
             return View();
         }
+        //get all tab
+        public ActionResult GetManagePackPromotion(string slmCode, string customerCode, string customerName, string promotionCode, string promotionSeq)
+        {
+            @ViewBag.slmCode = slmCode;
+            @ViewBag.customerCode = customerCode;
+            @ViewBag.customerName = customerName;
+            @ViewBag.promotionCode = promotionCode;
+            @ViewBag.promotionSeq = promotionSeq;
+
+            return PartialView("_ManagePackPromotion", new
+            {
+                @ViewBag.slmCode,
+                @ViewBag.customerCode,
+                @ViewBag.promotionCode,
+                @ViewBag.promotionSeq,
+                @ViewBag.customerName
+            });
+        }
+        //get table list pack by customer 
+        public ActionResult GetListPackPromotionByCustomerCurrent(string customerCode, string promotionCode, string promotionSeq)
+        {
+            List<listCustomerRegister> customerRegisterList = new List<listCustomerRegister>();
+            if (!string.IsNullOrEmpty(customerCode) && !string.IsNullOrEmpty(promotionCode) && !string.IsNullOrEmpty(promotionSeq))
+            {
+                customerRegisterList = GetListPackPromotionByCustomer(customerCode, promotionCode, "");
+            }
+            @ViewBag.customerRegisterList = customerRegisterList;
+            return PartialView("_ListPackPromotionByCustomer", new
+            {
+                @ViewBag.customerRegisterList
+            });
+        }
+        //ดึงข้อมูลของ CustomerCode ตาม Seq
+        public ActionResult GetManagePackPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq)
+        {
+            int countCustomer = 0;
+            int countCustomerReg = 0;
+            string message = "Y";
+            string customerMasterList = string.Empty;
+            string customerCodeBag = string.Empty;
+            string customerNameBag = string.Empty;
+            string slmCode = string.Empty;
+            string flagReg = string.Empty;
+            string flagApprove = string.Empty;
+            string packQtyPedingApprove = string.Empty;
+            int packQty = 0;
+            int packAmt = 0;
+            Double sumPackAmt = 0;
+
+            List<listCustomerRegister> customerRegisterList = new List<listCustomerRegister>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Customer_Register", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inSlmCode", "");
+                command.Parameters.AddWithValue("@inCuscodeSearch", customerCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ++countCustomer;
+                    if (!string.IsNullOrEmpty(reader["FLAG_REG"].ToString()))
+                    {
+                        ++countCustomerReg;
+                    }
+                    customerCodeBag = reader["CUSCOD"].ToString();
+                    customerNameBag = reader["CUSNAM"].ToString();
+                    slmCode = reader["SLMCOD"].ToString();
+                    flagReg = reader["FLAG_REG"].ToString();
+                    flagApprove = reader["FLAG_APPROVE"].ToString();
+                    packQty = reader["PackQty"] != DBNull.Value ? Convert.ToInt32(reader["PackQty"]) : 0;
+                    packAmt = reader["PackAmt"] != DBNull.Value ? Convert.ToInt32(reader["PackAmt"]) : 0;
+                    sumPackAmt = reader["SumPackAmt"] != DBNull.Value ? Convert.ToDouble(reader["SumPackAmt"]) : 0.0;
+                    if (packQty == 1 && sumPackAmt == 0.0)
+                    {
+                        sumPackAmt = packAmt;
+                    }
+                    packQtyPedingApprove = reader["PackQtyPedingApprove"].ToString();
+
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrEmpty(customerCode) && !string.IsNullOrEmpty(promotionCode) && !string.IsNullOrEmpty(promotionSeq)) { 
+                customerRegisterList = GetListPackPromotionByCustomer(customerCode, promotionCode, "");
+            }
+            @ViewBag.customerRegisterList = customerRegisterList;
+            @ViewBag.customerCodeBag = customerCodeBag;
+            @ViewBag.customerNameBag = customerNameBag;
+            @ViewBag.promotionCode = promotionCode;
+            @ViewBag.promotionSeq = promotionSeq;
+            @ViewBag.slmCode = slmCode;
+            @ViewBag.flagReg = flagReg;
+            @ViewBag.flagApprove = flagApprove;
+            @ViewBag.packQty = packQty;
+            @ViewBag.packAmt = packAmt;
+            @ViewBag.sumPackAmt = sumPackAmt;
+            @ViewBag.packQtyPedingApprove = packQtyPedingApprove;
+            @ViewBag.countCustomer = countCustomer;
+            @ViewBag.countCustomerReg = countCustomerReg;
+            @ViewBag.messageError = message;
+            return PartialView("_ManagePackPromotionBySeq", new
+            {
+                @ViewBag.customerRegisterList,
+                @ViewBag.customerCodeBag,
+                @ViewBag.customerNameBag, 
+                @ViewBag.promotionCode, 
+                @ViewBag.promotionSeq, 
+                @ViewBag.slmCode,
+                @ViewBag.flagReg,
+                @ViewBag.flagApprove,
+                @ViewBag.packQty,
+                @ViewBag.packAmt,
+                @ViewBag.sumPackAmt,
+                @ViewBag.packQtyPedingApprove,
+                @ViewBag.countCustomer,
+                @ViewBag.countCustomerReg,
+                @ViewBag.messageError
+            });
+        }
+        ///ดึง list promotion ทั้งหมดที่ลูกค้านี้ลงใน PromotionCode นี้
+        public List<listCustomerRegister> GetListPackPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq)
+        {
+            string message = "Y";
+            string customerMasterList = string.Empty;
+            List<listCustomerRegister> customerRegisterList = new List<listCustomerRegister>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Customer_Register", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inSlmCode", "");
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                command.Parameters.AddWithValue("@inCuscodeSearch", customerCode);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    customerRegisterList.Add(new listCustomerRegister()
+                    {
+                        Cuscode = reader["CUSCOD"].ToString(),
+                        Cusname = reader["CUSNAM"].ToString(),
+                        Slmcode = reader["SLMCOD"].ToString(),
+                        FlagReg = reader["FLAG_REG"].ToString(),
+                        FlagApprove = reader["FLAG_APPROVE"].ToString(),
+                        PackQty = reader["PackQty"] != DBNull.Value ? Convert.ToInt32(reader["PackQty"]) : 0,
+                        PackAmt = reader["PackAmt"] != DBNull.Value ? Convert.ToInt32(reader["PackAmt"]) : 0,
+                        SumPackAmt = reader["SumPackAmt"] != DBNull.Value ? Convert.ToDouble(reader["SumPackAmt"]) : 0.0,
+                        PackQtyPedingApprove = reader["PackQtyPedingApprove"].ToString(),
+                        Reason = reader["Reason"].ToString(),
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return customerRegisterList;
+        }
+        //get table list pack by promotion code all customer of slmcode
+        public ActionResult GetCustomerByPromotionCode(string customerCode, string promotionCode, string promotionSeq, string slmCode)
+        {
+            List<listCustomerRegisterByCustomer> customerByPromotionCodeList = new List<listCustomerRegisterByCustomer>();
+            if (!string.IsNullOrEmpty(promotionCode))
+            {
+                customerByPromotionCodeList = GetListPackPromotionByCustomerAllPm(customerCode, promotionCode, promotionSeq, slmCode);
+            }
+            @ViewBag.customerByPromotionCodeList = customerByPromotionCodeList;
+            return PartialView("_ListCustomerByPromotionCode", new
+            {
+                @ViewBag.customerByPromotionCodeList
+            });
+        }
+        //get table list pack by customer all pm
+        public ActionResult GetPackPromotionByCustomerCurrentAllPm(string customerCode, string promotionCode, string promotionSeq, string slmCode)
+        {
+            List<listCustomerRegisterByCustomer> customerRegisterAllPmList = new List<listCustomerRegisterByCustomer>();
+            if (!string.IsNullOrEmpty(customerCode))
+            {
+                customerRegisterAllPmList = GetListPackPromotionByCustomerAllPm(customerCode, promotionCode, promotionSeq, slmCode);
+            }
+            @ViewBag.customerRegisterAllPmList = customerRegisterAllPmList;
+            return PartialView("_ListPackPromotionByCustomerAllPm", new
+            {
+                @ViewBag.customerRegisterAllPmList
+            });
+        }
+        ///ดึง list promotion ทั้งหมดที่ลูกค้านี้ลง
+        public List<listCustomerRegisterByCustomer> GetListPackPromotionByCustomerAllPm(string customerCode, string promotionCode, string promotionSeq, string slmCode)
+        {
+            string message = "Y";
+            List<listCustomerRegisterByCustomer> customerRegisterAllPmList = new List<listCustomerRegisterByCustomer>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Customer_Register_By_Customer", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCustomerCode", customerCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                command.Parameters.AddWithValue("@inSlmCode", slmCode);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    customerRegisterAllPmList.Add(new listCustomerRegisterByCustomer()
+                    {
+                        Cuscode = reader["CUSCOD"].ToString(),
+                        Cusname = reader["CUSNAM"].ToString(),
+                        Slmcode = reader["SLMCOD"].ToString(),
+                        Promotion_Code = reader["Promotion_Code"].ToString(),
+                        Promotion_Sub = reader["Promotion_Sub"].ToString(),
+                        Description = reader["Description"].ToString(),
+                        ProductCode = reader["ProductCode"].ToString(),
+                        ProductName = reader["ProductName"].ToString(),
+                        PackQty = reader["PackQty"] != DBNull.Value ? Convert.ToInt32(reader["PackQty"]) : 0,
+                        PackAmt = reader["PackAmt"] != DBNull.Value ? Convert.ToInt32(reader["PackAmt"]) : 0,
+                        SumPackAmt = reader["SumPackAmt"] != DBNull.Value ? Convert.ToDouble(reader["SumPackAmt"]) : 0.0,
+                        Promotion_Year = reader["Promotion_Year"].ToString(),
+                        FlagApprove = reader["FLAG_APPROVE"].ToString(),
+                        PackQtyPedingApprove = reader["PackQtyPedingApprove"].ToString(),
+                        Reason = reader["Reason"].ToString(),
+                    });
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return customerRegisterAllPmList;
+        }
+        //ดึงผลรวม SumPackAmount
+        public ActionResult GetAmountPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq, string packQty, string packAmt, string sumPackAmt)
+        {
+            string message = "Y";
+            string sumPackAmtCurrent = string.Empty;
+            string sumPackAmtAfter = string.Empty;
+            string sumPackQtyCurrent = string.Empty;
+            string sumPackQtyAfter = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Get_Amount_Promotion_By_Customer", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCustomerCode", customerCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inPromotionSeq", promotionSeq);
+                command.Parameters.AddWithValue("@inPackQty", packQty);
+                command.Parameters.AddWithValue("@inPackAmt", packAmt);
+                command.Parameters.AddWithValue("@inSumPackAmt", sumPackAmt);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    sumPackQtyCurrent = reader["sumPackQtyCurrent"].ToString();
+                    sumPackAmtCurrent = reader["sumPackAmtCurrent"].ToString();
+                    sumPackQtyAfter = reader["sumPackQtyAfter"].ToString();
+                    sumPackAmtAfter = reader["sumPackAmtAfter"].ToString();
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new
+            {
+                sumPackQtyCurrent = sumPackQtyCurrent,
+                sumPackAmtCurrent = sumPackAmtCurrent,
+                sumPackQtyAfter = sumPackQtyAfter,
+                sumPackAmtAfter = sumPackAmtAfter,
+                message = message
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public List<listPromotionBeforeAfter> GetListPromotionBeforeAfter(string customerCode, string promotionCode, string Flag)
+        {
+            string message = "Y";
+            string user = Session["UserID"].ToString();
+            List<listPromotionBeforeAfter> promotionBeforeAfterList = new List<listPromotionBeforeAfter>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Promotion_Before_After", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCustomerCode", customerCode);
+                command.Parameters.AddWithValue("@inPromotionCode", promotionCode);
+                command.Parameters.AddWithValue("@inFlag", Flag);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    promotionBeforeAfterList.Add(new listPromotionBeforeAfter()
+                    {
+                        RowNumber = dr["RowNumber"].ToString(),
+                        Cuscode = dr["Cuscode"].ToString(),
+                        Cusname = dr["Cusname"].ToString(),
+                        Slmcode = dr["Slmcode"].ToString(),
+                        PackQty = dr["PackQty"].ToString(),
+                        PackAmt = dr["PackAmt"].ToString(),
+                        SumPackAmt = dr["SumPackAmt"].ToString(),
+                        InsertDate = dr["InsertDate"].ToString(),
+                    });
+                }
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return promotionBeforeAfterList;
+        }
         public ActionResult GetPromotionApprove(string slmCode, string company, string year, string period, string prodMgr, string promotionCode)
         {
             string message = "Y";
             string user = Session["UserID"].ToString();
             List<listCustomerApprove> promotionChangeList = new List<listCustomerApprove>();
+            var resultList = new List<CustomerPromotionChangeViewModel>();
             var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -433,25 +788,45 @@ namespace NewShop.Controllers
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    promotionChangeList.Add(new listCustomerApprove()
+                    var customer = new listCustomerApprove
                     {
                         Slmcode = dr["SLMCOD"].ToString(),
                         Cuscode = dr["ProCusSelCod"].ToString(),
                         Cusname = dr["CUSNAM"].ToString(),
                         Date_change = dr["Date_change"].ToString(),
-
                         Promotion_Code_Old = dr["Promotion_Code_old"].ToString(),
                         Promotion_Code_old_Description = dr["Promotion_Code_old_Description"].ToString(),
                         Promotion_Sub_Old = dr["Promotion_Sub_Old"].ToString(),
                         Description_Old = dr["Description_old"].ToString(),
                         Reward_Old = dr["Reward_old"].ToString(),
+                        PackQty_total_old = dr["PackQty_total_old"].ToString(),
+                        SumPackQty_total_old = dr["SumPackQty_total_old"].ToString(),
                         Cost_Old = dr["Cost_old"].ToString(),
-
+                        PackQty_Old = dr["PackQty_old"].ToString(),
+                        PackAmt_Old = dr["PackAmt_old"].ToString(),
+                        SumPackAmt_Old = dr["SumPackAmt_old"].ToString(),
                         Promotion_Code_New = dr["Promotion_Code_new"].ToString(),
                         Promotion_Sub_New = dr["Promotion_Sub_New"].ToString(),
                         Description_New = dr["Description_new"].ToString(),
                         Reward_New = dr["Reward_new"].ToString(),
-                        Cost_New = dr["Cost_New"].ToString()
+                        PackQty_total_new = dr["PackQty_total_new"].ToString(),
+                        SumPackQty_total_new = dr["SumPackQty_total_new"].ToString(),
+                        Cost_New = dr["Cost_New"].ToString(),
+                        PackQty_New = dr["PackQty_New"].ToString(),
+                        PackAmt_New = dr["PackAmt_New"].ToString(),
+                        SumPackAmt_New = dr["SumPackAmt_New"].ToString(),
+                        Decrease_PackQty = dr["Decrease_PackQty"].ToString(),
+                        Decrease_SumPackAmt = dr["Decrease_SumPackAmt"].ToString(),
+                    };
+
+                    var cusCode = customer.Cuscode;
+                    var Promotion_Code_Old = customer.Promotion_Code_Old;
+
+                    resultList.Add(new CustomerPromotionChangeViewModel
+                    {
+                        CustomerData = customer,
+                        PromotionBeforeList = GetListPromotionBeforeAfter(cusCode, Promotion_Code_Old, "before"),
+                        PromotionAfterList = GetListPromotionBeforeAfter(cusCode, Promotion_Code_Old, "after")
                     });
                 }
                 dr.Close();
@@ -465,9 +840,7 @@ namespace NewShop.Controllers
             }
 
             @ViewBag.messageError = message;
-            @ViewBag.promotionChangeList = promotionChangeList;
-            //@ViewBag.countCustomerReg = countCustomerReg;
-            //@ViewBag.textHeader = textHeader;
+            @ViewBag.promotionChangeList = resultList;
             return PartialView("_DetailChangeCustomer", new
             {
                 @ViewBag.promotionChangeList,
@@ -495,8 +868,12 @@ namespace NewShop.Controllers
                         command.Parameters.AddWithValue("@inCuscode", rowData.Cuscode);
                         command.Parameters.AddWithValue("@inCodeold", rowData.Codeold);
                         command.Parameters.AddWithValue("@inSeqold", Convert.ToInt32(rowData.Seqold));
+                        command.Parameters.AddWithValue("@inPackqtyold", Convert.ToInt32(rowData.Packqtyold));
+                        command.Parameters.AddWithValue("@inSumpackamtold", Convert.ToInt32(rowData.Sumpackamtold));
                         command.Parameters.AddWithValue("@inCodenew", rowData.Codenew);
                         command.Parameters.AddWithValue("@inSeqnew", Convert.ToInt32(rowData.Seqnew));
+                        command.Parameters.AddWithValue("@inPackqtynew", Convert.ToInt32(rowData.Packqtynew));
+                        command.Parameters.AddWithValue("@inSumpackamtnew", Convert.ToInt32(rowData.Sumpackamtnew));
                         command.Parameters.AddWithValue("@inUser", user);
                         command.Parameters.AddWithValue("@inFlagApprove", flagApprove);
                         //SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);

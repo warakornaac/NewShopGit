@@ -1,0 +1,182 @@
+﻿
+<input type="hidden" id="slmCode" name="slmCode" value="@ViewBag.slmCode" />
+<input type="hidden" id="customerCode" name="customerCode" value="@ViewBag.customerCode" />
+<input type="hidden" id="promotionCode" name="promotionCode" value="@ViewBag.promotionCode" />
+<input type="hidden" id="promotionSeq" name="promotionSeq" value="@ViewBag.promotionSeq" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info font-weight-bold" role="alert"> (@ViewBag.customerCode) @ViewBag.customerName </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel with-nav-tabs panel-default">
+            <div class="panel-heading pb-0">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tabPromotionByReq" aria-expanded="false"><i class="fa fa-user"></i> <strong>  Promotion Code นี้ </strong></a></li>
+                    <li><a data-toggle="tab" href="#tabPromotionByAllPm" aria-expanded="true"><i class="fa fa fa-users"></i> <strong> Promotion Code ทั้งหมด </strong></a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="tabPromotionByReq" class="tab-pane fade in active">
+                        Promotion ของ PromotionCode นี้
+                    </div>
+                    <div id="tabPromotionByAllPm" class="tab-pane fade">
+                        Promotion ทั้งหมด
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer>
+
+    //default ดึงข้อมูล tab แรก
+    $(document).ready(function () {
+        getContentPromotionByReq();
+    });
+    //ดีง Form บันทึก
+    function getContentPromotionByReq() {
+        var customerCode = $("#customerCode").val();
+        var promotionCode = $("#promotionCode").val();
+        var promotionSeq = $("#promotionSeq").val();
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("GetManagePackPromotionByCustomer", "Promotion")',
+            data: {
+                slmCode: '',
+                customerCode: customerCode,
+                promotionCode: promotionCode,
+                promotionSeq: promotionSeq,
+            },
+            dataType: 'html',
+            cache: false,
+            Async: true,
+            beforeSend: function () {
+                $('#tabPromotionByReq').empty();
+                $('#tabPromotionByReq').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                // LoadingShow();
+            },
+            success: function (res) {
+                // LoadingHide();
+                $('#tabPromotionByReq').html(res);
+            },
+            error: function (er) {
+                alert(er.error);
+            }
+        }).fail(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: error.status,
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>tabPromotionByReq<br><br>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+        });
+    }
+    //ดึง list promotion ทั้งหมดที่ลูกค้าลงใน PromotionCode นี้
+    function getListPackPromotionByCustomer() {
+        var customerCode = $("#customerCode").val();
+        var promotionCode = $("#promotionCode").val();
+        var promotionSeq = $("#promotionSeq").val();
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("GetListPackPromotionByCustomer", "Promotion")',
+            data: {
+                slmCode: '',
+                customerCode: customerCode,
+                promotionCode: promotionCode
+            },
+            dataType: 'html',
+            cache: false,
+            Async: true,
+            beforeSend: function () {
+                $('#tabPromotionByReq').empty();
+                $('#tabPromotionByReq').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                // LoadingShow();
+            },
+            success: function (res) {
+                // LoadingHide();
+                $('#tabPromotionByReq').html(res);
+            },
+            error: function (er) {
+                alert(er.error);
+            }
+        }).fail(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: error.status,
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>tabPromotionByReq<br><br>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+        });
+    }
+    //ดึง list promotion ทั้งหมดที่ลูกค้าลง
+    function getListPackPromotionByCustomerAllPm() {
+        var promotionCode = $("#promotionCode").val();
+        var customerCode = $("#customerCode").val();
+        var slmCode = $("#slmCode").val();
+        var promotionSeq = $("#promotionSeq").val();
+
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("GetPackPromotionByCustomerCurrentAllPm", "Promotion")',
+            data: {
+                customerCode: customerCode,
+                promotionCode: "",
+                promotionSeq: "",
+                slmCode: slmCode
+            },
+            dataType: 'html',
+            cache: false,
+            Async: true,
+            beforeSend: function () {
+                $('#tabPromotionByAllPm').empty();
+                $('#tabPromotionByAllPm').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                // LoadingShow();
+            },
+            success: function (res) {
+                // LoadingHide();
+                $('#tabPromotionByAllPm').html(res);
+            },
+            error: function (er) {
+                alert(er.error);
+            }
+        }).fail(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: error.status,
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>tabPromotionByReq<br><br>',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ปิด',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+        });
+    }
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var targetId = $(e.target).attr('href');
+        //var urlByTab = {
+        //    '#tabPromotionByReq': 'your-url-for-cardetail.php',
+        //    '#tabPromotionByAllPm': 'your-url-for-financenew.php'
+        //};
+        //console.log("urlByTab = " + urlByTab[targetId]);
+        console.log("targetId = " + targetId);
+        if (targetId == "#tabPromotionByAllPm") {
+            getListPackPromotionByCustomerAllPm();
+        }
+
+        $('.nav-tabs li').removeClass('active');
+        $(e.target).parent('li').addClass('active');
+
+    });
+</script>
