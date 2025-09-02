@@ -1066,11 +1066,13 @@ namespace NewShop.Controllers
                         cmd.Parameters.AddWithValue("@inShip_Customer", CusShipping);
                         cmd.Parameters.AddWithValue("@Transport_Code", codetransportation);
                         cmd.Parameters.AddWithValue("@inSLMCODE", SLMCOD);
-                        cmd.Parameters.AddWithValue("@inORD_TotalQty", Convert.ToInt32(sumqty));
-                        cmd.Parameters.AddWithValue("@inORD_TotalItem", Convert.ToInt32(sumstk));
-                        cmd.Parameters.AddWithValue("@inORD_TotalPrice", Convert.ToDecimal(ORD_TotalPrice));
+                        cmd.Parameters.AddWithValue("@inORD_TotalQty", Convert.ToInt32(sumqty)); //26002
+                        cmd.Parameters.AddWithValue("@inORD_TotalItem", Convert.ToInt32(sumstk)); //12
+                        //cmd.Parameters.AddWithValue("@inORD_TotalPrice", Convert.ToDecimal(ORD_TotalPrice)); //26686284.30
+                        cmd.Parameters.AddWithValue("@inORD_TotalPrice", Convert.ToDecimal(0)); //26686284.30
                         cmd.Parameters.AddWithValue("@inORD_TotalDiscount", Convert.ToDecimal(ORD_TotalDiscount));
-                        cmd.Parameters.AddWithValue("@inORD_Vat", Convert.ToDecimal(sumvat));
+                        //cmd.Parameters.AddWithValue("@inORD_Vat", Convert.ToDecimal(sumvat));   //1868039.90
+                        cmd.Parameters.AddWithValue("@inORD_Vat", Convert.ToDecimal(0));   //1868039.90
                         cmd.Parameters.AddWithValue("@inPro_Discount", Convert.ToDecimal(sumpro));
                         cmd.Parameters.AddWithValue("@inDeliveryDate", dateDelivery);
                         cmd.Parameters.AddWithValue("@inDeliveryTime", DeliveryTime);

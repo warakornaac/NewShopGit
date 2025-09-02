@@ -218,6 +218,7 @@
                                         <option value="TAC">TAC</option>
                                         <option value="AAC">AAC</option>
                                         <option value="OMP">OMP</option>
+                                        <option value="AGS">AGS</option>
                                     </select>
                                 </div>
                             </div>
@@ -1042,6 +1043,7 @@
                     </div>
 
                     <div id="checkCreditCustomer"></div>
+                    <div id="checkTotalAmtAllItem"></div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1575,6 +1577,9 @@
 
                                     SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '<br><div style=' + discol + '>' + restatus + '</div></td>';
                                 } else if (company == "OMP") {
+
+                                    SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '<br><div style=' + discol + '>' + restatus + '</div></td>';
+                                } else if (company == "AGS") {
 
                                     SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '<br><div style=' + discol + '>' + restatus + '</div></td>';
                                 }
@@ -2691,6 +2696,9 @@
                                 if (company == "TAC") {
                                     SubmithtmlPage += '<td><i style="color: red;  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
                                 } else if (company == "AAC") {
+
+                                    SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
+                                } else if (company == "AGS") {
 
                                     SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
                                 }
@@ -3811,6 +3819,8 @@
                     var CreditTerm = "";
                     var CusPo = $("#CusPo").val();
                     var CommentByOrder = $("#CommentByOrder").val();
+                    var groupedByCompany = {};
+
                     $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
 
                         var idorder = $(this).attr('cartid');
@@ -3897,12 +3907,114 @@
                         };
                         if (ItemList.VQty != "0") {
                             data.push(ItemList);
+                            // Grouping
+                            if (!groupedByCompany[VCompany]) {
+                                groupedByCompany[VCompany] = {
+                                    items: [],
+                                    totalAmount: 0
+                                };
+                            }
+
+                            groupedByCompany[VCompany].items.push(ItemList);
+                            groupedByCompany[VCompany].totalAmount += parseFloat(ItemList.VAmt) || 0;
                         }
 
-                       // console.log(JSON.stringify(data));
-
-
+                       //console.log(JSON.stringify(data));
                     });
+                    console.log(data);
+                    var companiesWithZeroTotal = [];
+
+                    //$.each(groupedByCompany, function (company, group) {
+                    //    console.log("Company:", company);
+                    //    console.log("Total Amount:", group.totalAmount.toFixed(2));
+                    //    //
+                    //    if (group.totalAmount == 0) {
+                    //        companiesWithZeroTotal.push(company);
+                    //    }
+
+                    //    $.each(group.items, function (index, item) {
+                    //        console.log("  Item Code:", item.VSTKCOD, "| Qty:", item.VQty, "| VAmt:", item.VAmt);
+                    //    });
+                    //});
+
+
+                    //$.each(groupedByCompany, function (company, group) {
+                    //    if (group.VAmt === 0) {
+                    //        companiesWithZeroTotal.push(company);
+                    //    }
+                    //});
+
+                    //if (companiesWithZeroTotal.length > 0) {
+                    //    alert("The following companies have total amount = 0:\n" + companiesWithZeroTotal.join(", "));
+                    //    // Prevent further action
+                    //    return;
+                    //}
+
+
+                    var textCheckTotalAmt = "";
+
+                    textCheckTotalAmt += '<div class="row">';
+                    textCheckTotalAmt += '<div class="col-sm-12">';
+                    textCheckTotalAmt += '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;">';
+                    $.each(groupedByCompany, function (company, group) {
+                        if (group.totalAmount === 0) {
+                            var itemCodes = group.items.map(item => item.VSTKCOD);
+                            //textCheckTotalAmt += "<p>⚠️ <strong>Company:</strong> " + company +
+                            //    " | <strong>Item Codes:</strong> " + itemCodes.join(", ") +
+                            //    " | <strong>Total Amount:</strong> 0</p>";
+
+                            textCheckTotalAmt += '<i class="fa fa-exclamation-triangle" aria-hidden="true" ></i> พบสินค้าทุกรายการ : ' + itemCodes.join(", ") + ' บริษัท : <u>' + company + '</u>  ไม่มีมูลค่า <br>';
+
+                        }
+                    });
+                    textCheckTotalAmt += 'กรุณาตรวจสอบรายการสินค้าใหม่อีกครั้ง';
+                    textCheckTotalAmt += '</div>';
+                    textCheckTotalAmt += '</div>';
+                    textCheckTotalAmt += '</div>';
+
+                    if (textCheckTotalAmt != "") {
+                        //disable ปุ่มยินยัน
+                        $("#btnOK").prop('disabled', true);
+                        $('#checkTotalAmtAllItem').html(textCheckTotalAmt);
+                    } else {
+                        //enable ปุ่มยินยัน
+                        $("#btnOK").prop('disabled', false);
+                        $('#checkTotalAmtAllItem').empty();
+                    }
+                    //Get data item by company
+                    //var groupedByCompany = {};
+
+                    // Group items and sum TotalAmt
+                    //$.each(data, function (index, item) {
+                    //    var company = item.VCompany;
+
+                    //    // Initialize group if not exists
+                    //    if (!groupedByCompany[company]) {
+                    //        groupedByCompany[company] = {
+                    //            items: [],
+                    //            totalAmount: TotalAmt
+                    //        };
+                    //    }
+
+                    //    // Add item to group
+                    //    groupedByCompany[company].items.push(item);
+
+                    //    // Add to running total (make sure it's numeric)
+                    //    groupedByCompany[company].totalAmount += parseFloat(item.TotalAmt) || 0;
+                    //});
+
+                    //$.each(groupedByCompany, function (company, group) {
+                    //    console.log("Company:", company);
+                    //    console.log("Total Amount:", group.totalAmount);
+
+                    //    var itemCodes = group.items.map(function (item) {
+                    //        return item.VSTKCOD;
+                    //    });
+
+                    //    console.log("Item Codes:", itemCodes.join(", "));
+                    //});
+                    //End get
+
                     //if (data.length > 0) {
                     //    if (usertype == "6") {
                     //        var checkamt = data[0].AmtSalePrices;
@@ -4123,9 +4235,9 @@
                                             //                                    '</div>' +
                                             //                                '</div>')
                                             $('#checkCreditCustomer').empty();
+                                            //enable ปุ่มยินยัน
+                                            $("#btnOK").prop('disabled', false);
                                         }
-                                       //enable ปุ่มยินยัน
-                                        $("#btnOK").prop('disabled', false);
                                     }
                                 });
                                 //end call
@@ -4883,6 +4995,7 @@
                                 var datacomTAC = new Array();
                                 var datacomAAC = new Array();
                                 var datacomOMP = new Array();
+                                var datacomAGS = new Array();
                                 var xc = "";
                                 $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
                                     var CKCompany = $(this).attr('Company');
@@ -4903,26 +5016,61 @@
                                             com: CKCompany
                                         }
                                         datacomOMP.push(Ckcom);
+                                    } else if (CKCompany == "AGS") {
+                                        var Ckcom = {
+                                            com: CKCompany
+                                        }
+                                        datacomAGS.push(Ckcom);
                                     }
                                 });
-                                if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                //old
+                                //if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 ) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "TAC";
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "AAC";
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "OMP";
+                                //}
+                                //new
+                                if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length == 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0 && datacomAGS.length == 0) {
                                     ckVCompany = "TAC";
-                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0 && datacomAGS.length == 0) {
                                     ckVCompany = "AAC";
-                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomAGS.length == 0 && datacomOMP.length > 0) {
                                     ckVCompany = "OMP";
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomAGS.length > 0 && datacomOMP.length == 0) {
+                                    ckVCompany = "AGS";
+
                                 }
                                 //console.log(datacomTAC.length + " " + datacomAAC.length);
                                 // alert(ckVCompany);

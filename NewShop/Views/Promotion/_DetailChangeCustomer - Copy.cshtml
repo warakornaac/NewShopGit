@@ -136,10 +136,6 @@
         display: none;
     }
 </style>
-@{ 
-
-}
-
 <div class="row">
     <div class="col-12">
         @*new*@
@@ -209,87 +205,79 @@
                             <div class="panel panel-default panel-order m-2">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-4" id="col-@rowData.CustomerData.Cuscode" >
+                                        <div class="col-md-4" id="col-@rowData.Cuscode" >
                                             <h4 class="pt-2 text-170 text-600 letter-spacing">
                                                 <input type="checkbox" name="selectChangeCustomer" class="ml-2" id="selectPromotion"
-                                                       data-cuscode="@rowData.CustomerData.Cuscode"
-                                                       data-codeold="@rowData.CustomerData.Promotion_Code_Old"
-                                                       data-seqold="@rowData.CustomerData.Promotion_Sub_Old"
-                                                       data-packqtyold="@rowData.CustomerData.PackQty_Old"
-                                                       data-sumpackamtold="@rowData.CustomerData.SumPackAmt_Old"
-                                                       data-codenew="@rowData.CustomerData.Promotion_Code_New"
-                                                       data-seqnew="@rowData.CustomerData.Promotion_Sub_New"
-                                                       data-packqtynew="@rowData.CustomerData.PackQty_New"
-                                                       data-sumpackamtnew="@rowData.CustomerData.SumPackAmt_New"/> &nbsp;
+                                                       data-cuscode="@rowData.Cuscode"
+                                                       data-codeold="@rowData.Promotion_Code_Old"
+                                                       data-seqold="@rowData.Promotion_Sub_Old"
+                                                       data-packqtyold="@rowData.PackQty_Old"
+                                                       data-sumpackamtold="@rowData.SumPackAmt_Old"
+                                                       data-codenew="@rowData.Promotion_Code_New"
+                                                       data-seqnew="@rowData.Promotion_Sub_New"
+                                                       data-packqtynew="@rowData.PackQty_New"
+                                                       data-sumpackamtnew="@rowData.SumPackAmt_New"/> &nbsp;
                                                 <span class="label label-info">
-                                                    @rowData.CustomerData.Slmcode
+                                                    @rowData.Slmcode
                                                 </span>
                                             </h4>
-                                            <div class="text-secondary-d1 text-xs"> <span class="ml-n15 align-text-bottom"> @rowData.CustomerData.Cuscode @rowData.CustomerData.Cusname </span></div>
+                                            <div class="text-secondary-d1 text-xs"> <span class="ml-n15 align-text-bottom"> @rowData.Cuscode @rowData.Cusname </span></div>
 
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time align-text-bottom pb-1">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-1">@rowData.CustomerData.Date_change</span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-1">@rowData.Date_change</span></div>
                                             </div>
 
                                         </div>
                                         <div class="col-md-8" style="font-size: 14px;">
                                             <div class="row">
-                                                @*Before*@
                                                 <div class="col-md-12" style="background: #f3f0f0; border-top: 1px solid #ede6e6;">
+                                                @*Before*@
                                                     <div class="pull-right">
                                                         <label class="label label-warning">Old</label>
                                                     </div>
-                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.CustomerData.Promotion_Code_Old / @rowData.CustomerData.Promotion_Code_old_Description</strong></span>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_Old / @rowData.Promotion_Code_old_Description</strong></span>
                                                     <br />
                                                     <i class="fa fa-usd icon"></i>
-                                                    @rowData.CustomerData.Description_Old |
-                                                    @rowData.CustomerData.Reward_Old (@rowData.CustomerData.Cost_Old)
+                                                    @rowData.Description_Old |
+                                                    @rowData.Reward_Old (@rowData.Cost_Old)
                                                     <br />
                                                     <i class="fa fa-tags icon"></i>
-                                                    จาก @rowData.CustomerData.PackQty_Old แพ๊ค |
-                                                    แพ๊คละ @rowData.CustomerData.PackAmt_Old (รวมเป็นเงิน @rowData.CustomerData.SumPackAmt_Old)
+                                                    จาก @rowData.PackQty_Old แพ๊ค |
+                                                    แพ๊คละ @rowData.PackAmt_Old (รวมเป็นเงิน @rowData.SumPackAmt_Old)
                                                     <br />
                                                     <i class="fa fa-thumb-tack icon"></i>
-                                                    <span style="color: #0275d8; background-color: yellow;">
-                                                        รายการก่อนลดจำนวน @rowData.CustomerData.PackQty_total_old แพ๊ค
-                                                        (รวมเป็นเงิน @rowData.CustomerData.SumPackQty_total_old)
+                                                    <span style="color: #0275d8;">
+                                                        จากทั้งหมด @rowData.PackQty_total_old แพ๊ค
+                                                        (รวมเป็นเงิน @rowData.SumPackQty_total_old)
                                                     </span>
                                                     <br />
-                                                    @foreach (var rowDataBefore in rowData.PromotionBeforeList)
-                                                    {
-                                                        @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataBefore.RowNumber). แพ๊คละ @rowDataBefore.PackAmt จำนวน @rowDataBefore.PackQty รวมเป็นเงิน @rowDataBefore.SumPackAmt <br />
-                                                    }
                                                 </div>
+                                                <div class="col-md-12">
                                                 @*After*@
-                                            <div class="col-md-12">
-                                                <div class="pull-right icon">
-                                                    <label class="label label-success">New</label>
+                                                    <div class="pull-right icon">
+                                                        <label class="label label-success">New</label>
+                                                    </div>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.Promotion_Code_New / @rowData.Promotion_Code_old_Description</strong></span>
+                                                    <br />
+                                                    <i class="fa fa-usd icon"></i>
+                                                    @rowData.Description_New |
+                                                    @rowData.Reward_New (@rowData.Cost_New)
+                                                    <br />
+                                                    <i class="fa fa-tag icon"></i>
+                                                    เป็น @rowData.PackQty_New แพ๊ค |
+                                                    แพ๊คละ @rowData.PackAmt_New (รวมเป็นเงิน @rowData.SumPackAmt_New)
+                                                    <br />
+                                                    <i class="fa fa-sort-amount-desc icon"></i>
+                                                    ลดลง @rowData.Decrease_PackQty แพ๊ค
+                                                    (เป็นเงิน @rowData.Decrease_SumPackAmt)
+                                                    <br />
+                                                    <i class="fa fa-thumb-tack icon"></i>
+                                                    <span style="color: #af6f15;">
+                                                        คงเหลือ @rowData.PackQty_total_new แพ๊ค
+                                                        (รวมเป็นเงิน @rowData.SumPackQty_total_new)
+                                                    </span>
+                                                    <br />
                                                 </div>
-                                                <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.CustomerData.Promotion_Code_New / @rowData.CustomerData.Promotion_Code_old_Description</strong></span>
-                                                <br />
-                                                <i class="fa fa-usd icon"></i>
-                                                @rowData.CustomerData.Description_New |
-                                                @rowData.CustomerData.Reward_New (@rowData.CustomerData.Cost_New)
-                                                @*<br />
-                                                <i class="fa fa-tag icon"></i>
-                                                เป็น @rowData.CustomerData.PackQty_New แพ๊ค |
-                                                แพ๊คละ @rowData.CustomerData.PackAmt_New (รวมเป็นเงิน @rowData.CustomerData.SumPackAmt_New)*@
-                                                <br />
-                                                <i class="fa fa-sort-amount-desc icon"></i>
-                                                ลดลง @rowData.CustomerData.Decrease_PackQty แพ๊ค
-                                                (เป็นเงิน @rowData.CustomerData.Decrease_SumPackAmt)
-                                                <br />
-                                                <i class="fa fa-thumb-tack icon"></i>
-                                                <span style="color: #af6f15; background-color: yellow;">
-                                                    รายการหลังลดจำนวนเหลือ @rowData.CustomerData.PackQty_total_new แพ๊ค
-                                                    (รวมเป็นเงิน @rowData.CustomerData.SumPackQty_total_new)
-                                                </span>
-                                                <br />
-                                                @foreach (var rowDataAfter in rowData.PromotionAfterList)
-                                                {
-                                                    @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataAfter.RowNumber). แพ๊คละ @rowDataAfter.PackAmt จำนวน @rowDataAfter.PackQty รวมเป็นเงิน @rowDataAfter.SumPackAmt <br />
-                                                }
-                                            </div>
                                             </div>
                                         </div>
                                     </div>

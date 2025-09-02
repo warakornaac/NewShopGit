@@ -1253,6 +1253,29 @@ namespace NewShop.Models
         public string Slmcode { get; set; }
         public string FlagReg { get; set; }
         public string FlagApprove { get; set; }
+        public int PackQty { get; set; }
+        public int PackAmt { get; set; }
+        public double SumPackAmt { get; set; }
+        public string PackQtyPedingApprove { get; set; }
+        public string Reason { get; set; }
+    } 
+    public class listCustomerRegisterByCustomer
+    {
+        public string Cuscode { get; set; }
+        public string Cusname { get; set; }
+        public string Slmcode { get; set; }
+        public string Promotion_Code { get; set; }
+        public string Promotion_Sub { get; set; }
+        public string Description { get; set; }
+        public string ProductCode { get; set; }
+        public string ProductName { get; set; }
+        public int PackQty { get; set; }
+        public int PackAmt { get; set; }
+        public double SumPackAmt { get; set; }
+        public string Promotion_Year { get; set; }
+        public string FlagApprove { get; set; }
+        public string PackQtyPedingApprove { get; set; }
+        public string Reason { get; set; }
     }
     public class listCustomerRegisterSave
     {
@@ -1262,6 +1285,7 @@ namespace NewShop.Models
         public string PromotionCode { get; set; }
         public string PromotionSeq { get; set; }
     }
+
     public class listCustomerApprove
     {
         public string Slmcode { get; set; }
@@ -1273,20 +1297,36 @@ namespace NewShop.Models
         public string Promotion_Sub_Old { get; set; }
         public string Description_Old { get; set; }
         public string Reward_Old { get; set; }
+        public string PackQty_total_old { get; set; }
+        public string SumPackQty_total_old { get; set; }
         public string Cost_Old { get; set; }
+        public string PackQty_Old { get; set; }
+        public string PackAmt_Old { get; set; }
+        public string SumPackAmt_Old { get; set; }
         public string Promotion_Code_New { get; set; }
         public string Promotion_Sub_New { get; set; }
         public string Description_New { get; set; }
         public string Reward_New { get; set; }
+        public string PackQty_total_new { get; set; }
+        public string SumPackQty_total_new { get; set; }
         public string Cost_New { get; set; }
+        public string PackQty_New { get; set; }
+        public string PackAmt_New { get; set; }
+        public string SumPackAmt_New { get; set; }
+        public string Decrease_PackQty { get; set; }
+        public string Decrease_SumPackAmt { get; set; }
     }
     public class listSaveCustomerApprove
     {
         public string Cuscode { get; set; }
         public string Codeold { get; set; }
         public string Seqold { get; set; }
+        public string Packqtyold { get; set; }
+        public string Sumpackamtold { get; set; }
         public string Codenew { get; set; }
         public string Seqnew { get; set; }
+        public string Packqtynew { get; set; }
+        public string Sumpackamtnew { get; set; }
     }
     public class dashboardModel
     {
@@ -1330,5 +1370,55 @@ namespace NewShop.Models
         public string RevQty { get; set; }
         public string InStock { get; set; }
         public string BckDue { get; set; }
+    }
+    public class ArticleDataProductBrand
+    {
+        public string MfrName { get; set; }
+        public string ArticleNumber { get; set; }
+        public string ArticleStatusDescription { get; set; }
+        public List<GenericArticle> GenericArticles { get; set; }
+        public List<OemNumber> OemNumbers { get; set; }
+        public List<ArticleCriteria> ArticleCriteria { get; set; }
+        public List<TradeNumberDetail> TradeNumberDetail { get; set; }
+    }
+
+    public class GenericArticle
+    {
+        public string genericArticleDescription { get; set; }
+        public string assemblyGroupName { get; set; }
+    }
+
+    public class OemNumber
+    {
+        public string articleNumber { get; set; }
+        public string mfrName { get; set; }
+    }
+
+    public class ArticleCriteria
+    {
+        public string criteriaDescription { get; set; }
+        public string formattedValue { get; set; }
+    }
+
+    public class TradeNumberDetail
+    {
+        public string tradeNumber { get; set; }
+    }
+    public class listPromotionBeforeAfter
+    {
+        public string RowNumber { get; set; }
+        public string Cuscode { get; set; }
+        public string Cusname { get; set; }
+        public string Slmcode { get; set; }
+        public string PackQty { get; set; }
+        public string PackAmt { get; set; }
+        public string SumPackAmt { get; set; }
+        public string InsertDate { get; set; }
+    }
+    public class CustomerPromotionChangeViewModel
+    {
+        public listCustomerApprove CustomerData { get; set; }
+        public List<listPromotionBeforeAfter> PromotionBeforeList { get; set; }
+        public List<listPromotionBeforeAfter> PromotionAfterList { get; set; }
     }
 }
