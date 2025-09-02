@@ -78,10 +78,35 @@ namespace NewShop.Controllers
         }
         public ActionResult PendingDeliver()
         {
+            string message = string.Empty;
+            //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
             }
+            List<SelectListItem> BrandList = new List<SelectListItem>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                //list brand
+                var command = new SqlCommand("p_Search_Brand_Item", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCompany", "");
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    BrandList.Add(new SelectListItem() { Value = dr3["Brand"].ToString(), Text = dr3["Brand"].ToString() });
+                }
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewBag.BrandList = BrandList;
             return View();
         }
         public ActionResult PendingDeliver_Bk()
@@ -1398,6 +1423,30 @@ namespace NewShop.Controllers
             Connection.Close();
             //}
             return Json(StockCode, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchOrderBckOrderByTxt(string cuscode, string brand, string txtOther)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            List<string> Code = new List<string>();
+            var command = new SqlCommand("P_Search_Item_with_brand_Portal", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inCuscode", cuscode);
+            command.Parameters.AddWithValue("@inBrand", brand);
+            command.Parameters.AddWithValue("@inTxtSearch", txtOther);
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Code.Add(reader.GetString(1));
+            }
+            reader.Close();
+            reader.Dispose();
+            command.Dispose();
+
+            Connection.Close();
+            return Json(Code, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult MenuTest()

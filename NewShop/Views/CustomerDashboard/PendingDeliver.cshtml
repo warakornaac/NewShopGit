@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 @{
     Layout = "~/Views/Shared/_LayoutMobile.cshtml";
-
+    List<SelectListItem> BrandList = ViewBag.BrandList;
 }
 <html lang="en">
 <head>
@@ -562,19 +562,52 @@
                 z-index: 3 !important;
             }*/
 
+
+
+        .search-bar-sticky {
+            position: sticky !important;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 5 !important;
+        }
+
+            .search-bar-sticky:after {
+                color: white;
+                content: "";
+                position: absolute;
+                background: white;
+                top: 0;
+                margin-top: 0;
+                bottom: 0;
+                right: -1px;
+            }
+
+
         .sticky-head {
             position: sticky !important;
             top: 0;
             background-color: white;
-            z-index: 3 !important;
+            z-index: 2 !important;
         }
+
+            .sticky-head:after {
+                content: "";
+                width: 1px;
+                background: #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -1px;
+            }
 
         .sticky-head-first {
             position: sticky !important;
             top: 0;
             left: 0;
             background-color: white;
-            z-index: 5 !important;
+            z-index: 3 !important;
         }
 
             .sticky-head-first:after {
@@ -590,9 +623,10 @@
         .sticky-col {
             position: -webkit-sticky; /* For Safari */
             position: sticky;
+            top: 40px;
             left: 0;
-            background-color: inherit; /* Background color for sticky elements */
-            z-index: 4 !important; /* Ensure it is above other cells */
+            background-color: white; /* Background color for sticky elements */
+            z-index: 2 !important; /* Ensure it is above other cells */
         }
 
             .sticky-col:after {
@@ -604,6 +638,10 @@
                 bottom: 0;
                 right: -1px;
             }
+
+        tbody {
+            margin-top: 42px;
+        }
 
         .table-striped > tbody > tr:nth-of-type(odd) .sticky-col {
             background-color: #f9f9f9; /* Adjust based on your stripe color */
@@ -670,56 +708,94 @@
                                         </div>
                                         <div class="card-body p-0">
                                             <div class="card-body p-0">
-                                                <div class="m-0 table-typeS table-style table-responsive">
-                                                    <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center mb-1 mt-1">
-                                                        <div class="col-3 text-right m-0 pl-1 pr-1">
-                                                            <span> ชื่อสินค้า </span>
+                                                <div class="m-0 table-typeS ">
+                                                    <div class="col-12 p-0 search-bar-sticky bg-white">
+                                                        <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center">
+                                                            <div class="col-3 text-right m-0 pl-1 pr-1">
+                                                                <span> ชื่อสินค้า </span>
+                                                            </div>
+                                                            <div class="col-8 m-0 p-0">
+
+                                                                <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="tb-search-typS" name="tb-search-typS" placeholder="" style="min-width: 190px;">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-8 m-0 p-0">
-                                                            <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="tb-search-typS" name="tb-search-typS" placeholder="" style="min-width: 190px;">
+                                                        <div class="col-sm-6 col-5 text-right d-flex align-items-center pl-4">
+                                                            <div class="col-2 text-right m-0 p-0 pr-1">
+                                                                <span>แบรนด์ </span>
+                                                            </div>
+                                                            <div class="col-md-9 text-right">
+                                                                <select class="form-control" id="select-brand-typS" name="select-brand-typS" style="width: 110%;">
+                                                                    @*<option value="" selected>ALL</option>*@
+                                                                    @for (var i = 0; i < BrandList.Count; i++)
+                                                                    {
+                                                                        <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-typeS" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
-                                                                <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
-                                                                <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
-                                                                <th class="sticky-head text-center"><span>จำนวน</span></th>
-                                                                <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
-                                                                <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
-                                                                <th class="sticky-head text-center"><span>ราคารวม</span></th>
-                                                                <th class="sticky-head text-center"><span>วันกำหนดส่ง</span></th>
-                                                                <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
+                                                    <div class="table-responsive table-style">
+                                                        <table class="table table-striped table-bordered table-hover mb-0 " id="backor-typeS" style="padding: 7px;font-size: small;">
+                                                            <thead style="font-size: small;">
+                                                                <tr>
+                                                                    <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                    <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
+                                                                    <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
+                                                                    <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                    <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
+                                                                    <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
+                                                                    <th class="sticky-head text-center"><span>ราคารวม</span></th>
+                                                                    <th class="sticky-head text-center"><span>วันกำหนดส่ง</span></th>
+                                                                    <th class="sticky-head text-center"><span>หมายเหตุ</span></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                                <div class="m-0 table-backorder table-style table-responsive">
-                                                    <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center mb-1 mt-1">
-                                                        <div class="col-3 text-right m-0 pl-1 pr-1">
-                                                            <span> ชื่อสินค้า </span>
+                                                <div class="m-0 table-backorder ">
+                                                    <div class="col-12 p-0 search-bar-sticky bg-white">
+                                                        <div class="col-sm-6 col-7 float-end m-0 p-0 d-flex align-items-center">
+                                                            <div class="col-3 text-right m-0 pl-1 pr-1">
+                                                                <span> ชื่อสินค้า </span>
+                                                            </div>
+                                                            <div class="col-8 m-0 p-0">
+
+                                                                <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="tb-search" name="tb-search" placeholder="" style="min-width: 190px;">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-8 m-0 p-0">
-                                                            <input class="form-control ui-autocomplete-input py-2" type="search" value="" id="tb-search" name="tb-search" placeholder="" style="min-width: 190px;">
+                                                        <div class="col-sm-6 col-5 text-right d-flex align-items-center pl-4">
+                                                            <div class="col-2 text-right m-0 p-0 pr-1">
+                                                                <span>แบรนด์ </span>
+                                                            </div>
+                                                            <div class="col-md-9 text-right">
+                                                                <select class="form-control" id="select-brand" name="select-brand" style="width: 110%;">
+                                                                    @*<option value="" selected>ALL</option>*@
+                                                                    @for (var i = 0; i < BrandList.Count; i++)
+                                                                    {
+                                                                        <option value="@BrandList[i].Value">@BrandList[i].Text</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <table class="table table-striped table-bordered table-hover mb-0 " id="backor-backorder" style="padding: 7px;font-size: small;">
-                                                        <thead style="font-size: small;">
-                                                            <tr>
-                                                                <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
-                                                                <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
-                                                                <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
-                                                                <th class="sticky-head text-center"><span>จำนวน</span></th>
-                                                                <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
-                                                                <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
-                                                                <th class="sticky-head text-center"><span>ราคารวม</span></th>
-                                                                @*<th class="sticky-head text-center"><span>หมายเหตุ</span></th>*@
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
+                                                    <div class="table-style table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover mb-0 " id="backor-backorder" style="padding: 7px;font-size: small;">
+                                                            <thead style="font-size: small;">
+                                                                <tr>
+                                                                    <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                    <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
+                                                                    <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
+                                                                    <th class="sticky-head text-center"><span>จำนวน</span></th>
+                                                                    <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
+                                                                    <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
+                                                                    <th class="sticky-head text-center"><span>ราคารวม</span></th>
+                                                                    @*<th class="sticky-head text-center"><span>หมายเหตุ</span></th>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1067,7 +1143,11 @@
                                     "rowGroup": false,
                                     initComplete: function () {
                                         $('div.dt-search').hide();
-                                    }
+                                   },
+                                   language: {
+                                       emptyTable: "-- ไม่พบข้อมูล --",
+                                       zeroRecords: "-- ไม่พบข้อมูล --"
+                                   }
 
                                 });
 
@@ -1202,7 +1282,10 @@
                                      "rowGroup": false,
                                      "columnDefs": [],
                                      language: {
-                                         search: ""
+                                         search: "",
+                                         emptyTable: "-- ไม่พบข้อมูล --",
+                                         zeroRecords: "-- ไม่พบข้อมูล --"
+
                                      },
                                      initComplete: function () {
                                          $('div.dt-search').hide();
@@ -1228,51 +1311,6 @@
                  }
              });
         }
-            $(document).ready(function () {
-                $("#tb-search-typS").autocomplete({
-                    selectFirst: true,
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var param = {
-                            Name: $("#tb-search-typS").val(),
-                            XvalCompany: 'ALL'
-                        };
-                        $.ajax({
-                            url: '@Url.Action("GetdateStockCode", "CustomerDashboard")',
-                            data: JSON.stringify(param),
-                            dataType: "json",
-                            type: "POST",
-                            contentType: "application/json; charset=utf-8",
-                            dataFilter: function (data) { return data; },
-                            success: function (data) {
-                                //console.log(data.length);
-                                response($.map(data.slice(0, 50), function (item) {
-                                    return {
-                                        value: item
-                                    }
-                                }))
-                            },
-                            error: function (XMLhttpsRequest, textStatus, errorThrown) {
-                                //alert(textStatus);
-                            }
-                        });
-                    },
-                    select: function (event, ui) {
-                        var val = ui.item.value;
-                        var StockCode = val;
-                        var split_StockCode = StockCode.split('|');
-
-                        var stkitem = split_StockCode[0];
-
-
-                        var comp = $('#select-company').val();
-                        searchItemBckOrderTypS(stkitem);
-                    },
-                     minLength: 1
-                 });
-                //$('#stkcod').autocomplete('widget').addClass('fixed-height');
-            });
-
             $(document).ready(function () {
                 console.log("jQuery Version:", $.fn.jquery);
                         $("#tb-search").autocomplete({
@@ -1319,27 +1357,17 @@
                 //$('#stkcod').autocomplete('widget').addClass('fixed-height');
             });
         $('#tb-search-typS').on('keyup', function () {
-            if (dtBackOrderTypS) {
-                var StockCode = this.value;
-                var split_StockCode;
-                var stkitem = this.value;
-                if (StockCode.includes('|')) {
-                    split_StockCode = StockCode.split('|');
-                    stkitem = split_StockCode[0];
-                }
-                dtBackOrderTypS.search(stkitem).draw();
+            var xVal = $(this).val();
+            if (xVal === '') {
+                dtBackOrderTypS.search('').draw();
             }
+
         });
         $('#tb-search').on('keyup', function () {
-            if (dtBackOrder) { // เช็คว่า table ถูกสร้างแล้ว
-                var StockCode = this.value;
-                var split_StockCode;
-                var stkitem = this.value;
-                if (StockCode.includes('|')) {
-                    split_StockCode = StockCode.split('|');
-                    stkitem = split_StockCode[0];
-                }
-                dtBackOrder.search(stkitem).draw();
+            var xVal = $(this).val();
+
+            if (xVal == '') {
+                dtBackOrder.search('').draw();
             }
         });
         function searchItemBckOrderTypS(stkitem) {
@@ -1353,7 +1381,90 @@
             }
         }
 
+        //Search and Brand
+        $("#tb-search-typS").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = {
+                    cuscode: cuscod,
+                    brand: $("#select-brand-typS option:selected").val(),
+                    txtOther: $("#tb-search-typS").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("SearchOrderBckOrderByTxt", "CustomerDashboard")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                var _val = ui.item.value;
+                var _splito = "";
+                _splito = _val.split('|');
+                var splitval = _splito;
+                _scus = _splito[0].trim();
 
+                console.log("sub(0) = " + _splito[0].trim() + " sub(1) = " + _splito[1].trim())
+
+                searchItemBckOrderTypS(_scus);
+            },
+            minLength: 2
+        });
+
+        $("#tb-search").autocomplete({
+            selectFirst: true,
+            autoFocus: true,
+            source: function (request, response) {
+                var param = {
+                    cuscode: cuscod,
+                    brand: $("#select-brand option:selected").val(),
+                    txtOther: $("#tb-search").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("SearchOrderBckOrderByTxt", "CustomerDashboard")',
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data.slice(0, 50), function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLhttpsRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                var _val = ui.item.value;
+                var _splito = "";
+                _splito = _val.split('|');
+                var splitval = _splito;
+                _scus = _splito[0].trim();
+
+                console.log("sub(0) = " + _splito[0].trim() + " sub(1) = " + _splito[1].trim())
+
+                searchItemBckOrder(_scus);
+            },
+            minLength: 2
+        });
         //ปุ่มยอดซื้อ
         $(document).on("click", "#navbaramount", function () {
             window.location.replace("../CustomerDashboard/index");
