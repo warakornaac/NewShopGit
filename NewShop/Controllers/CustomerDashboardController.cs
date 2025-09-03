@@ -451,7 +451,8 @@ namespace NewShop.Controllers
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
                         DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? Convert.ToDateTime(reader["DeliveryDate"]).ToString("dd/MM/yy") : "",
-                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
+                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : "",
+                        Brand = reader["Brand"] != DBNull.Value ? reader["Brand"].ToString() : ""
                     });
                 }
                 reader.Close();
@@ -495,7 +496,8 @@ namespace NewShop.Controllers
                         Amount = Convert.ToDecimal(reader["Amount"]).ToString("F2"),
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
                         DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : "",
-                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : ""
+                        Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : "",
+                        Brand = reader["Brand"] != DBNull.Value ? reader["Brand"].ToString() : ""
 
                     });
                 }

@@ -1015,6 +1015,7 @@ namespace NewShop.Models
         public string SaleOrderDate { get; set; }
         public string DeliveryDate { get; set; }
         public string Note { get; set; }
+        public string Brand { get; set; }
     }
     public class ListSendDelivery
     {
@@ -1269,7 +1270,7 @@ namespace NewShop.Models
         public double SumPackAmt { get; set; }
         public string PackQtyPedingApprove { get; set; }
         public string Reason { get; set; }
-    } 
+    }
     public class listCustomerRegisterByCustomer
     {
         public string Cuscode { get; set; }

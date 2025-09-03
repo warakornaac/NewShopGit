@@ -725,7 +725,7 @@
                                                             </div>
                                                             <div class="col-md-9 text-right">
                                                                 <select class="form-control" id="select-brand-typS" name="select-brand-typS" style="width: 110%;">
-                                                                    @*<option value="" selected>ALL</option>*@
+                                                                    <option value="" selected>ALL</option>
                                                                     @for (var i = 0; i < BrandList.Count; i++)
                                                                     {
                                                                         <option value="@BrandList[i].Value">@BrandList[i].Text</option>
@@ -739,6 +739,7 @@
                                                             <thead style="font-size: small;">
                                                                 <tr>
                                                                     <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                    <th class=""><span>brand</span></th>
                                                                     <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                     <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                     <th class="sticky-head text-center"><span>จำนวน</span></th>
@@ -770,7 +771,7 @@
                                                             </div>
                                                             <div class="col-md-9 text-right">
                                                                 <select class="form-control" id="select-brand" name="select-brand" style="width: 110%;">
-                                                                    @*<option value="" selected>ALL</option>*@
+                                                                    <option value="" selected>ALL</option>
                                                                     @for (var i = 0; i < BrandList.Count; i++)
                                                                     {
                                                                         <option value="@BrandList[i].Value">@BrandList[i].Text</option>
@@ -784,6 +785,7 @@
                                                             <thead style="font-size: small;">
                                                                 <tr>
                                                                     <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
+                                                                    <th class=""><span>brand</span></th>
                                                                     <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                     <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                     <th class="sticky-head text-center"><span>จำนวน</span></th>
@@ -1105,6 +1107,7 @@
                                 for (var i = 0; i < data.backorder.length; i++) {
                                     SubmithtmlPage += '<tr>';
                                     SubmithtmlPage += '<td class="sticky-col text-center"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                    SubmithtmlPage += '<td class=>' + data.backorder[i].Brand + '</td>'
                                     SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                     if (data.backorder[i].SaleOrderDate.includes("/")) {
                                         SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
@@ -1123,6 +1126,7 @@
                                         SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].DeliveryDate + '</span></p></td>';
                                     }
                                     SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
+
                                         SubmithtmlPage += '</tr >';
 
                                 }
@@ -1147,7 +1151,14 @@
                                    language: {
                                        emptyTable: "-- ไม่พบข้อมูล --",
                                        zeroRecords: "-- ไม่พบข้อมูล --"
-                                   }
+                                   },
+                                   columnDefs: [
+                                       {
+                                           targets: [1],
+                                           visible: false,
+                                           searchable: true
+                                       }
+                                   ]
 
                                 });
 
@@ -1249,6 +1260,7 @@
                              for (var i = 0; i < data.backorder.length; i++) {
                                  SubmithtmlPage += '<tr>';
                                  SubmithtmlPage += '<td class="sticky-col text-center"><p class="text-truncate m-0 p-0"><span>' + data.backorder[i].STKCOD + '</span></p></td>';
+                                 SubmithtmlPage += '<td>' + data.backorder[i].Brand + '</td>'
                                  SubmithtmlPage += '<td ><p class="cut-text m-0 p-0"><span>' + data.backorder[i].STKDES + '</span></p></td>';
                                  if (data.backorder[i].SaleOrderDate.includes("/")) {
                                      SubmithtmlPage += '<td class="text-truncate text-center"><p class="m-0 p-0"><span>' + data.backorder[i].SaleOrderDate.replace(/\//g, '-') + '</span></p></td>';
@@ -1280,7 +1292,13 @@
                                      "responsive": false,
                                      "fixedHeader": false,
                                      "rowGroup": false,
-                                     "columnDefs": [],
+                                     //columnDefs: [
+                                     //    {
+                                     //        targets: [1],
+                                     //        visible: false,
+                                     //        searchable: true
+                                     //    }
+                                     //],
                                      language: {
                                          search: "",
                                          emptyTable: "-- ไม่พบข้อมูล --",
@@ -1313,7 +1331,7 @@
         }
             $(document).ready(function () {
                 console.log("jQuery Version:", $.fn.jquery);
-                        $("#tb-search").autocomplete({
+                @*$("#tb-search").autocomplete({
                     selectFirst: true,
                     autoFocus: true,
                     source: function (request, response) {
@@ -1353,35 +1371,53 @@
                         searchItemBckOrder(stkitem);
                     },
                      minLength: 1
-                 });
-                //$('#stkcod').autocomplete('widget').addClass('fixed-height');
+                 });*@
+
             });
         $('#tb-search-typS').on('keyup', function () {
             var xVal = $(this).val();
             if (xVal === '') {
-                dtBackOrderTypS.search('').draw();
+                dtBackOrderTypS.column(0).search('').draw();
             }
 
         });
         $('#tb-search').on('keyup', function () {
             var xVal = $(this).val();
 
-            if (xVal == '') {
-                dtBackOrder.search('').draw();
+            if (xVal === '') {
+                dtBackOrder.column(0).search('').draw();
             }
         });
         function searchItemBckOrderTypS(stkitem) {
             if (dtBackOrderTypS) {
-                dtBackOrderTypS.search(stkitem).draw();
+                dtBackOrderTypS.column(0).search(stkitem).draw();
             }
         }
         function searchItemBckOrder(stkitem) {
             if (dtBackOrder) {
-                dtBackOrder.search(stkitem).draw();
+                dtBackOrder.column(0).search(stkitem).draw();
             }
         }
 
         //Search and Brand
+        $('#select-brand-typS').on('change', function () {
+            var selected = $(this).val();
+
+            if (selected !== '') {
+                dtBackOrderTypS.column(1).search(selected).draw();
+            } else {
+                dtBackOrderTypS.column(1).search('').draw();
+            }
+        });
+        $('#select-brand').on('change', function () {
+            var selected = $(this).val();
+
+            if (selected !== '') {
+                dtBackOrder.column(1).search(selected).draw();
+            } else {
+                dtBackOrder.column(1).search('').draw();
+            }
+        });
         $("#tb-search-typS").autocomplete({
             selectFirst: true,
             autoFocus: true,
