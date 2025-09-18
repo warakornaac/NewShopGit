@@ -381,16 +381,6 @@ namespace NewShop.Controllers
                     message = returnValue.Value.ToString();
                     connection.Close();
                 }
-
-                //S20161016
-
-                //E20161016
-                //connection.Close();
-
-
-                // connection.Close();
-
-
             }
             catch (Exception ex)
             {
