@@ -192,7 +192,9 @@ namespace NewShop.Controllers
                 string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
-                SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID =N'" + User.Usre + "'and [dbo].F_decrypt([Password])='" + User.Password + "' and  [LoginFail] <> 3", Connection);
+                SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID = @inUsername and [dbo].F_decrypt([Password])= @inPassword and  [LoginFail] <> 3", Connection);
+                cmdcus.Parameters.AddWithValue("@inUsername", User.Usre);
+                cmdcus.Parameters.AddWithValue("@inPassword", User.Password);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
                 while (revcus.Read())
                 {
@@ -617,7 +619,9 @@ namespace NewShop.Controllers
                 this.Session["UserPassword"] = password;
                 this.Session["UsrGrpspecial"] = 0;
                 string UserType = string.Empty;
-                SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "' and  [LoginFail] <> 3", Connection);
+                SqlCommand cmdcus = new SqlCommand("select * From v_UsrTbl_catalog where UsrID = @inUser and [dbo].F_decrypt([Password])= @inPassword and  [LoginFail] <> 3", Connection);
+                cmdcus.Parameters.AddWithValue("@inUser", User);
+                cmdcus.Parameters.AddWithValue("@inPassword", password);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
                 while (revcus.Read())
                 {
