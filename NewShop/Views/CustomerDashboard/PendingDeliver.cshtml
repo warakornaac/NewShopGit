@@ -739,7 +739,7 @@
                                                             <thead style="font-size: small;">
                                                                 <tr>
                                                                     <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
-                                                                    <th class=""><span>brand</span></th>
+                                                                    <th hidden><span>brand</span></th>
                                                                     <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                     <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                     <th class="sticky-head text-center"><span>จำนวน</span></th>
@@ -785,7 +785,7 @@
                                                             <thead style="font-size: small;">
                                                                 <tr>
                                                                     <th class="sticky-head-first text-center"><span>เบอร์สินค้า</span></th>
-                                                                    <th class=""><span>brand</span></th>
+                                                                    <th hidden><span>brand</span></th>
                                                                     <th class="sticky-head text-center"><span>ชื่อสินค้า</span></th>
                                                                     <th class="sticky-head text-center"><span>วันที่สั่ง</span></th>
                                                                     <th class="sticky-head text-center"><span>จำนวน</span></th>
@@ -1292,13 +1292,13 @@
                                      "responsive": false,
                                      "fixedHeader": false,
                                      "rowGroup": false,
-                                     //columnDefs: [
-                                     //    {
-                                     //        targets: [1],
-                                     //        visible: false,
-                                     //        searchable: true
-                                     //    }
-                                     //],
+                                     columnDefs: [
+                                         {
+                                             targets: [1],
+                                             visible: false,
+                                             searchable: true
+                                         }
+                                     ],
                                      language: {
                                          search: "",
                                          emptyTable: "-- ไม่พบข้อมูล --",
@@ -1381,12 +1381,18 @@
             }
 
         });
+        $('#tb-search-typS').on('click', function () {
+            $(this).select();
+        });
         $('#tb-search').on('keyup', function () {
             var xVal = $(this).val();
 
             if (xVal === '') {
                 dtBackOrder.column(0).search('').draw();
             }
+        });
+        $('#tb-search').on('click', function () {
+            $(this).select();
         });
         function searchItemBckOrderTypS(stkitem) {
             if (dtBackOrderTypS) {
@@ -1404,7 +1410,7 @@
             var selected = $(this).val();
 
             if (selected !== '') {
-                dtBackOrderTypS.column(1).search(selected).draw();
+                dtBackOrderTypS.column(1).search('^' + selected + '$', true, false, true).draw();
             } else {
                 dtBackOrderTypS.column(1).search('').draw();
             }
@@ -1413,7 +1419,7 @@
             var selected = $(this).val();
 
             if (selected !== '') {
-                dtBackOrder.column(1).search(selected).draw();
+                dtBackOrder.column(1).search('^' + selected + '$', true, false, true).draw();
             } else {
                 dtBackOrder.column(1).search('').draw();
             }
