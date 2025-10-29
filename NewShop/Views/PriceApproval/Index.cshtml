@@ -427,6 +427,7 @@
                         <th>ราคาพิเศษ</th>
                         <th>Stock</th>
                         <th>Spc Remark</th>
+                        @*<th>Spc Remark(Sales)</th>*@
                         <th>ราคาซื้อล่าสุด</th>
                         <th>วันที่สั่งซื้อ</th>
                         <th>Line Note</th>
@@ -772,11 +773,13 @@
                         var BgColor;
                         var ProdCodeHigh;
                         var DisableCheckbox;
+                        var SpcRemark="";
                         for (var i = 0; i < data.Getdata.length; i++) {
                             Status = data.Getdata[i].val.Status;
                             strsub = data.Getdata[i].val.InsertedBy;
                             ItemType = data.Getdata[i].val.ItemType;
                             ProdCodeHigh = data.Getdata[i].val.ProdCodeHigh;
+                            SpcRemark = data.Getdata[i].val.Spc_Remark;
                             BgColor = "";
                             DisableCheckbox = "";
                             strsub = strsub.split("|");
@@ -854,13 +857,18 @@
                             SubmithtmlPage += '<td style="text-align: right"><div class="SalePrice">' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</div></td>';
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SpecialPrice) + '</td>';
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(parseInt(data.Getdata[i].val.readyQty)) + '</td>';
-                            if (Status == "W") {
+                            if (Status == "W" && SpcRemark=="") {
 
-                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';
+                                //SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';
+                                SubmithtmlPage += '<td><select class="form-control spcRemake" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">' + data.Getdata[i].val.Spc_Remark + '</span></td>';//SpcRemark Sale
+
                             } else {
 
-                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
+                                //SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
+                                SubmithtmlPage += '<td><select class="form-control spcRemake" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">' + data.Getdata[i].val.Spc_Remark + '</span></td>';//SpcRemark Sale
+
                             }
+                            //SubmithtmlPage += '<td><select class="form-control spc_remark" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">'+data.Getdata[i].val.Spc_Remark+'</span></td>';//SpcRemark Sale
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.LastInvPrice) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].val.ORDDAT + '</td>';
 
@@ -876,7 +884,7 @@
                         }
 
                         $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
-
+                        spcRemarkLoad();
                     }
                     else {
 
@@ -1127,6 +1135,43 @@
         function LoadingHide() {
             $.LoadingOverlay("hide");
         }
+
+        function spcRemarkLoad() {
+            $.ajax({
+                url: '@Url.Action("GetSpcRemark", "Shoppinglist")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.respone === 'Y' && Array.isArray(data.result)) {
+
+                        // loop ทุก select ที่มี class spc_remark
+                        $('.spcRemake').each(function () {
+                            var $select = $(this);
+                            var currentRemark = $select.siblings('.hidden-spc').text().trim();
+
+                            // ล้าง option เดิม
+                            $select.empty();
+                            $select.append('<option value="">-- Select Remark --</option>');
+
+                            // เติม option ใหม่จาก AJAX
+                            data.result.forEach(item => {
+                                const selected = (item.VAL.trim() === currentRemark) ? 'selected' : '';
+                                $select.append(`<option value="${item.VAL}" ${selected}>${item.VAL}</option>`);
+                            });
+                        });
+
+                    } else {
+                        console.warn('Invalid response or empty result');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        }
+
+
+
     </script>
 </body>
 

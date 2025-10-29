@@ -551,6 +551,7 @@ namespace NewShop.Models
         public string PromoPrice { get; set; }
         public string PromoMOQ { get; set; }
         public string Special_Price { get; set; }
+        public string Spc_Remark { get; set; }
         public string Spc_moq { get; set; }
         public string LastInvPrice { get; set; }
         public string LastInvdate { get; set; }

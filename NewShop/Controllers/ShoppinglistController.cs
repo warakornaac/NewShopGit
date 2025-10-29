@@ -49,40 +49,40 @@ namespace NewShop.Controllers
 
 
                     ViewBag.Nodisplay = CUSCOD;
-                   
-                   
+
+
                 }
             }
             return View();
         }
         public JsonResult GetdateStockCode(string Name, string Xval, string Prod, string STKGR, string Xcus, string XvalCompany)
         {
-               List<string> StockCode = new List<string>();               
-                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-                SqlConnection Connection = new SqlConnection(connectionString);
-                var command = new SqlCommand("P_Search_Item", Connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@inCUSCOD", Xcus);
-                command.Parameters.AddWithValue("@inSearch", Name);
-                command.Parameters.AddWithValue("@inProd", "");
-                command.Parameters.AddWithValue("@inSTKGRP", "");
-                command.Parameters.AddWithValue("@inFix ", Xval);
-                command.Parameters.AddWithValue("@Company", XvalCompany);
-                Connection.Open();
-                //command.ExecuteNonQuery();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    //StockCode.Add(reader.GetString(0) + "|" + reader.GetString(1));
-                    StockCode.Add(dr.GetString(1));
-                }
-                //S20161016                
-                dr.Dispose();
-                command.Dispose();
-                //E20161016
-                Connection.Dispose();
-                Connection.Close();
-            
+            List<string> StockCode = new List<string>();
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("P_Search_Item", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inCUSCOD", Xcus);
+            command.Parameters.AddWithValue("@inSearch", Name);
+            command.Parameters.AddWithValue("@inProd", "");
+            command.Parameters.AddWithValue("@inSTKGRP", "");
+            command.Parameters.AddWithValue("@inFix ", Xval);
+            command.Parameters.AddWithValue("@Company", XvalCompany);
+            Connection.Open();
+            //command.ExecuteNonQuery();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                //StockCode.Add(reader.GetString(0) + "|" + reader.GetString(1));
+                StockCode.Add(dr.GetString(1));
+            }
+            //S20161016                
+            dr.Dispose();
+            command.Dispose();
+            //E20161016
+            Connection.Dispose();
+            Connection.Close();
+
             return Json(StockCode, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Gettemfoc(string strstockCode, string Company)
@@ -242,7 +242,7 @@ namespace NewShop.Controllers
                     Model.PF = dr["PF"].ToString();
                     Model.Rack = dr["Rack"].ToString();
                     Model.SPackUOM = dr["SPackUOM"].ToString();
-                    Model.Expected_Receipt_Date  =dr["Expected Receipt Date"].ToString();
+                    Model.Expected_Receipt_Date = dr["Expected Receipt Date"].ToString();
                     Model.Clearance = dr["Clearance"].ToString();
                     Model.Intransit = dr["Intransit"].ToString();
                     Model.ReworkCanSales = dr["ReworkCanSales"].ToString();
@@ -254,7 +254,7 @@ namespace NewShop.Controllers
                 dr.Close();
                 dr.Dispose();
                 command.Dispose();
-               
+
                 Connection.Close();
             }
             catch (Exception ex)
@@ -293,10 +293,10 @@ namespace NewShop.Controllers
             dr.Dispose();
             command.Dispose();
             Connection.Close();
-            
+
             return Json(new { sumQty, sumrow }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Confirmationdata(string DataSend, string DataSendPro,string Cus, string User)
+        public JsonResult Confirmationdata(string DataSend, string DataSendPro, string Cus, string User)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
@@ -324,11 +324,12 @@ namespace NewShop.Controllers
                         cmd.Parameters.AddWithValue("@Bckorder", _ItemList[i].Qtybo);
                         cmd.Parameters.AddWithValue("@InsertedBy", _ItemList[i].User);
                         cmd.Parameters.AddWithValue("@LineNote", _ItemList[i].LineNote);
-                        cmd.Parameters.AddWithValue("@FOC","0");
+                        cmd.Parameters.AddWithValue("@FOC", "0");
                         cmd.Parameters.AddWithValue("@ProCode", _ItemList[i].PromotionCode);
                         cmd.Parameters.AddWithValue("@minord", _ItemList[i].Moq);
                         cmd.Parameters.AddWithValue("@prclstno", _ItemList[i].PRCLST_NO);
                         cmd.Parameters.AddWithValue("@specprice", _ItemList[i].Special_Price);
+                        cmd.Parameters.AddWithValue("@spcRemark", _ItemList[i].Spc_Remark);
                         cmd.Parameters.AddWithValue("@promoprice", _ItemList[i].PromoPrice);
                         cmd.Parameters.AddWithValue("@promodesc", _ItemList[i].PromoDesc);
                         cmd.Parameters.AddWithValue("@lastinvprice", _ItemList[i].LastInvPrice);
@@ -342,46 +343,46 @@ namespace NewShop.Controllers
 
                     }
                 }
-                
-                    if (_ItemListFoc.Count > 0)
+
+                if (_ItemListFoc.Count > 0)
+                {
+                    for (int i = 0; i < _ItemListFoc.Count; i++)
                     {
-                        for (int i = 0; i < _ItemListFoc.Count; i++)
-                        {
-                            SqlCommand cmd = new SqlCommand("p_SaveOrderCart_FOC", Connection);
-                            cmd.Connection = Connection;
-                            cmd.CommandType = CommandType.StoredProcedure;                              
-                            cmd.Parameters.AddWithValue("@Customer", _ItemListFoc[i].VCUSCOD);
-                            cmd.Parameters.AddWithValue("@STKCOD", _ItemListFoc[i].VSTKCOD);
-                            cmd.Parameters.AddWithValue("@Company", _ItemListFoc[i].VCompany);
-                            //cmd.Parameters.AddWithValue("@Price", "0");
-                            //cmd.Parameters.AddWithValue("@SPrice", "0");
-                            //cmd.Parameters.AddWithValue("@Expect_Price", "0");
-                            //cmd.Parameters.AddWithValue("@Qty", "0");
-                            cmd.Parameters.AddWithValue("@Bckorder",  _ItemListFoc[i].Backorderfoc);
-                            cmd.Parameters.AddWithValue("@InsertedBy", User);
-                            cmd.Parameters.AddWithValue("@LineNote",  _ItemListFoc[i].VLineNote);
-                            cmd.Parameters.AddWithValue("@FOC",  _ItemListFoc[i].VQty);
-                            //cmd.Parameters.AddWithValue("@ProCode", "");
-                            //cmd.Parameters.AddWithValue("@minord", "NULL");
-                            //cmd.Parameters.AddWithValue("@prclstno", "NULL");
-                            //cmd.Parameters.AddWithValue("@specprice", "0");
-                            //cmd.Parameters.AddWithValue("@promoprice","0");
-                            //cmd.Parameters.AddWithValue("@promodesc", "");
-                            //cmd.Parameters.AddWithValue("@lastinvprice","0");
-                            //cmd.Parameters.AddWithValue("@lastinvdate", "");
-   
-                          
+                        SqlCommand cmd = new SqlCommand("p_SaveOrderCart_FOC", Connection);
+                        cmd.Connection = Connection;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Customer", _ItemListFoc[i].VCUSCOD);
+                        cmd.Parameters.AddWithValue("@STKCOD", _ItemListFoc[i].VSTKCOD);
+                        cmd.Parameters.AddWithValue("@Company", _ItemListFoc[i].VCompany);
+                        //cmd.Parameters.AddWithValue("@Price", "0");
+                        //cmd.Parameters.AddWithValue("@SPrice", "0");
+                        //cmd.Parameters.AddWithValue("@Expect_Price", "0");
+                        //cmd.Parameters.AddWithValue("@Qty", "0");
+                        cmd.Parameters.AddWithValue("@Bckorder", _ItemListFoc[i].Backorderfoc);
+                        cmd.Parameters.AddWithValue("@InsertedBy", User);
+                        cmd.Parameters.AddWithValue("@LineNote", _ItemListFoc[i].VLineNote);
+                        cmd.Parameters.AddWithValue("@FOC", _ItemListFoc[i].VQty);
+                        //cmd.Parameters.AddWithValue("@ProCode", "");
+                        //cmd.Parameters.AddWithValue("@minord", "NULL");
+                        //cmd.Parameters.AddWithValue("@prclstno", "NULL");
+                        //cmd.Parameters.AddWithValue("@specprice", "0");
+                        //cmd.Parameters.AddWithValue("@promoprice","0");
+                        //cmd.Parameters.AddWithValue("@promodesc", "");
+                        //cmd.Parameters.AddWithValue("@lastinvprice","0");
+                        //cmd.Parameters.AddWithValue("@lastinvdate", "");
 
 
-                            SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
-                            returnValue.Direction = System.Data.ParameterDirection.Output;
-                            cmd.Parameters.Add(returnValue);
-                            cmd.ExecuteNonQuery();
-                            messagereturn = returnValue.Value.ToString();
-                        }
 
-                 }
-                
+
+                        SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                        returnValue.Direction = System.Data.ParameterDirection.Output;
+                        cmd.Parameters.Add(returnValue);
+                        cmd.ExecuteNonQuery();
+                        messagereturn = returnValue.Value.ToString();
+                    }
+
+                }
+
 
             }
             catch (Exception ex)
@@ -395,6 +396,47 @@ namespace NewShop.Controllers
             //return null;
             return Json(messagereturn, JsonRequestBehavior.AllowGet);
         }
-       
+
+        //dropdown spc remark
+        public JsonResult GetSpcRemark()
+        {
+            string message = string.Empty;
+            string respone = "Y";
+            var list = new List<object>();
+            try
+            {
+                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("P_Get_SpcRemark", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var item = new
+                                {
+                                    ID = reader["Lookup ID"] != DBNull.Value ? reader["Lookup ID"].ToString() : string.Empty,
+                                    VAL = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : string.Empty
+                                };
+
+                                list.Add(item);
+                            }
+                        }
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                respone = "N";
+            }
+            return Json(new { message = message, respone = respone, result = list }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
