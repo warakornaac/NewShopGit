@@ -1,0 +1,30 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+@model List<NewShop.Models.ArticleDataProductBrand>
+<div class="row pt-2">
+    <div class="col-12">
+
+
+        <div class="card">
+            @*detail*@
+            <div class="card">
+                @if (ViewBag.dataResponse != null)
+                {
+                    <div>
+                        <pre>@ViewBag.dataResponse</pre>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 text-right">
+                    <input type="hidden" class="form-control" id="txtArticleId" value="@ViewBag.articleId[0]" style="font-size: medium; float: left; position: relative; max-width: 120px;" />
+                    <button type="button" class="btn btn-md btn-warning" onclick="getLinkageTargets();"><i class="fa fa-car"></i> Get Car list </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

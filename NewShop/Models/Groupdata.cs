@@ -953,8 +953,10 @@ namespace NewShop.Models
         public string Reference_No { get; set; }
         public string ID { get; set; }
         public string CUSCOD { get; set; }
+        public string Company { get; set; }
         public string STKCOD { get; set; }
         public string Qty { get; set; }
+        public string Price { get; set; }
         public string Status { get; set; }
         public string Status_Message { get; set; }
         public string Inserted_Date { get; set; }
@@ -1328,6 +1330,7 @@ namespace NewShop.Models
         public string SumPackAmt_New { get; set; }
         public string Decrease_PackQty { get; set; }
         public string Decrease_SumPackAmt { get; set; }
+        public string Reason { get; set; }
     }
     public class listSaveCustomerApprove
     {
@@ -1427,6 +1430,7 @@ namespace NewShop.Models
         public string PackAmt { get; set; }
         public string SumPackAmt { get; set; }
         public string InsertDate { get; set; }
+        public string Reason { get; set; }
     }
     public class CustomerPromotionChangeViewModel
     {

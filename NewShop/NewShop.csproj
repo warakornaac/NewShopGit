@@ -7885,6 +7885,18 @@
     <Content Include="Views\OrderTracking\Index.cshtml" />
     <Content Include="Views\OrderTracking\Tatrackdetail.cshtml" />
     <Content Include="Views\OrderTracking\Driver.cshtml" />
+    <Content Include="Views\Promotion\_ListCustomer.cshtml" />
+    <Content Include="Views\Promotion\_DetailChangeCustomer.cshtml" />
+    <Content Include="Views\Promotion\_ManagePackPromotion.cshtml" />
+    <Content Include="Views\Promotion\_ManagePackPromotionBySeq.cshtml" />
+    <Content Include="Views\Promotion\ApproveChangeCustomer.cshtml" />
+    <Content Include="Views\Promotion\_DetailChangeCustomer - Copy.cshtml" />
+    <Content Include="Views\Promotion\_DetailPromotionRegister.cshtml" />
+    <Content Include="Views\Promotion\_ListCustomer - Copy.cshtml" />
+    <Content Include="Views\Promotion\_ListCustomerByPromotionCode.cshtml" />
+    <Content Include="Views\Promotion\_ListPackPromotionByCustomer.cshtml" />
+    <Content Include="Views\Promotion\_ListPackPromotionByCustomerAllPm.cshtml" />
+    <Content Include="Views\Promotion\_SubListCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

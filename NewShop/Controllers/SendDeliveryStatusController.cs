@@ -117,7 +117,7 @@ namespace NewShop.Controllers
                         //encode cuscode
                         var plainTextBytes2 = System.Text.Encoding.UTF8.GetBytes(rowList.UrlCuskey);
                         encodeCuskey = System.Convert.ToBase64String(plainTextBytes2);
-                        encodeUrlDetail = "https://mst.aac.co.th/MobileCatalog_Test/CustomerDashboard/GetDeliveryDetailByDocno?getDocno=" + encodeDocno + "&getCuskey=" + encodeCuskey;
+                        encodeUrlDetail = "https://mst.aac.co.th/MobileCatalog/CustomerDashboard/GetDeliveryDetailByDocno?getDocno=" + encodeDocno + "&getCuskey=" + encodeCuskey;
                     }
 
                     var statusApi = ApiPushMessage(rowList.Uid, rowList.Docno, rowList.Docdate, rowList.Cusname, rowList.Delivery, rowList.DeliveryId, encodeUrlDetail, rowList.User);

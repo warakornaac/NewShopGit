@@ -1,0 +1,64 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<style>
+</style>
+<div class="row pt-2">
+    <div class="col-12">
+        @{
+            if (ViewBag.dataResponse == null)
+            {
+                <div class="alert alert-danger text-center mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล PartNumber Alternative </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header bg-secondary text-black font-weight-bold">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                                <i class="fa fa-cog"></i> Result PartNumber Alternative
+                                @*<span id="txtHeadPromotionDetail"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionExample">
+                            @*image*@
+                            <div class="card">
+                                <div class="card-body">
+                                    @*result image*@
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.PartNumberNearby != null && (ViewBag.dataResponse.PartNumberNearby).Count > 0)
+                                                        {
+                                                            foreach (var rowDataPart in ViewBag.dataResponse.PartNumberNearby)
+                                                            {
+                                                                <li>
+                                                                    <b> ArticleNo : </b> @rowDataPart.articleNo <br>
+                                                                    <b> ArticleName : </b> @rowDataPart.articleName <br>
+                                                                    <b> BrandName : </b> @rowDataPart.brandName <br>
+
+                                                                </li>
+                                                                <br>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li> ไม่พบข้อมูล </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,137 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<style>
+</style>
+<div class="row pt-2">
+    <div class="col-12">
+        @{
+            if (ViewBag.dataResponse == null)
+            {
+                <div class="alert alert-danger text-center mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล Model </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header bg-secondary text-black font-weight-bold">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                                <i class="fa fa-cab"></i> Result Model
+                                @*<span id="txtHeadPromotionDetail"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row p-1">
+                            @if (ViewBag.dataResponse.VehicleModelListData != null && (ViewBag.dataResponse.VehicleModelListData).Count > 0)
+                            {
+                                foreach (var rowDataM in ViewBag.dataResponse.VehicleModelListData)
+                                {
+                                    <div class="col-3 col-md-2 col-xl-1" style="cursor: pointer;" onclick="getLinkageTargetsModel(@ViewBag.manuId, @rowDataM.modelId)">
+                                        <span class="d-flex flex-column align-items-center justify-content-center bg-body-secondary rounded display-6 pt-3 pb-3" style="border: 1px solid #b3b3b3; margin-top: 2px;">
+                                            <i class="fa fa-cab mb-1"> @rowDataM.modelId </i>
+                                            <span style="font-size: 12px;white-space: nowrap;"> @rowDataM.modelname</span>
+                                            <span style="font-size: 12px;white-space: nowrap;"> @rowDataM.yearOfConstrFrom</span>
+                                            <span style="font-size: 12px;white-space: nowrap;"> @rowDataM.yearOfConstrTo</span>
+                                        </span>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div id="showLinkageModelCar" class="pt-1 pb-1"></div>
+
+<script defer>
+    function getLinkageTargetsModel(txtManuId, txtModelId) {
+        var msg = '';
+        var error = 0;
+        if (txtManuId == "" || txtModelId == "") {
+            ++error;
+            msg += '<br>' + error + '. ไม่พบข้อมูล Brand & Model';
+        }
+
+        if (error) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                html: msg,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Close',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+            return false;
+        } else {
+            $.ajax({
+                url: '@Url.Action("GetLinkageTargetsModel", "Techdoc")',
+                type: 'POST',
+                data: {
+                    manuId: txtManuId,
+                    vehicleModelSeriesIds: txtModelId
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#showLinkageModelCar').empty();
+                    $('#showLinkageModelCar').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล K-Type list ... </div>');
+                    //LoadingShow();
+                },
+                success: function (res) {
+                    $('#showLinkageModelCar').html(res);
+                    //$("#txtHeadPromotionDetail").text(promotionText);
+                    //LoadingHide();
+                }
+            });
+        }
+    }
+      function getArticles() {
+            var txtPartno = $("#txtPartno").val();
+            var msg = '';
+            var error = 0;
+            if (txtPartno == "") {
+                ++error;
+                msg += '<br>' + error + '. กรุณากรอก Partno';
+            }
+
+            if (error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                    html: msg,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Close',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+                return false;
+            } else {
+                $.ajax({
+                    url: '@Url.Action("getArticles", "Techdoc")',
+                    type: 'POST',
+                    data: {
+                        Partno: txtPartno.trim()
+                    },
+                    dataType: 'html',
+                    cache: false,
+                    Async: true,
+                    beforeSend: function () {
+                        $('#showResultArticles').empty();
+                        $('#showResultArticles').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล Product data ... </div>');
+                        //LoadingShow();
+                    },
+                    success: function (res) {
+                        $('#showResultArticles').html(res);
+                        //$("#txtHeadPromotionDetail").text(promotionText);
+                        //LoadingHide();
+                    }
+                });
+            }
+        }
+</script>

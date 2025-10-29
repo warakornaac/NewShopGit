@@ -22,7 +22,7 @@
 
     <link href="~/Content/w3css.css" rel="stylesheet" />
     <style>
-      
+
         .hidden {
             display: none;
         }
@@ -218,6 +218,7 @@
                                         <option value="TAC">TAC</option>
                                         <option value="AAC">AAC</option>
                                         <option value="OMP">OMP</option>
+                                        <option value="AGS">AGS</option>
                                     </select>
                                 </div>
                             </div>
@@ -307,6 +308,7 @@
                                         <th class="product-subtotal" id="column-lKDC">Stock<br>KDC</th>
                                         <th class="product-subtotal" id="column-lPDC">Stock<br>PDC</th>
                                         <th class="product-subtotal" id="column-lWH">WH<br>Location</th>
+                                        <th class="product-subtotal" id="column-lWH">In-transit </th>
                                         <th class="product-name">Line Note</th>
                                         <th class="product-name">หมายเหตุ PM</th>
                                         <th class="product-name">วันที่เลือกซื้อ</th>
@@ -314,6 +316,7 @@
 
                                         @*<th class="product-name">สถานะสินค้า</th>*@
                                         <th class="product-name">Type</th>
+                                        <th class="product-name" style="text-align: center;">เพิ่มโดย</th>
                                         @*<th class="product-name" style="display:none">Status</th>
                                             <th class="product-name" style="display:none">PromotionDes</th>*@
                                     </tr>
@@ -881,7 +884,7 @@
                     <h4 class="modal-title" style="color:black;"> <i class="fa fa-info-circle" style="color: #dd8d1b;"></i> พบข้อผิดพลาด </h4>
                 </div>
                 <div class="modal-body">
-                  @*  <h6> มี user ท่านอื่นแก้ไขหน้ารายการสินค้า กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง </h6>*@
+                    @*  <h6> มี user ท่านอื่นแก้ไขหน้ารายการสินค้า กรุณากดปุ่ม <b>Refresh</b> เพื่อดำเนินการอีกครั้ง </h6>*@
                     <h6 id="textConfirmorder"></h6>
                 </div>
                 <div class="modal-footer">
@@ -947,220 +950,224 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body pb-0">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table1" style=" width:100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
 
-                    <table class="table1" style=" width:100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th scope="col" abbr="Starter" colspan="4" style="text-align: right;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">จำนวนสินค้า</th>
+                                        <td><p id="sumqty"></p></td>
+                                        <td>ชิ้น</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">จำนวนเบอร์สินค้า</th>
+                                        <td><p id="sumstk"></p></td>
+                                        <td>เบอร์</td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <th scope="row">ราคาก่อนส่วนลด:</th>
+                                        <td><p id="Msumbeforprice"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
+                                        <td><p id="TotalAmt"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                        </thead>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
+                                        <td><p id="Msumbedisprice"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ค่าแรง:</th>
+                                        <td><p id="summarylaber"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th scope="row">ส่วนลดโปรโมชั่น:</th>
+                                        <td><p id="sumPro"></p></td>
+                                        <td>บาท</td>
 
-                        <tbody>
-                            <tr>
-                                <th scope="row">จำนวนสินค้า</th>
-                                <td><p id="sumqty"></p></td>
-                                <td>ชิ้น</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">จำนวนเบอร์สินค้า</th>
-                                <td><p id="sumstk"></p></td>
-                                <td>เบอร์</td>
-                            </tr>
-                            <tr style="display:none;">
-                                <th scope="row">ราคาก่อนส่วนลด:</th>
-                                <td><p id="Msumbeforprice"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Sub total/ราคารวมทั้งสิ้น:</th>
-                                <td><p id="TotalAmt"></p></td>
-                                <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
+                                        <td><p id="sumDiscount"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Discount/ส่วนลดท้ายบิล:</th>
-                                <td><p id="Msumbedisprice"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ค่าแรง:</th>
-                                <td><p id="summarylaber"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="display:none">
-                                <th scope="row">ส่วนลดโปรโมชั่น:</th>
-                                <td><p id="sumPro"></p></td>
-                                <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
+                                        <td><p id="sumAmt"></p></td>
+                                        <td>บาท</td>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Cash Discount/ส่วนลดเงินสด<i id="cr"></i>:</th>
-                                <td><p id="sumDiscount"></p></td>
-                                <td>บาท</td>
+                                    </tr>
 
-                            </tr>
-                            <tr>
-                                <th scope="row">Net/จำนวนเงินก่อนภาษี:</th>
-                                <td><p id="sumAmt"></p></td>
-                                <td>บาท</td>
+                                    <tr>
+                                        <th scope="row">Vat/ภาษี 7% :</th>
+                                        <td><p id="sumvat"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="border: 1px solid #56922a;display:none ">
+                                        <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
+                                        <td><p id="sumrealprices"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th scope="row">ค่าขนส่ง:</th>
+                                        <td><p id="sumtarnport"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
+                                        <td><p id="sumTol"></p></td>
+                                        <td>บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> <input type="hidden" id="accessIdCurrentPop" value="" /> </th>
+                                        <th scope="row"> <input type="hidden" id="cuscodPop" value="" /> </th>
+                                    </tr>
 
-                            </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                            <tr>
-                                <th scope="row">Vat/ภาษี 7% :</th>
-                                <td><p id="sumvat"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="border: 1px solid #56922a;display:none ">
-                                <th scope="row">ราคาสินค้าพร้อมส่ง:</th>
-                                <td><p id="sumrealprices"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr style="display:none">
-                                <th scope="row">ค่าขนส่ง:</th>
-                                <td><p id="sumtarnport"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Total/จำนวนเงินทั้งสิ้น :</th>
-                                <td><p id="sumTol"></p></td>
-                                <td>บาท</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"> <input type="hidden" id="accessIdCurrentPop" value="" /> </th>
-                                <th scope="row"> <input type="hidden" id="cuscodPop" value="" /> </th>
-                            </tr>
+                    <div id="checkCreditCustomer"></div>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ModalShipping -->
-    <!-- Modalconfirm-Shipto-->
-
-    <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                </div>
-                <div class="modal-body">
-                    คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
-                    <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
-
-                    <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="btnOK" data-dismiss="modal">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- EndModaldelete -->
-    </div>
-    <!-- Modalconfirm-Shipto-->
+        <!-- ModalShipping -->
+        <!-- Modalconfirm-Shipto-->
 
-    <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="alert alert-warning alert-dismissible" role="alert">
+        <div class="modal" id="confirm-Shipto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div id="textAlertnextshopping">Some text in the modal.</div>
+
                     </div>
                     <div class="modal-body">
-
-                        คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+                        คุณต้องการเลือก Ship To Code หรือไม่ <i class="fa fa-shopping-cart fa-3x"></i><i class="fa fa-shopping-cart fa-2x"></i>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" id="btncancelShiptoQuote" class="btn btn-default" data-dismiss="modal" style="display:none;">No</button>
+                        <button type="button" id="btncancelShipto" class="btn btn-default" data-dismiss="modal">No</button>
 
-                        <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
-
-                        <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                        <button type="button" id="btnnext" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
                     </div>
                 </div>
             </div>
+            <!-- EndModaldelete -->
         </div>
-        <!-- EndModaldelete -->
-    </div>
+        <!-- Modalconfirm-Shipto-->
 
-    <div class="modal" id="myModal3" style="background-color: black;">
+        <div class="modal" id="confirm-nextshopping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div id="textAlertnextshopping">Some text in the modal.</div>
+                        </div>
+                        <div class="modal-body">
 
-        <div class="modal-dialog" role="document" style="width: 360px;">
+                            คุณต้องการเลือก Shopping ต่อหรือไม่ <i class="fa fa-shopping-cart fa-2x"></i><i class="fa fa-shopping-cart fa-2x"></i>
+                        </div>
+                        <div class="modal-footer">
 
-            <div class="modal-content">
+                            <button type="button" id="btncancelnextshopping" class="btn btn-default" data-dismiss="modal">No</button>
 
-                <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
-
-                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
-
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-
+                            <button type="button" id="btnnextshopping" class="btn btn-success btn-ok" data-dismiss="modal">Yes</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <!-- EndModaldelete -->
+        </div>
 
-                <div class="modal-body" id="texterror">
-                </div>
+        <div class="modal" id="myModal3" style="background-color: black;">
 
-                <div class="modal-footer">
+            <div class="modal-dialog" role="document" style="width: 360px;">
 
-                    @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
+                <div class="modal-content">
 
-                    <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
+                    <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
 
-                    @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
+                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+
+                    </div>
+
+                    <div class="modal-body" id="texterror">
+                    </div>
+
+                    <div class="modal-footer">
+
+                        @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
+
+                        <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
+
+                        @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
+
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+        <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
+        <button type="button" data-column="#column-i" style="display:none"></button>
+        <button type="button" data-column="#column-l" style="display:none"></button>
+        <button type="button" data-column="#column-lKDC" style="display:none"></button>
+        <button type="button" data-column="#column-lPDC" style="display:none"></button>
+        <button type="button" data-column="#column-lWH" style="display:none"></button>
+        <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
+        <input id="ordidtemp" type="hidden">
+        <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
+        <!-- Bootstrap framework js -->
+        <script src="~/tmartcssjs/bootstrap.min.js"></script>
+        <!-- All js plugins included in this file. -->
+        <script src="~/tmartcss/js/plugins.js"></script>
+        <script src="~/tmartcss/js/slick.min.js"></script>
+        <script src="~/tmartcss/js/owl.carousel.min.js"></script>
+        <!-- Waypoints.min.js. -->
+        <script src="~/tmartcss/js/waypoints.min.js"></script>
+        <!-- Main js file that contents all jQuery plugins activation. -->
+        <script src="~/tmartcss/js/main.js"></script>
 
-    </div>
-    <input type="submit" id="btnChk" style="display:none" value="คำนวนcheck">
-    <button type="button" data-column="#column-i" style="display:none"></button>
-    <button type="button" data-column="#column-l" style="display:none"></button>
-    <button type="button" data-column="#column-lKDC" style="display:none"></button>
-    <button type="button" data-column="#column-lPDC" style="display:none"></button>
-    <button type="button" data-column="#column-lWH" style="display:none"></button>
-    <a id="btnlog" style="display:none" href="~/Account/LogIn"></a>
-    <input id="ordidtemp" type="hidden">
-    <script src="~/tmartcss/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap framework js -->
-    <script src="~/tmartcssjs/bootstrap.min.js"></script>
-    <!-- All js plugins included in this file. -->
-    <script src="~/tmartcss/js/plugins.js"></script>
-    <script src="~/tmartcss/js/slick.min.js"></script>
-    <script src="~/tmartcss/js/owl.carousel.min.js"></script>
-    <!-- Waypoints.min.js. -->
-    <script src="~/tmartcss/js/waypoints.min.js"></script>
-    <!-- Main js file that contents all jQuery plugins activation. -->
-    <script src="~/tmartcss/js/main.js"></script>
+        <script src="~/fixed-table-master/fixed-table.js"></script>
+        <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
 
-    <script src="~/fixed-table-master/fixed-table.js"></script>
-    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+        <script src="~/Loadingmodal/js/modal-loading.js"></script>
+        <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+        <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
 
-    <script src="~/Loadingmodal/js/modal-loading.js"></script>
-    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
-    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
-
-    <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
-    <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
+        <script src="~/bootstrap-select-1.13.14/Bootstrapv4.1.0.js"></script>
+        <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <script src="~/Scripts/webAddress.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
-    @*<input type="hidden" id="_udernumber" value="@number" />
-        <input type="hidden" id="_udercompan" value="@compan" />*@
-    <script type="text/javascript">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <script src="~/Scripts/webAddress.js"></script>
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+        @*<input type="hidden" id="_udernumber" value="@number" />
+            <input type="hidden" id="_udercompan" value="@compan" />*@
+        <script type="text/javascript">
             var id = '@Request.RequestContext.HttpContext.Session["ID"]';
             var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
             var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -1355,13 +1362,8 @@
             }
 
 
-        function ShoppingCart_list(shipto, quatation) {
-                var valStatus = "N,W";
-                var valQuatation = "";
-                if (quatation != "") {
-                    valQuatation = quatation;
-                    valStatus = "Q";
-                }
+            function ShoppingCart_list(shipto) {
+
                 var CUSCOD = cuscod;
                 var Company = $("#company").val();
                 var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
@@ -1373,9 +1375,7 @@
                         Company: Company,
                         usrlogin: userid,
                         usrtype: usertype,
-                        shiptocode: shipto,
-                        quatation: valQuatation,
-                        status: valStatus,
+                        shiptocode: shipto
                     },
                     type: "POST",
                     dataType: "JSON",
@@ -1492,6 +1492,7 @@
                                 var bck = data.Getdata[i].val.Backorder;
                                 var bck = data.Getdata[i].val.Backorder;
                                 var accessId = data.Getdata[0].val.AccessID;
+                                var sta = data.Getdata[i].val.Status;
 
                                 //เก็บเลข accessLog ของตัวเอง
                                 if (accessId != "") {
@@ -1499,33 +1500,39 @@
                                 }
 
 
+
                                 if (bck != "0") {
                                     discol = "color:red;";
                                     disdisbackorder = "disabled: disabled";
-                                } else {
+                                }
+                               else if (sta == "W" && Type == "BCK") {
+                                    discol = "color:red;";
+                                    disdisbackorder = "disabled: disabled";
+                                }
+                                else if (sta == "C" && Type == "BCK") {
+                                    discol = "color:red;";
+                                    disdisbackorder = "disabled: disabled";
+                                }
+                                else {
                                     discol = "color:green;";
                                     disdisbackorder = "";
                                 }
 
                                 var substabor = stabor.substring(0, 3);
-                                if (substabor == "Bck") {
-                                    //disbck = "display:none";
+                                if (substabor == "BCK") {
+                                    disbck = "display:none";
                                 } else {
-                                    // disbck = "display:block";
+                                    disbck = "display:block";
                                 }
                                 if (Type == '-') { SubmithtmlPage += '<tr PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
                                 else { SubmithtmlPage += '<tr style="background-color: rgba(130, 198, 223, 0.3);" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '">'; }
 
+                                if (Type == 'BCK') {
+                                    discol = "color:red;";
+                                }
                                 var sta = data.Getdata[i].val.Status;
                                 if (sta != "N") {
-                                    if (sta == "Q") {
-                                        //SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" wlo="' + data.Getdata[i].val.WH_Location + '" Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
-                                        SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  bck="' + bck + '"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" wlo="' + data.Getdata[i].val.WH_Location + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
-                                    } else {
-                                        SubmithtmlPage += '<td></td>';
-                                    }
-                                    //SubmithtmlPage += '<td></td>';
-
+                                    SubmithtmlPage += '<td></td>';
                                     //SubmithtmlPage += '<td style="width: 79px;"><input id="checkbox" style="display:none;" id="checkbox" class="chk"  CartID="' + data.Getdata[i].val.CartID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '"Instock="' + data.Getdata[i].val.InStock + '" iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '"  Company="' + data.Getdata[i].val.Company + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
                                     //SubmithtmlPage += '<td><div  style="display:none;" class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" style=" color: red; cursor: pointer; "></div></td>';
                                 } else {
@@ -1533,7 +1540,7 @@
                                     //   SubmithtmlPage += '<td style="width: 79px;"><input  style="" id="checkbox" class="chk"  CartID="' + data.Getdata[i].val.CartID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Instock="' + data.Getdata[i].val.InStock + '" iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" type="checkbox"  checked=checked  disabled class="form-control input-lg" ></td>';
                                     // } else {
                                     // SubmithtmlPage += '<td>Not Approved</td>';
-                                    SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  bck="' + bck + '"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" wlo="' + data.Getdata[i].val.WH_Location + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
+                                    SubmithtmlPage += '<td style="width: 79px;"><input  id="idchk' + (i + 1) + '" class="chk"  bck="' + bck + '"  CartID="' + data.Getdata[i].val.CartID + '"  PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" exp="' + expdel + '"  Instock="' + data.Getdata[i].val.InStock + '"  iType="' + data.Getdata[i].val.Item_Type + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '"  Backorderqty="' + data.Getdata[i].val.Backorder + '"     STKCOD="' + data.Getdata[i].val.STKCOD + '" Company="' + data.Getdata[i].val.Company + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" TotalPrice="' + data.Getdata[i].val.TotalPrice + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" TotalDiscount="' + data.Getdata[i].val.TotalDiscount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  Promotion="' + data.Getdata[i].val.Promotion + '" wlo="' + data.Getdata[i].val.WH_Location + '" prdapproveby="' + Prcby + '" type="checkbox"  name="chektb" class="form-control input-lg" ></td>';
                                     //SubmithtmlPage += '<td><div class="glyphicon glyphicon-trash fa-2x" id="cancelx" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" style=" color: red; cursor: pointer; "></div></td>';
                                     // }
                                 }
@@ -1571,6 +1578,9 @@
                                 } else if (company == "OMP") {
 
                                     SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '<br><div style=' + discol + '>' + restatus + '</div></td>';
+                                } else if (company == "AGS") {
+
+                                    SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '<br><div style=' + discol + '>' + restatus + '</div></td>';
                                 }
                                 else if (company == "") {
 
@@ -1581,7 +1591,7 @@
 
                                 if (exp == "0.00") {
                                     if (Type != "FOC") {
-                                        if (substabor == 'Bck') { //bckOrd disabled จำนวน
+                                        if (substabor == 'Bck') {
                                             SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty"  old=' + CryptoJS.AES.encrypt(data.Getdata[i].val.Qty, 'secret key 123') + '  style="width: 78px;"  disabled="disabled" value=' + data.Getdata[i].val.Qty + ' min="0" elca=' + CryptoJS.AES.encrypt(data.Getdata[i].val.maxord, 'secret key 123') + ' ></td>';
                                         } else {
                                             SubmithtmlPage += '<td><input type="number" id="quantity" name="quantity" class="tQty"  old=' + CryptoJS.AES.encrypt(data.Getdata[i].val.Qty, 'secret key 123') + '  style="width: 78px;" ' + disdisbackorder + '    value=' + data.Getdata[i].val.Qty + ' min="0" elca=' + CryptoJS.AES.encrypt(data.Getdata[i].val.maxord, 'secret key 123') + '></td>';
@@ -1664,6 +1674,7 @@
                                 SubmithtmlPage += '<td><div class="tstock">' + commaSeparateNumber(data.Getdata[i].val.KDC_QTY) +  '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' +  commaSeparateNumber(data.Getdata[i].val.PDC_QTY) + '</div></td>';
                                 SubmithtmlPage += '<td><div class="tstock">' + data.Getdata[i].val.WH_Location + '</div></td>';
+                                SubmithtmlPage += '<td><div class="tstock">' + data.Getdata[i].val.Intransit + '</div></td>';
                                 //  }
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.LineNote + '</td>';
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.PrcRemark + '</td>';
@@ -1671,13 +1682,14 @@
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Promotion + '</td>';
 
                                 SubmithtmlPage += '<td>' + data.Getdata[i].val.Item_Type + '</td>';
+                                SubmithtmlPage += '<td>' + data.Getdata[i].val.InsertedBy + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.UOM + '</td>';
                                 // SubmithtmlPage += '<td style="display:none;">' + data.Getdata[i].val.CartID + '</td>';
                                 SubmithtmlPage += '</tr>';
                                 //$("#exampletb").append(SubmithtmlPage);
 
                             }
-                            console.log('Cart');
+
                             $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
 
                             if (usertype == "6") {
@@ -1852,10 +1864,12 @@
                     select.children().remove();
                     select.append($("<option>").val("0").text("เลือก ขนส่ง"));
                     $(data).each(function (index, item) {
-
-                        select.append($("<option>").val(item.Code).text(item.Code + "/" + item.Name));
+                        //if (item.Code.trim() == "S999") {
+                        //    select.append($("<option>").val("").text("ขนส่งบริษัท"));
+                        //} else {
+                            select.append($("<option>").val(item.Code).text(item.Code + "/" + item.Name));
+                        //}
                     });
-
                 }
             });
             function commaSeparateNumber(val) {
@@ -2094,7 +2108,6 @@
             });
               var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
 
-
                 var CUSCOD = cuscod;
                 var Company = $("#company").val();
                 //var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
@@ -2173,7 +2186,7 @@
 
                         } else {
                             $("#ModalShipping").modal('hide');
-                            ShoppingCart_list("", "");
+                            ShoppingCart_list("");
                             //var Quatation = $('#qpono').val();
                             //let result = Quatation.substring(0,1);
                             //alert(result)
@@ -2224,7 +2237,7 @@
                             $("#ModalShipping").modal('hide');
                             // ShoppingCart_list("");
                             var Quatation = $('#qpono').val();
-                            ShoppingCart_list("", Quatation); // GetCusQuatation
+                            GetCusQuatation(Quatation);
                         }
                     }
                 });
@@ -2245,7 +2258,7 @@
                         }
                     } else {
                         $("#ModalShipping").modal('hide');
-                        ShoppingCart_list("", "");
+                        ShoppingCart_list("");
                         //alert("mmm")
                     }
                 //} else {
@@ -2270,9 +2283,9 @@
             $("#CancalShippto").on("click", function () {
                 var cancalQuatation = $('#qpono').val();
                 if (cancalQuatation == "0") {
-                    ShoppingCart_list("", "");
+                    ShoppingCart_list("");
                 } else {
-                    ShoppingCart_list("", cancalQuatation) //GetCusQuatation
+                    GetCusQuatation(cancalQuatation)
                 }
                // ShoppingCart_list("");
 
@@ -2304,9 +2317,9 @@
                 var name = $(this).attr('namecus');
                 var _qpono =$("#qpono").val();
                 if(_qpono =="0"){
-                    ShoppingCart_list(code, "")
+                    ShoppingCart_list(code)
                 }else{
-                    ShoppingCart_list("", _qpono) //GetCusQuatation
+                    GetCusQuatation(_qpono)
                 }
 
                 //var name = $(this).attr('name');
@@ -2453,7 +2466,7 @@
 
                 //var code = $(this).attr('code');
                 var code = $('#codeShipping').val();
-                ShoppingCart_list(code, "")
+                ShoppingCart_list(code)
 
             });
             function CheckCusQuatation(xQuatation) {
@@ -2484,14 +2497,14 @@
                         }
                     }
                     });
-            }
-            //ย้ายไปใช้ ShoppingCart_list เพื่อ mantain ร่วมกัน 4/08/66
-            @*function GetCusQuatation(xQuatation) {
+                }
+            function GetCusQuatation(xQuatation) {
 
                 var fixedTable1 = fixTable(document.getElementById('fixed-table-container-1'));
                 var _valQuatation = xQuatation;
                 var CUSCOD = cuscod;
                 var usrlogin = userid;
+                var valCompany = $('#company').val();
                 var shipto = $('#codeShipping').val();
                 //$('#qpono').val(xQuatation);
                 var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true, });
@@ -2557,7 +2570,7 @@
                                     datacountfoc.push(Item_Type);
                                 }
                             }
-                            ////console.log(data.Getdata);
+                            console.log("GetdataCusQuatation = " + data.Getdata[0].val.Special_Discount);
                             var Fsumfoc = datacountfoc.length;
                             //alert(Fsumfoc);
                             // return false;
@@ -2567,13 +2580,14 @@
                             var Type_Cal = data.Getdata[0].val.Type_Cal;
 
                             if (Type_Cal != '') {
-                                $("#discon").val(Type_Cal);
+                                //$("#discon").val(Type_Cal);
                             }
                             var Special_Discount = data.Getdata[0].val.Special_Discount;
                             if (Special_Discount != '') {
                                 $("#inputdis").val(Special_Discount);
                             }
                             var DiscountPercent = data.Getdata[0].val.DiscountPercent;
+                            console.log("DiscountPercent = " + DiscountPercent);
 
                             if (DiscountPercent != '') {
                                 $("#dCredit").val(DiscountPercent);
@@ -2683,6 +2697,9 @@
                                 } else if (company == "AAC") {
 
                                     SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
+                                } else if (company == "AGS") {
+
+                                    SubmithtmlPage += '<td><i style="color: rgb(0, 119, 255);  font-size: 14px; font: icon;">' + data.Getdata[i].val.Company + "</i>/" + data.Getdata[i].val.STKCOD + '</td>';
                                 }
                                 else if (company == "") {
 
@@ -2749,7 +2766,7 @@
                                 // SubmithtmlPage += '<td>' + commaSeparateNumber(data.Getdata[i].val.Qty) + '</td>';
 
 
-                               
+
                                 SubmithtmlPage += '<td><div class="tamt" id="idamt' + (i + 1) + '">' + commaSeparateNumber(data.Getdata[i].val.Amt) + '</div></td>';
                                 //<input type="number"  name="quantity" class="tamt" id="idamt' + (i + 1) + '"  style="width: 78px;z-index: 0; color: rgb(6, 6, 6); background-color: white; text-align: right; border: 0px;" value=' + commaSeparateNumber(data.Getdata[i].val.Amt) + ' disabled="disabled">
 
@@ -2794,7 +2811,7 @@
                     }
                 });
 
-            }*@
+            }
             $("#exampletb").on("blur", ".tQty", function () {
 
                 //ShoppingCartNumber();
@@ -3019,21 +3036,45 @@
                     $("#btnChk").trigger("click");
                 }
             });
+            //Event diable checkbox
             $("#exampletb").on("click", "input[type='checkbox']", function () {
                 var bck = $(this).attr('bck');
+                var prdapproveby = $(this).attr('prdapproveby');
+                console.log("prdapproveby = " + prdapproveby);
+                G_Delivertmode();
+                //if (this.checked) {
+                //    $(this).closest('tr').find('.tQty').prop('disabled', true);
+                //} else {
+                //    G_Delivertmode();
+                //    if (bck == "0") {
+                //        //bug จังหวะ uncheck
+                //        $(this).closest('tr').find('.tQty').prop('disabled', false);
+                //    } else {
+                //        $(this).closest('tr').find('.tQty').prop('disabled', true);
+                //    }
+                //}
 
-                if (this.checked) {
-                    $(this).closest('tr').find('.tQty').prop('disabled', true);
-                } else {
-                    G_Delivertmode();
-                    if (bck == "0") {
-
+                //if (ถ้ากด checkbox) {
+                //    disable
+                //} else {
+                //      if (bck == "0") {
+                //        enable
+                //      } else {
+                //        disable
+                //      }
+                //}
+                if (this.checked) { //check
+                    if (prdapproveby == "") { //ไม่มีการอนุมัติ
+                        $(this).closest('tr').find('.tQty').prop('disabled', true);
+                    }
+                } else { //uncheck
+                    if (prdapproveby == "") { //ไม่มีการอนุมัติ
                         $(this).closest('tr').find('.tQty').prop('disabled', false);
                     } else {
-
                         $(this).closest('tr').find('.tQty').prop('disabled', true);
                     }
                 }
+
                 var checkchecked = $('#exampletb tr').find('input[type="checkbox"]:checked');
 
                 // $("#codetransportation").val("0");
@@ -3087,7 +3128,7 @@
 
             });
             var chcksumbeforeDiscount = 0;
-
+            //get data pop up
             $(document).on('click', '#btnChk', function () {
                 // alert("xxx")
                 var last = null;
@@ -3350,6 +3391,7 @@
                 $("#bAmt").val((sumnetpric).toFixed(2));
                 $("#bAmt").val(commaSeparateNumber($("#bAmt").val()));//TOTAL
                 $("#sumTol").html(commaSeparateNumber($("#bAmt").val())); //TOTAL Summary
+
 
                 // return false;
             });
@@ -3735,9 +3777,14 @@
             });
 
             $('#btnsubmitinsert').click(function () {
+
                 if (navigator.onLine) {
                     var data = new Array();
+
                     //var chkcusnull = $("#CustomerShipping").val();
+
+
+
                     var CusShipping = $('#CustomerShipping').val();
                     var codeShipping = $('#codeShipping').val();
                     var codetransportation = $('#codetransportation').val();
@@ -3751,8 +3798,6 @@
                     var Moddate = $("#ModdatepickerStart").val();
                     var Modtime = $("#Modtime").val();
                     var Ordertype = $("#Ordertype_ID").val();
-                    console.log("Ordertype = " + Ordertype);
-                    //return false;
                     if (Ordertype == "0") {
                         $("#textAlertWarning").empty();
                         $("#textAlertWarning").text("กรุณาเลือก Type ส่งสินค้า ");
@@ -3861,8 +3906,7 @@
                             data.push(ItemList);
                         }
 
-                        console.log(JSON.stringify(data));
-                       // return false;
+                       //console.log(JSON.stringify(data));
 
 
                     });
@@ -4040,7 +4084,6 @@
                                 //$("#textAlertSucces").text(data.Err_Message);
                                 // $("#myModalSucces").modal();
                                 var err_F = data.Err_Flg;
-
                                 // if (err_F == "0" || err_F == "") {
                                 $("#textProcheck").empty();
                                 $("#textProcheck").text(data.Err_Message);
@@ -4054,6 +4097,45 @@
                                 //return false;
                                 // }
                                 $("#ordidtemp").val(data.id);
+                                //call stored check credit
+                                var company = $("#company option:selected").val();
+                                var sumAmt = $("#bAmt").val();
+                                //disable ปุ่มยินยัน
+                                $("#btnOK").prop('disabled', true);
+                                $.ajax({
+                                    url: '@Url.Action("CheckCustomerCredit", "Cart")',
+                                    data: {
+                                        company: company,
+                                        cuscod: cuscod,
+                                        sumAmt: sumAmt.replace(/,/g, "")
+                                    },
+                                    type: "POST",
+                                    dataType: "JSON",
+                                    beforeSend: function () {
+                                        $('#checkCreditCustomer').empty();
+                                        $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คเครดิต... </b> </div>');
+                                    },
+                                    success: function (data) {
+                                        //return false;
+                                        if (data.flagCheck == "Y") { //ติดเครดิต รอ CRC อนุมัติ
+                                            $("#checkCreditCustomer").html('<div class="row">' +
+                                                                                '<div class="col-sm-12">' +
+                                                                                    '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ต้องรอ CRC ตรวจสอบเครดิตอาจใช้เวลานานกว่า Order จะส่งไปคลังสินค้า </div>' +
+                                                                                '</div>' +
+                                                                            '</div>')
+                                        } else {  //ไม่ติดเครดิต
+                                            //$("#checkCreditCustomer").html('<div class="row">' +
+                                            //                                    '<div class="col-sm-12">' +
+                                            //                                        '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
+                                            //                                    '</div>' +
+                                            //                                '</div>')
+                                            $('#checkCreditCustomer').empty();
+                                        }
+                                       //enable ปุ่มยินยัน
+                                        $("#btnOK").prop('disabled', false);
+                                    }
+                                });
+                                //end call
                             } else {
                                 $("#textAlert").empty();
                                 $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
@@ -4154,7 +4236,7 @@
                         var DiscountAmt = "";
                         DiscountAmt = $("#bdicAmt").val();
                         DiscountAmt = DiscountAmt.replace(/,/g, "");
-                        var Credit = $("#dCredit option:selected").val();
+                        var Credit = $("#dCredit").val();
 
                         var AmtSalePrices = "";
                         AmtSalePrices = $("#bAmtSalePrices").val();
@@ -4443,7 +4525,7 @@
                     var dataPro = new Array();
                     var data = new Array();
                     var MyRows = $('#example1').find('tbody').find('tr');
-                    console.log(MyRows);
+                    // //console.log(MyRows);
                     for (var i = 0; i < MyRows.length; i++) {
                         chk = $(MyRows[i]).find('input[type="checkbox"]:checked').attr('value');
                         if (chk !== undefined) {
@@ -4486,10 +4568,9 @@
                     var DataSendPro = JSON.stringify(dataPro);
                     // //console.log('xxbbb' + " " + DataSendPro)
                     $('#exampletb tr').find('input[type="checkbox"]:checked').each(function (e) {
-                        console.log("checkbox");
                         var GenID = $(this).attr('GenID');
                         var idorder = $(this).attr('cartid');
-                        //var VQty = $(this).attr('Qty');
+                        var VQty = $(this).attr('Qty');
                         var PRCLST_NO = $(this).attr('PRCLST_NO');
                         var Uom = $(this).attr('Uom');
                         var Vstock = $(this).attr('instock');
@@ -4516,7 +4597,6 @@
                         var VLineNote = $(this).attr('LineNote');
                         var Ordertype = $('#Ordertype_ID').val();
                         var AmtQty = $('#bQty').val();
-                        var VQty = $(this).closest('tr').find('.tQty').val();
 
                         var AmtSalePrices = "";
                         AmtSalePrices = $('#bAmtSalePrices').val();
@@ -4537,7 +4617,6 @@
                         var Ordertype = $("#Ordertype_ID").val();
                         //ถ้าเป็น backOrder ไม่ออก quotation
                         if (!VLineNote.includes("BckOrd")) {
-                            //console.log("VLineNote = " + VLineNote);
                             var ItemList = {
                                 VGenID: GenID,
                                 Vidorder: idorder,
@@ -4571,13 +4650,11 @@
 
                             };
                             data.push(ItemList);
-                        } else {
-                            rowBckorder = 1;
-                        }
-
-                        console.log("Quolist = " + JSON.stringify(data));
-                        //return false;
-                    });
+                            }  else {
+                                rowBckorder = 1;
+                            }
+                            // //console.log(JSON.stringify(data));
+                        });
 
                     var _ckq = $('#Ckquote').val();
                     var _QNo;
@@ -4587,7 +4664,7 @@
                     }
                     if (rowBckorder > 0) {
                         $("#textAlertWarning").empty();
-                        $("#textAlertWarning").text("รายการ BackOrder ไม่สามารถออก Quotation ได้");
+                        $("#textAlertWarning").text("รายการ BckOrder ไม่สามารถออก Quotation ได้");
                         $("#myModalWarning").modal(); return false;
                     }
                     if (data.length == 0) {
@@ -4596,8 +4673,7 @@
                         $("#myModalWarning").modal(); return false;
                     }
                     var DataSend = JSON.stringify(data);
-                    //console.log('DataSend' + " " + DataSend)
-                    //return false;
+                    // //console.log('xx' + " " + DataSend)
                     var sumvat = "";
                     sumvat = $("#sumvat").html();
                     var sumqty = $("#sumqty").html();
@@ -4808,12 +4884,13 @@
                                 //$("#textAlert").empty();
                                 //$("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
                                 //$("#myModal").modal();
-                            } else {
+                            } else { //เข้าล่าสุดแล้ว Confirm ได้
                                  ////console.log('xxbbb' + " " + DataSendPro)
                                 var ckVCompany = "";
                                 var datacomTAC = new Array();
                                 var datacomAAC = new Array();
                                 var datacomOMP = new Array();
+                                var datacomAGS = new Array();
                                 var xc = "";
                                 $('#exampletb tr').find('input[type="checkbox"]:checked').each(function () {
                                     var CKCompany = $(this).attr('Company');
@@ -4834,26 +4911,61 @@
                                             com: CKCompany
                                         }
                                         datacomOMP.push(Ckcom);
+                                    } else if (CKCompany == "AGS") {
+                                        var Ckcom = {
+                                            com: CKCompany
+                                        }
+                                        datacomAGS.push(Ckcom);
                                     }
                                 });
-                                if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                //old
+                                //if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 ) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "ALL";
+
+                                //} else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "TAC";
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                //    ckVCompany = "AAC";
+                                //} else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                //    ckVCompany = "OMP";
+                                //}
+                                //new
+                                if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length == 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0) {
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length > 0) {
                                     ckVCompany = "ALL";
 
-                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0) {
+                                } else if (datacomTAC.length > 0 && datacomAAC.length > 0 && datacomOMP.length > 0 && datacomAGS.length == 0) {
+                                    ckVCompany = "ALL";
+
+                                } else if (datacomTAC.length > 0 && datacomAAC.length == 0 && datacomOMP.length == 0 && datacomAGS.length == 0) {
                                     ckVCompany = "TAC";
-                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0) {
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length > 0 && datacomOMP.length == 0 && datacomAGS.length == 0) {
                                     ckVCompany = "AAC";
-                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomOMP.length > 0) {
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomAGS.length == 0 && datacomOMP.length > 0) {
                                     ckVCompany = "OMP";
+
+                                } else if (datacomTAC.length == 0 && datacomAAC.length == 0 && datacomAGS.length > 0 && datacomOMP.length == 0) {
+                                    ckVCompany = "AGS";
+
                                 }
                                 //console.log(datacomTAC.length + " " + datacomAAC.length);
                                 // alert(ckVCompany);
@@ -5089,11 +5201,10 @@
                                             });
 
                                             //location.reload();
-                                        } else {
-
-                                            $("#textAlert").empty();
-                                            $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
-                                            $("#myModal").modal();
+                                        } else {//alert  After Roll Back
+                                            $("#textAlertWarning").empty();
+                                            $("#textAlertWarning").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + data.message);
+                                            $("#myModalWarning").modal();
                                         }
                                     }
                                 });
@@ -5292,7 +5403,7 @@
             //      }
             //};
             //Lock show code display //
-    </script>
+        </script>
 
 
 </body>

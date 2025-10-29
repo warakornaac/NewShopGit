@@ -313,9 +313,14 @@
         if ($(this).is(':checked')) { //เลือกร้าน checked
             getManagePackPromotion(cusCode, cusName, promotionCode, promotionSeq, packQty, packAmt, sumPackAmt)
         } else {//กรณีกดยกเลิก Check
+            var textMsgDecrease = '<form id="form-add-pack" style="text-align: left;">';
+            textMsgDecrease += '<label class="text-primary"> <b> ต้องการยกเลิก Promotion ' + promotionCode + ' </b> </label> <br>' + cusCode + '(' + cusName + ')' + ' จำนวน ' + packQty + ' แพ๊ค <br>';
+            textMsgDecrease += '<label>เหตุผล</label><textarea id="txtReason" name="txtReason" rows="4" style="width:100%; background: none;" class="form-control"> </textarea> <br>';
+            textMsgDecrease += '</form>';
+            txtReason = $('#txtReason').val() || "";
             Swal.fire({
-                //title: 'ต้องการยกเลิก Promotion ทั้งหมด',
-                html: '<b> ต้องการยกเลิก Promotion ' + promotionCode + ' </b>' + '<br>' + cusCode + '(' + cusName + ')' + ' จำนวน ' + packQty + ' แพ๊ค',
+                //html: '<b> ต้องการยกเลิก Promotion ' + promotionCode + ' </b>' + '<br>' + cusCode + '(' + cusName + ')' + ' จำนวน ' + packQty + ' แพ๊ค',
+                html: textMsgDecrease,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#00a65a',
@@ -324,24 +329,29 @@
                 cancelButtonText: '<i class="fa fa-times"></i> ไม่',
                 allowOutsideClick: false,
                 focusConfirm: false,
+                preConfirm: () => {
+                    const reason = $('#txtReason').val();
+                    return reason;
+                }
             }).then((result) => {
                 if (result.value) {//ยกเลิก
-                   $.ajax({
+                    //console.log("txtReason1 = " + result.value);
+                    //return false;
+                    $.ajax({
                     type: 'POST',
                     cache: false,
                     url: '@Url.Action("SaveCustomerRegister", "Promotion")',
                     data: {
-                            user: '@Session["UserID"]',
-                            slmCode: slmCode,
-                            cusCode: cusCode,
-                            promotionCode: promotionCode,
-                            promotionSeq: promotionSeq,
-                            packQty: 0,
-                            packAmt: packAmt,
-                            sumPackAmt: 0
-                        },
-                    //contentType: "application/json; charset=utf-8",
-                    //enctype: 'multipart/form-data',
+                        user: '@Session["UserID"]',
+                        slmCode: slmCode,
+                        cusCode: cusCode,
+                        promotionCode: promotionCode,
+                        promotionSeq: promotionSeq,
+                        packQty: 0,
+                        packAmt: packAmt,
+                        sumPackAmt: 0,
+                        txtReason: result.value
+                    },
                     beforeSend: function () {
                         LoadingShow();
                     },

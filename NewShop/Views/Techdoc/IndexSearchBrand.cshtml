@@ -1,0 +1,192 @@
+﻿@{ ViewBag.Title = "Index Vehicle"; }
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="~/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/contentfilter/js/jquery-2.1.1.js"></script>
+    <script src="~/contentfilter/js/jquery.mixitup.min.js"></script>
+    <link href="~/Content/Normalize.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css">
+
+    <style>
+    </style>
+
+</head>
+<h2>@*SearchPartnoCompany*@</h2>
+@*show detail before send*@
+<div class="container-fluid mt--90" style="padding-top: 5px; padding-bottom: 10px;">
+    @*brand*@
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white font-weight-bold">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                            <i class="fa fa-cab"></i> Result Brand
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row p-1">
+                        @if (ViewBag.dataSupplier.SupplierListData != null && (ViewBag.dataSupplier.SupplierListData).Count > 0)
+                        {
+                            foreach (var rowDataB in ViewBag.dataSupplier.SupplierListData)
+                            {
+            <div class="col-3 col-md-2 col-xl-1" style="cursor: pointer;" onclick="getBrandId(@rowDataB.brandId, '@rowDataB.brandName')">
+                <span class="d-flex flex-column align-items-center justify-content-center bg-body-secondary rounded display-6 pt-3 pb-3" style="border: 1px solid #b3b3b3; margin-top: 2px;">
+                    <i class="fa fa-cart-arrow-down mb-1"> @rowDataB.brandId </i>
+                    <span style="font-size: 12px;white-space: nowrap;"> @rowDataB.brandName</span>
+                </span>
+            </div>}
+    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*supplier*@
+    <div class="row pt-1">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white font-weight-bold">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                            <i class="fa fa-university"></i> Result Supplier
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row p-1">
+                        @if (ViewBag.dataProduct.GroupProductListData != null && (ViewBag.dataProduct.GroupProductListData).Count > 0)
+                        {
+                            foreach (var rowDataP in ((IEnumerable<dynamic>)ViewBag.dataProduct.GroupProductListData).Take(100))
+                            {
+            <div class="col-3 col-md-2 col-xl-1" style="cursor: pointer;" onclick="getGroupId(@rowDataP.genericArticleId, '@rowDataP.designation')">
+                <span class="d-flex flex-column align-items-center justify-content-center bg-body-secondary rounded display-6 pt-3 pb-3" style="border: 1px solid #b3b3b3; margin-top: 2px;">
+                    <i class="fa fa-university mb-1"> @rowDataP.genericArticleId </i>
+                    <span style="font-size: 12px;white-space: nowrap;"> @rowDataP.designation</span>
+                </span>
+            </div>}
+    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Form search Brand & Supplier*@
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white font-weight-bold" style="cursor: pointer;">
+                    <div class="row">
+                        <div class="col-sm-12"> <i class="fa fa-cab"></i> Form search Brand & Supplier </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row pl-2">
+                        <div class="col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <label class="control-label font-weight-bold" for=""> Brand Description </label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtBrandId" value="" />
+                                <input type="text" class="form-control" style="text-align: left;" id="txtBrandName" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pl-2">
+                        <div class="col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <label class="control-label font-weight-bold" for=""> Supplier Description </label>
+                                <input type="text" class="form-control" style="text-align: left;" id="txtGroupId" value="" />
+                                <input type="text" class="form-control" style="text-align: left;" id="txtGroupName" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="btn btn-md btn-success" onclick="getArticlesBrandSupplie();"><i class="fa fa-cog"></i> Get PartNumber </button> &nbsp;
+                        <button type="button" class="btn btn-md btn-info" onclick="resetValue();"><i class="fa fa-refresh"></i> Reset </button> &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="showResultBrandSupplier" class="pt-1 pb-1"></div>
+</div>
+
+<script>
+    function resetValue() {
+        $("#txtBrandId").val('');
+        $("#txtBrandName").val('');
+        $("#txtBrandId").val('');
+        $("#txtBrandName").val('');
+    }
+    function getBrandId(txtBrandId, txtBrandName) {
+        if (txtBrandId != null) {
+            $("#txtBrandId").val(txtBrandId);
+            $("#txtBrandName").val(txtBrandName);
+        }
+
+    }
+    function getGroupId(txtGroupId, txtGroupName) {
+        if (txtGroupId != null) {
+            $("#txtGroupId").val(txtGroupId);
+            $("#txtGroupName").val(txtGroupName);
+        }
+    }
+    function getArticlesBrandSupplie() {
+        var setTxtBrand = $("#txtBrandId").val();
+        var setTxtGroup = $("#txtGroupId").val();
+
+        var msg = '';
+        var error = 0;
+        //if (setTxtBrand == "" || setTxtGroup == "") {
+        //    ++error;
+        //    msg += '<br>' + error + '. กรุณาเลือก Brand & Supplier';
+        //}
+
+        if (error) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                html: msg,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Close',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+            return false;
+        } else {
+            $.ajax({
+                url: '@Url.Action("getProductByBrandGroup", "Techdoc")',
+                type: 'POST',
+                data: {
+                    brandId: 30,//setTxtBrand,
+                    groupId: 82//setTxtGroup
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#showResultModel').empty();
+                    $('#showResultModel').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล Data Model ... </div>');
+                    //LoadingShow();
+                },
+                success: function (res) {
+                    $('#showResultModel').html(res);
+                    //$("#txtHeadPromotionDetail").text(promotionText);
+                    //LoadingHide();
+                }
+            });
+        }
+    }
+
+</script>
