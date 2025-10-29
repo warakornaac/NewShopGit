@@ -526,11 +526,11 @@ textarea {
     width: 100%;
     font-size: 14px;
 }
-textarea:focus {
+/*textarea:focus {
     background: transparent;
     border: 1px solid #ff4136;
     outline: none;
-}
+}*/
 /*----------------------------
   14. Basic margin padding
 -----------------------------*/

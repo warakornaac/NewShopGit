@@ -1,0 +1,75 @@
+﻿<div class="row pt-2">
+    <div class="col-12">
+        @{
+            if (ViewBag.dataResponse == null)
+            {
+                <div class="alert alert-danger text-center mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล K-Type list </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header bg-secondary text-black font-weight-bold">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                                <i class="fa fa-file-image-o"></i> Result K-Type list
+                                @*<span id="txtHeadPromotionDetail"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionExample">
+                            @*image*@
+                            <div class="card">
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        @*result image*@
+                                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                                            @{
+                                                if (ViewBag.dataResponse.TargetsModelListData != null)
+                                                {
+                                                    foreach (var rowData in ViewBag.dataResponse.TargetsModelListData)
+                                                    {
+                                                        <div class="col m-1">
+                                                            <div class="card">
+                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                    <img src="@rowData.ImageURL"
+                                                                         alt="@rowData.ImageURL"
+                                                                         style="height: 250px; width: 250px; object-fit: contain;" />
+                                                                </div>
+                                                                <div class="card-footer text-left">
+                                                                    <small class="text-body-secondary"><b> LinkageTargetId : </b> @rowData.LinkageTargetId </small> <br>
+                                                                    <small class="text-body-secondary"><b> MfrName : </b> @rowData.MfrName </small> <br>
+                                                                    <small class="text-body-secondary"><b> VehicleModelSeriesName : </b>@rowData.VehicleModelSeriesName</small><br>
+                                                                    <small class="text-body-secondary"><b> BeginYearMonth : </b>@rowData.BeginYearMonth</small><br>
+                                                                    <small class="text-body-secondary"><b> EndYearMonth : </b>@rowData.EndYearMonth</small><br>
+                                                                    <small class="text-body-secondary"><b> DriveType : </b>@rowData.DriveType</small><br>
+                                                                    <small class="text-body-secondary"><b> BodyStyle : </b>@rowData.BodyStyle</small><br>
+                                                                    <small class="text-body-secondary"><b> FuelMixtureFormationType : </b>@rowData.FuelMixtureFormationType</small><br>
+                                                                    <small class="text-body-secondary"><b> FuelType : </b>@rowData.FuelType</small><br>
+                                                                    <small class="text-body-secondary"><b> EngineType : </b>@rowData.EngineType</small><br>
+                                                                    <small class="text-body-secondary"><b> Engines : </b>@rowData.Engines</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="card-footer">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 text-right">
+                                <input type="text" class="form-control" id="txtArticleId" value="@ViewBag.articleId[0]" style="font-size: medium; float: left; position: relative; max-width: 120px;" />
+                                <button type="button" class="btn btn-md btn-success" onclick="getLinkage();"><i class="fa fa-car"></i> Get Car list </button>
+                            </div>
+                        </div>
+                    </div>*@
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,304 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<style>
+</style>
+<div class="row pt-2">
+    <div class="col-12">
+        @{
+            if (ViewBag.mfrName.Count == 0)
+            {
+                <div class="alert alert-danger text-center mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล Product data </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header bg-secondary text-black font-weight-bold">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                                <i class="fa fa-list"></i> Result Product data
+                                @*<span id="txtHeadPromotionDetail"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionExample">
+                            @*detail*@
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="headingZero">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+                                            <b> Description Part </b>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseZero" class="collapse show" aria-labelledby="headingZero" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.GenericArticles != null)
+                                                        {
+                                                            foreach (var rowDataImage in ViewBag.dataResponse.GenericArticles)
+                                                            {
+                                                                <li><b>GenericArticleDescription : </b> @rowDataImage.genericArticleDescription </li>
+                                                            }
+                                                        }
+                                                        if (ViewBag.articleNumber.Count != 0)
+                                                        {
+                                                            <li><b>ArticleNumber : </b> @ViewBag.articleNumber[0] </li>
+                                                        }
+                                                        if (ViewBag.additionalDescriptions.Count != 0)
+                                                        {
+                                                            <li><b>AdditionalDescriptions : </b> @ViewBag.additionalDescriptions[0] </li>
+                                                        }
+                                                        if (ViewBag.ArticleStatusDescription.Count != 0)
+                                                        {
+                                                            <li><b>ArticleStatusDescription : </b> @ViewBag.ArticleStatusDescription[0] </li>
+                                                        }
+                                                        if (ViewBag.mfrName.Count != 0)
+                                                        {
+                                                            <li><b>MfrName : </b> @ViewBag.mfrName[0] </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*image*@
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <b> Image </b>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        @*result image*@
+                                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                                            @{
+                                                if (ViewBag.dataResponse.Images != null && (ViewBag.dataResponse.Images).Count > 0)
+                                                {
+                                                    foreach (var rowDataImage in ViewBag.dataResponse.Images)
+                                                    {
+                                                        <div class="col m-1">
+                                                            <div class="card">
+                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                    <img src="@rowDataImage.imageURL800"
+                                                                         alt="@rowDataImage.fileName"
+                                                                         style="height: 250px; width: 250px; object-fit: contain;" />
+                                                                </div>
+                                                                <div class="card-footer text-left">
+                                                                    <small class="text-body-secondary"><a href="@rowDataImage.imageURL800" target="_blank"> @rowDataImage.imageURL800 </a> </small> <br>
+                                                                    <small class="text-body-secondary">@rowDataImage.fileName</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="pl-5">ไม่พบข้อมูล</div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="headingTwo">
+                                    <h2 class="mb-0 font-weight-bold">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <b> OEM Numbers </b>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.OemNumbers != null && (ViewBag.dataResponse.OemNumbers).Count > 0)
+                                                        {
+                                                            foreach (var rowDataImage in ViewBag.dataResponse.OemNumbers)
+                                                            {
+                                                                <li> <b> @rowDataImage.articleNumber </b> / @rowDataImage.mfrName</li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li> ไม่พบข้อมูล </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="headingThree">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <b> Specification </b>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.ArticleCriteria != null && (ViewBag.dataResponse.ArticleCriteria).Count > 0)
+
+                                                        {
+                                                            foreach (var rowDataImage in ViewBag.dataResponse.ArticleCriteria)
+                                                            {
+                                                                <li><b>@rowDataImage.criteriaDescription </b> &nbsp; : &nbsp; @rowDataImage.formattedValue</li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li> ไม่พบข้อมูล </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="heading">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            <b> Trade numbers </b>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.TradeNumberDetail != null && (ViewBag.dataResponse.TradeNumberDetail).Count > 0)
+                                                        {
+                                                            foreach (var rowDataImage in ViewBag.dataResponse.TradeNumberDetail)
+                                                            {
+                                                                <li><b>@rowDataImage.tradeNumber </b></li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li> ไม่พบข้อมูล </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-info p-0" id="heading">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            <b> Pdf manual </b>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFive" class="collapse show" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ul>
+                                                    @{
+                                                        if (ViewBag.dataResponse.Pdf != null && (ViewBag.dataResponse.Pdf).Count > 0)
+                                                        {
+                                                            foreach (var rowData in ViewBag.dataResponse.Pdf)
+                                                            {
+                                                                <li><b>@rowData.headerDescription </b> : <a href="@rowData.url" target="_blank"> @rowData.url </a> </li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li> ไม่พบข้อมูล </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 text-right">
+                            <input type="hidden" class="form-control" id="txtArticleId" value="@ViewBag.articleId[0]" style="font-size: medium; float: left; position: relative; max-width: 120px;" />
+                            <button type="button" class="btn btn-md btn-warning" onclick="getLinkageTargets();"><i class="fa fa-car"></i> Get Car list </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div id="showLinkageCar" class="pt-1 pb-1"></div>
+
+<script defer>
+    function getLinkageTargets() {
+        var txtArticleId = $("#txtArticleId").val();
+        var msg = '';
+        var error = 0;
+        if (txtArticleId == "") {
+            ++error;
+            msg += '<br>' + error + '. ไม่พบข้อมูล ArticleId';
+        }
+
+        if (error) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาตรวจสอบข้อมูลต่อไปนี้',
+                html: msg,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Close',
+                allowOutsideClick: false,
+                focusConfirm: false,
+            });
+            return false;
+        } else {
+            $.ajax({
+                url: '@Url.Action("getLinkageTargets", "Techdoc")',
+                type: 'POST',
+                data: {
+                    ArticleId: txtArticleId.trim()
+                },
+                dataType: 'html',
+                cache: false,
+                Async: true,
+                beforeSend: function () {
+                    $('#showLinkageCar').empty();
+                    $('#showLinkageCar').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล K-Type list ... </div>');
+                    //LoadingShow();
+                },
+                success: function (res) {
+                    $('#showLinkageCar').html(res);
+                    //$("#txtHeadPromotionDetail").text(promotionText);
+                    //LoadingHide();
+                }
+            });
+        }
+    }
+</script>

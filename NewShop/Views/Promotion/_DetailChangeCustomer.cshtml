@@ -45,39 +45,39 @@
         border-bottom: 1px solid #ccc;
     }
 
-    .panel-order .row:last-child {
-        border: 0px;
-    }
-
-    .panel-order .row .col-md-1 {
-        text-align: center;
-        padding-top: 15px;
-    }
-
-        .panel-order .row .col-md-1 img {
-            width: 50px;
-            max-height: 50px;
+        .panel-order .row:last-child {
+            border: 0px;
         }
 
-    .panel-order .row .row {
-        border-bottom: 0;
-    }
+        .panel-order .row .col-md-1 {
+            text-align: center;
+            padding-top: 15px;
+        }
 
-    .panel-order .row .col-md-8 {
-        border-left: 1px solid #ccc;
-    }
+            .panel-order .row .col-md-1 img {
+                width: 50px;
+                max-height: 50px;
+            }
 
-    .panel-order .row .row .col-md-12 {
-        padding-top: 7px;
-        padding-bottom: 7px;
-    }
+        .panel-order .row .row {
+            border-bottom: 0;
+        }
 
-    .panel-order .row .row .col-md-12:last-child {
-        /*font-size: 11px;*/
-        color: #555;
-        background: #d5f7dd;
-        border-top: 1px solid #ccc;
-    }
+        .panel-order .row .col-md-8 {
+            border-left: 1px solid #ccc;
+        }
+
+        .panel-order .row .row .col-md-12 {
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+
+            .panel-order .row .row .col-md-12:last-child {
+                /*font-size: 11px;*/
+                color: #555;
+                background: #d5f7dd;
+                border-top: 1px solid #ccc;
+            }
 
     .panel-order .btn-group {
         margin: 0px;
@@ -116,27 +116,27 @@
         display: none;
     }
 
-    .form-group input[type="checkbox"] + .btn-group > label span {
-        width: 20px;
-    }
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
 
-    .form-group input[type="checkbox"] + .btn-group > label span:first-child {
-        display: none;
-    }
+            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+                display: none;
+            }
 
-    .form-group input[type="checkbox"] + .btn-group > label span:last-child {
-        display: inline-block;
-    }
+            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+                display: inline-block;
+            }
 
-    .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
-        display: inline-block;
-    }
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
 
-    .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-        display: none;
-    }
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;
+        }
 </style>
-@{ 
+@{
 
 }
 
@@ -209,7 +209,7 @@
                             <div class="panel panel-default panel-order m-2">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-4" id="col-@rowData.CustomerData.Cuscode" >
+                                        <div class="col-md-4" id="col-@rowData.CustomerData.Cuscode">
                                             <h4 class="pt-2 text-170 text-600 letter-spacing">
                                                 <input type="checkbox" name="selectChangeCustomer" class="ml-2" id="selectPromotion"
                                                        data-cuscode="@rowData.CustomerData.Cuscode"
@@ -220,7 +220,7 @@
                                                        data-codenew="@rowData.CustomerData.Promotion_Code_New"
                                                        data-seqnew="@rowData.CustomerData.Promotion_Sub_New"
                                                        data-packqtynew="@rowData.CustomerData.PackQty_New"
-                                                       data-sumpackamtnew="@rowData.CustomerData.SumPackAmt_New"/> &nbsp;
+                                                       data-sumpackamtnew="@rowData.CustomerData.SumPackAmt_New" /> &nbsp;
                                                 <span class="label label-info">
                                                     @rowData.CustomerData.Slmcode
                                                 </span>
@@ -254,42 +254,46 @@
                                                         รายการก่อนลดจำนวน @rowData.CustomerData.PackQty_total_old แพ๊ค
                                                         (รวมเป็นเงิน @rowData.CustomerData.SumPackQty_total_old)
                                                     </span>
-                                                    <br />
-                                                    @foreach (var rowDataBefore in rowData.PromotionBeforeList)
-                                                    {
-                                                        @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataBefore.RowNumber). แพ๊คละ @rowDataBefore.PackAmt จำนวน @rowDataBefore.PackQty รวมเป็นเงิน @rowDataBefore.SumPackAmt <br />
-                                                    }
+                                                    @*<br />
+                                                        @foreach (var rowDataBefore in rowData.PromotionBeforeList)
+                                                        {
+                                                            @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataBefore.RowNumber). แพ๊คละ @rowDataBefore.PackAmt จำนวน @rowDataBefore.PackQty รวมเป็นเงิน @rowDataBefore.SumPackAmt <br />
+                                                        }*@
                                                 </div>
                                                 @*After*@
-                                            <div class="col-md-12">
-                                                <div class="pull-right icon">
-                                                    <label class="label label-success">New</label>
+                                                <div class="col-md-12">
+                                                    <div class="pull-right icon">
+                                                        <label class="label label-success">New</label>
+                                                    </div>
+                                                    <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.CustomerData.Promotion_Code_New / @rowData.CustomerData.Promotion_Code_old_Description</strong></span>
+                                                    <br />
+                                                    <i class="fa fa-usd icon"></i>
+                                                    @rowData.CustomerData.Description_New |
+                                                    @rowData.CustomerData.Reward_New (@rowData.CustomerData.Cost_New)
+                                                    <br />
+                                                    @*<i class="fa fa-tag icon"></i>
+                                                        เป็น @rowData.CustomerData.PackQty_New แพ๊ค |
+                                                        แพ๊คละ @rowData.CustomerData.PackAmt_New (รวมเป็นเงิน @rowData.CustomerData.SumPackAmt_New)
+                                                        <br />*@
+                                                    <i class="fa fa-sort-amount-desc icon"></i>
+                                                    ลดลง @rowData.CustomerData.Decrease_PackQty แพ๊ค
+                                                    (เป็นเงิน @rowData.CustomerData.Decrease_SumPackAmt)
+                                                    <br />
+                                                    <i class="fa fa-thumb-tack icon"></i>
+                                                    <span style="color: #af6f15; background-color: yellow;">
+                                                        รายการหลังลดจำนวนเหลือ @rowData.CustomerData.PackQty_total_new แพ๊ค
+                                                        (รวมเป็นเงิน @rowData.CustomerData.SumPackQty_total_new)
+                                                        @if (!string.IsNullOrWhiteSpace(rowData.CustomerData.Reason))
+                                                        {
+                                                        }
+                                                    </span> &nbsp;
+                                                    <span> เหตุผล <u>@rowData.CustomerData.Reason</u></span>
+                                                    @*<br />
+                                                        @foreach (var rowDataAfter in rowData.PromotionAfterList)
+                                                        {
+                                                            @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataAfter.RowNumber). แพ๊คละ @rowDataAfter.PackAmt จำนวน @rowDataAfter.PackQty รวมเป็นเงิน @rowDataAfter.SumPackAmt เหตุผล <u>@rowDataAfter.Reason</u> <br />
+                                                        }*@
                                                 </div>
-                                                <span> <i class="fa fa-product-hunt icon"></i> <strong>@rowData.CustomerData.Promotion_Code_New / @rowData.CustomerData.Promotion_Code_old_Description</strong></span>
-                                                <br />
-                                                <i class="fa fa-usd icon"></i>
-                                                @rowData.CustomerData.Description_New |
-                                                @rowData.CustomerData.Reward_New (@rowData.CustomerData.Cost_New)
-                                                @*<br />
-                                                <i class="fa fa-tag icon"></i>
-                                                เป็น @rowData.CustomerData.PackQty_New แพ๊ค |
-                                                แพ๊คละ @rowData.CustomerData.PackAmt_New (รวมเป็นเงิน @rowData.CustomerData.SumPackAmt_New)*@
-                                                <br />
-                                                <i class="fa fa-sort-amount-desc icon"></i>
-                                                ลดลง @rowData.CustomerData.Decrease_PackQty แพ๊ค
-                                                (เป็นเงิน @rowData.CustomerData.Decrease_SumPackAmt)
-                                                <br />
-                                                <i class="fa fa-thumb-tack icon"></i>
-                                                <span style="color: #af6f15; background-color: yellow;">
-                                                    รายการหลังลดจำนวนเหลือ @rowData.CustomerData.PackQty_total_new แพ๊ค
-                                                    (รวมเป็นเงิน @rowData.CustomerData.SumPackQty_total_new)
-                                                </span>
-                                                <br />
-                                                @foreach (var rowDataAfter in rowData.PromotionAfterList)
-                                                {
-                                                    @:&nbsp; <i class="fa fa-caret-right icon"></i> @rowDataAfter.RowNumber). แพ๊คละ @rowDataAfter.PackAmt จำนวน @rowDataAfter.PackQty รวมเป็นเงิน @rowDataAfter.SumPackAmt <br />
-                                                }
-                                            </div>
                                             </div>
                                         </div>
                                     </div>

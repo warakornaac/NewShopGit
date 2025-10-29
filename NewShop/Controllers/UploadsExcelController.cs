@@ -105,8 +105,10 @@ namespace NewShop.Controllers
                             cmdUp.Connection = Connection;
                             cmdUp.CommandType = CommandType.StoredProcedure;
                             cmdUp.Parameters.AddWithValue("@Cuscod", cus);
-                            cmdUp.Parameters.AddWithValue("@Stkcod", dReader.GetValue(0));
-                            cmdUp.Parameters.AddWithValue("@Qty", dReader.GetValue(1));
+                            cmdUp.Parameters.AddWithValue("@Company", dReader.GetValue(0));
+                            cmdUp.Parameters.AddWithValue("@Stkcod", dReader.GetValue(1));
+                            cmdUp.Parameters.AddWithValue("@Qty", dReader.GetValue(2));
+                            cmdUp.Parameters.AddWithValue("@Price", dReader.GetValue(3));
                             cmdUp.Parameters.AddWithValue("@Userlogin", usr);
                             SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                             returnValue.Direction = System.Data.ParameterDirection.Output;
@@ -126,6 +128,7 @@ namespace NewShop.Controllers
                         SqlParameter returnValue = new SqlParameter("@Doc_Out", SqlDbType.NVarChar, 100);
                         returnValue.Direction = System.Data.ParameterDirection.Output;
                         cmdUpload_Customer_Order.Parameters.Add(returnValue);
+                        cmdUpload_Customer_Order.CommandTimeout = 1000;
                         cmdUpload_Customer_Order.ExecuteNonQuery();
                         Docno = returnValue.Value.ToString();
                         cmdUpload_Customer_Order.Dispose();
@@ -144,9 +147,11 @@ namespace NewShop.Controllers
                                     Reference_No = dr["Reference_No"].ToString(),
                                     ID = dr["ID"].ToString(),
                                     CUSCOD = dr["CUSCOD"].ToString(),
+                                    Company = dr["Company"].ToString(),
                                     STKCOD = dr["STKCOD"].ToString(),
                                     UOM = dr["UOM"].ToString(),
                                     Qty = dr["Qty"].ToString(),
+                                    Price = dr["Price"].ToString(),
                                     Status = dr["Status"].ToString(),
                                     Status_Message = dr["Status Message"].ToString(),
                                     Inserted_Date = dr["Inserted Date"].ToString(),

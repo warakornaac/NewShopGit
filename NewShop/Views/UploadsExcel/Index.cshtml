@@ -76,11 +76,8 @@
                     </h1>
                     <div class="col-md-8">
                         <div class="input-group ">
-                            
                             <a href="~/Excel/Order_Upload_By_Customer.xlsx"><img src="~/images/Excel.png" style="width:8%" />Download template</a>
-
                         </div>
-
                     </div>
                     <div class="form-group col-md-12 content">
                         <form method="POST" enctype="multipart/form-data"
@@ -109,9 +106,11 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Company</th>
                                         <th>Stockcode</th>
                                         <th>UOM</th>
                                         <th>Qty</th>
+                                        <th>Price</th>
                                         <th>Status Upload</th>
                                         <th>Status Message</th>
                                     </tr>
@@ -354,9 +353,11 @@
                         }
                         SubmithtmlPage += '<tr>';
                         SubmithtmlPage += '<td>' + (i + 1) + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Company + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Price + '</td>';
                         SubmithtmlPage += '<td>' + status + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Status_Message + '</td>';
 
@@ -383,9 +384,11 @@
                         }
                         SubmithtmlPage += '<tr>';
                         SubmithtmlPage += '<td>' + (i + 1) + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Company + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Price + '</td>';
                         SubmithtmlPage += '<td>' + status + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Status_Message + '</td>';
 

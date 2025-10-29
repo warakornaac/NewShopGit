@@ -753,6 +753,7 @@ namespace NewShop.Controllers
                         PackAmt = dr["PackAmt"].ToString(),
                         SumPackAmt = dr["SumPackAmt"].ToString(),
                         InsertDate = dr["InsertDate"].ToString(),
+                        Reason = dr["Reason"].ToString(),
                     });
                 }
                 dr.Close();
@@ -817,6 +818,7 @@ namespace NewShop.Controllers
                         SumPackAmt_New = dr["SumPackAmt_New"].ToString(),
                         Decrease_PackQty = dr["Decrease_PackQty"].ToString(),
                         Decrease_SumPackAmt = dr["Decrease_SumPackAmt"].ToString(),
+                        Reason = dr["Reason"].ToString(),
                     };
 
                     var cusCode = customer.Cuscode;
