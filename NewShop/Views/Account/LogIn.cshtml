@@ -44,15 +44,25 @@
     <script src="~/tmartcss/js/bootstrap.min.js"></script>
 
     <link href="~/cardoorcss/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-           html {
+        html {
             filter: grayscale(100%);
             -o-filter: grayscale(100%);
             -moz-filter: grayscale(100%);
-            -webkit-filter: grayscale(90%);
+            -webkit-filter: grayscale(20%);
             filter: gray;
         }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(-120deg, #ef3b13fa, #1a30d0);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
         .field-icon {
             float: right;
             margin-left: -25px;
@@ -81,15 +91,12 @@
 </head>
 
 <body>
-
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Body main wrapper start -->
     <div class="wrapper fixed__footer">
         <!-- Warning Alert -->
-
-
         <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
         <div class="offset__wrapper">
@@ -112,13 +119,11 @@
                 </div>
             </div>
             <!-- End Search Popap -->
-
         </div>
         <!-- End Offset Wrapper -->
         <!-- Start Login Register Area -->
-
         <div class="htc__login__register bg__white ptb--150" style="background: linear-gradient(-120deg,#ef3b13fa,#1a30d0);" @*style="background: rgba(0, 0, 0, 0) url(images/bg/5.jpg) no-repeat scroll center center / cover ;"*@>
-            <div class="container">
+            @*<div class="container">*@
                 <!--  <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <ul class="login__register__menu" role="tablist">
@@ -129,27 +134,22 @@
                     </div>
                 </div>-->
                 @*<div id="getdiploma">
-                    <div style="padding: 28px 0;font-size: 2rem;line-height: 1.25em;">
-
-                        <h1 style="color:wheat">แจ้งปิดปรับปรุงระบบ ชั่วคราว!</h1><br /> เรียน ผู้ใช้งานทุกท่าน<br />ทางบริษัทขอแจ้งให้ทราบ จะปิดปรับปรุงระบบ <br />ในวันเสาร์ที่ 04 กุมภาพันธ์ 2566 เวลา 18:00 – วันอาทิตย์ที่ 05 กุมภาพันธ์ 2566 เวลา 08:00 น. <br />ขออภัยในความไม่สะดวก
-
-                    </div>
-                </div>*@
+                        <div style="padding: 28px 0;font-size: 2rem;line-height: 1.25em;">
+                            <h1 style="color:wheat">แจ้งปิดปรับปรุงระบบ ชั่วคราว!</h1><br /> เรียน ผู้ใช้งานทุกท่าน<br />ทางบริษัทขอแจ้งให้ทราบ จะปิดปรับปรุงระบบ <br />ในวันเสาร์ที่ 04 กุมภาพันธ์ 2566 เวลา 18:00 – วันอาทิตย์ที่ 05 กุมภาพันธ์ 2566 เวลา 08:00 น. <br />ขออภัยในความไม่สะดวก
+                        </div>
+                    </div>*@
                 <!-- Start Login Register Content -->
-
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <img src="~/images/logo/AACTAC185x70.jpg" style="width:30%" /><span style="font-size: 36px; transition: all 0.4s ease 0s; color: beige; ">     Login</span>
                         </div>
                         <div class="col-md-6 col-md-offset-3">
-
                             <div class="panel panel-default" style="    background-color: #f1ecb645;">
                                 <div class="panel-body">
                                     @using (Html.BeginForm())
                                     {
                                         <form class="form-horizontal" method="" action="">
-
                                             <div class="form-group">
                                                 @Html.LabelFor(u => u.Usre)
                                                 @Html.TextBoxFor(u => u.Usre, new { required = "required", @class = "form-control" })
@@ -172,24 +172,29 @@
                                             </div>
                                         </form>
                                     }
+
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
                 <!-- End Login Register Content -->
-
-
-
-
             </div>
         </div>
         <!-- End Login Register Area -->
-
-    </div>
-
+    @*</div>*@
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Login Fail',
+            text: '@TempData["ErrorMessage"]',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#d33'
+        });
+        </script>
+    }
     <script type="text/javascript">
         //$("#myModalWarninglog").modal();
         // alert("แจ้งปิดปรับปรุงระบบ ชั่วคราว!เรียน ผู้ใช้งานทุกท่าน ทางไอทีขอแจ้งให้ทราบ ระบบจะปิดปรับปรุง ในวันเสาร์ที่ 04 กุมภาพันธ์ 2566 เวลา 18:00 – วันอาทิตย์ เวลา 08:00 น. ขออภัยในความไม่สะดวก")
