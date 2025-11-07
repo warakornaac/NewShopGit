@@ -799,15 +799,15 @@
                             if (data.Getdata[i].val.Status == "W") {
                                 if (ItemType == "SPC") {
                                     SubmithtmlPage += '<td style="width: 79px;" class="vcenter">';
-                                    SubmithtmlPage += '<input id="checkbox" ' + DisableCheckbox + ' style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" >';
+                                    SubmithtmlPage += '<input id="checkbox" ' + DisableCheckbox + ' style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '" Item_DES="' + data.Getdata[i].val.ItemTypeDes +'"  type="checkbox"  class="form-control input-lg" >';
                                     SubmithtmlPage += '</td > ';
                                 } else {
-                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
+                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '" Item_DES="' + data.Getdata[i].val.ItemTypeDes +'"  type="checkbox"  class="form-control input-lg" ></td>';
                                 }
                                 SubmithtmlPage += '<td align="center" class="vcenter">' + data.Getdata[i].val.RowNo + '</td>';
 
                                 SubmithtmlPage += '<td align="center" class="vcenter">';
-                                SubmithtmlPage += data.Getdata[i].val.ItemTypeDes;
+                                SubmithtmlPage += '<div>'+data.Getdata[i].val.ItemTypeDes+'</div>';
                                 //ปุ่ม pop up apperove cost
                                 if (ItemType == "SPC") {
                                     SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.PriceApproveId + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
@@ -953,6 +953,8 @@
             var User = userid;
             var data = new Array();
             var iCount = 0;
+            var spcCount = 0;
+            var item_des;
 
             $('#tblDetail tr').find('input[type="checkbox"]:checked').each(function () {
                 var cartid = $(this).attr('cartid');
@@ -961,6 +963,8 @@
                 var spcend_date = $("#spcend_date").val();
                 var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
                 var saleprice = $(this).attr('saleprice');
+                item_des = $(this).attr('Item_DES');
+
                 var ItemList = {
                     cartid: cartid,
                     PRCLST_NO: PRCLST_NO,
@@ -969,6 +973,12 @@
                     spcmoq: spcmoq,
                     saleprice: saleprice
                 };
+
+                if (item_des == "ต่อรองราคา") {
+                    if (spcremake == "") {
+                        spcCount++;
+                    }
+                }
 
                 data.push(ItemList);
                 //console.log(JSON.stringify(data));
@@ -982,6 +992,14 @@
                 $("#textAlert").text("กรุณาเลือกรายการที่ต้องการอนุมัติ");
                 $("#myModal").modal();
                 return false;
+            }
+            else {
+                if (spcCount > 0) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุ Spc Remark");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
             }
 
             //console.log('xxiCount=' + " " + iCount)
