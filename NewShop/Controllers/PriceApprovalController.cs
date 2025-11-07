@@ -406,6 +406,7 @@ namespace NewShop.Controllers
                         model.Price = dr["Price"].ToString();
                         model.SalePrice = dr["SalePrice"].ToString();
                         model.SpecialPrice = dr["SpecialPrice"].ToString();
+                        model.Spc_Remark = dr["Spc_Remark"] != DBNull.Value ? dr["Spc_Remark"].ToString() : string.Empty;
                         model.spcmoq = dr["spc_moq"].ToString();
                         model.Qty = dr["Qty"].ToString();
                         model.Amt = dr["Amt"].ToString();
@@ -870,6 +871,7 @@ namespace NewShop.Controllers
         public string SalePrice { get; set; }
         public string spcmoq { get; set; }
         public string SpecialPrice { get; set; }
+        public string Spc_Remark { get; set; }
         public string spcstart_date { get; set; }
         public string spcend_date { get; set; }
         public string ExpectPrice { get; set; }

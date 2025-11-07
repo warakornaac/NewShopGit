@@ -427,6 +427,7 @@
                         <th>ราคาพิเศษ</th>
                         <th>Stock</th>
                         <th>Spc Remark</th>
+                        @*<th>Spc Remark(Sales)</th>*@
                         <th>ราคาซื้อล่าสุด</th>
                         <th>วันที่สั่งซื้อ</th>
                         <th>Line Note</th>
@@ -772,11 +773,13 @@
                         var BgColor;
                         var ProdCodeHigh;
                         var DisableCheckbox;
+                        var SpcRemark="";
                         for (var i = 0; i < data.Getdata.length; i++) {
                             Status = data.Getdata[i].val.Status;
                             strsub = data.Getdata[i].val.InsertedBy;
                             ItemType = data.Getdata[i].val.ItemType;
                             ProdCodeHigh = data.Getdata[i].val.ProdCodeHigh;
+                            SpcRemark = data.Getdata[i].val.Spc_Remark;
                             BgColor = "";
                             DisableCheckbox = "";
                             strsub = strsub.split("|");
@@ -796,15 +799,15 @@
                             if (data.Getdata[i].val.Status == "W") {
                                 if (ItemType == "SPC") {
                                     SubmithtmlPage += '<td style="width: 79px;" class="vcenter">';
-                                    SubmithtmlPage += '<input id="checkbox" ' + DisableCheckbox + ' style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" >';
+                                    SubmithtmlPage += '<input id="checkbox" ' + DisableCheckbox + ' style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '" Item_DES="' + data.Getdata[i].val.ItemTypeDes +'"  type="checkbox"  class="form-control input-lg" >';
                                     SubmithtmlPage += '</td > ';
                                 } else {
-                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '"  type="checkbox"  class="form-control input-lg" ></td>';
+                                    SubmithtmlPage += '<td style="width: 79px;" class="vcenter"><input id="checkbox" style="" class="chk"  CartID="' + data.Getdata[i].val.ID + '" PRCLST_NO="' + data.Getdata[i].val.PRCLST_NO + '" Uom="' + data.Getdata[i].val.UOM + '"  Qty="' + data.Getdata[i].val.Qty + '" STKCOD="' + data.Getdata[i].val.STKCOD + '" STKDES="' + data.Getdata[i].val.STKDES + '" STKGRP="' + data.Getdata[i].val.STKGRP + '" Price="' + data.Getdata[i].val.Price + '" SalePrice="' + data.Getdata[i].val.SalePrice + '" Amt="' + data.Getdata[i].val.Amt + '" Discount="' + data.Getdata[i].val.Discount + '" ORDDAT="' + data.Getdata[i].val.ORDDAT + '" LineNote="' + data.Getdata[i].val.LineNote + '" Item_DES="' + data.Getdata[i].val.ItemTypeDes +'"  type="checkbox"  class="form-control input-lg" ></td>';
                                 }
                                 SubmithtmlPage += '<td align="center" class="vcenter">' + data.Getdata[i].val.RowNo + '</td>';
 
                                 SubmithtmlPage += '<td align="center" class="vcenter">';
-                                SubmithtmlPage += data.Getdata[i].val.ItemTypeDes;
+                                SubmithtmlPage += '<div>'+data.Getdata[i].val.ItemTypeDes+'</div>';
                                 //ปุ่ม pop up apperove cost
                                 if (ItemType == "SPC") {
                                     SubmithtmlPage += '<button type="button" onClick="popupApprovePrice(' + data.Getdata[i].val.PriceApproveId + ')" id="" class="btn btn-warning btn-xs" style="width: 40px;padding: 7px;cursor: pointer; margin-left: 5px;" data-customername="' + data.Getdata[i].val.CUSCOD + '" data-stkcod="' + data.Getdata[i].val.STKCOD + '" data-stkdes="' + data.Getdata[i].val.STKDES + '" data-expectPrice="' + commaSeparateNumber(data.Getdata[i].val.ExpectPrice) + '" data-cost="' + data.Getdata[i].val.UNITCOST + '"> <i class="fa fa-eye" aria-hidden="true"></i> </button >';
@@ -854,13 +857,18 @@
                             SubmithtmlPage += '<td style="text-align: right"><div class="SalePrice">' + commaSeparateNumber(data.Getdata[i].val.SalePrice) + '</div></td>';
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.SpecialPrice) + '</td>';
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(parseInt(data.Getdata[i].val.readyQty)) + '</td>';
-                            if (Status == "W") {
+                            if (Status == "W" && SpcRemark=="") {
 
-                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';
+                                //SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  class="spcRemake"  name="sRemake"  maxlength="50" style=" width: 100px;"></td>';
+                                SubmithtmlPage += '<td><select class="form-control spcRemake" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">' + data.Getdata[i].val.Spc_Remark + '</span></td>';//SpcRemark Sale
+
                             } else {
 
-                                SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
+                                //SubmithtmlPage += '<td id="fnRemake"><input id="Remake' + i + '"  value ="' + Prcre + '" class="spcRemake"  name="sRemake" maxlength="50" style=" width: 100px;"></td>';
+                                SubmithtmlPage += '<td><select class="form-control spcRemake" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">' + data.Getdata[i].val.Spc_Remark + '</span></td>';//SpcRemark Sale
+
                             }
+                            //SubmithtmlPage += '<td><select class="form-control spc_remark" name="spcRemake" id="spcRemake' + (i) + '" style="min-width:200px"></select><span class="hidden-spc" style="display:none">'+data.Getdata[i].val.Spc_Remark+'</span></td>';//SpcRemark Sale
                             SubmithtmlPage += '<td style="text-align: right">' + commaSeparateNumber(data.Getdata[i].val.LastInvPrice) + '</td>';
                             SubmithtmlPage += '<td>' + data.Getdata[i].val.ORDDAT + '</td>';
 
@@ -876,7 +884,7 @@
                         }
 
                         $('#fixed-table-container-1  tbody:last-child').append(SubmithtmlPage);
-
+                        spcRemarkLoad();
                     }
                     else {
 
@@ -945,6 +953,8 @@
             var User = userid;
             var data = new Array();
             var iCount = 0;
+            var spcCount = 0;
+            var item_des;
 
             $('#tblDetail tr').find('input[type="checkbox"]:checked').each(function () {
                 var cartid = $(this).attr('cartid');
@@ -953,6 +963,8 @@
                 var spcend_date = $("#spcend_date").val();
                 var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
                 var saleprice = $(this).attr('saleprice');
+                item_des = $(this).attr('Item_DES');
+
                 var ItemList = {
                     cartid: cartid,
                     PRCLST_NO: PRCLST_NO,
@@ -961,6 +973,12 @@
                     spcmoq: spcmoq,
                     saleprice: saleprice
                 };
+
+                if (item_des == "ต่อรองราคา") {
+                    if (spcremake == "") {
+                        spcCount++;
+                    }
+                }
 
                 data.push(ItemList);
                 //console.log(JSON.stringify(data));
@@ -974,6 +992,14 @@
                 $("#textAlert").text("กรุณาเลือกรายการที่ต้องการอนุมัติ");
                 $("#myModal").modal();
                 return false;
+            }
+            else {
+                if (spcCount > 0) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาระบุ Spc Remark");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
             }
 
             //console.log('xxiCount=' + " " + iCount)
@@ -1127,6 +1153,43 @@
         function LoadingHide() {
             $.LoadingOverlay("hide");
         }
+
+        function spcRemarkLoad() {
+            $.ajax({
+                url: '@Url.Action("GetSpcRemark", "Shoppinglist")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.respone === 'Y' && Array.isArray(data.result)) {
+
+                        // loop ทุก select ที่มี class spc_remark
+                        $('.spcRemake').each(function () {
+                            var $select = $(this);
+                            var currentRemark = $select.siblings('.hidden-spc').text().trim();
+
+                            // ล้าง option เดิม
+                            $select.empty();
+                            $select.append('<option value="">-- Select Remark --</option>');
+
+                            // เติม option ใหม่จาก AJAX
+                            data.result.forEach(item => {
+                                const selected = (item.VAL.trim() === currentRemark) ? 'selected' : '';
+                                $select.append(`<option value="${item.VAL}" ${selected}>${item.VAL}</option>`);
+                            });
+                        });
+
+                    } else {
+                        console.warn('Invalid response or empty result');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        }
+
+
+
     </script>
 </body>
 
