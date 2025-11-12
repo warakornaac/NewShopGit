@@ -34,6 +34,7 @@
             color: wheat;
             box-shadow: 0 1px 3px black;
         }
+
         .tagclass {
             margin-top: 0;
             margin-bottom: 1rem;
@@ -43,6 +44,7 @@
             padding-left: 185px;
             font-size: 19px;
         }
+
         .tit {
             margin-top: 0;
             margin-bottom: 1rem;
@@ -52,6 +54,7 @@
             padding-left: 385px;
             font-size: 19px;
         }
+
         .fixed-table-container td {
             background: burlywood;
         }
@@ -180,7 +183,7 @@
             <div class="content ptb--20 ">
                 <div class="row">
                     <div class="col-md-6" style="color: wheat; box-shadow: 0 1px 3px black;">
-                        <input  type="hidden" id="cushid" />
+                        <input type="hidden" id="cushid" />
                         <i>บัญชีลูกค้า:<i class="note-desc" style="color: white; cursor: help; " id="cus" title=""></i></i><br />
                         <i>Credit เงินสด:<i class="note-desc" style="color:white" id="dis"></i></i><br />
                         <i>Note:<i class="note-desc" style="color: white" id="note"></i></i>
@@ -211,58 +214,58 @@
                     <div class="col-md-3" style="font-size: initial; color: cyan;">
                         *ตรวจสอบ Stock สินค้า*
                     </div>
-                    
+
                     <hr />
-                        <div class="col-md-4" style="text-align:left;">
-                            <div id="QShow" style="color: floralwhite;font-size: x-large;"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon ">ลูกค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
-                                   
-                                    <input type="Text"  onfocus="this.select();" onmouseup="return false;" class="form-control " id="Customer" style="border-color: brown;background-color: darkkhaki;color: black;" />
-                                    
-                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
-                                </div>
+                    <div class="col-md-4" style="text-align:left;">
+                        <div id="QShow" style="color: floralwhite;font-size: x-large;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon ">ลูกค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
+
+                                <input type="Text" onfocus="this.select();" onmouseup="return false;" class="form-control " id="Customer" style="border-color: brown;background-color: darkkhaki;color: black;" />
+
+                                <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon ">พนักงานขาย<span class=" glyphicon glyphicon-hand-right"></span></span>
-                                    <select id="SaleCode" class="form-control" style="color:black">
-                                        <option value="ALL">--เลือก พนักงานขาย--</option>
-                                       
-                                    </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon ">พนักงานขาย<span class=" glyphicon glyphicon-hand-right"></span></span>
+                                <select id="SaleCode" class="form-control" style="color:black">
+                                    <option value="ALL">--เลือก พนักงานขาย--</option>
 
-                                    <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
-                                </div>
+                                </select>
+
+                                <span class="input-group-addon "><span class="glyphicon glyphicon-user"></span></span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-4" style="text-align: right; float: right; margin-left: auto;display:none">
-                            <div class="form-group">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <div class="input-group ">
+                    <div class="col-md-4" style="text-align: right; float: right; margin-left: auto;display:none">
+                        <div class="form-group">
+                            <form role="form">
+                                <div class="form-group">
+                                    <div class="input-group ">
 
-                                            <span>
-                                                <button type="button" id="btncheck" class="btn btn-warning"> จำนวนสินค้าในตระกร้า</button>
-                                            </span>
+                                        <span>
+                                            <button type="button" id="btncheck" class="btn btn-warning"> จำนวนสินค้าในตระกร้า</button>
+                                        </span>
 
-                                            <span class="col-sm-4 input-group-addon"><i><i id="Cuitem" style="color:crimson; font-size: large; font: icon;"> 0 </i>ชิ้น</i></span>
-                                            <span class="col-sm-4 input-group-addon"><i><i id="Cuqty" style="color: crimson; font-size: large; font: icon;"> 0</i> เบอร์</i></span>
-                                        </div>
+                                        <span class="col-sm-4 input-group-addon"><i><i id="Cuitem" style="color:crimson; font-size: large; font: icon;"> 0 </i>ชิ้น</i></span>
+                                        <span class="col-sm-4 input-group-addon"><i><i id="Cuqty" style="color: crimson; font-size: large; font: icon;"> 0</i> เบอร์</i></span>
                                     </div>
-                                </form>
+                                </div>
+                            </form>
 
-                            </div>
                         </div>
-                    
+                    </div>
+
                 </div>
             </div>
-           <div class="tagclass"></div>
+            <div class="tagclass"></div>
             <div style="box-shadow: 0 1px 3px black;">
                 <div class="content" style="padding: 11px 4px 0px;">
                     <div class="row">
@@ -375,8 +378,8 @@
 
                 </div>
             </div>
-           
-          
+
+
         </div>
     </div>
     <div class="content ptb--20 " style="margin: 2px 20px;">
@@ -409,7 +412,7 @@
                             <th>Clearance</th>
                             <th>ราคาต่อรอง</th>
                             <th>Line Note</th>
-                            <th>Spc<br />remark</th>
+                            <th style="min-width:287px">Spc<br />remark</th>
                             <th>ราคาซื้อ/<br />หน่วย ล่าสุด</th>
                             <th>ราคา<br />ส่วนลดล่าสุด</th>
                             <th>ราคา<br />ซื้อล่าสุด</th>
@@ -508,7 +511,7 @@
     var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
     var cuscod;
     resourceAddress.hash();
-   
+
     if (param_values.numcuber != undefined) {
         cuscod = atob(param_values.numcuber)
 
@@ -584,7 +587,7 @@
         });
     }
      function stkgroupbyprod(code) {
-        
+
             $.ajax({
                 url: '@Url.Action("GetdateStkgrpByProd", "DataCenter")',
                 data: {
@@ -607,7 +610,7 @@
         }
     var paramList = "";
     function cusaddr(cuscod) {
-       
+
         $.ajax({
             url: '@Url.Action("GetdatabyCus", "DataCenter")',
             data: {
@@ -633,7 +636,7 @@
                 $("#cushid").val(data[0].CUSCOD);
                 $("#SaleCode").val(data[0].SLMCOD);
                 //countorder(data[0].CUSCOD, data[0].SLMCOD);
-               
+
                 paramList = data.length;
                //var paramList = "1"
                 //alert("returnValue" + paramList);
@@ -644,7 +647,7 @@
         //return paramList;
         //return paramList;
     }
-       
+
     function discount(cuscod) {
         $.ajax({
             url: '@Url.Action("Getdiscount", "DataCenter")',
@@ -703,20 +706,20 @@
 
                     var select = $("#PM_ID");
                     select.children().remove();
-                    
+
                         select.append($("<option>").val("(ALL)").text("--เลือก ผู้ดูแลผลิตภัณฑ์--"));
-                 
+
                     $(data).each(function (index, item) {
                         select.append($("<option>").val(item.CODE).text(item.CODE + "|" + item.NAME));
                     });
                 }
             });
         }
-        
+
     getslmandcus() //get saleman
     if (cuscod != "") {
         cusaddr(cuscod)//get add
-        
+
         discount(cuscod) //get discount
         getprod()//get prod
         stkgroup() //get stkgroup
@@ -724,7 +727,7 @@
     } else {
         getprod()//get prod
     }
-    
+
     function countorder(cuscod) {
         // var SLM = $("#Slm").val()
         $.ajax({
@@ -856,7 +859,7 @@
              type: "POST",
              dataType: "JSON",
              success: function (data) {
-               
+
                  $("#STKCOD").removeAttr('disabled');
 
                  var select = $("#STKCOD");
@@ -867,7 +870,7 @@
                  });
              }
          });
-     }); 
+     });
     $("#STKCOD").change(function () {
             var stkitem = $(this).val();
             var CUS = $("#cushid").val();
@@ -963,16 +966,16 @@
                         var StockCode = val;
                         var split_StockCode = StockCode.split('|');
                         var stkitem = split_StockCode[0];
-                       
+
                         var CUS = $('#cushid').val();
-                       
+
                         var SLM = $("#SaleCode").val();
                         var User = userid;
                         var valCompany = $('#Company').val()
                         pricelist(CUS, User, SLM, stkitem, valCompany)
                     },
                     minLength: 2//minLength as 2, it means when ever user enter 2 character in TextBox the AutoComplete method will fire and get its source data.
-               
+
           });
 
         function pricelist(CUS, User, SLM, stkitem, valCompany)
@@ -1075,7 +1078,10 @@
                         SubmithtmlPage += '<td>' + data[i].val.Clearance + '</td>';
                         SubmithtmlPage += '<td><input id="ExpectPrice' + (i + 1) + 'A' + rowCount + '" type="number" min="1" name="Sum_Expect" class="Expect" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
                         SubmithtmlPage += '<td><input id="Linenote' + (i + 1) + 'A' + rowCount + '" name="S_Linenote" class="tlinenote"  style=" background-color:white;"></td>';
-                        SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remark">' + data[i].val.spc_remark + '</div></td>';
+                        //SPC REMARK
+                        //SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remark">' + data[i].val.spc_remark + '</div></td>';
+                        SubmithtmlPage += '<td style="background-color:#FFCC66;"><div class="spc_remarkxxx">' + data[i].val.spc_remark + '</div><select class="form-control spc_remark" name="spcRemake" id="spcRemake' + (i + 1) + 'A' + rowCount + '" hidden style="min-width:270px"></select> </td>';
+
                         SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvUnitPric + '</div></td>';
                         SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvDisc + '</div></td>';
                         SubmithtmlPage += '<td><div class="LastInvPrice">' + data[i].val.LastInvPrice + '</div></td>';
@@ -1092,7 +1098,7 @@
                         //SubmithtmlPage += '<td style="display:none;"><div class="STKGRP_PRC">' + data[i].val.STKGRP_PRC + '</div></td>';
                         SubmithtmlPage += '<td style="display:none;" class="valcompany"><div class="company">' + data[i].val.company + '</div></td>';
                         SubmithtmlPage += '</tr>';
-                       
+
                     }
 
                     $('#fixed-table-container-1  tbody:last-child').prepend(SubmithtmlPage);
@@ -1116,7 +1122,7 @@
     //    $("input[name='last_col']").trigger('click');
     //    //$(".last_col").css("dispaly", "none");
     //}
-  
+
         $(document).on('click', 'div.remove', function () { // <-- changes
 
             $(this).closest('tr').remove();
@@ -1539,7 +1545,7 @@
                 MyIndexValueQtybo = "0"
             }
 
-         
+
             var MyIndexValueLinenote = $(MyRows[i]).find('td .tlinenote').val();
             var MyIndexValueQtyboA = "";
             var backNoA = "";
@@ -1576,6 +1582,7 @@
             var MyIndexValueSpc_moq = $(MyRows[i]).find('td .spc_moq').html();
             var MyIndexValueLastInvPrice = $(MyRows[i]).find('td .LastInvPrice').html().replace(',', '').replace(' ', '');
             var MyIndexValueLastInvdate = $(MyRows[i]).find('td .LastInvdate').html();
+            var MyIndexValueSpcRemark = $(MyRows[i]).find('td .spc_remark').val();
             if (MyIndexValueSalePrice == "0.00") {
                 if (MyIndexValueExpectPrice == "" && MyIndexValueQty != "") {
                     $("#btnsubmitinsert").attr("disabled", false);
@@ -1597,7 +1604,7 @@
             } else {
                 MyIndexValueExpectPrice;
             }
-            
+
             var ItemList = {
                 CUSCOD: cuscod.toUpperCase(),
                 STKCOD: res[1],
@@ -1606,6 +1613,7 @@
                 Price0: MyIndexValuePrice,
                 SalePrice: MyIndexValueSalePrice,
                 Special_Price: MyIndexValueSpecial_Price,
+                Spc_Remark: MyIndexValueSpcRemark,
                 Qty: MyIndexValueQty,
                 Qtybo: MyIndexValueQtybo,
                 ExpectPrice: MyIndexValueExpectPrice,
@@ -1668,6 +1676,15 @@
                 }
 
             }
+            if (ItemList.ExpectPrice != "0") {
+                if (MyIndexValueSpcRemark == "") {
+                    $("#btnsubmitinsert").attr("disabled", false);
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("กรุณาเลือก Spc Remark");
+                    $("#myModalWarning").modal();
+                    return false;
+                }
+            }
             if (ItemList.Qty != "") {
                 if (ItemList.Qty != "0") {
                     data.push(ItemList);
@@ -1679,7 +1696,7 @@
         var DataSend = JSON.stringify(data);
         //console.log(DataSend)
         // return false;
-        
+
         var MyRows = $('#example1').find('tbody').find('tr');
         for (var i = 0; i < MyRows.length; i++) {
             var MyIndexValueStock = $(MyRows[i]).find('td .stockPro').val();
@@ -1739,7 +1756,7 @@
         }
 
         var DataSendPro = JSON.stringify(dataPro);
-       
+
         if (data.length == 0) {
             if (dataPro.length == 0) {
                 $("#btnsubmitinsert").attr("disabled", false);
@@ -1757,7 +1774,7 @@
             $("#example1 > tbody").empty();
             return false;
         }
-       
+
         if (cuscod =="") {
             $("#btnsubmitinsert").attr("disabled", false);
             $("#textAlertWarning").empty();
@@ -1767,7 +1784,7 @@
             $("#example1 > tbody").empty();
             return false;
         }
-       
+
         $.ajax({
             url: '@Url.Action("Confirmationdata", "Shoppinglist")',
             data: {
@@ -1788,7 +1805,7 @@
                     ShoppingCartNumber()
                     //location.reload();
                     //setTimeout(function () { window.close() }, 2000); //2วิ
-                   
+
                     window.location.replace("../Cart/Index?numcuber=" + btoa(cuscod));
                 } else {
                     $("#textAlertWarninglog").empty();
@@ -1894,7 +1911,7 @@
             window.location.replace("../Cart/Index?numcuber=" + btoa(cuskey));
         }
 
-    }); 
+    });
     $(document).on("click", "#btndetail", function () {
         var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
 
@@ -1929,10 +1946,10 @@
         var cuskey = $("#cushid").val();//checkcustomerบัญชีลูกค้า:
         if (cuskey == "") {
             window.location.replace("../Statuslist/Index");
-           
+
         } else {
             window.location.replace("../Statuslist/Index?numcuber=" + btoa(cuskey));
-            
+
         }
     });
     $(document).on("click", "#navbarshowdetail", function () {
@@ -2038,7 +2055,7 @@
 
             var DataSend = JSON.stringify(data);
 
-          
+
             var encodeduser = btoa(User);
             var encodedCus = btoa(CUS);
             var encodedStringiSlm = btoa(SLM);
@@ -2063,7 +2080,7 @@
             //}
         });
 
-        
+
         $(document).on('click', 'div.fas fa-trash', function () { // <-- changes
 
             $(this).closest('tr').remove();
@@ -2071,7 +2088,55 @@
             return false;
 
         });
-       
+
+                //spc remark
+        $(document).on('focusout', '[id^="ExpectPrice"]', function () {
+            var $input = $(this);
+            var text = $input.val();
+            if (text != '') {
+                var rowIdPart = $input.attr('id').replace('ExpectPrice', 'spcRemake');
+                var $select = $('#' + rowIdPart);
+
+                var currentRemark = $select.closest('td').find('.spc_remarkxxx').text().trim();
+                $select.closest('td').find('.spc_remarkxxx').attr('hidden', true);
+
+                $.ajax({
+                    url: '@Url.Action("GetSpcRemark", "Shoppinglist")',
+                    data: {},
+                    type: 'post',
+                    dataType: 'Json',
+                    beforeSend: function () {
+
+                    },
+                    success: function (data) {
+                        $select.removeAttr('hidden');
+
+                        if (data.respone == 'Y') {
+                            $select.empty();
+                            $select.append('<option value="">-- Select Remark --</option>');
+                            data.result.forEach(item => {
+                                //console.log('LoopEach');
+                                //$select.append(`<option value="${item.VAL}">${item.VAL}</option>`);
+                                const selected = (item.VAL.trim() === currentRemark) ? 'selected' : '';
+                                $select.append(`<option value="${item.VAL}" ${selected}>${item.VAL}</option>`);
+                            });//for end
+                        }//sub if
+                        else {
+                            console.warn(data.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', error);
+                    }
+                });//end ajax
+            }//end if main
+            else {
+                var rowIdPart = $input.attr('id').replace('ExpectPrice', 'spcRemake');
+                var $select = $('#' + rowIdPart);
+                $select.attr('hidden', true);
+                $select.closest('td').find('.spc_remarkxxx').removeAttr('hidden');
+            }
+        });
     </script>
 </body>
 </html>
