@@ -1244,6 +1244,11 @@
         if (_STKCOD == "ค้นหาสินค้า") {
             _STKCOD = "";
         }
+        else {
+            if (_STKCOD.includes('|')) {
+                _STKCOD = _STKCOD.split('|')[0].trim();
+            }
+        }
         var _latitude = "";
         var _longitude = "";
         var _str = "";

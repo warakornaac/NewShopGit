@@ -2,7 +2,7 @@
     //Layout = "~/Views/Shared/layout_tmart.cshtml";
 
     Layout = "~/Views/Shared/layout_view.cshtml";
-    
+
     var number = ViewBag.Nodisplay;
     var compan = ViewBag.com;
 }
@@ -189,6 +189,7 @@
             min-height: 1px;
             padding: 0.50rem;
         }
+
         #changepass {
             color: #0275d8;
             text-decoration: none;
@@ -205,7 +206,7 @@
     <!-- Body main wrapper start -->
     <div class="wrapper fixed__footer">
 
-        
+
         <!-- Start Bradcaump area -->
         <!-- End Bradcaump area -->
         <!-- Start Product Details -->
@@ -565,11 +566,11 @@
         if (usertype == "1" || usertype == "2") {
             $("#changepass").css("display", "none");
         } else if (usertype == "5") {
-           
+
             $("#changepass").css("display", "none");
 
         } else if (usertype == "6") {
-           
+
             $("#changepass").css("display", "block");
         }
 
@@ -603,14 +604,14 @@
                 dataType: "JSON",
                 success: function (data) {
                     var splitstring = data.StrStstuslogin;
-                   
+
                     let text = splitstring;
                     const myArray = text.split("|");
                     let mysession = myArray[1];
                     let mystatus = myArray[0];
                     // console.log("mystatus " + mystatus + "//////" + "mysession " + mysession);
                     if (id != mysession) {
-                        
+
                         $("#texterror").empty();
                         $("#texterror").text("ขออภัย ท่านทำรายการเกินระยะเวาลาที่กำหนด กรุณาเข้าใช้งานใหม่อีกครั้ง");
                         $("#myModal").modal();
@@ -690,7 +691,7 @@
                 checklogin(userid, id)
             });
             $(window).scroll(function (e) {
-               
+
                 checklogin(userid, id)
             });
         }
@@ -712,7 +713,7 @@
                 type: "POST",
                 dataType: "JSON",
                 success: function (data) {
-                  
+
                     g_getcoutorder = data.Getdata[0].val.SumQty;
                     $("#countsku").html(data.Getdata[0].val.SumQty);
 
@@ -742,7 +743,7 @@
             };
 
             var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-          
+
             /*#region responsive code begin*/
 
             var MAX_WIDTH = 980;
@@ -754,7 +755,7 @@
                 if (containerWidth) {
 
                     var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
-                   
+
                     jssor_1_slider.$ScaleWidth(expectedWidth);
                 }
                 else {
@@ -831,7 +832,7 @@
                             strph = employees[i].PATH;
                             strtopint = i;
                             runtop = strtopint + 1;
-                           
+
                             if (Supdescri.length > 50) {
                                 sprstkdes = Supdescri.substr(0, 50) + "...";
                             } else {
@@ -854,7 +855,7 @@
                                                   '</div>' +
                                               '</div>' +
                                '</div>');
-                           
+
 
                         }
                         jssor_1_slider_init()
@@ -1057,7 +1058,7 @@
 
                     $("#appimg").html("");
 
-                    
+
                     $("#rowdetail").html("");
                     for (var i = 0; i < data.length; i++) {
                         var sty = '';
@@ -1190,6 +1191,7 @@
                         SubmithtmlPage += '<input type="hidden" id="lastinvprice' + (i + 1) + 'a" value="' + data[i].val.LastInvPrice + '" />';
                         SubmithtmlPage += '<input type="hidden" id="lastinvdate' + (i + 1) + 'a" value="' + data[i].val.LastInvdate + '" />';
                         SubmithtmlPage += '<input type="hidden" id="SPackUOM' + (i + 1) + 'a" value="' + data[i].val.SPackUOM + '" />';
+                        SubmithtmlPage += '<input type="hidden" id="STKGRP' + (i + 1) + 'a" value="' + data[i].val.STKGRP_PRC + '" />';
                         SubmithtmlPage += '</ul>';
                         SubmithtmlPage += '<div class="product-action-wrap">';
 
@@ -1202,7 +1204,7 @@
                             SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + data[i].val.TOTBAL + '" style="max-width: 150px;" disabled="disabled">';
                             SubmithtmlPage += '</div>';
                             SubmithtmlPage += '</div>';
-                            // SubmithtmlPage += '</form>';                       
+                            // SubmithtmlPage += '</form>';
                             SubmithtmlPage += '</div>';
                         } else { //usrType = 4, 5 ร้านค้า
                             //if (data[i].val.TOTBAL != "0") {
@@ -1230,7 +1232,7 @@
                                     //SubmithtmlPage += '<div style="color: blue;">In Stock</div>';
                                     SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + chkstock + '" style="max-width: 150px;" disabled="disabled">';
                                 }
-                               
+
                             } else {
                                 SubmithtmlPage += '<div style="color: red;">Out Of Stock</div>';
                                 SubmithtmlPage += '<input class="cart-plus-minus-box" type="text" name="qtybutton" id="stock' + (i + 1) + 'a"" value="' + chkstock + '" style="max-width: 150px;display:none" disabled="disabled">';
@@ -1356,6 +1358,24 @@
                             SubmithtmlPage += '</div>';
                             SubmithtmlPage += '</div>';
 
+                            //spc remark
+                            SubmithtmlPage += '<div class="product-action-wrap" id="spc-hide" hidden>';
+                            SubmithtmlPage += '<div class="prodict-statas"><span>SPC Remark:</span></div>';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            // SubmithtmlPage += '<form id="myform">';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            SubmithtmlPage += '<div class="cart-plus-minus">';
+                            // SubmithtmlPage += '<input class="cart-plus-minus-box" type="checkbox" name="qtybutton" id="foc' + (i + 1) + 'a" style="max-width: 150px;" >';
+                            SubmithtmlPage += '<div class="spc_remarkxxx">' + data[i].val.spc_remark + '</div>';
+                            SubmithtmlPage += '<select class="form-control spc_remark"  id="spcRemake' + (i + 1) + 'a" style="max-width: 270px;" ></select> ';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+                            // SubmithtmlPage += '</form>';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+
+                            //end spc
+
                             SubmithtmlPage += '<div class="product-action-wrap">';
                             SubmithtmlPage += '<div class="prodict-statas"><span>FOC:</span></div>';
                             SubmithtmlPage += '<div class="product-quantity">';
@@ -1388,7 +1408,7 @@
                         // SubmithtmlPage += '</form>';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '</div>';
-                       
+
                         SubmithtmlPage += '<ul class="pro__dtl__btn">';
                         if (usertype != "5") {
                             SubmithtmlPage += '<li class="buy__now__btn"> <button type="submit" class="fv-btn" id="btnsubmitinser' + (i + 1) + 'a">Add to cart</button></li>';
@@ -1437,7 +1457,7 @@
         $('.offsetmenu__close__btn').on('click', function () {
             $('.offsetmenu').removeClass('offsetmenu__on');
             $('.body__overlay').removeClass('is-visible');
-          
+
         });
         $(document).on("mouseenter", ".tb", function () {
             $(".tb").removeClass("tb-active");
@@ -1516,9 +1536,11 @@
         });
         $(document).on("click", ".fv-btn", function () {
             $(".fv-btn").attr("disabled", "disabled");
+            var data = new Array();
+            var dataPro = new Array();
             var idbt = this.id;
             var res = idbt.substr(14, 2);
-        
+
             var customer = cuscod;
             var stkcod = $("#_udernumber").val();
             var company = $("#_udercompan").val();
@@ -1542,7 +1564,7 @@
             if (foc == "") {
                 foc = "0"
             }
-         
+
             if (qty == "0") {
 
                 if (foc == "0") {
@@ -1568,11 +1590,11 @@
                     return false;
                 }
             }
-           
+
             //else  {
             //    foc = "0"
             //}
-            
+
             if (foc == "0") {
                 if (sprice == "0") {
                     if (expectprice == "0") {
@@ -1596,7 +1618,7 @@
                 }
             }
             if (usertype == "6") {
-               
+
                 if (sprice == "0") {
                     //if (expectprice == "0") {
                         $("#textAlertWarninglog").empty();
@@ -1618,7 +1640,7 @@
                     //return false;
                 }
             }
-           
+
             var insertedby = userid;
 
             var pomocode = $("#pomocode" + res).val();
@@ -1637,7 +1659,134 @@
             var lastinvprice = $("#lastinvprice" + res).val();
             var lastinvdate = $("#lastinvdate" + res).val();
 
+
+            //List ARM 19/11/2025
+            var spcremark = $('.spc_remark').val();
+            var stkgrp = $('#STKGRP' + res).val();
+
+            console.log(`STKGRP = ${stkgrp}`);
+
+            var ItemList = {
+                CUSCOD: customer,
+                STKCOD: stkcod,
+                company: company,
+                PrHot: '',
+                Price0: price,
+                SalePrice: sprice,
+                Special_Price: specprice,
+                Spc_Remark: spcremark,///xxxxRemark
+                Qty: qty,
+                Qtybo: bckorder,
+                ExpectPrice: expectprice,
+                LineNote: linenote,
+                User: insertedby,
+                PromotionCode: pomocode,
+                foc: '0',
+                Moq: minord,
+                PRCLST_NO: prclstno,
+                Special_Price: specprice,
+                PromoPrice: promoprice,
+                PromoDesc: promodesc,
+                PromoMOQ: '',
+                LastInvPrice: lastinvprice,
+                LastInvdate: lastinvdate,
+                Sop:'0'
+            }
+            if (ItemList.ExpectPrice != "0") {
+                if (spcremark == "") {
+                    $("#textAlertWarninglog").empty();
+                    $("#textAlertWarninglog").text("กรุณาเลือก SpcRemark");
+                    $("#myModalWarninglog").modal();
+                    $(".fv-btn").attr("disabled", false)
+                    return false;
+                }
+            }
+
+            if (ItemList.Qty != "") {
+                if (ItemList.Qty != "0") {
+                    data.push(ItemList);
+                }
+            }
+            var DataSend = JSON.stringify(data);
+
+            var ItemListPro = {
+                chk: "1",
+                VQty: foc,
+                VSTKCOD: stkcod,
+                VCUSCOD: customer,
+                VCompany: company,
+                VSTKGRP: stkgrp,
+                VLineNote: linenote,
+                Uom: '',
+                Backorderfoc: (bckorder >= 0) ? foc : bckorder
+            }
+            var cPRo = "";
+            var ch = "";
+            cPRo = ItemListPro.VQty;
+            if (cPRo != "0") {
+                dataPro.push(ItemListPro);
+            }
+
+            var DataSendPro = JSON.stringify(dataPro);
+
+
+
+            if (data.length == 0) {
+                if (dataPro.length == 0) {
+                    $(".fv-btn").attr("disabled", false)
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
+                    $("#myModalWarning").modal(); return false;
+                }
+            }
+            if (data.length == 0 && dataPro.length == 0) {
+                $(".fv-btn").attr("disabled", false)
+                $("#textAlertWarning").empty();
+                $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
+                $("#myModalWarning").modal();
+                return false;
+            }
+
+            //List ARM 19/11/2025
+
+            //ARM 19/11/2025
+
+
             $.ajax({
+                url: '@Url.Action("Confirmationdata", "Shoppinglist")',
+                data: {
+                    DataSend: DataSend,
+                    DataSendPro: DataSendPro,
+                    Cus: customer,
+                    User: insertedby
+                },
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data == "Y") {
+                        $("#textAlertSucces").empty();
+                        $("#textAlertSucces").text("บันทึกสินค้าเข้าตะกร้าสำเร็จ");
+                        $("#myModalSucces").modal();
+                        $(".fv-btn").attr("disabled", false)
+                        //location.reload();
+                        countorder();
+                        setTimeout(function () { window.close() }, 2000); //2วิ
+
+                    } else {
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
+                        $("#myModalWarninglog").modal();
+                        $(".fv-btn").attr("disabled", false)
+                    }
+                }
+            });// end ajx
+
+            //end ARM
+
+
+
+            //old Logic
+            @*$.ajax({
                 url: '@Url.Action("Confirmationdata", "Productdetails")',
                 data: {
                     customer: customer,
@@ -1683,7 +1832,10 @@
                     }
                     //}
                 }
-            });
+            });*@
+
+            //end ajax
+            //end old Logic
         });
         $(document).on("keyup", "input[name='S_bo']", function () {
 
@@ -1706,7 +1858,7 @@
             //} else {
             //    $("#countsku").text(parseFloat(valqty) + parseFloat(qtybag));
             //}
-           
+
             if (parseFloat(valqty) > parseFloat(valstock)) {
                 var vck = parseFloat(valqty) - parseFloat(valstock)
                 $("#bckorder" + res).val(vck);
@@ -1794,7 +1946,7 @@
             var valmoq = $("#moq" + res).val();
             var Spackuom = $("#SPackUOM" + res).val();
             var qtybag = g_getcoutorder;
-           
+
             //$("#bckorder" + res).val(valqty);
             //if (valqty == "") {
             //    $("#countsku").text(0 + parseFloat(qtybag));
@@ -1933,7 +2085,7 @@
                 });
             }
         } else if (usertype == "6") {
-           
+
             $("#menu").css("display", "none");
             if (cuscod == "") {
                 var wi = window.open("../Account/LogIn");
@@ -1979,6 +2131,59 @@
                 }
             });
         }
+
+
+        /// SPC Remark
+        $(document).on('focusout', '[id^="expectprice"]', function () {
+            var $input = $(this);
+            var text = $input.val();
+            var divSpc = $('#spc-hide');
+            if (text != '') {
+                var rowIdPart = $input.attr('id').replace('expectprice', 'spcRemake');
+                var $select = $('#' + rowIdPart);
+                divSpc.removeAttr('hidden');
+                var currentRemark = $select.closest('div').find('.spc_remarkxxx').text().trim();
+                //$select.closest('div').find('.spc_remarkxxx').attr('hidden', true);
+                console.log(`text spc : ${currentRemark}`);
+                $.ajax({
+                    url: '@Url.Action("GetSpcRemark", "Shoppinglist")',
+                    data: {},
+                    type: 'post',
+                    dataType: 'Json',
+                    beforeSend: function () {
+
+                    },
+                    success: function (data) {
+                       // $select.removeAttr('hidden');
+
+                        if (data.respone == 'Y') {
+                            $select.empty();
+                            $select.append('<option value="">-- Select Remark --</option>');
+                            data.result.forEach(item => {
+                                //console.log('LoopEach');
+                                //$select.append(`<option value="${item.VAL}">${item.VAL}</option>`);
+                                const selected = (item.VAL.trim() === currentRemark) ? 'selected' : '';
+                                $select.append(`<option value="${item.VAL}" ${selected}>${item.VAL}</option>`);
+                                console.log(`select spc : ${selected}`);
+                            });//for end
+                        }//sub if
+                        else {
+                            console.warn(data.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', error);
+                    }
+                });//end ajax
+            }// end if
+            else {
+                var rowIdPart = $input.attr('id').replace('expectprice', 'spcRemake');
+                var $select = $('#' + rowIdPart);
+                divSpc.attr('hidden', true);
+               // $select.attr('hidden', true);
+                //$select.closest('div').find('.spc_remarkxxx').attr('hidden', true);
+            }
+        });
     </script>
 
 </body>
