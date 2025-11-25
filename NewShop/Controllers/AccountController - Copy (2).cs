@@ -355,7 +355,7 @@ namespace NewShop.Controllers
                             return RedirectToAction("Index", "PriceApproval");
                         }
                         else //Customer
-                        {
+                        { 
                             command = new SqlCommand("P_logSingin", Connection);
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@UsrID", User.Usre);
