@@ -9,6 +9,9 @@ using NewShop.Controllers;
 using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
+using Dapper;
+using System.Runtime.Caching;
 
 namespace NewShop.Models
 {
@@ -403,6 +406,66 @@ namespace NewShop.Models
 
 
         }
+        //ดึงรายชื่อ Sale
+        public async Task<JsonResult> GetdateslmbysalmcodDapper(string codeslm)
+        {
+            string cacheKey = $"SLM_{codeslm}";
+
+            // 1) Check cache ก่อน
+            var cache = MemoryCache.Default;
+            if (cache.Contains(cacheKey))
+            {
+                var cached = cache.Get(cacheKey) as List<SLM>;
+                return Json(cached, JsonRequestBehavior.AllowGet);
+            }
+
+            List<SLM> SlmList = new List<SLM>();
+
+            try
+            {
+                string connectionString =
+                    ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    // เปิด connection แบบ async → non-blocking
+                    await connection.OpenAsync();
+
+                    // 2) Call Stored Procedure แบบ Dapper Async
+                    var rows = await connection.QueryAsync<dynamic>(
+                        "P_Search_SLM",
+                        new { incode = codeslm },
+                        commandType: System.Data.CommandType.StoredProcedure
+                    );
+
+                    // 3) Map data
+                    foreach (var r in rows)
+                    {
+                        SlmList.Add(new SLM
+                        {
+                            SLMCOD = r.SLMCOD?.ToString(),
+                            SLMNAM = r.SLMNAM?.ToString()
+                        });
+                    }
+                }
+
+                //4) Cache 10 นาที
+                cache.Add(
+                    cacheKey,
+                    SlmList,
+                    new CacheItemPolicy
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30)
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(SlmList, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Getdateslmbysalmcod(string codeslm)
         {
 
@@ -566,13 +629,91 @@ namespace NewShop.Models
             return Json(Code, JsonRequestBehavior.AllowGet);
 
         }
+        //ดึงข้อมูลร้านค้า
+        public async Task<JsonResult> GetdatabyCusDapper(string cusel)
+        {
+            string cacheKey = $"GetdatabyCus_{cusel}";
+            // 1) Check Cache ก่อน
+            var cache = MemoryCache.Default;
+            if (cache.Contains(cacheKey))
+            {
+                var cached = cache.Get(cacheKey) as List<CUS>;
+                return Json(cached, JsonRequestBehavior.AllowGet);
+            }
+            List<CUS> CUSList = new List<CUS>();
+            string connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+                    // 2) Query แบบ Dapper Async ปลอดภัยกว่า string concat
+                    var rows = await connection.QueryAsync<dynamic>(
+                        @"SELECT 
+                            CUSCOD, CUSNAM, PRO, ADDR_01, ADDR_02, CUSTYP,
+                            AACCRLINE, AACBAL, TACCRLINE, TACBAL, SLMCOD, 
+                            INACTIVE, BLOCKED, AACPAYTRM, TACPAYTRM, TELNUM, Rating,
+                            [Hierarchy1 (Market Segment)] AS H1,
+                            [Hierarchy2 (Channel)] AS H2,
+                            [Hierarchy3 (Bussiness Type)] AS H3
+                      FROM v_CUSPROV 
+                      WHERE CUSCOD = @CUSCOD
+                      ORDER BY SLMCOD",
+                        new { CUSCOD = cusel }
+                    );
+                    foreach (var r in rows)
+                    {
+                        CUSList.Add(new CUS
+                        {
+                            CUSCOD = r.CUSCOD?.ToString(),
+                            CUSNAM = r.CUSNAM?.ToString(),
+                            PRO = r.PRO?.ToString(),
+                            ADDR_01 = r.ADDR_01?.ToString(),
+                            ADDR_02 = r.ADDR_02?.ToString(),
+                            CUSTYP = r.CUSTYP?.ToString(),
+                            AACCrlimit = r.AACCRLINE?.ToString(),
+                            AACBalance = r.AACBAL?.ToString(),
+                            TACCrlimit = r.TACCRLINE?.ToString(),
+                            TACBalance = r.TACBAL?.ToString(),
+                            SLMCOD = r.SLMCOD?.ToString(),
+                            INACTIVE = r.INACTIVE?.ToString(),
+                            BLOCKED = r.BLOCKED?.ToString(),
+                            AACPAYTRM = r.AACPAYTRM?.ToString(),
+                            TACPAYTRM = r.TACPAYTRM?.ToString(),
+                            TELNUM = r.TELNUM?.ToString(),
+                            RATING = r.Rating?.ToString(),
+                            Hierarchy1_Market_Segment = r.H1?.ToString(),
+                            Hierarchy2_Channel = r.H2?.ToString(),
+                            Hierarchy3_Bussiness_Type = r.H3?.ToString()
+                        });
+                    }
+                }
+                // 3) Save Cache 10 นาที
+                cache.Add(
+                    cacheKey,
+                    CUSList,
+                    new CacheItemPolicy
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(10)
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(CUSList, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetdatabyCus(string cusel)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             List<CUS> CUSList = new List<CUS>();
-            SqlCommand cmd = new SqlCommand("select * from v_CUSPROV where CUSCOD =N'" + cusel + "' order by SLMCOD", Connection);
+            SqlCommand cmd = new SqlCommand("select CUSCOD, CUSNAM, PRO, ADDR_01, ADDR_02, CUSTYP, AACCRLINE, AACBAL, TACCRLINE, TACBAL, SLMCOD, INACTIVE, BLOCKED, AACPAYTRM, TACPAYTRM, TELNUM, TELNUM, Rating, [Hierarchy1 (Market Segment)], [Hierarchy2 (Channel)], [Hierarchy3 (Bussiness Type)]  " +
+                                            "from v_CUSPROV where CUSCOD =N'" + cusel + "' order by SLMCOD"
+                                            , Connection);
 
             string cusstr = string.Empty;
             SqlDataReader rev_CUSPROV = cmd.ExecuteReader();

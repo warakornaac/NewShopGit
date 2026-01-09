@@ -1174,45 +1174,6 @@
             var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
             var usrexpire = '@Request.RequestContext.HttpContext.Session["expdatecal"]';
             $(document).ready(function () {
-                @*$.ajax({
-                    url: '@Url.Action("CusDiscount", "Cart")',
-                    data: {
-                        cuscod: cuscod
-
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data)
-                        if (data != "") {
-                            var select = $("#dCredit");
-                            select.children().remove();
-                            select.prepend($("<option>").val(data).text(data + '%'));
-                            select.append($("<option>").val('0').text('0%'));
-                            select.append($("<option>").val('2').text('2%'));
-                            select.append($("<option>").val('2.5').text('2.5%'));
-                            select.append($("<option>").val('3').text('3%'));
-                            //$("#dCredit").val(data)
-
-                            // $("#dCredit").attr("placeholder", data + '%');
-                        } else {
-                            //var select = $("#dCredit");
-                            //select.children().remove();
-                            //select.append($("<option>").val('0').text('0%'));
-                            // $("#dCredit").val('0')
-                            var select = $("#dCredit");
-                            select.children().remove();
-                            select.append($("<option>").val('0').text('0%'));
-                            select.append($("<option>").val('2').text('2%'));
-                            select.append($("<option>").val('2.5').text('2.5%'));
-                            select.append($("<option>").val('3').text('3%'));
-                            //  $("#dCredit").attr("placeholder", '0%');
-                        }
-                        //});
-                        //  var CUSCODt = $("#CUSCOD option:selected").text();
-                    }
-                });*@
-
                 function checkPrivilege(userid, cuscod) {
                     $.ajax({
                         url: '@Url.Action("GetdataPrivilege", "DataCenter")',
@@ -1370,11 +1331,11 @@
                 var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
                 //var loading = "";
                 $.ajax({
-                    url: '@Url.Action("GetdataShopping", "Cart")',
+                    url: '@Url.Action("GetdataShoppingOpt", "CartOpt")',
                     data: {
                         CUSCOD: CUSCOD,
                         Company: Company,
-                        usrlogin: userid,
+                        usrlogin: userid, 
                         usrtype: usertype,
                         shiptocode: shipto
                     },
@@ -1740,7 +1701,7 @@
                 } else {
 
                     $.ajax({
-                        url: '@Url.Action("GetdatabyCus", "DataCenter")',
+                        url: '@Url.Action("GetdatabyCusDapper", "DataCenter")',
                         data: {
                             cusel: cuscod
                         },
@@ -1761,7 +1722,7 @@
                                 $("#shipadd").val("ร้าน:" + data[0].CUSNAM + "(รหัสร้าน:" + data[0].CUSCOD + ")" + "\n" + "ที่อยู่จัดส่งสินค้า" + data[0].ADDR_01 + "  " + data[0].ADDR_02);
                                 getCreditcuskey(cuscod);//ดึงวงเงินจากร้านแม่
                                 $.ajax({
-                                    url: '@Url.Action("Getdateslmbysalmcod", "DataCenter")',
+                                    url: '@Url.Action("GetdateslmbysalmcodDapper", "DataCenter")',
                                     data: {
                                         codeslm: data[0].SLMCOD
                                     },
@@ -1853,7 +1814,7 @@
             }
 
             $.ajax({
-                url: '@Url.Action("GetTransportation", "Cart")',
+                url: '@Url.Action("GetTransportationOpt", "CartOpt")',
                 data: {
                     cucod: cuscod,
                 },
@@ -1894,7 +1855,7 @@
                 var chopay = $(this).val();
                 if (chopay == "2") {
                     $.ajax({
-                        url: '@Url.Action("CusDiscount", "Cart")',
+                        url: '@Url.Action("CusDiscount", "CartOpt")',
                         data: {
                             cuscod: cuscod,
                             type: usertype
@@ -1931,7 +1892,7 @@
                     });
                 } else {
                     $.ajax({
-                        url: '@Url.Action("CusDiscount", "Cart")',
+                        url: '@Url.Action("CusDiscount", "CartOpt")',
                         data: {
                             cuscod: cuscod,
                             type: usertype
@@ -1962,7 +1923,7 @@
             $("#CreditTerm").change(function () {
                 var term = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("CusCreditTerm", "Cart")',
+                    url: '@Url.Action("CusCreditTerm", "CartOpt")',
                     data: {
                         crdterm: term
 
@@ -2075,37 +2036,6 @@
                 } else {
                     checkgetshipto();
                 }
-                //
-                @*$.ajax({
-                    url: '@Url.Action("GetdataCusShipping", "Cart")',
-                    data: {
-                        XXcus: cuscod
-
-                    },
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (data) {
-                        //console.log(data);
-                        $("#ModalShipping").modal();
-                        $('#openShipping').css("display", "block");
-                        $("#Shipping > tbody").empty();
-
-
-                        for (var i = 0; i < data.length; i++) {
-                            var SubmithtmlPage = '<tr style="cursor: pointer;" cus="' + data[i].val.customer + '"  Code="' + data[i].val.code + '"  Namecus="' + data[i].val.name + '" Address="' + data[i].val.address + '" Address_2="' + data[i].val.address2 + '" Postcode="' + data[i].val.postcode + '">';
-                            SubmithtmlPage += '<td>' + data[i].val.customer + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.code + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.name + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.name2 + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.address + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.address2 + ' ' + data[i].val.postcode + '</td>';
-                            SubmithtmlPage += '<td>' + data[i].val.city + '</td>';
-                            SubmithtmlPage += '</tr>';
-                            $("#Shipping").append(SubmithtmlPage);
-                        }
-
-                    }
-                });*@
             });
               var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
 
@@ -2114,7 +2044,7 @@
                 //var loading = new Loading({ direction: 'hor', discription: 'Loading...', defaultApply: true });
                 //var loading = "";
                 $.ajax({
-                    url: '@Url.Action("GetdataCheckShopping", "Cart")',
+                    url: '@Url.Action("GetdataCheckShopping", "CartOpt")',
                     data: {
                         CUSCOD: CUSCOD,
                         Company: Company,
@@ -2125,36 +2055,23 @@
                     type: "POST",
                     dataType: "JSON",
                     success: function (data) {
-                        // $("#exampletb").empty();
-                        //console.log(data)
-
                         loading.out()
                         if (data.exerror != "") {
-                            //waitingDialog.hide();
-                         //   loading.out()
                             $("#textAlertWarning").empty();
                             $("#textAlertWarning").text(data.exerror);
                             $("#myModalWarning").modal();
                             return false;
                         }
                         if (data.Getdata.length > 0) {
-                            //  loading.out()
-                                 //step1//
-                                    checkgetshipto()
-                            //step2//
-
-                                    //getshipto();
-
-
+                           checkgetshipto()
                         } else { loading.out();$("#ModalShipping").modal('hide'); }
                     }
                 });
 
-
             //Page//
             function checkgetshipto(){
                 $.ajax({
-                    url: '@Url.Action("GetdataCusShipping", "Cart")',
+                    url: '@Url.Action("GetdataCusShipping", "CartOpt")',
                     data: {
                         XXcus: cuscod
 
@@ -2188,22 +2105,13 @@
                         } else {
                             $("#ModalShipping").modal('hide');
                             ShoppingCart_list("");
-                            //var Quatation = $('#qpono').val();
-                            //let result = Quatation.substring(0,1);
-                            //alert(result)
-                           // if (result == "Q") { GetCusQuatation(Quatation); } else { ShoppingCart_list(""); }
-                            //if (Quatation == "0" || Quatation == '' || Quatation == 'undefined' || Quatation == null) {
-                            //    ShoppingCart_list("");
-                            //} else {
-                            //    GetCusQuatation(Quatation);
-                            //}
                         }
                       }
                     });
             }
             function checkgetshiptoQ() {
                 $.ajax({
-                    url: '@Url.Action("GetdataCusShipping", "Cart")',
+                    url: '@Url.Action("GetdataCusShipping", "CartOpt")',
                     data: {
                         XXcus: cuscod
 
@@ -2262,25 +2170,7 @@
                         ShoppingCart_list("");
                         //alert("mmm")
                     }
-                //} else {
-
-                //    $("#ModalShipping").modal('hide');
-                //}
             }
-            //$(document).on('click', '[data-dismiss="modal"]', function(){
-            //    alert("mmm")
-            //        var sendship = $('#codeShipping').val();
-            //       ShoppingCart_list(sendship);
-            // })
-            //$('#ModalShipping').on('hidden.bs.modal', function () {
-            //    // do something…
-            //    alert("mmm")
-            //    var sendship = $('#codeShipping').val();
-            //    //ShoppingCart_list(sendship);
-            //})
-            //$('#ModalShipping').on("click", function () {
-            //    document.location.reload();
-            //})
             $("#CancalShippto").on("click", function () {
                 var cancalQuatation = $('#qpono').val();
                 if (cancalQuatation == "0") {
@@ -2336,7 +2226,7 @@
                 $("#changeshipadd").val("ร้าน:" + name + "(" + code + " )" + " ที่อยู่จัดส่งสินค้า:" + address + "  " + Address_2 + " " + postcode);
             });
             $.ajax({
-                url: '@Url.Action("GetdataCusShipping", "Cart")',
+                url: '@Url.Action("GetdataCusShipping", "CartOpt")',
                 data: {
                     XXcus: cuscod
 
@@ -2353,7 +2243,7 @@
                 }
             });
             $.ajax({
-                url: '@Url.Action("DeliveryMode", "Cart")',
+                url: '@Url.Action("DeliveryModeOpt", "CartOpt")',
                 data: {
                     userid: userid,
                     cuscod: cuscod
@@ -2371,7 +2261,7 @@
             });
             function G_Delivertmode() {
                 $.ajax({
-                    url: '@Url.Action("DeliveryMode", "Cart")',
+                    url: '@Url.Action("DeliveryModeDapper", "CartOpt")',
                     data: {
                         userid: userid,
                         cuscod: cuscod
@@ -2390,7 +2280,7 @@
                 $("#ModdatepickerStart").val("");
                 $("#Modtime").val("");
                 $.ajax({
-                    url: '@Url.Action("Getordertypeby", "Cart")',
+                    url: '@Url.Action("Getordertypeby", "CartOpt")',
                     data: {
                         type: "ALL"
                     },
@@ -2432,7 +2322,7 @@
                             mod = "MOT";
                         }
                         $.ajax({
-                            url: '@Url.Action("GetOrdertype", "Cart")',
+                            url: '@Url.Action("GetOrdertype", "CartOpt")',
                             data: {
                                 type: typeselect,
                                 mod: mod
@@ -2474,7 +2364,7 @@
                 var valCompany = $('#company').val();
                 var shipto = $('#codeShipping').val();
                 $.ajax({
-                    url: '@Url.Action("GetdataCheckQuatationShopping", "Cart")',
+                    url: '@Url.Action("GetdataCheckQuatationShopping", "CartOpt")',
                     data: {
 
                         Quatation: _valQuatation,
@@ -2508,7 +2398,7 @@
                 $('#fixed-table-container-1 tbody:last-child').html("");
                 $("#checkboxAll").prop('checked', false);
                 $.ajax({
-                    url: '@Url.Action("GetdataCusQuatation", "Cart")',
+                    url: '@Url.Action("GetdataCusQuatation", "CartOpt")',
                     data: {
                         CUSCOD: CUSCOD,
                         Company: valCompany,
@@ -3463,7 +3353,7 @@
                     $("#Modtime").val(time);
 
                     $.ajax({
-                        url: '@Url.Action("Getordertypeby", "Cart")',
+                        url: '@Url.Action("Getordertypeby", "CartOpt")',
                         data: {
                             type: type
                         },
@@ -3505,7 +3395,7 @@
                                 mod = "MOT";
                             }
                             $.ajax({
-                                url: '@Url.Action("GetOrdertype", "Cart")',
+                                url: '@Url.Action("GetOrdertype", "CartOpt")',
                                 data: {
                                     type: typeselect,
                                     mod: mod
@@ -3556,7 +3446,7 @@
 
                     var mod = $("#Modtype_ID").val();
                     $.ajax({
-                        url: '@Url.Action("GetOrdertype", "Cart")',
+                        url: '@Url.Action("GetOrdertype", "CartOpt")',
                         data: {
                             type: type,
                             mod: mod
@@ -3600,7 +3490,7 @@
                 var DataSend = JSON.stringify(data);
                 //console.log(DataSend);
                 $.ajax({
-                    url: '@Url.Action("DelShoppingCart", "Cart")',
+                    url: '@Url.Action("DelShoppingCart", "CartOpt")',
                     data: {
                         DataSend: DataSend
                     },
@@ -3644,7 +3534,7 @@
                 data.push(ItemList);
                 var DataSend = JSON.stringify(data);
                 $.ajax({
-                    url: '@Url.Action("DelShoppingCart", "Cart")',
+                    url: '@Url.Action("DelShoppingCart", "CartOpt")',
                     data: {
                         DataSend: DataSend
                     },
@@ -3742,7 +3632,7 @@
                 //  var Valqono = $('#xqno').val();
                 var CUSCOD = cuscod;
                 $.ajax({
-                    url: '@Url.Action("GetQuatationno", "Cart")',
+                    url: '@Url.Action("GetQuatationno", "CartOpt")',
                     data: {
                         CUSCOD: CUSCOD
                     },
@@ -4145,7 +4035,7 @@
 
 
                     $.ajax({
-                        url: '@Url.Action("ConfirmationdataTemp", "Cart")',
+                        url: '@Url.Action("ConfirmationdataTemp", "CartOpt")',
                         data: {
                             DataSend: DataSend,
                             //DataSendPro: "",
@@ -4204,7 +4094,7 @@
                                 //disable ปุ่มยินยัน
                                 $("#btnOK").prop('disabled', true);
                                 $.ajax({
-                                    url: '@Url.Action("CheckCustomerCredit", "Cart")',
+                                    url: '@Url.Action("CheckCustomerCredit", "CartOpt")',
                                     data: {
                                         company: company,
                                         cuscod: cuscod,
@@ -4500,7 +4390,7 @@
 
 
                     $.ajax({
-                        url: '@Url.Action("ConfirmationdataTemp", "Cart")',
+                        url: '@Url.Action("ConfirmationdataTemp", "CartOpt")',
                         data: {
                             DataSend: DataSend,
                             //DataSendPro: "",
@@ -4820,7 +4710,7 @@
                     }
 
                     $.ajax({
-                        url: '@Url.Action("ConfirmationdatacusQuatation", "Cart")',
+                        url: '@Url.Action("ConfirmationdatacusQuatation", "CartOpt")',
                         data: {
                             DataSend: DataSend,
                             DataSendPro: DataSendPro,
@@ -4959,7 +4849,7 @@
 
                     //ตรวจสอบ accessId ว่าล่าสุดไหมถ้าล่าสุดให้ confirm
                     $.ajax({
-                        url: '@Url.Action("checkAccessIdConfirm", "Cart")',
+                        url: '@Url.Action("checkAccessIdConfirm", "CartOpt")',
                         data: {
                             accessId: accessIdCurrent,
                             cuscod: cuscod,
@@ -5230,7 +5120,7 @@
 
                                 //return false;
                                 $.ajax({
-                                    url: '@Url.Action("Confirmationdata", "Cart")',
+                                    url: '@Url.Action("Confirmationdata", "CartOpt")',
                                     data: {
                                         DataSend: DataSend,
                                         ordidtemp: ordidtemp,

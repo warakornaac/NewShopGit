@@ -16,14 +16,12 @@ using System.Runtime.Caching;
 
 namespace NewShop.Controllers
 {
-    public class CartController : Controller
+    public class CartOptController : Controller
     {
         //
         // GET: /Cart/
-
         public ActionResult Index()
         {
-            //this.Session["UserType"] = "";
             if (this.Session["UserType"] == "")
             {
                 return RedirectToAction("LogIn", "Account");
@@ -221,7 +219,7 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, exerror }, JsonRequestBehavior.AllowGet);
         }
-        public async Task<JsonResult> GetdataShoppingDapper(string CUSCOD, string usrlogin, string Company, string usrtype, string shiptocode)
+        public async Task<JsonResult> GetdataShoppingOpt(string CUSCOD, string usrlogin, string Company, string usrtype, string shiptocode)
         {
             int sumQty = 0;
             int sumSalePrice = 0;
@@ -447,6 +445,67 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice, sumDiscount, creditterm, exerror }, JsonRequestBehavior.AllowGet);
         }
+        //ดึงขนส่ง
+        [HttpPost]
+        public async Task<JsonResult> GetTransportationOpt(string cucod)
+        {
+            string cacheKey = $"TRANSPORT_{cucod}";
+            var cache = MemoryCache.Default;
+
+            // 1) ✔ เช็ค Cache ก่อน
+            if (cache.Contains(cacheKey))
+            {
+                var cachedData = cache.Get(cacheKey) as List<Transport_DenyK99>;
+                return Json(cachedData, JsonRequestBehavior.AllowGet);
+            }
+
+            List<Transport_DenyK99> result = new List<Transport_DenyK99>();
+
+            try
+            {
+                string connectionString = ConfigurationManager
+                    .ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    // 2) ✔ ใช้ Async
+                    await connection.OpenAsync();
+
+                    // 3) ✔ ใช้ Dapper QueryAsync (เร็วกว่า ExecuteReader มาก)
+                    var rows = await connection.QueryAsync<dynamic>(
+                        "P_Search_Transport",
+                        new { inCUSCOD = cucod },
+                        commandType: System.Data.CommandType.StoredProcedure
+                    );
+
+                    // 4) ✔ Mapping
+                    foreach (var r in rows)
+                    {
+                        result.Add(new Transport_DenyK99
+                        {
+                            Code = r.Code?.ToString(),
+                            Name = r.Name?.ToString()
+                        });
+                    }
+                }
+
+                // 5) ✔ เพิ่มข้อมูลลง MemoryCache (10 นาที)
+                cache.Add(
+                    cacheKey,
+                    result,
+                    new CacheItemPolicy
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30)
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult GetTransportation(string cucod)
         {
@@ -660,7 +719,7 @@ namespace NewShop.Controllers
 
             return Json(new { Getdata, sumQty, sumSalePrice, sumDiscount, creditterm, exerror }, JsonRequestBehavior.AllowGet);
         }
-        public async Task<JsonResult> DeliveryModeDapper(string userid, string cuscod)
+        public async Task<JsonResult> DeliveryModeOpt(string userid, string cuscod)
         {
             //หากเป็นคน Login เดิม จะดึง cache มาใช้
             string cacheKey = $"DeliveryMode_{userid}";

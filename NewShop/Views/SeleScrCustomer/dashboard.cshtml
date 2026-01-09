@@ -1275,6 +1275,14 @@
                                 <div class="pp" id="aacBank1"></div>
                                 <div class="pp" id="aacBank2"></div>
 
+                                <div class="pp" id="agscomname" style="font-weight: bold;"></div>
+                                <div class="pp" id="agsaddress"></div>
+                                <div class="pp" id="agsphone"></div>
+                                <div class="pp" id="agsfax"></div>
+                                <div class="pp" id="agstax"></div>
+                                <div class="pp" id="agsBank1"></div>
+                                <div class="pp" id="agsBank2"></div>
+
                                 <div class="pp" id="ompcomname" style="font-weight: bold;"></div>
                                 <div class="pp" id="ompaddress"></div>
                                 <div class="pp" id="ompphone"></div>
@@ -1284,12 +1292,13 @@
                                 <div class="pp" id="ompBank2"></div>
 
                                 <div class="pp" id="taccomname" style="font-weight: bold;"></div>
+                                <div class="pp" id="tacaddress"></div> 
                                 <div class="pp" id="tacphone"></div>
                                 <div class="pp" id="tacfax"></div>
                                 <div class="pp" id="tactax"></div>
                                 <div class="pp" id="tacBank1"></div>
                                 <div class="pp" id="tacBank2"></div>
-                                <div class="pp" id="tacaddress"></div>
+                                
                                 @*<div class="recent-message d-flex px-4 py-3">
 
                                         <div class="name ms-4">
@@ -3364,7 +3373,7 @@
                     // $("#selslm").prop("disabled", true);
 
                     $("#aaccomname").text(data[0].Name);
-                    // $("#aacaddress").text(data[0].Address1 + ' ' + data[0].Address2);
+                    $("#aacaddress").text(data[0].Address1 + ' ' + data[0].Address2);
                     $("#aacphone").text("Tel: " + data[0].Phone);
                     $("#aacfax").text('Fax:' + data[0].Fax);
                     $("#aactax").text("Tax: " + data[0].Tax);
@@ -3386,6 +3395,14 @@
                     $("#tactax").text("Tax: " + data[2].Tax);
                     $("#tacBank1").text("Bank1: " + data[2].Bank1);
                     $("#tacBank2").text("Bank2: " + data[2].Bank2);
+
+                    $("#agscomname").text(data[3].Name);
+                    $("#agsaddress").text(data[3].Address1 + ' ' + data[3].Address2);
+                    $("#agsphone").text("Tel: " + data[3].Phone);
+                    $("#agsfax").text('Fax:' + data[3].Fax);
+                    $("#agstax").text("Tax: " + data[3].Tax);
+                    $("#agsBank1").text("Bank1: " + data[3].Bank1);
+                    $("#agsBank2").text("Bank2: " + data[3].Bank2);
                     //datacus();  ///auto get customer to option select customer
                 }
             });
