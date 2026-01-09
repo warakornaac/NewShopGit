@@ -5,161 +5,166 @@
     //Layout = "~/Views/Shared/_LayoutStatus.cshtml";
     //Layout = "~/Views/Shared/View3.cshtml";
     //Layout = "~/Views/Shared/_LayoutPage.cshtml";
-
-
 }
+<script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
+<link href="~/Scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet">
 <html>
-        <head>
-            <meta charset="utf-8">
-            <title></title>
-            <meta name="description" content="">
-            @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta property="og:title" content="">
-            <meta property="og:type" content="">
-            <meta property="og:url" content="">
-            <meta property="og:image" content="">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
 
-            <!-- <link rel="manifest" href="~/html5boilerplate_v8/site.webmanifest">-->
+    <!-- <link rel="manifest" href="~/html5boilerplate_v8/site.webmanifest">-->
 
-            <link rel="apple-touch-icon" href="icon.png">
-            <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
 
-            <link href="~/html5boilerplate_v8/css/main.css" rel="stylesheet" />
-            <link rel="stylesheet" href="~/html5boilerplate_v8/css/normalize.css">
-            <link rel="stylesheet" href="~/html5boilerplate_v8/css/main.css">
-            <meta name="theme-color" content="#fafafa">
-            <link href="~/html5boilerplate_v8/css/sidebar.css" rel="stylesheet" />
-            <!------ Include the above in your HEAD tag ---------->
-            <script src="~/SortTable-master/sort-table.js"></script>
-            <style>
+    <link href="~/html5boilerplate_v8/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/html5boilerplate_v8/css/normalize.css">
+    <link rel="stylesheet" href="~/html5boilerplate_v8/css/main.css">
+    <meta name="theme-color" content="#fafafa">
+    <link href="~/html5boilerplate_v8/css/sidebar.css" rel="stylesheet" />
+    <!------ Include the above in your HEAD tag ---------->
+    <script src="~/SortTable-master/sort-table.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Add your site or application content here -->
+    <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
+    <script src="~/html5boilerplate_v8/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="~/html5boilerplate_v8/js/plugins.js"></script>
+    <script src="~/html5boilerplate_v8/js/main.js"></script>
 
-            </style>
-        </head>
-        <body>
-            <!-- Add your site or application content here -->
-            <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
-            <script src="~/html5boilerplate_v8/js/vendor/modernizr-3.11.2.min.js"></script>
-            <script src="~/html5boilerplate_v8/js/plugins.js"></script>
-            <script src="~/html5boilerplate_v8/js/main.js"></script>
+    @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>*@
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-            @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>*@
-            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="~/bootstrap-4.0.0/dist/css/bootstrap.css" rel="stylesheet" />
 
-            <link href="~/bootstrap-4.0.0/dist/css/bootstrap.css" rel="stylesheet" />
-
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-            @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
-            <script src="~/bootstrap/bootstrap3_4_1.js"></script>
-            <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-            <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
-            <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+    <script src="~/bootstrap/bootstrap3_4_1.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="~/bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
 
 
-            <script src="~/Loadingmodal/js/modal-loading.js"></script>
-            <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
-            <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
-            <script src="~/Scripts/webAddress.js"></script>
-            <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
+    <script src="~/Loadingmodal/js/modal-loading.js"></script>
+    <link href="~/Loadingmodal/css/modal-loading-animate.css" rel="stylesheet" />
+    <link href="~/Loadingmodal/css/modal-loading.css" rel="stylesheet" />
+    <script src="~/Scripts/webAddress.js"></script>
+    <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
 
-            <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
-            <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-            <script src="~/fixed-table-master/fixed-table.js"></script>
-            <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
-            <div class="page-wrapper chiller-theme toggled">
-                <main class="page-content">
-                    <h1>
-                        Upload Order
-                    </h1>
-                    <div class="col-md-8">
-                        <div class="input-group ">
-                            <a href="~/Excel/Order_Upload_By_Customer.xlsx"><img src="~/images/Excel.png" style="width:8%" />Download template</a>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12 content">
-                        <form method="POST" enctype="multipart/form-data"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/fixed-table-master/fixed-table.js"></script>
+    <link href="~/fixed-table-master/fixed-table.css" rel="stylesheet" />
+    <div class="page-wrapper chiller-theme toggled">
+        <main class="page-content">
+            <h1>
+                Upload Order
+            </h1>
+            <div class="col-md-8">
+                <div class="input-group ">
+                    <a href="~/Excel/Order_Upload_By_Customer.xlsx"><img src="~/images/Excel.png" style="width:8%" />Download template</a>
+                </div>
+            </div>
+            <div class="form-group col-md-12 content">
+                <form method="POST" enctype="multipart/form-data"
                             <input type='hidden' id='txtId' name='customer' />
                             <action ="/file/upload" style="display: block">
                                 <input type="file" name="file" multiple="multiple" id="uploadImages">
                         </form>
-                        <div><p id="showcomplete" style="color: green; font-weight: 700; cursor: pointer; text-decoration: underline;"></p><p id="showfail" style="color: red; font-weight: 700; cursor: pointer; text-decoration: underline;"></p></div>
-                        <div></div>
-                    </div>
-                   
-                </main>
+                <div>
+                    <input type="hidden" name="referenceNoReturn" id="referenceNoReturn" />
+                    <p id="showcomplete" style="color: green; font-weight: 700; cursor: pointer; text-decoration: underline;"></p>
+                    <p id="showfail" style="color: red; font-weight: 700; cursor: pointer; text-decoration: underline;"></p>
+                    <p id="showBtnDownload" onclick="ExportResult();" style="color: #ff6318; font-weight: 700; cursor: pointer; display: none"> Download excel result <i class="fa fa fa-file-excel"></i> </p>
+                </div>
+                <div></div>
             </div>
-            <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                ×
-                            </button>
 
-                        </div>
-                        <div class="modal-body">
-                            <strong>Detail</strong>
-                            <table id="classTable" class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Company</th>
-                                        <th>Stockcode</th>
-                                        <th>UOM</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                        <th>Status Upload</th>
-                                        <th>Status Message</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
+        </main>
+    </div>
+    <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <strong>Detail</strong>
+                    <table id="classTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Company</th>
+                                <th>Stockcode</th>
+                                <th>Customer Stockcode</th>
+                                <th>UOM</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Status Upload</th>
+                                <th>Status Message</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        Close
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="modal" id="myModal" style="background-color: black;">
+    <div class="modal" id="myModal" style="background-color: black;">
 
-                <div class="modal-dialog" role="document" style="width: 360px;">
+        <div class="modal-dialog" role="document" style="width: 360px;">
 
-                    <div class="modal-content">
+            <div class="modal-content">
 
-                        <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
+                <div class="modal-header" style="background-color: #337AB7; padding: 16px 16px; color: #FFF; border-bottom: 2px dashed #337AB7; ">
 
-                            @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>*@
 
-                            <h4 class="modal-title" id="myModalLabel"></h4>
-
-                        </div>
-
-                        <div class="modal-body" id="texterror">
-                        </div>
-
-                        <div class="modal-footer">
-
-                            @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
-
-                            <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
-
-                            @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
-
-                        </div>
-
-                    </div>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
 
                 </div>
 
+                <div class="modal-body" id="texterror">
+                </div>
+
+                <div class="modal-footer">
+
+                    @*<button type="button" class="btn btn btn-primary" data-dismiss="modal">OK</button>*@
+
+                    <button type="button" class="btn btn btn-success" data-dismiss="modal" id="btnlogin">เข้าสู่ระบบอีกครั้ง</button>
+
+                    @*<button type="button" class="btn btn-orange" data-dismiss="modal">Cancel</button>*@
+
+                </div>
+
             </div>
-            <script type="text/javascript">
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
                 var id = '@Request.RequestContext.HttpContext.Session["ID"]';
                 var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
                 var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -185,7 +190,7 @@
                         resourceAddress.hash();
                         // var cuscod = usercode;
                         var cuscod = atob(param_values.numcuber);
-                       
+
                         //$("#changepass").css("display", "block");
                     }
                 }
@@ -252,7 +257,7 @@
 
                 }
                 if (usertype == "6") {
-                   
+
                     if (cuscod != "") {
                         checkPrivilege(userid, cuscod)
                     }
@@ -314,8 +319,14 @@
                                     $('#uploadImages').val("");
                                     loading.out();
                                     datastatus = data.List;
-                                    // $('postedFile')[0].reset();
+
+                                    console.log("Reference_No = " + data.List[0].Reference_No);
+                                    if (data.List[0].Reference_No !== null && data.List[0].Reference_No !== undefined) {
+                                        $("#referenceNoReturn").val(data.List[0].Reference_No);
+                                        $("#showBtnDownload").css("display", "block");
+                                    }
                                     for (var i = 0; i < data.List.length; i++) {
+
                                         if (data.List[i].Status == "Y") {
                                             datacountstatusy.push(data.List[i].Status);
                                         } else if (data.List[i].Status == "F") {
@@ -326,7 +337,6 @@
                                     $("#showcomplete").html("Upload completed: " + datacountstatusy.length);
                                     $("#showfail").html("Upload failed: " + datacountstatusf.length);
                                     countorder();
-                                    
                                     alert("upload successfully");
                                 }
 
@@ -355,6 +365,7 @@
                         SubmithtmlPage += '<td>' + (i + 1) + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Company + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Cus_STKCOD + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Price + '</td>';
@@ -386,22 +397,31 @@
                         SubmithtmlPage += '<td>' + (i + 1) + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Company + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].STKCOD + '</td>';
+                        SubmithtmlPage += '<td>' + datastatus[i].Cus_STKCOD + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].UOM + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Qty + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Price + '</td>';
                         SubmithtmlPage += '<td>' + status + '</td>';
                         SubmithtmlPage += '<td>' + datastatus[i].Status_Message + '</td>';
-
                         SubmithtmlPage += '</tr>';
-
-                        //}
-
-
                     }
                     $('#classTable').prepend(SubmithtmlPage);
                     $('#classModal').modal('show')
-
                 });
+                //Download excel result
+                function ExportResult() {
+                    var getReferenceNoReturn = $("#referenceNoReturn").val() || "";
+
+                    Swal.fire({
+                        title: "กำลังเตรียมไฟล์...",
+                        text: "ดาวน์โหลด Excel",
+                        icon: "info",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    window.location = '@Url.Action("ExportResult", "UploadsExcel")' + "?referenceNo=" + getReferenceNoReturn;
+                }
                 function countorder() {
                     // var SLM = $("#Slm").val()
                     $.ajax({
@@ -459,6 +479,6 @@
                         wi.focus();
                     }
                 });
-            </script>
-         </body>
-        </html>
+    </script>
+</body>
+</html>

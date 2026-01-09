@@ -955,6 +955,7 @@ namespace NewShop.Models
         public string CUSCOD { get; set; }
         public string Company { get; set; }
         public string STKCOD { get; set; }
+        public string Cus_STKCOD { get; set; }
         public string Qty { get; set; }
         public string Price { get; set; }
         public string Status { get; set; }

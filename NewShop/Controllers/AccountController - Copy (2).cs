@@ -14,7 +14,6 @@ using UAParser;
 using Newtonsoft.Json;
 using System.IO;
 using System.Web.Hosting;
-using NewShop.Filters;
 
 namespace NewShop.Controllers
 {
@@ -168,8 +167,6 @@ namespace NewShop.Controllers
         [HttpGet]
         public ActionResult LogOut()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
             Session["DisplayName"] = string.Empty;
             Session["UserType"] = string.Empty;
             Session["UserID"] = string.Empty;
@@ -177,17 +174,12 @@ namespace NewShop.Controllers
             Session["UsrGrpspecial"] = string.Empty;
             Session["DatetoExpire"] = string.Empty;
             Session["UsrClmStaff"] = string.Empty;
-            Session["LoginSystem"] = string.Empty;
 
             return RedirectToAction("LogIn", "Account");
         }
         [HttpGet]
-        [AllowAnonymous]
-
         public ActionResult LogIn()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
             if (Session["UserType"] != null && Session["UserType"].ToString() != "")
             {
                 string userType = Session["UserType"].ToString();
@@ -205,11 +197,8 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        [AllowAnonymous]
-
         public ActionResult LogIn(LoginUserViewModel User)
         {
-            Session.Clear();
             // ป้องกัน login ซ้ำถ้ายังมี session อยู่
             if (Session["UserType"] != null && Session["UserType"].ToString() != "")
             {
@@ -253,9 +242,6 @@ namespace NewShop.Controllers
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
-                this.Session["LoginSystem"] = "";
-                this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
-
                 //string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
@@ -369,7 +355,7 @@ namespace NewShop.Controllers
                             return RedirectToAction("Index", "PriceApproval");
                         }
                         else //Customer
-                        {
+                        { 
                             command = new SqlCommand("P_logSingin", Connection);
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@UsrID", User.Usre);

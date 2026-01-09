@@ -10,6 +10,7 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Filters;
 
 namespace NewShop.Controllers
 {
@@ -17,7 +18,7 @@ namespace NewShop.Controllers
     {
         //
         // GET: /PriceApproval/
-
+        // [SystemAuthorize]
         public ActionResult Index()
         {
 
@@ -33,23 +34,11 @@ namespace NewShop.Controllers
                 }
                 else
                 {
+                    if (this.Session["UserType"] == "2")
+                    {
+                        return RedirectToAction("dashboard", "SeleScrCustomer");
+                    }
                     string usre = Session["UserID"].ToString();
-                    //string Password = Session["UserPassword"].ToString();
-                    //var dd = db.UsrTbl.Where(c => c.UsrID == usre).ToArray();
-                    //if (dd.Length == 1)
-                    //{
-                    //    if (dd[0].UsrTyp == 1)
-                    //    {
-                    //        return RedirectToAction("bysaleco", "PriceApproval");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    return RedirectToAction("bysale", "PriceApproval");
-                    //}
-                    //ViewBag.usre = usre;
-                    // FormsAuthentication.SetAuthCookie(User.usre, false);
-                    //return RedirectToAction("Index", "SeleScrCustomer");
                     List<SLM> SlmList = new List<SLM>();
                     List<SelectListItem> GroupStkGrp = new List<SelectListItem>();
                     List<SelectListItem> PRODList = new List<SelectListItem>();

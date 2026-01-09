@@ -1069,6 +1069,8 @@
                         var SPackUOM = data[i].val.SPackUOM;
                         var TOTBAL = data[i].val.TOTBAL;
                         var ItemClass = data[i].val.ItemClass.trim();
+                        var ItemCompany = data[i].val.company || "";
+                        var TextItemCompany = "";
                         //console.log("Stock Total = " + TOTBAL + " ItemClass = " + ItemClass);
                         var chkstock = "0";
                         var flagShow = "no";
@@ -1103,7 +1105,10 @@
                             sty = "";
                         }
 
-
+                        //Check UserType Show company//
+                        if (usertype == "1" || usertype == "2" || usertype == "5") {
+                            TextItemCompany = "   (" + ItemCompany + ")";
+                        }
 
                         ////////////////////////
 
@@ -1162,7 +1167,7 @@
                         SubmithtmlPage += '<div class="mb-2">';
                         SubmithtmlPage += '<div class="htc__product__details__inner">';
                         SubmithtmlPage += '<div class="pro__detl__title">';
-                        SubmithtmlPage += '<h2 title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.STKCOD + '</h2>';
+                        SubmithtmlPage += '<h2 style="display:inline; margin:0;" title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.STKCOD + '</h2>' + '<span style="color: #005eaf;font-size: 20px; font-weight: 700;">' + TextItemCompany + '</span>';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '<div class="pro__dtl__rating">';
                         SubmithtmlPage += '<ul class="pro__rating">';
@@ -1560,36 +1565,35 @@
             var sprice = $("#sprice" + res).val();
             var foc = "";
             foc = $("#foc" + res).val();
+            var stockTotal = $("#stock" + res).val();
+            console.log("stockTotal = " + stockTotal)
 
             if (foc == "") {
                 foc = "0"
             }
-
-            if (qty == "0") {
-
-                if (foc == "0") {
-                    $("#textAlertWarninglog").empty();
-                    $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
-                    $("#myModalWarninglog").modal();
-                    $(".fv-btn").attr("disabled", false)
-                    return false;
-                }
+            if ((qty === "" || Number(qty) === 0) && (bckorder === "" || Number(bckorder) === 0) && (foc === "" || Number(foc) === 0)) {
+                $("#textAlertWarninglog").empty();
+                $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
+                $("#myModalWarninglog").modal();
+                $(".fv-btn").attr("disabled", false)
+                return false;
             }
-            if (qty == "") {
-                if (foc == "0") {
-                    $("#textAlertWarninglog").empty();
-                    $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
-                    $("#myModalWarninglog").modal();
-                    $(".fv-btn").attr("disabled", false)
-                    return false;
-                } else if (typeof focvalue === "undefined") {
-                    $("#textAlertWarninglog").empty();
-                    $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
-                    $("#myModalWarninglog").modal();
-                    $(".fv-btn").attr("disabled", false)
-                    return false;
-                }
-            }
+            //if (qty == "") {
+            //    if (foc == "0") {
+            //        $("#textAlertWarninglog").empty();
+            //        $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
+            //        $("#myModalWarninglog").modal();
+            //        $(".fv-btn").attr("disabled", false)
+            //        return false;
+            //    }
+                //else if (typeof focvalue === "undefined") {
+                //    $("#textAlertWarninglog").empty();
+                //    $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
+                //    $("#myModalWarninglog").modal();
+                //    $(".fv-btn").attr("disabled", false)
+                //    return false;
+                //}
+            //}
 
             //else  {
             //    foc = "0"
@@ -1701,14 +1705,29 @@
                     return false;
                 }
             }
+            console.log("ItemList.Qty = " + ItemList.Qty);
+            console.log("ItemList.Qtybo = " + ItemList.Qtybo);
 
-            if (ItemList.Qty != "") {
-                if (ItemList.Qty != "0") {
-                    data.push(ItemList);
-                }
+            if ((ItemList.Qty && ItemList.Qty !== "0")) {
+                data.push(ItemList);
             }
             var DataSend = JSON.stringify(data);
-
+            //console.log("DataSend = " + DataSend);
+            //cal Backorderfoc
+            //ถ้ามี FOC
+            var focBackOrder = "";
+            if (foc > 0) {
+                //ถ้า foc มากกว่าจำนวน stock ทั้งหมด ให้ลบจำนวน stock แล้วเป็น focBackOrder
+                if (parseFloat(foc) > parseFloat(stockTotal)) {
+                    focBackOrder = (parseFloat(foc) - parseFloat(stockTotal));
+                } else { //ถ้า foc น้อยกว่าจำนวน stock ทั้งหมด = 0
+                    focBackOrder = "0";
+                }
+            }
+            //console.log("foc = " + foc);
+            //console.log("focBackOrder = " + focBackOrder);
+            //return false;
+            //end cal Backorderfoc
             var ItemListPro = {
                 chk: "1",
                 VQty: foc,
@@ -1718,7 +1737,8 @@
                 VSTKGRP: stkgrp,
                 VLineNote: linenote,
                 Uom: '',
-                Backorderfoc: (bckorder >= 0) ? foc : bckorder
+                //Backorderfoc: (bckorder >= 0) ? foc : bckorder,
+                Backorderfoc: focBackOrder
             }
             var cPRo = "";
             var ch = "";
@@ -1728,17 +1748,19 @@
             }
 
             var DataSendPro = JSON.stringify(dataPro);
+            //console.log("DataSendPro = " + DataSendPro);
 
 
 
-            if (data.length == 0) {
-                if (dataPro.length == 0) {
-                    $(".fv-btn").attr("disabled", false)
-                    $("#textAlertWarning").empty();
-                    $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
-                    $("#myModalWarning").modal(); return false;
-                }
-            }
+            //if (data.length == 0) {
+            //    if (dataPro.length == 0) {
+            //        $(".fv-btn").attr("disabled", false)
+            //        $("#textAlertWarning").empty();
+            //        $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
+            //        $("#myModalWarning").modal();
+            //        return false;
+            //    }
+            //}
             if (data.length == 0 && dataPro.length == 0) {
                 $(".fv-btn").attr("disabled", false)
                 $("#textAlertWarning").empty();

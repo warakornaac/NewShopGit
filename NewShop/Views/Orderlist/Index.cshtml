@@ -2063,6 +2063,9 @@
             var SubmithtmlPage = "";
             var flagShowStock = "";
             var txtShowStock = "";
+            var ItemCompany ="";
+            var TextItemCompany = "";
+            ItemCompany = employees.Company;
             ItemNo = employees.ItemNo;
             Supdescri = employees.Description;
             Price = employees.Price;
@@ -2166,6 +2169,9 @@
             } else {
                 imgpromotion = '';
             }
+            if (usertype == "1" || usertype == "2" || usertype == "5") {
+                TextItemCompany = "   (" + ItemCompany + ")";
+            }
 
             SubmithtmlPage += '<tr>';
             SubmithtmlPage += '<td>';
@@ -2174,7 +2180,7 @@
             SubmithtmlPage += '<div class="img-wrap" style="margin-right: 6px;"><img src="' + strphsrc + '"  class="img-thumbnail img-sm" style="width: 65px;"></div>';
             SubmithtmlPage += '<div style="width: 10%;">' + imgpromotion + '</div>';
             SubmithtmlPage += '<figcaption class="media-body" style="width: 500px;">';
-            SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + ' </a>';
+            SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + ' </a>' + '<span style="color: #0068c1;font-size: 14px; font-weight: 100;padding-left: 5px;">' + TextItemCompany + '</span>';
 
             SubmithtmlPage += '<dl class="param param-inline small">';
             SubmithtmlPage += '<div>' + fastar + '</div>';

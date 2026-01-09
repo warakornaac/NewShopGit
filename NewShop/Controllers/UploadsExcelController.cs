@@ -13,6 +13,7 @@ using NewShop.Models;
 using System.Data.OleDb;
 using System.Configuration;
 using System.Data.SqlClient;
+using ClosedXML.Excel;
 
 namespace NewShop.Controllers
 {
@@ -26,10 +27,7 @@ namespace NewShop.Controllers
             if (this.Session["UserType"] == null)
             {
                 return RedirectToAction("LogIn", "Account");
-
             }
-
-
             return View();
         }
         public JsonResult JaImportExcel(HttpPostedFileBase postedFile, string customer)
@@ -99,16 +97,17 @@ namespace NewShop.Controllers
                     while (dReader.Read())
                     {
                         //stkcod = dReader.GetValue(0);
-                        if (dReader.GetValue(0).ToString() != "" && dReader.GetValue(1).ToString() != "")
+                        if (dReader.GetValue(0).ToString() != "" && (dReader.GetValue(1).ToString() != "" || dReader.GetValue(2).ToString() != ""))
                         {
                             SqlCommand cmdUp = new SqlCommand("p_Upload_Order_Temp", Connection);
                             cmdUp.Connection = Connection;
                             cmdUp.CommandType = CommandType.StoredProcedure;
                             cmdUp.Parameters.AddWithValue("@Cuscod", cus);
-                            cmdUp.Parameters.AddWithValue("@Company", dReader.GetValue(0));
-                            cmdUp.Parameters.AddWithValue("@Stkcod", dReader.GetValue(1));
-                            cmdUp.Parameters.AddWithValue("@Qty", dReader.GetValue(2));
-                            cmdUp.Parameters.AddWithValue("@Price", dReader.GetValue(3));
+                            cmdUp.Parameters.AddWithValue("@Company", dReader.GetValue(0) ?? string.Empty);
+                            cmdUp.Parameters.AddWithValue("@Stkcod", dReader.GetValue(1) ?? string.Empty);
+                            cmdUp.Parameters.AddWithValue("@cStkcod", dReader.GetValue(2) ?? string.Empty);
+                            cmdUp.Parameters.AddWithValue("@Qty", dReader.GetValue(3) ?? string.Empty);
+                            cmdUp.Parameters.AddWithValue("@Price", dReader.GetValue(4) ?? string.Empty);
                             cmdUp.Parameters.AddWithValue("@Userlogin", usr);
                             SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                             returnValue.Direction = System.Data.ParameterDirection.Output;
@@ -149,6 +148,7 @@ namespace NewShop.Controllers
                                     CUSCOD = dr["CUSCOD"].ToString(),
                                     Company = dr["Company"].ToString(),
                                     STKCOD = dr["STKCOD"].ToString(),
+                                    Cus_STKCOD = dr["Cus_STKCOD"].ToString(),
                                     UOM = dr["UOM"].ToString(),
                                     Qty = dr["Qty"].ToString(),
                                     Price = dr["Price"].ToString(),
@@ -183,6 +183,87 @@ namespace NewShop.Controllers
             return Json(new { List, exerror }, JsonRequestBehavior.AllowGet);
             //return Json(List, JsonRequestBehavior.AllowGet);
 
+        }
+        //Export result
+        public ActionResult ExportResult(string referenceNo)
+        {
+            List<Upload_History> list = new List<Upload_History>();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString);
+            connection.Open();
+            SqlCommand cmdSearch = new SqlCommand("P_Search_Ordercustomer_upload_History", connection);
+            cmdSearch.CommandType = CommandType.StoredProcedure;
+            cmdSearch.Parameters.AddWithValue("@Doc_No", referenceNo);
+            SqlDataReader dr = cmdSearch.ExecuteReader();
+
+            while (dr.Read())
+            {
+                list.Add(new Upload_History()
+                {
+                    Reference_No = dr["Reference_No"].ToString(),
+                    ID = dr["ID"].ToString(),
+                    CUSCOD = dr["CUSCOD"].ToString(),
+                    Company = dr["Company"].ToString(),
+                    STKCOD = dr["STKCOD"].ToString(),
+                    Cus_STKCOD = dr["Cus_STKCOD"].ToString(),
+                    UOM = dr["UOM"].ToString(),
+                    Qty = dr["Qty"].ToString(),
+                    Price = dr["Price"].ToString(),
+                    Status = dr["Status"].ToString(),
+                    Status_Message = dr["Status Message"].ToString(),
+                    Inserted_Date = dr["Inserted Date"].ToString(),
+                    Inserted_By = dr["Inserted By"].ToString(),
+                });
+            }
+            dr.Close();
+            connection.Close();
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Upload History");
+                worksheet.Cell(1, 1).Value = "Reference No";
+                worksheet.Cell(1, 2).Value = "CustomerCode";
+                worksheet.Cell(1, 3).Value = "Company";
+                worksheet.Cell(1, 4).Value = "PartNo";
+                worksheet.Cell(1, 5).Value = "CustomerPartNo";
+                worksheet.Cell(1, 6).Value = "UOM";
+                worksheet.Cell(1, 7).Value = "Qty";
+                worksheet.Cell(1, 8).Value = "Price";
+                worksheet.Cell(1, 9).Value = "Status";
+                worksheet.Cell(1, 10).Value = "Status Message";
+                worksheet.Cell(1, 11).Value = "Inserted Date";
+                worksheet.Cell(1, 12).Value = "Inserted By";
+
+                int row = 2;
+                foreach (var item in list)
+                {
+                    worksheet.Cell(row, 1).Value = item.Reference_No;
+                    worksheet.Cell(row, 2).Value = item.CUSCOD;
+                    worksheet.Cell(row, 3).Value = item.Company;
+                    worksheet.Cell(row, 4).Value = item.STKCOD;
+                    worksheet.Cell(row, 5).Value = item.Cus_STKCOD;
+                    worksheet.Cell(row, 6).Value = item.UOM;
+                    worksheet.Cell(row, 7).Value = item.Qty;
+                    worksheet.Cell(row, 8).Value = item.Price;
+                    worksheet.Cell(row, 9).Value = item.Status;
+                    worksheet.Cell(row, 10).Value = item.Status_Message;
+                    worksheet.Cell(row, 11).Value = item.Inserted_Date;
+                    worksheet.Cell(row, 12).Value = item.Inserted_By;
+                    row++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    byte[] fileBytes = stream.ToArray();
+
+                    //set filename
+                    string timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
+                    string fileName = $"Upload_Order_Result_{timestamp}.xlsx";
+
+                    return File(fileBytes,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                fileName);
+                }
+            }
         }
     }
 }
