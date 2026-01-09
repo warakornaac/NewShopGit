@@ -1257,6 +1257,7 @@ namespace NewShop.Models
                         Jul = dr["Jul"].ToString(),
                         Aug = dr["Aug"].ToString(),
                         Sep = dr["Sep"].ToString(),
+                        Oct = dr["Oct"].ToString(),
                         Nov = dr["Nov"].ToString(),
                         Dec = dr["Dec"].ToString(),
 
@@ -1313,6 +1314,7 @@ namespace NewShop.Models
                         Jul = dr["Jul"].ToString(),
                         Aug = dr["Aug"].ToString(),
                         Sep = dr["Sep"].ToString(),
+                        Oct = dr["Oct"].ToString(),
                         Nov = dr["Nov"].ToString(),
                         Dec = dr["Dec"].ToString(),
 
