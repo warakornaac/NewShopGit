@@ -26,42 +26,42 @@ namespace NewShop.Controllers
                 return RedirectToAction("LogIn", "Account");
 
             }
-          
+
             return View();
         }
         public JsonResult GetdateStockCode(string Name, string Xval, string Prod, string STKGR, string Xcus, string XvalCompany)
         {
             string CUSCOD = string.Empty;
             List<string> StockCode = new List<string>();
-           
-                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-                SqlConnection Connection = new SqlConnection(connectionString);
-                var command = new SqlCommand("P_Search_Item_Catalog", Connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@inCUSCOD", Xcus);
-                command.Parameters.AddWithValue("@inSearch", Name);
-                command.Parameters.AddWithValue("@inProd", "");
-                command.Parameters.AddWithValue("@inSTKGRP", "");
-                command.Parameters.AddWithValue("@inFix ", Xval);
-                command.Parameters.AddWithValue("@Company", XvalCompany);
-                Connection.Open();
-                //command.ExecuteNonQuery();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    //StockCode.Add(reader.GetString(0) + "|" + reader.GetString(1));
-                    StockCode.Add(dr.GetString(1) + "|" + dr.GetString(2));
-                }
-                //S20161016                
-                dr.Dispose();
-                command.Dispose();
-                //E20161016
-                Connection.Dispose();
-                Connection.Close();
+
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            var command = new SqlCommand("P_Search_Item_Catalog", Connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@inCUSCOD", Xcus);
+            command.Parameters.AddWithValue("@inSearch", Name);
+            command.Parameters.AddWithValue("@inProd", "");
+            command.Parameters.AddWithValue("@inSTKGRP", "");
+            command.Parameters.AddWithValue("@inFix ", Xval);
+            command.Parameters.AddWithValue("@Company", XvalCompany);
+            Connection.Open();
+            //command.ExecuteNonQuery();
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                //StockCode.Add(reader.GetString(0) + "|" + reader.GetString(1));
+                StockCode.Add(dr.GetString(1) + "|" + dr.GetString(2));
+            }
+            //S20161016                
+            dr.Dispose();
+            command.Dispose();
+            //E20161016
+            Connection.Dispose();
+            Connection.Close();
             //}
             return Json(StockCode, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetdateStockCodebyval(string usrtyp ,string itemsegment,string engine, string cuscod, string yrStart, string yrEnd, string itemno, string maker, string modelno, string submodel, string company, string catalogue, string brand, string textfree)
+        public JsonResult GetdateStockCodebyval(string usrtyp, string itemsegment, string engine, string cuscod, string yrStart, string yrEnd, string itemno, string maker, string modelno, string submodel, string company, string catalogue, string brand, string textfree)
         {
             string CUSCOD = string.Empty;
             List<string> StockCode = new List<string>();
@@ -156,18 +156,19 @@ namespace NewShop.Controllers
                     {
                         ItemNo = dr["STKCOD"].ToString(),
                         Description = dr["Stkdes"].ToString(),
+                        Brand = dr["Brand"].ToString(),
                         Company = dr["Company"].ToString(),
                         Price = dr["Price"].ToString(),//ราคาตามเงื่อนไข//
                         SalePrice = dr["PrcPrice"].ToString(),//ราคาโครงสร้าง//
                         PlcPrice = dr["PlcPrice"].ToString(),//ราคาป้าย//
                         SpcPrice = dr["SpcPrice"].ToString(),//ราคาพิเศษ//
                         PromotionCode = dr["PromotionCode"].ToString(),//PromotionCode//	
-                        PromoDesc= dr["PromoDesc"].ToString(),
+                        PromoDesc = dr["PromoDesc"].ToString(),
                         PromoPrice = dr["PromoPrice"].ToString(),//ราคาโปรโมชั่น//	
                         Available_Stock = dr["Available_Stock"].ToString(),
                         NewItem = dr["New Item"].ToString(),
                         FavoriteItem = dr["Favorite Item"].ToString(),
-                       // PATH = Path.Combine(root, dr["Company"].ToString() + "_" + dr["STKCOD"].ToString()+".png")
+                        // PATH = Path.Combine(root, dr["Company"].ToString() + "_" + dr["STKCOD"].ToString()+".png")
                         PATH = Path.Combine(root, dr["IMAGE_NAME"].ToString()),
                         Inactive = dr["Inactive"].ToString(),
                         minord = dr["minord"].ToString(),
@@ -193,6 +194,6 @@ namespace NewShop.Controllers
             return Json(Getdata, JsonRequestBehavior.AllowGet);
 
         }
-      
+
     }
 }

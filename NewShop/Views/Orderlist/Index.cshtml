@@ -628,6 +628,7 @@
                             <thead class="text-muted">
                                 <tr>
                                     <th scope="col">Product</th>
+                                    <th scope="col" width="120">Brand</th>
                                     <th scope="col" width="120" class="js-sort-input" title="class=&quot;js-sort-input&quot;">Quantity</th>
                                     <th scope="col" width="120">Price</th>
                                     <th scope="col" width="100">Stock</th>
@@ -2068,6 +2069,7 @@
             ItemCompany = employees.Company;
             ItemNo = employees.ItemNo;
             Supdescri = employees.Description;
+            var branddes = employees.Brand;
             Price = employees.Price;
             Stock = employees.Stock;
             ItemClass = employees.ItemClass;
@@ -2194,6 +2196,10 @@
             SubmithtmlPage += '</dl>';
             SubmithtmlPage += '</figcaption>';
             SubmithtmlPage += '</figure>';
+            SubmithtmlPage += '</td>';
+
+            SubmithtmlPage += '<td style="text-align: center; font-weight: bold;">';
+            SubmithtmlPage += '' + branddes + '';
             SubmithtmlPage += '</td>';
 
             SubmithtmlPage += '<td>';
