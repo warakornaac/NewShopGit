@@ -10,7 +10,7 @@ namespace NewShop
         {
             filters.Add(new HandleErrorAttribute());
             //ทุก request ต้องผ่าน SystemAuthorize
-            filters.Add(new SystemAuthorizeAttribute());
+            //filters.Add(new SystemAuthorizeAttribute());
         }
     }
 }

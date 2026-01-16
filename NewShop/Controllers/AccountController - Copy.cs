@@ -14,6 +14,7 @@ using UAParser;
 using Newtonsoft.Json;
 using System.IO;
 using System.Web.Hosting;
+using NewShop.Filters;
 
 namespace NewShop.Controllers
 {
@@ -24,6 +25,7 @@ namespace NewShop.Controllers
         // GET: /Account/
         public ActionResult Index()
         {
+            this.Session["LoginSystem"] = "";
             if (this.Session["UserType"] == null)
             {
                 this.Session["UserType"] = "";
@@ -48,8 +50,12 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult LogIn()
         {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            this.Session["LoginSystem"] = "";
             if (this.Session["UserType"] == null)
             {
                 this.Session["UserType"] = "";
@@ -165,6 +171,7 @@ namespace NewShop.Controllers
             return Json(returnField, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult LogIn(LoginUserViewModel User)
         {
             string Userlog = string.Empty;
@@ -189,6 +196,8 @@ namespace NewShop.Controllers
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
+                this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
+
                 string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
                 string secCodeArr = string.Empty;
@@ -482,8 +491,8 @@ namespace NewShop.Controllers
                 {
                     TempData["ErrorMessage"] = "Database connection timed out. Please try again.";
                 }
-                else 
-                { 
+                else
+                {
                     TempData["ErrorMessage"] = "Database error: " + ex.Message;
                 }
             }

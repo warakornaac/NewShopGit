@@ -122,3 +122,5 @@ D:\dotnet\NewShopGit\NewShop\bin\ClosedXML.dll
 D:\dotnet\NewShopGit\NewShop\bin\DocumentFormat.OpenXml.dll
 D:\dotnet\NewShopGit\NewShop\bin\ClosedXML.pdb
 D:\dotnet\NewShopGit\NewShop\bin\ClosedXML.xml
+D:\dotnet\NewShopGit\NewShop\bin\Dapper.dll
+D:\dotnet\NewShopGit\NewShop\bin\Dapper.xml

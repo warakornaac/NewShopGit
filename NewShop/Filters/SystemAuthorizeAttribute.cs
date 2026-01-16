@@ -9,20 +9,27 @@ namespace NewShop.Filters
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (httpContext == null || httpContext.Session == null) { 
-                return false;
+            var routeData = httpContext.Request.RequestContext.RouteData;
+            var controller = routeData.Values["controller"]?.ToString();
+            var action = routeData.Values["action"]?.ToString();
+
+            if (controller == "Account" || controller == "Verification" || controller == "CustomerDashboard" || controller == "PortalForSales")
+            {
+                return true; // bypass authorize
             }
-            // ดึงค่า UserID
+
+            if (httpContext?.Session == null)
+                return false;
+
             string userId = httpContext.Session["UserID"]?.ToString();
-            if (string.IsNullOrEmpty(userId)) { 
+            if (string.IsNullOrEmpty(userId))
                 return false;
-            }
-            // เช็ค system
+
             string systemCode = ConfigurationManager.AppSettings["SystemCode"];
             string loginSystem = httpContext.Session["LoginSystem"]?.ToString();
-            if (string.IsNullOrEmpty(systemCode)) { 
+
+            if (string.IsNullOrEmpty(systemCode))
                 return false;
-            }
 
             return loginSystem == systemCode;
         }

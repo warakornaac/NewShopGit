@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "_listCoupongByCuscode";
+}
+
+<div class="card custom-card mb-2">
+    <div class="card-header bg-primary pb-0 p-2">
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <h3 class="card-title">คูปองส่วนลด</h3>
+            </div>
+            <div class="col-sm-6 text-right">
+                <button type="button" class="btn btn-info btn-sm" onclick="calculateForecastPm();" style="margin-bottom: 5px;"> คูปองทั้งหมด </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pb-0 p-2" style="margin-bottom: -20px;">
+        @*Customer Portal ราคาพิเศษ สำหรับรถไฟฟ้า. <small>* เป็นไปตามข้อกำหนดและเงื่อนไขของบริษัท.</small>*@
+        <div class="row">
+
+            @{
+                int rowList = 0;
+                string flagExpire = string.Empty;
+                string flagCollent = string.Empty;
+                string flagUse = string.Empty;
+
+                foreach (var rowData in ViewBag.coupongList)
+                {
+
+                    <div class="col-xl-4 col-md-4 col-sm-6">
+                        <div class="card ribbone-card pt-1">
+                            <div class="arrow-ribbone-left bg-danger">คูปอง</div>
+                            <div class="card-body p-2" style="background-color: mistyrose;">
+                                @*<h5 class="card-subtitle mb-2 text-dark fw-bold text-end"></h5>*@
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="text-muted op-7"></div>
+                                    <div class="fs-20">
+                                        <span class="badge badge-success" id="right-text-success"> ส่วนลด 50% (@rowData.Promotion_Code) </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="text-muted op-7"></div>
+                                    <div class=""><span class="mb-0 text-muted fs-11" style="font-size: 12px;"> หมดอายุ @rowData.EndDate 22:00 </span></div>
+                                </div>
+                                @*<p class="card-text"></p>*@
+                                <div class="d-flex align-items-center flex-xxl-nowrap flex-wrap p-1" style="background-color: #f8f9fa !important; border-radius: 5px; ">
+                                    @*<div class="me-3">
+                                            <span class="avatar avatar-xxl bd-gray-200">
+                                                <img src="../assets/images/ecommerce/orders/1.jpg" alt="">
+                                            </span>
+                                        </div>*@
+                                    <div class="pt-2" style="font-size: 13px">
+                                        <div class="mb-1 fs-14 fw-semibold">
+                                            <a href="javascript:void(0);"> @rowData.Description </a>
+                                        </div>
+                                        @*<div class="">
+                                                <p class="fw-semibold mb-0">
+                                                    Delivery Address
+                                                </p>
+                                            </div>*@
+                                        @*<div class=""> <p class="fw-semibold mb-0">Delivery Date : <span class="text-muted fs-13"> 20-Jan-2023</span> </p></div>*@
+                                        <div class="d-flex mt-2 mb-1 text-warning">
+                                            <small>* เป็นไปตามข้อกำหนดและเงื่อนไขของบริษัท </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-2 d-grid border-block-end-dashed">
+                                    <button type="button" class="btn btn-dark d-flex align-items-center justify-content-center">
+                                        กดรับคูปอง
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>

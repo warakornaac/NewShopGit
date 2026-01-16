@@ -30,7 +30,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=amount");
             }
             List<SelectListItem> BrandList = new List<SelectListItem>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -62,7 +62,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=menu");
             }
             return View();
         }
@@ -71,7 +71,7 @@ namespace NewShop.Controllers
 
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=promotion");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=promotion");
             }
             return View();
 
@@ -82,7 +82,7 @@ namespace NewShop.Controllers
             //this.Session["UserType"] = "";
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=amount");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=amount");
             }
             List<SelectListItem> BrandList = new List<SelectListItem>();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -113,7 +113,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=PendingDeliver");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=PendingDeliver");
             }
             return View();
         }
@@ -121,7 +121,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=deliveryTrack");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=deliveryTrack");
             }
             return View();
         }
@@ -129,7 +129,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=warranty");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=warranty");
 
             }
             return View();
@@ -138,7 +138,7 @@ namespace NewShop.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return Redirect("https://mst.aac.co.th/MobileCatalog_Test/Account/CheckLoginExternal?page=menu");
+                return Redirect("https://mst.aac.co.th/MobileCatalog/Account/CheckLoginExternal?page=menu");
             }
             return View();
         }
@@ -1450,7 +1450,77 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(Code, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult GetListCoupongByCuscode(string cusCode)
+        {
+            string message = "";
+            int countList = 0;
+            List<listCoupong> coupongList = new List<listCoupong>();
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            try
+            {
+                var command = new SqlCommand("P_Search_Coupong_By_Customer", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inCuscode", cusCode);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ++countList;
+                    //if (countList == 1)
+                    //{
+                    //    @ViewBag.RegisterExpireDate = reader["RegisterExpireDate"].ToString();
+                    //}
+                    coupongList.Add(new listCoupong()
+                    {
+                        Promotion_Code = reader["Promotion_Code"].ToString(),
+                        Cuscode = reader["Cuscode"].ToString(),
+                        Description = reader["Description"].ToString(),
+                        Condition = reader["Condition"].ToString(),
+                        StartDate = reader["StartDate"].ToString(),
+                        EndDate = reader["EndDate"].ToString(),
+                        FlagExpireDate = reader["FlagExpireDate"].ToString(),
+                        FlagCollect = reader["FlagCollect"].ToString(),
+                        CollectBy = reader["CollectBy"].ToString(),
+                        CollectDate = reader["CollectDate"].ToString(),
+                        FlagUse = reader["FlagUse"].ToString(),
+                        UseBy = reader["UseBy"].ToString(),
+                        UseDate = reader["UseDate"].ToString()
+                    });
+                }
+                @ViewBag.coupongList = coupongList;
+                reader.Close();
+                command.Dispose();
+                Connection.Close();
+                message = "Y";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            @ViewBag.messageError = message;
+            return PartialView("_listCoupongByCuscode", new
+            {
+                @ViewBag.coupongList,
+                @ViewBag.messageError
+            });
+        }
+        public class listCoupong
+        {
+            public string Promotion_Code { get; set; }
+            public string Cuscode { get; set; }
+            public string Description { get; set; }
+            public string Condition { get; set; }
+            public string StartDate { get; set; }
+            public string EndDate { get; set; }
+            public string FlagExpireDate { get; set; }
+            public string FlagCollect { get; set; }
+            public string CollectBy { get; set; }
+            public string CollectDate { get; set; }
+            public string FlagUse { get; set; }
+            public string UseBy { get; set; }
+            public string UseDate { get; set; }
+        }
         public ActionResult MenuTest()
         {
             return View("MenuTest");
