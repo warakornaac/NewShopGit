@@ -96,6 +96,7 @@ namespace NewShop.Controllers
                     Model.SLMCOD = dr["SLMCOD"].ToString();
                     Model.STKCOD = dr["STKCOD"].ToString();
                     Model.STKDES = dr["STKDES"].ToString();
+                    Model.Brand = dr["Brand"].ToString();
                     //Model.FullDescription = dr.(4).ToString();
                     substkgrp = dr["STKGRP_PRC"].ToString();
                     Model.STKGRP_PRC = substkgrp.Substring(0, 2);
@@ -189,9 +190,9 @@ namespace NewShop.Controllers
                     Model.Expected_Receipt_Date = dr["Expected Receipt Date"].ToString();
                     Model.maxord = dr["maxord"].ToString();
                     //Model.expired = dr["expired"].ToString();
-                   // Model.itemblock = dr["itemblock"].ToString();
+                    // Model.itemblock = dr["itemblock"].ToString();
                     Getdata.Add(new ListPagedList { val = Model });
-                
+
                 }
                 dr.Close();
                 dr.Dispose();
@@ -206,7 +207,7 @@ namespace NewShop.Controllers
             return Json(Getdata, JsonRequestBehavior.AllowGet);
 
         }
-        public JsonResult GetdataitemdetailbyMoq(string Nodisplay, string Comdisplay, string strcustome,string moq)
+        public JsonResult GetdataitemdetailbyMoq(string Nodisplay, string Comdisplay, string strcustome, string moq)
         {
             string com = string.Empty;
             string substkgrp = string.Empty;
@@ -359,12 +360,12 @@ namespace NewShop.Controllers
             return Json(Getdata, JsonRequestBehavior.AllowGet);
 
         }
-        public JsonResult Confirmationdata(string customer, string stkcod, string company, string price, string sprice, string qty, string bckorder, string expectprice, string linenote, string insertedby, string pomocode, string foc, string minord,string prclstno,string specprice,string promoprice,string promodesc,string lastinvprice,string lastinvdate)
+        public JsonResult Confirmationdata(string customer, string stkcod, string company, string price, string sprice, string qty, string bckorder, string expectprice, string linenote, string insertedby, string pomocode, string foc, string minord, string prclstno, string specprice, string promoprice, string promodesc, string lastinvprice, string lastinvdate)
         {
-           var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-           SqlConnection Connection = new SqlConnection(connectionString);
-           Connection.Open();
-           string messagereturn = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+            string messagereturn = string.Empty;
             SqlTransaction trans = null;
             try
             {
@@ -396,7 +397,7 @@ namespace NewShop.Controllers
                 cmd.Parameters.Add(returnValue);
                 cmd.ExecuteNonQuery();
                 messagereturn = returnValue.Value.ToString();
-                
+
             }
             catch (Exception ex)
             {
@@ -407,8 +408,8 @@ namespace NewShop.Controllers
                 //return -1;
             }
             //return null;
-           return Json(messagereturn, JsonRequestBehavior.AllowGet);
-       }
-       
+            return Json(messagereturn, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

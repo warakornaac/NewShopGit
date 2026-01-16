@@ -147,6 +147,7 @@ namespace NewShop.Models
         public string SLMCOD { get; set; }
         public string STKCOD { get; set; }
         public string STKDES { get; set; }
+        public string Brand { get; set; }
         public string STKGRP_PRC { get; set; }
         public string minord { get; set; }
         public string Promotion { get; set; }

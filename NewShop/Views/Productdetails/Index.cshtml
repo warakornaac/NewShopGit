@@ -1181,7 +1181,7 @@
                         SubmithtmlPage += '<span class="rat__qun" >(MOQ:' + data[i].val.minord + ')</span><input type="hidden" id="moq' + (i + 1) + 'a"" value="' + data[i].val.minord + '" /><input type="hidden" id="max_o' + (i + 1) + 'a"" value="' + max_o_t + '" />';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '<div class="pro__details">';
-                        SubmithtmlPage += ' <p>' + data[i].val.STKDES + '</p>';
+                        SubmithtmlPage += ' <p>' + data[i].val.STKDES + ' </p>';
                         SubmithtmlPage += ' <p ' + sty + '>' + srtpromo + '</p><input type="hidden" id="pomocode' + (i + 1) + 'a"" value="' + data[i].val.PromotionCode + '" />';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '<ul class="pro__dtl__prize">';
@@ -1306,6 +1306,20 @@
                             SubmithtmlPage += '</div>';
 
                             SubmithtmlPage += '<div class="product-action-wrap">';
+                            SubmithtmlPage += '<div class="prodict-statas"><span> แบรนด์:</span></div>';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            // SubmithtmlPage += '<form id="myform">';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            SubmithtmlPage += '<div class="cart-plus-minus">';
+                            SubmithtmlPage += '<div>' + data[i].val.Brand + '</div>';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+                            // SubmithtmlPage += '</form>';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+
+
+                            SubmithtmlPage += '<div class="product-action-wrap">';
                             SubmithtmlPage += '<div class="prodict-statas"><span> ราคาซื้อล่าสุด:</span></div>';
                             SubmithtmlPage += '<div class="product-quantity">';
                             // SubmithtmlPage += '<form id="myform">';
@@ -1317,6 +1331,7 @@
                             // SubmithtmlPage += '</form>';
                             SubmithtmlPage += '</div>';
                             SubmithtmlPage += '</div>';
+
 
                             SubmithtmlPage += '<div class="product-action-wrap">';
                             SubmithtmlPage += '<div class="prodict-statas"><span>โครงสร้าง:</span></div>';
@@ -1399,7 +1414,20 @@
 
 
 
-
+                        if (usertype == "6") {
+                            SubmithtmlPage += '<div class="product-action-wrap">';
+                            SubmithtmlPage += '<div class="prodict-statas"><span> แบรนด์:</span></div>';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            // SubmithtmlPage += '<form id="myform">';
+                            SubmithtmlPage += '<div class="product-quantity">';
+                            SubmithtmlPage += '<div class="cart-plus-minus">';
+                            SubmithtmlPage += '<div>' + data[i].val.Brand + '</div>';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+                            // SubmithtmlPage += '</form>';
+                            SubmithtmlPage += '</div>';
+                            SubmithtmlPage += '</div>';
+                        }
 
                         SubmithtmlPage += '<div class="product-action-wrap">';
                         SubmithtmlPage += '<div class="prodict-statas"><span>Line Note:</span></div>';

@@ -979,6 +979,8 @@
                                                 <div class="card-header">
                                                     <div id="amtmtd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
                                                     <div id="amtmtd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
+                                                    <div id="amtmtd_omp" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: mediumpurple;">Amt MTD OMP:</div>
+                                                    <div id="amtmtd_ags" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #87ceeb;">Amt MTD AGS:</div>
                                                     <div id="amtmtd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
                                                 </div>
                                             </div>
@@ -986,6 +988,8 @@
                                                 <div class="card-header">
                                                     <div id="amtytd_aac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
                                                     <div id="amtytd_tac" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
+                                                    <div id="amtytd_omp" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: mediumpurple;">Amt YTD OMP:</div>
+                                                    <div id="amtytd_ags" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #87ceeb;">Amt YTD AGS:</div>
                                                     <div id="amtytd_all" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
                                                 </div>
                                             </div>
@@ -1021,6 +1025,8 @@
                                                 <div class="card-header">
                                                     <div id="amtmtd_aac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt MTD AAC:</div>
                                                     <div id="amtmtd_tac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt MTD TAC:</div>
+                                                    <div id="amtmtd_omp_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: mediumpurple;">Amt MTD OMP:</div>
+                                                    <div id="amtmtd_ags_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #87ceeb;">Amt MTD AGS:</div>
                                                     <div id="amtmtd_all_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt MTD ALL:</div>
                                                 </div>
                                             </div>
@@ -1028,6 +1034,8 @@
                                                 <div class="card-header">
                                                     <div id="amtytd_aac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: blue;">Amt YTD AAC:</div>
                                                     <div id="amtytd_tac_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px;color: red;">Amt YTD TAC:</div>
+                                                    <div id="amtytd_omp_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: mediumpurple;">Amt YTD OMP:</div>
+                                                    <div id="amtytd_ags_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #87ceeb; ">Amt YTD AGS:</div>
                                                     <div id="amtytd_all_cus" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: green;">Amt YTD ALL:</div>
                                                 </div>
                                             </div>
@@ -2603,7 +2611,7 @@
 
                 }],
                 //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
+                colors: ['#424bf9', '#e70712', '#E442F9', '#87ceeb', '#4bf942'],
                 xaxis: {
                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 },
@@ -2616,9 +2624,14 @@
 
             $('#amtytd_aac').html('Amt YTD AAC: 0');
             $('#amtytd_tac').html('Amt YTD TAC: 0');
+            $('#amtytd_omp').html('Amt YTD OMP: 0');
+            $('#amtytd_ags').html('Amt YTD AGS: 0');
             $('#amtytd_all').html('Amt YTD ALL: 0');
+
             $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
             $('#amtmtd_tac').html('Amt MTD TAC: 0');
+            $('#amtmtd_omp').html('Amt MTD OMP: 0');
+            $('#amtmtd_ags').html('Amt MTD AGS: 0');
             $('#amtmtd_all').html('Amt MTD ALL: 0');
         }
 
@@ -2650,7 +2663,7 @@
 
                 }],
                 //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
+                colors: ['#424bf9', '#e70712', '#E442F9', '#87ceeb', '#4bf942'],
                 xaxis: {
                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 },
@@ -2663,9 +2676,14 @@
 
             $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
             $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
+            $('#amtytd_omp_cus').html('Amt YTD OMP: 0');
+            $('#amtytd_ags_cus').html('Amt YTD AGS: 0');
             $('#amtytd_all_cus').html('Amt YTD ALL: 0');
+
             $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
             $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
+            $('#amtmtd_omp_cus').html('Amt MTD OMP: 0');
+            $('#amtmtd_ags_cus').html('Amt MTD AGS: 0');
             $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
         }
 
@@ -2697,7 +2715,7 @@
 
                 }],
                 //colors: '#435ebe',
-                colors: ['#424bf9', '#e70712', '#4bf942'],
+                colors: ['#424bf9', '#e70712', '#E442F9', '#87ceeb', '#4bf942'],
                 xaxis: {
                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 },
@@ -2710,10 +2728,19 @@
 
             $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
             $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
+            $('#amtytd_omp_cus').html('Amt YTD OMP: 0');
+            $('#amtytd_ags_cus').html('Amt YTD AGS: 0');
             $('#amtytd_all_cus').html('Amt YTD ALL: 0');
+
+
             $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
             $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
+            $('#amtmtd_omp_cus').html('Amt MTD OMP: 0');
+            $('#amtmtd_ags_cus').html('Amt MTD AGS: 0');
             $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
+
+
+
         }
 
         function getcuschamt(cusnc) {
@@ -2778,9 +2805,19 @@
                                 data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
                             },
                             {
-                                name: 'ALL',
+                                name: 'OMP',
                                 type: 'column',
                                 data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
+                            },
+                            {
+                                name: 'AGS',
+                                type: 'column',
+                                data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec]
+                            },
+                            {
+                                name: 'ALL',
+                                type: 'column',
+                                data: [data[4].Jan, data[4].Feb, data[4].Mar, data[4].Apr, data[4].May, data[4].Jun, data[4].Jul, data[4].Aug, data[4].Sep, data[4].Oct, data[4].Nov, data[4].Dec]
                             }],
                                 //series: [{
                                 //    name: 'sales',
@@ -2789,7 +2826,7 @@
 
                                 //}],
                                 //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
+                                colors: ['#424bf9', '#e70712','#E442F9', '#87ceeb','#4bf942'],
                                 xaxis: {
                                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                                 },
@@ -2800,10 +2837,15 @@
                             window.dispatchEvent(new Event('resize'));
                             $('#amtytd_aac').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
                             $('#amtytd_tac').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
-                            $('#amtytd_all').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
+                            $('#amtytd_omp').html('Amt YTD OMP: ' + commaSeparateNumber(data[2].AmtYTD));
+                            $('#amtytd_ags').html('Amt YTD AGS: ' + commaSeparateNumber(data[3].AmtYTD));
+                            $('#amtytd_all').html('Amt YTD ALL: ' + commaSeparateNumber(data[4].AmtYTD));
+
                             $('#amtmtd_aac').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
                             $('#amtmtd_tac').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
-                            $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
+                            $('#amtmtd_omp').html('Amt MTD OMP: ' + commaSeparateNumber(data[2].AmtMTD));
+                            $('#amtmtd_ags').html('Amt MTD AGS: ' + commaSeparateNumber(data[3].AmtMTD));
+                            $('#amtmtd_all').html('Amt MTD ALL: ' + commaSeparateNumber(data[4].AmtMTD));
                         } else {
                             var optionsProfileVisit = {
                                 annotations: {
@@ -2832,7 +2874,7 @@
 
                                 }],
                                 //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
+                                colors: ['#424bf9', '#e70712', '#E442F9', '#87ceeb', '#4bf942'],
                                 xaxis: {
                                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                                 },
@@ -2845,9 +2887,14 @@
 
                             $('#amtytd_aac').html('Amt YTD AAC: 0');
                             $('#amtytd_tac').html('Amt YTD TAC: 0');
+                            $('#amtytd_omp').html('Amt YTD OMP: 0');
+                            $('#amtytd_ags').html('Amt YTD AGS: 0');
                             $('#amtytd_all').html('Amt YTD ALL: 0');
+
                             $('#amtmtd_aac').html('Amt MTD AAC: 0');//amtmtd_aac
                             $('#amtmtd_tac').html('Amt MTD TAC: 0');
+                            $('#amtmtd_omp').html('Amt MTD OMP: 0');
+                            $('#amtmtd_ags').html('Amt MTD AGS: 0');
                             $('#amtmtd_all').html('Amt MTD ALL: 0');
                         }
                     }
@@ -2916,9 +2963,19 @@
                                 data: [data[1].Jan, data[1].Feb, data[1].Mar, data[1].Apr, data[1].May, data[1].Jun, data[1].Jul, data[1].Aug, data[1].Sep, data[1].Oct, data[1].Nov, data[1].Dec]
                             },
                             {
-                                name: 'ALL',
+                                name: 'OMP',
                                 type: 'column',
                                 data: [data[2].Jan, data[2].Feb, data[2].Mar, data[2].Apr, data[2].May, data[2].Jun, data[2].Jul, data[2].Aug, data[2].Sep, data[2].Oct, data[2].Nov, data[2].Dec]
+                            },
+                            {
+                                name: 'AGS',
+                                type: 'column',
+                                data: [data[3].Jan, data[3].Feb, data[3].Mar, data[3].Apr, data[3].May, data[3].Jun, data[3].Jul, data[3].Aug, data[3].Sep, data[3].Oct, data[3].Nov, data[3].Dec]
+                            },
+                            {
+                                name: 'ALL',
+                                type: 'column',
+                                data: [data[4].Jan, data[4].Feb, data[4].Mar, data[4].Apr, data[4].May, data[4].Jun, data[4].Jul, data[4].Aug, data[4].Sep, data[4].Oct, data[4].Nov, data[4].Dec]
                             }],
                                 //series: [{
                                 //    name: 'sales',
@@ -2927,7 +2984,7 @@
 
                                 //}],
                                 //colors: '#435ebe',
-                                colors: ['#424bf9', '#e70712', '#4bf942'],
+                                colors: ['#424bf9', '#e70712', '#E442F9', '#87ceeb', '#4bf942'],
                                 xaxis: {
                                     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                                 },
@@ -2939,10 +2996,15 @@
 
                             $('#amtytd_aac_cus').html('Amt YTD AAC: ' + commaSeparateNumber(data[0].AmtYTD));
                             $('#amtytd_tac_cus').html('Amt YTD TAC: ' + commaSeparateNumber(data[1].AmtYTD));
-                            $('#amtytd_all_cus').html('Amt YTD ALL: ' + commaSeparateNumber(data[2].AmtYTD));
+                            $('#amtytd_omp_cus').html('Amt YTD OMP: ' + commaSeparateNumber(data[2].AmtYTD));
+                            $('#amtytd_ags_cus').html('Amt YTD AGS: ' + commaSeparateNumber(data[3].AmtYTD));
+                            $('#amtytd_all_cus').html('Amt YTD ALL: ' + commaSeparateNumber(data[4].AmtYTD));
+
                             $('#amtmtd_aac_cus').html('Amt MTD AAC: ' + commaSeparateNumber(data[0].AmtMTD));//amtmtd_aac
                             $('#amtmtd_tac_cus').html('Amt MTD TAC: ' + commaSeparateNumber(data[1].AmtMTD));
-                            $('#amtmtd_all_cus').html('Amt MTD ALL: ' + commaSeparateNumber(data[2].AmtMTD));
+                            $('#amtmtd_omp_cus').html('Amt MTD OMP: ' + commaSeparateNumber(data[2].AmtMTD));
+                            $('#amtmtd_ags_cus').html('Amt MTD AGS: ' + commaSeparateNumber(data[3].AmtMTD));
+                            $('#amtmtd_all_cus').html('Amt MTD ALL: ' + commaSeparateNumber(data[4].AmtMTD));
                         } else {
                             var optionsProfileVisit = {
                                 annotations: {
@@ -2984,9 +3046,14 @@
 
                             $('#amtytd_aac_cus').html('Amt YTD AAC: 0');
                             $('#amtytd_tac_cus').html('Amt YTD TAC: 0');
+                            $('#amtytd_omp_cus').html('Amt YTD OMP: 0');
+                            $('#amtytd_ags_cus').html('Amt YTD AGS: 0');
                             $('#amtytd_all_cus').html('Amt YTD ALL: 0');
+
                             $('#amtmtd_aac_cus').html('Amt MTD AAC: 0');//amtmtd_aac
                             $('#amtmtd_tac_cus').html('Amt MTD TAC: 0');
+                            $('#amtmtd_omp_cus').html('Amt MTD OMP: 0');
+                            $('#amtmtd_ags_cus').html('Amt MTD AGS: 0');
                             $('#amtmtd_all_cus').html('Amt MTD ALL: 0');
                         }
                     }

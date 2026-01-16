@@ -156,6 +156,7 @@ namespace NewShop.Controllers
                     Model.SLMCOD = dr["SLMCOD"].ToString();
                     Model.STKCOD = dr["STKCOD"].ToString();
                     Model.STKDES = dr["STKDES"].ToString();
+                    Model.Brand = dr["Brand"].ToString();
                     //Model.FullDescription = dr.(4).ToString();
                     substkgrp = dr["STKGRP_PRC"].ToString();
                     Model.STKGRP_PRC = substkgrp.Substring(0, 2);

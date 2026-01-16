@@ -288,6 +288,7 @@
                                 <th>จำนวน</th>
                                 <th>B/O</th>
                                 <th>Company<br />|Stkcod</th>
+                                <th>Brand</th>
                                 <th>Stkdes</th>
                                 <th>Sales Packing<br />Standard</th>
                                 <th>Moq</th>
@@ -731,6 +732,7 @@
 
                                     SubmithtmlPage += '<td style="background: rgba(148, 249, 215, 0.57);" class="STKCOD"><i style="color: rgb(0, 119, 255);  font-size: 16px;  font: icon;"><div class="STKCODdiv" title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.company + "</i>|" + data[i].val.STKCOD + '</div></td>';
                                 }
+                                SubmithtmlPage += '<td>'+data[i].val.Brand+'</td>';
                                 SubmithtmlPage += '<td class="STKDES"style="width: 14%;"><div class="STKDESdiv">' + nl2br(data[i].val.STKDES) + '</div></td>';
                                 SubmithtmlPage += '<td><div class="SPackUOM">' + data[i].val.SPackUOM + '</div></td>';
                                 SubmithtmlPage += '<td class="qqqq"><div class="minord">' + data[i].val.minord + '</div></td>';
