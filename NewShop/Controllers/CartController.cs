@@ -1523,5 +1523,49 @@ namespace NewShop.Controllers
 
             return Json(new { flagCheck }, JsonRequestBehavior.AllowGet);
         }
+
+        //เช็ค Quota พนักงาน 
+        public JsonResult CheckEmployeeQuota(string Cuscod, string Shipto, string Amt)
+        {
+            string flagCheck = string.Empty;
+            string allAmt = string.Empty;
+            string quotaEmp = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            try
+            {
+                var command = new SqlCommand("P_CheckStaffQuota", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InCuscod", Cuscod);
+                command.Parameters.AddWithValue("@InShipto", Shipto);
+                command.Parameters.AddWithValue("@BuyAmt", Amt);
+                SqlParameter returnFlag = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                returnFlag.Direction = System.Data.ParameterDirection.Output;
+                command.Parameters.Add(returnFlag);
+
+                SqlParameter returnAmt = new SqlParameter("@outAmtAll", SqlDbType.NVarChar, 100);
+                returnAmt.Direction = System.Data.ParameterDirection.Output;
+                command.Parameters.Add(returnAmt);
+
+                SqlParameter returnQuota = new SqlParameter("@outQuota", SqlDbType.NVarChar, 100);
+                returnQuota.Direction = System.Data.ParameterDirection.Output;
+                command.Parameters.Add(returnQuota);
+
+                Connection.Open();
+                command.ExecuteNonQuery();
+                flagCheck = returnFlag.Value.ToString();
+                allAmt = returnAmt.Value.ToString();
+                quotaEmp = returnQuota.Value.ToString();
+                command.Dispose();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                flagCheck = ex.Message;
+            }
+
+
+            return Json(new { flagCheck, allAmt, quotaEmp }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

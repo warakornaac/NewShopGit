@@ -3946,7 +3946,8 @@
                     //    return;
                     //}
 
-
+                    //Comment ARM 21012026
+                    /*
                     var textCheckTotalAmt = "";
 
                     textCheckTotalAmt += '<div class="row">';
@@ -3977,6 +3978,10 @@
                         $("#btnOK").prop('disabled', false);
                         $('#checkTotalAmtAllItem').empty();
                     }
+                    */
+                    //Arm Comment 21012026
+
+
                     //Get data item by company
                     //var groupedByCompany = {};
 
@@ -4084,6 +4089,7 @@
                     ///////////////////////////// คำนวณส่วนลดท้ายบิล  /////////////////////////////
                     var amtDiscountendofbill = 0;
                     var amtaftercalendofbill = 0;
+                    var shiptoCod = $('#codeShipping').val();
                     var valcal = $("#discon").val(); ///หน่วย บาทหรือ%
                     var valdis = $("#inputdis").val(); ///ราคาส่วนลดท้ายบิล
                     if (valdis == "") { valdis = "0"; }
@@ -4233,6 +4239,37 @@
                                             $('#checkCreditCustomer').empty();
                                             //enable ปุ่มยินยัน
                                             $("#btnOK").prop('disabled', false);
+
+
+                                            if (cuscod == '110Z0001A') {
+                                                $.ajax({
+                                                    url: '@Url.Action("CheckEmployeeQuota", "Cart")',
+                                                    data: { Cuscod: cuscod, Shipto: shiptoCod, Amt: sumAmt.replace(/,/g, "") },
+                                                    type: 'POST',
+                                                    dataType: 'json',
+                                                    beforeSend: function () {
+                                                        //$("#btnOK").prop('disabled', true);
+                                                    },
+                                                    success: function (res) {
+                                                        if (res.flagCheck == 'Y') {
+                                                           // $("#btnOK").prop('disabled', false);
+                                                        }
+                                                        else if (res.flagCheck == 'Y') {
+                                                            $("#checkCreditCustomer").html('<div class="row">' +
+                                                                '<div class="col-sm-12">' +
+                                                                '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ใช้ Quata กว่าจำนวนที่กำหนด ' + commaSeparateNumber(res.allAmt) + '/20,000' + ' </div>' +
+                                                                '</div>' +
+                                                                '</div>')
+                                                        }
+                                                        else {
+                                                            $("#textAlert").empty();
+                                                            $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + res.flagCheck);
+                                                            $("#myModal").modal();
+                                                        }
+
+                                                    }
+                                                })
+                                            }
                                         }
                                     }
                                 });
