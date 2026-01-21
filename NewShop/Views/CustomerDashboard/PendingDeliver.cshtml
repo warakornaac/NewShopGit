@@ -792,6 +792,7 @@
                                                                     <th class="sticky-head text-center"><span>จำนวนค้าง</span></th>
                                                                     <th class="sticky-head text-center"><span>ราคาต่อชิ้น</span></th>
                                                                     <th class="sticky-head text-center"><span>ราคารวม</span></th>
+                                                                    <th class="sticky-head text-center"><span>วันที่ของเข้า</span></th>
                                                                     @*<th class="sticky-head text-center"><span>หมายเหตุ</span></th>*@
                                                                 </tr>
                                                             </thead>
@@ -1272,7 +1273,7 @@
                                  SubmithtmlPage += '<td class="orgbck" style="text-align:center"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Qty) + '</span></p></td>';
                                  SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].SalePrice) + '</span></p></td>';
                                  SubmithtmlPage += '<td class="text-right"><p class="m-0 p-0"><span>' + commaSeparateNumber(data.backorder[i].Amount) + '</span></p></td>';//asd
-                                 //SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].Note + '</span></p></td>';
+                                 SubmithtmlPage += '<td class=" text-center"><p class="m-0 p-0"><span>' + data.backorder[i].ExpectedReceiptDate.replace(/\//g, '-') + '</span></p></td>';
                                  SubmithtmlPage += '</tr >';
                              }
                              //notnull
@@ -1312,12 +1313,12 @@
                              }
                              else {
                                  SubmithtmlPage += '<tr>';
-                                 SubmithtmlPage += '<td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td>';
+                                 SubmithtmlPage += '<td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td>';
                                  SubmithtmlPage += '</tr>';
                                  aac.append(SubmithtmlPage);
                              }
                          } else if (data.length <= 0) {
-                             SubmithtmlPage += '<tr><td class="text-center" colspan="8">-- ไม่พบข้อมูล --</td></tr>';
+                             SubmithtmlPage += '<tr><td class="text-center" colspan="9">-- ไม่พบข้อมูล --</td></tr>';
                              aac.append(SubmithtmlPage);
                              tac.append(SubmithtmlPage_T);
                              omp.append(SubmithtmlPage_O);
