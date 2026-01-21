@@ -1,0 +1,64 @@
+﻿@using NewShop.Models;
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="table-responsive" style="margin-bottom: 0;">
+            <table id="tablePromotionDetail" class="table table-bordered table-hover table-striped" style="margin-bottom: 0px;">
+                <thead>
+                    <tr style="background-color:lightseagreen;" class="text-light">
+                        <th class="vcenter"> # </th>
+                        <th class="vcenter"> เบอร์สินค้า </th>
+                        <th class="vcenter"> ชื่อสินค้า </th>
+                        <th class="vcenter"> ราคาพิเศษ </th>
+                        <th class="vcenter"> วันที่เริ่ม - สิ้นสุด ใช้งานคูปอง </th>
+                        <th class="vcenter"> เงื่อนไข </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int rowList = 0;
+                        double sumPackAmtAll = 0;
+                        if (ViewBag.coupongDetailList.Count > 0)
+                        {
+                            foreach (var rowData in ViewBag.coupongDetailList)
+                            {
+                                rowList++;
+                                <tr>
+                                    <td class="vcenter sticky-col first-col" style="cursor: pointer;"> @rowList </td>
+                                    <td class="vleft"> @rowData.Stkcode </td>
+                                    <td class="vleft"> @rowData.Stkdesc </td>
+                                    <td class="vright"> @rowData.SpecialPrice </td>
+                                    <td class="vleft"> @rowData.StartDate - @rowData.EndDate </td>
+                                    <td class="vleft"> @rowData.Condition</td>
+
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script defer>
+    var promotionSeq = $("#promotionSeq").val();
+    //onsole.log("promotionSeq = " + promotionSeq);
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function showFullTextReason(text) {
+        Swal.fire({
+            title: 'เหตุผล',
+            html: `<div style="text-align: center;">${text.replace(/\n/g, '<br>')}</div>`,
+            confirmButtonColor: '#5bc0de',
+            confirmButtonText: '<i class="fa fa-times"></i> ปิด',
+        });
+    }
+</script>

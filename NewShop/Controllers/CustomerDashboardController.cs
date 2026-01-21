@@ -1450,6 +1450,7 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(Code, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
         public ActionResult GetListCoupongByCuscode(string cusCode)
         {
             string message = "";
@@ -1467,10 +1468,6 @@ namespace NewShop.Controllers
                 while (reader.Read())
                 {
                     ++countList;
-                    //if (countList == 1)
-                    //{
-                    //    @ViewBag.RegisterExpireDate = reader["RegisterExpireDate"].ToString();
-                    //}
                     coupongList.Add(new listCoupong()
                     {
                         Promotion_Code = reader["Promotion_Code"].ToString(),
@@ -1505,6 +1502,111 @@ namespace NewShop.Controllers
                 @ViewBag.messageError
             });
         }
+        [HttpPost]
+        public ActionResult getDetailByCoupong(string coupongCode)
+        {
+            List<listCoupongDetail> coupongDetailList = new List<listCoupongDetail>();
+            if (!string.IsNullOrEmpty(coupongCode))
+            {
+                string message = "Y";
+                int countList = 0;
+                var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+                SqlConnection Connection = new SqlConnection(connectionString);
+                Connection.Open();
+                try
+                {
+                    var command = new SqlCommand("P_Search_Coupong_Detail", Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@inCoupongCode", coupongCode);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ++countList;
+                        if (countList == 1)
+                        {
+                            @ViewBag.TxtCoupongCode = reader["Promotion_Code"].ToString();
+                            @ViewBag.TxtDescriptionReward = reader["DescriptionReward"].ToString();
+                            @ViewBag.TxtStartDate = reader["StartDate"].ToString();
+                            @ViewBag.TxtEndDate = reader["EndDate"].ToString();
+                        }
+                        coupongDetailList.Add(new listCoupongDetail()
+                        {
+                            Promotion_Code = reader["Promotion_Code"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            Reward = reader["Reward"].ToString(),
+                            DescriptionReward = reader["DescriptionReward"].ToString(),
+                            StartDate = reader["StartDate"].ToString(),
+                            EndDate = reader["EndDate"].ToString(),
+                            Stkcode = reader["Stkcode"].ToString(),
+                            Stkdesc = reader["Stkdesc"].ToString(),
+                            Stkgrp = reader["Stkgrp"].ToString(),
+                            SpecialPrice = reader["SpecialPrice"].ToString(),
+                            AmountMax = reader["AmountMax"].ToString(),
+                            Condition = reader["Condition"].ToString(),
+                            UseStartDate = reader["UseStartDate"].ToString(),
+                            UseEndDate = reader["UseEndDate"].ToString(),
+                            FlagStatus = reader["FlagStatus"].ToString()
+                        });
+                    }
+                    reader.Close();
+                    command.Dispose();
+                    Connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    message = ex.Message;
+                }
+
+                @ViewBag.coupongDetailList = coupongDetailList;
+                @ViewBag.coupongMessage = message;
+            }
+            return PartialView("_detailByCoupong", new
+            {
+                @ViewBag.coupongDetailList,
+                @ViewBag.coupongMessage,
+                @ViewBag.TxtCoupongCode,
+                @ViewBag.TxtDescriptionReward,
+                @ViewBag.TxtStartDate,
+                @ViewBag.TxtEndDate
+            });
+        }
+        [HttpPost]
+        public ActionResult SaveCollectCoupong(string user, string coupongCode, string customerCode)
+        {
+            int numSuccess = 0;
+            int numError = 0;
+            string message = "Y";
+            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            SqlConnection Connection = new SqlConnection(connectionString);
+            try
+            {
+                Connection.Open();
+                var command = new SqlCommand("P_Save_Collect_Coupong", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUser", user);
+                command.Parameters.AddWithValue("@inPromotionCode", coupongCode);
+                command.Parameters.AddWithValue("@inCusCode", customerCode);
+                SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
+                returnValue.Direction = System.Data.ParameterDirection.Output;
+                command.Parameters.Add(returnValue);
+                command.ExecuteNonQuery();
+                if (!string.IsNullOrEmpty(returnValue.Value.ToString()))
+                {
+                    message = returnValue.Value.ToString();
+                }
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return Json(new { status = message }, JsonRequestBehavior.AllowGet);
+        }
         public class listCoupong
         {
             public string Promotion_Code { get; set; }
@@ -1520,6 +1622,24 @@ namespace NewShop.Controllers
             public string FlagUse { get; set; }
             public string UseBy { get; set; }
             public string UseDate { get; set; }
+        }
+        public class listCoupongDetail
+        {
+            public string Promotion_Code { get; set; }
+            public string Description { get; set; }
+            public string Reward { get; set; }
+            public string DescriptionReward { get; set; }
+            public string StartDate { get; set; }
+            public string EndDate { get; set; }
+            public string Stkcode { get; set; }
+            public string Stkdesc { get; set; }
+            public string Stkgrp { get; set; }
+            public string SpecialPrice { get; set; }
+            public string AmountMax { get; set; }
+            public string Condition { get; set; }
+            public string UseStartDate { get; set; }
+            public string UseEndDate { get; set; }
+            public string FlagStatus { get; set; }
         }
         public ActionResult MenuTest()
         {
