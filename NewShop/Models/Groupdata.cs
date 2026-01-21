@@ -1021,6 +1021,7 @@ namespace NewShop.Models
         public string DeliveryDate { get; set; }
         public string Note { get; set; }
         public string Brand { get; set; }
+        public string ExpectedReceiptDate { get; set; } = string.Empty;
     }
     public class ListSendDelivery
     {

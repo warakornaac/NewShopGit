@@ -497,7 +497,8 @@ namespace NewShop.Controllers
                         SaleOrderDate = Convert.ToDateTime(reader["SaleOrder_Date"]).ToString("dd/MM/yy"),
                         DeliveryDate = reader["DeliveryDate"] != DBNull.Value ? reader["DeliveryDate"].ToString() : "",
                         Note = reader["Note"] != DBNull.Value ? reader["Note"].ToString() : "",
-                        Brand = reader["Brand"] != DBNull.Value ? reader["Brand"].ToString() : ""
+                        Brand = reader["Brand"] != DBNull.Value ? reader["Brand"].ToString() : "",
+                        ExpectedReceiptDate = reader["Expected Receipt Date"] != DBNull.Value ? Convert.ToDateTime(reader["Expected Receipt Date"]).ToString("dd/MM/yy") : "",
 
                     });
                 }
