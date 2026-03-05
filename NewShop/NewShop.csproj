@@ -4396,6 +4396,7 @@
     <Content Include="images\logo\logo-large.png" />
     <Content Include="images\logo\logo.png" />
     <Content Include="images\logo\TRW.png" />
+    <Content Include="images\maintenance\image01.png" />
     <Content Include="images\new-product\1.jpg" />
     <Content Include="images\new-product\2.jpg" />
     <Content Include="images\new-product\3.jpg" />
@@ -7910,6 +7911,12 @@
     <Content Include="Views\Promotion\_ListPackPromotionByCustomerAllPm.cshtml" />
     <Content Include="Views\Promotion\_SubListCustomer.cshtml" />
     <Content Include="Views\CartOpt\Index.cshtml" />
+    <Content Include="Views\CustomerDashboard\_detailByCoupong.cshtml" />
+    <Content Include="Views\CustomerDashboard\_listCoupongByCuscode.cshtml" />
+    <Content Include="Views\Account\LoginMaintenance.cshtml" />
+    <Content Include="Views\CustomerDashboard\Shoppinglist\Index.cshtml" />
+    <Content Include="Views\CustomerDashboard\_detailCoupongUseOrder.cshtml" />
+    <Content Include="Views\CustomerDashboard\_listCoupongByCuscodeStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

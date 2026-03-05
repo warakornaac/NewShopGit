@@ -675,6 +675,7 @@
                             var rowCount = $('.fixed_headers tr').length;
 
                             for (var i = 0; i < data.length; i++) {
+                                var disabledInputBackorder = "";
                                 var cc = data[i].val.CCheck_date;
                                 dataexp = data[i].val.Expected_Receipt_Date;
                                 if (dataexp != "") {
@@ -689,6 +690,7 @@
                                 pro = data[i].val.Promotion;
                                 var strprocodsub = data[i].val.PromotionCode;
                                 procodsub = strprocodsub.substring(8, 13);
+                                var promotionAmountMax = strprocodsub.split("|");
                                 //alert(procodsub)
                                 Special_Price = data[i].val.Special_Price
                                 var img = '<img src="../images/hot.gif" />';
@@ -699,6 +701,10 @@
                                 stk = data[i].val.STKCOD;
                                 var qty = data[i].val.ORD_QTY;
                                 var dtachcolo;
+                                //check disable input bo
+                                if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                                    disabledInputBackorder = 'disabled'
+                                }
                                 if (cc == "T") {
                                     SubmithtmlPage += '<tr style="background: burlywood;">';
                                     dtachcolo = "";
@@ -725,7 +731,7 @@
                                 }
                                 SubmithtmlPage += '<td style="text-align: center;font-size: x-large;"><div class="fas fa-trash remove" id="cancelx"  style=" color: red; cursor: pointer; "></div></td>';
                                 SubmithtmlPage += '<td style="background-color: aquamarine;" ><input id="Qty' + (i + rowCount) + '"  name="S_Qty" class="tQty"  maxlength="5" min="1" type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
-                                SubmithtmlPage += '<td style="background-color: aquamarine;"><input id="bo' + (i + rowCount) + '"  name="S_bo" maxlength="5" class="tbo"  type="number" min="0" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
+                                SubmithtmlPage += '<td style="background-color: aquamarine;"><input ' + disabledInputBackorder +' id="bo' + (i + rowCount) + '"  name="S_bo" maxlength="5" class="tbo"  type="number" min="0" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;"></td>';
                                 if (com == "TAC") {
                                     SubmithtmlPage += '<td style="background: rgba(148, 249, 215, 0.57);" class="STKCOD"><i style="color: red;  font-size: 16px;  font: icon;" ><div class="STKCODdiv" title=กลุ่มสินค้า' + data[i].val.STKGRP_PRC + '>' + data[i].val.company + "</i>|" + data[i].val.STKCOD + '</div></td>';
                                 } else {
@@ -1073,16 +1079,27 @@
             var valExpect = $("#" + tExpectid + "").val();
             var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").text();
             var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").text();
+            var promotionAmountMax = _Pro.split("|");
             var _NoAr = _StkNo.split("|");
             if (_Pro != '') {
+                //กรอกเกินจำนวน stock
                 if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst.replace(',', '').replace(' ', ''))) {
-
                     $("#textAlertWarning").empty();
                     $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
                     $("#myModalWarning").modal();
                     $("#" + idqty + "").val("");
                     return false;
-
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("จำนวนสั้งซื้อต้องไม่เกิน Promotion (" + promotionAmountMax[1] + ")");
+                            $("#myModalWarning").modal();
+                            $("#" + idqty + "").val("");
+                            return false;
+                        }
+                    }
                 }
             }
 
@@ -1203,15 +1220,25 @@
             var _StkNo = $(this).parents("tr:eq(0)").find(".STKCODdiv").text();
             var _Pro = $(this).parents("tr:eq(0)").find(".PromotionCode").html();
             var _NoAr = _StkNo.split("|");
+            var promotionAmountMax = _Pro.split("|");
             if (_Pro != '') {
                 if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(Seqvalst.replace(',', '').replace(' ', ''))) {
-
                     $("#textAlertWarning").empty();
                     $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
                     $("#myModalWarning").modal();
                     $("#" + idqty + "").val("");
                     return false;
-
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ (" + promotionAmountMax[1] + ") จำนวนที่ Promotion กำหดไว้ เนื่องจากเป็นสินค้าราคา Promotion");
+                            $("#myModalWarning").modal();
+                            $("#" + idqty + "").val("");
+                            return false;
+                        }
+                    }
                 }
             }
 

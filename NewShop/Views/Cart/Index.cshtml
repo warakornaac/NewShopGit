@@ -1168,7 +1168,7 @@
         <script src="~/Scripts/CheckFuntion/Loginexpire.js"></script>
         @*<input type="hidden" id="_udernumber" value="@number" />
             <input type="hidden" id="_udercompan" value="@compan" />*@
-        <script type="text/javascript">
+    <script type="text/javascript">
             var id = '@Request.RequestContext.HttpContext.Session["ID"]';
             var userid = '@Request.RequestContext.HttpContext.Session["UserID"]';
             var usertype = '@Request.RequestContext.HttpContext.Session["UserType"]';
@@ -4223,7 +4223,7 @@
                                         $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คเครดิต... </b> </div>');
                                     },
                                     success: function (data) {
-                                        //return false;
+                                //return false;
                                         if (data.flagCheck == "Y") { //ติดเครดิต รอ CRC อนุมัติ
                                             $("#checkCreditCustomer").html('<div class="row">' +
                                                                                 '<div class="col-sm-12">' +
@@ -4240,36 +4240,49 @@
                                             //enable ปุ่มยินยัน
                                             $("#btnOK").prop('disabled', false);
 
+                                            $.ajax({
+                                                url: '@Url.Action("CheckEmployeeQuota", "Cart")',
+                                                data: { Cuscod: cuscod, Shipto: shiptoCod, Amt: sumAmt.replace(/,/g, "") },
+                                                type: 'POST',
+                                                dataType: 'json',
+                                                beforeSend: function () {
+                                                    $("#btnOK").prop('disabled', true);
+                                                    $('#checkCreditCustomer').empty();
+                                                    if (cuscod == '110Z0001A') {
+                                                     $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คโควต้า... </b> </div>');
+                                                    }
 
-                                            if (cuscod == '110Z0001A') {
-                                                $.ajax({
-                                                    url: '@Url.Action("CheckEmployeeQuota", "Cart")',
-                                                    data: { Cuscod: cuscod, Shipto: shiptoCod, Amt: sumAmt.replace(/,/g, "") },
-                                                    type: 'POST',
-                                                    dataType: 'json',
-                                                    beforeSend: function () {
-                                                        //$("#btnOK").prop('disabled', true);
-                                                    },
-                                                    success: function (res) {
-                                                        if (res.flagCheck == 'Y') {
-                                                           // $("#btnOK").prop('disabled', false);
-                                                        }
-                                                        else if (res.flagCheck == 'Y') {
-                                                            $("#checkCreditCustomer").html('<div class="row">' +
-                                                                '<div class="col-sm-12">' +
-                                                                '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ใช้ Quata กว่าจำนวนที่กำหนด ' + commaSeparateNumber(res.allAmt) + '/20,000' + ' </div>' +
-                                                                '</div>' +
-                                                                '</div>')
-                                                        }
-                                                        else {
-                                                            $("#textAlert").empty();
-                                                            $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + res.flagCheck);
-                                                            $("#myModal").modal();
-                                                        }
+                                                },
+                                                success: function (res) {
+                                                    $('#checkCreditCustomer').empty();
+                                                    if (res.flagCheck == 'Y') {
+                                                        $("#btnOK").prop('disabled', false);
 
                                                     }
-                                                })
-                                            }
+                                                    else if (res.flagCheck == 'N') {
+
+                                                        $("#btnOK").prop('disabled', true);
+                                                        $("#checkCreditCustomer").html('<div class="row">' +
+                                                            '<div class="col-sm-12">' +
+                                                            '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Quota การซื้อสินค้าเกินจำนวนที่กำหนด : ' + commaSeparateNumber(res.allAmt) + ' / 20,000' + ' | กรุณาติดต่อแผนก CS </div>' +
+                                                            '</div>' +
+                                                            '</div>')
+                                                    }
+                                                    else {
+
+                                                        $("#btnOK").prop('disabled', true);
+                                                        $("#textAlert").empty();
+                                                        $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + res.flagCheck);
+                                                        $("#myModal").modal();
+                                                    }
+
+                                                },
+                                                complete: function (data) {
+
+
+                                                }
+
+                                            }); //end ajax
                                         }
                                     }
                                 });
@@ -5541,7 +5554,7 @@
             //      }
             //};
             //Lock show code display //
-        </script>
+    </script>
 
 
 </body>

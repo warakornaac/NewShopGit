@@ -1055,12 +1055,15 @@
                     var promodes = '';
                     var promocod = '';
                     var srtpromo = '';
+                    var procodsub = ''; //get promotion code 
+
 
                     $("#appimg").html("");
 
 
                     $("#rowdetail").html("");
                     for (var i = 0; i < data.length; i++) {
+                        var disabledInputBackorder = "";
                         var sty = '';
                         var strph = data[i].val.PATH;
                         var Expected_Receipt = "";
@@ -1096,6 +1099,8 @@
                             // $("#appimg").append(strph);
                         }
                         promocod = data[i].val.PromotionCode;
+                        procodsub = promocod.substring(8, 13);
+                        var promotionAmountMax = promocod.split("|");
                         promodes = data[i].val.PromoDesc;
                         if (promocod != "") {
                             srtpromo = "Promotion: " + promocod + "  " + promodes;
@@ -1108,6 +1113,10 @@
                         //Check UserType Show company//
                         if (usertype == "1" || usertype == "2" || usertype == "5") {
                             TextItemCompany = "   (" + ItemCompany + ")";
+                        }
+                        //check disable input bo
+                        if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                            disabledInputBackorder = 'disabled'
                         }
 
                         ////////////////////////
@@ -1281,7 +1290,7 @@
                         // SubmithtmlPage += '<form id="myform">';
                         SubmithtmlPage += '<div class="product-quantity">';
                         SubmithtmlPage += '<div class="cart-plus-minus">';
-                        SubmithtmlPage += '<input class="cart-plus-minus-box" type="number" name="S_bo" min="0" id="bckorder' + (i + 1) + 'a"" style="max-width: 150px;" >';
+                        SubmithtmlPage += '<input ' + disabledInputBackorder + ' class="cart-plus-minus-box" type="number" name="S_bo" min="0" id="bckorder' + (i + 1) + 'a"" style="max-width: 150px;" >';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '</div>';
                         // SubmithtmlPage += '</form>';
@@ -1893,6 +1902,7 @@
             // alert(Seqvalbackorder)
         });
         $(document).on("change", "input[name='S_Qty']", function () {
+            console.log("change");
             var idbt = this.id;
             var res = idbt.substr(3, 2);
             var valqty = $(this).val();
@@ -1901,27 +1911,42 @@
             var valmoq = $("#moq" + res).val();
             var Spackuom = $("#SPackUOM" + res).val();
             var qtybag = g_getcoutorder;
+            var Procode = $("#pomocode" + res).val();
+            var promotionAmountMax = Procode.split("|");
 
-            //$("#bckorder" + res).val(valqty);
-            //if (valqty == "") {
-            //    $("#countsku").text(0 + parseFloat(qtybag));
-            //} else {
-            //    $("#countsku").text(parseFloat(valqty) + parseFloat(qtybag));
-            //}
-
-            if (parseFloat(valqty) > parseFloat(valstock)) {
-                var vck = parseFloat(valqty) - parseFloat(valstock)
-                $("#bckorder" + res).val(vck);
-
-            } else if (parseFloat(valqty) < parseFloat(valstock)) {
-                var vck = parseFloat(valstock) - parseFloat(valqty)
-                $("#bckorder" + res).val("");
-
-            } else if (parseFloat(valqty) == 0 || parseFloat(valqty) == "0" || valqty == "") {
-
-                $("#bckorder" + res).val("");
-
+            //ถ้ามี code promotion
+            if (Procode != '') { //เป็น Promorion
+                //กรอกเกินจำนวน stock
+                if (parseFloat(valqty.replace(',', '').replace(' ', '')) > parseFloat(valstock.replace(',', '').replace(' ', ''))) {
+                    $("#textAlertWarninglog").empty();
+                    $("#textAlertWarninglog").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarninglog").modal();// return false;
+                    $("#" + valqty + "").val("");
+                    return false;
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        if (parseFloat(valqty.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarninglog").empty();
+                            $("#textAlertWarninglog").text("จำนวนสั้งซื้อต้องไม่เกิน Promotion (" + promotionAmountMax[1] + ")");
+                            $("#myModalWarninglog").modal();// return false;
+                            $("#" + valqty + "").val("");
+                            return false;
+                        }
+                    }
+                }
+            } else { //ไม่เป็น Promotion
+                if (parseFloat(valqty) > parseFloat(valstock)) {
+                    var vck = parseFloat(valqty) - parseFloat(valstock)
+                    $("#bckorder" + res).val(vck);
+                } else if (parseFloat(valqty) < parseFloat(valstock)) {
+                    var vck = parseFloat(valstock) - parseFloat(valqty)
+                    $("#bckorder" + res).val("");
+                } else if (parseFloat(valqty) == 0 || parseFloat(valqty) == "0" || valqty == "") {
+                    $("#bckorder" + res).val("");
+                }
             }
+
             if (isNaN(parseFloat(valqty))) {
                 return false;
             } else {
@@ -1988,6 +2013,7 @@
             }
         });
         $(document).on("blur", "input[name='S_Qty']", function () {
+            console.log("blur");
             var idbt = this.id;
             var res = idbt.substr(3, 2);
             var valqty = $(this).val();
@@ -1996,26 +2022,45 @@
             var valmoq = $("#moq" + res).val();
             var Spackuom = $("#SPackUOM" + res).val();
             var qtybag = g_getcoutorder;
+            var Procode = $("#pomocode" + res).val();
+            var promotionAmountMax = Procode.split("|");
 
-            //$("#bckorder" + res).val(valqty);
-            //if (valqty == "") {
-            //    $("#countsku").text(0 + parseFloat(qtybag));
-            //} else {
-            //    $("#countsku").text(parseFloat(valqty) + parseFloat(qtybag));
-            //}
-            if (parseFloat(valqty) > parseFloat(valstock)) {
-                var vck = parseFloat(valqty) - parseFloat(valstock)
-                $("#bckorder" + res).val(vck);
-
-            } else if (parseFloat(valqty) < parseFloat(valstock)) {
-                var vck = parseFloat(valstock) - parseFloat(valqty)
-                $("#bckorder" + res).val("");
-
-            } else if (parseFloat(valqty) == 0 || parseFloat(valqty) == "0" || valqty == "") {
-
-                $("#bckorder" + res).val("");
-
+            //ถ้ามี code promotion
+            //console.log("promotionAmountMax = " + promotionAmountMax);
+            if (Procode != '') { //เป็น Promorion
+                //กรอกเกินจำนวน stock
+                if (parseFloat(valqty.replace(',', '').replace(' ', '')) > parseFloat(valstock.replace(',', '').replace(' ', ''))) {
+                    $("#textAlertWarninglog").empty();
+                    $("#textAlertWarninglog").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarninglog").modal();// return false;
+                    $("#qty" + res).val("");
+                    return false;
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        //console.log(parseFloat(valqty.replace(',', '').replace(' ', '')) + " " + parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', '')));
+                        if (parseFloat(valqty.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarninglog").empty();
+                            $("#textAlertWarninglog").text("จำนวนสั้งซื้อต้องไม่เกิน Promotion (" + promotionAmountMax[1] + ")");
+                            $("#myModalWarninglog").modal();// return false;
+                            $("#qty" + res).val("");
+                            return false;
+                        }
+                    }
+                }
+            } else { //ไม่เป็น Promorion
+                if (parseFloat(valqty) > parseFloat(valstock)) {
+                    var vck = parseFloat(valqty) - parseFloat(valstock)
+                    $("#bckorder" + res).val(vck);
+                } else if (parseFloat(valqty) < parseFloat(valstock)) {
+                    var vck = parseFloat(valstock) - parseFloat(valqty)
+                    $("#bckorder" + res).val("");
+                } else if (parseFloat(valqty) == 0 || parseFloat(valqty) == "0" || valqty == "") {
+                    $("#bckorder" + res).val("");
+                }
             }
+
+
             if (isNaN(parseFloat(valqty))) {
                 return false;
             } else {

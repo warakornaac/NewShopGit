@@ -1610,7 +1610,7 @@
         </nav>*@
     <!-- End Navbar -->
     <main class="main-content">
-        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-color: white;">
+        <div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-color: "";">
             @*<div class="page-header align-items-start min-vh-40 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">*@
             <span class="mask bg-page opacity-6"></span>
             <div class="container">
@@ -1625,19 +1625,19 @@
         <div class="container container-fluid">
             <div class="row mt-lg-n20 mt-md-n11 mt-n10 justify-content-center">
                 @*get coupong*@
-                <div class="row mt-2">
-                    <div class="col-xl-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 p-0">
 
                         <div id="showListCoupong"> </div>
 
                     </div>
                 </div>
 
-                <div class="row">
+                @*<div class="row">
                     <div class="col-12" style="margin: -10px 0px -10px 0;">
                         <hr style="border-top: 2px solid #b7c9df; height: 0; ">
                     </div>
-                </div>
+                </div>*@
 
                 <div class="col-lg-12 mb-lg-0 mb-2">
                     <div class="z-index-2 h-100">
@@ -2031,7 +2031,7 @@
     //search list coupong
     function searchListCoupong(cuscod) {
         //alert('');
-        cuscod = '110Z0001O';
+        //cuscod = '110Z0001O';
         var msg = '';
         var error = 0;
         //console.log("stksec = " + stksec);
@@ -2059,7 +2059,7 @@
                 Async: true,
                 beforeSend: function () {
                     $('#showListCoupong').empty();
-                    $('#showListCoupong').html('<div style="padding: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
+                    $('#showListCoupong').html('<div style="padding-bottom: 30px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูลคูปอง... </div>');
                     //LoadingShow();
                 },
                 success: function (res) {

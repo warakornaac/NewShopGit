@@ -1,274 +1,148 @@
 ﻿@{
     ViewBag.Title = "_listCoupongByCuscode";
 }
+<style>
+    .blink-icon {
+        animation: blinkGlow 1s infinite;
+    }
+
+    @@keyframes blinkGlow {
+        0% {
+            color: red;
+            text-shadow: 0 0 5px red, 0 0 10px red;
+        }
+
+        50% {
+            color: white;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+        }
+
+        100% {
+            color: red;
+            text-shadow: 0 0 5px red, 0 0 10px red;
+        }
+    }
+    .btn-coupon.active {
+        background-color: #f5365c !important;
+        border-color: #f5365c !important;
+        color: #fff !important;
+    }
+</style>
+@*<div class="card custom-card border rounded">
+        <div class="card-header bg-primary d-flex align-items-center justify-content-between p-2" style="margin-top: -10px;">
+            <h3 class="card-title mb-0 text-white">คูปองส่วนลด</h3>
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab">
+                        <h6 class=""> คูปองทั้งหมด </h6>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-white" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab">
+                        <h6> คูปองใช้ได้ </h6>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-white" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab">
+                        <h6> คูปองที่ใช้แล้ว </h6>
+                    </button>
+                </li>
+                <li class="nav-item text-white" role="presentation">
+                    <button class="nav-link text-white" id="contact-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab">
+                        <h6> คูปองหมดอายุ </h6>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body p-2">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane">...</div>
+                <div class="tab-pane fade" id="profile-tab-pane">...</div>
+                <div class="tab-pane fade" id="contact-tab-pane">...</div>
+                <div class="tab-pane fade" id="disabled-tab-pane">...</div>
+            </div>
+        </div>
+    </div>*@
 
 <div class="card custom-card mb-2">
     <div class="card-header bg-primary pb-0 p-2">
         <div class="row">
-            <div class="col-sm-6 text-left">
+            <div class="col-sm-4 text-left">
                 <h3 class="card-title">คูปองส่วนลด</h3>
             </div>
-            <div class="col-sm-6 text-right">
-                @*<button type="button" class="btn btn-info btn-sm" onclick="calculateForecastPm();" style="margin-bottom: 5px; font-size: 13px;"> คูปองทั้งหมด </button>*@
-                <div>
-                    <ul class="nav nav-tabs nav-tabs-header mb-0 d-sm-flex d-block" role="tablist">
-                        <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#all-tasks" aria-selected="false" tabindex="-1">All Tasks</a> </li>
-                        <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#pending" aria-selected="false" tabindex="-1">Pending</a> </li>
-                        <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#in-progress" aria-selected="false" tabindex="-1">In Progress</a> </li>
-                        <li class="nav-item m-1" role="presentation"> <a class="nav-link active" data-bs-toggle="tab" role="tab" aria-current="page" href="#completed" aria-selected="true">Completed</a> </li>
-                    </ul>
-                </div>
+            <div class="col-sm-8 text-right">
+                <button type="button" class="btn btn-info btn-sm btn-coupon" onclick="getListCouponByStatus('all', this);" style="margin-bottom: 5px; font-size: 13px;"> ทั้งหมด </button>
+                <button type="button" class="btn btn-info btn-sm btn-coupon" onclick="getListCouponByStatus('collect', this);" style="margin-bottom: 5px; font-size: 13px;"> เก็บแล้ว </button>
+                <button type="button" class="btn btn-info btn-sm btn-coupon" onclick="getListCouponByStatus('use', this);" style="margin-bottom: 5px; font-size: 13px;"> ใช้งานแล้ว </button>
+                @*<button type="button" class="btn btn-info btn-sm btn-coupon" onclick="getListCouponByStatus('pending', this);" style="margin-bottom: 5px; font-size: 13px;"> ยังไม่ถึงเวลาเก็บ </button>*@
+                @*<div>
+                        <ul class="nav nav-tabs nav-tabs-header mb-0 d-sm-flex d-block" role="tablist">
+                            <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#all-tasks" aria-selected="false" tabindex="-1">All Tasks</a> </li>
+                            <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#pending" aria-selected="false" tabindex="-1">Pending</a> </li>
+                            <li class="nav-item m-1" role="presentation"> <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#in-progress" aria-selected="false" tabindex="-1">In Progress</a> </li>
+                            <li class="nav-item m-1" role="presentation"> <a class="nav-link active" data-bs-toggle="tab" role="tab" aria-current="page" href="#completed" aria-selected="true">Completed</a> </li>
+                        </ul>
+                    </div>*@
             </div>
         </div>
     </div>
-    <div class="card-body pb-0 p-2" style="margin-bottom: -20px;">
-        @*Customer Portal ราคาพิเศษ สำหรับรถไฟฟ้า. <small>* เป็นไปตามข้อกำหนดและเงื่อนไขของบริษัท.</small>*@
-        <div class="row">
+    <div class="card-body pb-0 p-2" style="margin-bottom: -2px;">
+     
+        <div id="listCouponByStatus"> </div>
 
-            @{
-                int rowList = 0;
-                string flagExpire = string.Empty;
-                string flagCollent = string.Empty;
-                string flagUse = string.Empty;
-                string txtButton = "รับคูปอง";
-                string colorButton = "dark";
-                string iconButton = "";
-                string disabledButton = string.Empty;
-                string idButtonCoupong = "";
-
-                foreach (var rowData in ViewBag.coupongList)
-                {
-                    //ถ้าหมดช่วงเวลาเก็บ
-                    if (rowData.FlagExpireDate == "Y")
-                    {
-                        disabledButton = "disabled";
-                        txtButton = "หมดเวลา";
-                        colorButton = "light";
-                    }
-                    //ถ้ากดรับแล้ว
-                    if (rowData.FlagCollect == "Y")
-                    {
-                        disabledButton = "disabled";
-                        txtButton = "<i class='fa fa-check-circle text-success'></i> คุณรับแล้ว";
-                        colorButton = "light";
-                        iconButton = "";
-                    }
-                    <div class="col-xl-4 col-md-4 col-sm-6">
-                        <div class="card ribbone-card pt-1" style="opacity: 1; ">
-                            <div class="arrow-ribbone-left bg-danger">คูปอง</div>
-                            <div class="card-body p-2" style="background-color: mistyrose;">
-                                @*<h5 class="card-subtitle mb-2 text-dark fw-bold text-end"></h5>*@
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="text-muted op-7"></div>
-                                    <div class="fs-20">
-                                        <span class="badge badge-success" id="right-text-success"> ส่วนลด 50% (@rowData.Promotion_Code) </span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="text-muted op-7"></div>
-                                    <div class=""><span class="mb-0 text-muted fs-11" style="font-size: 12px;"> หมดอายุ @rowData.EndDate 22:00 </span></div>
-                                </div>
-                                @*<p class="card-text"></p>*@
-                                <div class="d-flex align-items-center flex-xxl-nowrap flex-wrap p-1" style="background-color: #f8f9fa !important; border-radius: 5px; ">
-                                    @*<div class="me-3">
-                                            <span class="avatar avatar-xxl bd-gray-200">
-                                                <img src="../assets/images/ecommerce/orders/1.jpg" alt="">
-                                            </span>
-                                        </div>*@
-                                    <div class="pt-2" style="font-size: 13px">
-                                        <div class="mb-1 fs-14 fw-semibold">
-                                            <a href="javascript:void(0);"> @rowData.Description </a>
-                                        </div>
-                                        @*<div class="">
-                                                <p class="fw-semibold mb-0">
-                                                    Delivery Address
-                                                </p>
-                                            </div>*@
-                                        @*<div class=""> <p class="fw-semibold mb-0">Delivery Date : <span class="text-muted fs-13"> 20-Jan-2023</span> </p></div>*@
-                                        <div class="d-flex mt-2 mb-1 text-warning">
-                                            <small onclick="viewDetailByCoupong('@rowData.Promotion_Code');" style="text-decoration: underline; cursor: pointer;">เป็นไปตามข้อกำหนดและเงื่อนไขของบริษัท </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                @{
-                                    idButtonCoupong = "button_coupong_" + @rowData.Promotion_Code + "_" + @rowData.Cuscode;
-                                }
-                                <div class="pt-2 d-grid border-block-end-dashed">
-                                    <button type="button" class="btn btn-@colorButton d-flex align-items-center justify-content-center" id="@idButtonCoupong" onclick="saveCollectCoupong('@rowData.Promotion_Code', '@rowData.Cuscode');" @disabledButton>
-                                        @Html.Raw(txtButton)
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade"
-     id="viewDetailByCoupongModal"
-     tabindex="-1"
-     aria-hidden="true"
-     data-bs-backdrop="static"
-     data-bs-keyboard="false"
-     style="padding-top: 140px;">
-
-    <div class="modal-dialog modal-lg" style="max-width: 70%;">
-        <div class="modal-content">
-
-            <div class="modal-header pb-2">
-                <div class="col-sm-10">
-                    <h5 class="modal-title">รายละเอียด</h5>
-                </div>
-                <div class="col-sm-2 text-end">
-                    <button type="button"
-                            class="btn btn-danger btn-sm"
-                            data-bs-dismiss="modal">
-                        ปิด
-                    </button>
-                </div>
-            </div>
-
-            <div class="modal-body"></div>
-
-            <div class="modal-footer">
-                <button type="button"
-                        class="btn btn-danger"
-                        data-bs-dismiss="modal">
-                    <i class="fa fa-times"></i> ปิด
-                </button>
-            </div>
-
-        </div>
     </div>
 </div>
 <script defer>
-    //Modal detail
-    function viewDetailByCoupong(coupongCode) {
+    //default ดึงคูปองทั้งหมด
+    $(document).ready(function () {
+        getListCouponByStatus('all')
+    });
+    function getListCouponByStatus(statusCoupon, btn) {
+
+        $('.btn-coupon').removeClass('active');
+
+        if (btn) {
+            $(btn).addClass('active');
+        } else {
+            $('.btn-coupon')
+                .filter(function () {
+                    return $(this).attr('onclick')
+                        .includes("'" + statusCoupon + "'");
+                })
+                .addClass('active');
+        }
+
         $.ajax({
-            url: '@Url.Action("getDetailByCoupong", "CustomerDashboard")',
+            type: 'post',
+            url: '@Url.Action("GetListCoupongByCuscodeStatus", "CustomerDashboard")',
             data: {
-                coupongCode: coupongCode
+                cusCode: cuscod,
+                status: statusCoupon
             },
-            type: 'POST',
-            dataType: 'HTML',
+            dataType: 'html',
+            cache: false,
+            async: true,
             beforeSend: function () {
-                //LoadingShow();
-                $('#viewDetailByCoupongModal').find('.modal-body').html("");
+                $('#listCouponByStatus').empty();
+                $('#listCouponByStatus').html('<div style="padding-bottom: 10px; font-size: 14px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> กำลังโหลดข้อมูล... </div>');
             },
-            success: function (data) {
-                //set text header
-                //$('#viewCustomerByPromotionModal .modal-title').text(txtHeaderManagePackPromotion);
-                $('#viewDetailByCoupongModal').find('.modal-body').html(data);
-                $('#viewDetailByCoupongModal').modal('show');
-            },complete: function (res) {
-                //LoadingHide();
+            success: function (res) {
+                $('#listCouponByStatus').html(res);
             },
             error: function (er) {
-                Swal.fire({
-                    icon: 'error',
-                    html: '<p>viewDetailByCoupongModal :</p><p>' + er.error + '</p>',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'ปิด',
-                    allowOutsideClick: false,
-                    focusConfirm: false,
-                });
+                alert(er.error);
             }
         }).fail(function (error) {
             Swal.fire({
                 icon: 'error',
-                title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
-                html: '<p>viewCustomerByPromotionModal :</p><p>' + error.responseText + '</p>',
+                title: error.status,
+                html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>getListCouponByStatus<br><br>',
                 confirmButtonColor: '#d33',
                 confirmButtonText: 'ปิด',
                 allowOutsideClick: false,
                 focusConfirm: false,
             });
-        });
-    }
-    //save keep coupong
-    function saveCollectCoupong(coupongCode, customerCode) {
-        var countSelect = 0;
-        Swal.fire({
-            title: 'ต้องการเก็บคูปองใช่หือไม่',
-            html: coupongCode ,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#00a65a',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '<i class="fa fa-check"></i> ใช่',
-            cancelButtonText: '<i class="fa fa-times"></i> ไม่',
-            allowOutsideClick: false,
-            focusConfirm: false,
-        }).then((result) => {
-            if (result.value) {
-            //    console.log("request = " + JSON.stringify(request));
-            //    return false;
-                const btn = $("#button_coupong_" + coupongCode + "_" + customerCode);
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: '@Url.Action("SaveCollectCoupong", "CustomerDashboard")',
-                    data: {
-                            user: '@Session["UserID"]',
-                            coupongCode: coupongCode,
-                            customerCode: customerCode,
-                        },
-                    beforeSend: function () {
-                        //LoadingShow();
-                        //$("#button_coupong_" + coupongCode + "_" + customerCode).html('<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>');
-                        btn.prop('disabled', true).html('<i class="fa fa-circle-o-notch fa-spin me-2"></i>');
-                    },
-                    success: function (result) {
-                        if (result.status == "Y") {
-                            //refresh list coupong by customer
-                            //searchListCoupong(customerCode);
-                            btn.prop('disabled', true).html('<i class="fa fa-check-circle text-success"></i> คุณรับแล้ว');
-                            //class="btn btn-light
-
-                            //Swal.fire({
-                            //    title: 'บันทึกเรียบร้อย',
-                            //    //html: 'บันทึกเรียบร้อย',
-                            //    icon: 'success',
-                            //    confirmButtonColor: '#3085d6',
-                            //    confirmButtonText: 'ปิด',
-                            //    allowOutsideClick: false,
-                            //    focusConfirm: false,
-                            //    timer: 5000,
-                            //    timerProgressBar: true,
-                            //    onClose: () => {
-                            //        //LoadingHide();
-                            //    }
-                            //});
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error not saved',
-                                html: result.status,
-                                confirmButtonColor: '#d33',
-                                confirmButtonText: 'ปิด',
-                                allowOutsideClick: false,
-                                focusConfirm: false,
-                            });
-                        }
-                    },
-                    complete: function (res) {
-                        //LoadingHide();
-                    }
-                }).fail(function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error not saved',
-                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>saveCustomerRegister<br><br>',
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'ปิด',
-                        allowOutsideClick: false,
-                        focusConfirm: false,
-                    });
-                });
-            }
         });
     }
 </script>

@@ -17,38 +17,41 @@
                 <thead>
                     <tr style="background-color:lightseagreen;" class="text-light">
                         <th class="vcenter"> # </th>
+                        <th class="vcenter"> ออเดอร์วันที่ </th>
+                        <th class="vcenter"> ออเดอร์เลขที่ </th>
                         <th class="vcenter"> เบอร์สินค้า </th>
                         <th class="vcenter"> ชื่อสินค้า </th>
-                        <th class="vcenter"> ราคาพิเศษ </th>
                         <th class="vcenter"> จำนวน </th>
-                        <th class="vcenter"> วันที่เริ่ม - สิ้นสุด ใช้งานคูปอง </th>
-                        @*<th class="vcenter"> เงื่อนไข </th>*@
+                        <th class="vcenter"> ราคา/ชิ้น </th>
+                        <th class="vcenter"> ราคารวม </th>
                     </tr>
                 </thead>
                 <tbody>
                     @{
                         int rowList = 0;
                         double sumPackAmtAll = 0;
-                        if (ViewBag.coupongDetailList != null && ViewBag.coupongDetailList.Count > 0)
+                        if (ViewBag.coupongUseOrderList != null && ViewBag.coupongUseOrderList.Count > 0)
                         {
-                            foreach (var rowData in ViewBag.coupongDetailList)
+                            foreach (var rowData in ViewBag.coupongUseOrderList)
                             {
                                 rowList++;
                                 <tr>
                                     <td class="vcenter sticky-col first-col" style="cursor: pointer;"> @rowList </td>
+                                    <td class="vcenter"> @rowData.Orddate </td>
+                                    <td class="vcenter"> @rowData.Docno </td>
                                     <td class="vcenter"> @rowData.Stkcode </td>
                                     <td class="vleft"> @rowData.Stkdesc </td>
-                                    <td class="vright"> @decimal.Parse(rowData.SpecialPrice).ToString("N0") </td>
-                                    <td class="vcenter"> @rowData.AmountMax </td>
-                                    <td class="vcenter"> @rowData.StartDate - @rowData.EndDate </td>
-                                    @*<td class="vleft"> @rowData.Condition</td>*@
+                                    <td class="vcenter"> @rowData.Qty </td>
+                                    <td class="vright"> @decimal.Parse(rowData.SalePrice).ToString("N0") </td>
+                                    <td class="vright"> @decimal.Parse(rowData.TotalAmt).ToString("N0")</td>
+
                                 </tr>
                             }
                         }
                         else
                         {
                             <tr>
-                                <td class="vcenter" colspan="6"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล </td>
+                                <td class="vcenter" colspan="8"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบข้อมูล </td>
                             </tr>
                         }
                     }

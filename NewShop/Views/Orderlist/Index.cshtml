@@ -1482,6 +1482,9 @@
             var maxord = $(this).attr('max');
             var Seqvalmoq = $(this).attr('moq');
             var spackuom = $(this).attr('ratspackuom');
+            var promotionCode = $(this).attr('promotionCode');
+            var totalStock = $(this).attr('totalStock');
+            var promotionAmountMax = promotionCode.split("|");
             var idqty = $(this).parents("tr:eq(0)").find(".rat0").attr('id');
 
             var MyIndexValueSalePrice;
@@ -1502,20 +1505,18 @@
             var qtyinput = $(this).val();
             var _StkNo = $('#fixed-table-container-1').find('tbody').find('tr').find('td figcaption .STKCODdiv').html();
             var _NoAr = _StkNo.split("|");
-          if (parseInt(qtyinput) ==0) {
-              $(this).val("1");//aps//
-
-          }
-
-          if (parseInt(qtyinput) > parseInt(maxord)) {
+            if (parseInt(qtyinput) ==0) {
+               $(this).val("1");//aps//
+            }
+           if (parseInt(qtyinput) > parseInt(maxord)) {
               //$(this).val(maxord);//aps//
               $(this).val("");
               $("#" + idqty + "").val("");
               $("#textAlertWarning").empty();
               $("#textAlertWarning").text("ไม่สามารถทำรายการตามจำนวนที่ระบุได้ โปรดติดต่อพนักงานขาย");
               $("#myModalWarning").modal();return false;
-          }
-          if (parseFloat(qtyinput) < parseFloat(Seqvalmoq)) {
+           }
+           if (parseFloat(qtyinput) < parseFloat(Seqvalmoq)) {
 
               $("#textAlertWarning").empty();
               $("#textAlertWarning").text("จำนวนที่สั่งซื้อห้ามน้อยกว่า MOQ");
@@ -1524,7 +1525,31 @@
               $(this).val(""); //return false;
               $("#" + idqty + "").val("");
              // ShoppingCartNumber();
-          }
+           }
+
+            console.log("event = " + blur + ", promotionCode = " + promotionCode + ", promotionAmountMax = " + promotionAmountMax + ", totalStock = " + totalStock);
+
+            if (promotionCode != '') { //ถ้าเป้นสินค้า Promotion
+                if (parseFloat(qtyinput.replace(',', '').replace(' ', '')) > parseFloat(totalStock.replace(',', '').replace(' ', ''))) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarning").modal();
+                    $(this).val("");
+                    return false;
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        if (parseFloat(qtyinput.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ (" + promotionAmountMax[1] + ") จำนวนที่ Promotion กำหดไว้ เนื่องจากเป็นสินค้าราคา Promotion");
+                            $("#myModalWarning").modal();
+                            $(this).val("");
+                            return false;
+                        }
+                    }
+                }
+            }
+
           var QtPas = parseFloat(qtyinput.replace(',', '').replace(' ', ''));
           if (parseFloat(qtyinput) >= parseFloat(spackuom)) {
               var _val = parseFloat(qtyinput) / parseFloat(spackuom);
@@ -1566,6 +1591,9 @@
             var maxord = $(this).attr('max');
             var Seqvalmoq = $(this).attr('moq');
             var spackuom = $(this).attr('ratspackuom');
+            var promotionCode = $(this).attr('promotionCode');
+            var totalStock = $(this).attr('totalStock');
+            var promotionAmountMax = promotionCode.split("|");
             // alert(spackuom)
             var idqty = $(this).parents("tr:eq(0)").find(".tQty").attr('id');
             var qtyinput = $(this).val();
@@ -1606,6 +1634,28 @@
                 $(this).val(""); //return false;
                 $("#" + idqty + "").val("");
                 // ShoppingCartNumber();
+            }
+            console.log("event = " + blur + ", promotionCode = " + promotionCode + ", promotionAmountMax = " + promotionAmountMax + ", totalStock = " + totalStock);
+
+            if (promotionCode != '') { //ถ้าเป้นสินค้า Promotion
+                if (parseFloat(qtyinput.replace(',', '').replace(' ', '')) > parseFloat(totalStock.replace(',', '').replace(' ', ''))) {
+                    $("#textAlertWarning").empty();
+                    $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ Stock เนื่องจากสินค้าเป็นราคา Promotion");
+                    $("#myModalWarning").modal();
+                    $(this).val("");
+                    return false;
+                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                    //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
+                    if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
+                        if (parseFloat(qtyinput.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
+                            $("#textAlertWarning").empty();
+                            $("#textAlertWarning").text("จำนวนสั้งซื้อต้องน้อยกว่าหรือเท่ากับ (" + promotionAmountMax[1] + ") จำนวนที่ Promotion กำหดไว้ เนื่องจากเป็นสินค้าราคา Promotion");
+                            $("#myModalWarning").modal();
+                            $(this).val("");
+                            return false;
+                        }
+                    }
+                }
             }
             var QtPas = parseFloat(qtyinput.replace(',', '').replace(' ', ''));
             if (parseFloat(qtyinput) >= parseFloat(spackuom)) {
@@ -2203,7 +2253,7 @@
             SubmithtmlPage += '</td>';
 
             SubmithtmlPage += '<td>';
-            SubmithtmlPage += '<input  name="S_Qty" class="tQty" maxlength="5" min="1" max=' + Maxord + ' moq=' + moq + '  ratspackuom =' + spackuom + '  type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;' + displbut + '">';
+            SubmithtmlPage += '<input  name="S_Qty" class="tQty" maxlength="5" min="1" max=' + Maxord + ' moq=' + moq + '  ratspackuom = ' + spackuom + '  PromotionCode = "' + PromotionCode + '" TotalStock = "' + Stock + '" type="number" style=" background-color:white; color: blue; width: 81px; height: 35px;font-size: 20px;' + displbut + '">';
             SubmithtmlPage += '</td>';
 
             SubmithtmlPage += '<td>';
@@ -2875,7 +2925,6 @@
             });
         });
       $("#searchbox").click(function () {
-         // alert("xxxxx");
             var maker = $("#maker").val();
             var Model = $("#Model").val();
             var submodel = $("#submodel").val();
@@ -2889,6 +2938,8 @@
             var itemsegment = $("#segment").val();
             var sortby = $("#sortby").val();
             var itemno = $("#textfreeoe").val();
+          //alert(company);
+          //return false;
             getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, textfree, itemsegment, sortby, itemno);
         });
 
