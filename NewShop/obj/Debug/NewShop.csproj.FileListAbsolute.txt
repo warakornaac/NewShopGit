@@ -69,7 +69,6 @@ D:\.net\NewShopGit\NewShop\bin\System.Web.WebPages.Deployment.xml
 D:\.net\NewShopGit\NewShop\bin\System.Web.WebPages.Razor.xml
 D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.csproj.AssemblyReference.cache
 D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.csproj.CoreCompileInputs.cache
-D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.csproj.CopyComplete
 D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.dll
 D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.pdb
 D:\dotnet\NewShopGit\NewShop\bin\NewShop.dll.config
@@ -130,3 +129,4 @@ D:\.net\NewShopGit\NewShop\bin\DocumentFormat.OpenXml.dll
 D:\.net\NewShopGit\NewShop\bin\ClosedXML.pdb
 D:\.net\NewShopGit\NewShop\bin\ClosedXML.xml
 D:\.net\NewShopGit\NewShop\bin\Dapper.xml
+D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.csproj.Up2Date
