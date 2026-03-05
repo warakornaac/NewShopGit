@@ -4223,8 +4223,10 @@
                                         $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คเครดิต... </b> </div>');
                                     },
                                     success: function (data) {
-                                        //return false;
+                                       //return false;
                                         if (data.flagCheck == "Y") { //ติดเครดิต รอ CRC อนุมัติ
+                                            $("#btnOK").prop('disabled', false);
+
                                             $("#checkCreditCustomer").html('<div class="row">' +
                                                                                 '<div class="col-sm-12">' +
                                                                                     '<div class="alert alert-danger text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Order นี้ต้องรอ CRC ตรวจสอบเครดิตอาจใช้เวลานานกว่า Order จะส่งไปคลังสินค้า </div>' +
@@ -4232,10 +4234,10 @@
                                                                             '</div>')
                                         } else {  //ไม่ติดเครดิต
                                             //$("#checkCreditCustomer").html('<div class="row">' +
-                                            //                                    '<div class="col-sm-12">' +
-                                            //                                        '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
-                                            //                                    '</div>' +
-                                            //                                '</div>')
+                                        //                                    '<div class="col-sm-12">' +
+                                        //                                        '<div class="alert alert-success text-left mt-2" style="font-size: 16px; font-weight: bold;"><i class="fa fa-check-circle" aria-hidden="true"></i> Order จะถูกส่งไปคลังสินค้าทันที </div>' +
+                                        //                                    '</div>' +
+                                        //                                '</div>')
                                             $('#checkCreditCustomer').empty();
                                             //enable ปุ่มยินยัน
                                             $("#btnOK").prop('disabled', false);
@@ -4248,14 +4250,16 @@
                                                 beforeSend: function () {
                                                     $('#checkCreditCustomer').empty();
                                                     if (cuscod == '110Z0001A') {
-                                                    $("#btnOK").prop('disabled', true);
+                                                     $("#btnOK").prop('disabled', true);
                                                      $('#checkCreditCustomer').html('<div style="padding: 2px 0 15px 2px; font-size: 16px;"> <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> <b> กำลังเช็คโควต้า... </b> </div>');
                                                     }
+
                                                 },
                                                 success: function (res) {
                                                     $('#checkCreditCustomer').empty();
                                                     if (res.flagCheck == 'Y') {
                                                         $("#btnOK").prop('disabled', false);
+
                                                     }
                                                     else if (res.flagCheck == 'N') {
 
@@ -4267,7 +4271,8 @@
                                                             '</div>')
                                                     }
                                                     else {
-                                                        $("#btnOK").prop('disabled', true);
+
+                                                        //$("#btnOK").prop('disabled', true);
                                                         $("#textAlert").empty();
                                                         $("#textAlert").text("บันทึกข้อมูลไม่สำเร็จกรุณาทำรายการใหม่ " + res.flagCheck);
                                                         $("#myModal").modal();
@@ -4312,6 +4317,9 @@
                     var data = new Array();
 
                     //var chkcusnull = $("#CustomerShipping").val();
+
+
+
                     var CusShipping = $('#CustomerShipping').val();
                     var codeShipping = $('#codeShipping').val();
                     var codetransportation = $('#codetransportation').val();

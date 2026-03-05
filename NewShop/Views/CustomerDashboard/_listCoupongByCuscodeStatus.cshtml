@@ -1,0 +1,352 @@
+﻿@{
+    ViewBag.Title = "_listCoupongByCuscodeStatus";
+}
+
+<div class="row">
+    @{
+        if (ViewBag.coupongList != null && ViewBag.coupongList.Count > 0)
+        {
+
+            foreach (var rowData in ViewBag.coupongList)
+            {
+                int rowList = 0;
+                string flagExpire = string.Empty;
+                string flagCollent = string.Empty;
+                string flagUse = string.Empty;
+                string txtButton = "รับคูปอง";
+                string colorButton = "dark";
+                string iconButton = "";
+                string disabledButton = string.Empty;
+                string idButtonCoupong = "";
+                //ถ้าหมดช่วงเวลาเก็บ
+                if (rowData.FlagExpireDate == "Y")
+                {
+                    disabledButton = "disabled";
+                    txtButton = "หมดเวลา";
+                    colorButton = "light";
+                }
+                else if (rowData.FlagExpireDate == "P")
+                {
+                    disabledButton = "disabled";
+                    txtButton = "ยังไม่ถึงเวลา";
+                    colorButton = "light";
+                }
+                //ถ้ากดรับแล้ว
+                if (rowData.FlagCollect == "Y")
+                {
+                    disabledButton = "disabled";
+                    txtButton = "<i class='fa fa-check-circle text-success'></i> คุณเก็บแล้ว";
+                    //colorButton = "light";
+                    iconButton = "";
+                    //กดใช้งานแล้ว
+                    if (rowData.FlagUse == "Y")
+                    {
+                        disabledButton = "disabled";
+                        txtButton = "ใช้งานแล้ว";
+                        colorButton = "success";
+                    }
+                }
+       
+                    <div class="col-xl-4 col-md-4 col-sm-6 ">
+                        <div class="card ribbone-card mb-2" style="opacity: 1;">
+                            <div class="arrow-ribbone-left bg-danger">คูปอง</div>
+                            <div class="card-body p-2" style="background-color: mistyrose;">
+                                @*<h5 class="card-subtitle mb-2 text-dark fw-bold text-end"></h5>*@
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="text-muted op-7"></div>
+                                    <div class="fs-20">
+                                        <span class="badge badge-success" id="right-text-success" style="cursor: pointer;" onclick="viewDetailUseCoupong('@rowData.Promotion_Code', '@rowData.Cuscode');">
+                                            @rowData.Promotion_Code
+                                            @if (!string.IsNullOrEmpty(rowData.DocumentNo))
+                                            {
+                                                <span class="text-black">
+                                                    (
+                                                    @rowData.DocumentNo
+                                                    <i class="fa fa-hand-o-left fa-lg blink-icon" aria-hidden="true"></i>
+                                                    )
+                                                </span>
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="text-muted op-7"></div>
+                                    <div class=""><span class="mb-0 text-muted fs-11" style="font-size: 12px;"> หมดอายุ @rowData.EndDate 23:59 </span></div>
+                                </div>
+                                @*<p class="card-text"></p>*@
+                                <div class="d-flex align-items-center flex-xxl-nowrap flex-wrap p-1" onclick="viewDetailByCoupong('@rowData.Promotion_Code');" style="border-radius: 5px; background-color: rgba(165, 120, 124, 0.3); ">
+                                    @*<div class="me-3">
+                                            <span class="avatar avatar-xxl bd-gray-200">
+                                                <img src="../assets/images/ecommerce/orders/1.jpg" alt="">
+                                            </span>
+                                        </div>*@
+                                    <div class="pt-2" style="font-size: 13px">
+                                        <div class="mb-1 fs-14 fw-semibold">
+                                            <a href="javascript:void(0);"> @rowData.Description </a>
+                                        </div>
+                                        @*<div class="">
+                                                <p class="fw-semibold mb-0">
+                                                    Delivery Address
+                                                </p>
+                                            </div>*@
+                                        @*<div class=""> <p class="fw-semibold mb-0">Delivery Date : <span class="text-muted fs-13"> 20-Jan-2023</span> </p></div>*@
+                                        <div class="mt-2 mb-1 text-warning">
+                                            <small onclick="viewDetailByCoupong('@rowData.Promotion_Code');" style="text-decoration: underline; cursor: pointer; font-size: 12.5px;"> <i class="fa fa-bullhorn fa-lg blink-icon" aria-hidden="true"></i> เป็นไปตามข้อกำหนดและเงื่อนไขของบริษัท </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                @{
+                                    idButtonCoupong = "button_coupong_" + @rowData.Promotion_Code + "_" + @rowData.Cuscode;
+                                }
+                                <div class="pt-2  d-grid border-block-end-dashed">
+                                    <button type="button" class="btn btn-@colorButton d-flex align-items-center justify-content-center" id="@idButtonCoupong" onclick="saveCollectCoupong('@rowData.Promotion_Code', '@rowData.Cuscode');" @disabledButton>
+                                        @Html.Raw(txtButton)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+        }
+        else
+        {
+            <div class="alert text-center pt-0 pb-0" style="font-size: 16px; font-weight: bold;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่พบคูปอง </div>
+        }
+    }
+
+</div>
+
+<!-- Modal Detail coupong-->
+<div class="modal fade" id="viewDetailByCoupongModal" tabindex="-1" aria-hidden="true" style="padding-top: 140px;">
+
+    <div class="modal-dialog modal-lg" style="max-width: 70%;">
+        <div class="modal-content">
+
+            <div class="modal-header pb-2">
+                <div class="col-sm-10">
+                    <h5 class="modal-title">รายละเอียด</h5>
+                </div>
+                <div class="col-sm-2 text-end">
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-body"></div>
+
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <i class="fa fa-times"></i> ปิด
+                    </button>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+<!-- Modal Detail use coupong-->
+<div class="modal fade" id="viewDetailUseCoupongModal" tabindex="-1" aria-hidden="true" style="padding-top: 140px;">
+
+    <div class="modal-dialog modal-lg" style="max-width: 70%;">
+        <div class="modal-content">
+
+            <div class="modal-header pb-2">
+                <div class="col-sm-10">
+                    <h5 class="modal-title">รายละเอียด</h5>
+                </div>
+                <div class="col-sm-2 text-end">
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-body"></div>
+
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <i class="fa fa-times"></i> ปิด
+                    </button>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+<script defer>
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var targetId = $(e.target).attr('href');
+        alert(targetId);
+        //var urlByTab = {
+        //    '#tabPromotionByReq': 'your-url-for-cardetail.php',
+        //    '#tabPromotionByAllPm': 'your-url-for-financenew.php'
+        //};
+        //console.log("urlByTab = " + urlByTab[targetId]);
+        console.log("targetId = " + targetId);
+        if (targetId == "#tabPromotionByAllPm") {
+            getListPackPromotionByCustomerAllPm();
+        }
+
+        $('.nav-tabs li').removeClass('active');
+        $(e.target).parent('li').addClass('active');
+
+    });
+
+    //Modal detail coupong
+    function viewDetailByCoupong(coupongCode) {
+        $.ajax({
+            url: '@Url.Action("getDetailByCoupong", "CustomerDashboard")',
+            data: {
+            coupongCode: coupongCode
+            },
+            type: 'POST',
+            dataType: 'HTML',
+            beforeSend: function () {
+            //LoadingShow();
+            $('#viewDetailByCoupongModal').find('.modal-body').html("");
+            },
+            success: function (data) {
+            //set text header
+            //$('#viewCustomerByPromotionModal .modal-title').text(txtHeaderManagePackPromotion);
+            $('#viewDetailByCoupongModal').find('.modal-body').html(data);
+            $('#viewDetailByCoupongModal').modal('show');
+            },complete: function (res) {
+            //LoadingHide();
+            },
+            error: function (er) {
+            Swal.fire({
+            icon: 'error',
+            html: '<p>viewDetailByCoupongModal :</p><p>' + er.error + '</p>',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'ปิด',
+            allowOutsideClick: false,
+            focusConfirm: false,
+            });
+            }
+            }).fail(function (error) {
+            Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
+            html: '<p>viewCustomerByPromotionModal :</p><p>' + error.responseText + '</p>',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'ปิด',
+            allowOutsideClick: false,
+            focusConfirm: false,
+            });
+        });
+    }
+    //Modal detail use coupong
+    function viewDetailUseCoupong(coupongCode, cusCode) {
+        $.ajax({
+            url: '@Url.Action("getCoupongUseOrder", "CustomerDashboard")',
+            data: {
+                coupongCode: coupongCode,
+                cusCode: cusCode
+            },
+            type: 'POST',
+            dataType: 'HTML',
+            beforeSend: function () {
+                //LoadingShow();
+                 $('#viewDetailUseCoupongModal').find('.modal-body').html("");
+            },
+            success: function (data) {
+                //set text header
+                //$('#viewCustomerByPromotionModal .modal-title').text(txtHeaderManagePackPromotion);
+                $('#viewDetailUseCoupongModal').find('.modal-body').html(data);
+                $('#viewDetailUseCoupongModal').modal('show');
+            },complete: function (res) {
+            //LoadingHide();
+            },
+            error: function (er) {
+                Swal.fire({
+                    icon: 'error',
+                    html: '<p>viewDetailUseCoupongModal :</p><p>' + er.error + '</p>',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+                });
+            }
+            }).fail(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
+                    html: '<p>viewCustomerByPromotionModal :</p><p>' + error.responseText + '</p>',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'ปิด',
+                    allowOutsideClick: false,
+                    focusConfirm: false,
+            });
+        });
+    }
+    //save keep coupong
+    function saveCollectCoupong(coupongCode, customerCode) {
+        var countSelect = 0;
+        const btn = $("#button_coupong_" + coupongCode + "_" + customerCode);
+        console.log(coupongCode + "_" + customerCode);
+        Swal.fire({
+            title: 'ต้องการเก็บคูปองใช่หรือไม่',
+            html: coupongCode,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#00a65a',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '<i class="fa fa-check"></i> ใช่',
+            cancelButtonText: '<i class="fa fa-times"></i> ไม่',
+            allowOutsideClick: false,
+            focusConfirm: false,
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: '@Url.Action("SaveCollectCoupong", "CustomerDashboard")',
+                    data: {
+                        user: '@Session["UserID"]',
+                        coupongCode: coupongCode,
+                        customerCode: customerCode,
+                    },
+                    beforeSend: function () {
+                        //LoadingShow();
+                        btn.prop('disabled', true).html('<i class="fa fa-circle-o-notch fa-spin me-2"></i>');
+                    },
+                    success: function (result) {
+                        if (result.status == "Y") {
+                            //refresh list coupong by customer
+                            //searchListCoupong(customerCode);
+                            btn.prop('disabled', true).html('<i class="fa fa-check-circle text-success"></i> คุณเก็บแล้ว');
+         
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error not saved',
+                                html: result.status,
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'ปิด',
+                                allowOutsideClick: false,
+                                focusConfirm: false,
+                            });
+                        }
+                    },
+                    complete: function (res) {
+                        //LoadingHide();
+                    }
+                }).fail(function (error) {
+                    console.log(error);
+
+                    LoadingHide();
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ระบบทำงานผิดพลาด()',
+                        html: 'กรุณาแจ้งผู้ดูแลระบบ<br>โดยการแคปหน้าจอและก๊อปปี้ Error ด่านล่างนี้<br>saveCollectCoupong<br>' + error.responseText + '<br><br>',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'ปิด',
+                        allowOutsideClick: false,
+                        focusConfirm: false,
+                    });
+                });
+            }
+        });
+    }
+</script>
