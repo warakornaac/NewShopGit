@@ -1,16 +1,24 @@
-﻿using System;
+﻿using NewShop.Controllers;
+using NewShop.Filters;
+using NewShop.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using NewShop.Controllers;
-using System.Data;
-using System.IO;
 using System.Web.Script.Serialization;
-using NewShop.Models;
-using NewShop.Filters;
 
 namespace NewShop.Controllers
 {
@@ -689,6 +697,25 @@ namespace NewShop.Controllers
                 message = cmd.Parameters["@OutGenstatus"].Value.ToString();
                 conn.Close();
                 cmd.Dispose();
+
+                if (approveStatus == "R" || approveStatus == "Y")
+                {
+                    try
+                    {
+                        if (approveStatus == "Y")
+                        {
+                            approveStatus = "N";
+                        }
+                        else
+                        {
+                            approveStatus = "C";
+                        }
+                        //var CallSendAPI = SendNotificateLine();
+                        GetApprvOrderPM(cartId.Trim(), approveStatus);
+                    }
+                    catch { }
+                }
+
             }
             catch (Exception ex)
             {
@@ -781,7 +808,12 @@ namespace NewShop.Controllers
 
 
                             //}
-
+                            try
+                            {
+                                //var CallSendAPI = SendNotificateLine();
+                                GetApprvOrderPM(cid.ToString(), vStatus);
+                            }
+                            catch { }
 
 
                         }
@@ -822,6 +854,114 @@ namespace NewShop.Controllers
             }
             return Json(new { message }, JsonRequestBehavior.AllowGet);
 
+        }
+        //public async Task<string> SendNotificateLine(string Uid, string Toppic, string ToppicCo, string stkcod, string stkdes, string Price, string Qty, string cuscod, string cusnam, string apprvby, string apprvdat, string user )
+        public async Task<string> SendNotificateLine(ListPMNotificate list)
+        {
+            var urlAPI = "https://mst.aac.co.th/APIService/Post/PushMessageSale";
+            var post = list;
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                // var handler = new HttpClientHandler();
+                var handler = new HttpClientHandler();
+                ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+                var client = new HttpClient(handler);
+                string jsonContent = JsonConvert.SerializeObject(post);
+                HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(urlAPI, content).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent;
+                }
+                else
+                {
+                    return response.StatusCode.ToString();
+                }
+            }
+            catch (Exception ex) { return ex.Message; }
+
+        }
+
+        public void GetApprvOrderPM(string ordID, string ordSta)
+        {
+            List<ListPMNotificate> list = new List<ListPMNotificate>();
+            string usre = Session["UserID"].ToString();
+            try
+            {
+                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    var cmd = new SqlCommand("P_GetOrderPMApprove", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@inORDID", ordID);
+                    cmd.Parameters.AddWithValue("@inStatus", ordSta);
+                    cmd.Parameters.AddWithValue("@inUser", usre);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(new ListPMNotificate()
+                        {
+                            Uid = reader["LineID"] != DBNull.Value ? reader["LineID"].ToString() : string.Empty,
+                            Topiccod = reader["Topiccod"] != DBNull.Value ? reader["Topiccod"].ToString() : string.Empty,
+                            Topic = reader["Topic"] != DBNull.Value ? reader["Topic"].ToString() : string.Empty,
+                            Cuscod = reader["CUSCOD"] != DBNull.Value ? reader["CUSCOD"].ToString() : string.Empty,
+                            Cusname = reader["CUSNAM"] != DBNull.Value ? reader["CUSNAM"].ToString() : string.Empty,
+                            Stkcod = reader["STKCOD"] != DBNull.Value ? reader["STKCOD"].ToString() : string.Empty,
+                            Stkdes = reader["STKDES"] != DBNull.Value ? reader["STKDES"].ToString() : string.Empty,
+                            Qty = reader["QTY"] != DBNull.Value ? reader["QTY"].ToString() : string.Empty,
+                            SPrice = reader["SPrice"] != DBNull.Value ? reader["SPrice"].ToString() : string.Empty,
+                            ApprvBy = reader["ApprvBy"] != DBNull.Value ? reader["ApprvBy"].ToString() : string.Empty,
+                            ApprvDate = reader["ApprvDate"] != DBNull.Value ? reader["ApprvDate"].ToString() : string.Empty,
+                            User = usre,
+                            Sta = ordSta
+                        });
+                    }
+
+                    // reader.Close();
+                    conn.Close();
+
+                    if (list.Count() > 0)
+                    {
+                        //foreach (var item in list)
+                        //{
+                        //    if (item != null)
+                        //    {
+                        //        var respon = SendNotificateLine(item);
+                        //    }
+                        //} Big O n^2
+                        var respone = SendNotificateLine(list.First());
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public static string AddCommaIfNumber(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return input;
+
+            input = input.Trim();
+
+            var normalized = input.Replace(",", "");
+
+
+            bool isNumber = decimal.TryParse(
+                normalized,
+                NumberStyles.AllowLeadingSign |
+                NumberStyles.AllowDecimalPoint,
+                CultureInfo.InvariantCulture,
+                out decimal value
+            );
+
+            if (!isNumber)
+                return input; // ไม่ใช่เลขจริง → ส่งคืนค่าเดิม
+
+            return value.ToString("#,##0.##", CultureInfo.InvariantCulture);
         }
     }
     public class STKGRPList
