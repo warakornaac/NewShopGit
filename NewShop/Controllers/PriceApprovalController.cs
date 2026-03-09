@@ -933,7 +933,11 @@ namespace NewShop.Controllers
                         //        var respon = SendNotificateLine(item);
                         //    }
                         //} Big O n^2
-                        var respone = SendNotificateLine(list.First());
+                        //var respone = SendNotificateLine(list.First());
+                        foreach (var item in list)
+                        {
+                            SendNotificateLine(item);
+                        }
                     }
                 }
             }
