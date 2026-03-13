@@ -3192,16 +3192,29 @@
         function extractLast(term) {
             return splitArea(term).pop();
         }
+        //$("#textfree").on("keydown", function (e) {
+
+        //    if (e.key === "Enter") {
+
+        //        e.preventDefault();
+        //        let val = $(this).val().trim();
+        //        if (val !== "" && !val.endsWith(",")) {
+        //            $(this).val(val + ",");
+        //        }
+        //    }
+        //});
         $("#textfree").on("keydown", function (e) {
 
             if (e.key === "Enter") {
-
                 e.preventDefault();
                 let val = $(this).val().trim();
+
                 if (val !== "" && !val.endsWith(",")) {
                     $(this).val(val + ",");
                 }
+
             }
+
         });
 
         $("#textfree").on("paste", function (e) {
@@ -3220,7 +3233,13 @@
             }
             $(this).val(currentVal + pasteData);
         });
+        let navUsed = false;
 
+        $("#textfree").on("keydown", function (e) {
+            if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                navUsed = true;
+            }
+        });
 
         $("#textfree").click(function () {
             //this.select();
@@ -3286,7 +3305,21 @@
                     }
                 });
             },
+            focus: function (event, ui) {
+                if (!navUsed) {
+                    return false;
+                }
+                var terms = splitArea(this.value);
+                terms.pop();
+                terms.push(ui.item.value);
+                this.value = terms.join(", ");
+                return false;
+            },
             select: function (event, ui) {
+                if (event.originalEvent && event.originalEvent.key === "Enter") {
+                    event.preventDefault();
+                    return false;
+                }
                 var maker = $("#maker").val();
                 var Model = $("#Model").val();
                 var submodel = $("#submodel").val();
@@ -3295,7 +3328,7 @@
                 var brand = $("#brand").val();
                 var _productgroup = $("#productgroup").val();
                 var _productline = $("#productline").val();
-                var textfree = ui.item.value;
+                var textfree = ui.item.label;
 
                 var _splval = splitval(textfree);
                 var company = splitval3(textfree);
@@ -3304,7 +3337,7 @@
                 var sortby = $("#sortby").val();
                 //var itemno = _splval;
                 var itemno = $("#textfreeoe").val();
-                if (usertype == "1" || usertype == "2") {
+                if (usertype == "1" || usertype == "2" || usertype == "6") {
                     if (cuscod != "") {
                         ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
                         var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_splval) + "/" + btoa(company) + "/" + btoa(cuscod));
@@ -3315,13 +3348,13 @@
                 } else {
                     //ARM
                     //getcatalog(maker, Model, submodel, company, catalogue, brand, _productgroup, _productline, _splval, itemsegment, sortby, itemno);
-
                     var terms = splitArea(this.value);
                     terms.pop();
                     terms.push(ui.item.value);
                     terms.push("");
 
                     this.value = terms.join(", ");
+
                     return false;
 
                 }
