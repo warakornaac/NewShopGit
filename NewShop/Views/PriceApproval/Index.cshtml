@@ -592,10 +592,14 @@
             });
 
             $("#btnapproval").click(function () {
+                $("#btnapproval").prop('disabled', true);
+                $("#btncan").prop('disabled', true);
                 fnApproveData('N');
                 $("#stus").val('N');
             });
             $("#btncan").click(function () {
+                $("#btnapproval").prop('disabled', true);
+                $("#btncan").prop('disabled', true);
                 fnApproveData('C');
             });
 
@@ -632,6 +636,8 @@
         });
 
         function fnGetPriceApproveGroup(CartID) {
+            $("#btnapproval").prop('disabled', false);
+            $("#btncan").prop('disabled', false);
             SubmithtmlPage = "";
             var _SLMCODE = $('#Slm').val();
             var _CUSCOD = $('#CUSCOD').val();
@@ -715,7 +721,8 @@
         }
 
         function fnGetPriceApprove(vStatus) {
-
+            $("#btnapproval").prop('disabled', false);
+            $("#btncan").prop('disabled', false);
             var SubmithtmlPage = "";
             var _SLMCODE = $('#Slm').val();
             var _CUSCOD = $('#CUSCOD').val();
@@ -991,6 +998,8 @@
                 $("#textAlert").empty();
                 $("#textAlert").text("กรุณาเลือกรายการที่ต้องการอนุมัติ");
                 $("#myModal").modal();
+                $("#btnapproval").prop('disabled', false);
+                $("#btncan").prop('disabled', false);
                 return false;
             }
             else {
@@ -998,6 +1007,8 @@
                     $("#textAlertWarning").empty();
                     $("#textAlertWarning").text("กรุณาระบุ Spc Remark");
                     $("#myModalWarning").modal();
+                    $("#btnapproval").prop('disabled', false);
+                    $("#btncan").prop('disabled', false);
                     return false;
                 }
             }
@@ -1011,6 +1022,8 @@
                         $("#textAlertWarning").empty();
                         $("#textAlertWarning").text("กรุณาระบุ Spc Moq หรือ Spc End_Date ให้ครบ");
                         $("#myModalWarning").modal();
+                        $("#btnapproval").prop('disabled', false);
+                        $("#btncan").prop('disabled', false);
                         return false;
                     }
 
@@ -1049,7 +1062,8 @@
 
                         //location.reload();
                     } else {
-
+                        $("#btnapproval").prop('disabled', false);
+                        $("#btncan").prop('disabled', false);
                         $("#textAlert").empty();
                         $("#textAlert").text("Approval ไม่สำเร็จกรุณาทำรายการใหม่ " + data.messageerror);
                         $("#myModal").modal();
