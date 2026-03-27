@@ -28,7 +28,7 @@ namespace NewShop.Controllers
                                            [Department], [EMail], [SLMCOD], [UsrTyp], [PASSWORD], 
                                            [UsrName], [Inserted By], [Inserted Date], [Updated By], 
                                            [Updated Date], [SALES_CO]
-                                    FROM [MobileOrder].[dbo].[UsrTbl]
+                                    FROM [dbo].[UsrTbl]
                                     ORDER BY [No] DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, Connection))
@@ -86,7 +86,7 @@ namespace NewShop.Controllers
                                            [Department], [EMail], [SLMCOD], [UsrTyp], 
                                            [UsrName], [Inserted By], [Inserted Date], [Updated By], 
                                            [Updated Date], [SALES_CO]
-                                    FROM [MobileOrder].[dbo].[UsrTbl]
+                                    FROM [dbo].[UsrTbl]
                                     ORDER BY [No] DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, Connection))
@@ -191,7 +191,7 @@ namespace NewShop.Controllers
                     string query = @"SELECT [No], [EmpID], [company], [UsrID], [initials], 
                                            [Department], [EMail], [SLMCOD], [UsrTyp], [PASSWORD], 
                                            [UsrName], [SALES_CO]
-                                    FROM [MobileOrder].[dbo].[UsrTbl]
+                                    FROM [dbo].[UsrTbl]
                                     WHERE [No] = @No";
 
                     using (SqlCommand cmd = new SqlCommand(query, Connection))
@@ -288,7 +288,7 @@ namespace NewShop.Controllers
                 SqlConnection Connection = new SqlConnection(connectionString);
                 using (Connection)
                 {
-                    string query = @"DELETE FROM [MobileOrder].[dbo].[UsrTbl] WHERE [No] = @No";
+                    string query = @"DELETE FROM [dbo].[UsrTbl] WHERE [No] = @No";
                     using (SqlCommand cmd = new SqlCommand(query, Connection))
                     {
                         cmd.Parameters.AddWithValue("@No", id);
