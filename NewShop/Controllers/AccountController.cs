@@ -391,7 +391,6 @@ namespace NewShop.Controllers
         //            this.Session["CUSCOD"] = revcus["CUSCOD"].ToString();
         //            UserType = Session["UserType"].ToString();
         //            this.Session["UsrClmStaff"] = revcus["UsrClmStaff"].ToString();
-
         //            sessionId = sessionId.Substring(sessionId.Length - 24);
         //            this.Session["ID"] = sessionId;
         //        }
