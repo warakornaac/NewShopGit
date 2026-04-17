@@ -7917,6 +7917,7 @@
     <Content Include="Views\CustomerDashboard\Shoppinglist\Index.cshtml" />
     <Content Include="Views\CustomerDashboard\_detailCoupongUseOrder.cshtml" />
     <Content Include="Views\CustomerDashboard\_listCoupongByCuscodeStatus.cshtml" />
+    <Content Include="Views\Shoppinglist\_detailStkcodeByCuscode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

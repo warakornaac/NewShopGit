@@ -1513,7 +1513,7 @@ namespace NewShop.Controllers
             string message = "";
             int countList = 0;
             List<listCoupong> coupongList = new List<listCoupong>();
-            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             try
@@ -1570,7 +1570,7 @@ namespace NewShop.Controllers
             {
                 string message = "Y";
                 int countList = 0;
-                var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
                 SqlConnection Connection = new SqlConnection(connectionString);
                 Connection.Open();
                 try
@@ -1633,7 +1633,7 @@ namespace NewShop.Controllers
             int numSuccess = 0;
             int numError = 0;
             string message = "Y";
-            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             try
             {
@@ -1670,7 +1670,7 @@ namespace NewShop.Controllers
             string message = "";
             int countList = 0;
             List<listCoupongUseOrder> coupongUseOrderList = new List<listCoupongUseOrder>();
-            var connectionString = ConfigurationManager.ConnectionStrings["Promotion_ConnectionString"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
             try
@@ -1773,6 +1773,22 @@ namespace NewShop.Controllers
         public ActionResult MenuTest()
         {
             return View("MenuTest");
+        }
+
+        public ActionResult TestCulture()
+        {
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            var uiCulture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+
+            var now = DateTime.Now.ToString();
+            var sample = new DateTime(2026, 6, 14).ToString();
+
+            return Content(
+                "Culture = " + culture +
+                " | UICulture = " + uiCulture +
+                " | Now = " + now +
+                " | SampleDate = " + sample
+            );
         }
     }
 }

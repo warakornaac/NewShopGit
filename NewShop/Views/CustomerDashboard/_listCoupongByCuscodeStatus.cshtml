@@ -2,7 +2,7 @@
     ViewBag.Title = "_listCoupongByCuscodeStatus";
 }
 
-<div class="row">
+<div class="row" id="couponSection">
     @{
         int rowList = 0;
         if (ViewBag.coupongList != null && ViewBag.coupongList.Count > 0)
@@ -97,15 +97,24 @@
                         </div>
                     </div>
                 </div>
-                // แสดงปุ่มหลัง card ที่ 6
-                if (rowList == 9 && ViewBag.coupongList.Count > 6)
+                // ปุ่มแสดงทั้งหมด อยู่หลัง card ที่ 9
+                if (rowList == 9 && ViewBag.coupongList.Count > 9)
                 {
-                    <div class="col-12 text-end mb-1">
-                        <a href="javascript:void(0);" id="btnShowMore" onclick="showAllCoupons()" class="text-danger fw-bold">
-                            แสดงคูปองทั้งหมด
+                    <div class="col-12 text-end mb-2" id="showMoreWrapper">
+                        <a href="javascript:void(0);" id="btnShowMore" class="text-danger fw-bold">
+                            <i class="fa fa-angle-down"></i> แสดงคูปองทั้งหมด
                         </a>
                     </div>
                 }
+            }
+            // ปุ่มย่อ อยู่ล่างสุด "หลัง card สุดท้าย"
+            if (ViewBag.coupongList.Count > 9)
+            {
+                <div class="col-12 text-end mt-2 d-none" id="showLessWrapper">
+                    <a href="javascript:void(0);" id="btnShowLess" class="text-secondary fw-bold">
+                        <i class="fa fa-angle-up"></i> ย่อคูปอง
+                    </a>
+                </div>
             }
         }
         else
@@ -168,13 +177,21 @@
 </div>
 
 <script defer>
-    $(document).on('click', '#btnShowMore', function () {
+$(document).on('click', '#btnShowMore', function () {
+    $('.extra-card').removeClass('d-none');      // แสดง card ที่ซ่อน
+    $('#showMoreWrapper').addClass('d-none');    // ซ่อนปุ่มแสดงทั้งหมด
+    $('#showLessWrapper').removeClass('d-none'); // แสดงปุ่มย่อด้านล่างสุด
+});
 
-        $('.extra-card').removeClass('d-none');
-        $(this).hide();
+$(document).on('click', '#btnShowLess', function () {
+    $('.extra-card').addClass('d-none');         // ซ่อน card ที่เกิน 9
+    $('#showLessWrapper').addClass('d-none');    // ซ่อนปุ่มย่อ
+    $('#showMoreWrapper').removeClass('d-none'); // แสดงปุ่มแสดงทั้งหมดกลับมา
 
-    });
-
+    $('html, body').animate({
+        scrollTop: $('#couponSection').offset().top - 50
+    }, 300);
+});
 
     //Modal detail coupong
     function viewDetailByCoupong(coupongCode) {
