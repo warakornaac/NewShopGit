@@ -972,6 +972,18 @@
                 var saleprice = $(this).attr('saleprice');
                 item_des = $(this).attr('Item_DES');
 
+                if (spcend_date != "") {
+                    var parts = spcend_date.split("/");
+                    if (parts.length === 3) {
+                        var dd = parts[0];
+                        var MM = parts[1];
+                        var yyyy = parts[2];
+
+                        spcend_date = MM + "/" + dd + "/" + yyyy;
+                    }
+                }
+
+
                 var ItemList = {
                     cartid: cartid,
                     PRCLST_NO: PRCLST_NO,
@@ -1026,17 +1038,6 @@
                         $("#btncan").prop('disabled', false);
                         return false;
                     }
-
-                    var parts = spcend_date.split("/");
-                    if (parts.length === 3) {
-                        var dd = parts[0];
-                        var MM = parts[1];
-                        var yyyy = parts[2];
-
-                        data[i].spcend_date = MM + "/" + dd + "/" + yyyy;
-                    }
-
-
                 }
 
             } else {
