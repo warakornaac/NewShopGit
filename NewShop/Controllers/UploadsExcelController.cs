@@ -14,9 +14,11 @@ using System.Data.OleDb;
 using System.Configuration;
 using System.Data.SqlClient;
 using ClosedXML.Excel;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission("Index.UploadOrder")]
     public class UploadsExcelController : Controller
     {
         //
@@ -108,6 +110,7 @@ namespace NewShop.Controllers
                             cmdUp.Parameters.AddWithValue("@cStkcod", dReader.GetValue(2) ?? string.Empty);
                             cmdUp.Parameters.AddWithValue("@Qty", dReader.GetValue(3) ?? string.Empty);
                             cmdUp.Parameters.AddWithValue("@Price", dReader.GetValue(4) ?? string.Empty);
+                            cmdUp.Parameters.AddWithValue("@LineNote", dReader.GetValue(5) ?? string.Empty);
                             cmdUp.Parameters.AddWithValue("@Userlogin", usr);
                             SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);
                             returnValue.Direction = System.Data.ParameterDirection.Output;
@@ -153,6 +156,7 @@ namespace NewShop.Controllers
                                     Qty = dr["Qty"].ToString(),
                                     Price = dr["Price"].ToString(),
                                     Status = dr["Status"].ToString(),
+                                    LineNote = dr["LineNote"].ToString(),
                                     Status_Message = dr["Status Message"].ToString(),
                                     Inserted_Date = dr["Inserted Date"].ToString(),
                                     Inserted_By = dr["Inserted By"].ToString(),
@@ -208,6 +212,7 @@ namespace NewShop.Controllers
                     UOM = dr["UOM"].ToString(),
                     Qty = dr["Qty"].ToString(),
                     Price = dr["Price"].ToString(),
+                    LineNote = dr["LineNote"].ToString(),
                     Status = dr["Status"].ToString(),
                     Status_Message = dr["Status Message"].ToString(),
                     Inserted_Date = dr["Inserted Date"].ToString(),
@@ -227,10 +232,11 @@ namespace NewShop.Controllers
                 worksheet.Cell(1, 6).Value = "UOM";
                 worksheet.Cell(1, 7).Value = "Qty";
                 worksheet.Cell(1, 8).Value = "Price";
-                worksheet.Cell(1, 9).Value = "Status";
-                worksheet.Cell(1, 10).Value = "Status Message";
-                worksheet.Cell(1, 11).Value = "Inserted Date";
-                worksheet.Cell(1, 12).Value = "Inserted By";
+                worksheet.Cell(1, 9).Value = "LineNote";
+                worksheet.Cell(1, 10).Value = "Status";
+                worksheet.Cell(1, 11).Value = "Status Message";
+                worksheet.Cell(1, 12).Value = "Inserted Date";
+                worksheet.Cell(1, 13).Value = "Inserted By";
 
                 int row = 2;
                 foreach (var item in list)
@@ -243,10 +249,11 @@ namespace NewShop.Controllers
                     worksheet.Cell(row, 6).Value = item.UOM;
                     worksheet.Cell(row, 7).Value = item.Qty;
                     worksheet.Cell(row, 8).Value = item.Price;
-                    worksheet.Cell(row, 9).Value = item.Status;
-                    worksheet.Cell(row, 10).Value = item.Status_Message;
-                    worksheet.Cell(row, 11).Value = item.Inserted_Date;
-                    worksheet.Cell(row, 12).Value = item.Inserted_By;
+                    worksheet.Cell(row, 9).Value = item.LineNote;
+                    worksheet.Cell(row, 10).Value = item.Status;
+                    worksheet.Cell(row, 11).Value = item.Status_Message;
+                    worksheet.Cell(row, 12).Value = item.Inserted_Date;
+                    worksheet.Cell(row, 13).Value = item.Inserted_By;
                     row++;
                 }
 

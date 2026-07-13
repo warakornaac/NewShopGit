@@ -12,35 +12,56 @@ using System.Web.Script.Serialization;
 using NewShop.Models;
 using System.DirectoryServices.Protocols;
 using System.Web.Services.Description;
+using NewShop.Attributes;
+using System.Text;
 
 namespace NewShop.Controllers
 {
+    //[Permission("PriceApproval.Full")]
     public class PromotionController : Controller
     {
 
         //
         // GET: /Promotion/
-
+        //[Permission("PromotionRegister.Full")]
         public ActionResult Index()
         {
             return View();
         }
+        public ActionResult CheckSession() {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SessionID = " + Session.SessionID);
+            sb.AppendLine("----------------");
+
+            foreach (string key in Session.Keys) {
+                sb.AppendLine(key + " = [" + Convert.ToString(Session[key]) + "]");
+            }
+
+            return Content(sb.ToString(), "text/plain");
+        }
+        //[Permission("PromotionRegister.Full")]
         public ActionResult RegisterCustomer()
         {
-           // string appEnv = Session["appEnv"].ToString();
+            //return Content(
+            //    "SessionID = [" + Session.SessionID + "]<br/>" +
+            //    "Length = " + Session.SessionID.Length + "<br/>" +
+            //    "Length = " + Session.SessionID.Length + "<br/>" +
+            //    "UserType = [" + Session["UserType"] + "]"
+            //);
+            //Response.Write("<br/>Session ID = " + Session["ID"]);
+            //Response.End();
+            //string appEnv = Session["appEnv"].ToString();
             string user = Session["UserID"].ToString();
             string slmCodeDefault = Session["UserID"].ToString();
             string flagSup = string.Empty;
 
-            using (SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString))
-            {
+            using (SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString)) {
                 Connection.Open();
-                if (slmCodeDefault != null)
-                {
+                if (slmCodeDefault != null) {
                     SqlCommand cmd1 = new SqlCommand("select TOP 1 * From v_SLMTAB_SM_Userrid where SUP = N'" + slmCodeDefault + "'", Connection);
                     SqlDataReader rev = cmd1.ExecuteReader();
-                    while (rev.Read())
-                    {
+                    while (rev.Read()) {
                         flagSup = rev["SUP"].ToString();
                     }
                     rev.Close();
@@ -53,9 +74,14 @@ namespace NewShop.Controllers
             ViewBag.pmCodeList = GetProductName("");
             //ViewBag.slmCode = slmCode == null ? slmCodeDefault : slmCode;
             ViewBag.flagSup = flagSup;
-
+            ViewBag.UserType = Session["UserType"].ToString();
+            ViewBag.Department = Session["Department"].ToString();
             return View();
+            //        return Content(
+            //    "UserType = [" + Convert.ToString(Session["UserType"]) + "]"
+            //);
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get name sales
         public List<SelectListItem> GetSalesmanName(string slmCode)
         {
@@ -83,6 +109,7 @@ namespace NewShop.Controllers
 
             return slmCodeList;
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public List<SelectListItem> GetProductName(string User)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -109,6 +136,7 @@ namespace NewShop.Controllers
 
             return productList;
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get PromotionCode By Pmcode
         public JsonResult GetPromotion(string prodMgr, string year, string company, string period)
         {
@@ -136,6 +164,7 @@ namespace NewShop.Controllers
             Connection.Close();
             return Json(promotionList, JsonRequestBehavior.AllowGet);
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public ActionResult GetPromotionDetail(string promotionCode, string slmCode)
         {
             string message = "";
@@ -195,6 +224,7 @@ namespace NewShop.Controllers
                 @ViewBag.messageError
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public ActionResult GetCustomerByPromotion(string slmCode, string promotionCode, string promotionSeq, string textHeader)
         {
             int countCustomer = 0;
@@ -264,6 +294,7 @@ namespace NewShop.Controllers
                 @ViewBag.promotionSeq
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public ActionResult GetSubCustomerByPromotion(string slmCode, string promotionCode, string promotionSeq, string cusCodeSearch)
         {
             int countCustomer = 0;
@@ -326,6 +357,7 @@ namespace NewShop.Controllers
             });
         }
         [HttpPost]
+        //[Permission("PromotionRegister.Full")]
         public ActionResult SaveCustomerRegister(string user, string slmCode, string cusCode, string promotionCode, string promotionSeq, string packQty, string packAmt, string sumPackAmt, string txtReason)
         {
             int numSuccess = 0;
@@ -382,6 +414,7 @@ namespace NewShop.Controllers
             }
             return Json(new { status = message, numSuccess = numSuccess, numError = numError }, JsonRequestBehavior.AllowGet);
         }
+        //[Permission("PromotionApproval.Full")]
         public ActionResult ApproveChangeCustomer()
         {
             string user = Session["UserID"] as string;
@@ -428,6 +461,7 @@ namespace NewShop.Controllers
 
             return View();
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get all tab
         public ActionResult GetManagePackPromotion(string slmCode, string customerCode, string customerName, string promotionCode, string promotionSeq)
         {
@@ -446,6 +480,7 @@ namespace NewShop.Controllers
                 @ViewBag.customerName
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get table list pack by customer 
         public ActionResult GetListPackPromotionByCustomerCurrent(string customerCode, string promotionCode, string promotionSeq)
         {
@@ -460,6 +495,7 @@ namespace NewShop.Controllers
                 @ViewBag.customerRegisterList
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //ดึงข้อมูลของ CustomerCode ตาม Seq
         public ActionResult GetManagePackPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq)
         {
@@ -557,6 +593,7 @@ namespace NewShop.Controllers
                 @ViewBag.messageError
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         ///ดึง list promotion ทั้งหมดที่ลูกค้านี้ลงใน PromotionCode นี้
         public List<listCustomerRegister> GetListPackPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq)
         {
@@ -602,6 +639,7 @@ namespace NewShop.Controllers
 
             return customerRegisterList;
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get table list pack by promotion code all customer of slmcode
         public ActionResult GetCustomerByPromotionCode(string customerCode, string promotionCode, string promotionSeq, string slmCode)
         {
@@ -616,6 +654,7 @@ namespace NewShop.Controllers
                 @ViewBag.customerByPromotionCodeList
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //get table list pack by customer all pm
         public ActionResult GetPackPromotionByCustomerCurrentAllPm(string customerCode, string promotionCode, string promotionSeq, string slmCode)
         {
@@ -630,6 +669,7 @@ namespace NewShop.Controllers
                 @ViewBag.customerRegisterAllPmList
             });
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         ///ดึง list promotion ทั้งหมดที่ลูกค้านี้ลง
         public List<listCustomerRegisterByCustomer> GetListPackPromotionByCustomerAllPm(string customerCode, string promotionCode, string promotionSeq, string slmCode)
         {
@@ -679,6 +719,7 @@ namespace NewShop.Controllers
 
             return customerRegisterAllPmList;
         }
+        //[Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         //ดึงผลรวม SumPackAmount
         public ActionResult GetAmountPromotionByCustomer(string customerCode, string promotionCode, string promotionSeq, string packQty, string packAmt, string sumPackAmt)
         {
@@ -725,6 +766,7 @@ namespace NewShop.Controllers
                 message = message
             }, JsonRequestBehavior.AllowGet);
         }
+        [Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public List<listPromotionBeforeAfter> GetListPromotionBeforeAfter(string customerCode, string promotionCode, string Flag)
         {
             string message = "Y";
@@ -767,6 +809,7 @@ namespace NewShop.Controllers
             }
             return promotionBeforeAfterList;
         }
+        [Permission("PromotionRegister.Full", "PromotionApproval.Full")]
         public ActionResult GetPromotionApprove(string slmCode, string company, string year, string period, string prodMgr, string promotionCode)
         {
             string message = "Y";
@@ -849,7 +892,9 @@ namespace NewShop.Controllers
                 @ViewBag.messageError
             });
         }
+
         [HttpPost]
+        [Permission("PromotionApproval.Full")]
         public ActionResult SaveApproveChangeCustomer(listSaveCustomerApprove[] requestData, string user, string flagApprove) //(string Cuscode, string Codeold, string Seqold, string Codenew, string Seqnew, string User, string Flag)
         {
             int numSuccess = 0;
@@ -897,6 +942,8 @@ namespace NewShop.Controllers
             }
             return Json(new { status = message, numSuccess = numSuccess, numError = numError }, JsonRequestBehavior.AllowGet);
         }
+        [Permission("PromotionRegister.Full", "PromotionApproval.Full")]
+
         public List<SelectListItem> GetCustpmerBySlmcode(string slmCode)
         {
             List<SelectListItem> CUSList = new List<SelectListItem>();

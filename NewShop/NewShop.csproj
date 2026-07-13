@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\PermissionAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackOrderAllController.cs" />
     <Compile Include="Controllers\Blog-detailsController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\CoomingsoonController.cs" />
     <Compile Include="Controllers\CustomerMapController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HistorypurchaseController.cs" />
     <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\Home3Controller.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Controllers\UploadsExcelController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
     <Compile Include="Filters\SystemAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\PermissionHelper.cs" />
     <Compile Include="MobileOrderDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,6 +218,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MobileOrder_testDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Groupdata.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -265,6 +269,9 @@
     <Compile Include="Report\SOForm.aspx.designer.cs">
       <DependentUpon>SOForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Service\ErrorLogService.cs" />
+    <Compile Include="Service\PermissionLogService.cs" />
+    <Compile Include="Service\PermissionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -7918,6 +7925,10 @@
     <Content Include="Views\CustomerDashboard\_detailCoupongUseOrder.cshtml" />
     <Content Include="Views\CustomerDashboard\_listCoupongByCuscodeStatus.cshtml" />
     <Content Include="Views\Shoppinglist\_detailStkcodeByCuscode.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

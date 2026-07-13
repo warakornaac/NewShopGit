@@ -12,9 +12,17 @@ using System.Web.Script.Serialization;
 using System.Threading.Tasks;
 using Dapper;
 using System.Runtime.Caching;
+using NewShop.Attributes;
 
 namespace NewShop.Models
 {
+    [Permission(
+        "Index.GetSalesName",
+        "Index.GetCustomerName",
+        "Cart.Full",
+        "PriceApproval.Full",
+        "StatusDelivery.View"
+        )]
     public class DataCenterController : Controller
     {
         //

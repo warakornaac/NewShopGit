@@ -533,7 +533,9 @@
             //    $("#stusa").datepicker({ dateFormat: 'dd/mm/yy' });
             //$('#tblDetail input[name="sdate"]').datepicker({ dateFormat: 'dd/mm/yy' });
         });
-        $('.spcend_date').datepicker({ dateFormat: 'dd/mm/yy' });
+        $('.spcend_date').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
         // $('.spcend_date').datepicker({ dateFormat: 'dd/m/yy' });
 
         function commaSeparateNumber(val) {
@@ -967,10 +969,17 @@
                 var cartid = $(this).attr('cartid');
                 var PRCLST_NO = $(this).attr('PRCLST_NO');
                 var spcmoq = $("#spcmoq").val();
-                var spcend_date = $("#spcend_date").val();
+                var spcend_date = $("#spcend_date").val().trim();
+
+                if (spcend_date !== "") {
+                    spcend_date = convertToISO(spcend_date);
+                }
+
                 var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
                 var saleprice = $(this).attr('saleprice');
                 item_des = $(this).attr('Item_DES');
+
+                console.log("spcend_date = " + spcend_date);
 
                 var ItemList = {
                     cartid: cartid,
@@ -1027,14 +1036,14 @@
                         return false;
                     }
 
-                    var parts = spcend_date.split("/");
-                    if (parts.length === 3) {
-                        var dd = parts[0];
-                        var MM = parts[1];
-                        var yyyy = parts[2];
+                    //var parts = spcend_date.split("/");
+                    //if (parts.length === 3) {
+                    //    var dd = parts[0];
+                    //    var MM = parts[1];
+                    //    var yyyy = parts[2];
 
-                        data[i].spcend_date = MM + "/" + dd + "/" + yyyy;
-                    }
+                    //    data[i].spcend_date = MM + "/" + dd + "/" + yyyy;
+                    //}
 
 
                 }
@@ -1210,7 +1219,18 @@
                 }
             });
         }
+        //convert date to yyyy-mm-dd
+        function convertToISO(dateStr) {
+            if (!dateStr) return "";
 
+            var parts = dateStr.split('/');
+            alert("parts = " + parts);
+            alert("parts.length = " + parts.length);
+            if (parts.length === 3) {
+                return parts[2] + '-' + parts[1] + '-' + parts[0];
+            }
+            return dateStr;
+        }
 
 
     </script>

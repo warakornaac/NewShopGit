@@ -10,9 +10,11 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission("Backorder.View")]
     public class BackOrderAllController : Controller
     {
         //

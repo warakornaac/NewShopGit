@@ -960,6 +960,7 @@ namespace NewShop.Models
         public string Qty { get; set; }
         public string Price { get; set; }
         public string Status { get; set; }
+        public string LineNote { get; set; }
         public string Status_Message { get; set; }
         public string Inserted_Date { get; set; }
         public string Inserted_By { get; set; }

@@ -962,6 +962,7 @@
         select.append($("<option>").val("AAC").text("AAC"));
         select.append($("<option>").val("TAC").text("TAC"));
         select.append($("<option>").val("OMP").text("OMP"));
+        select.append($("<option>").val("TAM").text("TAM"));
         //$('.selectpicker').selectpicker('val', 'ALL');
         //$('.selectpicker').selectpicker('refresh');
        // $("#company").val('ALL');
@@ -3337,7 +3338,7 @@
                 var sortby = $("#sortby").val();
                 //var itemno = _splval;
                 var itemno = $("#textfreeoe").val();
-                if (usertype == "1" || usertype == "2" || usertype == "6") {
+                if (usertype == "1" || usertype == "2" || usertype == "5" || usertype == "6") {
                     if (cuscod != "") {
                         ///var wi = window.open("../Product_details/frmViewLabel.aspx?ClmNUM=" + btoa(nokey) + "/" + btoa(nosubkey));
                         var wi = window.open("../Productdetails/Index?prodenum=" + btoa(_splval) + "/" + btoa(company) + "/" + btoa(cuscod));
