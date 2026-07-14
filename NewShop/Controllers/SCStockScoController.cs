@@ -10,9 +10,11 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission("ShoppingNew.Full")]
     public class SCStockScoController : Controller
     {
         //
@@ -20,38 +22,15 @@ namespace NewShop.Controllers
 
         public ActionResult Index()
         {
-            //this.Session["UserType"] = "";
-            if (this.Session["UserType"] == "")
+            string Docdisplay = string.Empty;
+            string CUSCOD = string.Empty;
+            Docdisplay = Request.QueryString["numcuber"];
+            if (Docdisplay != null)
             {
-                return RedirectToAction("LogIn", "Account");
+                byte[] data = System.Convert.FromBase64String(Docdisplay);
+                CUSCOD = System.Text.ASCIIEncoding.ASCII.GetString(data);
             }
-            else
-            {
-                if (this.Session["UserType"] == null)
-                {
-                    return RedirectToAction("LogIn", "Account");
-                }
-                else
-                {
-                    string Docdisplay = string.Empty;
-                    string CUSCOD = string.Empty;
-
-                    Docdisplay = Request.QueryString["numcuber"];
-                    if (Docdisplay != null)
-                    {
-
-                        byte[] data = System.Convert.FromBase64String(Docdisplay);
-                        CUSCOD = System.Text.ASCIIEncoding.ASCII.GetString(data);
-
-                    }
-
-
-
-                    ViewBag.Nodisplay = CUSCOD;
-
-
-                }
-            }
+            ViewBag.Nodisplay = CUSCOD;
             return View();
         }
         public JsonResult Savedatatemp(string item, string SLM, string CUS, string User)

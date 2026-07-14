@@ -13,9 +13,11 @@ using NewShop.Models;
 using System.Threading.Tasks;
 using Dapper;
 using System.Runtime.Caching;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission("Cart.Full", "ConfirmOrder.Full")]
     public class CartController : Controller
     {
         //

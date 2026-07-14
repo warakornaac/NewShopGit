@@ -231,8 +231,7 @@
                                             <span class="input-group-addon ">พนักงานขาย<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="Slm" class="form-control" style="color:black">
                                                 <option value="0">เลือก SLMCOD</option>
-                                                @for (var i = 0; i < dataSlmlis.Count; i++)
-                                                {
+                                                @for (var i = 0; i < dataSlmlis.Count; i++) {
                                                     <option value="@dataSlmlis[i].SLMCOD">@dataSlmlis[i].SLMCOD/@dataSlmlis[i].SLMNAM</option>
                                                 }
                                             </select>
@@ -256,8 +255,7 @@
                                             <span class="input-group-addon ">Prod MGR<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="ddlProdMRG" class="form-control">
                                                 @*<option value="0">เลือก Prod MRG</option>*@
-                                                @for (var i = 0; i < getPRODList.Count; i++)
-                                                {
+                                                @for (var i = 0; i < getPRODList.Count; i++) {
                                                     <option value="@getPRODList[i].Value">@getPRODList[i].Text</option>
                                                 }
                                             </select>
@@ -271,8 +269,7 @@
                                             <span class="input-group-addon ">กลุ่มสินค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="STKGroup" class="form-control">
                                                 <option value="0">เลือก Stock Group</option>
-                                                @for (var i = 0; i < getStkGrp.Count; i++)
-                                                {
+                                                @for (var i = 0; i < getStkGrp.Count; i++) {
                                                     <option value="@getStkGrp[i].Value">@getStkGrp[i].Text</option>
                                                 }
                                             </select>
@@ -533,7 +530,9 @@
             //    $("#stusa").datepicker({ dateFormat: 'dd/mm/yy' });
             //$('#tblDetail input[name="sdate"]').datepicker({ dateFormat: 'dd/mm/yy' });
         });
-        $('.spcend_date').datepicker({ dateFormat: 'dd/mm/yy' });
+        $('.spcend_date').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
         // $('.spcend_date').datepicker({ dateFormat: 'dd/m/yy' });
 
         function commaSeparateNumber(val) {
@@ -967,22 +966,17 @@
                 var cartid = $(this).attr('cartid');
                 var PRCLST_NO = $(this).attr('PRCLST_NO');
                 var spcmoq = $("#spcmoq").val();
-                var spcend_date = $("#spcend_date").val();
+                var spcend_date = $("#spcend_date").val().trim();
+
+                if (spcend_date !== "") {
+                    spcend_date = convertToISO(spcend_date);
+                }
+
                 var spcremake = $(this).parents("tr:eq(0)").find(".spcRemake").val().trim();
                 var saleprice = $(this).attr('saleprice');
                 item_des = $(this).attr('Item_DES');
 
-                if (spcend_date != "") {
-                    var parts = spcend_date.split("/");
-                    if (parts.length === 3) {
-                        var dd = parts[0];
-                        var MM = parts[1];
-                        var yyyy = parts[2];
-
-                        spcend_date = MM + "/" + dd + "/" + yyyy;
-                    }
-                }
-
+                console.log("spcend_date = " + spcend_date);
 
                 var ItemList = {
                     cartid: cartid,
@@ -1038,6 +1032,17 @@
                         $("#btncan").prop('disabled', false);
                         return false;
                     }
+
+                    //var parts = spcend_date.split("/");
+                    //if (parts.length === 3) {
+                    //    var dd = parts[0];
+                    //    var MM = parts[1];
+                    //    var yyyy = parts[2];
+
+                    //    data[i].spcend_date = MM + "/" + dd + "/" + yyyy;
+                    //}
+
+
                 }
 
             } else {
@@ -1211,7 +1216,16 @@
                 }
             });
         }
+        //convert date to yyyy-mm-dd
+        function convertToISO(dateStr) {
+            if (!dateStr) return "";
 
+            var parts = dateStr.split('/');
+            if (parts.length === 3) {
+                return parts[2] + '-' + parts[1] + '-' + parts[0];
+            }
+            return dateStr;
+        }
 
 
     </script>

@@ -19,104 +19,86 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission("PriceApproval.Full")]
     public class PriceApprovalController : Controller
     {
         //
         // GET: /PriceApproval/
         // [SystemAuthorize]
         public ActionResult Index()
-        {
+        {           
+            string usre = Session["UserID"].ToString();
+            List<SLM> SlmList = new List<SLM>();
+            List<SelectListItem> GroupStkGrp = new List<SelectListItem>();
+            List<SelectListItem> PRODList = new List<SelectListItem>();
+            using (SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString))
+            {
+                Connection.Open();
 
-            if (this.Session["UserType"] == "")
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else
-            {
-                if (this.Session["UserType"] == null)
+                var command = new SqlCommand("P_Price_Approve_Data", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUsrID", usre);
+                command.Parameters.AddWithValue("@inType", 2);
+                // command.ExecuteNonQuery();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
                 {
-                    return RedirectToAction("LogIn", "Account");
+                    SlmList.Add(new SLM()
+                    {
+                        SLMCOD = dr["SLMCOD"].ToString(),
+                        SLMNAM = dr["SLMNAM"].ToString()
+                    });
                 }
-                else
+                ViewBag.SlmModel = SlmList;
+                //dr.Dispose();
+                //S20161016
+                dr.Close();
+                dr.Dispose();
+                command.Dispose();
+                //E20161016
+
+                command = new SqlCommand("P_Price_Approve_Data", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUsrID", usre);
+                command.Parameters.AddWithValue("@inType", 3);
+                //command.ExecuteNonQuery();
+                SqlDataReader dr2 = command.ExecuteReader();
+                while (dr2.Read())
                 {
-                    if (this.Session["UserType"] == "2")
-                    {
-                        return RedirectToAction("dashboard", "SeleScrCustomer");
-                    }
-                    string usre = Session["UserID"].ToString();
-                    List<SLM> SlmList = new List<SLM>();
-                    List<SelectListItem> GroupStkGrp = new List<SelectListItem>();
-                    List<SelectListItem> PRODList = new List<SelectListItem>();
-                    using (SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString))
-                    {
-                        Connection.Open();
-
-                        var command = new SqlCommand("P_Price_Approve_Data", Connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@inUsrID", usre);
-                        command.Parameters.AddWithValue("@inType", 2);
-                        // command.ExecuteNonQuery();
-                        SqlDataReader dr = command.ExecuteReader();
-                        while (dr.Read())
-                        {
-                            SlmList.Add(new SLM()
-                            {
-                                SLMCOD = dr["SLMCOD"].ToString(),
-                                SLMNAM = dr["SLMNAM"].ToString()
-                            });
-                        }
-                        ViewBag.SlmModel = SlmList;
-                        //dr.Dispose();
-                        //S20161016
-                        dr.Close();
-                        dr.Dispose();
-                        command.Dispose();
-                        //E20161016
-
-                        command = new SqlCommand("P_Price_Approve_Data", Connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@inUsrID", usre);
-                        command.Parameters.AddWithValue("@inType", 3);
-                        //command.ExecuteNonQuery();
-                        SqlDataReader dr2 = command.ExecuteReader();
-                        while (dr2.Read())
-                        {
-                            GroupStkGrp.Add(new SelectListItem() { Value = dr2["STKGRP"].ToString(), Text = dr2["STKGRP"].ToString() + "/" + dr2["GRPNAM"].ToString() });
-
-                        }
-                        ViewBag.StkGrp = GroupStkGrp;
-                        //dr2.Dispose();
-                        //S20161016
-                        dr2.Close();
-                        dr2.Dispose();
-                        command.Dispose();
-                        //E20161016
-
-                        command = new SqlCommand("P_Price_Approve_Data", Connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@inUsrID", usre);
-                        command.Parameters.AddWithValue("@inType", 4);
-                        //command.ExecuteNonQuery();
-                        SqlDataReader dr3 = command.ExecuteReader();
-                        while (dr3.Read())
-                        {
-                            PRODList.Add(new SelectListItem() { Value = dr3["PROD"].ToString(), Text = dr3["PROD"].ToString() + "/" + dr3["PRODNAM"].ToString() });
-
-                        }
-                        ViewBag.PRODList = PRODList;
-                        //dr3.Dispose();
-                        //S20161016
-                        dr3.Close();
-                        dr3.Dispose();
-                        command.Dispose();
-                        //E20161016
-                        Connection.Close();
-                    }
+                    GroupStkGrp.Add(new SelectListItem() { Value = dr2["STKGRP"].ToString(), Text = dr2["STKGRP"].ToString() + "/" + dr2["GRPNAM"].ToString() });
 
                 }
+                ViewBag.StkGrp = GroupStkGrp;
+                //dr2.Dispose();
+                //S20161016
+                dr2.Close();
+                dr2.Dispose();
+                command.Dispose();
+                //E20161016
+
+                command = new SqlCommand("P_Price_Approve_Data", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@inUsrID", usre);
+                command.Parameters.AddWithValue("@inType", 4);
+                //command.ExecuteNonQuery();
+                SqlDataReader dr3 = command.ExecuteReader();
+                while (dr3.Read())
+                {
+                    PRODList.Add(new SelectListItem() { Value = dr3["PROD"].ToString(), Text = dr3["PROD"].ToString() + "/" + dr3["PRODNAM"].ToString() });
+
+                }
+                ViewBag.PRODList = PRODList;
+                //dr3.Dispose();
+                //S20161016
+                dr3.Close();
+                dr3.Dispose();
+                command.Dispose();
+                //E20161016
+                Connection.Close();
             }
             return View();
         }

@@ -278,8 +278,7 @@
                     <table class="fixed_headers table table-bordered">
                         <thead>
                             <tr id="hrow">
-                                @if (Session["UserType"].ToString() == "1")
-                                {
+                                @if (Session["UserType"].ToString() == "1") {
                                     <th style="text-align: center; width: 11%; height: -webkit-fill-available;" id="saleplus">Sales<br />Plus</th>
                                 }
                                 <th>ราคา Hot </th>
@@ -1089,7 +1088,7 @@
                     $("#myModalWarning").modal();
                     $("#" + idqty + "").val("");
                     return false;
-                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                } else { //ถ้ากรอกไม่เกินจำนวน stock
                     //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
                     if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
                         if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {
@@ -1228,7 +1227,7 @@
                     $("#myModalWarning").modal();
                     $("#" + idqty + "").val("");
                     return false;
-                } else { //ถ้ากรอกไม่เกินจำนวน stock 
+                } else { //ถ้ากรอกไม่เกินจำนวน stock
                     //ให้เช็คว่าเกินจำนวนที่ Coupong กำหนดไว้ไหม
                     if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
                         if (parseFloat(Seqval.replace(',', '').replace(' ', '')) > parseFloat(promotionAmountMax[1].replace(',', '').replace(' ', ''))) {

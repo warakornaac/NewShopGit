@@ -112,7 +112,6 @@ D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.Common.dll
 D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
 D:\dotnet\NewShopGit\NewShop\bin\Microsoft.ReportViewer.WebForms.DLL
 D:\.net\NewShopGit\NewShop\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
-D:\dotnet\NewShopGit\NewShop\obj\Debug\NewShop.csproj.AssemblyReference.cache
 D:\.net\NewShopGit\NewShop\bin\UAParser.dll
 D:\.net\NewShopGit\NewShop\bin\UAParser.xml
 D:\dotnet\NewShopGit\NewShop\bin\UAParser.dll
@@ -130,3 +129,4 @@ D:\.net\NewShopGit\NewShop\bin\ClosedXML.pdb
 D:\.net\NewShopGit\NewShop\bin\ClosedXML.xml
 D:\.net\NewShopGit\NewShop\bin\Dapper.xml
 D:\.net\NewShopGit\NewShop\obj\Debug\NewShop.csproj.Up2Date
+D:\dotnet\NewShopGit\NewShop\obj\Debug\NewShop.csproj.AssemblyReference.cache

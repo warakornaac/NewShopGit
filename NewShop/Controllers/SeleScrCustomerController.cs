@@ -10,13 +10,36 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
+    [Permission(
+        "Index.GetSalesName",
+        "Cart.Full"
+        )]
     public class SeleScrCustomerController : Controller
     {
+        public ActionResult CheckSession() {
+            return Content(
+                "IsNewSession = " + Session.IsNewSession +
+                "<br/>SessionID = " + Session.SessionID +
+                "<br/>UserType = " + (Session["UserType"] ?? "NULL")
+            );
+        }
         //
         // GET: /SeleScrCustomer/
+        public ActionResult TestException() {
+            this.Session["UserType"] = "";
+            if (this.Session["UserType"] == null) {
+                return RedirectToAction("LogIn", "Account");
+
+            }
+
+
+            //return View();
+            throw new Exception("Test Application_Error");
+        }
 
         public ActionResult Index()
         {
@@ -29,17 +52,18 @@ namespace NewShop.Controllers
            
             return View();
         }
-        public ActionResult dashboard()
-        {
-            //this.Session["UserType"] = "";
-            if (this.Session["UserType"] == null)
-            {
+        public ActionResult dashboard(){
+            //Response.Write("<br/>Session UserType dd = " + Session["UserType"]);
+            //Response.End();
+            this.Session["UserType"] = "";
+            if (this.Session["UserType"] == null) {
                 return RedirectToAction("LogIn", "Account");
 
             }
-            
+
 
             return View();
+            //throw new Exception("Test Application_Error");
         }
         public JsonResult Saveip(string ipno)
         {

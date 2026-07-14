@@ -12,9 +12,17 @@ using System.Web.Script.Serialization;
 using System.Threading.Tasks;
 using Dapper;
 using System.Runtime.Caching;
+using NewShop.Attributes;
 
 namespace NewShop.Models
 {
+    [Permission(
+        "Index.GetSalesName",
+        "Index.GetCustomerName",
+        "Cart.Full",
+        "PriceApproval.Full",
+        "StatusDelivery.View"
+        )]
     public class DataCenterController : Controller
     {
         //
@@ -658,7 +666,7 @@ namespace NewShop.Models
                             [Hierarchy3 (Bussiness Type)] AS H3
                       FROM v_CUSPROV 
                       WHERE CUSCOD = @CUSCOD
-                      ORDER BY SLMCOD",
+                      ORDER BY SLMCOD", 
                         new { CUSCOD = cusel }
                     );
                     foreach (var r in rows)

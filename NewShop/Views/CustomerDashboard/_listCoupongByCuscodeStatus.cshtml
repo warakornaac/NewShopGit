@@ -1,8 +1,20 @@
 ﻿@{
     ViewBag.Title = "_listCoupongByCuscodeStatus";
 }
+<style>
+    .custom-modal {
+        max-width: 70%;
+        padding-top: 140px;
+    }
 
-<div class="row">
+    @@media (max-width: 768px){
+        .custom-modal{
+            max-width:95%;
+            margin:auto;
+        }
+    }
+</style>
+<div class="row" id="couponSection">
     @{
         int rowList = 0;
         if (ViewBag.coupongList != null && ViewBag.coupongList.Count > 0)
@@ -119,7 +131,7 @@
 <!-- Modal Detail coupong-->
 <div class="modal fade" id="viewDetailByCoupongModal" tabindex="-1" aria-hidden="true" style="padding-top: 140px;">
 
-    <div class="modal-dialog modal-lg" style="max-width: 70%;">
+    <div class="modal-dialog custom-modal modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header pb-2">
@@ -139,32 +151,25 @@
     </div>
 </div>
 <!-- Modal Detail use coupong-->
-<div class="modal fade" id="viewDetailUseCoupongModal" tabindex="-1" aria-hidden="true" style="padding-top: 140px;">
+<div class="modal fade" id="viewDetailUseCoupongModal" tabindex="-1" aria-hidden="true"  style="padding-top: 140px;">
+    <div class="modal-dialog custom-modal modal-dialog-centered">
+    <div class="modal-content">
 
-    <div class="modal-dialog modal-lg" style="max-width: 70%;">
-        <div class="modal-content">
-
-            <div class="modal-header pb-2">
-                <div class="col-sm-10">
-                    <h5 class="modal-title">รายละเอียด</h5>
-                </div>
-                <div class="col-sm-2 text-end">
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">
-                        ปิด
-                    </button>
-                </div>
+        <div class="modal-header pb-2">
+            <div class="col-sm-10">
+                <h5 class="modal-title">รายละเอียด</h5>
             </div>
-
-            <div class="modal-body"></div>
-
-            @*<div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        <i class="fa fa-times"></i> ปิด
-                    </button>
-                </div>*@
-
+            <div class="col-sm-2 text-end">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">
+                    ปิด
+                </button>
+            </div>
         </div>
+
+        <div class="modal-body"></div>
+
     </div>
+</div>
 </div>
 
 <script defer>

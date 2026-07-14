@@ -142,7 +142,7 @@
 </html>
 
 <script defer>
-    var userType = @this.Session["UserType"].ToString();
+    const userType = '@ViewBag.UserType';
     $(document).ready(function () {
         //เลือก Company
         $('#slmCode').change(function () {

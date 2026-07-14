@@ -1,0 +1,241 @@
+﻿@model NewShop.Models.ErrorViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>@Model.StatusCode - @Model.Title</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-120deg,#ef3b13fa,#1a30d0);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+        }
+
+        .error-card {
+            width: 900px;
+            max-width: 95%;
+            background: rgba(255,255,255,.95);
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+            overflow: hidden;
+            animation: fadeUp .4s ease;
+        }
+
+        @@keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            color: white;
+            padding: 35px;
+            text-align: center;
+            background: linear-gradient(135deg,#34495e,#2c3e50);
+        }
+
+            .header i {
+                font-size: 60px;
+                margin-bottom: 15px;
+            }
+
+        .status-code {
+            font-size: 90px;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #777;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .body-content {
+            padding: 35px;
+        }
+
+        .reference {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 25px;
+        }
+
+        .admin-panel {
+            margin-top: 25px;
+        }
+
+        pre {
+            max-height: 350px;
+            overflow: auto;
+            background: #272822;
+            color: #e6e6e6;
+            border-radius: 8px;
+            border: none;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .btn-home {
+            padding: 12px 35px;
+            font-size: 17px;
+            border-radius: 30px;
+        }
+
+        .btn-detail {
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="error-card">
+
+        <div class="header">
+
+            <i class="glyphicon @Model.Icon"></i>
+
+            <h2>@Model.Title</h2>
+
+        </div>
+
+        <div class="body-content text-center">
+
+            @*<div class="status-code">
+
+                @Model.StatusCode
+
+            </div>*@
+
+            <div class="message">
+
+                @Model.Message
+
+            </div>
+
+            <div class="description">
+
+                @Model.Description
+
+            </div>
+
+            @if (Model.StatusCode == 500) {
+                <div class="reference text-left">
+
+                    <h4 style="margin-top:0;">
+                        <i class="fa fa-bug"></i>
+
+                        Reference ID
+                    </h4>
+
+                    <strong>#@Model.ErrorId</strong>
+
+                </div>
+            }
+
+            @if (Model.IsAdmin && Model.StatusCode == 500) {
+                <div class="admin-panel text-left">
+
+                    <button class="btn btn-danger btn-detail"
+                            data-toggle="collapse"
+                            data-target="#detail">
+
+                        <i class="fa fa-code"></i>
+
+                        Error Detail
+
+                    </button>
+
+                    <div id="detail" class="collapse">
+
+                        <table class="table table-bordered">
+
+                            <tr>
+
+                                <th width="180">Error Type</th>
+
+                                <td>@Model.ErrorType</td>
+
+                            </tr>
+
+                        </table>
+
+<pre>@Model.StackTrace</pre>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <div class="footer">
+
+            <a href="@Model.ButtonUrl"
+               class="btn btn-primary btn-home">
+
+                <i class="fa fa-home"></i>
+
+                @Model.ButtonText
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

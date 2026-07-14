@@ -15,6 +15,9 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Web.Hosting;
 using NewShop.Filters;
+using NewShop.Service;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NewShop.Controllers
 {
@@ -25,30 +28,20 @@ namespace NewShop.Controllers
         private string ldapError;
 
         // GET: /Account/
-        public ActionResult Index()
-        {
-            this.Session["LoginSystem"] = "";
-            if (this.Session["UserType"] == null)
-            {
-                this.Session["UserType"] = "";
-            }
-
+        public ActionResult Index() {
 
             return View();
 
         }
         [HttpGet]
-        public ActionResult LoginCus()
-        {
-            if (this.Session["UserType"] == null)
-            {
+        public ActionResult LoginCus() {
+            if (this.Session["UserType"] == null) {
                 this.Session["UserType"] = "";
             }
             ViewBag.Userlineid = _Userlineid;
             return View();
         }
-        public ActionResult ChangePasswordPortal()
-        {
+        public ActionResult ChangePasswordPortal() {
             return View();
         }
         //[HttpGet]
@@ -91,8 +84,7 @@ namespace NewShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page)
-        {
+        public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page) {
             string message = string.Empty;
             string SLM = string.Empty;
             _Userlineid = userId;
@@ -100,8 +92,7 @@ namespace NewShop.Controllers
             this.Session["UserPassword"] = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
-            try
-            {
+            try {
                 Connection.Open();
                 var command = new SqlCommand("P_Check_Login_External", Connection);
                 command.CommandType = CommandType.StoredProcedure;
@@ -119,16 +110,14 @@ namespace NewShop.Controllers
                 command.ExecuteNonQuery();
                 message = returnValuedoc.Value.ToString();
                 SLM = Slm.Value.ToString();
-                if (message == "Y")
-                {
+                if (message == "Y") {
 
                     this.Session["slmcode"] = SLM.ToString();
 
                 }
                 command.Dispose();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
             }
 
@@ -136,8 +125,7 @@ namespace NewShop.Controllers
 
             return Json(new { message = message, page = page }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetDataLoginExternal(string email, string page)
-        {
+        public JsonResult GetDataLoginExternal(string email, string page) {
             this.Session["UserID"] = string.Empty;
             //this.Session["Email"] = string.Empty;
             this.Session["UserType"] = string.Empty;
@@ -149,14 +137,11 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-            try
-            {
+            try {
                 SqlCommand cmd = new SqlCommand("select * From UsrTbl_Portal where Email =N'" + email + "'", Connection);
                 SqlDataReader rev = cmd.ExecuteReader();
-                while (rev.Read())
-                {
-                    if (!string.IsNullOrEmpty(rev["Email"].ToString()))
-                    {
+                while (rev.Read()) {
+                    if (!string.IsNullOrEmpty(rev["Email"].ToString())) {
                         this.Session["UserID"] = rev["Email"].ToString();
                         this.Session["DisplayName"] = rev["CusName"].ToString();
                         this.Session["UserType"] = rev["UsrTyp"].ToString();
@@ -185,8 +170,7 @@ namespace NewShop.Controllers
                 Connection.Close();
                 message = "Y";
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
             }
             var returnField = new { UserId = this.Session["UserID"], UserType = this.Session["UserType"], ID = this.Session["ID"], page = page, message = message, CUDCOD = this.Session["CUSCOD"] };
@@ -407,15 +391,16 @@ namespace NewShop.Controllers
                 Connection.Open();
 
                 this.Session["DisplayName"] = string.Empty;
-                this.Session["UserType"] = null;
+                //this.Session["UserType"] = "";
                 this.Session["UserID"] = User.Usre;
-                this.Session["UserPassword"] = User.Password;
+                this.Session["UserPassword"] = "";
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
-                this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
+                this.Session["LoginSystem"] = "";
+                //this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
 
-                string UserType = string.Empty;
+                //string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
 
                 // Check DB User
@@ -455,7 +440,6 @@ namespace NewShop.Controllers
                     }
                 }
 
-                FormsAuthentication.SetAuthCookie(User.Usre, false);
 
                 if (string.IsNullOrEmpty(UserType))
                 {
@@ -583,7 +567,6 @@ namespace NewShop.Controllers
                             return View("Login", User);
                         }
                     }
-                    return RedirectToAction("dashboard", "SeleScrCustomer");
                 }
             }
             catch (Exception ex)
@@ -644,19 +627,16 @@ namespace NewShop.Controllers
             var os = clientInfo.OS.ToString();
             var browser = clientInfo.UserAgent.ToString();
 
-            return new LoginuserInfo
-            {
+            return new LoginuserInfo {
                 OS = os,
                 Browser = browser,
                 Ip_Addresss = ipAddress,
             };
         }
-        public string GetIp()
-        {
+        public string GetIp() {
             string ip =
             System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrEmpty(ip))
-            {
+            if (string.IsNullOrEmpty(ip)) {
                 ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
             }
             return ip;
@@ -901,8 +881,7 @@ namespace NewShop.Controllers
         }*/
 
         [HttpPost]
-        public ActionResult LoginCus(string User, string password, string page)
-        {
+        public ActionResult LoginCus(string User, string password, string page) {
             string message = string.Empty;
             string phoneNum = string.Empty;
             string cuscode = string.Empty;
@@ -912,8 +891,7 @@ namespace NewShop.Controllers
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-            try
-            {
+            try {
                 this.Session["DisplayName"] = string.Empty;
                 this.Session["UserType"] = null;
                 this.Session["UserID"] = null;
@@ -929,8 +907,7 @@ namespace NewShop.Controllers
                 cmdcus.Parameters.AddWithValue("user", User);
                 cmdcus.Parameters.AddWithValue("pass", password);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
-                while (revcus.Read())
-                {
+                while (revcus.Read()) {
                     phoneNum = revcus["Tel"].ToString();
                     this.Session["UserType"] = revcus["UsrTyp"].ToString();
                     this.Session["CUSCOD"] = revcus["CusCode"].ToString();
@@ -949,12 +926,10 @@ namespace NewShop.Controllers
                 revcus.Close();
                 revcus.Dispose();
                 cmdcus.Dispose();
-                if (message == "Y")
-                {
+                if (message == "Y") {
                     message = "N";
                 }
-                if (UserType == "2")
-                {
+                if (UserType == "2") {
                     var cmd = new SqlCommand("P_Check_User_Active_AD", Connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@InUsrType", UserType);
@@ -968,54 +943,44 @@ namespace NewShop.Controllers
                     cmd.ExecuteNonQuery();
                     var status = cmd.Parameters["@OutGenstatus"].Value.ToString();
                     var sqlSLM = cmd.Parameters["@OutSlm"].Value.ToString();
-                    if (!string.IsNullOrEmpty(status))
-                    {
-                        if (status == "Y")
-                        {
+                    if (!string.IsNullOrEmpty(status)) {
+                        if (status == "Y") {
                             message = "N";
                             this.Session["slmcode"] = sqlSLM;
                         }
-                        else
-                        {
+                        else {
                             message = "B";
                         }
                     }
-                    else
-                    {
+                    else {
                         message = "B";
                     }
                 }
                 Connection.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
             return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email, UserType = UserType }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
-        {
+        public ActionResult ChangePassword(string userName, string oldPassword, string newPassword) {
             //string userName = System.Environment.UserName;
             //string userName = "Deploy";
             //currentPassword = "Happy1002";
             //newPassword = "Happy1003";
             string messageSave = "You password has been changed.";
             string statusSave = "success";
-            try
-            {
+            try {
                 DirectoryEntry directionEntry = new DirectoryEntry("LDAP://ADSRV2016-01/dc=Automotive,dc=com", userName, oldPassword);
-                if (directionEntry != null)
-                {
+                if (directionEntry != null) {
                     DirectorySearcher search = new DirectorySearcher(directionEntry);
                     search.Filter = "(SAMAccountName=" + userName + ")";
                     SearchResult result = search.FindOne();
-                    if (result != null)
-                    {
+                    if (result != null) {
                         DirectoryEntry userEntry = result.GetDirectoryEntry();
-                        if (userEntry != null)
-                        {
+                        if (userEntry != null) {
                             userEntry.Invoke("ChangePassword", new object[] { oldPassword, newPassword });
                             // userEntry.Invoke("SetPassword", new object[] { newPassword }); กรณี reset pass สิทธิ์ admin
                             userEntry.CommitChanges();
@@ -1025,8 +990,7 @@ namespace NewShop.Controllers
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 //Exception has been thrown by the target of an invocation / passwprd new ไม่ผ่าน
                 statusSave = "error";
                 messageSave = ex.Message.ToString();//ex.Message.ToString();
@@ -1037,17 +1001,14 @@ namespace NewShop.Controllers
         {
             bool IsValid = false;
             if (user == null || Password == null) { IsValid = false; }
-            else
-            {
+            else {
 
             }
             return IsValid;
         }
 
-        public ActionResult Register()
-        {
-            if (Session["UserType"] == null)
-            {
+        public ActionResult Register() {
+            if (Session["UserType"] == null) {
                 return RedirectToAction("LogIn", "Account");
             }
             return View();
@@ -1059,10 +1020,8 @@ namespace NewShop.Controllers
             string lindId = " ";
             string displayName = "";
             string status = string.Empty;
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
+            try {
+                using (SqlConnection conn = new SqlConnection(connectionString)) {
                     conn.Open();
                     var cmd = new SqlCommand("P_Register_customer", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1081,28 +1040,24 @@ namespace NewShop.Controllers
                     p.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(p);
                     int INSID = cmd.ExecuteNonQuery();
-                    if (INSID > 0)
-                    {
+                    if (INSID > 0) {
 
                     }
                     status = cmd.Parameters["@outGenstatus"].Value.ToString();
                 }
                 return Json(new { status = status, message = "Success" });
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 return Json(new { status = "error", message = ex.ToString() });
             }
             // return Json(new { status = "success", });
         }
-        public JsonResult Log_Login(string username)
-        {
+        public JsonResult Log_Login(string username) {
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-            try
-            {
+            try {
                 var cmd = new SqlCommand("P_CustomerPortal_Login_log", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inUser", username.Trim());
@@ -1115,21 +1070,18 @@ namespace NewShop.Controllers
                 cmd.Dispose();
                 Connection.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
             }
             return Json(new { message = message }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult CheckUsername(string username)
-        {
+        public JsonResult CheckUsername(string username) {
             string message = string.Empty;
             string phone = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-            try
-            {
+            try {
                 var cmd = new SqlCommand("P_CustomerPortal_CheckUserName", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inUser", username.Trim());
@@ -1147,21 +1099,18 @@ namespace NewShop.Controllers
                 Connection.Close();
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
             }
             return Json(new { message = message, phone = phone }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ChangeNewPasswordPortal(string USER, string password, string newpassword, string confirmpassword)
-        {
+        public JsonResult ChangeNewPasswordPortal(string USER, string password, string newpassword, string confirmpassword) {
             string message = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
-            try
-            {
+            try {
                 var cmd = new SqlCommand("P_CustomerPortal_ChangePassword", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@inUser", USER);
@@ -1177,8 +1126,7 @@ namespace NewShop.Controllers
                 cmd.Dispose();
                 Connection.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
             }
             return Json(message, JsonRequestBehavior.AllowGet);

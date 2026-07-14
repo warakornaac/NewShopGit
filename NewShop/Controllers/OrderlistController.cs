@@ -13,8 +13,11 @@ using NewShop.Models;
 using System.Data.OleDb;
 using System.Configuration;
 using System.Data.SqlClient;
+using NewShop.Attributes;
+
 namespace NewShop.Controllers
 {
+    [Permission("CheckStock.View")]
     public class OrderlistController : Controller
     {
         //

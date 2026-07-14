@@ -7,10 +7,29 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NewShop.Models;
+using NewShop.Attributes;
+using System.Text;
+
 namespace NewShop.Controllers
 {
+    // [Permission("OrderingReport.View")]
+    [Permission(
+        "Index.GetSalesName",
+        "Cart.Full"
+        )]
     public class OrderingReportController : Controller
     {
+        public ActionResult CheckSession() {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("SessionID = " + Session.SessionID);
+
+            foreach (string key in Session.Keys) {
+                sb.AppendLine(key + " = " + (Session[key] ?? "NULL"));
+            }
+
+            return Content(sb.ToString(), "text/plain");
+        }
         //
         // GET: /OrderingReport/
 
@@ -23,6 +42,8 @@ namespace NewShop.Controllers
         // MobileOrderEntities db = new MobileOrderEntities();
         public ActionResult Index(string slm, string encodedCus)
         {
+            //Response.Write("<br/>UserType = " + Session["UserType"]);
+            //Response.End();
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
