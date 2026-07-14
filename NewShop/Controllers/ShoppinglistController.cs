@@ -418,40 +418,6 @@ namespace NewShop.Controllers
             }
             return Json(new { message = message, respone = respone, result = list }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetStkcodeLaunchCoupon(string cuscode)
-        {
-            var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
-            SqlConnection Connection = new SqlConnection(connectionString);
-            Connection.Open();
-            List<lisStkcodeLaunchCoupon> lisStkcodeLaunchCoupon = new List<lisStkcodeLaunchCoupon>();
-
-            var command = new SqlCommand("P_Search_Stkcode_Launch_Coupon", Connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@inCuscode ", cuscode);
-            SqlDataReader dr = command.ExecuteReader();
-            while (dr.Read())
-            {
-                lisStkcodeLaunchCoupon.Add(new lisStkcodeLaunchCoupon()
-                {
-                    PromotionCode = dr["Promotion_Code"].ToString(),
-                    Stkcode = dr["Stkcode"].ToString(),
-                    Stkdesc = dr["STKDES"].ToString(),
-                    AmountMax = dr["AmountMax"].ToString(),
-                    SpecialPrice = dr["SpecialPrice"].ToString(),
-                    UseStartDate = dr["UseStartDate"].ToString(),
-                    UseEndDate = dr["UseEndDate"].ToString()
-                });
-            }
-            ViewBag.GetDataStkcode = lisStkcodeLaunchCoupon;
-            dr.Dispose();
-            command.Dispose();
-            Connection.Close();
-
-            return PartialView("_detailStkcodeByCuscode", new
-            {
-                ViewBag.GetDataStkcode
-            });
-        }
 
     }
 }

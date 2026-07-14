@@ -1458,16 +1458,6 @@ namespace NewShop.Models
         public string User { get; set; }
         public string Sta { get; set; }
     }
-    public class lisStkcodeLaunchCoupon
-    {
-        public string PromotionCode { get; set; }
-        public string Stkcode { get; set; }
-        public string Stkdesc { get; set; }
-        public string AmountMax { get; set; }
-        public string SpecialPrice { get; set; }
-        public string UseStartDate { get; set; }
-        public string UseEndDate { get; set; }
-    }
 
     public class UsrTbl
     {

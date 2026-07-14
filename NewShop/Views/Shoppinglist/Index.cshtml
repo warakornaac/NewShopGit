@@ -152,48 +152,6 @@
             border: hidden;
             color: white;
         }
-
-        .promo-link {
-            color: #00cfff;
-            text-decoration: none;
-            position: relative;
-            transition: all 0.3s ease;
-            text-decoration: underline;
-        }
-
-        .promo-link:hover {
-            color: #ffffff;
-            /*text-shadow: 0 0 8px #00cfff;*/
-        }
-
-        .promo-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            left: 0;
-            bottom: -2px;
-            background: #00cfff;
-            transition: width 0.3s;
-        }
-
-        .glow {
-            color: #00cfff;
-           
-            animation: glow 1.5s infinite alternate;
-        }
-
-        @@keyframes glow {
-            from {
-                text-shadow: 0 0 5px #00cfff;
-            }
-            to {
-                text-shadow: 0 0 15px #00cfff, 0 0 25px #00cfff;
-            }
-        }
-        #viewStkcodeLaunchCouponModal .modal-body * {
-            font-size: 13px;
-        }
     </style>
 </head>
 <body style="background: linear-gradient(-180deg,#071d6dfa,#9b9fbda3);">
@@ -233,9 +191,6 @@
                     </div>
                     <div class="col-md-3" style="font-size: initial; color: cyan;">
                         * จำนวนสั่งซื้อห้ามน้อยกว่า MOQ *
-                        &nbsp; <a href="javascript:void(0);" onclick="getStkcodeLaunchCoupong();" class="promo-link glow">
-                                   <i class="fa fa-tags"></i> สินค้าเข้าร่วมคูปอง
-                        </a>
                     </div>
 
                     <hr />
@@ -323,8 +278,7 @@
                     <table class="fixed_headers table table-bordered">
                         <thead>
                             <tr id="hrow">
-                                @if (Session["UserType"].ToString() == "1")
-                                {
+                                @if (Session["UserType"].ToString() == "1") {
                                     <th style="text-align: center; width: 11%; height: -webkit-fill-available;" id="saleplus">Sales<br />Plus</th>
                                 }
                                 <th>ราคา Hot </th>
@@ -486,27 +440,6 @@
         <!-- EndModaldelete -->
     </div>
     <!-- Modal Wait Start here-->
-    <!-- Start ModalGetStkcode -->
-    <div class="modal fade" id="viewStkcodeLaunchCouponModal" tabindex="-1" aria-hidden="true" style="padding-top: 100px;">
-        <div class="modal-dialog modal-lg" style="max-width: 70%;">
-            <div class="modal-content">
-                <div class="modal-header pb-2">
-                    <div class="col-sm-11">
-                        <h5 class="modal-title">เบอร์สินค้าที่เข้าร่วมคูปอง</h5>
-                    </div>
-                    <div class="col-sm-2 text-end">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
-                            ปิด
-                        </button>
-                    </div>
-                </div>
-
-                <div class="modal-body"></div>
-
-            </div>
-        </div>
-    </div>
-    <!-- End ModalGetStkcode -->
 
     <link href="~/tmartcss/JSautocomplete/jquery-ui.css" rel="stylesheet" />
     <script src="~/tmartcss/JSautocomplete/jquery-ui-1.9.2.js"></script>
@@ -1993,48 +1926,6 @@
                 $select.closest('td').find('.spc_remarkxxx').removeAttr('hidden');
             }
         });
-        //get stkcode ที่เข้ารวมคูปอง
-        function getStkcodeLaunchCoupong() {
-            $.ajax({
-                url: '@Url.Action("GetStkcodeLaunchCoupon", "Shoppinglist")',
-                data: {
-                    cuscode: cuscod
-                },
-                type: 'POST',
-                dataType: 'HTML',
-                beforeSend: function () {
-                    $('#viewStkcodeLaunchCouponModal').find('.modal-body').html("");
-                },
-                success: function (data) {
-                    //set text header
-                    $('#viewStkcodeLaunchCouponModal').find('.modal-body').html(data);
-                    $('#viewStkcodeLaunchCouponModal').modal('show');
-                },complete: function (res) {
-                //LoadingHide();
-                },
-                error: function (er) {
-                    Swal.fire({
-                        icon: 'error',
-                        html: '<p>viewStkcodeLaunchCouponModal :</p><p>' + er.error + '</p>',
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'ปิด',
-                        allowOutsideClick: false,
-                        focusConfirm: false,
-                    });
-                }
-                }).fail(function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'เกิดข้อผิดพลาด กรุณาแจ้งผู้ดูแลระบบ (' + error.status + ')',
-                        html: '<p>viewCustomerByPromotionModal :</p><p>' + error.responseText + '</p>',
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'ปิด',
-                        allowOutsideClick: false,
-                        focusConfirm: false,
-                });
-            });
-        }
-
     </script>
 </body>
 </html>

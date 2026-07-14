@@ -231,8 +231,7 @@
                                             <span class="input-group-addon ">พนักงานขาย<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="Slm" class="form-control" style="color:black">
                                                 <option value="0">เลือก SLMCOD</option>
-                                                @for (var i = 0; i < dataSlmlis.Count; i++)
-                                                {
+                                                @for (var i = 0; i < dataSlmlis.Count; i++) {
                                                     <option value="@dataSlmlis[i].SLMCOD">@dataSlmlis[i].SLMCOD/@dataSlmlis[i].SLMNAM</option>
                                                 }
                                             </select>
@@ -256,8 +255,7 @@
                                             <span class="input-group-addon ">Prod MGR<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="ddlProdMRG" class="form-control">
                                                 @*<option value="0">เลือก Prod MRG</option>*@
-                                                @for (var i = 0; i < getPRODList.Count; i++)
-                                                {
+                                                @for (var i = 0; i < getPRODList.Count; i++) {
                                                     <option value="@getPRODList[i].Value">@getPRODList[i].Text</option>
                                                 }
                                             </select>
@@ -271,8 +269,7 @@
                                             <span class="input-group-addon ">กลุ่มสินค้า<span class=" glyphicon glyphicon-hand-right"></span></span>
                                             <select id="STKGroup" class="form-control">
                                                 <option value="0">เลือก Stock Group</option>
-                                                @for (var i = 0; i < getStkGrp.Count; i++)
-                                                {
+                                                @for (var i = 0; i < getStkGrp.Count; i++) {
                                                     <option value="@getStkGrp[i].Value">@getStkGrp[i].Text</option>
                                                 }
                                             </select>
@@ -1224,8 +1221,6 @@
             if (!dateStr) return "";
 
             var parts = dateStr.split('/');
-            alert("parts = " + parts);
-            alert("parts.length = " + parts.length);
             if (parts.length === 3) {
                 return parts[2] + '-' + parts[1] + '-' + parts[0];
             }

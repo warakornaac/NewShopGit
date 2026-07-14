@@ -214,7 +214,7 @@ namespace NewShop.Controllers
             string getCuscode = "";
             string getUsrClmStaff = "";
             string getGenstatus = "";
-            string getByTable = ""; 
+            string getByTable = "";
             string getUserTypeAccount = string.Empty;
             //appEnv = ConfigurationManager.AppSettings["Environment"];
             //this.Session["appEnv"] = appEnv;

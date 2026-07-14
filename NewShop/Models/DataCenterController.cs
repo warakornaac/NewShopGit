@@ -666,7 +666,7 @@ namespace NewShop.Models
                             [Hierarchy3 (Bussiness Type)] AS H3
                       FROM v_CUSPROV 
                       WHERE CUSCOD = @CUSCOD
-                      ORDER BY SLMCOD",
+                      ORDER BY SLMCOD", 
                         new { CUSCOD = cusel }
                     );
                     foreach (var r in rows)
