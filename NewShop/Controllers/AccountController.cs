@@ -400,7 +400,7 @@ namespace NewShop.Controllers
                 this.Session["LoginSystem"] = "";
                 //this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
 
-                //string UserType = string.Empty;
+                string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
 
                 // Check DB User
