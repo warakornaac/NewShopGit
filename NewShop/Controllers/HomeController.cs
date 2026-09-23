@@ -10,6 +10,8 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Helpers;
+using System.Globalization;
 
 namespace NewShop.Controllers
 {
@@ -101,32 +103,29 @@ namespace NewShop.Controllers
             //}
             return Json(StockCode, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Getdataitemdetail(string usrtyp, string sortby, string itemsegment, string productgroup, string productline, string engine, string cuscod, string yrStart, string yrEnd, string itemno, string maker, string modelno, string submodel, string company, string catalogue, string brand, string textfree)
-        {
+        [Authorize]
+        [HttpPost]
+        public JsonResult Getdataitemdetail(string usrtyp, string sortby, string itemsegment, string productgroup, string productline, string engine, string cuscod, string yrStart, string yrEnd, string itemno, string maker, string modelno, string submodel, string company, string catalogue, string brand, string textfree, string usrId) {
+            if (!User.Identity.IsAuthenticated || Session["UserType"] == null) {
+                Response.StatusCode = 401;
+                return Json(new { error = "Unauthorized - กรุณา login ก่อนใช้งาน" });
+            }
+
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
-            Connection.Open();
             string message = "false";
-            // List<SearchitemDetailGetdata> Getdata = new List<SearchitemDetailGetdata>();
-            //Searchitem model = null;
             var root = @"..\IMAGE_A\";
             var Getdata = new List<object>();
-            try
-            {
-                var command = new SqlCommand("p_Search_item_byVehicle", Connection);
+            long signatureTimestamp = PriceSignatureHelper.GetCurrentTimestamp();
+
+            SqlCommand command = null;
+            SqlDataReader dr = null;
+
+            try {
+                Connection.Open();
+
+                command = new SqlCommand("p_Search_item_byVehicle", Connection);
                 command.CommandType = CommandType.StoredProcedure;
-                //command.Parameters.AddWithValue("@Maker", "BMW");
-                //command.Parameters.AddWithValue("@Model", "Series 3");
-                //command.Parameters.AddWithValue("@SubModel", "");
-                //command.Parameters.AddWithValue("@YrStart", "");
-                //command.Parameters.AddWithValue("@YrEnd", "");
-                //command.Parameters.AddWithValue("@Engine", "");
-                //command.Parameters.AddWithValue("@Category", "");
-                //command.Parameters.AddWithValue("@Item", "");
-                //command.Parameters.AddWithValue("@Brand", "");
-                //command.Parameters.AddWithValue("@inCUSCOD", "");
-                //command.Parameters.AddWithValue("@inSearch", "");
-                //command.Parameters.AddWithValue("@Company", "AAC");
                 command.Parameters.AddWithValue("@Maker", maker);
                 command.Parameters.AddWithValue("@Model", modelno);
                 command.Parameters.AddWithValue("@SubModel", submodel);
@@ -144,31 +143,35 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@ItemSegment", itemsegment);
                 command.Parameters.AddWithValue("@SortBy", sortby);
                 command.Parameters.AddWithValue("@UsrTyp", usrtyp);
-                command.ExecuteNonQuery();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    //model = new Searchitem();
+                command.Parameters.AddWithValue("@UsrID", usrId);
+                dr = command.ExecuteReader();
 
-                    //model.ItemNo = dr["STKCOD"].ToString();
-                    //model.Description = dr["Stkdes"].ToString();
-                    Getdata.Add(new
-                    {
+                while (dr.Read()) {
+                    string stkcod = dr["STKCOD"].ToString();
+                    string price = dr["Price"].ToString();
+
+                    decimal priceValue;
+                    if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out priceValue)) {
+                        priceValue = 0m;
+                    }
+
+                    string signature = PriceSignatureHelper.GenerateSignature(stkcod, priceValue, signatureTimestamp);
+
+                    Getdata.Add(new {
                         ItemNo = dr["STKCOD"].ToString(),
                         Description = dr["Stkdes"].ToString(),
                         Brand = dr["Brand"].ToString(),
                         Company = dr["Company"].ToString(),
-                        Price = dr["Price"].ToString(),//ราคาตามเงื่อนไข//
-                        SalePrice = dr["PrcPrice"].ToString(),//ราคาโครงสร้าง//
-                        PlcPrice = dr["PlcPrice"].ToString(),//ราคาป้าย//
-                        SpcPrice = dr["SpcPrice"].ToString(),//ราคาพิเศษ//
-                        PromotionCode = dr["PromotionCode"].ToString(),//PromotionCode//	
+                        Price = dr["Price"].ToString(),
+                        SalePrice = dr["PrcPrice"].ToString(),
+                        PlcPrice = dr["PlcPrice"].ToString(),
+                        SpcPrice = dr["SpcPrice"].ToString(),
+                        PromotionCode = dr["PromotionCode"].ToString(),
                         PromoDesc = dr["PromoDesc"].ToString(),
-                        PromoPrice = dr["PromoPrice"].ToString(),//ราคาโปรโมชั่น//	
+                        PromoPrice = dr["PromoPrice"].ToString(),
                         Available_Stock = dr["Available_Stock"].ToString(),
                         NewItem = dr["New Item"].ToString(),
                         FavoriteItem = dr["Favorite Item"].ToString(),
-                        // PATH = Path.Combine(root, dr["Company"].ToString() + "_" + dr["STKCOD"].ToString()+".png")
                         PATH = Path.Combine(root, dr["IMAGE_NAME"].ToString()),
                         Inactive = dr["Inactive"].ToString(),
                         minord = dr["minord"].ToString(),
@@ -176,24 +179,32 @@ namespace NewShop.Controllers
                         spackuom = dr["SPackUOM"].ToString(),
                         prclst_no = dr["prclst_no"].ToString(),
                         Stock = dr["Stock"].ToString(),
-                        ItemClass = dr["ItemClass"].ToString()
-
+                        ItemClass = dr["ItemClass"].ToString(),
+                        Timestamp = signatureTimestamp,
+                        Signature = signature
                     });
-
-                    //Getdata.Add(new SearchitemDetailGetdata { val = model });
                 }
-                dr.Close();
-                dr.Dispose();
-                command.Dispose();
-                Connection.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 message = ex.Message;
+                // TODO: ควร log message ไว้ตรวจสอบ (Logger.Error(message))
             }
+            finally {
+                // ปิด/dispose ทุกอย่างไม่ว่าจะสำเร็จหรือ exception ก็ตาม
+                if (dr != null && !dr.IsClosed) {
+                    dr.Close();
+                    dr.Dispose();
+                }
+                if (command != null) {
+                    command.Dispose();
+                }
+                if (Connection.State != ConnectionState.Closed) {
+                    Connection.Close();
+                }
+                Connection.Dispose();
+            }
+
             return Json(Getdata, JsonRequestBehavior.AllowGet);
-
         }
-
     }
 }

@@ -1,0 +1,732 @@
+﻿@{
+    ViewBag.Title = "Reserve Dashboard";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    /* ===== Color Palette =====
+       Primary:  #2563eb (น้ำเงินเข้ม)
+       Accent:   #0ea5e9 (ฟ้าสด)
+       Success:  #16a34a (เขียว - ใช้กับ Confirmed/Actual)
+       Surface:  #f8fafc (พื้นหลังอ่อน)
+       Border:   #e2e8f0
+    */
+
+    body {
+        background: #f4f6fb;
+    }
+
+    .page-header-bar {
+        background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+        .page-header-bar h3 {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+        }
+
+    .table-responsive-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+    }
+
+    /* ปุ่มบนแถบหัว - ให้ contrast กับพื้นหลัง gradient */
+    .page-header-bar .btn-default {
+        background: rgba(255,255,255,0.95);
+        border: none;
+        color: #1e3a8a;
+        font-weight: 500;
+    }
+
+        .page-header-bar .btn-default:hover {
+            background: #fff;
+            color: #2563eb;
+        }
+
+    /* View mode toggle */
+    .view-mode-toggle {
+        display: inline-flex;
+        border: none;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+        .view-mode-toggle button {
+            border: none;
+            background: rgba(255,255,255,0.95);
+            color: #1e3a8a;
+            padding: 6px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+            .view-mode-toggle button.active {
+                background: #16a34a;
+                color: #fff;
+            }
+
+    /* ===== Filter Panel (แยกจากตาราง) ===== */
+    #filterPanel {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #2563eb;
+        border-radius: 8px;
+        padding: 16px 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px 14px;
+    }
+
+    .filter-item label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: #475569;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .filter-item input {
+        height: 34px;
+        font-size: 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 5px;
+    }
+
+        .filter-item input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+    /* Checkbox "มากกว่า 0" ใต้ช่อง input */
+    .filter-item .gt0-check {
+        margin-top: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #0ea5e9;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+        .filter-item .gt0-check input[type="checkbox"] {
+            height: auto;
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #0ea5e9;
+        }
+
+    @@media (max-width: 480px) {
+        .filter-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* ปุ่มค้นหา / ล้างค่า - ขยายขนาดใหญ่ขึ้น + จัดชิดขวา + สีเด่น */
+    .filter-actions {
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid #eef1f5;
+        display: flex;
+        justify-content: flex-end; /* จุดสำคัญ: ใช้ justify-content แทน text-align เพราะเป็น flex container */
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+        .filter-actions .btn {
+            font-size: 16px;
+            padding: 10px 26px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+        }
+
+        .filter-actions .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+        }
+
+            .filter-actions .btn-primary:hover {
+                background: linear-gradient(135deg, #1d4ed8, #0284c7);
+            }
+
+        .filter-actions .btn-default {
+            background: #fff;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+            .filter-actions .btn-default:hover {
+                background: #f1f5f9;
+                color: #334155;
+            }
+
+    /* ===== ตาราง ===== */
+    #tblReserve thead th {
+        background: #eff6ff;
+        color: #1e3a8a;
+        font-weight: 700;
+        border-bottom: 2px solid #2563eb !important;
+    }
+
+    #tblReserve.table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f8fafc;
+    }
+
+    #tblReserve tbody tr:hover {
+        background-color: #eff6ff !important;
+    }
+
+    /* Card list mode */
+    .card-item {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #0ea5e9;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+        .card-item .card-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #1e3a8a;
+        }
+
+        .card-item .card-sub {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .card-item .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            font-size: 12px;
+            border-top: 1px solid #eef1f5;
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+
+            .card-item .card-grid .label {
+                color: #94a3b8;
+            }
+
+            .card-item .card-grid .value {
+                font-weight: 700;
+                color: #16a34a;
+            }
+
+    /* Graph toggle - default ปิด */
+    #chartContainer {
+        display: none;
+        margin-bottom: 16px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 14px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+        #chartContainer .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+    /* Loading spinner overlay */
+    #tableViewContainer, #listViewContainer {
+        position: relative;
+        min-height: 100px;
+        background: #fff;
+        border-radius: 8px;
+    }
+
+    .loading-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.8);
+        z-index: 10;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+    .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #dbeafe;
+        border-top-color: #2563eb;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+    }
+
+    .refresh-spinning {
+        animation: spin 0.8s linear infinite;
+        display: inline-block;
+    }
+
+    @@keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #btnRefresh:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="container-fluid" style="padding:15px;">
+
+    <div class="page-header-bar">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <h3>Reserve Search</h3>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="btnRefresh" class="btn btn-default btn-sm" onclick="refreshData()">
+                    <span class="glyphicon glyphicon-refresh" id="refreshIcon"></span> รีเฟรช
+                </button>
+                <button id="btnToggleGraph" class="btn btn-default btn-sm" onclick="toggleGraph()">
+                    <span class="glyphicon glyphicon-eye-open"></span> แสดงกราฟ
+                </button>
+                <div class="view-mode-toggle">
+                    <button id="btnTableMode" class="active" onclick="switchViewMode('table')">
+                        <span class="glyphicon glyphicon-th-list"></span> Table
+                    </button>
+                    <button id="btnListMode" onclick="switchViewMode('list')">
+                        <span class="glyphicon glyphicon-list-alt"></span> List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== GRAPH (default ซ่อน) ===== -->
+    <div id="chartContainer" class="row">
+        <div class="col-xs-12">
+            <div class="chart-wrapper">
+                <canvas id="summaryChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FILTER PANEL (Table mode) ===== -->
+    <div id="filterPanel">
+        <div class="filter-grid">
+            <div class="filter-item">
+                <label>CUSCOD</label>
+                <input class="form-control input-sm" data-field="CUSCOD" />
+            </div>
+            <div class="filter-item">
+                <label>SLMCOD</label>
+                <input class="form-control input-sm" data-field="SLMCOD" />
+            </div>
+            <div class="filter-item">
+                <label>CUSNAM</label>
+                <input class="form-control input-sm" data-field="CUSNAM" />
+            </div>
+
+            <!-- ===== ช่องที่มี checkbox "มากกว่า 0" ===== -->
+            <div class="filter-item">
+                <label>Confirmed</label>
+                <input class="form-control input-sm" data-field="Confirmed" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="ConfirmedGT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>Actual</label>
+                <input class="form-control input-sm" data-field="Actual" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="ActualGT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>ConfirmDinner</label>
+                <input class="form-control input-sm" data-field="ConfirmDinner" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="ConfirmDinnerGT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>Group</label>
+                <input class="form-control input-sm" data-field="GroupName" />
+            </div>
+            <div class="filter-item">
+                <label>Package</label>
+                <input class="form-control input-sm" data-field="Package" />
+            </div>
+            <div class="filter-item">
+                <label>Loyalty Group</label>
+                <input class="form-control input-sm" data-field="LoyaltyGroup" />
+            </div>
+            <div class="filter-item">
+                <label>Reserve(Dinner)</label>
+                <input class="form-control input-sm" data-field="Reserve1" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="Reserve1GT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>Reserve(EV)</label>
+                <input class="form-control input-sm" data-field="Reserve2" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="Reserve2GT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>Reserve(Influenser)</label>
+                <input class="form-control input-sm" data-field="Reserve3" />
+                <label class="gt0-check">
+                    <input type="checkbox" data-gt0-field="Reserve3GT0" /> มากกว่า 0 เท่านั้น
+                </label>
+            </div>
+            <div class="filter-item">
+                <label>Reserve TB</label>
+                <input class="form-control input-sm" data-field="ReserveTB" />
+            </div>
+
+        </div>
+
+        <!-- ปุ่มค้นหา / ล้างค่า - จัดชิดขวาด้วย justify-content: flex-end (ดู CSS .filter-actions ด้านบน) -->
+        <div class="filter-actions">
+            <button id="btnSearch" class="btn btn-primary" onclick="loadData()">
+                <span class="glyphicon glyphicon-search"></span> ค้นหา
+            </button>
+            <button id="btnClearFilter" class="btn btn-default" onclick="clearFilters()">
+                <span class="glyphicon glyphicon-remove"></span> ล้างค่า
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== TABLE VIEW ===== -->
+    <div id="tableViewContainer">
+        <div class="loading-overlay" id="loadingTable"><div class="spinner"></div></div>
+        <div class="table-responsive-wrap">
+            <table id="tblReserve" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>CUSCOD</th>
+                        <th>SLMCOD</th>
+                        <th>CUSNAM</th>
+                        <th>Confirmed</th>
+                        <th>Actual</th>
+                        <th>Group</th>
+                        <th>Package</th>
+                        <th>Loyalty Group</th>
+                        <th>Reserve(Dinner)</th>
+                        <th>Reserve(EV)</th>
+                        <th>Reserve(Influenser)</th>
+                        <th>Reserve TB</th>
+                        <th>ConfirmDinner</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== LIST VIEW ===== -->
+    <div id="listViewContainer">
+        <div class="loading-overlay" id="loadingList"><div class="spinner"></div></div>
+        <div class="row" style="margin-bottom:10px;">
+            <div class="col-xs-8">
+                <select id="listSearchField" class="form-control input-sm">
+                    <option value="CUSNAM">CUSNAM</option>
+                    <option value="CUSCOD">CUSCOD</option>
+                    <option value="SLMCOD">SLMCOD</option>
+                    <option value="Confirmed">Confirmed</option>
+                </select>
+            </div>
+            <div class="col-xs-4">
+                <input id="listSearchValue" class="form-control input-sm" placeholder="ค้นหา..." />
+            </div>
+        </div>
+        <div id="listResultCount" class="text-muted" style="font-size:12px; margin-bottom:8px;"></div>
+        <div id="listCardsWrapper"></div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+<script>
+    var table, chart, searchTimer;
+    var currentData = [];
+    var currentViewMode = localStorage.getItem('reserveViewMode') || 'table';
+    var isGraphVisible = false;
+
+    // ชุดสีสำหรับแท่งกราฟแต่ละแท่ง (ให้ดูมีชีวิตชีวาขึ้นกว่าสีเดียวทั้งหมด)
+    var chartColors = ['#2563eb', '#0ea5e9', '#06b6d4', '#16a34a', '#f59e0b', '#ef4444'];
+
+    $(function () {
+        table = $('#tblReserve').DataTable({
+            columns: [
+                { data: 'CUSCOD',        defaultContent: '' },
+                { data: 'SLMCOD',        defaultContent: '' },
+                { data: 'CUSNAM',        defaultContent: '' },
+                { data: 'Confirmed',     defaultContent: '' },
+                { data: 'Actual',        defaultContent: '' },
+                { data: 'GroupName',     defaultContent: '' },
+                { data: 'Package',       defaultContent: '' },
+                { data: 'LoyaltyGroup',  defaultContent: '' },
+                { data: 'Reserve1',      defaultContent: '' },
+                { data: 'Reserve2',      defaultContent: '' },
+                { data: 'Reserve3',      defaultContent: '' },
+                { data: 'ReserveTB',     defaultContent: '' },
+                { data: 'ConfirmDinner', defaultContent: '' }
+            ],
+            autoWidth: false,
+            paging: true,
+            pageLength: 20,
+            searching: false,
+            scrollX: true,
+            initComplete: function () {
+                this.api().columns.adjust();
+            }
+        });
+
+        Chart.register(ChartDataLabels);
+
+        var ctx = document.getElementById('summaryChart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: { labels: [], datasets: [{ label: 'สรุปยอดรวม', data: [], backgroundColor: chartColors }] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { top: 24 } },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#334155',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: function (value) { return value > 0 ? value : ''; }
+                    }
+                }
+            }
+        });
+
+        switchViewMode(currentViewMode, true);
+        loadData();
+
+        $('#filterPanel').on('keydown', 'input[type="text"]', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                loadData();
+            }
+        });
+
+        $('#listSearchValue, #listSearchField').on('keyup change', function () {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(loadData, 350);
+        });
+
+        $(window).on('resize', function () {
+            if (table) { table.columns.adjust(); }
+        });
+    });
+
+    // ============ Toggle View Mode ============
+    function switchViewMode(mode, skipRender) {
+        currentViewMode = mode;
+        localStorage.setItem('reserveViewMode', mode);
+
+        if (mode === 'table') {
+            $('#tableViewContainer').show();
+            $('#filterPanel').show();
+            $('#listViewContainer').hide();
+            $('#btnTableMode').addClass('active');
+            $('#btnListMode').removeClass('active');
+            if (table) { table.columns.adjust(); }
+        } else {
+            $('#tableViewContainer').hide();
+            $('#filterPanel').hide();
+            $('#listViewContainer').show();
+            $('#btnListMode').addClass('active');
+            $('#btnTableMode').removeClass('active');
+            if (!skipRender) { renderListView(currentData); }
+        }
+    }
+
+    // ============ Toggle Graph ============
+    function toggleGraph() {
+        isGraphVisible = !isGraphVisible;
+        var $container = $('#chartContainer');
+        var $btn = $('#btnToggleGraph');
+
+        if (isGraphVisible) {
+            $container.show();
+            $btn.html('<span class="glyphicon glyphicon-eye-close"></span> ซ่อนกราฟ');
+            chart.resize();
+            loadData();
+        } else {
+            $container.hide();
+            $btn.html('<span class="glyphicon glyphicon-eye-open"></span> แสดงกราฟ');
+        }
+    }
+
+    // ============ Refresh ============
+    function refreshData() {
+        var $btn = $('#btnRefresh');
+        var $icon = $('#refreshIcon');
+        if ($btn.prop('disabled')) return;
+
+        $btn.prop('disabled', true);
+        $icon.addClass('refresh-spinning');
+
+        loadDataWithCallback(function () {
+            $btn.prop('disabled', false);
+            $icon.removeClass('refresh-spinning');
+        });
+    }
+
+    // ============ Clear Filters ============
+    function clearFilters() {
+        $('#filterPanel input[data-field]').val('');
+        $('#filterPanel input[data-gt0-field]').prop('checked', false);
+        loadData();
+    }
+
+    // ============ Collect Filters ============
+    function collectFilters() {
+        var filter = {};
+
+        if (currentViewMode === 'table') {
+            $('#filterPanel input[data-field]').each(function () {
+                var field = $(this).data('field');
+                var val = $(this).val();
+                if (val) filter[field] = val;
+            });
+
+            $('#filterPanel input[data-gt0-field]').each(function () {
+                var field = $(this).data('gt0-field');
+                if ($(this).is(':checked')) {
+                    filter[field] = true;
+                }
+            });
+        } else {
+            var field = $('#listSearchField').val();
+            var val = $('#listSearchValue').val();
+            if (val) filter[field] = val;
+        }
+        return filter;
+    }
+
+    // ============ Loading Spinner ============
+    function showLoading(mode) {
+        if (mode === 'table') $('#loadingTable').addClass('active');
+        else $('#loadingList').addClass('active');
+    }
+    function hideLoading(mode) {
+        if (mode === 'table') $('#loadingTable').removeClass('active');
+        else $('#loadingList').removeClass('active');
+    }
+
+    // ============ Load Data ============
+    function loadData() {
+        loadDataWithCallback();
+    }
+
+    function loadDataWithCallback(onComplete) {
+        var filter = collectFilters();
+        showLoading(currentViewMode);
+
+        var searchRequest = $.getJSON('@Url.Action("Search", "Reserve")', filter, function (data) {
+            currentData = data;
+
+            table.clear();
+            table.rows.add(data);
+            table.draw();
+
+            if (currentViewMode === 'list') {
+                renderListView(data);
+            }
+        });
+
+        var chartRequest = isGraphVisible
+            ? $.getJSON('@Url.Action("ChartData", "Reserve")', filter, function (summary) {
+                chart.data.labels = summary.labels;
+                chart.data.datasets[0].data = summary.values;
+                chart.update();
+            })
+            : $.Deferred().resolve();
+
+        $.when(searchRequest, chartRequest)
+            .always(function () {
+                hideLoading(currentViewMode);
+                if (typeof onComplete === 'function') onComplete();
+            });
+
+        searchRequest.fail(function () {
+            hideLoading(currentViewMode);
+            if (typeof onComplete === 'function') onComplete();
+            alert('ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
+        });
+    }
+
+    // ============ Render Card List ============
+    function renderListView(data) {
+        var $wrapper = $('#listCardsWrapper');
+        $wrapper.empty();
+        $('#listResultCount').text('พบ ' + data.length + ' รายการ');
+
+        if (data.length === 0) {
+            $wrapper.html('<div class="text-muted" style="padding:20px; text-align:center;">ไม่พบข้อมูล</div>');
+            return;
+        }
+
+        $.each(data, function (i, row) {
+            var html =
+                '<div class="card-item">' +
+                    '<div class="card-title">' + escapeHtml(row.CUSNAM || '-') + '</div>' +
+                    '<div class="card-sub">' + escapeHtml(row.CUSCOD || '') + ' &middot; ' + escapeHtml(row.SLMCOD || '') + '</div>' +
+                    '<div class="card-grid">' +
+                        '<div><div class="label">Reserve(Dinner)</div><div class="value">' + escapeHtml(row.Reserve1 || '-') + '</div></div>' +
+                        '<div><div class="label">Reserve(EV)</div><div class="value">' + escapeHtml(row.Reserve2 || '-') + '</div></div>' +
+                        '<div><div class="label">Reserve(Dinner)</div><div class="value">' + escapeHtml(row.Reserve3 || '-') + '</div></div>' +
+                    '</div>' +
+                '</div>';
+            $wrapper.append(html);
+        });
+    }
+
+    function escapeHtml(str) {
+        return $('<div>').text(str).html();
+    }
+</script>

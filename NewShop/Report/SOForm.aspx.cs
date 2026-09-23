@@ -17,10 +17,11 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 using System.Net;
-
+using NewShop.Attributes;
 
 namespace OrderingMobile.Report
 {
+    //[Permission("Cart.Full", "ConfirmOrder.Full")]
     public partial class SOForm : System.Web.UI.Page
     {
        
@@ -50,11 +51,11 @@ namespace OrderingMobile.Report
             string conString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;        
             using (SqlConnection con = new SqlConnection(conString))
             {
-                using (SqlDataAdapter sda1 = new SqlDataAdapter(string.Format("exec P_SaleOrderPrint_TD_catalog @inSONumber='{0}'", SONUM), con))
+                using (SqlDataAdapter sda1 = new SqlDataAdapter(string.Format("exec P_SaleOrderPrint_TD_catalog_history @inSONumber='{0}'", SONUM), con))
                 {
                     sda1.Fill(ds1, "DataSet1");                 
                 }
-                using (SqlDataAdapter sda2 = new SqlDataAdapter(string.Format("exec P_SaleOrderPrint_TH_catalog @inSONumber='{0}'", SONUM), con))
+                using (SqlDataAdapter sda2 = new SqlDataAdapter(string.Format("exec P_SaleOrderPrint_TH_catalog_history @inSONumber='{0}'", SONUM), con))
                 {
                     sda2.Fill(ds1, "DataSet2");
                 }

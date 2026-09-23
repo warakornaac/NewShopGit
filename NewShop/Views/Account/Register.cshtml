@@ -228,6 +228,7 @@
                                         <input type="password" class="form-control input-form" id="r_pass" name="r_pass" title="Enter password" placeholder="Password" required>
                                         <a href="" class="btn border d-flex align-items-center justify-content-center input-form rounded-end" title="Show Password"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                     </div>
+                                    <span id="r_pass_error" class="text-danger" style="display:none;"></span>
                                 </div>
                             </div>
 
@@ -321,6 +322,49 @@
                 }
 
             });
+            var minLength = 8;
+            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/; // ต้องมีพิมพ์เล็ก, พิมพ์ใหญ่, ตัวเลข
+
+            function validatePassword() {
+                var password = $('#r_pass').val();
+
+                if (password.length === 0) {
+                    showError('กรุณากรอกรหัสผ่าน');
+                    return false;
+                } else if (password.length <= minLength) {
+                    showError('รหัสผ่านต้องมีความยาวมากกว่า ' + minLength + ' ตัวอักษร');
+                    return false;
+                } else if (!passwordPattern.test(password)) {
+                    showError('รหัสผ่านต้องมีตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลขอย่างน้อยอย่างละ 1 ตัว');
+                    return false;
+                } else {
+                    hideError();
+                    return true;
+                }
+            }
+
+            function showError(message) {
+                $('#r_pass_error').text(message).show();
+                $('#r_pass').addClass('is-invalid');
+            }
+
+            function hideError() {
+                $('#r_pass_error').hide();
+                $('#r_pass').removeClass('is-invalid');
+            }
+
+            // Real-time validation ตอนพิมพ์
+            $('#r_pass').on('keyup blur', function () {
+                validatePassword();
+            });
+
+            // เช็คตอน submit form (แก้ 'formId' เป็น id ของ form จริง)
+            $('#formId').on('submit', function (e) {
+                if (!validatePassword()) {
+                    e.preventDefault();
+                    $('#r_pass').focus();
+                }
+            });
         });
         const Toast = Swal.mixin({
             toast: true,
@@ -384,8 +428,13 @@
                 alert("Please enter a password");
                 return false;
             }
-            if (pass.length < 6) {
-                alert("Please enter a password with at least 6 characters.");
+            if (pass.length < 9) {
+                alert("Please enter a password with at least 8 characters.");
+                return false;
+            }
+            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+            if (!passwordPattern.test(pass)) {
+                alert("รหัสผ่านต้องมีความยาวมากกว่า 8 ตัวอักษร และประกอบด้วยตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลขอย่างน้อยอย่างละ 1 ตัว");
                 return false;
             }
             else {

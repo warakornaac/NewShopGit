@@ -11,10 +11,15 @@ using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
 using NewShop.Attributes;
+using NewShop.Helpers;
+using System.Globalization;
 
 namespace NewShop.Controllers
 {
-    [Permission("ShoppingOld.Full")]
+    [Permission("ShoppingOld.Full",
+        "ShoppingNew.Full",
+        "PriceApproval.Full"
+     )]
     public class ShoppinglistController : Controller
     {
         //
@@ -110,8 +115,9 @@ namespace NewShop.Controllers
             string substkgrp = string.Empty;
             //PricelistpageingSearch Model = null;
             //List<ListPagedList> Getdata = new List<ListPagedList>();
-            try
-            {
+            long signatureTimestamp = PriceSignatureHelper.GetCurrentTimestamp();
+
+            try {
                 var command = new SqlCommand("P_Search_Pricelist", Connection);
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -129,6 +135,19 @@ namespace NewShop.Controllers
                 while (dr.Read())
                 {
                     Model = new PricelistpageingSearch();
+                    string stkcod = dr["STKCOD"].ToString();
+                    string price = dr["Price"].ToString();   // เก็บไว้แสดงผลตามเดิม (string)
+
+                    // แปลงเป็น decimal เพื่อใช้ generate signature เท่านั้น
+                    decimal priceValue;
+                    if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out priceValue)) {
+                        // Log ไว้ตรวจสอบ: ราคาจาก DB แปลงเป็นตัวเลขไม่ได้ ถือเป็นข้อมูลผิดปกติ
+                        // Logger.Warn($"Cannot parse price for ItemNo={stkcod}, RawPrice='{price}'");
+                        priceValue = 0m;
+                    }
+
+                    // sign เฉพาะ ItemNo + Price (ราคาจริงที่ใช้คำนวณ/บันทึกคำสั่งซื้อ) + timestamp
+                    string signature = PriceSignatureHelper.GenerateSignature(stkcod, priceValue, signatureTimestamp);
 
                     Model.PRCLST_NO = dr["PRCLST_NO"].ToString();
                     Model.PEOPLE = dr["PEOPLE"].ToString();
@@ -230,6 +249,9 @@ namespace NewShop.Controllers
                     Model.ReworkClearance = dr["ReworkClearance"].ToString();
                     //Model.expired = dr["expired"].ToString();
                     //Model.itemblock = dr["itemblock"].ToString();
+                    // เพิ่มใหม่: ใช้ยืนยันตอนสั่งซื้อ/บันทึก
+                    Model.Timestamp = signatureTimestamp;
+                    Model.Signature = signature;
                     Getdata.Add(new ListPagedList { val = Model });
                 }
                 dr.Close();
@@ -286,10 +308,23 @@ namespace NewShop.Controllers
             List<ItemFoc> _ItemListFoc = new JavaScriptSerializer().Deserialize<List<ItemFoc>>(DataSendPro);
             string messagereturn = string.Empty;
             SqlTransaction trans = null;
-            try
-            {
+            const string PriceTamperedPrefix = "PRICE_TAMPERED|";
+
+            try {
                 if (_ItemList.Count > 0)
                 {
+                    // ---------- STEP 1: Verify signature ทุก item ก่อนบันทึกใด ๆ ----------
+                    foreach (var item in _ItemList) {
+                        decimal priceValue;
+                        decimal.TryParse(item.SalePrice, NumberStyles.Any, CultureInfo.InvariantCulture, out priceValue);
+                        bool isValid = PriceSignatureHelper.VerifySignature(item.STKCOD, priceValue, item.Timestamp, item.Signature);
+
+                        if (!isValid) {
+                            // Logger.Warn($"Price tampering detected: ItemNo={item.STKCOD}, Price={item.Price}");
+                            messagereturn = PriceTamperedPrefix + $"ราคาสินค้า {item.STKCOD} ไม่ถูกต้อง กรุณาโหลดรายการใหม่";
+                            return Json(messagereturn, JsonRequestBehavior.AllowGet);
+                        }
+                    }
                     for (int i = 0; i < _ItemList.Count; i++)
                     {
                         SqlCommand cmd = new SqlCommand("p_SaveOrderCart", Connection);
@@ -335,24 +370,10 @@ namespace NewShop.Controllers
                         cmd.Parameters.AddWithValue("@Customer", _ItemListFoc[i].VCUSCOD);
                         cmd.Parameters.AddWithValue("@STKCOD", _ItemListFoc[i].VSTKCOD);
                         cmd.Parameters.AddWithValue("@Company", _ItemListFoc[i].VCompany);
-                        //cmd.Parameters.AddWithValue("@Price", "0");
-                        //cmd.Parameters.AddWithValue("@SPrice", "0");
-                        //cmd.Parameters.AddWithValue("@Expect_Price", "0");
-                        //cmd.Parameters.AddWithValue("@Qty", "0");
                         cmd.Parameters.AddWithValue("@Bckorder", _ItemListFoc[i].Backorderfoc);
                         cmd.Parameters.AddWithValue("@InsertedBy", User);
                         cmd.Parameters.AddWithValue("@LineNote", _ItemListFoc[i].VLineNote);
                         cmd.Parameters.AddWithValue("@FOC", _ItemListFoc[i].VQty);
-                        //cmd.Parameters.AddWithValue("@ProCode", "");
-                        //cmd.Parameters.AddWithValue("@minord", "NULL");
-                        //cmd.Parameters.AddWithValue("@prclstno", "NULL");
-                        //cmd.Parameters.AddWithValue("@specprice", "0");
-                        //cmd.Parameters.AddWithValue("@promoprice","0");
-                        //cmd.Parameters.AddWithValue("@promodesc", "");
-                        //cmd.Parameters.AddWithValue("@lastinvprice","0");
-                        //cmd.Parameters.AddWithValue("@lastinvdate", "");
-
-
 
 
                         SqlParameter returnValue = new SqlParameter("@outGenstatus", SqlDbType.NVarChar, 100);

@@ -1448,6 +1448,8 @@
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '</div>';
                         // SubmithtmlPage += '</form>';
+                        SubmithtmlPage += '<div id="rattimestamp' + (i + 1) + 'a" style="display:none">' + data[i].val.Timestamp + '</div>';
+                        SubmithtmlPage += '<div id="ratsignature' + (i + 1) + 'a" style="display:none">' + data[i].val.Signature + '</div>';
                         SubmithtmlPage += '</div>';
                         SubmithtmlPage += '</div>';
 
@@ -1584,7 +1586,7 @@
             var res = idbt.substr(14, 2);
 
             var customer = cuscod;
-            var stkcod = $("#_udernumber").val();
+            var stkcod = $("#_udernumber").val().replace(/\s+$/, '');
             var company = $("#_udercompan").val();
             var qty = $("#qty" + res).val();
             var bckorder = $("#bckorder" + res).val();
@@ -1615,26 +1617,6 @@
                 $(".fv-btn").attr("disabled", false)
                 return false;
             }
-            //if (qty == "") {
-            //    if (foc == "0") {
-            //        $("#textAlertWarninglog").empty();
-            //        $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
-            //        $("#myModalWarninglog").modal();
-            //        $(".fv-btn").attr("disabled", false)
-            //        return false;
-            //    }
-                //else if (typeof focvalue === "undefined") {
-                //    $("#textAlertWarninglog").empty();
-                //    $("#textAlertWarninglog").text("กรุณาใส่จำนวนสั่งซื้อ");
-                //    $("#myModalWarninglog").modal();
-                //    $(".fv-btn").attr("disabled", false)
-                //    return false;
-                //}
-            //}
-
-            //else  {
-            //    foc = "0"
-            //}
 
             if (foc == "0") {
                 if (sprice == "0") {
@@ -1700,10 +1682,11 @@
             var lastinvprice = $("#lastinvprice" + res).val();
             var lastinvdate = $("#lastinvdate" + res).val();
 
-
             //List ARM 19/11/2025
             var spcremark = $('.spc_remark').val();
             var stkgrp = $('#STKGRP' + res).val();
+            var Timestamp = $('#rattimestamp' + res).html();
+            var Signature = $('#ratsignature' + res).html();
 
             console.log(`STKGRP = ${stkgrp}`);
 
@@ -1731,7 +1714,9 @@
                 PromoMOQ: '',
                 LastInvPrice: lastinvprice,
                 LastInvdate: lastinvdate,
-                Sop:'0'
+                Sop: '0',
+                Timestamp: Timestamp,
+                Signature: Signature
             }
             if (ItemList.ExpectPrice != "0") {
                 if (spcremark == "") {
@@ -1742,14 +1727,14 @@
                     return false;
                 }
             }
-            console.log("ItemList.Qty = " + ItemList.Qty);
-            console.log("ItemList.Qtybo = " + ItemList.Qtybo);
+            //console.log("ItemList.Qty = " + ItemList.Qty);
+            //console.log("ItemList.Qtybo = " + ItemList.Qtybo);
 
             if ((ItemList.Qty && ItemList.Qty !== "0")) {
                 data.push(ItemList);
             }
             var DataSend = JSON.stringify(data);
-            //console.log("DataSend = " + DataSend);
+            console.log("DataSend = " + DataSend);
             //cal Backorderfoc
             //ถ้ามี FOC
             var focBackOrder = "";
@@ -1786,18 +1771,6 @@
 
             var DataSendPro = JSON.stringify(dataPro);
             //console.log("DataSendPro = " + DataSendPro);
-
-
-
-            //if (data.length == 0) {
-            //    if (dataPro.length == 0) {
-            //        $(".fv-btn").attr("disabled", false)
-            //        $("#textAlertWarning").empty();
-            //        $("#textAlertWarning").text("ไม่มีสินค้าที่จะสั่งซื้อ");
-            //        $("#myModalWarning").modal();
-            //        return false;
-            //    }
-            //}
             if (data.length == 0 && dataPro.length == 0) {
                 $(".fv-btn").attr("disabled", false)
                 $("#textAlertWarning").empty();
@@ -1831,7 +1804,19 @@
                         countorder();
                         setTimeout(function () { window.close() }, 2000); //2วิ
 
-                    } else {
+                    } else if (typeof data === "string" && data.indexOf("PRICE_TAMPERED|") === 0) {
+                        // ---------- กรณีตรวจพบราคาถูกแก้ไข (signature ไม่ผ่าน) ----------
+                        var tamperedMsg = data.substring("PRICE_TAMPERED|".length);
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text(tamperedMsg);
+                        $("#myModalWarninglog").modal();
+                        $(".fv-btn").attr("disabled", false)
+
+
+                        // แนะนำ: บังคับโหลดรายการใหม่ทันทีเพื่อความปลอดภัย ป้องกันผู้ใช้กดซ้ำด้วยข้อมูลเดิมที่ถูกแก้ไข
+                        // setTimeout(function () { location.reload(); }, 2000);
+
+                    }else {
                         $("#textAlertWarninglog").empty();
                         $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
                         $("#myModalWarninglog").modal();

@@ -1,0 +1,124 @@
+﻿@model NewShop.Models.ProductModel
+
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+@if (TempData["Success"] != null) {
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@using (Html.BeginForm("Save", "EncryptPrice", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.ProductId)
+
+    @Html.HiddenFor(m => m.Signature)
+
+    <div class="form-group">
+
+        <label>Product ID</label>
+
+        @Html.TextBoxFor(
+            m => m.ProductId,
+            new {
+                @class = "form-control",
+               // @readonly = "readonly"
+            })
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Price</label>
+
+        @Html.TextBoxFor(
+            m => m.Price,
+            new {
+                @class = "form-control"
+            })
+
+        @Html.ValidationMessageFor(
+            m => m.Price)
+
+
+
+    </div>
+    <div class="form-group">
+
+        <label>Signature</label>
+
+        @Html.TextBoxFor(
+            m => m.Signature,
+            new {
+                @class = "form-control",
+               // @readonly = "readonly",
+                style = "width: 600px;"
+            })
+
+    </div>
+    <div class="form-group">
+
+        <label>OldPrice</label>
+
+        @Html.TextBoxFor(
+            m => m.OldPrice,
+            new {
+                @class = "form-control",
+                @readonly = "readonly",
+            })
+
+        @Html.ValidationMessageFor(
+            m => m.OldPrice)
+
+
+
+    </div>
+    <br>
+    if (ViewBag.VerifyResult != null) {
+        <div class="alert @(ViewBag.VerifyResult ? "alert-success" : "alert-danger")">
+
+            <strong>@ViewBag.VerifyMessage</strong>
+
+            <hr />
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Client Signature</th>
+                    <td style="word-break:break-all">
+                        @ViewBag.ClientSignature
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Server Signature</th>
+                    <td style="word-break:break-all">
+                        @ViewBag.ServerSignature
+                    </td>
+                </tr>
+                <tr>
+                    <th>Final Price</th>
+                    <td style="word-break:break-all">
+                        @ViewBag.FinalPrice
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    }
+
+    <br />
+
+    <button type="submit"
+            class="btn btn-primary">
+
+        Save
+
+    </button>
+}

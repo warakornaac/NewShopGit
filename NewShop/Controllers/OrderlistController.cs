@@ -14,10 +14,13 @@ using System.Data.OleDb;
 using System.Configuration;
 using System.Data.SqlClient;
 using NewShop.Attributes;
+using NewShop.Helpers;
+using System.Globalization;
+
 
 namespace NewShop.Controllers
 {
-    [Permission("CheckStock.View")]
+    [Permission("ShoppingNew.Full")]
     public class OrderlistController : Controller
     {
         //
@@ -315,20 +318,31 @@ namespace NewShop.Controllers
             string lastinvprice = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
-            Connection.Open();
+
             string message = "false";
             List<ItemListshop> _ItemList = new JavaScriptSerializer().Deserialize<List<ItemListshop>>(DataSend);
             PricelistpageingSearch Model = null;
             List<ListPagedList> Getdata = new List<ListPagedList>();
-            //var Getdata = new List<object>();
+            const string PriceTamperedPrefix = "PRICE_TAMPERED|";
             try
             {
                 if (_ItemList.Count > 0)
                 {
+                    // ---------- STEP 1: Verify signature ทุก item ก่อนบันทึกใด ๆ ----------
+                    foreach (var item in _ItemList) {
+                        decimal priceValue;
+                        decimal.TryParse(item.Price, NumberStyles.Any, CultureInfo.InvariantCulture, out priceValue);
+                        bool isValid = PriceSignatureHelper.VerifySignature(item.STKCOD, priceValue, item.Timestamp, item.Signature);
+
+                        if (!isValid) {
+                            // Logger.Warn($"Price tampering detected: ItemNo={item.STKCOD}, Price={item.Price}");
+                            message = PriceTamperedPrefix + $"ราคาสินค้า {item.STKCOD} ไม่ถูกต้อง กรุณาโหลดรายการใหม่";
+                            return Json(message, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    Connection.Open();
                     for (int i = 0; i < _ItemList.Count; i++)
                     {
-                        //var root = @"..\IMAGE_B\";
-
                         SqlCommand cmd = new SqlCommand("p_SaveOrderCart", Connection);
                             cmd.Connection = Connection;
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -340,17 +354,8 @@ namespace NewShop.Controllers
                             cmd.Parameters.AddWithValue("@SPrice", _ItemList[i].Price);
                             cmd.Parameters.AddWithValue("@Expect_Price", "0.00");
                             cmd.Parameters.AddWithValue("@specprice", _ItemList[i].SpcPrice);
-                            //cmd.Parameters.AddWithValue("@specprice", "0.00");
                             cmd.Parameters.AddWithValue("@promoprice", _ItemList[i].PromoPrice);
                             cmd.Parameters.AddWithValue("@lastinvprice", "0.00");
-
-                            //cmd.Parameters.AddWithValue("@Price", "10.00");
-                            //cmd.Parameters.AddWithValue("@SPrice", "10.00");
-                            //cmd.Parameters.AddWithValue("@Expect_Price", "0.00");
-                            //cmd.Parameters.AddWithValue("@specprice", "10.00");
-                            //cmd.Parameters.AddWithValue("@promoprice", "10.00");
-                            //cmd.Parameters.AddWithValue("@lastinvprice", "10.00");
-
 
                             cmd.Parameters.AddWithValue("@Qty", _ItemList[i].Qty);
                             cmd.Parameters.AddWithValue("@Bckorder", "0");
@@ -360,7 +365,6 @@ namespace NewShop.Controllers
                             cmd.Parameters.AddWithValue("@ProCode", _ItemList[i].PromotionCode);
                             cmd.Parameters.AddWithValue("@minord", _ItemList[i].Moq);
                             cmd.Parameters.AddWithValue("@prclstno", _ItemList[i].PRCLST_NO);
-                            //cmd.Parameters.AddWithValue("@prclstno", "0.00");
                             cmd.Parameters.AddWithValue("@promodesc", _ItemList[i].PromoDesc);
                            
                             cmd.Parameters.AddWithValue("@lastinvdate", "");
@@ -371,14 +375,10 @@ namespace NewShop.Controllers
                             cmd.ExecuteNonQuery();
                             message = returnValue.Value.ToString();
 
-
-                       
-               
-                       
                         cmd.Dispose();
                      }
                         Connection.Close();
-                    
+
                 }
             }
             catch (Exception ex)

@@ -2065,7 +2065,8 @@
                     productline: productline,
                     itemsegment: _itemsegment,
                     sortby: sortby,
-                    usrtyp: usertype
+                    usrtyp: usertype,
+                    usrId: userid
                 },
                 success: function (data) {
                     //$tbody.find('.loading-row').remove();
@@ -2132,6 +2133,8 @@
             var txtShowStock = "";
             var ItemCompany ="";
             var TextItemCompany = "";
+            var SetTimestamp = "";
+            var SetSignature = "";
             ItemCompany = employees.Company;
             ItemNo = employees.ItemNo;
             Supdescri = employees.Description;
@@ -2153,6 +2156,8 @@
             Maxord = employees.maxord;
             moq = employees.minord;
             spackuom = employees.spackuom;
+            SetTimestamp = employees.Timestamp;
+            SetSignature = employees.Signature;
             if (Available_Stock != "Y") {
                 Stravailable_Stock = "Sold out"
                 Stravailable_Stock = "";
@@ -2248,7 +2253,7 @@
             SubmithtmlPage += '<div class="img-wrap" style="margin-right: 6px;"><img src="' + strphsrc + '"  class="img-thumbnail img-sm" style="width: 65px;"></div>';
             SubmithtmlPage += '<div style="width: 10%;">' + imgpromotion + '</div>';
             SubmithtmlPage += '<figcaption class="media-body" style="width: 500px;">';
-            SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + ' </a>' + '<span style="color: #0068c1;font-size: 14px; font-weight: 100;padding-left: 5px;">' + TextItemCompany + '</span>';
+            SubmithtmlPage += '<a class="STKCODdiv" ' + idlink + '  card__buy=' + CryptoJS.AES.encrypt(Company, 'secret key 123') + ' card__item="' + CryptoJS.AES.encrypt(ItemNo, 'secret key 123') + '">' + ItemNo + '</a>' + '<span style="color: #0068c1;font-size: 14px; font-weight: 100;padding-left: 5px;">' + TextItemCompany + '</span>';
 
             SubmithtmlPage += '<dl class="param param-inline small">';
             SubmithtmlPage += '<div>' + fastar + '</div>';
@@ -2317,6 +2322,8 @@
             //linenote
             SubmithtmlPage += '<td>';
             SubmithtmlPage += '<input  name="S_Linenote" class="tlinenote" style=" background-color:white;' + displbut + '">';
+            SubmithtmlPage += '<div class="rattimestamp" style="display:none">' + SetTimestamp + '</div>' +
+                '<div class="ratsignature" style="display:none">' + SetSignature + '</div>';
             SubmithtmlPage += '</td>';
             SubmithtmlPage += '</tr>';
             return SubmithtmlPage;
@@ -2502,17 +2509,22 @@
 
                 var MyIndexValuerrttprclst;
                 MyIndexValuerrttprclst = $(MyRows[i]).find('td .rttprclst').html();
-
                 var byterttprclst = CryptoJS.AES.decrypt(MyIndexValuerrttprclst.toString(), 'secret key 123');
                 MyIndexValuerrttprclst = byterttprclst.toString(CryptoJS.enc.Utf8);
-                //ratplc = PlcPrice
-                //ratprc = SalePrice
-                //ratspc = SpcPrice
-                //ratprcod = PromotionCode
-                //ratprde = PromoDesc
-                //ratprpr = PromoPrice  .replace(',', '').replace(' ', '').replace(',', '').replace(' ', '')
-                //(age >= 21) ? "Beer" : "Juice";
 
+
+                // ---------- เพิ่มใหม่: อ่าน Timestamp / Signature ต่อแถว (ไม่ต้อง decrypt) ----------
+                //var MyIndexValueTimestamp;
+                //MyIndexValueTimestamp = $(MyRows[i]).find('td .rattimestamp').html();
+                //var byterttTimestamp = CryptoJS.AES.decrypt(MyIndexValueTimestamp.toString(), 'secret key 123');
+                //MyIndexValueTimestamp = byterttTimestamp.toString(CryptoJS.enc.Utf8);
+
+                //var MyIndexValueSignature;
+                //MyIndexValueSignature = $(MyRows[i]).find('td .ratsignature').html();
+                //var byterttSignature = CryptoJS.AES.decrypt(MyIndexValueSignature.toString(), 'secret key 123');
+                //MyIndexValueSignature = byterttSignature.toString(CryptoJS.enc.Utf8);
+                var MyIndexValueTimestamp = $(MyRows[i]).find('.rattimestamp').html();
+                var MyIndexValueSignature = $(MyRows[i]).find('.ratsignature').html();
 
                 var ItemList = {
                     CUSCOD: cuscod.toUpperCase(),
@@ -2528,7 +2540,9 @@
                     PromotionCode: MyIndexValueratprcod,
                     PromoDesc: MyIndexValueratprde,
                     PromoPrice: (MyIndexValuerratprpr.replace(',', '').replace(' ', '').replace(',', '').replace(' ', '') != "0" ) ? MyIndexValuerratprpr.replace(',', '').replace(' ', '').replace(',', '').replace(' ', '') : "0.00",
-                    PRCLST_NO: MyIndexValuerrttprclst
+                    PRCLST_NO: MyIndexValuerrttprclst,
+                    Timestamp: MyIndexValueTimestamp,
+                    Signature: MyIndexValueSignature
                 };
 
                 if (ItemList.Qty != "") {
@@ -2541,7 +2555,7 @@
             }
 
             var DataSend = JSON.stringify(data);
-
+            console.log('DataSend:', DataSend);
             if (data.length == 0 ) {
                 $("#btnsubmitinsert").attr("disabled", false);
                 $("#textAlertWarning").empty();
@@ -2562,22 +2576,32 @@
                 dataType: "JSON",
                 success: function (data) {
                     if (data == "Y") {
+                        // ---------- กรณีบันทึกสำเร็จ ----------
                         $("#btnsubmitinsert").attr("disabled", false);
                         $("#fixed-table-container-1 > tbody").empty();
                         $("#example1 > tbody").empty();
                         $("#textAlertSucces").empty();
                         $("#textAlertSucces").text("บันทึกสินค้าเข้าตะกร้าสำเร็จ");
                         $("#myModalSucces").modal();
-                        ShoppingCartNumber()
-                        //location.reload();
-                        //setTimeout(function () { window.close() }, 2000); //2วิ
+                        ShoppingCartNumber();
+
+                    } else if (typeof data === "string" && data.indexOf("PRICE_TAMPERED|") === 0) {
+                        // ---------- กรณีตรวจพบราคาถูกแก้ไข (signature ไม่ผ่าน) ----------
+                        var tamperedMsg = data.substring("PRICE_TAMPERED|".length);
+                        $("#btnsubmitinsert").attr("disabled", false);
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text(tamperedMsg);
+                        $("#myModalWarninglog").modal();
+
+                        // แนะนำ: บังคับโหลดรายการใหม่ทันทีเพื่อความปลอดภัย ป้องกันผู้ใช้กดซ้ำด้วยข้อมูลเดิมที่ถูกแก้ไข
+                        // setTimeout(function () { location.reload(); }, 2000);
 
                     } else {
+                        // ---------- กรณี error อื่น ๆ ทั่วไป ----------
                         $("#btnsubmitinsert").attr("disabled", false);
                         $("#textAlertWarninglog").empty();
                         $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
                         $("#myModalWarninglog").modal();
-
                     }
                 }
 

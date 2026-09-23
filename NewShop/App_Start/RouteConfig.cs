@@ -18,6 +18,15 @@ namespace NewShop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "LogIn", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "NotFound",
+                url: "{*url}",
+                defaults: new {
+                    controller = "AppError",
+                    action = "Index",
+                    statusCode = 404
+                }
+            );
         }
     }
 }

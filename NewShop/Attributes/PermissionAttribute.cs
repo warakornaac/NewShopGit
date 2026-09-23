@@ -76,7 +76,7 @@ namespace NewShop.Attributes
                 new RedirectToRouteResult(
                     new RouteValueDictionary
                     {
-                    { "controller","Error" },
+                    { "controller","AppError" },
                     { "action","Index" },
                     { "statusCode",403 }
                     });

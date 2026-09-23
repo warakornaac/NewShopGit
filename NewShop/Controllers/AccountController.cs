@@ -16,8 +16,10 @@ using System.IO;
 using System.Web.Hosting;
 using NewShop.Filters;
 using NewShop.Service;
+using NewShop.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace NewShop.Controllers
 {
@@ -25,6 +27,7 @@ namespace NewShop.Controllers
     {
         //global variable
         string _Userlineid = string.Empty;
+        private string ldapError;
         // GET: /Account/
         public ActionResult Index() {
 
@@ -169,26 +172,506 @@ namespace NewShop.Controllers
         [HttpGet]
         [AllowAnonymous]
 
-        public ActionResult LogIn() {
-            //Session.Abandon();
-            //FormsAuthentication.SignOut();
-            if (Session["UserType"] != null && Session["UserType"].ToString() != "") {
-                string userType = Session["UserType"].ToString();
+        //public ActionResult LogIn() {
+        //    //Session.Abandon();
+        //    //FormsAuthentication.SignOut();
+        //    if (Session["UserType"] != null && Session["UserType"].ToString() != "") {
+        //        string userType = Session["UserType"].ToString();
 
-                if (userType == "5") {
-                    return RedirectToAction("Index", "PriceApproval");
-                }
-                else {
-                    return RedirectToAction("dashboard", "SeleScrCustomer");
-                }
-            }
+        //        if (userType == "5") {
+        //            return RedirectToAction("Index", "PriceApproval");
+        //        }
+        //        else {
+        //            return RedirectToAction("dashboard", "SeleScrCustomer");
+        //        }
+        //    }
+
+        //    return View();
+        //}
+        public ActionResult LogIn() {
+            int failCount = 0;
+            if (Request.Cookies["lfc"] != null)
+                int.TryParse(Request.Cookies["lfc"].Value, out failCount);
+
+            FormsAuthentication.SignOut();
+            Session.Clear();
+
+            if (failCount >= 3)
+                TempData["ShowRecaptcha"] = true;
+
+            this.Session["LoginSystem"] = "";
+            this.Session["UserType"] = "";
 
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
 
+        //public ActionResult LogIn(LoginUserViewModel User) {
+        //    Session.Clear();
+        //    // ป้องกัน login ซ้ำถ้ายังมี session อยู่
+        //    if (Session["UserType"] != null && Session["UserType"].ToString() != "") {
+        //        string userType = Session["UserType"].ToString();
+
+        //        if (userType == "5") {
+        //            return RedirectToAction("Index", "PriceApproval");
+        //        }
+        //        else {
+        //            return RedirectToAction("dashboard", "SeleScrCustomer");
+        //        }
+        //    }
+        //    string Userlog = string.Empty;
+        //    string Usertype = string.Empty;
+        //    string dateexpire = string.Empty;
+        //    string UsrClmStaff = string.Empty;
+        //    //string appEnv = string.Empty;
+        //    int intdateexpire = 0;
+        //    int expireDayInt = 0;
+        //    //variable 
+        //    string getUserType = "";
+        //    string getDepartment = "";
+        //    string getCuscode = "";
+        //    string getUsrClmStaff = "";
+        //    string getGenstatus = "";
+        //    string getByTable = "";
+        //    string getUserTypeAccount = string.Empty;
+        //    //appEnv = ConfigurationManager.AppSettings["Environment"];
+        //    //this.Session["appEnv"] = appEnv;
+        //    var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+        //    SqlConnection Connection = new SqlConnection(connectionString);
+        //    // GenericIdentity identity = null;
+        //    Connection.Open();
+        //    try {
+        //        this.Session["DisplayName"] = string.Empty;
+        //        //this.Session["UserType"] = "";
+        //        this.Session["UserID"] = User.Usre;
+        //        this.Session["UserPassword"] = "";
+        //        this.Session["UsrGrpspecial"] = 0;
+        //        this.Session["DatetoExpire"] = "..";
+        //        this.Session["UsrClmStaff"] = "0";
+        //        this.Session["LoginSystem"] = "";
+        //        //this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
+
+        //        //string UserType = string.Empty;
+        //        string sessionId = Request["http_cookie"];
+        //        string secCodeArr = string.Empty;
+
+        //        var command = new SqlCommand("P_Check_Login_User", Connection);
+        //        command.CommandType = CommandType.StoredProcedure;
+        //        command.Parameters.AddWithValue("@inUsername", User.Usre);
+        //        command.Parameters.AddWithValue("@inPassword", User.Password);
+        //        // Output parameters
+        //        command.Parameters.Add(new SqlParameter("@getUserType", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+        //        command.Parameters.Add(new SqlParameter("@getDepartment", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+        //        command.Parameters.Add(new SqlParameter("@getCuscode", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+        //        command.Parameters.Add(new SqlParameter("@getUsrClmStaff", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+        //        command.Parameters.Add(new SqlParameter("@OutGenstatus", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+        //        command.Parameters.Add(new SqlParameter("@getByTable", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+
+        //        // Execute the stored procedure
+        //        //connection.Open();
+        //        command.ExecuteNonQuery();
+        //        //string html = "<table border='1' cellpadding='5'>";
+        //        //html += "<tr><th>Parameter</th><th>Value</th></tr>";
+
+        //        //foreach (SqlParameter p in command.Parameters) {
+        //        //    html += "<tr>";
+        //        //    html += "<td>" + p.ParameterName + "</td>";
+        //        //    html += "<td>" + (p.Value ?? "NULL") + "</td>";
+        //        //    html += "</tr>";
+        //        //}
+
+        //        //html += "</table>";
+
+        //        //return Content(html, "text/html");
+        //        //getUserType = command.Parameters["@getUserType"].Value?.ToString();
+        //        object value = command.Parameters["@getUserType"].Value;
+
+        //        if (value == DBNull.Value) {
+        //            getUserType = "";
+        //        }
+        //        else {
+        //            getUserType = Convert.ToString(value).Trim();
+        //        }
+        //        getDepartment = command.Parameters["@getDepartment"].Value?.ToString();
+        //        getCuscode = command.Parameters["@getCuscode"].Value?.ToString();
+        //        getUsrClmStaff = command.Parameters["@getUsrClmStaff"].Value?.ToString();
+        //        getGenstatus = command.Parameters["@OutGenstatus"].Value?.ToString();
+        //        getByTable = command.Parameters["@getByTable"].Value?.ToString();
+        //        //Set data v_Check_User_All to attribute
+        //        this.Session["Department"] = getDepartment;
+        //        this.Session["CUSCOD"] = getCuscode;
+        //        this.Session["UsrClmStaff"] = getUsrClmStaff;
+        //        //sessionId = sessionId.Substring(sessionId.Length - 24);
+        //        this.Session["ID"] = Session.SessionID;
+        //        //this.Session["UserType"] = getUserType;
+
+
+        //        //Response.Write("<br/>Session UserType = " + Session["UserType"]);
+        //        //Response.End();
+
+        //        //FormsAuthentication.SetAuthCookie(User.Usre, false);
+        //        //RBAC
+        //        List<string> permissions = PermissionService.GetPermissions(getUserType);
+        //        //Session["Permissions"] = permissions;
+
+
+        //        //Response.Write("<br/>1 = " + Session["UserType"]);
+
+        //        //FormsAuthentication.SetAuthCookie(User.Usre, false);
+
+        //        //Response.Write("<br/>2 = " + Session["UserType"]);
+
+        //        //List<string> permissions = PermissionService.GetPermissions(getUserType);
+
+        //        //Response.Write("<br/>3 = " + Session["UserType"]);
+
+        //        Session["Permissions"] = permissions;
+        //        this.Session["UserType"] = getUserType;
+
+        //        //Response.Write("<br/>4 = " + Session["UserType"]);
+
+        //        //Response.End();
+
+        //        //ถ้าไม่ป็นลูกค้า หรือ User พิเศษไหม เป็นคนที่มีใน AD
+        //        if (getUserType != "" && getGenstatus == "Y") {
+        //            //User อยู่ใน UsrTbl Sale, Product, SalesCo, Mis *Check AD*
+        //            if (getByTable == "UsrTbl") {
+        //                //ADSRV01
+        //                DirectoryEntry entry = new DirectoryEntry("LDAP://ADSRV2016-01/dc=Automotive,dc=com", User.Usre, User.Password);
+        //                DirectorySearcher search = new DirectorySearcher(entry);
+        //                search.Filter = "(SAMAccountName=" + User.Usre + ")";
+        //                search.PropertiesToLoad.AddRange(new string[] { "cn", "pwdLastSet" });
+        //                SearchResult result = search.FindOne();
+        //                if (result != null && result.Properties.Contains("pwdLastSet")) {
+        //                    long fileTime = (long)result.Properties["pwdLastSet"][0];
+        //                    DateTime pwdLastSetDate = DateTime.FromFileTimeUtc(fileTime);
+        //                    Console.WriteLine("Password last set on: " + pwdLastSetDate);
+        //                    // 90 วัน
+        //                    int maxPwdAgeDays = 90;
+        //                    // วันที่รหัสผ่านจะหมดอายุ
+        //                    DateTime expireDate = pwdLastSetDate.AddDays(maxPwdAgeDays);
+        //                    // จำนวนวันที่เหลือ
+        //                    double expireDay = (expireDate - DateTime.UtcNow).TotalDays;
+        //                    intdateexpire = Convert.ToInt32(expireDay);
+        //                }
+        //                if (null == result) //ไม่พบข้อมูลบน AD
+        //                {
+        //                    if (!IsValid(User.Usre, User.Password)) {
+        //                        TempData["ErrorMessage"] = "Login details are wrong.";
+        //                    }
+        //                }
+        //                else  //พบข้อมูลบน AD
+        //                {
+        //                    this.Session["UsrGrpspecial"] = 0;
+        //                    this.Session["expdatecal"] = intdateexpire;
+        //                    if (intdateexpire <= 15) {
+        //                        this.Session["DatetoExpire"] = "Passwords expire '" + intdateexpire + "' days";
+        //                    }
+        //                    else if (intdateexpire == 0) {
+        //                        this.Session["DatetoExpire"] = "The user's password must be changed password  Changed password on Citrix";
+        //                    }
+        //                    else {
+        //                        this.Session["DatetoExpire"] = "..";
+        //                    }
+        //                }
+
+        //                var infoUser = GetUserInfo();
+        //                command = new SqlCommand("P_LoginMobile_log", Connection);
+        //                command.CommandType = CommandType.StoredProcedure;
+        //                command.Parameters.AddWithValue("@UsrID", User.Usre);
+        //                command.Parameters.AddWithValue("@UsrType", getUserType);
+        //                command.Parameters.AddWithValue("@OS", infoUser.OS);
+        //                command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+        //                command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+        //                command.Parameters.AddWithValue("@Latitude", User.Latitude);
+        //                command.Parameters.AddWithValue("@Longitude", User.Longitude);
+        //                command.ExecuteNonQuery();
+        //                command.Dispose();
+        //                if (getUserType == "5") {
+        //                    return RedirectToAction("Index", "PriceApproval");
+        //                }
+        //                else {
+        //                    return RedirectToAction("dashboard", "SeleScrCustomer");
+        //                    //return RedirectToAction("CheckSession", "Promotion");
+        //                }
+        //            }
+        //            else //User อยู่ใน 2 Table UsrTbl_Customer, UsrTbl_History ไม่ต้อง *Check AD* เข้าได้เลย
+        //            {
+        //                if (getUserType == "5") //Product
+        //                {
+        //                    return RedirectToAction("Index", "PriceApproval");
+        //                }
+        //                else //Customer
+        //                {
+        //                    command = new SqlCommand("P_logSingin", Connection);
+        //                    command.CommandType = CommandType.StoredProcedure;
+        //                    command.Parameters.AddWithValue("@UsrID", User.Usre);
+        //                    command.Parameters.AddWithValue("@SessionId", Session.SessionID);
+        //                    command.ExecuteReader();
+        //                    command.Dispose();
+
+        //                    return RedirectToAction("dashboard", "SeleScrCustomer");
+        //                    //return RedirectToAction("CheckSession", "Promotion");
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException ex) {
+        //        if (ex.Number == -2) {
+        //            TempData["ErrorMessage"] = "Connection timed out. Please login try again.";
+        //        }
+        //        else {
+        //            TempData["ErrorMessage"] = "Database error: " + ex.Message;
+        //        }
+        //    }
+        //    catch (COMException) {
+        //        TempData["ErrorMessage"] = "Login details are wrong.";
+        //    }
+        //    catch (Exception ex) {
+        //        TempData["ErrorMessage"] = "Unexpected error: " + ex.Message;
+        //    }
+        //    finally {
+        //        //this.Session["UserType"] = getUserType;
+        //        Connection.Close();
+        //    }
+
+        //    return View("Login", User);
+        //}
+        //public ActionResult LogIn(LoginUserViewModel User) {
+        //    string dateexpire = string.Empty;
+        //    int intdateexpire = 0;
+
+        //    // ใช้ Cookie แทน Session เพราะ Session อาจถูกล้าง
+        //    int failCount = 0;
+        //    if (Request.Cookies["lfc"] != null)
+        //        int.TryParse(Request.Cookies["lfc"].Value, out failCount);
+        //    //TempData["ErrorMessage"] = "POST ถูกเรียก | failCount=" + failCount + " | user=" + User.Usre;
+        //    //return View("Login", User);
+        //    if (failCount >= 3) {
+        //        string recaptchaResponse = Request.Form["g-recaptcha-response"];
+        //        if (string.IsNullOrEmpty(recaptchaResponse) || !VerifyRecaptcha(recaptchaResponse)) {
+        //            TempData["ShowRecaptcha"] = true;
+        //            ModelState.AddModelError("", "กรุณายืนยัน reCAPTCHA");
+        //            return View("Login", User);
+        //        }
+        //        // reCAPTCHA ผ่าน reset ทันที
+        //        failCount = 0;
+        //        Response.Cookies["lfc"].Value = "0";
+        //        Response.Cookies["lfc"].Expires = DateTime.Now.AddDays(-1);
+        //        TempData.Remove("ShowRecaptcha");
+        //    }
+
+        //    var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
+        //    SqlConnection Connection = new SqlConnection(connectionString);
+
+        //    try {
+        //        Connection.Open();
+
+        //        this.Session["DisplayName"] = string.Empty;
+        //        this.Session["UserType"] = null;
+        //        this.Session["UserID"] = User.Usre;
+        //        this.Session["UserPassword"] = User.Password;
+        //        this.Session["UsrGrpspecial"] = 0;
+        //        this.Session["DatetoExpire"] = "..";
+        //        this.Session["UsrClmStaff"] = "0";
+        //        this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
+
+        //        string UserType = string.Empty;
+        //        string UserTypePer = string.Empty;
+        //        string sessionId = Request["http_cookie"];
+
+        //        // Check DB User
+        //        using (SqlCommand cmdcus = new SqlCommand(
+        //            "select * From v_UsrTbl_catalog where UsrID = @inUsername and [dbo].F_decrypt([Password])= @inPassword and [LoginFail] <> 3",
+        //            Connection)) {
+        //            cmdcus.Parameters.AddWithValue("@inUsername", User.Usre);
+        //            cmdcus.Parameters.AddWithValue("@inPassword", User.Password);
+        //            using (SqlDataReader revcus = cmdcus.ExecuteReader()) {
+        //                while (revcus.Read()) {
+        //                    this.Session["UserType"] = revcus["UsrTyp"].ToString();
+        //                    this.Session["Department"] = revcus["Department"].ToString();
+        //                    this.Session["CUSCOD"] = revcus["CUSCOD"].ToString();
+        //                    UserTypePer = revcus["UsrTyp"].ToString();
+        //                    UserType = Session["UserType"].ToString();
+        //                    this.Session["UsrClmStaff"] = revcus["UsrClmStaff"].ToString();
+
+        //                    if (!string.IsNullOrEmpty(sessionId) && sessionId.Length >= 24) {
+        //                        sessionId = sessionId.Substring(sessionId.Length - 24);
+        //                        this.Session["ID"] = sessionId;
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //        if (!string.IsNullOrEmpty(User.Usre)) {
+        //            using (SqlCommand cmdAD = new SqlCommand("SELECT Department FROM v_ADUser WHERE LogInName = @uid", Connection)) {
+        //                cmdAD.Parameters.AddWithValue("@uid", User.Usre);
+        //                object adDept = cmdAD.ExecuteScalar();
+        //                if (adDept != null && adDept != DBNull.Value)
+        //                    this.Session["Department"] = adDept.ToString();
+        //            }
+        //        }
+
+        //        FormsAuthentication.SetAuthCookie(User.Usre, false);
+
+        //        if (string.IsNullOrEmpty(UserType)) {
+        //            // LDAP path
+        //            bool ldapSuccess = false;
+        //            bool ldapFound = false;
+
+        //            try {
+        //                // ✅ แก้ตรงนี้ในโค้ดจริง
+        //                string cleanUsername = User.Usre.Trim().Replace("\r", "").Replace("\n", "").Replace(" ", "");
+
+        //                DirectoryEntry entry = new DirectoryEntry(
+        //                    "LDAP://ADSRV2016-01/dc=Automotive,dc=com",
+        //                    "Automotive\\" + cleanUsername,
+        //                    User.Password);
+
+        //                DirectorySearcher search = new DirectorySearcher(entry);
+        //                search.Filter = "(SAMAccountName=" + cleanUsername + ")";
+
+        //                SearchResult result = search.FindOne();
+        //                ldapFound = (result != null);
+        //                ldapSuccess = true;
+        //            }
+        //            catch (System.Runtime.InteropServices.COMException) {
+        //                //ldapError = comEx.Message;
+        //            }
+
+        //            //// ✅ debug
+        //            //TempData["ErrorMessage"] = "ldapSuccess=" + ldapSuccess
+        //            //                         + " | ldapFound=" + ldapFound
+        //            //                         + " | ldapError=" + ldapError;
+        //            //return View("Login", User);
+
+
+        //            if (!ldapSuccess || !ldapFound) {
+        //                // login ผิด
+        //                failCount++;
+        //                var c = new System.Web.HttpCookie("lfc", failCount.ToString());
+        //                c.Expires = DateTime.Now.AddMinutes(30);
+        //                Response.Cookies.Set(c);
+        //                if (failCount >= 3) TempData["ShowRecaptcha"] = true;
+        //                ModelState.AddModelError("", "Login details are wrong.");
+        //                return View("Login", User);
+        //            }
+
+        //            // LDAP สำเร็จ
+        //            using (SqlCommand cmd = new SqlCommand("select * From v_UsrTbl where UsrID = @uid", Connection)) {
+        //                cmd.Parameters.AddWithValue("@uid", User.Usre.Trim());
+        //                using (SqlDataReader rev = cmd.ExecuteReader()) {
+        //                    while (rev.Read()) {
+        //                        dateexpire = rev["Date to Expire"].ToString();
+        //                        this.Session["UserType"] = rev["UsrTyp"].ToString();
+        //                        this.Session["CUSCOD"] = "";
+        //                        this.Session["Department"] = rev["Department"].ToString();
+        //                    }
+        //                }
+        //            }
+
+        //            if (int.TryParse(dateexpire, out intdateexpire)) {
+        //                this.Session["expdatecal"] = intdateexpire;
+        //                if (intdateexpire <= 15)
+        //                    this.Session["DatetoExpire"] = "Passwords expire '" + intdateexpire + "' days";
+        //                else if (intdateexpire == 0)
+        //                    this.Session["DatetoExpire"] = "The user's password must be changed on Citrix";
+        //            }
+
+        //            UserType = Session["UserType"]?.ToString() ?? "";
+
+
+        //            var infoUser = GetUserInfo();
+        //            using (SqlCommand command = new SqlCommand("P_LoginMobile_log", Connection)) {
+        //                command.CommandType = CommandType.StoredProcedure;
+        //                command.Parameters.AddWithValue("@UsrID", User.Usre);
+        //                command.Parameters.AddWithValue("@UsrType", UserType);
+        //                command.Parameters.AddWithValue("@OS", infoUser.OS);
+        //                command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+        //                command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+        //                command.Parameters.AddWithValue("@Latitude", User.Latitude);
+        //                command.Parameters.AddWithValue("@Longitude", User.Longitude);
+        //                command.ExecuteNonQuery();
+        //            }
+
+        //            // reset fail cookie
+        //            Response.Cookies["lfc"].Value = "0";
+        //            Response.Cookies["lfc"].Expires = DateTime.Now.AddDays(-1);
+        //            //RBAC
+        //            List<string> permissions = PermissionService.GetPermissions(UserType);
+        //            Session["Permissions"] = permissions;
+
+        //            if (UserType == "5") { 
+        //                return RedirectToAction("Index", "PriceApproval");
+        //            }
+        //            return RedirectToAction("dashboard", "SeleScrCustomer");
+        //        } else {
+        //            // DB path สำเร็จ
+        //            var infoUser = GetUserInfo();
+        //            using (SqlCommand command = new SqlCommand("P_LoginMobile_log", Connection)) {
+        //                command.CommandType = CommandType.StoredProcedure;
+        //                command.Parameters.AddWithValue("@UsrID", User.Usre);
+        //                command.Parameters.AddWithValue("@UsrType", UserType);
+        //                command.Parameters.AddWithValue("@OS", infoUser.OS);
+        //                command.Parameters.AddWithValue("@Browser", infoUser.Browser);
+        //                command.Parameters.AddWithValue("@IpAddress", infoUser.Ip_Addresss);
+        //                command.Parameters.AddWithValue("@Latitude", User.Latitude);
+        //                command.Parameters.AddWithValue("@Longitude", User.Longitude);
+        //                command.ExecuteNonQuery();
+        //            }
+
+        //            //RBAC
+        //            List<string> permissions = PermissionService.GetPermissions(UserType);
+        //            Session["Permissions"] = permissions;
+        //            // reset fail cookie
+        //            Response.Cookies["lfc"].Value = "0";
+        //            Response.Cookies["lfc"].Expires = DateTime.Now.AddDays(-1);
+
+        //            if (UserType == "5") return RedirectToAction("Index", "PriceApproval");
+        //            if (UserType == "6") {
+        //                int.TryParse(dateexpire, out intdateexpire);
+        //                if (intdateexpire <= 0 && !string.IsNullOrEmpty(dateexpire)) {
+        //                    ModelState.AddModelError("", "Your password expired.");
+        //                    return View("Login", User);
+        //                }
+        //            }
+        //            return RedirectToAction("dashboard", "SeleScrCustomer");
+        //        }
+        //    }
+        //    catch (Exception ex) {
+        //        TempData["ErrorMessage"] = ex.GetType().Name + ": " + ex.Message
+        //                                 + " | " + ex.StackTrace?.Substring(0, Math.Min(300, ex.StackTrace?.Length ?? 0));
+        //    }
+        //    finally {
+        //        Connection.Close();
+        //    }
+
+        //    // exception path
+        //    failCount++;
+        //    var cookie = new System.Web.HttpCookie("lfc", failCount.ToString());
+        //    cookie.Expires = DateTime.Now.AddMinutes(30);
+        //    Response.Cookies.Set(cookie);
+        //    if (failCount >= 3) TempData["ShowRecaptcha"] = true;
+
+        //    return View("Login", User);
+        //}
+
         public ActionResult LogIn(LoginUserViewModel User) {
+            // ---------- เพิ่มใหม่: บังคับเช็ค reCAPTCHA ทุกครั้งก่อนทำอย่างอื่น ----------
+            string recaptchaResponse = Request["g-recaptcha-response"];
+            string debugInfo;
+            bool isValid = RecaptchaValidator.IsValidWithDebug(recaptchaResponse, out debugInfo);
+
+            if (!isValid) {
+                TempData["ErrorMessage"] = "กรุณายืนยันตัวตน (Captcha) ก่อนเข้าสู่ระบบ | DEBUG: " + debugInfo;
+                return View("Login", User);
+            }
+            if (!ModelState.IsValid) {
+                return View("Login", User);
+            }
+            // ----
             Session.Clear();
             // ป้องกัน login ซ้ำถ้ายังมี session อยู่
             if (Session["UserType"] != null && Session["UserType"].ToString() != "") {
@@ -215,7 +698,6 @@ namespace NewShop.Controllers
             string getUsrClmStaff = "";
             string getGenstatus = "";
             string getByTable = "";
-            string getUserTypeAccount = string.Empty;
             //appEnv = ConfigurationManager.AppSettings["Environment"];
             //this.Session["appEnv"] = appEnv;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
@@ -224,14 +706,14 @@ namespace NewShop.Controllers
             Connection.Open();
             try {
                 this.Session["DisplayName"] = string.Empty;
-                //this.Session["UserType"] = "";
+                this.Session["UserType"] = null;
                 this.Session["UserID"] = User.Usre;
-                this.Session["UserPassword"] = "";
+                this.Session["UserPassword"] = User.Password;
                 this.Session["UsrGrpspecial"] = 0;
                 this.Session["DatetoExpire"] = "..";
                 this.Session["UsrClmStaff"] = "0";
                 this.Session["LoginSystem"] = "";
-                //this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
+                this.Session["LoginSystem"] = ConfigurationManager.AppSettings["SystemCode"];
 
                 //string UserType = string.Empty;
                 string sessionId = Request["http_cookie"];
@@ -242,78 +724,32 @@ namespace NewShop.Controllers
                 command.Parameters.AddWithValue("@inUsername", User.Usre);
                 command.Parameters.AddWithValue("@inPassword", User.Password);
                 // Output parameters
-                command.Parameters.Add(new SqlParameter("@getUserType", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
-                command.Parameters.Add(new SqlParameter("@getDepartment", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
-                command.Parameters.Add(new SqlParameter("@getCuscode", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
-                command.Parameters.Add(new SqlParameter("@getUsrClmStaff", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
-                command.Parameters.Add(new SqlParameter("@OutGenstatus", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
-                command.Parameters.Add(new SqlParameter("@getByTable", SqlDbType.VarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@getUserType", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@getDepartment", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@getCuscode", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@getUsrClmStaff", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@OutGenstatus", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@getByTable", SqlDbType.NVarChar, 100) { Direction = ParameterDirection.Output });
 
                 // Execute the stored procedure
                 //connection.Open();
                 command.ExecuteNonQuery();
-                //string html = "<table border='1' cellpadding='5'>";
-                //html += "<tr><th>Parameter</th><th>Value</th></tr>";
 
-                //foreach (SqlParameter p in command.Parameters) {
-                //    html += "<tr>";
-                //    html += "<td>" + p.ParameterName + "</td>";
-                //    html += "<td>" + (p.Value ?? "NULL") + "</td>";
-                //    html += "</tr>";
-                //}
-
-                //html += "</table>";
-
-                //return Content(html, "text/html");
-                //getUserType = command.Parameters["@getUserType"].Value?.ToString();
-                object value = command.Parameters["@getUserType"].Value;
-
-                if (value == DBNull.Value) {
-                    getUserType = "";
-                }
-                else {
-                    getUserType = Convert.ToString(value).Trim();
-                }
+                getUserType = command.Parameters["@getUserType"].Value?.ToString();
                 getDepartment = command.Parameters["@getDepartment"].Value?.ToString();
                 getCuscode = command.Parameters["@getCuscode"].Value?.ToString();
                 getUsrClmStaff = command.Parameters["@getUsrClmStaff"].Value?.ToString();
                 getGenstatus = command.Parameters["@OutGenstatus"].Value?.ToString();
                 getByTable = command.Parameters["@getByTable"].Value?.ToString();
                 //Set data v_Check_User_All to attribute
+                this.Session["UserType"] = getUserType;
                 this.Session["Department"] = getDepartment;
                 this.Session["CUSCOD"] = getCuscode;
                 this.Session["UsrClmStaff"] = getUsrClmStaff;
-                //sessionId = sessionId.Substring(sessionId.Length - 24);
-                this.Session["ID"] = Session.SessionID;
-                //this.Session["UserType"] = getUserType;
+                sessionId = sessionId.Substring(sessionId.Length - 24);
+                this.Session["ID"] = sessionId;
 
-
-                //Response.Write("<br/>Session UserType = " + Session["UserType"]);
-                //Response.End();
-
-                //FormsAuthentication.SetAuthCookie(User.Usre, false);
-                //RBAC
-                List<string> permissions = PermissionService.GetPermissions(getUserType);
-                //Session["Permissions"] = permissions;
-
-
-                //Response.Write("<br/>1 = " + Session["UserType"]);
-
-                //FormsAuthentication.SetAuthCookie(User.Usre, false);
-
-                //Response.Write("<br/>2 = " + Session["UserType"]);
-
-                //List<string> permissions = PermissionService.GetPermissions(getUserType);
-
-                //Response.Write("<br/>3 = " + Session["UserType"]);
-
-                Session["Permissions"] = permissions;
-                this.Session["UserType"] = getUserType;
-
-                //Response.Write("<br/>4 = " + Session["UserType"]);
-
-                //Response.End();
-
+                FormsAuthentication.SetAuthCookie(User.Usre, false);
                 //ถ้าไม่ป็นลูกค้า หรือ User พิเศษไหม เป็นคนที่มีใน AD
                 if (getUserType != "" && getGenstatus == "Y") {
                     //User อยู่ใน UsrTbl Sale, Product, SalesCo, Mis *Check AD*
@@ -369,16 +805,23 @@ namespace NewShop.Controllers
                         command.Parameters.AddWithValue("@Longitude", User.Longitude);
                         command.ExecuteNonQuery();
                         command.Dispose();
+
+                        //RBAC
+                        List<string> permissions = PermissionService.GetPermissions(getUserType);
+                        Session["permissions"] = permissions;
+
                         if (getUserType == "5") {
                             return RedirectToAction("Index", "PriceApproval");
                         }
                         else {
                             return RedirectToAction("dashboard", "SeleScrCustomer");
-                            //return RedirectToAction("CheckSession", "Promotion");
                         }
                     }
                     else //User อยู่ใน 2 Table UsrTbl_Customer, UsrTbl_History ไม่ต้อง *Check AD* เข้าได้เลย
                     {
+                        //RBAC
+                        List<string> permissions = PermissionService.GetPermissions(getUserType);
+                        Session["permissions"] = permissions;
                         if (getUserType == "5") //Product
                         {
                             return RedirectToAction("Index", "PriceApproval");
@@ -388,13 +831,11 @@ namespace NewShop.Controllers
                             command = new SqlCommand("P_logSingin", Connection);
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@UsrID", User.Usre);
-                            command.Parameters.AddWithValue("@SessionId", Session.SessionID);
+                            command.Parameters.AddWithValue("@SessionId", sessionId);
                             command.ExecuteReader();
                             command.Dispose();
 
                             return RedirectToAction("dashboard", "SeleScrCustomer");
-                            //return RedirectToAction("CheckSession", "Promotion");
-
                         }
                     }
                 }
@@ -407,20 +848,28 @@ namespace NewShop.Controllers
                     TempData["ErrorMessage"] = "Database error: " + ex.Message;
                 }
             }
-            catch (COMException) {
+            catch (COMException) { //focus
                 TempData["ErrorMessage"] = "Login details are wrong.";
             }
             catch (Exception ex) {
                 TempData["ErrorMessage"] = "Unexpected error: " + ex.Message;
             }
             finally {
-                //this.Session["UserType"] = getUserType;
                 Connection.Close();
             }
-
             return View("Login", User);
         }
+   
+        private void ResetLoginFail() {
+            HttpCookie cookie = new HttpCookie("lfc");
+            cookie.Value = "0";
+            cookie.Expires = DateTime.Now.AddDays(-1);
 
+            Response.Cookies.Set(cookie);
+
+            TempData.Remove("ShowRecaptcha");
+            TempData.Remove("DebugMsg");
+        }
         public LoginuserInfo GetUserInfo() {
             var uaString = Request.Headers["User-Agent"].ToString();
             var uaParser = Parser.GetDefault();

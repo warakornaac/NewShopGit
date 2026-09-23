@@ -1,0 +1,14 @@
+﻿@model NewShop.Models.ProductPriceViewModel
+
+@using (Html.BeginForm("Save2", "EncryptPrice", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.ProductId)
+    @Html.HiddenFor(m => m.Price)
+    @Html.HiddenFor(m => m.Timestamp)
+    @Html.HiddenFor(m => m.Signature)
+
+    <p>ราคา: @Model.Price.ToString("N2")</p>
+
+    <button type="submit">บันทึก</button>
+}

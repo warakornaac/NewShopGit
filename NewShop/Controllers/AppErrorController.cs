@@ -8,8 +8,11 @@ using NewShop.Service;
 
 namespace NewShop.Controllers
 {
-    public class ErrorController : Controller
+    public class AppErrorController : Controller
     {
+        public ActionResult Test() {
+            return Content("OK");
+        }
         //page show warning
         public ActionResult Index(int statusCode = 500, long id = 0) {
             ErrorViewModel model = new ErrorViewModel();
@@ -19,30 +22,19 @@ namespace NewShop.Controllers
             model.ButtonUrl = Url.Action("Login", "Account");
             switch (statusCode) {
                 case 401:
-                    model.Title = "Unauthorized";
-                    model.Message = "Authentication Required";
-                    model.Description = "Please login before using the system.";
-                    model.PanelClass = "panel-danger";
-                    model.Icon = "glyphicon-user";
-                    break;
                 case 403:
-                    model.Title = "Access Denied";
-                    model.Message = "You do not have permission to access this page.";
-                    model.Description = "Your account does not have the required permission.";
-                    model.PanelClass = "panel-warning";
-                    model.Icon = "glyphicon-lock";
-                    break;
                 case 404:
-                    model.Title = "Page Not Found";
-                    model.Message = "The requested page could not be found.";
-                    model.Description = "The page may have been moved or deleted.";
-                    model.PanelClass = "panel-info";
-                    model.Icon = "glyphicon-search";
+                    model.Title = "Unable to Process Request";
+                    model.Message = "The requested operation could not be completed.";
+                    model.Description = "The system is currently unable to process your request. Please contact the system administrator if the problem persists.";
+                    model.PanelClass = "panel-warning";
+                    model.Icon = "glyphicon-warning-sign";
                     break;
+
                 default:
-                    model.Title = "Internal Server Error";
-                    model.Message = "An unexpected error occurred.";
-                    model.Description = "Please contact the administrator if the problem persists.";
+                    model.Title = "System Unavailable";
+                    model.Message = "The requested operation could not be completed.";
+                    model.Description = "The system is currently experiencing a temporary issue. Please try again later or contact the system administrator if the problem continues.";
                     model.PanelClass = "panel-danger";
                     model.Icon = "glyphicon-warning-sign";
                     model.ErrorId = id;
@@ -56,7 +48,15 @@ namespace NewShop.Controllers
                     break;
             }
             model.IsAdmin = PermissionHelper.HasPermission("Admin.Full");
-            Response.StatusCode = statusCode;
+            //if (statusCode == 401 || statusCode == 403) {
+                Response.StatusCode = 200;
+            //}
+            //else {
+            //    Response.StatusCode = statusCode;
+            //}
+
+            Response.TrySkipIisCustomErrors = true;
+            //Response.StatusCode = statusCode;
             return View("Error", model);
         }
         public ActionResult InternalServerError(long id) {

@@ -10,6 +10,8 @@ using System.Data;
 using System.IO;
 using System.Web.Script.Serialization;
 using NewShop.Models;
+using NewShop.Helpers;
+using System.Globalization;
 
 namespace NewShop.Controllers
 {
@@ -64,9 +66,9 @@ namespace NewShop.Controllers
             //Searchitem model = null;
             PricelistpageingSearch Model = null;
             List<ListPagedList> Getdata = new List<ListPagedList>();
+            long signatureTimestamp = PriceSignatureHelper.GetCurrentTimestamp();
             //var Getdata = new List<object>();
-            try
-            {
+            try {
                 //var command = new SqlCommand("P_Search_Item_byVehicle_Detail", Connection);
                 //command.CommandType = CommandType.StoredProcedure;
                 //command.Parameters.AddWithValue("@inSearch", Nodisplay);
@@ -89,6 +91,20 @@ namespace NewShop.Controllers
                 {
 
                     Model = new PricelistpageingSearch();
+                    string stkcod = dr["STKCOD"].ToString();
+                    string price = dr["Price"].ToString();   // เก็บไว้แสดงผลตามเดิม (string)
+
+                    // แปลงเป็น decimal เพื่อใช้ generate signature เท่านั้น
+                    decimal priceValue;
+                    if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out priceValue)) {
+                        // Log ไว้ตรวจสอบ: ราคาจาก DB แปลงเป็นตัวเลขไม่ได้ ถือเป็นข้อมูลผิดปกติ
+                        // Logger.Warn($"Cannot parse price for ItemNo={stkcod}, RawPrice='{price}'");
+                        priceValue = 0m;
+                    }
+
+                    // sign เฉพาะ ItemNo + Price (ราคาจริงที่ใช้คำนวณ/บันทึกคำสั่งซื้อ) + timestamp
+                    string signature = PriceSignatureHelper.GenerateSignature(stkcod, priceValue, signatureTimestamp);
+
 
                     Model.PRCLST_NO = dr["PRCLST_NO"].ToString();
                     Model.PEOPLE = dr["PEOPLE"].ToString();
@@ -189,6 +205,9 @@ namespace NewShop.Controllers
                     Model.PATH = Path.Combine(root, dr["IMAGE_NAME"].ToString());
                     Model.Expected_Receipt_Date = dr["Expected Receipt Date"].ToString();
                     Model.maxord = dr["maxord"].ToString();
+                    // เพิ่มใหม่: ใช้ยืนยันตอนสั่งซื้อ/บันทึก
+                    Model.Timestamp = signatureTimestamp;
+                    Model.Signature = signature;
                     //Model.expired = dr["expired"].ToString();
                     // Model.itemblock = dr["itemblock"].ToString();
                     Getdata.Add(new ListPagedList { val = Model });
