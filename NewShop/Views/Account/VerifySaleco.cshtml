@@ -1,0 +1,195 @@
+﻿@{
+    Layout = null;
+
+    var userId = Request.QueryString["userId"]; 
+    var displayName = Request.QueryString["displayName"]; 
+    var pictureUrl = Request.QueryString["pictureUrl"]; 
+    var email = Request.QueryString["email"]; 
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerifySaleco</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <link href="~/BootstrapTemplate/src/assets/vendors/iconfonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+
+        @@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;1,500&display=swap");
+
+        html body {
+            font-family: 'Kanit', sans-serif;
+            font-size: calc(0.75em + 1vmin);
+        }
+
+        body {
+            margin: 16px
+        }
+
+        button, img {
+            /*display: none;*/
+            width: 40%
+        }
+
+        button {
+            padding: 16px
+        }
+
+        #pictureUrl {
+            display: block;
+            margin: 0 auto
+        }
+
+        .swal2-confirm {
+            width: 60px;
+        }
+
+        .loading-group {
+            margin: 0 auto;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            position: relative; /* or absolute */
+            z-index: 999;
+        }
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+
+                <div class="card shadow-sm border-0">
+
+                    <!-- Header -->
+                    <div class="card-header bg-success text-white text-center py-4">
+                        <h4 class="mb-0">
+                            <i class="fa fa-user-circle"></i>
+                            LINE Profile
+                        </h4>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="card-body text-center p-4">
+
+                        <!-- Profile Image -->
+                        <div class="mb-4">
+                            <img id="pictureUrl" src="@pictureUrl"
+                                 class="rounded-circle shadow-sm"
+                                 style="width:120px;
+                                        height:120px;
+                                        object-fit:cover;
+                                        border:4px solid #fff;">
+                        </div>
+
+                        <!-- Display Name -->
+                        <h4 id="displayName" class="font-weight-bold mb-4">
+                            @displayName
+                        </h4>
+
+
+                        <!-- Information -->
+                        <div class="text-left">
+
+                            <!-- User ID -->
+                            <div class="form-group">
+                                <label class="font-weight-bold text-secondary">
+                                    <i class="fa fa-id-card mr-2"></i>
+                                    LINE User ID
+                                </label>
+
+                                <div class="form-control bg-light">
+                                    <span id="userId">@userId</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label class="font-weight-bold text-secondary">
+                                    <i class="fa fa-envelope mr-2"></i>
+                                    Email
+                                </label>
+
+                                <div class="form-control bg-light">
+                                    <span id="getDecodedIDToken">
+                                        @email
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!-- Status -->
+                            <!--<div class="form-group mb-0">
+                                <label class="font-weight-bold text-secondary">
+                                    <i class="fa fa-comment mr-2"></i>
+                                    Status Message
+                                </label>
+
+                                <div class="form-control bg-light"
+                                     style="height:auto; min-height:38px;">
+                                    <span id="statusMessage">Loading...</span>
+                                </div>
+                            </div>-->
+
+                        </div>
+
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="card-footer text-center text-muted">
+                        <small>
+                            LINE LIFF
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+
+    </script>
+</body>
+
+
+</html>

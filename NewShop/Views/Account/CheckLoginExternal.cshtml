@@ -180,6 +180,8 @@
                                                 window.location.assign("../PortalForSales/index?page=credit");
 
                                             }
+                                            else if (page == "verify") { const url = "../Account/VerifySaleco" + "?userId=" + encodeURIComponent(userId) + "&displayName=" + encodeURIComponent(displayName) + "&pictureUrl=" + encodeURIComponent(pictureUrl) + "&email=" + encodeURIComponent(getDecodedIDToken); window.location.assign(url); }
+
                                             else {
                                                 window.location.assign("../PortalForSales/index?page=menu");
 
@@ -191,7 +193,8 @@
                                         if (result.page != null && result.page != '') {
                                             if (result.page == "amount") { //หน้ายอดซื้อ
                                                 window.location.assign("../CustomerDashboard/index");
-                                            } else if (page == "promotion") {//หน้าโปรโมชั่น
+                                            }
+                                            else if (page == "promotion") {//หน้าโปรโมชั่น
                                                 window.location.assign("../CustomerDashboard/Promotion");
                                             }
                                             else if (page == "PendingDelivery") {//หน้าค้างส่ง
@@ -206,9 +209,13 @@
                                             else if (page == "credit") {
                                                 window.location.assign("../CustomerDashboard/Credit");
                                             }
+                                            else if (page == "verify") { const url = "../Account/VerifySaleco" + "?userId=" + encodeURIComponent(userId) + "&displayName=" + encodeURIComponent(displayName) + "&pictureUrl=" + encodeURIComponent(pictureUrl) + "&email=" + encodeURIComponent(getDecodedIDToken); window.location.assign(url); }
+
                                             else {
                                                 window.location.assign("../CustomerDashboard/CustomerMenu");
                                             }
+
+
                                         }
                                         else {
                                             window.location.assign("../CustomerDashboard/CustomerMenu");
@@ -238,6 +245,8 @@
                                         else if (page == "menu") {//หน้ายอดซื้อ
                                             window.location.assign("../Account/LoginCus?page=menu");
                                         }
+                                        else if (page == "verify") { const url = "../Account/VerifySaleco" + "?userId=" + encodeURIComponent(userId) + "&displayName=" + encodeURIComponent(displayName) + "&pictureUrl=" + encodeURIComponent(pictureUrl) + "&email=" + encodeURIComponent(getDecodedIDToken); window.location.assign(url); }
+
 
                                     }
                                     else {
@@ -283,6 +292,7 @@
                             else if (page == "menu") {//หน้ายอดซื้อ
                                 window.location.assign("../Account/LoginCus?page=menu");
                             }
+                            else if (page == "verify") { const url = "../Account/VerifySaleco" + "?userId=" + encodeURIComponent(userId) + "&displayName=" + encodeURIComponent(displayName) + "&pictureUrl=" + encodeURIComponent(pictureUrl) + "&email=" + encodeURIComponent(getDecodedIDToken); window.location.assign(url); }
                         }
                         else {
                             window.location.assign("../Account/LoginCus?page=menu");
@@ -356,7 +366,7 @@
         const destinationURL = window.location.href;
         //2004036305-aJVm4b34 -- StatusMobileOrder
         //2005594203-dxx2EV0L -- AAC@TAC
-        liff.init({ liffId: "2005594203-dxx2EV0L" }, () => {
+        liff.init({ liffId: "2004036305-aJVm4b34" }, () => {
             if (liff.isLoggedIn()) {
                 //getPage();
                 runApp();
