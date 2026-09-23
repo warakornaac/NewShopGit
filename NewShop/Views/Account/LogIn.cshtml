@@ -1,6 +1,20 @@
 ﻿@model NewShop.Models.LoginUserViewModel
+<<<<<<< HEAD
 @{ // บังคับแสดง captcha ทุกครั้ง ไม่มีเงื่อนไขอีกต่อไป
     bool showRecaptcha = true; }
+=======
+
+@{
+    // ✅ อ่านแล้วลบออกเลย ไม่ให้ค้างข้าม request
+    bool showRecaptcha = false;
+    if (TempData["ShowRecaptcha"] != null)
+    {
+        showRecaptcha = (bool)TempData["ShowRecaptcha"];
+        TempData.Remove("ShowRecaptcha"); // ลบทันทีหลังอ่าน
+    }
+}
+
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -167,6 +181,7 @@
             color: #e74c3c;
             font-size: 12px;
             margin-top: 4px;
+<<<<<<< HEAD
         }
         /* เทคนิคดักจับ Chrome autofill โดยใช้ animation trick */
         @@keyframes onAutoFillStart {
@@ -180,6 +195,8 @@
         input:-webkit-autofill {
             animation-name: onAutoFillStart;
             animation-duration: 0.001s;
+=======
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
         }
     </style>
 </head>
@@ -195,6 +212,7 @@
         <div class="login-heading" style="text-align:center">เข้าสู่ระบบ</div>
         <div class="login-sub" style="text-align:center">กรุณากรอกข้อมูลเพื่อเข้าใช้งาน</div>
 
+<<<<<<< HEAD
         @using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { id = "loginForm" })) {
     <label class="field-label">Username</label>
                     <div class="field-wrap">
@@ -234,6 +252,54 @@
     @if (TempData["ErrorMessage"] != null) {
         var errMsg = TempData["ErrorMessage"].ToString();
 <script>
+=======
+        @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
+        {
+            <label class="field-label">Username</label>
+            <div class="field-wrap">
+                @Html.TextBoxFor(u => u.Usre, new { required = "required", @class = "form-control", placeholder = "กรอก Username" })
+                @Html.ValidationMessageFor(u => u.Usre, "", new { @class = "error-text" })
+            </div>
+
+            <label class="field-label">Password</label>
+            <div class="field-wrap">
+                @Html.PasswordFor(u => u.Password, new { required = "required", @class = "form-control", @id = "password-field", placeholder = "กรอก Password" })
+                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon-new toggle-password"></span>
+                @Html.ValidationMessageFor(u => u.Password, "", new { @class = "error-text" })
+            </div>
+
+            <div style="color:#e74c3c; font-size:12px; margin-bottom:8px;">
+                @Html.ValidationSummary(true, "Login Failed, check details")
+            </div>
+
+            @Html.Hidden("Latitude")
+            @Html.Hidden("Longitude")
+
+            if (showRecaptcha)
+            {
+                <div id="recaptchaWrapper" style="margin-bottom: 14px; justify-items: center;">
+                    <div class="g-recaptcha"
+                         data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["RecaptchaSiteKey"]">
+                    </div>
+                </div>
+            }
+
+            <div class="terms-row" style="justify-content: center">
+                <input type="checkbox" id="agreeTerms" />
+                <label for="agreeTerms">ยอมรับเงื่อนไขและข้อกำหนดการใช้ระบบ</label>
+            </div>
+
+            <input type="submit" id="btnLogin" value="Log In" class="btn-login-new"
+                   disabled style="opacity:0.45; cursor:not-allowed;" />
+        }
+
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        var errMsg = TempData["ErrorMessage"].ToString();
+        <script>
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
         Swal.fire({
             icon: 'warning',
             title: 'Login Fail',
@@ -241,6 +307,7 @@
             confirmButtonText: 'OK',
             confirmButtonColor: '#d33'
         });
+<<<<<<< HEAD
 </script>}
 
     <script type="text/javascript">
@@ -360,5 +427,68 @@
 
 });
     </script>
+=======
+        </script>
+    }
+
+<script type="text/javascript">
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+    $(document).ready(function () {
+        @if (showRecaptcha && !ViewData.ModelState.IsValid)
+        {
+            <text>
+            // ขึ้น popup เฉพาะตอนมี error เท่านั้น
+            Swal.fire({
+                icon: 'warning',
+                title: 'คุณใส่รหัสผิดติดต่อกัน 3 ครั้ง',
+                text: 'กรุณายืนยัน reCAPTCHA เพื่อดำเนินการต่อ',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#d33',
+                allowOutsideClick: false
+            }).then(function () {
+                $('#btnLogin').prop('disabled', true)
+                                .css({ 'opacity': '0.45', 'cursor': 'not-allowed' });
+            });
+
+            var recaptchaInterval = setInterval(function () {
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse().length > 0) {
+                    clearInterval(recaptchaInterval);
+                    if ($('#agreeTerms').is(':checked')) {
+                        $('#btnLogin').prop('disabled', false)
+                                        .css({ 'opacity': '1', 'cursor': 'pointer' });
+                    }
+                }
+            }, 500);
+            </text>
+        }
+    });
+
+    $('#agreeTerms').on('change', function () {
+        var recaptchaPassed = true;
+        @if (showRecaptcha)
+        {
+            <text>
+            recaptchaPassed = (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse().length > 0);
+            </text>
+        }
+        if ($(this).is(':checked') && recaptchaPassed) {
+            $('#btnLogin').prop('disabled', false)
+                            .css({ 'opacity': '1', 'cursor': 'pointer' });
+        } else {
+            $('#btnLogin').prop('disabled', true)
+                            .css({ 'opacity': '0.45', 'cursor': 'not-allowed' });
+        }
+    });
+</script>
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
 </body>
 </html>
