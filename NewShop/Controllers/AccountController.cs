@@ -1,23 +1,24 @@
-﻿using NewShop.Models;
+﻿using DocumentFormat.OpenXml.Office.Word;
+using NewShop.Filters;
+using NewShop.Models;
+using NewShop.Service;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.DirectoryServices;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Services.Description;
 using System.Web.UI.WebControls;
 using UAParser;
-using Newtonsoft.Json;
-using System.IO;
-using System.Web.Hosting;
-using NewShop.Filters;
-using NewShop.Service;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NewShop.Controllers
 {
@@ -892,6 +893,7 @@ namespace NewShop.Controllers
             string email = string.Empty;
             string UserType = string.Empty;
             string SLM = string.Empty;
+            string is_failed = string.Empty;
             var connectionString = ConfigurationManager.ConnectionStrings["MobileOrder_ConnectionString"].ConnectionString;
             SqlConnection Connection = new SqlConnection(connectionString);
             Connection.Open();
@@ -905,9 +907,10 @@ namespace NewShop.Controllers
                 this.Session["UsrClmStaff"] = "0";
 
                 string secCodeArr = string.Empty;
-                var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
+                //var sqlString = "select * From UsrTbl_Portal where Username = @user and [dbo].F_decrypt([Password]) = @pass";
                 //SqlCommand cmdcus = new SqlCommand("select * From UsrTbl_Portal where Username =N'" + User + "'and [dbo].F_decrypt([Password])='" + password + "'", Connection);
-                SqlCommand cmdcus = new SqlCommand(sqlString, Connection);
+                SqlCommand cmdcus = new SqlCommand("P_Check_User_customerPortal_Login", Connection);
+                cmdcus.CommandType = CommandType.StoredProcedure;
                 cmdcus.Parameters.AddWithValue("user", User);
                 cmdcus.Parameters.AddWithValue("pass", password);
                 SqlDataReader revcus = cmdcus.ExecuteReader();
@@ -920,6 +923,7 @@ namespace NewShop.Controllers
                     cuscode = revcus["CusCode"].ToString();
                     message = revcus["VerifyFlag"].ToString();
                     UserType = Session["UserType"].ToString();
+                    is_failed = revcus["is_loginfailed"].ToString();
                     //if (revcus["slmcode"] != DBNull.Value)
                     //{
                     //    this.Session["slmcode"] = revcus["slmcode"].ToString();
@@ -966,7 +970,7 @@ namespace NewShop.Controllers
                 message = ex.Message;
                 ViewData["ErrorMessage"] = "Login details are wrong.";
             }
-            return Json(new { message = message, tel = phoneNum, page = page, cuscod = cuscode, email = email, UserType = UserType }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, is_failed = is_failed, tel = phoneNum, page = page, cuscod = cuscode, email = email, UserType = UserType }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword) {

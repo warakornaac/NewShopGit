@@ -519,6 +519,26 @@
                             //icon: "warning",
                         });
                     }
+
+                    else if (result.message == "F") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'ไม่สามารถเข้าสู่ระบบได้',
+                            html: `
+                                                <div style = "font-size: 16px;">
+                                                    ไม่สามารถดำเนินการเข้าสู่ระบบได้ <br>
+                                                    <span style="color: #666;">
+                                                        กรุณาติดต่อ <b>Admin</b> เพื่อทำการตรวจสอบ
+                                                    </span>
+                                </div >
+                                                `,
+                            confirmButtonText: 'ตกลง',
+                            confirmButtonColor: '#3085d6',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        });
+                    }
+                    
                     else {
                         $('#wronguser').removeAttr('hidden');
                         $('#wrongpass').removeAttr('hidden');
