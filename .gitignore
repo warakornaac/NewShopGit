@@ -40,16 +40,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-# Img Upload
-/ClaimWap/ImgUpload
-/ClaimWap/ImgUploadRT
-/ClaimWap/ImgUploadWH
-
-# Video Upload
-/ClaimWap/VideoFileUpload
-/ClaimWap/VideoFileUploadRT
-/ClaimWap/VideoFileUploadWH
-
 # Config
-/NewShop/Web.config
-/NewShop/Views/CustomerDashboard/bk230724
+NewShop/Web.config
