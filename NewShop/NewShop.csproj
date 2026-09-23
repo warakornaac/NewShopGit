@@ -6901,15 +6901,6 @@
     <Content Include="sb-admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="sb-admin\vendor\jquery\jquery.min.map" />
     <Content Include="sb-admin\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <EntityDeploy Include="Models\Modeldata.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Modeldata.Designer.cs</LastGenOutput>
@@ -7939,6 +7930,13 @@
     <Content Include="Views\Error\InternalServerError.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Account\VerifySaleco.cshtml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

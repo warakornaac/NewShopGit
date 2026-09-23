@@ -4,7 +4,14 @@ using System.Web;
 public static class PermissionHelper
 {
     public static bool HasPermission(string permission) {
-        var permissions = HttpContext.Current.Session["Permissions"] as List<string>;
+        var context = HttpContext.Current;
+
+        if (context == null || context.Session == null)
+        {
+            return false;
+        }
+
+        var permissions = context.Session["Permissions"] as List<string>;
 
         if (permissions == null) {
             return false;

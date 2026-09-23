@@ -84,10 +84,10 @@ namespace NewShop.Controllers
         {
             return View();
         }
-        public ActionResult VerifySaleco()
-        {
-            return View();
-        }
+        //public ActionResult VerifySaleco()
+        //{
+        //    return View();
+        //}
         [HttpPost]
         public ActionResult CheckDataLoginExternal(string userId, string email, string displayName, string page) {
             string message = string.Empty;
