@@ -474,8 +474,8 @@
                                                 </td>
                                             </tr>
 
-                                            <tr class="cart-subtotal" id="boxdis">
-                                                <td><input type="checkbox" checked="checked" id="ckeckdiscount" name="vehicle" value="1">     ส่วนลดท้ายบิล</td>
+                                            <tr class="cart-subtotal" id="boxdis" style="display: none;">
+                                                <td><input type="checkbox" id="ckeckdiscount" name="vehicle" value="1" disabled="disabled">     ส่วนลดท้ายบิล</td>
                                                 <td><input id="inputdis" type="number" min="0" style="width: 89px;" class="form-control"></td>
                                                 <td style="text-align:left;">
                                                     <select id="discon" style="width: 89px;" class="form-control">
@@ -3097,37 +3097,50 @@
 
                 });
             });
-            $('#ckeckdiscount').click(function () {
-                $("#ckeckdiscount").prop('checked', true);
-                $("#checklabor").prop('checked', false);
-                $("#inputlabor").attr("disabled", true);
-                $("#inputdis").removeAttr("disabled");
+            //$('#ckeckdiscount').click(function () {
+            //    $("#ckeckdiscount").prop('checked', true);
+            //    $("#checklabor").prop('checked', false);
+            //    $("#inputlabor").attr("disabled", true);
+            //    $("#inputdis").removeAttr("disabled");
 
-                $("#inputlabor").val("");
-                $("#btncal").trigger('click');
-            });
+            //    $("#inputlabor").val("");
+            //    $("#btncal").trigger('click');
+            //});
             $('#checklabor').click(function () {
-                $("#ckeckdiscount").prop('checked', false);
-                $("#checklabor").prop('checked', true);
-
+               //$("#ckeckdiscount").prop('checked', false);
+               // $("#checklabor").prop('checked', true);
                 $("#inputlabor").removeAttr("disabled");
                 $("#inputdis").attr("disabled", true);
-
                 $("#inputdis").val("");
-                $("#btncal").trigger('click');
+                //$("#btncal").trigger('click');
             });
-            $(document).on('click', '#btncal', function () {
-                $("#btnChk").trigger('click');
+            //$(document).on('click', '#btncal', function () {
+            //    $("#btnChk").trigger('click');
 
+            //});
+            $('#checklabor').change(function () {
+                if (this.checked) {
+                    // (checked)
+                    $("#inputlabor").removeAttr("disabled");
+                    $("#inputdis").attr("disabled", true);
+                    $("#inputdis").val("");
+                } else {
+                    // (unchecked) 
+                    $("#inputlabor").attr("disabled", true);
+                    $("#inputlabor").val("");
+                    $("#inputdis").removeAttr("disabled");
+                }
+                $("#btnChk").trigger('click');
             });
+
             $(document).on('click', '#btncallabor', function () {
                 $("#btnChk").trigger('click');
-
             });
+
             var chcksumbeforeDiscount = 0;
             //get data pop up
             $(document).on('click', '#btnChk', function () {
-                // alert("xxx")
+                //alert("Cal-labor")
                 var last = null;
                 var VSTKCOD = null;
                 var n = 0;
@@ -3275,8 +3288,9 @@
                 // alert(chkvehicle)
                 if ($("input[name='vehicle']:checked").val() ? true : false == true) {
                     typecke = "1"
-
-                } else if ($("input[name='vehicle']:checked").val() ? true : false == false) { typecke = "0" }
+                } else if ($("input[name='vehicle']:checked").val() ? true : false == false) {
+                    typecke = "0"
+                }
 
                 if (typecke == "1") {//คำนวณส่วนลดท้ายบิล
 
@@ -3310,11 +3324,11 @@
                 if (valdislabor == "") { valdislabor = "0"; }
                 var vehiclelabor;
 
-                //var typeckelabor = $("input[name='vehiclelabor']:checked").val(); //ค่าแรง =2
                 if ($("input[name='vehiclelabor']:checked").val() ? true : false == true) {
                     typeckelabor = "2"
-
-                } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) { typeckelabor = "0" }
+                } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) {
+                    typeckelabor = "0"
+                }
 
 
                 if (typeckelabor == "2") {//คำนวณค่าแรง
@@ -4100,8 +4114,9 @@
                     // alert(chkvehicle)
                     if ($("input[name='vehicle']:checked").val() ? true : false == true) {
                         typecke = "1"
-
-                    } else if ($("input[name='vehicle']:checked").val() ? true : false == false) { typecke = "0" }
+                    } else if ($("input[name='vehicle']:checked").val() ? true : false == false) {
+                        typecke = "0"
+                    }
 
                     if (typecke == "1") {//คำนวณส่วนลดท้ายบิล
                         ORD_TotalDiscount = $("#sumdiscountprice").val();
@@ -4127,11 +4142,11 @@
                     if (valdislabor == "") { valdislabor = "0"; }
                     var vehiclelabor;
 
-                    //var typeckelabor = $("input[name='vehiclelabor']:checked").val(); //ค่าแรง =2
                     if ($("input[name='vehiclelabor']:checked").val() ? true : false == true) {
                         typeckelabor = "2"
-
-                    } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) { typeckelabor = "0" }
+                    } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) {
+                        typeckelabor = "0"
+                    }
 
 
                     if (typeckelabor == "2") {//คำนวณค่าแรง
@@ -4495,28 +4510,29 @@
                     var valdis = $("#inputdis").val(); ///ราคาส่วนลดท้ายบิล
                     if (valdis == "") { valdis = "0"; }
                     //var typecke = $("input[name='vehicle']:checked").val();  //ส่วนลด =1
-                    var typecke;
-                    var ORD_TotalDiscount = "";
-                    var chkvehicle = $("input[name='vehicle']:checked").val() ? true : false
-                    // alert(chkvehicle)
-                    if ($("input[name='vehicle']:checked").val() ? true : false == true) {
-                        typecke = "1"
+                    //var typecke;
+                    //var ORD_TotalDiscount = "";
+                    //var chkvehicle = $("input[name='vehicle']:checked").val() ? true : false
+                    //// alert(chkvehicle)
+                    //if ($("input[name='vehicle']:checked").val() ? true : false == true) {
+                    //    typecke = "1"
+                    //} else if ($("input[name='vehicle']:checked").val() ? true : false == false) {
+                    //    typecke = "0"
+                    //}
 
-                    } else if ($("input[name='vehicle']:checked").val() ? true : false == false) { typecke = "0" }
+                    //if (typecke == "1") {//คำนวณส่วนลดท้ายบิล
+                    //    ORD_TotalDiscount = $("#sumdiscountprice").val();
+                    //    ORD_TotalDiscount = ORD_TotalDiscount.replace(/,/g, "");
+                    //    if (ORD_TotalDiscount == "0.00") {
+                    //        typecke = "0";
+                    //    } else {
+                    //        typecke == "1";
+                    //    }
+                    //} else if (typecke == "0") {
 
-                    if (typecke == "1") {//คำนวณส่วนลดท้ายบิล
-                        ORD_TotalDiscount = $("#sumdiscountprice").val();
-                        ORD_TotalDiscount = ORD_TotalDiscount.replace(/,/g, "");
-                        if (ORD_TotalDiscount == "0.00") {
-                            typecke = "0";
-                        } else {
-                            typecke == "1";
-                        }
-                    } else if (typecke == "0") {
+                    //    ORD_TotalDiscount = "0.00";
 
-                        ORD_TotalDiscount = "0.00";
-
-                    }
+                    //}
 
                     ///////////////////////////// คำนวณส่วนลดท้ายบิล  /////////////////////////////
                     ///////////////////////////// คำนวณค่าแรง /////////////////////////////
@@ -4528,11 +4544,11 @@
                     if (valdislabor == "") { valdislabor = "0"; }
                     var vehiclelabor;
 
-                    //var typeckelabor = $("input[name='vehiclelabor']:checked").val(); //ค่าแรง =2
                     if ($("input[name='vehiclelabor']:checked").val() ? true : false == true) {
                         typeckelabor = "2"
-
-                    } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) { typeckelabor = "0" }
+                    } else if ($("input[name='vehiclelabor']:checked").val() ? true : false == false) {
+                        typeckelabor = "0"
+                    }
 
 
                     if (typeckelabor == "2") {//คำนวณค่าแรง

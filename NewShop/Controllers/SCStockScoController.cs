@@ -14,7 +14,7 @@ using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
-    [Permission("ShoppingNew.Full")]
+    [Permission("CheckStock.View")]
     public class SCStockScoController : Controller
     {
         //

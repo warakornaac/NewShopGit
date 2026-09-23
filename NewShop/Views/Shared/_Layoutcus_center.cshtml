@@ -112,22 +112,27 @@
             <a class="navbar-brand p-0 mr-5" href="#"><img src="~/images/logo/AACTAC185x70.jpg" /></a>
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    @if (Session["Department"].ToString() == "MIS")
-                    {
+                   @* @if (Session["Department"].ToString() == "MIS") {*@
                         <div class="dropdownb">
-                            <li class="nav-item dropdown messages-menu">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa fa-user-o" style="font-size: 1.7em;"></i>
-                                    <span class="dropbtnb">Admin</span>
-                                </a>
-                            </li>
-                            <div class="dropdownb-content">
-                                <a class="nav-link" href="~/ManageUser/Index">
-                                    <span>Manage User</span>
-                                </a>
-                            </div>
+                        <li class="nav-item dropdown messages-menu">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa fa-user-o" style="font-size: 1.7em;"></i>
+                                <span class="dropbtnb">Admin</span>
+                            </a>
+                        </li>
+                        <div class="dropdownb-content">
+                            <a class="nav-link" href="~/ManageUser/Index">
+                                <span>Manage User</span>
+                            </a>
                         </div>
-                    }
+                        <div class="dropdownb-content">
+                            <a class="nav-link" href="~/Reserve/Index">
+                                <span>Reserve Dashboard</span>
+                            </a>
+                        </div>
+
+                     </div>
+                    @* } *@
             @if (Session["UserType"].ToString() != "6")
             {
                 <div class="dropdownb">

@@ -32,9 +32,14 @@ namespace NewShop
             if (httpEx != null) {
                 int code = httpEx.GetHttpCode();
 
-                // ไม่ต้อง Log 404
                 if (code == 404) {
                     Server.ClearError();
+
+                    Response.TrySkipIisCustomErrors = true;
+
+                    Response.Redirect("~/AppError/Index?statusCode=404", false);
+
+                    Context.ApplicationInstance.CompleteRequest();
                     return;
                 }
             }
@@ -45,7 +50,7 @@ namespace NewShop
 
             string controller = route?.Values["controller"]?.ToString();
 
-            if (string.Equals(controller, "Error",
+            if (string.Equals(controller, "AppError",
                 StringComparison.OrdinalIgnoreCase)) {
                 Server.ClearError();
                 return;
@@ -56,7 +61,7 @@ namespace NewShop
             Server.ClearError();
 
             Response.Redirect(
-                "~/Error/Index?statusCode=500&id=" + errorId,
+                "~/AppError/Index?statusCode=500&id=" + errorId,
                 false);
 
             Context.ApplicationInstance.CompleteRequest();

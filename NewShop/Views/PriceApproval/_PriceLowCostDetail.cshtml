@@ -106,7 +106,8 @@
 
         @if (ViewBag.isHighLevel == "N")
         {
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Cancel </button>
+            @*<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Close </button>*@
+            <button type="button" class="btn btn-warning" onclick="btnSubmitCost('R')"><i class="fa fa-times"></i> Reject </button>
             <button type="button" class="btn btn-success" onclick="btnSubmitCost('S')" style="margin-left: 15px;"><i class="fa fa-save"></i> Submit </button>
         }
         else
@@ -203,9 +204,9 @@ function btnSubmitCost(flag){
                         LoadingHide();
                         $('#DetailPriceLowCost').modal('hide');
                         $('#DetailPriceLowCost').find('.modal-body').html('');
-                        if (highLevel == 'Y') {
+                        //if (highLevel == 'Y') {
                             fnGetPriceApprove();
-                        }
+                        //}
                     }
                 });
         } else {

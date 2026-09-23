@@ -163,7 +163,8 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\CoomingsoonController.cs" />
     <Compile Include="Controllers\CustomerMapController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\AppErrorController.cs" />
+    <Compile Include="Controllers\EncryptPriceController.cs" />
     <Compile Include="Controllers\HistorypurchaseController.cs" />
     <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\Home3Controller.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Controllers\ProductdetailsController.cs" />
     <Compile Include="Controllers\ProductimageController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
+    <Compile Include="Controllers\ReserveControllerController.cs" />
     <Compile Include="Controllers\SCStockScoController.cs" />
     <Compile Include="Controllers\SelectPrintStatementController.cs" />
     <Compile Include="Controllers\SeleScrCustomerController.cs" />
@@ -191,7 +193,11 @@
     <Compile Include="Controllers\UploadsExcelController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
     <Compile Include="Filters\SystemAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\AesEncryptionHelper.cs" />
+    <Compile Include="Helpers\HmacHelper.cs" />
     <Compile Include="Helpers\PermissionHelper.cs" />
+    <Compile Include="Helpers\PriceSignatureHelper.cs" />
+    <Compile Include="Helpers\RecaptchaValidator.cs" />
     <Compile Include="MobileOrderDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -250,6 +256,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Modeldata.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductPriceViewModel.cs" />
+    <Compile Include="Models\ReserveFilterModel.cs" />
+    <Compile Include="Models\ReserveViewModel.cs" />
     <Compile Include="Models\v_Promo_Statement_Customer.cs">
       <DependentUpon>Modeldata.tt</DependentUpon>
     </Compile>
@@ -278,6 +288,8 @@
     <Compile Include="Report\SOForm.aspx.designer.cs">
       <DependentUpon>SOForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\ReserveRepository.cs" />
     <Compile Include="Service\ErrorLogService.cs" />
     <Compile Include="Service\PermissionLogService.cs" />
     <Compile Include="Service\PermissionService.cs" />
@@ -7925,10 +7937,14 @@
     <Content Include="Views\CustomerDashboard\_detailCoupongUseOrder.cshtml" />
     <Content Include="Views\CustomerDashboard\_listCoupongByCuscodeStatus.cshtml" />
     <Content Include="Views\Shoppinglist\_detailStkcodeByCuscode.cshtml" />
-    <Content Include="Views\Error\Forbidden.cshtml" />
-    <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Error\InternalServerError.cshtml" />
-    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\AppError\Forbidden.cshtml" />
+    <Content Include="Views\AppError\NotFound.cshtml" />
+    <Content Include="Views\AppError\InternalServerError.cshtml" />
+    <Content Include="Views\AppError\Error.cshtml" />
+    <Content Include="Views\EncryptPrice\Index.cshtml" />
+    <Content Include="Views\EncryptPrice\Edit.cshtml" />
+    <Content Include="Views\EncryptPrice\Edit2.cshtml" />
+    <Content Include="Views\Reserve\index.cshtml" />
     <Content Include="Views\Account\VerifySaleco.cshtml" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">

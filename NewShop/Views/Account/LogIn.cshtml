@@ -1,4 +1,8 @@
 ﻿@model NewShop.Models.LoginUserViewModel
+<<<<<<< HEAD
+@{ // บังคับแสดง captcha ทุกครั้ง ไม่มีเงื่อนไขอีกต่อไป
+    bool showRecaptcha = true; }
+=======
 
 @{
     // ✅ อ่านแล้วลบออกเลย ไม่ให้ค้างข้าม request
@@ -10,6 +14,7 @@
     }
 }
 
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -176,6 +181,22 @@
             color: #e74c3c;
             font-size: 12px;
             margin-top: 4px;
+<<<<<<< HEAD
+        }
+        /* เทคนิคดักจับ Chrome autofill โดยใช้ animation trick */
+        @@keyframes onAutoFillStart {
+            from {
+            }
+
+            to {
+            }
+        }
+
+        input:-webkit-autofill {
+            animation-name: onAutoFillStart;
+            animation-duration: 0.001s;
+=======
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
         }
     </style>
 </head>
@@ -191,6 +212,47 @@
         <div class="login-heading" style="text-align:center">เข้าสู่ระบบ</div>
         <div class="login-sub" style="text-align:center">กรุณากรอกข้อมูลเพื่อเข้าใช้งาน</div>
 
+<<<<<<< HEAD
+        @using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { id = "loginForm" })) {
+    <label class="field-label">Username</label>
+                    <div class="field-wrap">
+                        @Html.TextBoxFor(u => u.Usre, new { required = "required", @class = "form-control", placeholder = "กรอก Username" })
+                        @Html.ValidationMessageFor(u => u.Usre, "", new { @class = "error-text" })
+                    </div>
+
+                                    <label class="field-label">Password</label>
+                                                    <div class="field-wrap">
+                                                        @Html.PasswordFor(u => u.Password, new { required = "required", @class = "form-control", @id = "password-field", placeholder = "กรอก Password" })
+                                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon-new toggle-password"></span>
+                                                        @Html.ValidationMessageFor(u => u.Password, "", new { @class = "error-text" })
+                                                    </div>
+
+                                                                    <div style="color:#e74c3c; font-size:12px; margin-bottom:8px;">
+                                                                        @Html.ValidationSummary(true, "Login Failed, check details")
+                                                                    </div>
+
+                                                                                    @Html.Hidden("Latitude")
+                                                                                                    @Html.Hidden("Longitude")
+
+                                                                                                                    <div id="recaptchaWrapper" style="margin-bottom: 14px; justify-items: center;">
+                                                                                                                        <div class="g-recaptcha"
+                                                                                                                             data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["RecaptchaSiteKey"]"
+                                                                                                                             data-callback="onRecaptchaSuccess"
+                                                                                                                             data-expired-callback="onRecaptchaExpired">
+                                                                                                                        </div>
+                                                                                                                    </div> <!-- แทนที่ปุ่ม Login ด้วยข้อความสถานะ -->
+                                                                                                                                    <div id="statusText" style="text-align:center; font-size:13px; color:#999; padding:10px 0;">
+                                                                                                                                        กรุณายืนยัน reCAPTCHA เพื่อเข้าสู่ระบบอัตโนมัติ
+                                                                                                                                    </div> <!-- ปุ่มจริง ซ่อนไว้ก่อน -->
+                                                                                                                                                    <input type="submit" id="btnLogin" value="เข้าสู่ระบบ" class="btn-login-new"
+                                                                                                                                                           style="display:none;" />}
+
+    </div>
+
+    @if (TempData["ErrorMessage"] != null) {
+        var errMsg = TempData["ErrorMessage"].ToString();
+<script>
+=======
         @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
         {
             <label class="field-label">Username</label>
@@ -237,6 +299,7 @@
     {
         var errMsg = TempData["ErrorMessage"].ToString();
         <script>
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
         Swal.fire({
             icon: 'warning',
             title: 'Login Fail',
@@ -244,6 +307,127 @@
             confirmButtonText: 'OK',
             confirmButtonColor: '#d33'
         });
+<<<<<<< HEAD
+</script>}
+
+    <script type="text/javascript">
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        input.attr("type", input.attr("type") == "password" ? "text" : "password");
+    });
+
+    var isAutoSubmitted = false;
+    var recaptchaVerified = false;
+
+    function tryAutoSubmit() {
+        if (isAutoSubmitted) return;
+
+        if (!recaptchaVerified) {
+            $('#statusText').text('กรุณายืนยัน reCAPTCHA เพื่อเข้าสู่ระบบ').css('color', '#999');
+            return;
+        }
+
+        isAutoSubmitted = true;
+        $('#statusText').text('ยืนยันสำเร็จ กดปุ่มหรือกด Enter เพื่อเข้าสู่ระบบ').css('color', '#1a30d0');
+        $('#btnLogin').fadeIn(200, function () {
+            // ✅ focus ปุ่มทันทีที่โผล่ขึ้นมา - user กด Enter ได้เลยโดยไม่ต้องคลิกเมาส์
+            $('#btnLogin').focus();
+        });
+    }
+
+    function onRecaptchaSuccess() {
+        console.log('=== reCAPTCHA success triggered ===');
+
+        // บังคับ commit ค่าอีกรอบก่อนอ่าน เผื่อกรณี user ไม่เคยคลิกอะไรมาก่อนเลย
+        $('#Usre').trigger('focus').trigger('blur');
+        $('#password-field').trigger('focus').trigger('blur');
+
+        console.log('Usre value:', $('#Usre').val());
+        console.log('password value:', $('#password-field').val());
+
+        recaptchaVerified = true;
+        setTimeout(function () {
+            tryAutoSubmit();
+        }, 200);;
+    }
+
+    function onRecaptchaExpired() {
+        recaptchaVerified = false;
+        isAutoSubmitted = false;
+        $('#btnLogin').hide();
+        $('#statusText').text('reCAPTCHA หมดอายุ กรุณายืนยันใหม่อีกครั้ง').css('color', '#e74c3c');
+    }
+
+   $(document).ready(function () {
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <text>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Login Fail',
+            text: 'กรุณาตรวจสอบข้อมูลและยืนยัน reCAPTCHA อีกครั้ง',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#d33',
+            allowOutsideClick: false
+        });
+        </text>
+    }
+
+    $('#Usre, #password-field').on('keyup change input paste', function () {
+        if (recaptchaVerified) {
+            setTimeout(tryAutoSubmit, 50);
+        }
+    });
+
+    // ✅ ตัวจับหลัก: ดัก native browser autofill event ผ่าน CSS animation trick
+       document.getElementById('Usre').addEventListener('animationstart', function (e) {
+           console.log('Autofill detected:', e.animationName);
+           console.log('recaptchaVerified:', recaptchaVerified);   // ✅ เพิ่มบรรทัดนี้
+           console.log('Usre value at this moment:', $('#Usre').val());  // ✅ เพิ่มบรรทัดนี้
+
+           if (e.animationName === 'onAutoFillStart') {
+               // เพิ่ม delay จาก 50ms เป็น 200ms ให้ Chrome sync ค่าลง DOM ก่อน
+               setTimeout(function () {
+                   console.log('Usre value after delay:', $('#Usre').val());  // debug เพิ่ม
+                   if (recaptchaVerified) {
+                       tryAutoSubmit();
+                   }
+               }, 200);
+           }
+    });
+
+    document.getElementById('password-field').addEventListener('animationstart', function (e) {
+        if (e.animationName === 'onAutoFillStart') {
+            setTimeout(function () {
+                if (recaptchaVerified) {
+                    tryAutoSubmit();
+                }
+            }, 200);
+        }
+    });
+
+    $(document).on('click', function () {
+        if (recaptchaVerified && !isAutoSubmitted) {
+            setTimeout(tryAutoSubmit, 100);
+        }
+    });
+
+    setTimeout(function () {
+        var $usre = $('#Usre');
+        var $pass = $('#password-field');
+
+        // เก็บค่าเดิมไว้ก่อน เผื่อ focus/blur ไปกระทบ validation UI ที่ผูกกับ focus event อื่น
+        $usre.trigger('focus').trigger('blur');
+        $pass.trigger('focus').trigger('blur');
+
+        console.log('After forced focus/blur - Usre:', $usre.val(), 'Pass:', $pass.val()); // debug ชั่วคราว
+    }, 300);
+
+
+});
+    </script>
+=======
         </script>
     }
 
@@ -305,5 +489,6 @@
         }
     });
 </script>
+>>>>>>> 464c6892a906685f8cb4203c0b284941a757e5b8
 </body>
 </html>

@@ -1,0 +1,35 @@
+﻿
+@model NewShop.Models.ProductModel
+
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+<h2>Index Product</h2>
+
+@using (Html.BeginForm("Save", "Product", FormMethod.Post)) {
+    @Html.HiddenFor(m => m.ProductId)
+
+    @Html.HiddenFor(m => m.Signature)
+
+    <div class="form-group">
+        <label>Price</label>
+
+        @Html.TextBoxFor(m => m.Price,
+            new {
+                @class = "form-control"
+            })
+    <label>EncryptPrice</label>
+
+        @Html.TextBoxFor(m => m.Signature,
+            new {
+                @class = "form-control"
+            })
+    </div>
+
+    <br />
+
+    <input type="submit"
+           value="Save"
+           class="btn btn-primary" />
+}

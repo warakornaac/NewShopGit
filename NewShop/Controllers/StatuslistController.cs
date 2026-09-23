@@ -14,7 +14,7 @@ using NewShop.Attributes;
 
 namespace NewShop.Controllers
 {
-    [Permission("StatusDelivery.Viewl")]
+    [Permission("StatusDelivery.View")]
     public class StatuslistController : Controller
     {
         //

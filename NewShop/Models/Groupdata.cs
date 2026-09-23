@@ -32,7 +32,7 @@ namespace NewShop.Models
     {
         [Required]
         //[EmailAddress]
-        [StringLength(150, MinimumLength = 10)]
+        [StringLength(150, MinimumLength = 5)]
         [Display(Name = "User: ")]
         public string Usre { get; set; }
 
@@ -198,6 +198,8 @@ namespace NewShop.Models
         public string Intransit { get; set; }
         public string ReworkCanSales { get; set; }
         public string ReworkClearance { get; set; }
+        public long Timestamp { get; set; }
+        public string Signature { get; set; }
         public List<PricelistpageingSearch> PricelistpageingSearch_Grid { get; set; }
     }
     public class vehicle_PlusItem
@@ -560,6 +562,8 @@ namespace NewShop.Models
         public string Qtybo { get; set; }
         public string PlcPrice { get; set; }
         public string SpcPrice { get; set; }
+        public long Timestamp { get; set; }
+        public string Signature { get; set; }
 
     }
     public class ItemFoc

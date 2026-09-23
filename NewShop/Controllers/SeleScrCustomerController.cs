@@ -31,10 +31,10 @@ namespace NewShop.Controllers
         // GET: /SeleScrCustomer/
         public ActionResult TestException() {
             this.Session["UserType"] = "";
-            if (this.Session["UserType"] == null) {
-                return RedirectToAction("LogIn", "Account");
+            //if (this.Session["UserType"] == null) {
+            //    return RedirectToAction("LogIn", "Account");
 
-            }
+            //}
 
 
             //return View();
@@ -53,9 +53,9 @@ namespace NewShop.Controllers
             return View();
         }
         public ActionResult dashboard(){
-            //Response.Write("<br/>Session UserType dd = " + Session["UserType"]);
+            //Response.Write("<br/>Session UserType dd = " + this.Session["UserType"]);
             //Response.End();
-            this.Session["UserType"] = "";
+            //this.Session["UserType"] = "";
             if (this.Session["UserType"] == null) {
                 return RedirectToAction("LogIn", "Account");
 

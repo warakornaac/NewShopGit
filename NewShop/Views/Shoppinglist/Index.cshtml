@@ -664,6 +664,8 @@
                             var dataexp = "";
                             var subdataexp = "";
                             var procodsub = "";
+                            var SetTimestamp = "";
+                            var SetSignature = "";
                             if (Usertype == "2") {
                                 display = "display:none;"
                                 $("#saleplus").css("display", "none");
@@ -700,6 +702,8 @@
                                 stk = data[i].val.STKCOD;
                                 var qty = data[i].val.ORD_QTY;
                                 var dtachcolo;
+                                SetTimestamp = data[i].val.Timestamp;
+                                SetSignature = data[i].val.Signature;
                                 //check disable input bo
                                 if (promotionAmountMax.length > 1 && promotionAmountMax[1].trim() !== "") {
                                     disabledInputBackorder = 'disabled'
@@ -781,7 +785,9 @@
                                 //SubmithtmlPage += '<td style="display:none;" class="last_col"><div class="PRCLST_NO">' + data[i].val.PRCLST_NO + '</div></td>';
                                 //SubmithtmlPage += '<td style="display:none;"><div class="STKGRP_PRC">' + data[i].val.STKGRP_PRC + '</div></td>';
                                 // SubmithtmlPage += '<td style="display:none;" class="valcompany"><div class="company" style="display:none;">' + data[i].val.company + '</div></td>';
-                                SubmithtmlPage += '<td  class="valTotbck"><div class="Totbck">' + subdataexp + '</td>';
+                                SubmithtmlPage += '<td class="valTotbck"><div class="Totbck">' + subdataexp + '<div class="rattimestamp" style="display:none">' + SetTimestamp + '</div>' + '<div class="ratsignature" style="display:none">' + SetSignature + '</div>'+'</td>';
+                                //SubmithtmlPage += '<div class="rattimestamp" style="display:none">' + SetTimestamp + '</div>' +
+                                //    '<div class="ratsignature" style="display:none">' + SetSignature + '</div>';
                                 SubmithtmlPage += '</tr>';
                             }
                             //$('.fixed_headers').prepend(SubmithtmlPage);
@@ -1515,6 +1521,8 @@
                 var MyIndexValueLastInvPrice = $(MyRows[i]).find('td .LastInvPrice').html().replace(',', '').replace(' ', '');
                 var MyIndexValueLastInvdate = $(MyRows[i]).find('td .LastInvdate').html();
                 var MyIndexValueSpcRemark = $(MyRows[i]).find('td .spc_remark').val();
+                var MyIndexValueSpcTimestamp = $(MyRows[i]).find('.rattimestamp').html();
+                var MyIndexValueSpcSignature = $(MyRows[i]).find('.ratsignature').html();
                 if (MyIndexValueSalePrice == "0.00") {
                     if (MyIndexValueExpectPrice == "" && MyIndexValueQty != "") {
                         $("#btnsubmitinsert").attr("disabled", false);
@@ -1561,7 +1569,9 @@
                     PromoMOQ: MyIndexValuePromoMoq,// new add
                     LastInvPrice: MyIndexValueLastInvPrice,
                     LastInvdate: MyIndexValueLastInvdate,
-                    Sop: chksop // new add
+                    Sop: chksop, // new add
+                    Timestamp: MyIndexValueSpcTimestamp, 
+                    Signature: MyIndexValueSpcSignature 
 
                 };
 
@@ -1740,7 +1750,18 @@
                         //location.reload();
                         //setTimeout(function () { window.close() }, 2000); //2วิ
 
-                    } else {
+                    } else if (typeof data === "string" && data.indexOf("PRICE_TAMPERED|") === 0) {
+                        // ---------- กรณีตรวจพบราคาถูกแก้ไข (signature ไม่ผ่าน) ----------
+                        var tamperedMsg = data.substring("PRICE_TAMPERED|".length);
+                        $("#btnsubmitinsert").attr("disabled", false);
+                        $("#textAlertWarninglog").empty();
+                        $("#textAlertWarninglog").text(tamperedMsg);
+                        $("#myModalWarninglog").modal();
+
+                        // แนะนำ: บังคับโหลดรายการใหม่ทันทีเพื่อความปลอดภัย ป้องกันผู้ใช้กดซ้ำด้วยข้อมูลเดิมที่ถูกแก้ไข
+                        // setTimeout(function () { location.reload(); }, 2000);
+
+                    }else {
                         $("#btnsubmitinsert").attr("disabled", false);
                         $("#textAlertWarninglog").empty();
                         $("#textAlertWarninglog").text("บันทึกสินค้าเข้าตะกร้าไม่สำเร็จกรุณาทำรายการใหม่");
